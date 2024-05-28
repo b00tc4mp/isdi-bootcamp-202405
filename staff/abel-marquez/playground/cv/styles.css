@@ -1,0 +1,30 @@
+h1 {
+    text-align: center;
+    font-family: Arial;
+}
+
+
+
+
+
+
+
+img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.imagen-especial  {
+    width: 10px;
+    height: 19px;
+}
+
+p {
+    
+}
+
+.Auxiliar {
+    color: red;
+    
+}
