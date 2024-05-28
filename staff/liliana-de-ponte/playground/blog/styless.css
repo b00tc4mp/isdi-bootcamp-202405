@@ -1,0 +1,14 @@
+img {
+    border: black solid;
+    width: 250px;
+    height: 200px; 
+}
+
+.fotoInicio {
+    width: 700px;
+    height: 300px;
+}
+
+h2 {
+    color: rgb(27, 27, 189);
+}
