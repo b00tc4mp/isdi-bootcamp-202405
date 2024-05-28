@@ -1,0 +1,16 @@
+aside {
+    width: 30%;
+    padding-left: 0.5rem;
+    margin-left: 0.5rem;
+    float: right;
+    box-shadow: inset 3px 0 3px -3px #29627e;
+    font-style: italic;
+    color: #29627e;
+  }
+  
+  aside > p {
+    margin: 0.5rem;
+  }
+  aside > h1 {
+    margin: 0.5rem;
+  }
