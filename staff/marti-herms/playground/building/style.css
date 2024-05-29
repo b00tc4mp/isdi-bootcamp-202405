@@ -1,0 +1,76 @@
+body {
+    height: 800px;
+    background: linear-gradient(180deg, cyan 75%, green 25%);
+}
+
+.padre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.roof {
+    height: 0px;
+    width: 0px;
+    border-right: 300px solid transparent;
+    border-left: 300px solid transparent;
+    border-bottom: 150px solid gray;
+}
+
+.square {
+    height: 500px;
+    width: 500px;
+    border: 2px solid black;
+    background: gray;
+    display: flex;
+    flex-direction: column;
+}
+
+.window {
+    height: 50px;
+    width: 50px;
+    background: white;
+    border: 3px solid black;
+    margin-top: 75px;
+}
+
+.door {
+    height: 150px;
+    width: 75px;
+    background: brown;
+    border: 3px solid black;
+    border-bottom: brown;
+    align-self: flex-end;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.half {
+    height: 250px;
+    width: 250 px;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.halfofhalf {
+    height: 125px;
+    width: 250 px;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.doorknob {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: black;
+    margin-right: 5px;
+}
