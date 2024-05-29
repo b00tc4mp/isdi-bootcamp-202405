@@ -1,0 +1,105 @@
+.padre {
+    width: 900px;
+    height: 600px;
+    margin-top: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.face {
+    width: 400px;
+    height: 600px;
+    border-top-left-radius: 120%;
+    border-top-right-radius: 120%;
+    border-bottom-left-radius: 150%;
+    border-bottom-right-radius: 150%;
+    background: linear-gradient(180deg, black 25%, rgb(227, 190, 134) 40%);
+    display: flex;
+    flex-direction: column;
+}
+
+.ears {
+    width: 40px;
+    height: 100px;
+    background: rgb(227, 190, 134);
+    border-top-left-radius: 120%;
+    border-top-right-radius: 120%;
+    border-bottom-left-radius: 150%;
+    border-bottom-right-radius: 150%;
+}
+
+.facesupport1 {
+    width: 400px;
+    height: 320px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+.facesupport2 {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+.facesupport3 {
+    width: 400px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.eye {
+    width: 60px;
+    height: 40px;
+    border-top-left-radius: 70%;
+    border-top-right-radius: 70%;
+    border-bottom-left-radius: 70%;
+    border-bottom-right-radius: 70%;
+    background: white;
+    border: 2px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pupil {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: green;
+    border: 5px solid black;
+}
+
+.nose {
+    width: 0px;
+    height: 0px;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 100px solid rgb(185, 142, 77);
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 35%;
+}
+
+.uplip {
+    width: 150px;
+    height: 20px;
+    background: red;
+    border-bottom: 1px solid rgb(94, 0, 0);
+    border-top: 1px solid rgb(94, 0, 0);
+    border-top-left-radius: 70%;
+    border-top-right-radius: 70%;
+}
+
+.unlip {
+    width: 150px;
+    height: 20px;
+    background: red;
+    border-bottom: 1px solid rgb(94, 0, 0);
+    border-top: 1px solid rgb(94, 0, 0);
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
