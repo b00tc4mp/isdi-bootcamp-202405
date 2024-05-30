@@ -1,0 +1,46 @@
+.building {
+
+    display: flex;
+    background-image: url(my-images/ladrillos.jpg);
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 400px;
+    height: 800px;
+
+}
+
+.floor {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+
+}
+
+.window {
+
+    background-color: aquamarine;
+    width: 50px;
+    height: 50px;
+
+}
+
+.floorCero {
+
+    display: flex;
+    justify-content: center;
+    margin: -30px;
+}
+
+.door {
+
+    background-image: url(my-images/puerta.png);
+    background-repeat: no-repeat;
+    background-size: 180px 200px;
+    text-align: center;
+    width: 180px;
+    height: 200px;
+}
