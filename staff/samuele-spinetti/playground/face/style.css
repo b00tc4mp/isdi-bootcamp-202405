@@ -1,0 +1,15 @@
+.sfondo {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+}
+
+.cara {
+    background-color: rgb(219, 172, 180);
+    width: 450px;
+    height: 550px;
+    border-radius: 60% 60% 40% 40% / 60% 60% 40% 40%;
+}
