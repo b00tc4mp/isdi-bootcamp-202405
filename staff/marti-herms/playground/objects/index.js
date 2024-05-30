@@ -54,7 +54,7 @@ colors.length -= 2;
 console.log(colors);
 //{ 0: red, 1: green, length: 2}
 
-console.log('CASE push an element to object');
+console.log('CASE push and pop an element to object');
 
 var cars = new Object;
 
@@ -72,7 +72,16 @@ cars.push = function (element) {
     return this.length;
 }
 
+cars.pop = function () {
+    this.length--;
+    let i = this[this.length];
+    delete this[this.length];
+    return i;
+}
+
 cars.push({ brand: 'ford', model: 'fiesta', year: 2005 });
 
 console.log(cars);
 //{{...},{...},{...},{...}}
+console.log(cars.pop());
+console.log(cars);

@@ -58,7 +58,7 @@ console.log(colors);
 console.log(colors.length);
 //2
 
-console.log('CASE push an element to array');
+console.log('CASE push and pop an element to array');
 
 var cars = new Array;
 
@@ -70,9 +70,12 @@ console.log(cars);
 //[{...},{...}{...}]
 console.log(cars.length);
 
-cars.push({ brand: 'ford', model: 'fiesta', year: 2005 });
+console.log(cars.push({ brand: 'ford', model: 'fiesta', year: 2005 }));
 
 console.log(cars);
 //[{...},{...},{...},{...}]
 console.log(cars.length);
 //4
+
+console.log(cars.pop());
+console.log(cars)
