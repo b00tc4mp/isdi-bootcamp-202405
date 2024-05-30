@@ -73,6 +73,6 @@ console.log(cars.length);
 cars.push({ brand: 'ford', model: 'fiesta', year: 2005 });
 
 console.log(cars);
-//[{...},{...},{...}]
+//[{...},{...},{...},{...}]
 console.log(cars.length);
 //4
