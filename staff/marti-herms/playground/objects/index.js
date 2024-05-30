@@ -69,6 +69,7 @@ console.log(cars);
 cars.push = function (element) {
     this[this.length] = element;
     this.length++;
+    return this.length;
 }
 
 cars.push({ brand: 'ford', model: 'fiesta', year: 2005 });
