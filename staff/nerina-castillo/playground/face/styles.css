@@ -1,0 +1,72 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}   
+.face {
+    background: rgb(255, 192, 192);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    
+}
+
+.eyes{
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    justify-content: center;
+    display: flex;
+    
+  
+   margin-top: 60px;
+    
+    
+   
+}
+
+.pupil{
+    background: black;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+
+   
+}
+
+.nose{
+    background: rgb(255, 123, 123);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    align-self: center;
+    position:absolute;
+    top: 50%;
+    
+}
+
+.mouth{
+    background: red;
+    width: 200px;
+    height: 30px;
+    border-radius: 20px;
+    justify-content: space-around;
+    display: flex;
+}
+
+.teeth{
+    background: white;
+    width: 30px;
+    height: 25px;
+}
+
