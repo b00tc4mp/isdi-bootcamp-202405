@@ -1,0 +1,83 @@
+h1 {
+
+    text-align: center;
+}
+
+#face {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 300px;
+    border: 2px black solid;
+    background-color: rgb(252, 208, 180);
+    width: 250px;
+    height: 300px;
+    flex-direction: column;
+    margin: auto;
+}
+
+.half-one {
+
+
+    display: flex;
+    width: 250px;
+    height: 150px;
+    justify-content: center;
+    align-items: flex-end;
+    justify-content: space-evenly;
+
+
+}
+
+.eyes {
+
+    width: 50px;
+    height: 50px;
+    border-radius: 70px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+.pupila {
+
+    width: 10px;
+    height: 10px;
+    border-radius: 70px;
+    background-color: black;
+}
+
+.half-two {
+
+
+    display: flex;
+    width: 250px;
+    height: 150px;
+    justify-content: center;
+    align-items: flex-end;
+
+}
+
+
+.mouth {
+
+    width: 50px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: red;
+    align-self: center;
+
+}
+
+.nose {
+
+    width: 20px;
+    height: 20px;
+    background-color: rgb(222, 159, 64);
+    align-self: flex-end;
+}
