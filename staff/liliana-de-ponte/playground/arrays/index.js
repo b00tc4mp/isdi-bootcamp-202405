@@ -77,12 +77,233 @@ console.log(cars)
 console.log(cars.length)
 // 4
 
+console.log('CASE push many elements to array')
+
+var animals = ['pigs', 'goats', 'sheep', 'cows']
+
+console.log(animals)
+//['pisg''goats', 'sheep', 'cows']
+
+console.log(animals.length)
+//7
+
+var count = animals.push('chickens', 'cats', 'dogs')
+
+console.log(count)
+//7
+
 console.log('CASE pop an element to array')
 
-cars.pop()
+var cars = new Array
+
+cars[0] = { brand: 'ferrari', model: 'gto', year: 1990 }
+cars[1] = { brand: 'lamborghini', model: 'murcielago', year: 2010 }
+cars[2] = { brand: 'fiat', model: '500', year: 2017 }
 
 console.log(cars)
-//[{..}{...}{...} ^
+//[{...}, {...}, {...}]
+console.log(cars.length)
+// 2
+
+var last = cars.pop()
+
+console.log(cars)
+//[{...}, {...}]
 
 console.log(cars.length)
+// 2
+
+console.log(last)
+// { brand: 'fiat', model: '500', year: 2017 }
+
+console.log('CASE element at index')
+
+var nums = [5, 12, 8, 130, 44]
+
+console.log(nums)
+// [5, 12, 8, 130, 44]
+console.log(nums.lenght)
+//5
+
+var num = nums.at(3)
+console.log(num)
+//130
+
+var num = nums.at(0)
+console.log(num)
+//8
+
+var num = nums.at(-3)
+console.log(num)
+//8
+
+var num = nums.at(100)
+console.log(num)
+//undefined
+
+var num = nums.at(-100)
+console.log(num)
+//undefined
+
+console.log('CASE concat elements from two arrays')
+
+var chars1 = ['a', 'b', 'c'];
+var chars2 = ['d', 'e', 'f'];
+
+console.log(chars1)
+// ['a', 'b', 'c']
+
+console.log(chars2)
+//['d', 'e', 'f']
+
+var chars3 = chars1.concat(chars2)
+console.log(chars3)
+//['a', 'b', 'c', 'd', 'e', 'f']
+
+console.log('CASE concat elements from 5 arrays')
+
+var nums1 = [10, 20, 30]
+var nums2 = [400, 500]
+var nums3 = [-60, -70]
+var nums4 = [800, 900]
+var nums5 = [-1000]
+
+var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
+
+console.log(nums1)
+//[10,20,30]
+console.log(nums2)
+//[400, 500]
+console.log(nums3)
+//[-60,-70]
+console.log(nums4)
+//[800, 900]
+console.log(nums5)
+//[-1000]
+
+console.log(nums6)
+//[10, 20, 30, 400, 500, -60, -70, 800, 900, -1000]
+
+// TODO implement case for indexOf
+console.log('CASE element at indexOf')
+
+var animals = ['ant', 'bison', 'camel', 'duck', 'bison'];
+
+console.log(animals)
+//['ant', 'bison', 'camel', 'duck', 'bison']
+
+console.log(animals.indexOf('bison'))
+// 1
+
+console.log(animals.indexOf('camel'))
+//2
+
+console.log(animals.indexOf('bison', 2))
+//4
+
+// TODO implement case for includes
+console.log('CASE element at Includes')
+
+var nums = [10, 20, 30, 40];
+
+console.log(nums)
+//[10, 20, 30, 40]
+
+console.log(nums.includes(10))
+//true
+
+console.log(nums.includes(20))
+//true
+
+console.log(nums.includes(15))
+//false
+
+// TODO implement case for reverse
+console.log('CASE element at Reverse')
+
+var nums = ['one', 'two', 'three'];
+
+console.log(nums)
+//['one', 'two', 'three']
+
+console.log(nums.reverse())
+//['three', 'two', 'one']
+
+// TODO implement case for join
+console.log('CASE join elements from array')
+
+var elements = ['Fire', 'Air', 'Water'];
+
+console.log(elements)
+//['Fire', 'Air', 'Water']
+
+console.log(elements.join());
+//"Fire,Air,Water"
+
+console.log(elements.join(''));
+//"FireAirWater"
+
+console.log(elements.join('-'));
+//"Fire-Air-Water"
+
+// TODO implement case for lastIndexOf
+console.log('CASE element at lastIndexOf')
+
+var zoo = ['Giraffe', 'Tiger', 'Penguin', 'Giraffe'];
+
+console.log(zoo.lastIndexOf('Giraffe'));
 //3
+
+console.log(zoo.lastIndexOf('Tiger'));
+//1
+
+// TODO implement case for shift
+console.log('CASE element at shift')
+
+var names1 = ["Andrew", "Tyrone", "Paul", "Maria", "Gayatri"];
+
+console.log(names1)
+//["Andrew", "Tyrone", "Paul", "Maria", "Gayatri"]
+
+console.log(names1.length)
+//5
+
+var newNames1 = names1.shift()
+
+console.log(newNames1)
+//["Andrew"]
+
+console.log(names1)
+//["Tyrone", "Paul", "Maria", "Gayatri"]
+
+console.log(names1.length)
+//4
+
+// TODO implement case for slice
+console.log('CASE element at slice')
+
+var animals2 = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+
+console.log(animals2.slice(2));
+//["camel", "duck", "elephant"]
+
+console.log(animals2.slice(2, 4));
+//["camel", "duck"]
+
+console.log(animals2.slice(1, 5));
+//["bison", "camel", "duck", "elephant"]
+
+console.log(animals2.slice(-2));
+//["duck", "elephant"]
+
+console.log(animals2.slice(2, -1));
+//["camel", "duck"]
+
+console.log(animals2.slice());
+//["ant", "bison", "camel", "duck", "elephant"]
+
+
+
+
+
+// TODO implement case for copyWithin
