@@ -250,6 +250,25 @@ var nums5 = { 0: -1000, length: 1 }
 
 nums1.concat = function () {
     // TODO implement me (USE this, arguments)
+    var res = { length: 0 }
+
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        res[res.length++] = elem
+    }
+
+    for (var i = 0; i < arguments.length; i++) {
+        var argument = arguments[i]
+
+        for (var j = 0; j < argument.length; j++) {
+            var elem = argument[j]
+
+            res[res.length++] = elem
+        }
+    }
+
+    return res
 }
 
 var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
@@ -267,3 +286,19 @@ console.log(nums5)
 
 console.log(nums6)
 // { 0: 10, 1: 20, 2: 30, 3: 400, 4: 500, 5: -60, 6: -70, 7: 800, 8: 900, 9: -1000, length: 10 }
+
+console.log('CASE join elements from object')
+
+var fruits = { 0: 'apple', 1: 'orange', 2: 'banana', 3: 'pinapple', 4: 'watermelon', length: 5 } // new Object...
+
+console.log(fruits)
+// { 0: 'apple', 1: 'orange', 2: 'banana', 3: 'pinapple', 4: 'watermelon', length: 5 }
+
+fruits.join = function () {
+
+}
+
+var joined = fruits.join()
+
+console.log(joined)
+// apple,orange,banana,pinapple,watermelon

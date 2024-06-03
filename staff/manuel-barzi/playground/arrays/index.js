@@ -197,6 +197,19 @@ console.log(nums5)
 console.log(nums6)
 // [10, 20, 30, 400, 500, -60, -70, 800, 900, -1000]
 
+console.log('CASE join elements from array')
+
+var fruits = ['apple', 'orange', 'banana', 'pinapple', 'watermelon'] // new Array...
+
+console.log(fruits)
+// ['apple', 'orange', 'banana', 'pinapple', 'watermelon']
+
+var joined = fruits.join()
+
+console.log(joined)
+// apple,orange,banana,pinapple,watermelon
+
+
 // TODO implement case for join
 // TODO implement case for includes
 // TODO implement case for indexOf
