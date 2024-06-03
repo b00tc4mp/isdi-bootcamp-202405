@@ -223,6 +223,17 @@ console.log(nums6)
 
 
 
+// TODO implement case for join
+// TODO implement case for includes
+// TODO implement case for indexOf
+// TODO implement case for lastIndexOf
+// TODO implement case for slice
+// TODO implement case for reverse
+// TODO implement case for shift
+// TODO implement case for copyWithin
+
+
+
 console.log('CASE join elements in object');
 
 var elements = { 0: 'Fire', 1: 'Earth', 2: 'Water', length: 3 };
@@ -230,14 +241,13 @@ var elements = { 0: 'Fire', 1: 'Earth', 2: 'Water', length: 3 };
 console.log(elements);
 //{ 0: 'Fire', 1: 'Earth', 2: 'Water', length: 3 }
 
-elements.join = function (separator = null) {
+elements.join = function (separator = ',') {
     var finalString = '';
-    if (separator === null) {
+    /*if (separator === null) {
         for (var i = 0; i < this.length; i++) {
-            if (i === this.length - 1) {
-                finalString += (this[i]);
-            } else {
-                finalString += (this[i] + ',');
+            finalString += this[i];
+            if (i < this.length -1) {
+                finalString += ',';
             }
         }
         return finalString
@@ -251,6 +261,14 @@ elements.join = function (separator = null) {
         }
         return finalString;
     }
+    */
+    for (var i = 0; i < this.length; i++) {
+        finalString += this[i];
+        if (i < this.length - 1) {
+            finalString += separator;
+        }
+    }
+    return finalString;
 }
 
 var str1 = elements.join();
@@ -271,7 +289,7 @@ console.log('CASE check element in object');
 var pets = { 0: 'cat', 1: 'dog', 2: 'bat', length: 3 };
 
 pets.includes = function (searchElement, fromIndex = 0) {
-    if (fromIndex > this.length) {
+    /*if (fromIndex > this.length) {
         return false;
     } else if (fromIndex < 0 && fromIndex > -this.length) {
         for (var i = this.length + fromIndex; i < this.length; i++) {
@@ -288,6 +306,21 @@ pets.includes = function (searchElement, fromIndex = 0) {
         }
         return false;
     }
+    */
+    if (fromIndex >= this.length) {
+        return false;
+    } else if (fromIndex >= -this.length && fromIndex < 0) {
+        fromIndex = fromIndex + this.length;
+    } else if (fromIndex < -this.length) {
+        fromIndex = 0;
+    }
+
+    for (var i = fromIndex; i < this.length; i++) {
+        if (searchElement === this[i]) {
+            return true
+        }
+    }
+    return false;
 }
 
 console.log(pets.includes('cat'));
@@ -296,6 +329,11 @@ console.log(pets.includes('cat'));
 console.log(pets.includes('at'));
 //false
 
+console.log(pets.includes('cat', 1))
+//false
+
+console.log(pets.includes('bat', 1))
+//true
 
 
 console.log('CASE first index of element in object');
@@ -303,7 +341,7 @@ console.log('CASE first index of element in object');
 var beasts = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 };
 
 beasts.indexOf = function (searchElement, fromIndex = 0) {
-    if (fromIndex >= this.length) {
+    /*if (fromIndex >= this.length) {
         return -1
     } else if (fromIndex < 0 && fromIndex >= -this.length) {
         for (var i = (this.length + fromIndex); i < this.length; i++) {
@@ -319,7 +357,21 @@ beasts.indexOf = function (searchElement, fromIndex = 0) {
             }
         }
         return -1;
+    }*/
+    if (fromIndex >= this.length) {
+        return -1;
+    } else if (fromIndex >= -this.length && fromIndex < 0) {
+        fromIndex = fromIndex + this.length;
+    } else if (fromIndex < -this.length) {
+        fromIndex = 0;
     }
+
+    for (var i = fromIndex; i < this.length; i++) {
+        if (searchElement === this[i]) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 console.log(beasts.indexOf('bison'));
@@ -337,8 +389,8 @@ console.log('CASE last index of element in object');
 
 var animals = { 0: 'Dodo', 1: 'Tiger', 2: 'Penguin', 3: 'Dodo', length: 4 };
 
-animals.lastIndexOf = function (searchElement, fromIndex = 0) {
-    if (fromIndex < -this.length) {
+animals.lastIndexOf = function (searchElement, fromIndex = this.length - 1) {
+    /*if (fromIndex < -this.length) {
         return -1
     } else if (fromIndex < 0 && fromIndex >= -this.length) {
         for (var i = (this.length + fromIndex); i > -1; i--) {
@@ -354,7 +406,21 @@ animals.lastIndexOf = function (searchElement, fromIndex = 0) {
             }
         }
         return -1;
+    }*/
+    if (fromIndex < -this.length) {
+        return -1;
+    } else if (fromIndex < 0 && fromIndex >= -this.length) {
+        fromIndex = this.length + fromIndex;
+    } else if (fromIndex >= this.length) {
+        fromIndex = this.length - 1;
     }
+
+    for (var i = fromIndex; i > -1; i--) {
+        if (searchElement === this[i]) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 console.log(animals.lastIndexOf('Dodo'));
