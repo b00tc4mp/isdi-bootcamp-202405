@@ -295,10 +295,194 @@ console.log(fruits)
 // { 0: 'apple', 1: 'orange', 2: 'banana', 3: 'pinapple', 4: 'watermelon', length: 5 }
 
 fruits.join = function () {
+    // this -> { 0: 'apple', 1: 'orange', 2: 'banana', 3: 'pinapple', 4: 'watermelon', length: 5 }
+    var res = ''
 
+    // var elem = this[0] // apple
+    // res += elem + ',' // apple,
+
+    // var elem = this[1] // orange
+    // res += elem + ',' // apple,orange,
+
+    // var elem = this[2] // banana
+    // res += elem + ',' // apple,orange,banana,
+
+    // var elem = this[3] // pinapple
+    // res += elem + ',' // apple,orange,banana,pinapple,
+
+    // var elem = this[4] // watermelon
+    // res += elem // apple,orange,banana,pinapple,watermelon
+
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        res += elem
+
+        if (i < this.length - 1)
+            res += ','
+
+        // res += elem + (i < this.length - 1? ',' : '')
+    }
+
+    return res
 }
 
 var joined = fruits.join()
 
 console.log(joined)
 // apple,orange,banana,pinapple,watermelon
+
+console.log('CASE join elements with separator $')
+
+var things = {
+    0: true, 1: 'hello world', 2: 100, 3: { name: 'Oswald' }, 4: [10, 20, 30], 5: function () { }, length: 6
+}
+
+things.join = function (separator) {
+    if (separator === undefined)
+        separator = ','
+
+    var res = ''
+
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        res += elem
+
+        if (i < this.length - 1)
+            res += separator
+    }
+
+    return res
+}
+
+var joined = things.join(' $ ')
+
+console.log(joined)
+// true $ hello world $ 100 $ [object Object] $ 10,20,30 $ function () { }
+
+var joined = things.join()
+
+console.log(joined)
+// true,hello world,100,[object Object],10,20,30,function () { }
+
+var joined = things.join(undefined)
+
+console.log(joined)
+// true,hello world,100,[object Object],10,20,30,function () { }
+
+var joined = things.join('')
+
+console.log(joined)
+// truehello world100[object Object]10,20,30function () { }
+
+console.log('TEST object includes pet')
+
+var pets = { 0: 'cat', 1: 'dog', 2: 'bat', length: 3 }
+
+console.log(pets)
+
+pets.includes = function (element) {
+    // var elem = this[0]
+    // if (elem === element)
+    //     return true
+
+    // var elem = this[1]
+    // if (elem === element)
+    //     return true
+
+    // var elem = this[2]
+    // if (elem === element)
+    //     return true
+
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        if (elem === element)
+            return true
+    }
+
+    return false
+}
+
+var included = pets.includes('dog')
+
+console.log(included)
+// true
+
+var included = pets.includes('horse')
+
+console.log(included)
+// false
+
+console.log('TEST object includes color from index')
+
+var colors = {
+    0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', 4: 'orange', 5: 'pink', 6: 'skyblue', 7: 'red', 8: 'white', 9: 'black', 10: 'grey', length: 11
+}
+
+colors.includes = function (element, index) {
+    if (index === undefined)
+        index = 0
+    else if (index < 0)
+        index = this.length + index
+
+    for (var i = index; i < this.length; i++) {
+        var elem = this[i]
+
+        if (elem === element)
+            return true
+    }
+
+    return false
+}
+
+var included = colors.includes('pink', 2)
+
+console.log(included)
+// true
+
+var included = colors.includes('red', 4)
+
+console.log(included)
+// true
+
+var included = colors.includes('red', 8)
+
+console.log(included)
+// false
+
+var included = colors.includes('orange')
+
+console.log(included)
+// true
+
+var included = colors.includes('pink', undefined)
+
+console.log(included)
+// true
+
+var included = colors.includes('lime', undefined)
+
+console.log(included)
+// false
+
+var included = colors.includes('black', -4)
+
+console.log(included)
+// true
+
+var included = colors.includes('black', -1)
+
+console.log(included)
+// false
+
+var included = colors.includes('black', 15)
+
+console.log(included)
+// false
+
+var included = colors.includes('black', -15)
+
+console.log(included)
+// true

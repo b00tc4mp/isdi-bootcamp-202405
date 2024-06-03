@@ -209,9 +209,100 @@ var joined = fruits.join()
 console.log(joined)
 // apple,orange,banana,pinapple,watermelon
 
+console.log('CASE join elements with separator $')
 
-// TODO implement case for join
-// TODO implement case for includes
+var things = [true, 'hello world', 100, { name: 'Oswald' }, [10, 20, 30], function () { }]
+
+var joined = things.join(' $ ')
+
+console.log(joined)
+// true $ hello world $ 100 $ [object Object] $ 10,20,30 $ function () { }
+
+var joined = things.join()
+
+console.log(joined)
+// true,hello world,100,[object Object],10,20,30,function () { }
+
+var joined = things.join(undefined)
+
+console.log(joined)
+// true,hello world,100,[object Object],10,20,30,function () { }
+
+var joined = things.join('')
+
+console.log(joined)
+// truehello world100[object Object]10,20,30function () { }
+
+console.log('TEST array includes pet')
+
+var pets = ['cat', 'dog', 'bat']
+
+console.log(pets)
+
+var included = pets.includes('dog')
+
+console.log(included)
+// true
+
+var included = pets.includes('horse')
+
+console.log(included)
+// false
+
+console.log('TEST array includes color from index')
+
+var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'skyblue', 'red', 'white', 'black', 'grey']
+
+var included = colors.includes('pink', 2)
+
+console.log(included)
+// true
+
+var included = colors.includes('red', 4)
+
+console.log(included)
+// true
+
+var included = colors.includes('red', 8)
+
+console.log(included)
+// false
+
+var included = colors.includes('orange')
+
+console.log(included)
+// true
+
+var included = colors.includes('pink', undefined)
+
+console.log(included)
+// true
+
+var included = colors.includes('lime', undefined)
+
+console.log(included)
+// false
+
+var included = colors.includes('black', -4)
+
+console.log(included)
+// true
+
+var included = colors.includes('black', -1)
+
+console.log(included)
+// false
+
+var included = colors.includes('black', 15)
+
+console.log(included)
+// false
+
+var included = colors.includes('black', -15)
+
+console.log(included)
+// true
+
 // TODO implement case for indexOf
 // TODO implement case for lastIndexOf
 // TODO implement case for slice
