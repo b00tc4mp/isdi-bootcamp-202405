@@ -1,0 +1,59 @@
+.face{
+    width: 350px;
+    height: 400px;
+    background-color: rgb(203, 161, 106);
+    border: 2px solid black;
+    display: flex;
+    border-radius: 48%;
+    flex-direction: column;
+    align-items:center
+}
+.hair{
+    width: 30px;
+    height: 40px;
+    background-color: rgb(107, 86, 58);
+    border: 2px solid black;
+    display: flex;
+    border-radius: 48%;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.upper{
+    display: flex;
+    width: 100px;
+    height: 200px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.eyes{
+    width: 70px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    border-radius: 50%;
+    justify-content: center;
+    align-self: center;
+}
+.pupils{
+    display: flex;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(82, 53, 53);
+    border: 2px solid black;
+    border-radius: 50%;
+    align-items: flex-start;
+}
+.lower{
+    display: flex;
+    width: 350px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+}
+.mouth{
+    width: 90px;
+    height: 40px;
+    background-color: rgb(220, 118, 118);
+    border: 2px solid black;
+    border-radius: 50%;
+}
