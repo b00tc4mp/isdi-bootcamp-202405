@@ -1,0 +1,41 @@
+.upper {
+
+    border: 2px black solid;
+    background-color: red;
+    width: 300px;
+    height: 150px;
+    display: flex;
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.window {
+
+    border: 1px black solid;
+    background-color: aquamarine;
+    border-radius: 30px;
+    width: 250px;
+    height: 120px;
+    align-self: flex-end;
+
+}
+
+.bottom {
+
+
+    border: 2px black solid;
+    background-color: red;
+    width: 300px;
+    height: 50px;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+
+
+}
