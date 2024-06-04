@@ -202,7 +202,7 @@ console.log(animals.indexOf('bison', 2))
 //4
 
 // TODO implement case for includes
-console.log('CASE element at Includes')
+console.log('CASE array includes nums')
 
 var nums = [10, 20, 30, 40];
 
@@ -218,6 +218,37 @@ console.log(nums.includes(20))
 console.log(nums.includes(15))
 //false
 
+
+console.log('TEST array includes color from index')
+
+var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'skyblue', 'white', 'black', 'grey']
+
+var included = colors.includes('pink', 2)
+console.log(included)
+//true
+
+var included = colors.includes('red', 4)
+console.log(included)
+//false
+
+var included = colors.includes('red', 8)
+console.log(included)
+//false
+
+var included = colors.includes('orange')
+console.log(included)
+//true
+
+var included = colors.includes('orange', undefined)
+console.log(included)
+//true
+
+var included = colors.includes('black', -4)
+console.log(included)
+//true
+
+
+
 // TODO implement case for reverse
 console.log('CASE element at Reverse')
 
@@ -227,6 +258,9 @@ console.log(nums)
 //['one', 'two', 'three']
 
 console.log(nums.reverse())
+//['three', 'two', 'one']
+
+console.log(nums)
 //['three', 'two', 'one']
 
 // TODO implement case for join
@@ -246,6 +280,26 @@ console.log(elements.join(''));
 console.log(elements.join('-'));
 //"Fire-Air-Water"
 
+console.log('CASE join elements with separator $')
+
+var things = [true, 'hello world', 100, { name: 'Oswald' }, [10, 20, 30], function () { }]
+
+var joined = things.join(' $ ')
+
+console.log(joined)
+//true $ hello world $ 100 $ [object Object] $ 10,20,30 $ function () { }
+
+var joined = things.join()
+
+console.log(joined)
+//true,hello world,100,[object Object],10,20,30,function () { }
+
+var joined = things.join(undefined)
+
+console.log(joined)
+//true,hello world,100,[object Object],10,20,30,function () { }
+
+
 // TODO implement case for lastIndexOf
 console.log('CASE element at lastIndexOf')
 
@@ -256,6 +310,17 @@ console.log(zoo.lastIndexOf('Giraffe'));
 
 console.log(zoo.lastIndexOf('Tiger'));
 //1
+
+console.log(zoo.lastIndexOf('Giraffe', 2));
+//0
+
+console.log(zoo.lastIndexOf('Giraffe', -2));
+//0
+
+
+
+
+
 
 // TODO implement case for shift
 console.log('CASE element at shift')
@@ -303,7 +368,14 @@ console.log(animals2.slice());
 //["ant", "bison", "camel", "duck", "elephant"]
 
 
-
-
-
 // TODO implement case for copyWithin
+console.log('CASE copyWithin')
+
+var letters = ['a', 'b', 'c', 'd', 'e'];
+
+console.log(letters.copyWithin(0, 3, 4));
+//["d", "b", "c", "d", "e"]
+
+console.log(letters.copyWithin(1, 3));
+//["d", "d", "e", "d", "e"]
+
