@@ -1,0 +1,40 @@
+.car {
+    margin:auto;
+    margin-top: 50px;
+    display: flex;
+    width: 300px;
+    height: 200px;
+    background-color: yellow;
+    border-radius: 50px;
+    justify-content: ;
+
+
+}
+
+.car_top {
+
+}
+
+.taxi {
+
+}
+
+.window {
+
+}
+
+.asiento {
+
+}
+
+.car_bottom {
+
+}
+
+.luces {
+
+}
+
+.wheels {
+
+}
