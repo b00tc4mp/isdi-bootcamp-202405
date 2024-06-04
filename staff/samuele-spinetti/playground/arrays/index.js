@@ -165,6 +165,7 @@ var chars3 = chars1.concat(chars2)
 console.log(chars3)
 //['a', 'b', 'c', 'd', 'e', 'f']
 
+
 console.log('CASE concat elements from 5 arrays')
 
 var nums1 = [10, 20, 30]
@@ -188,7 +189,8 @@ console.log(nums5)
 console.log(nums6)
 // [10, 20, 30, 400, 500, -60, -70, 800, 900, -1000]
 
-// TODO implement case for join
+
+console.log('CASE join in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 
@@ -207,31 +209,50 @@ var animals4 = animals.join("/")
 console.log(animals4)
 //Dodo/Tiger/Penguin/Dodo/Elephant
 
-// TODO implement case for includes
+
+console.log('CASE join elements with separator $')
+
+var things = [true, 'hello world', 100, { name: 'Oswald' }, [10, 20, 30], function () { }]
+
+var joined = things.join(' $ ')
+console.log(joined)
+//true $ hello world $ 100 $ {object Object} $ 10,20,30 $ function () { }
+
+
+console.log('CASE includes in array')
 
 var numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
 console.log(numeros)
 // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 var numeros1 = numeros.includes(6)
-
 console.log(numeros1)
 // true
 
-var numeros2 = numeros.includes(9, 50)
-
+var numeros2 = numeros.includes(50)
 console.log(numeros2)
 // false
 
-var numeros3 = numeros.includes(5, -100)
 
-console.log(numeros3)
+console.log('TEST array  includes color from index')
+
+var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'skyblue', 'red', 'white', 'black', 'grey']
+
+var included = colors.includes('pink', 2)
+console.log(included)
 // true
 
+var included = colors.includes('red', 4)
+console.log(included)
+// true
 
-// TODO implement case for indexOf
+var included = colors.includes('red', 8)
+console.log(included)
+// false
 
+
+
+console.log('CASE indexOf in array')
 
 var animals = ['ant', 'bison', 'camel', 'duck', 'bison']
 
@@ -250,8 +271,12 @@ console.log(animals.indexOf('giraffa'))
 // -1
 console.log(animals.indexOf('ant', -5))
 // 0
+console.log(animals.indexOf('bison', 2))
+//4
 
-// TODO implement case for lastIndexOf
+
+
+console.log('CASE lastIndexOf in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 
@@ -261,15 +286,16 @@ console.log(animals.length)
 // 5
 
 console.log(animals.lastIndexOf('Penguin'))
-// 0
-console.log(animals.lastIndexOf('Dodo'))
-// 1
-console.log(animals.lastIndexOf('Dodo', 1))
 // 2
+console.log(animals.lastIndexOf('Dodo'))
+// 3
+console.log(animals.lastIndexOf('Dodo', 1))
+// 0
 console.log(animals.lastIndexOf('Giraffa'))
 // -1
 console.log(animals.lastIndexOf('Tiger', -4))
-// 0
+// 1
+
 
 // TODO implement case for slice
 
@@ -287,7 +313,7 @@ console.log(animals.slice(2, -1))
 
 
 
-// TODO implement case for reverse
+console.log('CASE reverse in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 
@@ -302,7 +328,7 @@ console.log(animals2)
 // [ 'Elephant', 'Dodo', 'Penguin', 'Tiger', 'Dodo' ]
 
 
-// TODO implement case for shift
+console.log('CASE shift in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 

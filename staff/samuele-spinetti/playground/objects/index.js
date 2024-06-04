@@ -234,20 +234,21 @@ nums1.concat = function () {
         newObject[newObject.length++] = elem
     }
 
-    for (var j = 0; j < arguments.length; j++) {
+    for (var i = 0; i < arguments.length; i++) {
 
-        for (var h = 0; h < arguments[j].length; h++) {
+        var argument = arguments[i]
 
-            var argument = arguments[j][h]
+        for (var j = 0; j < argument.length; j++) {
 
-            newObject[newObject.length++] = argument
+            var elem = argument[j]
+
+            newObject[newObject.length++] = elem
 
         }
 
     }
 
     return newObject
-
 
 }
 
@@ -316,29 +317,88 @@ var animals = { 0: 'Dodo', 1: 'Tiger', 2: 'Penguin', 3: 'Dodo', 4: 'Elephant', l
 console.log(animals)
 // ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 
-animals.join = function (obje, separetor) {
-    var newObject = ""
-    for (var i = 0; i < obje.length; i++) {
-        var elem = obje[i] + separetor
+animals.join = function () {
 
-        newObject += elem
+    //var res = ''
+
+    //var elem = this[0]
+    //res += elem + ',' // Dodo,
+
+    //var elem = this[1]
+    //res += elem + ',' // Dodo,Tiger
+
+    //var elem = this[2]
+    //res += elem + ',' // Dodo,Tiger,Penguin
+
+    //var elem = this[3]
+    //res += elem + ',' // Dodo,Tiger,Penguin,Dodo
+
+    //var elem = this[4]
+    //res *= elem //Dodo,Tiger,Penguin,Dodo,Elephant
+
+    //return res
+
+    var res = ""
+
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        // res += elem + (i < this.length - 1? ',' : '')   ! mejor el de abajo!
+
+        res += elem
+
+        if (i < this.length - 1)
+            res += ','
 
     }
-    return newObject
+
+    return res
 }
 
-var animals1 = animals.join(animals, " + ")
+
+
+var animals1 = animals.join()
 
 console.log(animals1)
-77
+// Dodo,Tiger,Penguin,Dodo,Elephant
 
+console.log('CASE join elements with separator $')
+
+var things = { 0: true, 1: 'hello world', 2: 100, 3: { name: 'Oswald' }, 4: [10, 20, 30], 5: function () { }, length: 6 }
+
+things.join = function (separator) {
+    if (separator === undefined)
+        separator = ','
+
+    var res = ""
+
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        res += elem
+
+        if (i < this.length - 1)
+            res += separator
+
+    }
+
+    return res
+}
+
+
+var joined = things.join(' $ ')
+
+console.log(joined)
+//true $ hello world $ 100 $ {object Object} $ 10,20,30 $ function () { }
+
+/*
 console.log('CASE includes in objects')
 
 var numeros = { 0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 6, 6: 7, 7: 8, 8: 9, 9: 10, length: 10 }
 
 numeros.includes = function (num) {
     for (var i = 0; i < this.length; i++) {
-        if (i === num)
+        if (this[i] === num)
             return true
     }
     return false
@@ -348,6 +408,52 @@ var numeros1 = numeros.includes(11)
 
 console.log(numeros1)
 //false
+*/
+
+console.log('TEST object includes pet')
+
+var pets = { 0: 'cat', 1: 'dog', 2: 'bat', length: 3 }
+
+console.log(pets)
+
+pets.includes = function (element) {
+    for (i = 0; i < this.length; i++)
+        var elem = this[i]
+
+    if (elem === element)
+        return true
+
+    return false
+}
+
+var included = pets.includes('dog')
+
+
+
+console.log('TEST object includes color from index')
+
+var colors = { 0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', 4: 'orange', 5: 'pink', 6: 'skyblue', 7: 'red', 8: 'white', 9: 'black', 10: 'grey', length: 11 }
+
+colors.includes = function (element, index) {
+    if (index === undefined)
+        index = 0
+
+    else if (index < 0)
+        index = this.length + index
+
+    for (i = index; i < this.length; i++) {
+        var elem = this[i]
+
+        if (elem === element)
+            return true
+    }
+    return false
+}
+
+var included = colors.includes('pink', 2)
+
+console.log(included)
+
 
 
 console.log('CASE reverse in objects')
@@ -355,18 +461,26 @@ console.log('CASE reverse in objects')
 var animals = { 0: 'Dodo', 1: 'Tiger', 2: 'Penguin', 3: 'Dodo', 4: 'Elephant', length: 5 }
 
 animals.reverse = function () {
-    var newObject = { length: 0 }
-    for (var i = this.length - 1; i >= 0; i--) {
-        var animalsReverse = this[i]
+    var tmp
+    for (var i = 0; i < this.length - i; i++) {
+        tmp = this[i]
 
-        newObject[newObject.length++] = animalsReverse
+        this[i] = this[this.length - i - 1]
+
+        this[this.length - i - 1] = tmp
     }
-    return newObject
+
+    return this
+
 }
 
 var animals1 = animals.reverse()
 
+console.log(animals)
 console.log(animals1)
+console.log(animals)
+
+
 
 console.log('CASE shift in objects')
 
@@ -375,9 +489,16 @@ var animals = { 0: 'Dodo', 1: 'Tiger', 2: 'Penguin', 3: 'Dodo', 4: 'Elephant', l
 animals.shift = function () {
 
     var deletedAnimal = this[0]
-    delete this[0]
 
-    this.length -= 1
+    this.length--
+
+    for (var i = 0; i < this.length; i++) {
+
+        this[i] = this[i + 1]
+
+    }
+
+    delete this[this.length]
 
     return deletedAnimal
 }
@@ -386,28 +507,42 @@ var animals1 = animals.shift()
 
 console.log(animals1)
 // Dodo
+console.log(animals)
+
 
 
 console.log('CASE slice in objects')
 
-var animals = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'elephant', length: 5 }
+var barcelona = { 0: 'sagrada', 1: 'montjuic', 2: 'wella', 3: 'beach', 4: 'agbar', length: 5 }
 
-animals.slice = function (n1, n2) {
+barcelona.slice = function (fromIndex, endIndex) {
+
+    if (endIndex === undefined)
+        endIndex = this.length
+
+    else if (endIndex < 0)
+        endIndex = this.length + endIndex
+
+    if (fromIndex === undefined)
+        fromIndex = this.length + fromIndex
+
+    else if (fromIndex < 0)
+        fromIndex = this.length + fromIndex
+
+
     var newObject = { length: 0 }
+    for (var i = fromIndex; i < endIndex; i++) {
+        newObject[newObject.length++] = this[i]
 
-    n2 = this.length
-
-    for (var i = 0; i < this.length; i++)
-        var animal = this[i]
-
-    newObject[newObject.length++] = animal
-
+    }
     return newObject
 }
 
-var animals1 = animals.slice(0, 3)
 
-console.log(animals1)
+console.log(barcelona.slice(2))
+console.log(barcelona.slice(0))
+console.log(barcelona.slice(-2, -1))
+
 
 
 console.log('CASE copyWithin in objects')
@@ -415,3 +550,133 @@ console.log('CASE copyWithin in objects')
 var animals = { 0: 'Dodo', 1: 'Tiger', 2: 'Pengui', 3: 'Dodo', 4: 'Elephant', length: 5 }
 
 
+
+console.log('CASE indexOf in object')
+
+var animals = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 }
+
+animals.indexOf = function (searchElement, fromIndex) {
+    /*
+        var element = this[0]
+        if (searchElement === element)
+            return 0
+        var element = this[1]
+        if (searchElement === element)
+            return 1
+        var element = this[2]
+        if (searchElement === element)
+            return 2
+        var element = this[3]
+        if (searchElement === element)
+            return 3
+        var element = this[4]
+        if (searchElement === element)
+            return 4
+    
+        return -1
+            */
+
+    if (fromIndex === undefined)
+        fromIndex = 0
+
+    else if (fromIndex < 0)
+        fromIndex = this.length + fromIndex
+
+    for (var i = fromIndex; i < this.length; i++) {
+        var element = this[i]
+
+        if (searchElement === element)
+            return i
+    }
+
+    return -1
+
+}
+
+var index = animals.indexOf('ant')
+console.log(index)
+
+var index = animals.indexOf('giraffe')
+console.log(index)
+
+var index = animals.indexOf('bison')
+console.log(index)
+
+console.log(animals.indexOf('camel', 1))
+
+var index = animals.indexOf('bison', -3)
+console.log(index)
+
+
+
+console.log('CASE lastIndexOf in object')
+
+var pets = { 0: 'dog', 1: 'cat', 2: 'bird', 3: 'turtle', 4: 'bird', length: 5 }
+
+pets.lastIndexOf = function (searchElement, fromIndex) {
+
+    if (fromIndex === undefined)
+        fromIndex = this.length - 1
+
+    else if (fromIndex < 0)
+        fromIndex = this.length + fromIndex
+
+    for (var i = fromIndex; i > -1; i--) {
+        var element = this[i]
+        if (searchElement === element)
+            return i
+    }
+    return -1
+}
+
+
+var lastIndex = pets.lastIndexOf('bird', -3)
+console.log(lastIndex)
+
+
+console.log('CASE copyWithin in objects')
+
+
+var letters = { 0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', length: 5 };
+
+letters.copyWithin = function (target, start, end) {
+    if (end === undefined)
+        end = this.length
+
+    else if (end < 0)
+        end = this.length + end
+
+
+    if (start === undefined)
+        start = 0
+
+    else if (start < 0)
+        start = this.length + start
+
+    if (end <= start)
+        return this
+
+    if (target === undefined)
+        target = 0
+
+    else if (target < 0)
+        target = this.length + target
+
+    else if (target > start)
+        return this
+
+    var temporal = target;
+    for (var i = start; i < end; i++) {
+        this[temporal] = this[i]
+        temporal++
+    }
+    return this
+}
+
+
+
+console.log(letters.copyWithin(0, 3, 4));
+//{"d", "b", "c", "d", "e"}
+
+console.log(letters.copyWithin(1, 3));
+//{"d", "d", "e", "d", "e"} 
