@@ -575,12 +575,15 @@ animals.indexOf = function (searchElement, fromIndex) {
     
         return -1
             */
-
     if (fromIndex === undefined)
-        fromIndex = 0
+        index = 0
 
-    else if (fromIndex < 0)
+    else if (fromIndex < 0) {
         fromIndex = this.length + fromIndex
+
+        if (fromIndex < 0)
+            fromIndex = 0
+    }
 
     for (var i = fromIndex; i < this.length; i++) {
         var element = this[i]
@@ -595,17 +598,22 @@ animals.indexOf = function (searchElement, fromIndex) {
 
 var index = animals.indexOf('ant')
 console.log(index)
+console.assert(index === 0, 'index is 0')
 
 var index = animals.indexOf('giraffe')
 console.log(index)
+console.assert(index === -1, 'index is -1')
 
 var index = animals.indexOf('bison')
 console.log(index)
+console.assert(index === 1, 'index is 1')
 
 console.log(animals.indexOf('camel', 1))
+//2
 
 var index = animals.indexOf('bison', -3)
 console.log(index)
+console.assert(index === 4, 'index is 4')
 
 
 
