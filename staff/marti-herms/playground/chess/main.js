@@ -6,6 +6,8 @@ class Tile {
         } else {
             this.color = 'black';
         }
+        //this.occupancy;
+        //this.possible_move;
     }
 }
 
@@ -23,5 +25,34 @@ class Board {
 }
 
 class Piece {
-
+    constructor() {
+        //this.id
+    }
 }
+
+const TILE_STEP = 75;
+const PX = 'px';
+
+// pawn1 = document.getElementById('1');
+// let x = 0;
+// let y = 0;
+
+// pawn1.style.left = x + PX;
+// pawn1.style.top = y + PX;
+
+// document.onkeydown = function (event) {
+//     // console.log(event.key)
+
+//     if (event.key === 'ArrowRight') {
+//         x += TILE_STEP;
+//     } else if (event.key === 'ArrowLeft') {
+//         x -= TILE_STEP;
+//     } else if (event.key === 'ArrowDown') {
+//         y += TILE_STEP;
+//     } else if (event.key === 'ArrowUp') {
+//         y -= TILE_STEP;
+//     }
+
+//     pawn1.style.left = x + 'px';
+//     pawn1.style.top = y + 'px';
+// }

@@ -1,8 +1,35 @@
 body {
     background-color: rgb(255, 179, 97);
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+}
+
+.grid_border {
+    width: 650px;
+    height: 650px;
+    background-color: rgb(255, 179, 97);
+    margin: 0 auto;
+    display: grid;
+    grid-template: 1fr 50px / 50px 1fr;
+}
+
+.left_letters {
+    width: 50px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: repeat(8, 75px);
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.bottom_letters {
+    width: 600px;
+    height: 50px;
+    display: grid;
+    grid-template-columns: repeat(8, 75px);
+    grid-column-start: 2;
+    grid-row-start: 2;
 }
 
 .grid {
@@ -11,14 +38,17 @@ body {
     border-width: 2px;
     border-style: solid;
     border-color: black;
-    margin-top: 50px;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    /* margin: 0 auto; */
+    display: grid;
+    grid-template: repeat(8, 75px) / repeat(8, 75px);
 }
 
-.row {
-    width: 600px;
-    height: 75px;
-    display: flex;
-    flex-direction: row;
+.left_margin {
+    width: 50px;
+    height: 600px;
+    background-color: rgb(255, 179, 97);
 }
 
 .black_tile {
@@ -39,96 +69,108 @@ body {
 
 
 
-#pawn_black {
+.pawn_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/pawn-b.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
-#pawn_white {
+.pawn_white {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/pawn-w.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
 
 
-#rook_black {
+.rook_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/rook-b.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
-#rook_white {
+.rook_white {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/rook-w.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
 
 
-#knight_black {
+.knight_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/knight-b.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
-#knight_white {
+.knight_white {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/knight-w.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
 
 
-#bishop_black {
+.bishop_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/bishop-b.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
-#bishop_white {
+.bishop_white {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/bishop-w.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
 
 
-#queen_black {
+.queen_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/queen-b.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
-#queen_white {
+.queen_white {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/queen-w.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
 
 
-#king_black {
+.king_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/king-b.svg);
     background-size: 75px 75px;
+    position: relative;
 }
 
-#king_white {
+.king_white {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/king-w.svg);
     background-size: 75px 75px;
+    position: relative;
 }
