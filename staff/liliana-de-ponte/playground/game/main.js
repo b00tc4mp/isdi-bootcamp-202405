@@ -1,57 +1,89 @@
-var box1 = document.getElementById('box-1')
-var box2 = document.getElementById('box-2')
+function Actor(container, width, height) {
+    this.container = container
 
-box1.style.backgroundColor = 'red'
-box2.style.backgroundColor = 'dodgerblue'
+    this.setX(0)
+    this.setY(0)
 
-var x1 = 100, y1 = 100, w1 = 50, h1 = 100, x2 = 300, y2 = 300, w2 = 70, h2 = 40, STEP = 10
+    this.w = width
+    this.h = height
 
-box1.style.left = x1 + 'px'
-box1.style.top = y1 + 'px'
-box1.style.width = w1 + 'px'
-box1.style.heigth = h1 + 'px'
+    this.container.style.width = this.w + 'px'
+    this.container.style.height = this.h + 'px'
+}
 
-box2.style.left = x2 + 'px'
-box2.style.top = y2 + 'px'
-box2.style.width = w2 + 'px'
-box2.style.heigth = h2 + 'px'
+Actor.prototype.getXMax = function () { return this.x + this.w }
+
+Actor.prototype.getYMax = function () { return this.y + this.h }
+
+Actor.prototype.setX = function (x) {
+    this.x = x
+
+    this.container.style.left = this.x + 'px'
+}
+
+Actor.prototype.setY = function (y) {
+    this.y = y
+
+    this.container.style.top = this.y + 'px'
+}
+
+Actor.prototype.moveX = function (dx) {
+    this.setX(this.x + dx)
+}
+
+Actor.prototype.moveY = function (dy) {
+    this.setY(this.y + dy)
+}
+
+Actor.prototype.setColor = function (color) {
+    this.container.style.backgroundColor = color
+}
+
+var actor1 = new Actor(document.getElementById('box-1'), 40, 80)
+var actor2 = new Actor(document.getElementById('box-2'), 70, 40)
+
+actor1.setColor('red')
+actor2.setColor('dodgerblue')
+
+actor1.setX(120)
+actor1.setY(100)
+
+actor2.setX(200)
+actor2.setY(200)
+
+var STEP = 10
 
 document.onkeydown = function (event) {
-    //console.log(event.key)
+    // console.log(event.key)
 
     if (event.key === 'ArrowRight')
-        x1 += STEP
+        actor1.moveX(STEP)
     else if (event.key === 'ArrowLeft')
-        x1 -= STEP
+        actor1.moveX(-STEP)
     else if (event.key === 'ArrowDown')
-        y1 += STEP
+        actor1.moveY(STEP)
     else if (event.key === 'ArrowUp')
-        y1 -= STEP
-
-    box1.style.left = x1 + 'px'
-    box1.style.top = y1 + 'px'
+        actor1.moveY(-STEP)
 
     if (event.key === 'd')
-        x2 += STEP
+        actor2.moveX(STEP)
     else if (event.key === 'a')
-        x2 -= STEP
+        actor2.moveX(-STEP)
     else if (event.key === 's')
-        y2 += STEP
+        actor2.moveY(STEP)
     else if (event.key === 'w')
-        y2 -= STEP
+        actor2.moveY(-STEP)
 
-    box2.style.left = x2 + 'px'
-    box2.style.top = y2 + 'px'
+    // TODO improve intersection detection
 
-    //TODO improve intersection detection
-
-    // if (x1 + w1 > x2 && y1 + h1 > y2 )
-    // console.log('intersecting')
-
-    if (x1 < x2 + w2 &&
-        x1 + w1 > x2 &&
-        y1 < y2 + h2 &&
-        y1 + h1 > y2) {
-        console.log('intersecting');
-    }
+    if (actor1.x <= actor2.getXMax() && actor1.y <= actor2.getYMax() && actor1.getXMax() >= actor2.x && actor1.getYMax() >= actor2.y)
+        console.count('intersecting')
 }
+
+//     if (x1 < x2 + w2 &&
+//         x1 + w1 > x2 &&
+//         y1 < y2 + h2 &&
+//         y1 + h1 > y2) {
+//         console.log('intersecting');
+//     }
+// }
