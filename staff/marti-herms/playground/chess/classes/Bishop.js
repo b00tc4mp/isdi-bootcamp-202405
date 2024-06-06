@@ -1,5 +1,13 @@
-class Bishop {
+/**
+ * Bishop.
+ *
+ * @class Bishop
+ * @extends {Pieces}
+ */
+
+class Bishop extends Pieces {
     constructor(id, position, color) {
+        super();
         this.id = document.getElementById(id);
         this.top = position.top;
         this.left = position.left

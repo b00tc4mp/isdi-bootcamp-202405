@@ -1,5 +1,13 @@
-class Pawn {
+/**
+ * Pawn.
+ *
+ * @class Pawn
+ * @extends {Pieces}
+ */
+
+class Pawn extends Pieces {
     constructor(id, position, color) {
+        super();
         this.id = document.getElementById(id);
         this.top = position.top;
         this.left = position.left
@@ -7,6 +15,10 @@ class Pawn {
         this.id.style.left = this.left + PX;
         this.color = color;
     }
+}
+
+Pawn.prototype.moveChecker = function () {
+    return this instanceof Pawn;
 }
 
 Pawn.prototype.advance = function () {

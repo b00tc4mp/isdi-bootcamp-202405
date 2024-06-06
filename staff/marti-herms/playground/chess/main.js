@@ -7,42 +7,79 @@ let board = [[A1, A2, A3, A4, A5, A6, A7, A8],
 [G1, G2, G3, G4, G5, G6, G7, G8],
 [H1, H2, H3, H4, H5, H6, H7, H8]];
 
+let pieces = [];
 
-let rook1 = new Rook(1, board[0][0], 'black');
-let knight1 = new Knight(2, board[0][1], 'black');
-let bishop1 = new Bishop(3, board[0][2], 'black');
-let queen1 = new Queen(4, board[0][3], 'black');
-let king1 = new King(5, board[0][4], 'black');
-let bishop2 = new Bishop(6, board[0][5], 'black');
-let knight2 = new Knight(7, board[0][6], 'black');
-let rook2 = new Rook(8, board[0][7], 'black');
-let pawn1 = new Pawn(9, board[1][0], 'black');
-let pawn2 = new Pawn(10, board[1][1], 'black');
-let pawn3 = new Pawn(11, board[1][2], 'black');
-let pawn4 = new Pawn(12, board[1][3], 'black');
-let pawn5 = new Pawn(13, board[1][4], 'black');
-let pawn6 = new Pawn(14, board[1][5], 'black');
-let pawn7 = new Pawn(15, board[1][6], 'black');
-let pawn8 = new Pawn(16, board[1][7], 'black');
+pieces.push(new Rook(1, board[0][0], 'black')); //0
+pieces.push(new Knight(2, board[0][1], 'black')); //1
+pieces.push(new Bishop(3, board[0][2], 'black')); //2
+pieces.push(new Queen(4, board[0][3], 'black')); //3
+pieces.push(new King(5, board[0][4], 'black')); //4
+pieces.push(new Bishop(6, board[0][5], 'black')); //5
+pieces.push(new Knight(7, board[0][6], 'black')); //6
+pieces.push(new Rook(8, board[0][7], 'black')); //7
+pieces.push(new Pawn(9, board[1][0], 'black')); //8
+pieces.push(new Pawn(10, board[1][1], 'black')); //9
+pieces.push(new Pawn(11, board[1][2], 'black')); //10
+pieces.push(new Pawn(12, board[1][3], 'black')); //11
+pieces.push(new Pawn(13, board[1][4], 'black')); //12
+pieces.push(new Pawn(14, board[1][5], 'black')); //13
+pieces.push(new Pawn(15, board[1][6], 'black')); //14
+pieces.push(new Pawn(16, board[1][7], 'black')); //15
 
-let pawn9 = new Pawn(17, board[6][0], 'white');
-let pawn10 = new Pawn(18, board[6][1], 'white');
-let pawn11 = new Pawn(19, board[6][2], 'white');
-let pawn12 = new Pawn(20, board[6][3], 'white');
-let pawn13 = new Pawn(21, board[6][4], 'white');
-let pawn14 = new Pawn(22, board[6][5], 'white');
-let pawn15 = new Pawn(23, board[6][6], 'white');
-let pawn16 = new Pawn(24, board[6][7], 'white');
-let rook3 = new Rook(25, board[7][0], 'white');
-let knight3 = new Knight(26, board[7][1], 'white');
-let bishop3 = new Bishop(27, board[7][2], 'white');
-let queen2 = new Queen(28, board[7][3], 'white');
-let king2 = new King(29, board[7][4], 'white');
-let bishop4 = new Bishop(30, board[7][5], 'white');
-let knight4 = new Knight(31, board[7][6], 'white');
-let rook4 = new Rook(32, board[7][7], 'white');
+pieces.push(new Pawn(17, board[6][0], 'white')); //16
+pieces.push(new Pawn(18, board[6][1], 'white')); //17
+pieces.push(new Pawn(19, board[6][2], 'white')); //18
+pieces.push(new Pawn(20, board[6][3], 'white')); //19
+pieces.push(new Pawn(21, board[6][4], 'white')); //20
+pieces.push(new Pawn(22, board[6][5], 'white')); //21
+pieces.push(new Pawn(23, board[6][6], 'white')); //22
+pieces.push(new Pawn(24, board[6][7], 'white')); //23
+pieces.push(new Rook(25, board[7][0], 'white')); //24
+pieces.push(new Knight(26, board[7][1], 'white')); //25
+pieces.push(new Bishop(27, board[7][2], 'white')); //26
+pieces.push(new Queen(28, board[7][3], 'white')); //27
+pieces.push(new King(29, board[7][4], 'white')); //28
+pieces.push(new Bishop(30, board[7][5], 'white')); //29
+pieces.push(new Knight(31, board[7][6], 'white')); //30
+pieces.push(new Rook(32, board[7][7], 'white')); //31
 
 
 
+document.onclick = function (event) {
+    console.log(event)
+    let click = event.target;
+    if (click.className === "pawn_black") {
+        for (let i = 8; i < 16; i++) {
+            if (pieces[i].id === click) {
+                pieces[i].advance()
+            }
+
+        }
+    } else if (click.className === "pawn_white") {
+        for (let i = 16; i < 23; i++) {
+            if (pieces[i].id === click) {
+                pieces[i].advance()
+            }
+
+        }
+    }
+}
+
+// document.onclick = function (event) {
+//     //console.log(event)
+
+//     if (event.target == pieces[8].id && pieces[8].moveChecker()) {
+//         pieces[8].advance()
+//     } else if (event.key === 'ArrowLeft') {
+//         x -= TILE;
+//     } else if (event.key === 'ArrowDown') {
+//         y += TILE;
+//     } else if (event.key === 'ArrowUp') {
+//         y -= TILE;
+//     }
+
+//     pieces[8].id.style.left = pieces[8].left + 'px';
+//     pieces[8].id.style.top = pieces[8].top + 'px';
+// }
 
 
