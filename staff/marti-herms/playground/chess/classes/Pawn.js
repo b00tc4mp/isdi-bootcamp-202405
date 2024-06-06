@@ -6,19 +6,53 @@
  */
 
 class Pawn extends Pieces {
-    constructor(id, position, color) {
+    constructor(id, position, name, color) {
         super();
         this.id = document.getElementById(id);
         this.top = position.top;
         this.left = position.left
         this.id.style.top = this.top + PX;
         this.id.style.left = this.left + PX;
+        this.name = name;
         this.color = color;
     }
-}
 
-Pawn.prototype.moveChecker = function () {
-    return this instanceof Pawn;
+    moveChecker() {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (this.top === board[i][j].top && this.left === board[i][j].left) {
+                    // document.getElementById(board[i + 1][j].name).disabled = false;
+                    // document.getElementById(board[i + 1][j].name).style.backgroundColor = "lightblue";
+                    // document.getElementById(board[i + 1][j].name).disabled = true;
+                    // document.getElementById(board[i + 1][j].name).style.backgroundColor = "rgb(50, 50, 50)";
+                    if (this.checkAdvance()) {
+                        document.getElementById(board[i + 1][j].name).disabled = false;
+                        document.getElementById(board[i + 1][j].name).style.backgroundColor = "lightblue";
+                    }
+                }
+            }
+        }
+        //document.getElementById('').disabled = true;
+    }
+
+    checkAdvance() {
+        for (let i = 0; i < pieces.length; i++) {
+            //console.assert(pieces[20].top !== );
+            if ((pieces[i].top === this.top + TILE) && (pieces[i].left === this.left) && (this.name !== pieces[i].name)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    checkKill() {
+
+    }
+
+    checkDash() {
+
+    }
 }
 
 Pawn.prototype.advance = function () {

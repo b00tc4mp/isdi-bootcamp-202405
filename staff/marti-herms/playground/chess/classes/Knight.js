@@ -15,4 +15,8 @@ class Knight extends Pieces {
         this.id.style.left = this.left + PX;
         this.color = color;
     }
+
+    moveChecker(board) {
+
+    }
 }
