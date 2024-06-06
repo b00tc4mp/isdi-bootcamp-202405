@@ -1,3 +1,5 @@
+console.log('TEST POP')
+
 console.log('CASE using POP')
 
 cars.pop()

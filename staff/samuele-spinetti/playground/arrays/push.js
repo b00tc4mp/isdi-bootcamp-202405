@@ -1,3 +1,5 @@
+console.log('TEST PUSH')
+
 console.log('CASE push an element to array')
 
 var cars = new Array

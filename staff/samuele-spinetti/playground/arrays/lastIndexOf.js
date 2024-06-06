@@ -1,3 +1,5 @@
+console.log('TEST LASTINDEXOF')
+
 console.log('CASE lastIndexOf in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']

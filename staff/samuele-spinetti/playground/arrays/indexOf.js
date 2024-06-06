@@ -1,3 +1,5 @@
+console.log('TEST INDEXOF')
+
 console.log('CASE indexOf in array')
 
 var animals = ['ant', 'bison', 'camel', 'duck', 'bison']

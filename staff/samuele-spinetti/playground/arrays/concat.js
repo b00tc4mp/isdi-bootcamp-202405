@@ -1,3 +1,5 @@
+console.log('TEST CONCAT')
+
 console.log('CASE concat elements from two arrays')
 
 var chars1 = ['a', 'b', 'c']

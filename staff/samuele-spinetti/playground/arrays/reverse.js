@@ -1,3 +1,5 @@
+console.log('TEST REVERSE')
+
 console.log('CASE reverse in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']

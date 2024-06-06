@@ -1,3 +1,5 @@
+console.log('TEST ADD/REMOVE')
+
 console.log('TEST arrays')
 
 console.log('CASE add elements to array')

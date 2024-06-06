@@ -1,3 +1,5 @@
+console.log('TEST COPYWITHIN')
+
 console.log('CASE copyWithin in array')
 
 var animals = ['Dodo', 'Tiger', 'Pengui', 'Dodo', 'Elephant']

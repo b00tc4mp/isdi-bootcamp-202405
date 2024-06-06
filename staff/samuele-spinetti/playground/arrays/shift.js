@@ -1,3 +1,5 @@
+console.log('TEST SHIFT')
+
 console.log('CASE shift in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']

@@ -1,3 +1,5 @@
+console.log('TEST JOIN')
+
 console.log('CASE join in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']

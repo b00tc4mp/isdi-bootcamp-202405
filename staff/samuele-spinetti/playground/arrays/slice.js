@@ -1,3 +1,5 @@
+console.log('TEST SLICE')
+
 console.log('CASE slice in array')
 
 var animals = ['ant', 'bison', 'camel', 'duck', 'elephant']

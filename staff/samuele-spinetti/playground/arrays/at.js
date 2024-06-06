@@ -1,3 +1,5 @@
+console.log('TEST AT')
+
 console.log('CASE element at index')
 
 var numeros = [5, 12, 8, 130, 44]
