@@ -5,7 +5,8 @@ console.log('CASE remvoe a section of an object');
 var months = { 0: 'Jan', 1: 'March', 2: 'April', 3: 'June', length: 4 };
 
 months.splice = function (start, deleteCount = this.length, ...item) {
-    console.log(deleteCount)
+    var newObject = { length: 0 }
+
     if (start < 0 && start >= -this.length) {
         start = start + this.length;
     } else if (start < -this.length) {
@@ -13,13 +14,13 @@ months.splice = function (start, deleteCount = this.length, ...item) {
     } else if (start >= this.length) {
         start = this.length;
     } else if (start === undefined) {
-        return [];
+        return newObject;
     }
 
     if (deleteCount < 0 || deleteCount === undefined) {
         deleteCount = 0;
     }
-    var newObject = { length: 0 }
+
     for (var i = start; i < start + deleteCount; i++) {
         newObject[newObject.length++] = this[i];
         for (var j = start; j < this.length; j++) {

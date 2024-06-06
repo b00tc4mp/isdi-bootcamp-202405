@@ -12,6 +12,7 @@ body {
     margin: 0 auto;
     display: grid;
     grid-template: 1fr 50px / 50px 1fr;
+    position: relative;
 }
 
 .left_letters {
@@ -59,28 +60,19 @@ body {
     /* margin: 0 auto; */
     display: grid;
     grid-template: repeat(8, 75px) / repeat(8, 75px);
-}
-
-.left_margin {
-    width: 50px;
-    height: 600px;
-    background-color: rgb(255, 179, 97);
+    position: absolute;
 }
 
 .black_tile {
     width: 75px;
     height: 75px;
     background-color: rgb(50, 50, 50);
-    display: flex
 }
 
 .white_tile {
     width: 75px;
     height: 75px;
     background-color: white;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
 }
 
 
@@ -90,7 +82,7 @@ body {
     height: 75px;
     background-image: url(imagenes/pawn-b.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 .pawn_white {
@@ -98,7 +90,7 @@ body {
     height: 75px;
     background-image: url(imagenes/pawn-w.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 
@@ -108,7 +100,7 @@ body {
     height: 75px;
     background-image: url(imagenes/rook-b.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 .rook_white {
@@ -116,7 +108,7 @@ body {
     height: 75px;
     background-image: url(imagenes/rook-w.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 
@@ -126,7 +118,7 @@ body {
     height: 75px;
     background-image: url(imagenes/knight-b.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 .knight_white {
@@ -134,7 +126,7 @@ body {
     height: 75px;
     background-image: url(imagenes/knight-w.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 
@@ -144,7 +136,7 @@ body {
     height: 75px;
     background-image: url(imagenes/bishop-b.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 .bishop_white {
@@ -152,7 +144,7 @@ body {
     height: 75px;
     background-image: url(imagenes/bishop-w.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 
@@ -162,7 +154,7 @@ body {
     height: 75px;
     background-image: url(imagenes/queen-b.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 .queen_white {
@@ -170,7 +162,7 @@ body {
     height: 75px;
     background-image: url(imagenes/queen-w.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 
@@ -180,7 +172,7 @@ body {
     height: 75px;
     background-image: url(imagenes/king-b.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
 
 .king_white {
@@ -188,5 +180,5 @@ body {
     height: 75px;
     background-image: url(imagenes/king-w.svg);
     background-size: 75px 75px;
-    position: relative;
+    position: absolute;
 }
