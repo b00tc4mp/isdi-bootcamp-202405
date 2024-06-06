@@ -1,8 +1,19 @@
-console.log('CASE forEach from two objects')
+console.log('TEST forEach')
 
-const array1 = { 0: 'a', 1: 'b', 2: 'c', length: 3 };
+console.log('CASE copy chars into new object')
 
-array1.forEach(element)
+var chars = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
+var copy = { length: 0 }
+
+chars.forEach = function (callback) {
+    for (var i = 0; i < this.length; i++) {
+        var elem = this[i]
+
+        callback(elem)
+    }
+}
 
 
-console.log(element);
+chars.forEach(function (element) {
+    copy[copy.length] = element
+})
