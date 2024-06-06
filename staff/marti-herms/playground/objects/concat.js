@@ -53,7 +53,7 @@ nums1.concat = function (...elements) {
     for (var i = 0; i < elements.length; i++) {
         for (var j = 0; j < elements[i].length; j++) {
             var elem = elements[i][j]
-            newObject[j + newObject.length++] = elem;
+            newObject[newObject.length++] = elem;
         }
     }
     return newObject;
