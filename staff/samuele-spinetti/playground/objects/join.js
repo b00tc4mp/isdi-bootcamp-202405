@@ -1,3 +1,5 @@
+console.log('TEST JOIN')
+
 console.log('CASE join in objects')
 
 var animals = { 0: 'Dodo', 1: 'Tiger', 2: 'Penguin', 3: 'Dodo', 4: 'Elephant', length: 5 }

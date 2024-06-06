@@ -1,3 +1,5 @@
+console.log('TEST CONCAT')
+
 console.log('CASE concat elements from two objects')
 
 var chars1 = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
@@ -44,7 +46,7 @@ var nums4 = { 0: 800, 1: 900, length: 2 }
 var nums5 = { 0: -1000, length: 1 }
 
 nums1.concat = function () {
-    // TODO implement me (USE this, arguments)
+
     var newObject = { length: 0 }
 
     for (var i = 0; i < this.length; i++) {

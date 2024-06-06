@@ -1,4 +1,4 @@
-console.log('TEST object')
+console.log('TEST ADD/REMOVE')
 
 console.log('CASE add elements to object')
 

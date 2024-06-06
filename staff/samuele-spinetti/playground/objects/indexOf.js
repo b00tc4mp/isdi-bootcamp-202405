@@ -1,3 +1,5 @@
+console.log('TEST INDEXOF')
+
 console.log('CASE indexOf in object')
 
 var animals = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 }

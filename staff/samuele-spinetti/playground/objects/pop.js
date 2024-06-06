@@ -1,7 +1,9 @@
+console.log('TEST POP')
+
 console.log('CASE pop the last element from array')
 
 cars.pop = function () {
-    // TODO remove element into `this` object (cars)
+
     delete this[this.length - 1]
     this.length -= 1
     return this.length

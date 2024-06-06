@@ -1,3 +1,5 @@
+console.log('TEST PUSH')
+
 console.log('CASE push an element to object')
 
 var cars = new Object
@@ -13,7 +15,7 @@ console.log(cars.length)
 // 3
 
 /*cars.push = function (element) {
-    // TODO add element into `this` object (cars)
+    
     this[3] = element
     this.length += 1
     delete this.push
@@ -21,7 +23,7 @@ console.log(cars.length)
 }*/
 
 cars.push = function (element) {
-    // TODO add element into `this` object (cars)
+
     this[this.length] = element
     this.length++ //no return
 }

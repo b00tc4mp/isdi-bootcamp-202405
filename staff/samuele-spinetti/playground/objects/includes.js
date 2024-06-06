@@ -1,3 +1,5 @@
+console.log('TEST INCLUDES')
+
 /*
 console.log('CASE includes in objects')
 
