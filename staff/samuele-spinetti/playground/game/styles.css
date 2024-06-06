@@ -1,0 +1,24 @@
+body {
+    background-color: black;
+}
+
+#box-1 {
+    width: 100px;
+    height: 100px;
+    background-color: greenyellow;
+    position: absolute;
+}
+
+#box-2 {
+    width: 100px;
+    height: 100px;
+    background-color: yellowgreen;
+    position: absolute;
+}
+
+#box-3 {
+    width: 100px;
+    height: 100px;
+    background-color: yellowgreen;
+    position: absolute;
+}
