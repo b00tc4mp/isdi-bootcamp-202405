@@ -1,6 +1,6 @@
-console.log('TEST Array.prototype.includes')
+console.info('TEST Array.prototype.includes')
 
-console.log('CASE includes in array')
+console.info('CASE includes in array')
 
 var numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -11,7 +11,7 @@ var numeros2 = numeros.includes(50)
 console.assert(numeros1 === true, 'numeros1 includes 6')
 console.assert(numeros2 === false, 'numeros2 do not includes 50')
 
-console.log('TEST array includes color from index')
+console.info('TEST array includes color from index')
 
 var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'skyblue', 'red', 'white', 'black', 'grey']
 

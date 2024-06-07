@@ -1,6 +1,6 @@
-console.log('TEST Array.prototype.join')
+console.info('TEST Array.prototype.join')
 
-console.log('CASE join in array')
+console.info('CASE join in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 
@@ -28,7 +28,7 @@ var animals44 = 'Dodo/Tiger/Penguin/Dodo/Elephant'
 console.assert(animals4 === animals44, 'animals4 is equal to animals44')
 
 
-console.log('CASE join elements with separator $')
+console.info('CASE join elements with separator $')
 
 var things = [true, 'hello world', 100, { name: 'Oswald' }, [10, 20, 30], function () { }]
 

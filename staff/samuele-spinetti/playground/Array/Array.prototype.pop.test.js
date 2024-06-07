@@ -1,6 +1,6 @@
-console.log('TEST Array.prototype.test')
+console.info('TEST Array.prototype.test')
 
-console.log('CASE pop the last element from array')
+console.info('CASE pop the last element from array')
 
 var cars = new Array
 

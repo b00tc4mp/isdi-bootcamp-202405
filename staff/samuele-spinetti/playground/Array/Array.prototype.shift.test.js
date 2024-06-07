@@ -1,6 +1,6 @@
-console.log('TEST Array.prototype.shift')
+console.info('TEST Array.prototype.shift')
 
-console.log('CASE shift in array')
+console.info('CASE shift in array')
 
 var animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Elephant']
 
