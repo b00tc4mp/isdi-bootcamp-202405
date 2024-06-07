@@ -2,7 +2,7 @@ var Curray = require('./Curray')
 
 Curray.prototype.shift = function () {
 
-    var deletedAnimal = this[0]
+    var deleted = this[0]
 
     this.length--
 
@@ -14,5 +14,5 @@ Curray.prototype.shift = function () {
 
     delete this[this.length]
 
-    return deletedAnimal
+    return deleted
 }

@@ -1,21 +1,12 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.concat')
 
-console.log('TEST Curray.prototype.concat')
+console.info('TEST Curray.prototype.concat')
 
-console.log('CASE concat elements from two Currays')
+console.info('CASE concat elements from two Currays')
 
-var chars1 = new Curray
-var chars2 = new Curray
-
-chars1[0] = 'a'
-chars1[1] = 'b'
-chars1[2] = 'c'
-chars2[0] = 'd'
-chars2[1] = 'e'
-chars2[2] = 'f'
-chars1.length = 3
-chars2.length = 3
+var chars1 = new Curray('a', 'b', 'c')
+var chars2 = new Curray('d', 'e', 'f')
 
 var chars3 = chars1.concat(chars2)
 
@@ -30,29 +21,13 @@ console.assert(chars2.length === 3, 'chars2 length is 3')
 console.assert(chars3.length === 6, 'chars3 length is 6')
 
 
-console.log('CASE concat elements from 5 Currays')
+console.info('CASE concat elements from 5 Currays')
 
-var nums1 = new Curray
-var nums2 = new Curray
-var nums3 = new Curray
-var nums4 = new Curray
-var nums5 = new Curray
-
-nums1[0] = 10
-nums1[1] = 20
-nums1[2] = 30
-nums1.length = 3
-nums2[0] = 400
-nums2[1] = 500
-nums2.length = 2
-nums3[0] = -60
-nums3[1] = -70
-nums3.length = 2
-nums4[0] = 800
-nums4[1] = 900
-nums4.length = 2
-nums5[0] = -1000
-nums5.length = 1
+var nums1 = new Curray(10, 20, 30)
+var nums2 = new Curray(400, 500)
+var nums3 = new Curray(-60, -70)
+var nums4 = new Curray(800, 900)
+var nums5 = new Curray(-1000)
 
 var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
 

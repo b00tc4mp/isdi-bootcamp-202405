@@ -1,9 +1,9 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.shift')
 
-console.log('TEST Curray.prototype.shift')
+console.info('TEST Curray.prototype.shift')
 
-console.log('CASE shift in Curray')
+console.info('CASE shift in Curray')
 
 var animals = new Curray
 

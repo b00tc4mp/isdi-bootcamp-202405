@@ -1,9 +1,9 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.includes')
 
-console.log('TEST Curray.prototype.includes')
+console.info('TEST Curray.prototype.includes')
 
-console.log('CASE includes in Curray')
+console.info('CASE includes in Curray')
 
 var numeros = new Curray
 
@@ -26,7 +26,7 @@ var numeros2 = numeros.includes(50)
 console.assert(numeros1 === true, 'numeros1 includes 6')
 console.assert(numeros2 === false, 'numeros2 do not includes 50')
 
-console.log('TEST Curray includes color from index')
+console.info('TEST Curray includes color from index')
 
 var colors = new Curray
 

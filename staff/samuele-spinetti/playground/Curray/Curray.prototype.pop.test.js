@@ -1,9 +1,9 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.pop')
 
-console.log('TEST Curray.prototype.test')
+console.info('TEST Curray.prototype.test')
 
-console.log('CASE pop the last element from Curray')
+console.info('CASE pop the last element from Curray')
 
 var cars = new Curray
 

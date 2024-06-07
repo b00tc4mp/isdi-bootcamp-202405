@@ -1,9 +1,9 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.join')
 
-console.log('TEST Curray.prototype.join')
+console.info('TEST Curray.prototype.join')
 
-console.log('CASE join in Curray')
+console.info('CASE join in Curray')
 
 var animals = new Curray
 
@@ -30,7 +30,7 @@ var animals44 = 'Dodo/Tiger/Penguin/Dodo/Elephant'
 console.assert(animals4 === animals44, 'animals4 is equal to animals44')
 
 
-console.log('CASE join elements with separator $')
+console.info('CASE join elements with separator $')
 
 var things = new Curray
 
