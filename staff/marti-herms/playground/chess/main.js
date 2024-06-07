@@ -1,50 +1,45 @@
-let board = [[A1, A2, A3, A4, A5, A6, A7, A8],
-[B1, B2, B3, B4, B5, B6, B7, B8],
-[C1, C2, C3, C4, C5, C6, C7, C8],
-[D1, D2, D3, D4, D5, D6, D7, D8],
-[E1, E2, E3, E4, E5, E6, E7, E8],
-[F1, F2, F3, F4, F5, F6, F7, F8],
-[G1, G2, G3, G4, G5, G6, G7, G8],
-[H1, H2, H3, H4, H5, H6, H7, H8]];  //Generacion del Board
-
-//Generacion de Piezas
+let board = new Board();
 
 let pieces = [];
 
-pieces.push(new Rook(1, board[0][0], 'black')); //0
-pieces.push(new Knight(2, board[0][1], 'black')); //1
-pieces.push(new Bishop(3, board[0][2], 'black')); //2
-pieces.push(new Queen(4, board[0][3], 'black')); //3
-pieces.push(new King(5, board[0][4], 'black')); //4
-pieces.push(new Bishop(6, board[0][5], 'black')); //5
-pieces.push(new Knight(7, board[0][6], 'black')); //6
-pieces.push(new Rook(8, board[0][7], 'black')); //7
-pieces.push(new Pawn(9, board[1][0], 'pawn1', 'black')); //8
-pieces.push(new Pawn(10, board[1][1], 'pawn2', 'black')); //9
-pieces.push(new Pawn(11, board[1][2], 'pawn3', 'black')); //10
-pieces.push(new Pawn(12, board[1][3], 'pawn4', 'black')); //11
-pieces.push(new Pawn(13, board[1][4], 'pawn5', 'black')); //12
-pieces.push(new Pawn(14, board[1][5], 'pawn6', 'black')); //13
-pieces.push(new Pawn(15, board[1][6], 'pawn7', 'black')); //14
-pieces.push(new Pawn(16, board[1][7], 'pawn8', 'black')); //15
+pieces.push(b_rook1 = new Rook(1, board.A1, 'rook1', 'black')); //0
+pieces.push(b_knight1 = new Knight(2, board.A2, 'knight1', 'black')); //1
+pieces.push(b_bishop1 = new Bishop(3, board.A3, 'bishop1', 'black')); //2
+pieces.push(b_queen = new Queen(4, board.A4, 'queen', 'black')); //3
+pieces.push(b_king = new King(5, board.A5, 'king', 'black')); //4
+pieces.push(b_bishop2 = new Bishop(6, board.A6, 'bishop2', 'black')); //5
+pieces.push(b_knight2 = new Knight(7, board.A7, 'knight2', 'black')); //6
+pieces.push(b_rook2 = new Rook(8, board.A8, 'rook2', 'black')); //7
+pieces.push(b_pawn1 = new Pawn(9, board.B1, 'pawn1', 'black')); //8
+pieces.push(b_pawn2 = new Pawn(10, board.B2, 'pawn2', 'black')); //9
+pieces.push(b_pawn3 = new Pawn(11, board.B3, 'pawn3', 'black')); //10
+pieces.push(b_pawn4 = new Pawn(12, board.B4, 'pawn4', 'black')); //11
+pieces.push(b_pawn5 = new Pawn(13, board.B5, 'pawn5', 'black')); //12
+pieces.push(b_pawn6 = new Pawn(14, board.B6, 'pawn6', 'black')); //13
+pieces.push(b_pawn7 = new Pawn(15, board.B7, 'pawn7', 'black')); //14
+pieces.push(b_pawn8 = new Pawn(16, board.B8, 'pawn8', 'black')); //15
 
-pieces.push(new Pawn(17, board[6][0], 'pawn9', 'white')); //16
-pieces.push(new Pawn(18, board[6][1], 'pawn10', 'white')); //17
-pieces.push(new Pawn(19, board[6][2], 'pawn11', 'white')); //18
-pieces.push(new Pawn(20, board[6][3], 'pawn12', 'white')); //19
-pieces.push(new Pawn(21, board[6][4], 'pawn13', 'white')); //20
-pieces.push(new Pawn(22, board[6][5], 'pawn14', 'white')); //21
-pieces.push(new Pawn(23, board[6][6], 'pawn15', 'white')); //22
-pieces.push(new Pawn(24, board[6][7], 'pawn16', 'white')); //23
-pieces.push(new Rook(25, board[7][0], 'pawn17', 'white')); //24
-pieces.push(new Knight(26, board[7][1], 'white')); //25
-pieces.push(new Bishop(27, board[7][2], 'white')); //26
-pieces.push(new Queen(28, board[7][3], 'white')); //27
-pieces.push(new King(29, board[7][4], 'white')); //28
-pieces.push(new Bishop(30, board[7][5], 'white')); //29
-pieces.push(new Knight(31, board[7][6], 'white')); //30
-pieces.push(new Rook(32, board[7][7], 'white')); //31
+pieces.push(w_pawn1 = new Pawn(17, board.G1, 'pawn9', 'white')); //16
+pieces.push(w_pawn2 = new Pawn(18, board.G2, 'pawn10', 'white')); //17
+pieces.push(w_pawn3 = new Pawn(19, board.G3, 'pawn11', 'white')); //18
+pieces.push(w_pawn4 = new Pawn(20, board.G4, 'pawn12', 'white')); //19
+pieces.push(w_pawn5 = new Pawn(21, board.G5, 'pawn13', 'white')); //20
+pieces.push(w_pawn6 = new Pawn(22, board.G6, 'pawn14', 'white')); //21
+pieces.push(w_pawn7 = new Pawn(23, board.G7, 'pawn15', 'white')); //22
+pieces.push(w_pawn8 = new Pawn(24, board.G8, 'pawn16', 'white')); //23
+pieces.push(w_rook1 = new Rook(25, board.H1, 'rook1', 'pawn17', 'white')); //24
+pieces.push(w_knight1 = new Knight(26, board.H2, 'knight1', 'white')); //25
+pieces.push(w_bishop1 = new Bishop(27, board.H3, 'bishop1', 'white')); //26
+pieces.push(w_queen = new Queen(28, board.H4, 'queen', 'white')); //27
+pieces.push(w_king = new King(29, board.H5, 'king', 'white')); //28
+pieces.push(w_bishop2 = new Bishop(30, board.H6, 'bishop2', 'white')); //29
+pieces.push(w_knight2 = new Knight(31, board.H7, 'knight2', 'white')); //30
+pieces.push(w_rook2 = new Rook(32, board.H8, 'rook2', 'white')); //31
 
+
+
+board.updateBoard();
+console.log(board)
 
 
 document.onclick = function (event) {   //Evalua cada click
@@ -56,13 +51,14 @@ document.onclick = function (event) {   //Evalua cada click
         for (let i = 8; i < 16; i++) {
             if (pieces[i].id === click) {
                 pieces[i].moveChecker();
+
             }
 
         }
     } else if (click.className === "pawn_white") {
         for (let i = 16; i < 24; i++) {
             if (pieces[i].id === click) {
-                pieces[i].advance()
+                pieces[i].moveChecker();
             }
 
         }

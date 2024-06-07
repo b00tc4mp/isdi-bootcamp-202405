@@ -11,6 +11,7 @@ class Pawn extends Pieces {
         this.id = document.getElementById(id);
         this.top = position.top;
         this.left = position.left
+        this.position = position.name;
         this.id.style.top = this.top + PX;
         this.id.style.left = this.left + PX;
         this.name = name;
@@ -18,32 +19,58 @@ class Pawn extends Pieces {
     }
 
     moveChecker() {
-        for (let i = 0; i < board.length; i++) {
-            for (let j = 0; j < board[i].length; j++) {
-                if (this.top === board[i][j].top && this.left === board[i][j].left) {
-                    // document.getElementById(board[i + 1][j].name).disabled = false;
-                    // document.getElementById(board[i + 1][j].name).style.backgroundColor = "lightblue";
-                    // document.getElementById(board[i + 1][j].name).disabled = true;
-                    // document.getElementById(board[i + 1][j].name).style.backgroundColor = "rgb(50, 50, 50)";
-                    if (this.checkAdvance()) {
-                        document.getElementById(board[i + 1][j].name).disabled = false;
-                        document.getElementById(board[i + 1][j].name).style.backgroundColor = "lightblue";
+        for (const key in board) {
+            if (board[key].piece == this) {
+                let name = '';
+                if (this.color === 'black') {
+                    name = String.fromCharCode(this.position.charCodeAt(0) + 1) + this.position.charAt(1);
+                    if (this.checkAdvance(name)) {
+                        this.moveSelector();
+                    }
+                } else if (this.color === 'white') {
+                    name = String.fromCharCode(this.position.charCodeAt(0) - 1) + this.position.charAt(1);
+                    if (this.checkAdvance(name)) {
+                        this.moveSelector();
                     }
                 }
             }
         }
-        //document.getElementById('').disabled = true;
     }
 
-    checkAdvance() {
-        for (let i = 0; i < pieces.length; i++) {
-            //console.assert(pieces[20].top !== );
-            if ((pieces[i].top === this.top + TILE) && (pieces[i].left === this.left) && (this.name !== pieces[i].name)) {
-                return false;
-            } else {
-                return true;
+    moveSelector() {
+        document.addEventListener('click', handler, true);
+
+        function handler(e) {
+            if (e.target.localName !== 'input') {
+                e.stopPropagation();
             }
         }
+
+        document.addEventListener('click', updatePiece, { once: true });
+        let piece = this;
+        function updatePiece(e) {
+            if (e.target.localName === 'input') {
+                piece.advance();
+                document.removeEventListener('click', handler, true);
+                document.getElementById(piece.position).disabled = true;
+                if (e.target.className === "black_tile") {
+                    document.getElementById(piece.position).style.backgroundColor = "rgb(50, 50, 50)";
+                } else if (e.target.className === "white_tile") {
+                    document.getElementById(piece.position).style.backgroundColor = "white";
+                }
+                return false;
+            }
+            return true;
+        }
+    }
+
+    checkAdvance(name) {
+        if (board[name].occupancy === true) {
+            return false;
+        }
+        document.getElementById(name).disabled = false;
+        document.getElementById(name).style.backgroundColor = "lightblue";
+        return true;
     }
 
     checkKill() {
@@ -57,20 +84,17 @@ class Pawn extends Pieces {
 
 Pawn.prototype.advance = function () {
     if (this.color === 'black') {
-        this.top += TILE;
+        this.position = String.fromCharCode(this.position.charCodeAt(0) + 1) + this.position.charAt(1);
     } else if (this.color === 'white') {
-        this.top -= TILE;
+        this.position = String.fromCharCode(this.position.charCodeAt(0) - 1) + this.position.charAt(1);
     }
-    this.id.style.top = this.top + PX;
-}
 
-Pawn.prototype.dash = function () {
-    if (this.color === 'black') {
-        this.top += 2 * TILE;
-    } else if (this.color === 'white') {
-        this.top -= 2 * TILE;
-    }
+
+    this.top = board[this.position].top;
+    this.left = board[this.position].left;
+
     this.id.style.top = this.top + PX;
+    this.id.style.left = this.left + PX;
 }
 
 Pawn.prototype.kill_r = function () {
@@ -100,31 +124,3 @@ Pawn.prototype.kill_l = function () {
 Pawn.prototype.evolution = function () {
 
 }
-
-
-
-//pawn1 = Pawn('9', 'B1', 'black')
-
-// pawn1 = document.getElementById('1');
-// let x = 0;
-// let y = 0;
-
-// pawn1.style.left = x + PX;
-// pawn1.style.top = y + PX;
-
-// document.onkeydown = function (event) {
-//     // console.log(event.key)
-
-//     if (event.key === 'ArrowRight') {
-//         x += TILE_STEP;
-//     } else if (event.key === 'ArrowLeft') {
-//         x -= TILE_STEP;
-//     } else if (event.key === 'ArrowDown') {
-//         y += TILE_STEP;
-//     } else if (event.key === 'ArrowUp') {
-//         y -= TILE_STEP;
-//     }
-
-//     pawn1.style.left = x + 'px';
-//     pawn1.style.top = y + 'px';
-// }
