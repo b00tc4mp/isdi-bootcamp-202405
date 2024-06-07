@@ -1,6 +1,6 @@
-console.log('TEST push')
+console.info('TEST push')
 
-console.log('CASE push an element to array')
+console.info('CASE push an element to array')
 
 var cars = new Array
 
@@ -16,7 +16,7 @@ console.assert(cars[3] === newCar, 'cars at 4 is newCar')
 console.assert(cars.length === 4, 'cars length is 4')
 console.assert(count === 4, 'count is 4')
 
-console.log('CASE push multiple elements to array')
+console.info('CASE push multiple elements to array')
 
 var animals = ['pigs', 'goats', 'sheep', 'cows']
 
