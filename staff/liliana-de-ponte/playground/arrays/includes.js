@@ -1,4 +1,3 @@
-// TODO implement case for includes
 console.log('CASE array includes nums')
 
 var nums = [10, 20, 30, 40];

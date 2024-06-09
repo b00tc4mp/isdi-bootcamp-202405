@@ -52,12 +52,13 @@ Curray.prototype.splice = function (fromIndex, removeCount, element) {
 
         // this -> Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'strawberry', 6: 'pinapple', 7: 'peach', 8: 'acai', 9: 'papaya', length: 10 }
 
-        //     this[5] = this[7] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'pinapple', 7: 'peach', 8: 'acai', 9: 'papaya', length: 10 }
-        // this[6] = this[8] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'acai', 7: 'peach', 8: 'acai', 9: 'papaya', length: 10 }
-        // this[7] = this[9] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'acai', 7: 'papaya', 8: 'acai', 9: 'papaya', length: 10 }
+        // this[5] = this[6] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'pinapple', 6: 'pinapple', 7: 'peach', 8: 'acai', 9: 'papaya', length: 10 }
+        // this[6] = this[7] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'pinapple', 6: 'peach', 7: 'peach', 8: 'acai', 9: 'papaya', length: 10 }
+        // this[7] = this[8] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'pinapple', 6: 'peach', 7: 'acai', 8: 'acai', 9: 'papaya', length: 10 }
+        // this[8] = this[9] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'pinapple', 6: 'peach', 7: 'acai', 8:  'papaya', 9: 'papaya', length: 10 }
 
-        // delete this[8] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'acai', 7: 'papaya', 9: 'papaya', length: 10 }
-        // delete this[9] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'acai', 7: 'papaya', length: 10 }
+        // delete this[5] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'acai', 7:  'papaya', 8: 'papaya', length: 10 }
+        // delete this[8] // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'peach', 6: 'acai', 7: 'papaya', length: 10 }
 
         // this[fromIndex] = element // Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'watermelon', 5: 'peach', 6: 'acai', 7: 'papaya', length: 10 }
         // this.length = 8 //// Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'watermelon', 5: 'peach', 6: 'acai', 7: 'papaya', length: 8 }

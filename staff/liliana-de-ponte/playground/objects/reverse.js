@@ -10,7 +10,6 @@ console.log(nums)
 console.log(nums.length)
 //3
 
-//funciona pero no se detiene verlo por --inspect
 nums.reverse = function () {
     var tmp;
     for (var i = 0; i < this.length - i; i++) {

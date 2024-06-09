@@ -68,7 +68,7 @@ amounts.forEach(function (amount, index, amounts) {
     results[index] = amount / total * 100
 })
 
-console.log(results)
+console.log(results.length === amounts.length, 'results length equals amounts lengths')
 
 console.assert(results[0]) === 3.698224852071006, 'results at 0 is  3.698224852071006'
 console.assert(results[1]) === 1.849112426035503, 'results at 0 is 1.849112426035503'
