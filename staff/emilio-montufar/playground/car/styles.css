@@ -1,0 +1,62 @@
+.car {
+    width: 500px;
+    height: 400px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.upper {
+    display: flex;
+    width: 500px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
+    align-items: flex-end;
+}
+.middle{
+    display: flex;
+    width: 500px;
+    height: 75px;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
+}
+.lower{
+    display: flex;
+    width: 500px;
+    height: 10px;
+    background-color: #ffffff;
+    justify-content: center;
+    justify-content: space-around;
+}
+.bottom{
+    display: flex;
+    width: 400px;
+    height: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+}
+.body{
+    display: flex;
+    width: 300px;
+    height: 75px;
+    background-color: gray;
+    border: 2px solid black;
+}
+.wheels{
+    display: flex;
+    width: 75px;
+    height: 75px;
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+.body1{
+    display: flex;
+    width: 230px;
+    height: 75px;
+    background-color: gray;
+    border: 2px solid black;
+}
