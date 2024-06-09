@@ -1,8 +1,14 @@
-console.log("CASE lastindexOF from array")
-var pets = ['dog', 'cat', 'bird', 'bird', 'turtle', 'snake']
+console.log('TEST lastIndexOf')
+console.log('CASE Method lastIndexOf')
 
-var lastindex = pets.lastindexOF('bird')
-console.log(lastindex)
+var cities = ['madrid', 'barcelona', 'leon', 'madrid']
 
-var lastindex = pets.lastindexOF('elephant')
-console.log(lastindex)
+console.log(cities.lastIndexOf('madrid'))
+//3
+console.log(cities.lastIndexOf('navarra'))
+// -1
+console.log(cities.lastIndexOf('leon'))
+//2
+console.log(cities.lastIndexOf('madrid', 3))
+// 3
+console.log(cities.lastIndexOf('barcelona', -3))
