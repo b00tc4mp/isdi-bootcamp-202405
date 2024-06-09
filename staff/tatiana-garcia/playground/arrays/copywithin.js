@@ -1,13 +1,26 @@
-console.log('TEST copyWithin')
-console.log('CASE copywithin arrays')
+console.info('TEST copyWithin')
+console.info('CASE copywithin with three items in arrays')
 
 
-var array1 = ['a', 'b', 'c', 'd', 'e'];
+var letters = ['a', 'b', 'c', 'd', 'e'];
 
-// Copy to index 0 the element at index 3
-console.log(array1.copyWithin(0, 3, 4));
-// Expected output: Array ["d", "b", "c", "d", "e"]
 
-// Copy to index 1 all elements from index 3 to the end
-console.log(array1.copyWithin(1, 3));
-// Expected output: Array ["d", "d", "e", "d", "e"]
+var copyLetters = (letters.copyWithin(0, 3, 4));
+
+console.assert(letters.length === 5, 'letters length is 5')
+console.assert(letters[0] === 'd', 'letters at 0 is d')
+console.assert(letters[1] === 'b', 'letters at 1 is b')
+console.assert(letters[2] === 'c', 'letters at 2 is c')
+console.assert(letters[3] === 'd', 'letters at 3 is d')
+console.assert(letters[4] === 'e', 'letters at 4 is e')
+
+console.info('CASE copywithin with two items of arrays')
+
+var copyLetters = (letters.copyWithin(1, 3));
+
+console.assert(letters.length === 5, 'letters length is 5')
+console.assert(letters[0] === 'd', 'letters at 0 is d')
+console.assert(letters[1] === 'd', 'letters at 1 is d')
+console.assert(letters[2] === 'e', 'letters at 2 is e')
+console.assert(letters[3] === 'd', 'letters at 3 is d')
+console.assert(letters[4] === 'e', 'letters at 4 is e')

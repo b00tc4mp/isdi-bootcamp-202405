@@ -1,22 +1,33 @@
-console.log('TEST some')
+console.info('TEST some')
 
-console.log('CASE method.some()')
+console.info('CASE the result of some item of array is true')
 
 var nums = [1, 2, 3, 4, 5];
+console.assert(nums instanceof Array, 'nums is an array')
 
-// Checks whether an element is even
+
 var even = function (element) {
 
     return element % 2 === 0;
 
+
 }
 
-console.log(nums.some(even));
-//true
+var numsEven = nums.some(even)
+console.assert(numsEven === true, 'at least one number in the array is even')
 
-console.log(nums.some(function (number) {
 
-    return number > 10
-}));
-//false
+console.info('CASE the result of some item of array is false')
+
+var nums = [1, 2, 3, 4, 5];
+
+var even = function (element) {
+
+    return element > 10;
+
+
+}
+
+var numsEven = nums.some(even)
+console.assert(numsEven === false, ' No one number in the array is greater than 10')
 

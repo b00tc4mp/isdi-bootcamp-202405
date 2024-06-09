@@ -1,6 +1,6 @@
-console.log("TEST arrays");
+console.info("TEST arrays");
 
-console.log('CASE add elemtents to array')
+console.info('CASE add elemtents to array')
 
 var a = new Array
 
@@ -8,13 +8,13 @@ a[0] = 10
 a[1] = 20
 a[2] = 30
 
-console.log(a);
+console.info(a);
 // [10, 20, 3]
 
-console.log(a.length)
+console.info(a.length)
 // 3
 //-----------------------------------------------------------
-console.log('CASE remove last element from array')
+console.info('CASE remove last element from array')
 
 var a = new Array
 
@@ -22,24 +22,24 @@ a[0] = 10
 a[1] = 20
 a[2] = 30
 
-console.log(a);
+console.info(a);
 // [10, 20, 30]
-console.log(a.length)
+console.info(a.length)
 // 3
 
 a.length = a.length - 1
 
-console.log(a)
+console.info(a)
 // [10, 20]
-console.log(a.length)
+console.info(a.length)
 // 2
 
 a.length--
 
-console.log(a.length)
+console.info(a.length)
 // 1
 //----------------------------------------------------------
-console.log('CASE remove last 2 elements from array')
+console.info('CASE remove last 2 elements from array')
 
 var colors = new Array
 
@@ -48,15 +48,15 @@ colors[1] = 'green'
 colors[2] = 'blue'
 colors[3] = 'yellow'
 
-console.log(colors)
+console.info(colors)
 // ['red', 'green', 'blue', 'yellow']
 
-console.log(colors.length)
+console.info(colors.length)
 // 4
 
 colors.length -= 2
-console.log(colors)
+console.info(colors)
 // ['red', 'green']
 
-console.log(colors.length)
+console.info(colors.length)
 // 2

@@ -1,22 +1,23 @@
-console.log('TEST includes')
+console.info('TEST includes')
 
-console.log('CASE array includes pokemonNames')
+console.info('CASE array includes pokemonNames')
 
 var pokemonName = ['eevee', 'pikachu', 'bulbasur']
 
-console.log(pokemonName.includes('eevee'))
-//true
-console.log(pokemonName.includes(8))
-//false
+var pokemon1 = pokemonName.includes('eevee')
+var pokemon2 = pokemonName.includes(8)
 
-console.log('TEST arrays includes colors from index')
+console.assert(pokemon1 === true, 'pokemon1 included eevee')
+console.assert(pokemon2 === false, 'pokemon1 does not included number 8')
+
+console.info('CASE includes colors from index')
 
 var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'skyblue', 'white', 'red', 'black', 'grey']
 
 var included = colors.includes('red', 4)
-console.log(included)
-//true
 
-var included = colors.includes('red', 8)
-console.log(included)
-//false
+console.assert(included === true, 'included includes red')
+
+var included = colors.includes('red', 10)
+
+console.assert(included === false, 'included does not include red')

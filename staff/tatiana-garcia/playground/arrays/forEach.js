@@ -1,5 +1,5 @@
-console.log('TEST forEach')
-console.log('CASE copy cahars into new array')
+console.info('TEST forEach')
+console.info('CASE copy cahars into new array')
 
 var chars = ['a', 'b', 'c'];
 var copy = []
@@ -15,9 +15,9 @@ console.assert(copy[0] === chars[0], 'copy at 0 equals chars al 0')
 console.assert(copy[1] === chars[1], 'copy at 1 equals chars al 1')
 console.assert(copy[2] === chars[2], 'copy at 1 equals chars al 2')
 
-console.log('TEST forEach')
+console.info('TEST forEach')
 
-console.log('CASE copy cahars with index and self-reference into new array')
+console.info('CASE copy cahars with index and self-reference into new array')
 
 var chars = ['a', 'b', 'c'];
 var copy = []
@@ -45,7 +45,7 @@ console.assert(copy[2].element === chars[2], 'copy element at 2 equals chars al 
 console.assert(copy[2].index === 2, 'copy index at 2 equals chars al 2')
 console.assert(copy[2].array === chars, 'copy array at 2 equals chars al 2')
 
-console.log('CASE calculate percentages')
+console.info('CASE calculate percentages')
 
 var amounts = [100, 50, 4, 450, 100, 2000]
 var results = []
