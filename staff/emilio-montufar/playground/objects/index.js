@@ -371,4 +371,4 @@ var index = animals.indexOf('pigs')
 
 var index = animals.indexOf('elephant')
 
-var index =
+

@@ -1,41 +1,56 @@
-console.log('CASE element at index')
+console.log('TEST includes')
 
-var nums = { 0: 5, 1: 12, 2: 8, 3: 130, 4: 44, length: 5 }
+console.log('CASE object includes pokemonNames')
 
-console.log(nums)
-// [5, 12, 8, 130, 44]
-console.log(nums.length)
-// 5
+var pokemonName = { 0: 'eevee', 1: 'pikachu', 2: 'bulbasur', length: 3 }
 
-nums.at = function (index) {
-    //if (index >= 0)
-    if (index > -1)
-        return this[index]
-    else
-        return this[this.length + index]
+pokemonName.includes = function (item) {
+
+    for (var index = 0; index < this.length; index++) {
+
+        if (item === this[index]) {
+
+            return true
+        }
+    }
+
+    return false
 }
 
-var num = nums.at(3)
+console.log(pokemonName.includes(3))
+//false
+console.log(pokemonName.includes('bulbasur'))
+//true
 
-console.log(num)
-// 130
+console.log('TEST objects includes colors from index')
 
-var num = nums.at(0)
+var colors = { 0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', 4: 'orange', 5: 'pink', 6: 'skyblue', 7: 'white', 8: 'red', 9: 'black', 10: 'grey', length: 11 }
 
-console.log(num)
-// 5
+colors.includes = function (item, index) {
 
-var num = nums.at(-3)
+    if (index === undefined) {
 
-console.log(num)
-// 8
+        index = 0
+    } else if (index < 0) {
 
-var num = nums.at(100)
+        index = this.length + index // si el indice tiene un menos delante al sumarlo se resta
+    }
 
-console.log(num)
-// undefined
+    for (var i = index; i < this.length; i++) {
 
-var num = nums.at(-100)
+        if (item === this[i]) {
 
-console.log(num)
-// undefined
+            return true
+        }
+    }
+
+    return false
+}
+
+var included = colors.includes('red', 4)
+console.log(included)
+//true
+
+var included = colors.includes('red', 8)
+console.log(included)
+//false 
