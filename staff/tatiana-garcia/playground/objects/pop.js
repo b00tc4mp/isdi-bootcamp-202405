@@ -1,5 +1,5 @@
-console.log('TEST pop')
-console.log('CASE pop the last element from object')
+console.info('TEST pop')
+console.info('CASE pop the last element from object')
 
 var cars = new Object
 
@@ -8,9 +8,9 @@ cars[1] = { brand: 'lamborghini', model: 'murcielago', year: 2010 }
 cars[2] = { brand: 'fiat', model: '500', year: 2017 }
 cars.length = 3
 
-console.log(cars)
+console.info(cars)
 // { 0: {...}, 1: {...}, 2: {...}, length: 3 }
-console.log(cars.length)
+console.info(cars.length)
 // 3
 
 cars.pop = function () {
@@ -24,10 +24,10 @@ cars.pop = function () {
 
 var last = cars.pop()
 
-console.log(cars)
+console.info(cars)
 // [{...}, {...}]
-console.log(cars.length)
+console.info(cars.length)
 // 2
 
-console.log(last)
+console.info(last)
 // { brand: 'fiat', model: '500', year: 2017 }

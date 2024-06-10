@@ -1,7 +1,7 @@
 
-console.log('TEST shift')
+console.info('TEST shift')
 
-console.log('CASE shift first element from objects')
+console.info('CASE shift first element from objects')
 
 var names = { 0: 'laura', 1: 'juan', 2: 'nuria', 3: 'jose', 4: 'jesus', length: 5 }
 
@@ -21,7 +21,7 @@ names.shift = function () {
     return deletedName
 }
 
-console.log(names.shift())
+console.info(names.shift())
 // 'laura'
-console.log(names)
+console.info(names)
 // {0: 'juan', 1: 'nuria', 2: 'jose', 3: 'jesus', length: 4}

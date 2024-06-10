@@ -1,12 +1,12 @@
-console.log('TEST at')
+console.info('TEST at')
 
-console.log('CASE element at index')
+console.info('CASE element at index')
 
 var nums = { 0: 5, 1: 12, 2: 8, 3: 130, 4: 44, length: 5 }
 
-console.log(nums)
+console.info(nums)
 // [5, 12, 8, 130, 44]
-console.log(nums.length)
+console.info(nums.length)
 // 5
 
 nums.at = function (index) {
@@ -19,25 +19,25 @@ nums.at = function (index) {
 
 var num = nums.at(3)
 
-console.log(num)
+console.info(num)
 // 130
 
 var num = nums.at(0)
 
-console.log(num)
+console.info(num)
 // 5
 
 var num = nums.at(-3)
 
-console.log(num)
+console.info(num)
 // 8
 
 var num = nums.at(100)
 
-console.log(num)
+console.info(num)
 // undefined
 
 var num = nums.at(-100)
 
-console.log(num)
+console.info(num)
 // undefined

@@ -1,6 +1,6 @@
-console.log('TEST includes')
+console.info('TEST includes')
 
-console.log('CASE object includes pokemonNames')
+console.info('CASE object includes pokemonNames')
 
 var pokemonName = { 0: 'eevee', 1: 'pikachu', 2: 'bulbasur', length: 3 }
 
@@ -17,12 +17,12 @@ pokemonName.includes = function (item) {
     return false
 }
 
-console.log(pokemonName.includes(3))
+console.info(pokemonName.includes(3))
 //false
-console.log(pokemonName.includes('bulbasur'))
+console.info(pokemonName.includes('bulbasur'))
 //true
 
-console.log('TEST objects includes colors from index')
+console.info('TEST objects includes colors from index')
 
 var colors = { 0: 'red', 1: 'green', 2: 'blue', 3: 'yellow', 4: 'orange', 5: 'pink', 6: 'skyblue', 7: 'white', 8: 'red', 9: 'black', 10: 'grey', length: 11 }
 
@@ -48,9 +48,9 @@ colors.includes = function (item, index) {
 }
 
 var included = colors.includes('red', 4)
-console.log(included)
+console.info(included)
 //true
 
 var included = colors.includes('red', 8)
-console.log(included)
+console.info(included)
 //false

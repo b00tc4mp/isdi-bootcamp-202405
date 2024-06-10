@@ -1,6 +1,6 @@
-console.log('TEST push')
+console.info('TEST push')
 
-console.log('CASE push an element to object')
+console.info('CASE push an element to object')
 
 var cars = new Object
 
@@ -9,9 +9,9 @@ cars[1] = { brand: 'lamborgini', model: 'murcielago', year: 2010 }
 cars[2] = { brand: 'fiat', model: '500', year: 2017 }
 cars.length = 3
 
-console.log(cars)
+console.info(cars)
 // {0: {...}, 1: {...}, 2:{...}, length: 3}
-console.log(cars.length)
+console.info(cars.length)
 // 3
 
 cars.push = function (element) {
@@ -26,22 +26,22 @@ cars.push = function (element) {
 //var count = cars.push({ brand: 'ford', model: 'fiesta', year: 2005 })
 var count = cars['push']({ brand: 'ford', model: 'fiesta', year: 2005 })
 
-console.log(cars)
+console.info(cars)
 // { 0: {...}, 1: {...}, 2: {...}, 3: {...}, length: 4 }
-console.log(cars.length)
+console.info(cars.length)
 // 4
-console.log(count)
+console.info(count)
 // 4
 
 //-------------------------------------------------------------------------------------
 
-console.log('CASE push multiple elements to object')
+console.info('CASE push multiple elements to object')
 
 var animals = { 0: 'pigs', 1: 'goats', 2: 'sheep', 3: 'cows', length: 4 }
 
-console.log(animals)
+console.info(animals)
 // ['pigs', 'goats', 'sheep', 'cows']
-console.log(animals.length)
+console.info(animals.length)
 // 4
 
 // animals.push = function (element1, element2, element3) {
@@ -64,9 +64,9 @@ animals.push = function () {
 
 var count = animals.push('chickens', 'cats', 'dogs')
 
-console.log(animals)
+console.info(animals)
 // { 0: 'pigs', 1: 'goats', 2: 'sheep', 3: 'cows', 4: 'chickens', 5: 'cats', 6: 'dogs', length: 7 }
-console.log(animals.length)
+console.info(animals.length)
 // 7
-console.log(count)
+console.info(count)
 // 7

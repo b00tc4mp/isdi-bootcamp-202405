@@ -1,6 +1,6 @@
-console.log('TEST copyWithin')
+console.info('TEST copyWithin')
 
-console.log('CASE copyWithin from objects')
+console.info('CASE copyWithin from objects')
 
 var letters = { 0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', length: 5 };
 
@@ -57,8 +57,8 @@ letters.copyWithin = function (target, start, end) {
 
 
 
-console.log(letters.copyWithin(0, 3, 4));
+console.info(letters.copyWithin(0, 3, 4));
 //{"d", "b", "c", "d", "e"}
 
-console.log(letters.copyWithin(1, 3));
+console.info(letters.copyWithin(1, 3));
 //{"d", "d", "e", "d", "e"} 

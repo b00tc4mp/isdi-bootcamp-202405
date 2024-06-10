@@ -1,6 +1,6 @@
-console.log('TEST join')
+console.info('TEST join')
 
-console.log('CASE join elements from objects')
+console.info('CASE join elements from objects')
 
 var trees = { 0: 'palm', 1: 'cedar', 2: 'oak', length: 3 }
 
@@ -27,9 +27,9 @@ trees.join = function (separator) {
     return result;
 }
 
-console.log(trees.join('-'))
+console.info(trees.join('-'))
 // 'palm-cedar-oak'
-console.log(trees.join())
+console.info(trees.join())
 //'palm,cedar,oak
-console.log(trees.join(''))
+console.info(trees.join(''))
 //'palmcedaroak'

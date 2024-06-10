@@ -1,13 +1,13 @@
-console.log('TEST concat')
+console.info('TEST concat')
 
-console.log('CASE concat elements from two objects')
+console.info('CASE concat elements from two objects')
 
 var chars1 = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
 var chars2 = { 0: 'd', 1: 'e', 2: 'f', length: 3 }
 
-console.log(chars1)
+console.info(chars1)
 // { 0: 'a', 1: 'b', 2: 'c', length: 3 }
-console.log(chars2)
+console.info(chars2)
 // { 0: 'd', 1: 'e', 2: 'f', length: 3 }
 
 chars1.concat = function () {
@@ -39,16 +39,16 @@ chars1.concat = function () {
 
 var chars3 = chars1.concat(chars2)
 
-console.log(chars1)
+console.info(chars1)
 // { 0: 'a', 1: 'b', 2: 'c', length: 3 }
-console.log(chars2)
+console.info(chars2)
 // { 0: 'd', 1: 'e', 2: 'f', length: 3 }
-console.log(chars3)
+console.info(chars3)
 // { 0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', length: 6 }
 
 //-------------------------------------------------------------------------------------
 
-console.log('CASE concat elements from 5 objects')
+console.info('CASE concat elements from 5 objects')
 
 var nums1 = { 0: 10, 1: 20, 2: 30, length: 3 }
 var nums2 = { 0: 400, 1: 500, length: 2 }
@@ -86,16 +86,16 @@ nums1.concat = function () {
 
 var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
 
-console.log(nums1)
+console.info(nums1)
 // { 0: 10, 1: 20, 2: 30, length: 3 }
-console.log(nums2)
+console.info(nums2)
 // { 0: 400, 1: 500, length: 2 }
-console.log(nums3)
+console.info(nums3)
 // { 0: -60, 1: -70, length: 2 }
-console.log(nums4)
+console.info(nums4)
 // { 0: 800, 1: 900, length: 2 }
-console.log(nums5)
+console.info(nums5)
 // { 0: -1000, length: 1 }
 
-console.log(nums6)
+console.info(nums6)
 // { 0: 10, 1: 20, 2: 30, 3: 400, 4: 500, 5: -60, 6: -70, 7: 800, 8: 900, 9: -1000, length: 10 }

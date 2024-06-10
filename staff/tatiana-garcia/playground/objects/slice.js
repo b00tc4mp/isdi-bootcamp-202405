@@ -1,7 +1,7 @@
 
-console.log('TEST slice')
+console.info('TEST slice')
 
-console.log('CASE Method.slice()')
+console.info('CASE Method.slice()')
 
 var metalBands = { 0: 'iron maiden', 1: 'metallica', 2: 'stratovarius', 3: 'helloween', 4: 'scorpions', length: 5 }
 
@@ -38,9 +38,9 @@ metalBands.slice = function (item1, item2) {
 
 }
 
-console.log(metalBands.slice(2))
+console.info(metalBands.slice(2))
 //['stratovarius', 'helloween', 'scorpions']
-console.log(metalBands.slice(1, 3))
+console.info(metalBands.slice(1, 3))
 // ['metallica', 'stratovarius']
-console.log(metalBands.slice(-1))
+console.info(metalBands.slice(-1))
 //{ '0': 'scorpions', length: 1 }

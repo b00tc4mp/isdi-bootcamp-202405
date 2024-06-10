@@ -1,19 +1,10 @@
 var Curray = require('./Curray')
 
-Curray.prototype.forEach = function (callbackFunction) {
+Curray.prototype.forEach = function (callback) {
 
     for (var i = 0; i < this.length; i++) {
-
         var elem = this[i]
 
-        callbackFunction(elem)
+        callback(elem, i, this)
     }
-
-
-}
-
-// Curray.prototype.forEach(function (element) {
-
-//     copy[copy.length++] = element
-// })
-
+};

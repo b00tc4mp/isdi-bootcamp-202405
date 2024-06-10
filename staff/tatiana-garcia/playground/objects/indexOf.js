@@ -1,10 +1,10 @@
-console.log('TEST indexOf')
+console.info('TEST indexOf')
 
-console.log('CASE index of animal in object')
+console.info('CASE index of animal in object')
 
 var beasts = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 }
 
-console.log(beasts)
+console.info(beasts)
 // { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 }
 
 beasts.indexOf = function (element) {
@@ -40,29 +40,29 @@ beasts.indexOf = function (element) {
 
 var index = beasts.indexOf('camel')
 
-console.log(index)
+console.info(index)
 // 2
 console.assert(index === 2, 'index is 2')
 
 var index = beasts.indexOf('bison')
 
-console.log(index)
+console.info(index)
 // 1
 console.assert(index === 1, 'index is 1')
 
 var index = beasts.indexOf('elephant')
 
-console.log(index)
+console.info(index)
 // -1
 console.assert(index === -1, 'index is -1')
 
 //-------------------------------------------------------------------------------
 
-console.log('CASE index of animal in array from index')
+console.info('CASE index of animal in array from index')
 
 var beasts = { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 }
 
-console.log(beasts)
+console.info(beasts)
 // { 0: 'ant', 1: 'bison', 2: 'camel', 3: 'duck', 4: 'bison', length: 5 }
 
 beasts.indexOf = function (element, index) {
@@ -89,30 +89,30 @@ beasts.indexOf = function (element, index) {
 
 var index = beasts.indexOf('bison', 3)
 
-console.log(index)
+console.info(index)
 // 4
 console.assert(index === 4, 'index is 4')
 
 var index = beasts.indexOf('duck', -4)
 
-console.log(index)
+console.info(index)
 // 3
 console.assert(index === 3, 'index is 3')
 
 var index = beasts.indexOf('duck', -1)
 
-console.log(index)
+console.info(index)
 // -1
 console.assert(index === -1, 'index is -1')
 
 var index = beasts.indexOf('duck', -100)
 
-console.log(index)
+console.info(index)
 // 3
 console.assert(index === 3, 'index is 3')
 
 var index = beasts.indexOf('bison')
 
-console.log(index)
+console.info(index)
 // 1
 console.assert(index === 1, 'index is 1')

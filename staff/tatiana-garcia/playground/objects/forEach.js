@@ -1,5 +1,5 @@
-console.log('TEST for each')
-console.log('CASE copy cahars into new objects')
+console.info('TEST for each')
+console.info('CASE copy cahars into new objects')
 
 var numbers = { 0: '1', 1: '2', 2: '3', length: 3 };
 var copy = { length: 0 }
@@ -28,7 +28,7 @@ console.assert(copy[1] === numbers[1], 'copy at 1 equals numbers at 1')
 console.assert(copy[2] === numbers[2], 'copy at 2 equals numbers at 2')
 //----------------------------------------------------
 
-console.log('CASE copy chars with index and self-reference into new object')
+console.info('CASE copy chars with index and self-reference into new object')
 
 var numbers = { 0: '1', 1: '2', 2: '3', length: 3 };
 var copy = { length: 0 }
@@ -94,7 +94,7 @@ console.assert(copy[2] === numbers[2], 'copy at 2 equals numbers al 2')
 console.assert(indexes[2] === 2, 'copy at 2 equals numbers al 2')
 console.assert(arrays[2] === numbers, 'copy at 2 equals numbers')
 
-console.log('CASE calculate percentages')
+console.info('CASE calculate percentages')
 
 var amounts = { 0: 100, 1: 50, 2: 4, 3: 450, 4: 100, 5: 2000, length: 6 }
 var results = { length: 0 }
@@ -109,6 +109,7 @@ amounts.forEach = function (callback) {
 
     }
 }
+
 
 amounts.forEach(function (amount, index, amounts) {
 

@@ -1,5 +1,5 @@
-console.log('TEST find')
-console.log('CASE find from objects')
+console.info('TEST find')
+console.info('CASE find from objects')
 
 var numbers = { 0: 5, 1: 12, 2: 8, 3: 130, 4: 44, length: 5 }
 
@@ -18,15 +18,15 @@ numbers.find = function (callbackFunction) {
 }
 
 var found = numbers.find((element) => element > 10)
-console.log(found)
+console.info(found)
 // 12
 
 var found = numbers.find((element) => element > 100)
-console.log(found)
+console.info(found)
 //130
 
 var found = numbers.find((element) => element > 130)
-console.log(found)
+console.info(found)
 //undefined
 
 

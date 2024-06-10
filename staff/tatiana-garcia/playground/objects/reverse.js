@@ -1,5 +1,5 @@
-console.log('TEST reverse')
-console.log('CASE implement Method.reverse()')
+console.info('TEST reverse')
+console.info('CASE implement Method.reverse()')
 
 var flowers = { 0: 'rose', 1: 'geraniem', 2: 'lily', 3: 'tulyp', length: 4 }
 
@@ -15,10 +15,8 @@ flowers.reverse = function () {
 
     }
 
-    this = newObject
-
-    return this
+    return newObject
 
 }
 
-console.log(flowers.reverse())
+console.info(flowers.reverse())
