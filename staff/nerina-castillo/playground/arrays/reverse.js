@@ -1,9 +1,9 @@
-console.log("TEST reverse");
+console.info("TEST reverse");
 
-console.log("CASE reverse elements from array");
+console.info("CASE reverse elements from array");
 
 const fruits = ["apple", "pear", "cherry", "watermelon"];
-console.log(fruits);
+console.info(fruits);
 
 const reversed = fruits.reverse();
-console.log(reversed);
+console.info(reversed);

@@ -1,6 +1,6 @@
-console.log("TEST every");
+console.info("TEST every");
 
-console.log("CASE every");
+console.info("CASE every");
 
 var nums = { 0: 1, 1: 30, 2: 39, 3: 29, 4: 10, 5: 13, length: 6 };
 
@@ -14,4 +14,4 @@ nums.every = function (callback) {
 var isBelowThreshold = nums.every(function (currentValue) {
   return currentValue < 40;
 });
-console.log(isBelowThreshold);
+console.info(isBelowThreshold);

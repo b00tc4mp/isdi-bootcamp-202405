@@ -1,6 +1,6 @@
-console.log("TEST includes");
+console.info("TEST includes");
 
-console.log("CASE if an object has an element");
+console.info("CASE if an object has an element");
 
 var ramones = { 0: "Yoey", 1: "Deedee", 2: "Johnny", 3: "Marky", length: 4 };
 
@@ -14,9 +14,9 @@ ramones.includes = function (element) {
 };
 
 var music = ramones.includes("Deedee");
-console.log(music);
+console.info(music);
 
-console.log("CASE if an object has an element from index");
+console.info("CASE if an object has an element from index");
 
 var ramones = { 0: "Yoey", 1: "Deedee", 2: "Johnny", 3: "Marky", length: 4 };
 
@@ -33,10 +33,10 @@ ramones.includes = function (element, index) {
 };
 
 var music = ramones.includes("Johnny", -4);
-console.log(music);
+console.info(music);
 
 var music = ramones.includes("Johnny", -1);
-console.log(music);
+console.info(music);
 
 var music = ramones.includes("Johnny", -15);
-console.log(music);
+console.info(music);

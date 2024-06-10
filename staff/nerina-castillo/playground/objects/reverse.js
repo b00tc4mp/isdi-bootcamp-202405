@@ -1,6 +1,6 @@
-console.log("TEST reverse");
+console.info("TEST reverse");
 
-console.log("CASE reverse elements from objects");
+console.info("CASE reverse elements from objects");
 
 const fruits = {
   0: "apple",
@@ -9,7 +9,7 @@ const fruits = {
   3: "watermelon",
   length: 4,
 };
-console.log(fruits);
+console.info(fruits);
 
 fruits.reverse = function () {
   var tmp;
@@ -23,4 +23,4 @@ fruits.reverse = function () {
 };
 
 const reversed = fruits.reverse();
-console.log(reversed);
+console.info(reversed);

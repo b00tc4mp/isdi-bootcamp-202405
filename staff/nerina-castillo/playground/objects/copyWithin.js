@@ -1,6 +1,6 @@
 //TODO implement case for copyWithin
 
-console.log("CASE copyWithin");
+console.info("CASE copyWithin");
 const friends = { 0: "Gonzalo", 1: "Julen", 3: "Lu", 4: "Ro", length: 4 };
 
 friends.copyWithin = function (target, start, end = 0) {
@@ -26,5 +26,5 @@ friends.copyWithin = function (target, start, end = 0) {
 
 var myFriends = friends.copyWithin(0, 3, 4);
 
-console.log(myFriends);
-console.log(friends);
+console.info(myFriends);
+console.info(friends);

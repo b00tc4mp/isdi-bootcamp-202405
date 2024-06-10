@@ -1,6 +1,6 @@
-console.log("TEST some");
+console.info("TEST some");
 
-console.log("CASE some");
+console.info("CASE some");
 
 var numbers = { 0: 1, 1: 2, 2: 3, 3: 4, 4: 5, length: 6 };
 
@@ -15,4 +15,4 @@ var pairs = numbers.some(function (element) {
   return element > 0;
 });
 
-console.log(pairs);
+console.info(pairs);

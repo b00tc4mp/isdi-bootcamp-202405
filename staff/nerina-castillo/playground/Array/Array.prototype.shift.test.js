@@ -1,6 +1,6 @@
-console.log("TEST Array.prototype.shift");
+console.info("TEST Array.prototype.shift");
 
-console.log("CASE remove first element from array");
+console.info("CASE remove first element from array");
 
 var societyOfSnow = [
   "Numa Turcatti",

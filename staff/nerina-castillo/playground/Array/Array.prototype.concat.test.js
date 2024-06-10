@@ -1,6 +1,6 @@
-console.log("TEST Array.prototype.concat");
+console.info("TEST Array.prototype.concat");
 
-console.log("CASE concat elements from two arrays");
+console.info("CASE concat elements from two arrays");
 
 var chars1 = ["a", "b", "c"];
 var chars2 = ["d", "e", "f"];
@@ -17,7 +17,7 @@ console.assert(chars2[2] === "f", "chars1 at 2 is f");
 console.assert(chars2.length === 3, "chars2 length is 3");
 console.assert(chars3.length === 6, "chars3 length is 6");
 
-console.log("CASE concat elements from 5 arrays");
+console.info("CASE concat elements from 5 arrays");
 
 var num1 = [10, 20, 30];
 var num2 = [400, 500];

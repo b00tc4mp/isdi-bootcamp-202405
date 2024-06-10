@@ -1,6 +1,6 @@
-console.log("TEST splice");
+console.info("TEST splice");
 
-console.log("CASE insert feb in months");
+console.info("CASE insert feb in months");
 
 var months = ["Jan", "March", "April", "June"];
 
@@ -16,7 +16,7 @@ console.assert(months[4] === "June", "months at 4 is June");
 
 months.splice(4, 1, "May");
 
-console.log("CASE replace element with other element in months");
+console.info("CASE replace element with other element in months");
 
 var months = new Array[("Jan", "Mar", "Aprr", "Jun")]();
 

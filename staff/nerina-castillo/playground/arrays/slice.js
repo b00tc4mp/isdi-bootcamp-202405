@@ -1,10 +1,10 @@
-console.log("TEST slice");
+console.info("TEST slice");
 
-console.log("CASE slice");
+console.info("CASE slice");
 var nombres = ["Rita", "Pedro", "Miguel", "Ana", "Vanesa"];
-console.log(nombres);
+console.info(nombres);
 
 var masculinos = nombres.slice(1, 3);
 
-console.log(masculinos);
-console.log(masculinos.length);
+console.info(masculinos);
+console.info(masculinos.length);

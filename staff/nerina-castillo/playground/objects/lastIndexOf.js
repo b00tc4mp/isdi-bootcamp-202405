@@ -1,8 +1,8 @@
-console.log("TEST lastIndexOf");
-console.log("CASE lastIndexOf");
+console.info("TEST lastIndexOf");
+console.info("CASE lastIndexOf");
 const beasts = { 0: "Dodo", 1: "Tiger", 2: "Lion", 3: "Dodo", length: 4 };
 
-console.log(beasts);
+console.info(beasts);
 
 beasts.lastIndexOf = function (element) {
   for (i = this.length; i > -1; i--) {
@@ -17,7 +17,7 @@ beasts.lastIndexOf = function (element) {
 
 beasts.lastIndexOf();
 var animalslIndex = beasts.lastIndexOf("Lion");
-console.log(animalslIndex);
+console.info(animalslIndex);
 
 beasts.lastIndexOf = function (element, fromIndex) {
   if (fromIndex === undefined) fromIndex = this.length;
@@ -34,7 +34,7 @@ beasts.lastIndexOf = function (element, fromIndex) {
 
 var animalIndex = beasts.lastIndexOf("Tiger", 2);
 
-console.log(animalIndex);
+console.info(animalIndex);
 
 beasts.lastIndexOf = function (element, fromIndex) {
   if (fromIndex === undefined) fromIndex = this.length;
@@ -52,4 +52,4 @@ beasts.lastIndexOf = function (element, fromIndex) {
 
 var animalIndex = beasts.lastIndexOf("Lion", -2);
 
-console.log(animalIndex);
+console.info(animalIndex);

@@ -1,6 +1,6 @@
-console.log("TEST join");
+console.info("TEST join");
 
-console.log("CASE join elements in a string");
+console.info("CASE join elements in a string");
 
 const elements = { 0: "Fire", 1: "Air", 2: "Water", length: 3 };
 
@@ -19,9 +19,9 @@ elements.join = function () {
 
 var joinedElements = elements.join();
 
-console.log(joinedElements);
+console.info(joinedElements);
 
-console.log("CASE join elements with separator");
+console.info("CASE join elements with separator");
 
 var things = {
   0: true,
@@ -47,9 +47,9 @@ things.join = function (separator) {
 };
 var joined = things.join(" $ ");
 
-console.log(joined);
+console.info(joined);
 
-console.log("CASE join elements without separator");
+console.info("CASE join elements without separator");
 
 var things = {
   0: true,
@@ -77,12 +77,12 @@ things.join = function (separator) {
 };
 var joined = things.join();
 
-console.log(joined);
+console.info(joined);
 
 var joined = things.join(undefined);
 
-console.log(joined);
+console.info(joined);
 
 var joined = things.join("");
 
-console.log(joined);
+console.info(joined);

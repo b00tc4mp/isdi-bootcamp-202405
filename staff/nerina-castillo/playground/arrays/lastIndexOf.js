@@ -1,17 +1,17 @@
-console.log("TEST lastIndexOf");
+console.info("TEST lastIndexOf");
 
-console.log("CASE lastIndexOf in array");
+console.info("CASE lastIndexOf in array");
 
 var animals = ["Dodo", "Tiger", "Lion", "Dodo"];
 
 var animalIndex = animals.indexOf("Tiger");
 
-console.log(animalIndex);
+console.info(animalIndex);
 
 var animalIndex = animals.indexOf("Lion", 2);
 
-console.log(animalIndex);
+console.info(animalIndex);
 
 var animalIndex = animals.indexOf("Lion", -2);
 
-console.log(animalIndex);
+console.info(animalIndex);

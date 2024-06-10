@@ -1,6 +1,6 @@
-console.log("TEST find");
+console.info("TEST find");
 
-console.log("CASE find");
+console.info("CASE find");
 
 var numbers = { 0: 5, 1: 12, 2: 8, 3: 130, 4: 44, length: 5 };
 
@@ -13,4 +13,4 @@ numbers.find = function (callbackFunction) {
 
 var found = numbers.find((element) => element > 130);
 
-console.log(found);
+console.info(found);

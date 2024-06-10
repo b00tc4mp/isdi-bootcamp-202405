@@ -1,6 +1,6 @@
-console.log("TEST map");
+console.info("TEST map");
 
-console.log("CASE map for objects");
+console.info("CASE map for objects");
 
 var numbers = [1, 4, 9, 16];
 
@@ -14,4 +14,4 @@ numbers.map = function (callbackFunction) {
 
 var map = numbers.map((x) => x * 2);
 
-console.log(map);
+console.info(map);

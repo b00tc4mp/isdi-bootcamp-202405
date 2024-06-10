@@ -1,6 +1,6 @@
-console.log("TEST Array.prototype.lastIndexOf");
+console.info("TEST Array.prototype.lastIndexOf");
 
-console.log("CASE lastIndexOf in Array");
+console.info("CASE lastIndexOf in Array");
 
 var animals = new Array();
 

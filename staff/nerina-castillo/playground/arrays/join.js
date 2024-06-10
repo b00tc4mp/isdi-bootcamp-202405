@@ -1,14 +1,14 @@
-console.log("TEST join");
+console.info("TEST join");
 
-console.log("CASE join elements in a string");
+console.info("CASE join elements in a string");
 
 const elements = ["Fire", "Air", "Water"];
 
 var joinedElements = elements.join();
 
-console.log(joinedElements);
+console.info(joinedElements);
 
-console.log("CASE join elements with separator");
+console.info("CASE join elements with separator");
 
 var things = [
   true,
@@ -20,9 +20,9 @@ var things = [
 ];
 var joined = things.join(" $ ");
 
-console.log(joined);
+console.info(joined);
 
-console.log("CASE join elements without separator");
+console.info("CASE join elements without separator");
 
 var things = [
   true,
@@ -34,12 +34,12 @@ var things = [
 ];
 var joined = things.join();
 
-console.log(joined);
+console.info(joined);
 
 var joined = things.join(undefined);
 
-console.log(joined);
+console.info(joined);
 
 var joined = things.join("");
 
-console.log(joined);
+console.info(joined);

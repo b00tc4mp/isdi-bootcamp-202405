@@ -1,6 +1,6 @@
-console.log("TEST indexOf");
+console.info("TEST indexOf");
 
-console.log("CASE index of cat from objects");
+console.info("CASE index of cat from objects");
 var cats = {
   0: "Gris",
   1: "Lemmy",
@@ -9,7 +9,7 @@ var cats = {
   4: "Gris",
   length: 4,
 };
-console.log(cats);
+console.info(cats);
 
 cats.indexOf = function (cat) {
   for (i = 0; i < this.length; i++) {
@@ -24,9 +24,9 @@ cats.indexOf = function (cat) {
 
 var catsIndex = cats.indexOf("Lemmy");
 
-console.log(catsIndex);
+console.info(catsIndex);
 
-console.log("CASE index of a cat from index or from  index");
+console.info("CASE index of a cat from index or from  index");
 
 cats.indexOf = function (element, index) {
   if (index === undefined) index = 0;

@@ -1,14 +1,14 @@
-console.log("TEST at");
+console.info("TEST at");
 
-console.log("CASE element at index");
+console.info("CASE element at index");
 
 var nums = [5, 12, 8, 130, 44];
-console.log(nums);
-console.log(nums.length);
+console.info(nums);
+console.info(nums.length);
 
 var num = nums.at(3);
-console.log(num);
+console.info(num);
 
 var num = nums.at(-3);
 
-console.log(num);
+console.info(num);

@@ -1,6 +1,6 @@
-console.log("TEST filter");
+console.info("TEST filter");
 
-console.log("CASE filter from objects");
+console.info("CASE filter from objects");
 
 var words = {
   0: "spray",
@@ -23,4 +23,4 @@ words.filter = function (callbackFunction) {
 };
 
 var result = words.filter((word) => word.length > 6);
-console.log(result);
+console.info(result);

@@ -1,6 +1,6 @@
-console.log("TEST Array.prototype.at");
+console.info("TEST Array.prototype.at");
 
-console.log("CASE element at positive index");
+console.info("CASE element at positive index");
 
 var nums = [5, 12, 8, 130, 44];
 
@@ -8,7 +8,7 @@ var num = nums.at(3);
 
 console.assert(num === 130, "num is 30");
 
-console.log("CASE element at index 0");
+console.info("CASE element at index 0");
 
 var nums = [5, 12, 8, 130, 44];
 
@@ -16,7 +16,7 @@ var num = nums.at(0);
 
 console.assert(num === 5, "num is 5");
 
-console.log("CASE element at negative index");
+console.info("CASE element at negative index");
 
 var nums = [5, 12, 8, 130, 44];
 
@@ -24,7 +24,7 @@ var num = nums.at(-3);
 
 console.assert(num === 8, "num is 8");
 
-console.log("CASE element at positive index greater than length");
+console.info("CASE element at positive index greater than length");
 
 var nums = [5, 12, 8, 130, 44];
 
@@ -32,7 +32,7 @@ var num = nums.at(100);
 
 console.assert(num === undefined, "num is undefined");
 
-console.log("CASE element a negative index greater than -length");
+console.info("CASE element a negative index greater than -length");
 
 var nums = [5, 12, 8, 130, 44];
 

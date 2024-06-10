@@ -1,9 +1,9 @@
-console.log("TEST find");
+console.info("TEST find");
 
-console.log("CASE find");
+console.info("CASE find");
 
 var numbers = [5, 12, 8, 130, 44];
 
 var found = numbers.find((element) => element > 10);
 
-console.log(found);
+console.info(found);

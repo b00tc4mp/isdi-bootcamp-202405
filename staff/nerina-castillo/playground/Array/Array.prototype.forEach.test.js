@@ -1,20 +1,14 @@
-console.info("TEST forEach");
+console.info("TEST Array.prototype.forEach");
 
-console.info("CASE copy chars into new object");
+console.info("CASE forEach in Array");
 
-var chars = { 0: "a", 1: "b", 2: "c", length: 3 };
-var copy = { length: 0 };
+var chars = new Array();
 
-chars.forEach = function (callback) {
-  for (var i = 0; i < this.length; i++) {
-    var elem = this[i];
-
-    callback(elem);
-  }
-};
+var chars = ["a", "b", "c"];
+var copy = [];
 
 chars.forEach(function (element) {
-  copy[copy.length++] = element;
+  copy[copy.length] = element;
 });
 
 console.assert(copy.length === chars.length, "copy length equals chars length");
@@ -22,26 +16,18 @@ console.assert(copy[0] === chars[0], "copy at 0 equals chars at 0");
 console.assert(copy[1] === chars[1], "copy at 1 equals chars at 1");
 console.assert(copy[2] === chars[2], "copy at 2 equals chars at 2");
 
-console.info("CASE copy chars with index and self-reference into new object");
+console.info("CASE copy chars with index and self-reference into new array");
 
-var chars = { 0: "a", 1: "b", 2: "c", length: 3 };
-var copy = { length: 0 };
+var chars = ["a", "b", "c"];
+var copy = [];
 
-chars.forEach = function (callback) {
-  for (var i = 0; i < this.length; i++) {
-    var elem = this[i];
-
-    callback(elem, i, this);
-  }
-};
-
-var indexes = { length: 0 };
-var arrays = { length: 0 };
+var indexes = [];
+var arrays = [];
 
 chars.forEach(function (element, index, array) {
-  copy[copy.length++] = element;
-  indexes[indexes.length++] = index;
-  arrays[arrays.length++] = array;
+  copy[copy.length] = element;
+  indexes[indexes.length] = index;
+  arrays[arrays.length] = array;
 });
 
 console.assert(copy.length === chars.length, "copy length equals chars length");
@@ -60,16 +46,10 @@ console.assert(arrays[2] === chars, "arrays at 2 equals chars");
 
 console.info("CASE calculate percentages");
 
-var amounts = { 0: 100, 1: 50, 2: 4, 3: 450, 4: 100, 5: 2000, length: 6 };
-var results = { length: 0 };
+var amounts = new Array();
 
-amounts.forEach = function (callback) {
-  for (var i = 0; i < this.length; i++) {
-    var elem = this[i];
-
-    callback(elem, i, this);
-  }
-};
+var amounts = [100, 50, 4, 450, 100, 2000];
+var results = [];
 
 amounts.forEach(function (amount, index, amounts) {
   var total = 0;
@@ -79,7 +59,6 @@ amounts.forEach(function (amount, index, amounts) {
   });
 
   results[index] = (amount / total) * 100;
-  results.length++;
 });
 
 console.assert(

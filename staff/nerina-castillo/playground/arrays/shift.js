@@ -1,6 +1,6 @@
-console.log("TEST shift");
+console.info("TEST shift");
 
-console.log("CASE remove first element from array");
+console.info("CASE remove first element from array");
 
 var societyOfSnow = [
   "Numa Turcatti",
@@ -9,10 +9,10 @@ var societyOfSnow = [
   "Eduardo Strauch",
 ];
 
-console.log(societyOfSnow);
+console.info(societyOfSnow);
 
 var removed = societyOfSnow.shift();
 
-console.log(societyOfSnow);
+console.info(societyOfSnow);
 
-console.log(societyOfSnow.length);
+console.info(societyOfSnow.length);

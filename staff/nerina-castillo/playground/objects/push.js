@@ -1,6 +1,6 @@
-console.log("TEST push");
+console.info("TEST push");
 
-console.log("CASE push an element to objects");
+console.info("CASE push an element to objects");
 
 var cars = new Object();
 
@@ -9,14 +9,14 @@ cars[1] = { brand: "lamborgini", model: "murcielago", year: 2010 };
 cars[2] = { brand: "fiat", model: "500", year: 2017 };
 cars.length = 3;
 
-console.log(cars);
-console.log(cars.length);
+console.info(cars);
+console.info(cars.length);
 
 //cars.push({ brand: "ford", model: "fiesta", year: 2005 });
 
-console.log(cars);
+console.info(cars);
 
-console.log(cars.length);
+console.info(cars.length);
 
 cars.push = function (element) {
   this[this.length] = element;
@@ -26,16 +26,16 @@ cars.push = function (element) {
 
 cars.push({ brand: "ford", model: "fiesta", year: 2005 });
 
-console.log(cars);
-console.log(cars.length);
+console.info(cars);
+console.info(cars.length);
 
-console.log("CASE multiple push to an object");
+console.info("CASE multiple push to an object");
 
 var animals = { 1: "cat", 2: "dog", 3: "cow", length: 4 };
 
-console.log(animals);
+console.info(animals);
 
-console.log(animals.length);
+console.info(animals.length);
 
 animals.push = function () {
   for (i = 0; i < arguments.length; i++) {
@@ -45,5 +45,5 @@ animals.push = function () {
 };
 animals.push("chicken", "rabbit", "pig");
 
-console.log(animals);
-console.log(animals.length);
+console.info(animals);
+console.info(animals.length);

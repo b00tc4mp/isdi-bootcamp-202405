@@ -1,6 +1,6 @@
-console.log("TEST shift");
+console.info("TEST shift");
 
-console.log("CASE remove first element from object");
+console.info("CASE remove first element from object");
 
 var societyOfTheSnow = {
   0: "Numa Turcatti",
@@ -9,7 +9,7 @@ var societyOfTheSnow = {
   3: "Eduardo Strauch",
   length: 4,
 };
-console.log(societyOfTheSnow);
+console.info(societyOfTheSnow);
 
 societyOfTheSnow.shift = function () {
   var element = this[0];
@@ -24,6 +24,6 @@ societyOfTheSnow.shift = function () {
 
 var removed = societyOfTheSnow.shift();
 
-console.log(removed);
-console.log(societyOfTheSnow);
-console.log(societyOfTheSnow.length);
+console.info(removed);
+console.info(societyOfTheSnow);
+console.info(societyOfTheSnow.length);

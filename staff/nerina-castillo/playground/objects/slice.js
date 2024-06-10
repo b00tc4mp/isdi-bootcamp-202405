@@ -1,5 +1,5 @@
 //TODO implement case for slice
-console.log("CASE slice");
+console.info("CASE slice");
 var names = {
   0: "Rita",
   1: "Pedro",
@@ -8,7 +8,7 @@ var names = {
   4: "Vanesa",
   length: 5,
 };
-console.log(names);
+console.info(names);
 
 names.slice = function (begining, end) {
   if (begining === undefined) begining = this.length - 1;
@@ -23,5 +23,5 @@ names.slice = function (begining, end) {
 
 var male = names.slice(1, 4);
 
-console.log(male);
-console.log(male.length);
+console.info(male);
+console.info(male.length);

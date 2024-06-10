@@ -1,9 +1,11 @@
-console.log("TEST map");
+console.info("TEST Array.prototype.map");
 
-console.log("CASE map for array");
+console.info("CASE map for Array");
 
-var array1 = [1, 4, 9, 16];
+var numbers = [1, 4, 9, 16];
 
-var map1 = array1.map((x) => x * 2);
-
-console.log(map1);
+var map = function (element) {
+  return element * 2;
+};
+var double = numbers.map(map);
+console.log(double);

@@ -1,6 +1,6 @@
-console.log("TEST splice");
+console.info("TEST splice");
 
-console.log("CASE insert Feb in months");
+console.info("CASE insert Feb in months");
 
 var months = { 0: "Jan", 1: "March", 2: "April", 3: "June", length: 4 };
 
@@ -21,8 +21,8 @@ months.splice = function (start, removeCount, element) {
 
 var res = months.splice(1, 0, "Feb");
 
-console.log("CASE replace element with other element in months");
-console.log("CASE replace element with other element in months");
+console.info("CASE replace element with other element in months");
+console.info("CASE replace element with other element in months");
 
 var months = { 0: "Jan", 1: "Feb", 2: "Mar", 3: "Aprr", 4: "Jun" };
 
@@ -96,8 +96,8 @@ console.assert(months[2] === "Mar", "months at 2 is Mar");
 console.assert(months[3] === "Apr", "months at 3 is Apr");
 console.assert(months[4] === "June", "months at 4 is June");
 
-console.log(months);
+console.info(months);
 
 months.splice(4, 1, "May");
 
-console.log(months);
+console.info(months);

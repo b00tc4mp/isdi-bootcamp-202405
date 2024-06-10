@@ -1,31 +1,31 @@
-console.log("TEST arrays");
+console.info("TEST arrays");
 
-console.log("CASE add elemnts to array");
+console.info("CASE add elemnts to array");
 
 var a = new Array();
 a[0] = 10;
 a[1] = 20;
 a[2] = 30;
 
-console.log(a);
-console.log(a.length);
+console.info(a);
+console.info(a.length);
 
-console.log("CASE remove las element from array");
+console.info("CASE remove las element from array");
 var a = new Array();
 
 a[0] = 10;
 a[1] = 20;
 a[2] = 30;
-console.log(a);
+console.info(a);
 
 a.length = a.length - 1;
 a.length -= 1;
 a.length--;
 
-console.log(a);
-console.log(a.length);
+console.info(a);
+console.info(a.length);
 
-console.log("CASE remove last 2 elements from array");
+console.info("CASE remove last 2 elements from array");
 
 var colors = new Array();
 
@@ -34,11 +34,11 @@ colors[1] = "green";
 colors[2] = "blue";
 colors[3] = "yellow";
 
-console.log(colors);
+console.info(colors);
 
-console.log(colors.length);
+console.info(colors.length);
 
 colors.length -= 2;
 
-console.log(colors);
-console.log(colors.length);
+console.info(colors);
+console.info(colors.length);
