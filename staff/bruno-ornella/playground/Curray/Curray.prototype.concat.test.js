@@ -1,9 +1,9 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.concat')
 
-console.log('TEST Curray.prototype.concat')
+console.info('TEST Curray.prototype.concat')
 
-console.log('CASE concat elements from two Currays')
+console.info('CASE concat elements from two Currays')
 
 var chars1 = new Curray
 var chars2 = new Curray
