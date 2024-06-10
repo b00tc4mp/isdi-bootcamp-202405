@@ -16,6 +16,7 @@ class King extends Pieces {
         this.id.style.left = this.left + PX;
         this.name = name;
         this.color = color;
+        this.active = false;
     }
 
     moveChecker(board) {

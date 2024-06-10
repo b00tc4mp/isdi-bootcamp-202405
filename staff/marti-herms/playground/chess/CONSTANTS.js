@@ -1,5 +1,6 @@
 const TILE = 75;
 const PX = 'px';
+const OUTOFBOUNDS = 'Out Of Bounds';
 
 const A = 0 * TILE;
 const B = 1 * TILE;

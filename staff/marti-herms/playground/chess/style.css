@@ -1,8 +1,5 @@
 body {
     background-color: rgb(255, 179, 97);
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 
 .grid_border {
@@ -57,31 +54,22 @@ body {
     border-color: black;
     grid-column-start: 2;
     grid-row-start: 1;
-    /* margin: 0 auto; */
     display: grid;
     grid-template: repeat(8, 75px) / repeat(8, 75px);
     position: absolute;
 }
 
-.black_tile {
+.tile {
     width: 75px;
     height: 75px;
-    background-color: rgb(50, 50, 50);
 }
-
-.white_tile {
-    width: 75px;
-    height: 75px;
-    background-color: white;
-}
-
-
 
 .pawn_black {
     width: 75px;
     height: 75px;
     background-image: url(imagenes/pawn-b.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -90,6 +78,7 @@ body {
     height: 75px;
     background-image: url(imagenes/pawn-w.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -100,6 +89,7 @@ body {
     height: 75px;
     background-image: url(imagenes/rook-b.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -108,6 +98,7 @@ body {
     height: 75px;
     background-image: url(imagenes/rook-w.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -118,6 +109,7 @@ body {
     height: 75px;
     background-image: url(imagenes/knight-b.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -126,6 +118,7 @@ body {
     height: 75px;
     background-image: url(imagenes/knight-w.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -136,6 +129,7 @@ body {
     height: 75px;
     background-image: url(imagenes/bishop-b.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -144,6 +138,7 @@ body {
     height: 75px;
     background-image: url(imagenes/bishop-w.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -154,6 +149,7 @@ body {
     height: 75px;
     background-image: url(imagenes/queen-b.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -162,6 +158,7 @@ body {
     height: 75px;
     background-image: url(imagenes/queen-w.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -172,6 +169,7 @@ body {
     height: 75px;
     background-image: url(imagenes/king-b.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
 
@@ -180,5 +178,6 @@ body {
     height: 75px;
     background-image: url(imagenes/king-w.svg);
     background-size: 75px 75px;
+    background-color: transparent;
     position: absolute;
 }
