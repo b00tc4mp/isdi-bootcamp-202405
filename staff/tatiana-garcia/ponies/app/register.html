@@ -11,19 +11,91 @@
     </style>
 </head>
 
+
 <body>
     <h1>Register</h1>
 
     <form>
 
         <label for="completeName">Complete name</label>
+        <input type="text" id="complete-name" name="compelte-name" placeholder="Name-Surname">
 
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Username">
+
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" placeholder="Email">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password">
+
+        <label for="repeat-password">Repeat password</label>
+        <input type="password" id="repeat-password" name="repeat-password" placeholder="Repeat Password">
+
+        <button type="submit">Register</button>
 
     </form>
 
     <script>
 
+        var form = document.querySelector('form')
 
+        var usersInfo = {
+
+            'samu2103':
+            {
+                completeName: 'Samuele Spinetti',
+                email: 'samuelespinetti@hotmail.com',
+                password: '123456789'
+            },
+            'lilideponte': {
+                completeName: 'Liliana De Ponte',
+                email: 'lilideponte@gmail.com',
+                password: '123451234'
+            },
+            'tatiana': {
+                completeName: 'Tatiana Garcia',
+                email: 'tataiana@gmail.com',
+                password: '1234567890'
+            }
+
+        }
+
+        form.onsubmit = function (event) {
+
+            event.preventDefault()
+
+            var completeNameInput = document.getElementById('complete-name')
+            var usernameInput = document.getElementById('username')
+            var passwordInput = document.getElementById('password')
+            var repeatPasswordInput = document.getElementById('repeat-password')
+            var emailInput = document.getElementById('email')
+
+            var completeName = completeNameInput.value
+            var username = usernameInput.value
+            var password = passwordInput.value
+            var repeatPassword = repeatPasswordInput.value
+            var email = emailInput.value
+
+            if (usersInfo.hasOwnProperty(username)) {
+
+                alert('The user already exist')
+
+            } else if (email === usersInfo[username].email) {
+
+                alert('This email already exist')
+
+            } else if (password !== repeatPassword) {
+
+                alert('Incorrect password')
+
+            }
+
+            window.location.href = 'login.html'
+
+        }
+
+        usersInfo[name] = { 'completeName': completeName, 'email': email, 'password': password }
 
     </script>
 </body>
