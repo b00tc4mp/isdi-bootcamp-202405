@@ -28,8 +28,8 @@ letters.copyWithin = function (target, start, end) {
     else if (target < 0)
         target = this.length + target
 
-    else if (target > start)
-        return this
+    //else if (target > start)
+    //  return this
 
     var temporal = target;
     for (var i = start; i < end; i++) {

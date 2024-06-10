@@ -18,7 +18,6 @@ console.info('CASE copy chars with index and self-reference into new array')
 
 var chars = ['a', 'b', 'c']
 var copy = []
-
 var indexes = []
 var arrays = []
 

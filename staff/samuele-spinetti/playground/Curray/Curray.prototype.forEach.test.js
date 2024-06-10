@@ -2,7 +2,7 @@ var Curray = require('./Curray')
 require('./Curray.prototype.forEach')
 
 
-console.info('TEST Cu.prototype.forEach')
+console.info('TEST Curray.prototype.forEach')
 
 console.info('CASE copy chars into new curray')
 
@@ -10,7 +10,7 @@ var chars = new Curray('a', 'b', 'c')
 var copy = new Curray
 
 chars.forEach(function (element) {
-    copy[copy.length] = element
+    copy[copy.length++] = element
 })
 
 console.assert(copy.length === chars.length, 'copy length equals chars length')
@@ -22,14 +22,13 @@ console.info('CASE copy chars with index and self-reference into new curray')
 
 var chars = new Curray('a', 'b', 'c')
 var copy = new Curray
-
 var indexes = new Curray
 var arrays = new Curray
 
 chars.forEach(function (element, index, array) {
-    copy[copy.length] = element
-    indexes[indexes.length] = index
-    arrays[arrays.length] = array
+    copy[copy.length++] = element
+    indexes[indexes.length++] = index
+    arrays[arrays.length++] = array
 })
 
 console.assert(copy.length === chars.length, 'copy length equals chars length')
@@ -59,6 +58,8 @@ amounts.forEach(function (amount, index, amounts) {
     })
 
     results[index] = amount / total * 100
+    results.length++
+
 })
 
 console.assert(results.length === amounts.length, 'results length equals amounts length')

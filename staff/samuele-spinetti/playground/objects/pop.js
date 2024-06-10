@@ -10,18 +10,15 @@ cars.pop = function () {
 }
 cars.pop()
 
-//CORRECTA
-/*cars.pop = function () {
+cars.pop = function () {
     var lastElement = this[this.length - 1]
-    
-    //delete this[this.length - 1]
-    this.length--
 
-       O delete this[--this.length]//
+    delete this[--this.length]//
 
     return lastElement
 }
-cars.pop()*/
+
+cars.pop()
 
 console.log(cars)
 // { 0: {...}, 1: {...}, 2: {...}, length: 3 }

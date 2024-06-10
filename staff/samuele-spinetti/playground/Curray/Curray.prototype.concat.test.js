@@ -27,7 +27,9 @@ var nums1 = new Curray(10, 20, 30)
 var nums2 = new Curray(400, 500)
 var nums3 = new Curray(-60, -70)
 var nums4 = new Curray(800, 900)
-var nums5 = new Curray(-1000)
+var nums5 = new Curray()
+nums5[0] = -1000
+nums5.length++
 
 var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
 
