@@ -1,9 +1,9 @@
 var Curray = require("./Curray");
 require("./Curray.prototype.push");
 
-console.log("TEST Curray.prototype.push");
+console.info("TEST Curray.prototype.push");
 
-console.log("CASE push an element to Curray");
+console.info("CASE push an element to Curray");
 
 var cars = new Curray();
 

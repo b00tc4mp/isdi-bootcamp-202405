@@ -1,9 +1,9 @@
 var Curray = required("./Curray");
 required(".7Curray.prototype.indexOf");
 
-console.log("TEST Curray.prototype.indexOf");
+console.info("TEST Curray.prototype.indexOf");
 
-console.log("CASE index of  cat in Curray");
+console.info("CASE index of  cat in Curray");
 
 var cats = new Curray();
 cats[0] = "Gris";
@@ -17,7 +17,7 @@ var catsIndex = cats.indexOf("Gris");
 
 console.assert(catsIndex === 0, "catsIndex is 0");
 
-console.log("CASE index of cat in Curray of from index");
+console.info("CASE index of cat in Curray of from index");
 
 var catsIndex = cats.indexOf("Gris", 2);
 console.assert(catsIndex === 4, "castIndex is 4");

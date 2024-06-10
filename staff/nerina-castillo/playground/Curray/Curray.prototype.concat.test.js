@@ -1,9 +1,9 @@
 var Curray = require("./Curray");
 require("./Curray.prototype.concat");
 
-console.log("TEST Curray.prototype.concat");
+console.info("TEST Curray.prototype.concat");
 
-console.log("CASE concat elements from two Currays");
+console.info("CASE concat elements from two Currays");
 
 var chars1 = new Curray();
 var chars2 = new Curray();
@@ -29,7 +29,7 @@ console.assert(chars2[2] === "f", "chars1 at 2 is f");
 console.assert(chars2.length === 3, "chars2 length is 3");
 console.assert(chars3.length === 6, "chars3 length is 6");
 
-console.log("CASE concat elements from 5 arrays");
+console.info("CASE concat elements from 5 arrays");
 
 var nums1 = new Curray();
 var nums2 = new Curray();

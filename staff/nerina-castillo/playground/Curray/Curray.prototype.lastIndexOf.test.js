@@ -1,9 +1,9 @@
 var Curray = require("./Curray");
 require("./Curray.prototype.lastIndexOf");
 
-console.log("TEST Curray.prototype.lastIndexOf");
+console.info("TEST Curray.prototype.lastIndexOf");
 
-console.log("CASE lastIndexOf in Curray");
+console.info("CASE lastIndexOf in Curray");
 
 var animals = new Curray();
 

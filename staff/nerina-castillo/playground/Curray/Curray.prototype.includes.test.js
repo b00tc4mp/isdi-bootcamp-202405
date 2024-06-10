@@ -1,9 +1,9 @@
 var Curray = require("./Curray");
 require("./Curray.prototype.includes");
 
-console.log("TEST Curray.prototype.includes.test");
+console.info("TEST Curray.prototype.includes.test");
 
-console.log("CASE if an Curray has an element");
+console.info("CASE if an Curray has an element");
 
 var ramones = new Curray();
 ramones[0] = "Yoey";
@@ -15,7 +15,7 @@ ramones.length = 4;
 var music = ramones.includes("Deedee");
 console.assert(music === true, "music is true");
 
-console.log("CASE if an Curray has an element from index");
+console.info("CASE if an Curray has an element from index");
 
 var ramones = new Curray();
 ramones[0] = "Yoey";
