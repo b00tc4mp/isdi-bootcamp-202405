@@ -1,4 +1,4 @@
-var Curray = ('./Curray')
+var Curray = require('./Curray')
 
 Curray.prototype.lastIndexOf = function (zooname, fromIndex) {
 
