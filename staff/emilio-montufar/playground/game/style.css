@@ -1,0 +1,14 @@
+body {
+    background-color: black;
+}
+#box-1{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+#box-2{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+

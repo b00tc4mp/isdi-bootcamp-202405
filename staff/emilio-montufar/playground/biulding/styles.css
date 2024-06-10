@@ -1,0 +1,31 @@
+.building {
+    width: 150px;
+    height: 400px;
+    background-color: #8B4513;
+    border: 2px solid #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.floor {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.window {
+    width: 40px;
+    height: 40px;
+    background-color: #ADD8E6;
+    border: 2px solid #000;
+}
+
+.door {
+    width: 60px;
+    height: 80px;
+    background-color: #654321;
+    border: 2px solid #000;
+}
