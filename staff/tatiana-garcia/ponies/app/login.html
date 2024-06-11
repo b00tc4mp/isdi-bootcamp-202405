@@ -43,20 +43,49 @@
             var username = usernameInput.value
             var password = passwordInput.value
 
-            if (username === 'pepitogrillo' && password === '123123123') {
+            if (username.trim().length < 4) {
 
-                window.location.href = 'home.html'
+                alert('invalid username')
+
+            } else if (password.trim().length < 8) {
+
+                alert('invalid pssword')
+
+            } else {
+
+                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+
+                var user = users.find(function (user) {
+
+                    return user.username === username
+                })
+
+                if (user === undefined) {
+
+                    alert('username does not exist')
+
+                } else if (user.password !== password) {
+
+                    alert('wrong password')
+
+                } else {
+
+                    sessionStorage.username = username
+
+                    location.href = 'home.html'
+                }
             }
 
-            var a = document.querySelector('a')
+        }
 
-            a.onclick = function (event) {
 
-                event.preventDefault()
+        var a = document.querySelector('a')
 
-                window.location.href = 'register.html'
-            }
+        a.onclick = function (event) {
 
+            event.preventDefault()
+
+            location.href = 'register.html'
         }
 
     </script>
