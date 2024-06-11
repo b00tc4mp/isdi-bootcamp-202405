@@ -38,27 +38,9 @@
             var username = usernameInput.value
             var password = passwordInput.value
 
-            if (username.trim().length < 4)
-                alert('invalid username')
-            else if (password.trim().length < 8)
-                alert('invalid password')
-            else {
-                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
-
-                var user = users.find(function (user) {
-                    return user.username === username
-                })
-
-                if (user === undefined)
-                    alert('username does not exist')
-                else if (user.password !== password)
-                    alert('wrong password')
-                else {
-                    sessionStorage.username = username
-
-                    location.href = 'home.html'
-                }
-            }
+            if (username === 'pepitogrillo' && password === '123123123')
+                location.href = 'home.html'
+            else alert('wrong credentials')
         }
 
         var a = document.querySelector('a')

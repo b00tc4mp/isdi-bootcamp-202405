@@ -39,6 +39,23 @@
     <a href="">Login</a>
 
     <script>
+        var users = [
+            {
+                name: 'Peter',
+                surname: 'Pan',
+                email: 'peter@pan.com',
+                username: 'peterpan',
+                password: '123123123'
+            },
+            {
+                name: 'Wendy',
+                surname: 'Darling',
+                email: 'wendy@darling.com',
+                username: 'wendydarling',
+                password: '123123123'
+            }
+        ]
+
         var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
 
         var form = document.querySelector('form')
@@ -73,8 +90,6 @@
             else if (password !== passwordRepeat)
                 alert('passwords do not match')
             else {
-                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
-
                 var user = users.find(function (user) {
                     return user.email === email
                 })
@@ -99,8 +114,6 @@
 
                         //users[users.length] = user
                         users.push(user)
-
-                        localStorage.users = JSON.stringify(users)
 
                         alert('user successfully registered')
 
