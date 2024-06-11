@@ -57,7 +57,7 @@ amounts.forEach(function (amount, index, amounts) {
         total += amount
     })
 
-    results[index] = amount / total * 100
+    results[index] = (amount / total) * 100
     results.length++
 
 })
