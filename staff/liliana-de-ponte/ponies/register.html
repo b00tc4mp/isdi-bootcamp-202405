@@ -15,85 +15,108 @@
     <h1>Register</h1>
 
     <form>
-        <label for="complete-name">Complete Name</label>
-        <input type="text" id="complete-name" name="compelte-name" placeholder="Name Surname">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="name">
 
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Username">
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" surname="surname" placeholder="surname">
 
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="Email">
+        <input type="email" id="email" name="email" placeholder="email">
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="username">
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="password" id="password" name="password" placeholder="password">
 
-        <label for="repeat-password">Repeat password</label>
-        <input type="password" id="repeat-password" name="repeat-password" placeholder="Repeat Password">
+        <label for="password2">Repeat Password</label>
+        <input type="password" id="password2" name="password2" placeholder="repeat password">
 
         <button type="submit">Register</button>
     </form>
 
+    <a href="">Login</a>
+
     <script>
+        var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
 
         var form = document.querySelector('form')
-
-        var usersInfo = {
-            'samu2103':
-            {
-                completeName: 'Samuele Spinetti',
-                email: 'samuelespinetti@hotmail.com',
-                password: '123456789'
-            },
-            'lilideponte': {
-                completeName: 'Liliana De Ponte',
-                email: 'lilideponte@gmail.com',
-                password: '123451234'
-            },
-            'tatiana': {
-                completeName: 'Tatiana Garcia',
-                email: 'tataiana@gmail.com',
-                password: '1234567890'
-            }
-        }
 
         form.onsubmit = function (event) {
             event.preventDefault()
 
-            var completeNameInput = document.getElementById('complete-name')
+            var nameInput = document.getElementById('name')
+            var surnameInput = document.getElementById('surname')
+            var emailInput = document.getElementById('email')
             var usernameInput = document.getElementById('username')
             var passwordInput = document.getElementById('password')
-            var repeatPasswordInput = document.getElementById('repeat-password')
-            var emailInput = document.getElementById('email')
+            var passwordRepeatInput = document.getElementById('password2')
 
-            var completeName = completeNameInput.value
+            var name = nameInput.value
+            var surname = surnameInput.value
+            var email = emailInput.value
             var username = usernameInput.value
             var password = passwordInput.value
-            var repeatPassword = repeatPasswordInput.value
-            var email = emailInput.value
+            var passwordRepeat = passwordRepeatInput.value
 
-            if (usersInfo.hasOwnProperty(username)) {
+            if (name.trim() === '')
+                alert('invalid name')
+            else if (surname.trim().length < 2)
+                alert('invalid surname')
+            else if (!EMAIL_REGEX.test(email))
+                alert('invalid email')
+            else if (username.trim().length < 4)
+                alert('invalid username')
+            else if (password.trim().length < 8)
+                alert('invalid password')
+            else if (password !== passwordRepeat)
+                alert('passwords do not match')
+            else {
+                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-                alert('The user already exist')
+                var user = users.find(function (user) {
+                    return user.mail === email
+                })
 
-            } else if (email === usersInfo[username].email) {
+                if (user !== undefined)
+                    alert('email already exits')
+                else {
+                    var user = users.find(function (user) {
+                        return user.username === username
+                    })
 
-                alert('This email already exist')
+                    if (user !== undefined)
+                        alert('username already exits')
+                    else {
+                        user = {
+                            name: name,
+                            surname: surname,
+                            email: email,
+                            username: username,
+                            password: password
+                        }
 
-            } else if (password !== repeatPassword) {
+                        //user[users.length] = user
+                        users.push(user)
 
-                alert('Incorrect password')
+                        localStorage.users = JSON.stringify(users)
 
+                        alert('user successfully registered')
+
+                        location.href = 'login.html'
+                    }
+                }
             }
-
-            window.location.href = 'login.html'
-
-
         }
 
-        usersInfo[username] = { 'completeName': completeName, 'email': email, 'password': password }
+        var a = document.querySelector('a')
 
+        a.onclick = function (event) {
+            event.preventDefault()
 
-
+            location.href = 'login.html'
+        }
     </script>
 </body>
 
