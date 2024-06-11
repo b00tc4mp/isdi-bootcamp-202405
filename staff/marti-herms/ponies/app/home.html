@@ -14,8 +14,34 @@
 <body>
     <h1>Home</h1>
 
-    <script>
+    <button>
+        <a href="">Logout</a>
+    </button>
 
+    <script>
+        var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+
+        var user = users.find(function (user) {
+            return user.username === sessionStorage.username
+        })
+
+        if (user === undefined)
+            alert('user not found')
+        else {
+            var title = document.querySelector('h1')
+
+            title.innerText = 'Hello, ' + user.name + '!'
+        }
+
+        var logout = document.querySelector('a')
+
+        logout.onclick = function (event) {
+            event.preventDefault()
+
+            delete sessionStorage.username
+
+            window.location.href = 'login.html'
+        }
     </script>
 </body>
 

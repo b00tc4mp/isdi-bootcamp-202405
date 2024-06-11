@@ -24,7 +24,7 @@
         <button type="submit">Login</button>
     </form>
 
-    <a href="">Register</a>
+    <a herf="">Register</a>
 
     <script>
         var form = document.querySelector('form')
@@ -32,18 +32,33 @@
         form.onsubmit = function (event) {
             event.preventDefault()
 
-            //console.log('submit')
-
             var usernameInput = document.getElementById('username')
             var passwordInput = document.getElementById('password')
 
             var username = usernameInput.value
             var password = passwordInput.value
 
-            // console.log(username, password)
+            if (username.trim().length < 4)
+                alert('invalid username')
+            else if (password.trim().length < 8)
+                alert('invalid password')
+            else {
+                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-            if (username === 'pepitogrillo' && password === '123123123')
-                window.location.href = 'home.html'
+                var user = users.find(function (user) {
+                    return user.username === username
+                })
+
+                if (user === undefined)
+                    alert('username does not exist')
+                else if (user.password !== password)
+                    alert('wrong password')
+                else {
+                    sessionStorage.username = username
+
+                    location.href = 'home.html'
+                }
+            }
         }
 
         var a = document.querySelector('a')
@@ -51,11 +66,8 @@
         a.onclick = function (event) {
             event.preventDefault()
 
-            //console.log('click')
-
             window.location.href = 'register.html'
         }
-
     </script>
 </body>
 
