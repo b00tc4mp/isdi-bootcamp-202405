@@ -27,10 +27,13 @@
     <a href="">Register</a>
 
     <script>
+        //var form = window.document.querySelector('form')
         var form = document.querySelector('form')
 
         form.onsubmit = function (event) {
             event.preventDefault()
+
+            //console.log('submit')
 
             var usernameInput = document.getElementById('username')
             var passwordInput = document.getElementById('password')
@@ -38,18 +41,25 @@
             var username = usernameInput.value
             var password = passwordInput.value
 
+            // console.log(username, password)
+
             if (username === 'pepitogrillo' && password === '123123123')
+                //window.location.href = 'home.html'
                 location.href = 'home.html'
-            else alert('wrong credentials')
         }
 
+        // var a = window.document.querySelector('a')
         var a = document.querySelector('a')
 
         a.onclick = function (event) {
             event.preventDefault()
 
+            //console.log('click')
+
+            //window.location.href = 'register.html'
             location.href = 'register.html'
         }
+
     </script>
 </body>
 
