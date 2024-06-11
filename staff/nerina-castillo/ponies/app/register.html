@@ -11,43 +11,129 @@
     <h1>Register</h1>
 
     <form>
-      <label for="complete-name">Name</label>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Ej.: Pepito " />
+      <label for="surname">Surame</label>
       <input
         type="text"
-        id="complete-name"
-        name="complete-name"
-        placeholder="name"
+        id="surname"
+        name="surname"
+        placeholder="Ej.: Grillo"
       />
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="email" />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Ej.: pepitogrillo@gmail.com"
+      />
 
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="username" />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Ej.: pepitogrillo"
+      />
 
       <label for="password">Password</label>
       <input
         type="password"
         id="password"
         name="password"
-        placeholder="password"
+        placeholder="Password"
+      />
+
+      <label for="password">Repeat password</label>
+      <input
+        type="password"
+        id="password2"
+        name="password2"
+        placeholder="Repeat password"
       />
 
       <button type="submit">Register</button>
     </form>
 
-    <a href="">Home</a>
+    <a href="">Login</a>
 
     <script>
+      var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/;
+      var NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
+      var USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
+      var PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
       var form = document.querySelector("form");
-      var userInfo = {}
 
+      form.onsubmit = function (event) {
+        event.preventDefault();
 
-      form.onsubmit(event){
-        event.preventDefault()
+        var nameInput = document.getElementById("name");
+        var surnameInput = document.getElementById("surname");
+        var emailInput = document.getElementById("email");
+        var usernameInput = document.getElementById("username");
+        var passwordInput = document.getElementById("password");
+        var passwordRepeatInput = document.getElementById("password2");
 
-        var completeNameInfo = document.getElementById('complete-name')
+        var name = nameInput.value;
+        var surname = surnameInput.value;
+        var email = emailInput.value;
+        var username = usernameInput.value;
+        var password = passwordInput.value;
+        var passwordRepeat = passwordRepeatInput.value;
 
-      }
+        if (!NAME_REGEX.test(name.trim())) alert("invalid name");
+        else if (!NAME_REGEX.test(surname.trim())) alert("invalid surname");
+        else if (!EMAIL_REGEX.test(email)) alert("invalid email");
+        else if (!USERNAME_REGEX.test(username)) alert("invalid username");
+        else if (!PASSWORD_REGEX.test(password)) alert("invalid password");
+        else if (password !== passwordRepeat) alert("passwords do not match");
+        else {
+          var users =
+            localStorage.users !== undefined
+              ? JSON.parse(localStorage.users)
+              : [];
+
+          var user = users.find(function (user) {
+            return user.email === email;
+          });
+
+          if (user !== undefined) alert("email already exists");
+          else {
+            var user = users.find(function (user) {
+              return user.username === username;
+            });
+
+            if (user !== undefined) alert("username already exists");
+            else {
+              user = {
+                name: name,
+                surname: surname,
+                email: email,
+                username: username,
+                password: password,
+              };
+
+              //users[users.length] = user
+              users.push(user);
+
+              localStorage.users = JSON.stringify(users);
+
+              alert("user successfully registered");
+
+              location.href = "login.html";
+            }
+          }
+        }
+      };
+
+      var a = document.querySelector("a");
+
+      a.onclick = function (event) {
+        event.preventDefault();
+
+        location.href = "login.html";
+      };
     </script>
   </body>
 </html>
