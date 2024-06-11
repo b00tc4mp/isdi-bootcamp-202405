@@ -63,9 +63,9 @@
             var password = passwordInput.value
             var passwordRepeat = passwordRepeatInput.value
 
-            if (!NAME_REGEX.test(name))
+            if (!NAME_REGEX.test(name.trim()))
                 alert('invalid name')
-            else if (!NAME_REGEX.test(surname))
+            else if (!NAME_REGEX.test(surname.trim()))
                 alert('ivalid surname')
             else if (!EMAIL_REGEX.test(email))
                 alert('invalid email')
