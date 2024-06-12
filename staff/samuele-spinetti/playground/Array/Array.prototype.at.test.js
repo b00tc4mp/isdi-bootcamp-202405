@@ -16,7 +16,7 @@ var num = nums.at(0)
 
 console.assert(num === 5, 'num is 5')
 
-console.info('CASE elment a negative index')
+console.info('CASE element a negative index')
 
 var nums = [5, 12, 8, 130, 44]
 
