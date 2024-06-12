@@ -1,10 +1,9 @@
-console.log('TEST FIND')
+console.info('TEST Array.prototype.find')
 
-console.log('CASE find in array')
+console.info('CASE find in array')
 
 var numbers = [5, 12, 8, 130, 44]
 
 var found = numbers.find((element) => element > 10)
 
-console.log(found)
-// 12
+console.assert(found === 12, 'found is 12')

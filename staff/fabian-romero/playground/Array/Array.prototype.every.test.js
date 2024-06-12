@@ -3,10 +3,24 @@ console.log('TEST every in Arrays')
 console.log('CASE every')
 // si todos los elementos cumplen la condicion 
 
+var numeros = [1, 30, 39, 29, 10, 13]
+
 var isBelowThreshold = function (currentValue) {
-    return currentValue > 3;
+
+    return currentValue < 40
+
 }
 
-var array1 = [1, 30, 39, 29, 10, 13];
+var numeros1 = numeros.every(isBelowThreshold)
 
-console.log(array1.every(isBelowThreshold));
+
+var isBelowThreshold1 = function (currentValue) {
+
+    return currentValue < 30
+
+}
+
+var numeros2 = numeros.every(isBelowThreshold1)
+
+console.assert(numeros1 === true, 'isBelowThreshold is true')
+console.assert(numeros2 === false, 'isBelowThreshold1 is false')
