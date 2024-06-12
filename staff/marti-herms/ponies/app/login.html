@@ -27,46 +27,60 @@
     <a herf="">Register</a>
 
     <script>
-        var form = document.querySelector('form')
+        var form = document.querySelector('form');
 
         form.onsubmit = function (event) {
-            event.preventDefault()
+            event.preventDefault();
 
-            var usernameInput = document.getElementById('username')
-            var passwordInput = document.getElementById('password')
+            var usernameInput = document.getElementById('username');
+            var passwordInput = document.getElementById('password');
 
-            var username = usernameInput.value
-            var password = passwordInput.value
+            var username = usernameInput.value;
+            var password = passwordInput.value;
 
-            if (username.trim().length < 4)
-                alert('invalid username')
-            else if (password.trim().length < 8)
-                alert('invalid password')
-            else {
-                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+            try {
+                loginUser(username, password);
 
-                var user = users.find(function (user) {
-                    return user.username === username
-                })
-
-                if (user === undefined)
-                    alert('username does not exist')
-                else if (user.password !== password)
-                    alert('wrong password')
-                else {
-                    sessionStorage.username = username
-
-                    location.href = 'home.html'
-                }
+                location.href = 'home.html';
+            } catch (error) {
+                alert(error.message);
             }
         }
 
         var a = document.querySelector('a')
 
         a.onclick = function (event) {
-            event.preventDefault()
+            event.preventDefault();
 
-            window.location.href = 'register.html'
+            location.href = 'register.html';
+        }
+    </script>
+
+    <script>
+        function loginUser(username, password) {
+            if (username.trim().length < 4) {
+                throw new Error('invalid username');
+            }
+
+            if (password.trim().length < 8) {
+                throw new Error('invalid password');
+            }
+
+            var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
+
+            var user = users.find(function (user) {
+                return user.username === username;
+            })
+
+            if (user === undefined) {
+                throw new Error('username does not exist');
+            }
+
+            if (user.password !== password) {
+                throw new Error('wrong password');
+            }
+
+            sessionStorage.username = username;
         }
     </script>
 </body>
