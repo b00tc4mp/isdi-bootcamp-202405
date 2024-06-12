@@ -1,43 +1,58 @@
-var Curray = require("./Curray");
-require("./Curray.prototype.includes");
+var Curray = require('./Curray')
+require('./Curray.prototype.includes')
 
-console.log("TEST Curray.prototype.includes.test");
+console.info('TEST Curray.prototype.includes')
 
-console.log("CASE if an Curray has an element");
+console.info('CASE includes in Curray')
 
-var ramones = new Curray();
-ramones[0] = "Yoey";
-ramones[1] = "Deedee";
-ramones[2] = "Johnny";
-ramones[3] = "Marky";
-ramones.length = 4;
+var numeros = new Curray
 
-var music = ramones.includes("Deedee");
-console.assert(music === true, "music is true");
+numeros[0] = 1
+numeros[1] = 2
+numeros[2] = 3
+numeros[3] = 4
+numeros[4] = 5
+numeros[5] = 6
+numeros[6] = 7
+numeros[7] = 8
+numeros[8] = 9
+numeros[9] = 10
+numeros.length = 10
 
-console.log("CASE if an Curray has an element from index");
+var numeros1 = numeros.includes(6)
 
-var ramones = new Curray();
-ramones[0] = "Yoey";
-ramones[1] = "Deedee";
-ramones[2] = "Johnny";
-ramones[3] = "Marky";
-ramones.length = 4;
+var numeros2 = numeros.includes(50)
 
-var music = ramones.includes("Marky", 2);
-console.assert(music === true, "music is true");
+console.assert(numeros1 === true, 'numeros1 includes 6')
+console.assert(numeros2 === false, 'numeros2 do not includes 50')
 
-var music = ramones.includes("Johnny", 1);
-console.assert(music === true, "music is true");
+console.info('TEST Curray includes color from index')
 
-var music = ramones.includes("Johnny");
-console.assert(music === true, "music is true");
+var colors = new Curray
 
-var music = ramones.includes("Johnny", undefined);
-console.assert(music === true, "music is true");
+colors[0] = 'red'
+colors[1] = 'green'
+colors[2] = 'blue'
+colors[3] = 'yellow'
+colors[4] = 'orange'
+colors[5] = 'pink'
+colors[6] = 'skyblue'
+colors[7] = 'red'
+colors[8] = 'white'
+colors[9] = 'black'
+colors[10] = 'grey'
+colors.length = 11
 
-var music = ramones.includes("Johnny", -4);
-console.assert(music === true, "music is true");
+var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'skyblue', 'red', 'white', 'black', 'grey']
 
-var music = ramones.includes("Johnny", -15);
-console.assert(music === true, "music is true");
+var included = colors.includes('pink', 2)
+
+console.assert(included === true, 'included includes pink')
+
+var included = colors.includes('red', 4)
+
+console.assert(included === true, 'included includes red')
+
+var included = colors.includes('red', 8)
+
+console.assert(included === false, 'included does not include red')
