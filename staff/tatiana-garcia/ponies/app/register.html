@@ -44,11 +44,6 @@
 
     <script>
 
-        var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-        var NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
-        var USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
-        var PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
         var form = document.querySelector('form')
 
         form.onsubmit = function (event) {
@@ -70,80 +65,20 @@
             var password = passwordInput.value
             var passwordRepeat = passwordRepeatInput.value
 
-            if (!NAME_REGEX.test(name.trim())) {
+            try {
 
-                alert('invalid name')
+                registerUser(name, surname, email, username, password, passwordRepeat)
 
-            } else if (!NAME_REGEX.test(surname.trim())) {
+                alert('user successfully registered')
 
-                alert('invalid surname')
+                location.href = 'login.html'
 
-            } else if (!EMAIL_REGEX.test(email)) {
+            } catch (error) {
 
-                alert('invalid email')
-
-            } else if (!USERNAME_REGEX.test(username)) {
-
-                alert('invalid username')
-
-            } else if (!PASSWORD_REGEX.test(password)) {
-
-                alert('invalid password')
-
-            } else if (password !== passwordRepeat) {
-
-                alert('password do not match')
-
-            } else {
-
-                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
-
-                var user = users.find(function (user) {
-
-                    return user.email === email
-
-                })
-
-                if (user !== undefined) {
-
-                    alert('username alredy exist')
-
-                } else {
-
-                    var user = users.find(function (user) {
-
-                        return user.username === username
-                    })
-
-                    if (user !== undefined) {
-
-                        alert('email already exists')
-
-                    } else {
-
-                        user = {
-
-                            name: name,
-                            surname: surname,
-                            email: email,
-                            username: username,
-                            password: password
-
-                        }
-
-                        users.push(user) // esto es igual a users[users.length] = user
-
-                        localStorage.users = JSON.stringify(users)
-
-                        alert('user successfully registered')
-
-                        location.href = 'login.html'
-
-                    }
-
-                }
+                alert(error.message)
 
             }
+
 
         }
 
@@ -153,6 +88,92 @@
 
             event.preventDefault()
             location.href = 'login.html'
+        }
+
+    </script>
+
+    <script>
+        var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+        var NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
+        var USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
+        var PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+        function registerUser(name, surname, email, username, password, passwordRepeat) {
+
+            if (!NAME_REGEX.test(name.trim())) {
+
+                alert('invalid name')
+
+            }
+
+            if (!NAME_REGEX.test(surname.trim())) {
+
+                throw new Error('invalid surname')
+
+            }
+
+            if (!EMAIL_REGEX.test(email)) {
+
+                throw new Error('invalid email')
+
+            } else
+
+                if (!USERNAME_REGEX.test(username)) {
+
+                    throw new Error('invalid username')
+
+                }
+
+            if (!PASSWORD_REGEX.test(password)) {
+
+                throw new Error('invalid password')
+
+            }
+
+            if (password !== passwordRepeat) {
+
+                throw new Error('password do not match')
+
+            }
+            var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+
+            var user = users.find(function (user) {
+
+                return user.email === email
+
+            })
+
+
+            if (user !== undefined) {
+
+                throw new Error('username alredy exist')
+
+            }
+
+            var user = users.find(function (user) {
+
+                return user.username === username
+            })
+
+            if (user !== undefined) {
+
+                throw new Error('email already exists')
+
+            }
+
+            user = {
+
+                name: name,
+                surname: surname,
+                email: email,
+                username: username,
+                password: password
+
+            }
+
+            users.push(user) // esto es igual a users[users.length] = user
+
+            localStorage.users = JSON.stringify(users)
         }
 
     </script>
