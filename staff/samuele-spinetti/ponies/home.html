@@ -19,18 +19,29 @@
     </button>
 
     <script>
-        var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+        function getUserName() {
+            var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-        var user = users.find(function (user) {
-            return user.username === sessionStorage.username
-        })
+            var user = users.find(function (user) {
+                return user.username === sessionStorage.username
+            })
 
-        if (user === undefined)
-            alert('user not found')
-        else {
+            if (user === undefined)
+                throw new Error('user not found')
+
+            return user.name
+        }
+    </script>
+
+    <script>
+        try {
+            var name = getUserName()
+
             var title = document.querySelector('h1')
 
-            title.innerText = 'Hello, ' + user.name + '!'
+            title.innerText = 'Hello, ' + name + '!'
+        } catch (error) {
+            alert(error.message)
         }
 
         var logout = document.querySelector('a')
