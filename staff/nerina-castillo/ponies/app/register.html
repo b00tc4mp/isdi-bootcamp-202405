@@ -7,34 +7,22 @@
 
     <style></style>
   </head>
+
   <body>
     <h1>Register</h1>
 
     <form>
       <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Ej.: Pepito " />
-      <label for="surname">Surame</label>
-      <input
-        type="text"
-        id="surname"
-        name="surname"
-        placeholder="Ej.: Grillo"
-      />
+      <input type="text" id="name" name="name" placeholder="Name" />
+
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" name="surname" placeholder="Surname" />
+
       <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Ej.: pepitogrillo@gmail.com"
-      />
+      <input type="text" id="email" name="email" placeholder="Email" />
 
       <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Ej.: pepitogrillo"
-      />
+      <input type="text" id="username" name="username" placeholder="Username" />
 
       <label for="password">Password</label>
       <input
@@ -44,12 +32,12 @@
         placeholder="Password"
       />
 
-      <label for="password">Repeat password</label>
+      <label for="password2">Repeat password</label>
       <input
         type="password"
         id="password2"
         name="password2"
-        placeholder="Repeat password"
+        placeholder="Repeat Password"
       />
 
       <button type="submit">Register</button>
@@ -60,8 +48,8 @@
     <script>
       var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/;
       var NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
-      var USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
-      var PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      var USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
+      var PASSWORD_REGEX = /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$/;
 
       var form = document.querySelector("form");
 
@@ -83,9 +71,9 @@
         var passwordRepeat = passwordRepeatInput.value;
 
         if (!NAME_REGEX.test(name.trim())) alert("invalid name");
-        else if (!NAME_REGEX.test(surname.trim())) alert("invalid surname");
+        else if (!NAME_REGEX.test(surname.trim())) alert("ivalid surname");
         else if (!EMAIL_REGEX.test(email)) alert("invalid email");
-        else if (!USERNAME_REGEX.test(username)) alert("invalid username");
+        else if (!USER_REGEX.test(username)) alert("invalid username");
         else if (!PASSWORD_REGEX.test(password)) alert("invalid password");
         else if (password !== passwordRepeat) alert("passwords do not match");
         else {

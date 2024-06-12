@@ -7,6 +7,7 @@
 
     <style></style>
   </head>
+
   <body>
     <h1>Home</h1>
 
@@ -29,13 +30,14 @@
         title.innerText = "Hello, " + user.name + "!";
       }
 
-      var a = document.querySelector("a");
+      var logout = document.querySelector("a");
 
-      a.onclick = function (event) {
+      logout.onclick = function (event) {
         event.preventDefault();
+
         delete sessionStorage.username;
 
-        location.href = "login.html";
+        window.location.href = "login.html";
       };
     </script>
   </body>
