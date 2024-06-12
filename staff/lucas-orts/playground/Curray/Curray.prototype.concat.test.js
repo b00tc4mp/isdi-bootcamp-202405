@@ -26,7 +26,9 @@ var nums1 = new Curray(10, 20, 30)
 var nums2 = new Curray(400, 500)
 var nums3 = new Curray(-60, -70)
 var nums4 = new Curray(800, 900)
-var nums5 = new Curray("-1000")
+var nums5 = new Curray()
+nums5[0] = -1000
+nums5.length++
 
 var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
 
@@ -41,4 +43,4 @@ console.assert(nums6[5] === -60, 'nums6 at 5 is -60')
 console.assert(nums6[6] === -70, 'nums6 at 6 is -70')
 console.assert(nums6[7] === 800, 'nums6 at 7 is 800')
 console.assert(nums6[8] === 900, 'nums6 at 8 is 900')
-console.assert(nums6[9] === "-1000", 'nums6 at 9 is -1000')
+console.assert(nums6[9] === -1000, 'nums6 at 9 is -1000')

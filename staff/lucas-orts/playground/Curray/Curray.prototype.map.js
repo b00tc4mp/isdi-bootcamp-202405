@@ -1,14 +1,16 @@
 var Curray = require('./Curray')
 
 Curray.prototype.map = function (callbackFunction) {
-    var newObject = { length: 0 }
-
+    var mapped = new Curray
     for (var i = 0; i < this.length; i++) {
 
-        newObject[newObject.length++] = callbackFunction(this[i], i, this)
+        var mappedElement = callbackFunction(this[i], i, this)
+
+        mapped[i] = mappedElement
+        mapped.length++
 
     }
 
-    return newObject
+    return mapped
 
 }
