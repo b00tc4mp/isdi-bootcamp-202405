@@ -72,7 +72,7 @@
                 return user.username === username;
             })
 
-            if (user === undefined) {
+            if (user.username === undefined) {
                 throw new Error('username does not exist');
             }
 
