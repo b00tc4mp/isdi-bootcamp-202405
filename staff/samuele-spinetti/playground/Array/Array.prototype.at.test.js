@@ -4,7 +4,7 @@ console.info('CASE element a positive index')
 
 var nums = [5, 12, 8, 130, 44]
 
-var num = num.at(3)
+var num = nums.at(3)
 
 console.assert(num === 130, 'num is 130')
 
