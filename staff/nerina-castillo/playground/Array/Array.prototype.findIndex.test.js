@@ -1,17 +1,15 @@
-console.info("TEST Array.prototype.findIndex");
+cconsole.info("TEST Array.prototype.findIndex");
 
-console.info("CASE find index of element less than 13");
+console.info("CASE findIndex in array");
 
 var numbers = [5, 12, 8, 130, 44];
 
-var found = (numbers.isLargeNumber = function (element) {
-  element > 13;
+var found = numbers.findIndex(function (element) {
+  return element > 13;
 });
-
 console.assert(found === 3, "found is 3");
 
-var found = (numbers.isLargeNumber = function (element) {
-  element < 2;
+var found1 = numbers.findIndex(function (element) {
+  return element < 2;
 });
-
-console.assert(found === -1, "found is -1");
+console.assert(found1 === -1, "found1 is -1");
