@@ -39,8 +39,6 @@
     <a href="">Login</a>
 
     <script>
-        var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-
         var form = document.querySelector('form')
 
         form.onsubmit = function (event) {
@@ -60,53 +58,14 @@
             var password = passwordInput.value
             var passwordRepeat = passwordRepeatInput.value
 
-            if (name.trim() === '')
-                alert('invalid name')
-            else if (surname.trim().length < 2)
-                alert('invalid surname')
-            else if (!EMAIL_REGEX.test(email))
-                alert('invalid email')
-            else if (username.trim().length < 4)
-                alert('invalid username')
-            else if (password.trim().length < 8)
-                alert('invalid password')
-            else if (password !== passwordRepeat)
-                alert('passwords do not match')
-            else {
-                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+            try {
+                registerUser(name, surname, email, username, password, passwordRepeat)
 
-                var user = users.find(function (user) {
-                    return user.mail === email
-                })
+                alert('user successfully registered')
 
-                if (user !== undefined)
-                    alert('email already exits')
-                else {
-                    var user = users.find(function (user) {
-                        return user.username === username
-                    })
-
-                    if (user !== undefined)
-                        alert('username already exits')
-                    else {
-                        user = {
-                            name: name,
-                            surname: surname,
-                            email: email,
-                            username: username,
-                            password: password
-                        }
-
-                        //user[users.length] = user
-                        users.push(user)
-
-                        localStorage.users = JSON.stringify(users)
-
-                        alert('user successfully registered')
-
-                        location.href = 'login.html'
-                    }
-                }
+                location.href = 'login.html'
+            } catch (error) {
+                alert(error.message)
             }
         }
 
@@ -116,6 +75,58 @@
             event.preventDefault()
 
             location.href = 'login.html'
+        }
+    </script>
+
+    <script>
+        var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+
+        function registerUser(name, surname, email, username, password, passwordRepeat) {
+            if (name.trim() === '')
+                throw new Error('invalid name')
+
+            if (surname.trim().length < 2)
+                throw new Error('invalid surname')
+
+            if (!EMAIL_REGEX.test(email))
+                throw new Error('invalid email')
+
+            if (username.trim().length < 4)
+                throw new Error('invalid username')
+
+            if (password.trim().length < 8)
+                throw new Error('invalid password')
+
+            if (password !== passwordRepeat)
+                throw new Error('passwords do not match')
+
+
+            var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+
+            var user = users.find(function (user) {
+                return user.mail === email
+            })
+            if (user !== undefined)
+                throw new Error('email already exits')
+
+            var user = users.find(function (user) {
+                return user.username === username
+            })
+
+            if (user !== undefined)
+                throw new Error('username already exits')
+
+            user = {
+                name: name,
+                surname: surname,
+                email: email,
+                username: username,
+                password: password
+            }
+
+            users.push(user)
+
+            localStorage.users = JSON.stringify(users)
         }
     </script>
 </body>

@@ -14,34 +14,46 @@
 <body>
     <h1>Home</h1>
     <button>
-        <a href="">Logout</a>
-    </button>
+        <!-- <a href="">Logout</a>
+    </button> -->
 
-    <script>
-        var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+        <script>
+            function getUserName() {
+                var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-        var user = users.find(function (user) {
-            return user.username === sessionStorage.username
-        })
+                var user = users.find(function (user) {
+                    return user.username === sessionStorage.username
+                })
 
-        if (user === undefined)
-            alert('user not found')
-        else {
-            var title = document.querySelector('h1')
+                if (user === undefined)
+                    throw new Error('user not found')
 
-            title.innerText = 'Hello, ' + user.name + '!'
-        }
+                return user.name
+            }
+        </script>
 
-        var a = document.querySelector('a')
+        <script>
+            try {
+                var name = getUserName()
+                var title = document.querySelector('h1')
 
-        a.onclick = function (event) {
-            event.preventDefault()
+                title.innerText = 'Hello, ' + name + '!'
 
-            delete sessionStorage.username;
+            } catch (error) {
+                alert(error.message)
+            }
 
-            location.href = 'login.html'
-        }
-    </script>
+
+            // var a = document.querySelector('a')
+
+            // a.onclick = function (event) {
+            //     event.preventDefault()
+
+            //     delete sessionStorage.username;
+
+            //     location.href = 'login.html'
+            // }
+        </script>
 
 </body>
 
