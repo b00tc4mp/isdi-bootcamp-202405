@@ -1,9 +1,13 @@
 function savePost(imageSource, description) {
 
-    post = {
+    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+
+    var post = {
         src: imageSource,
         description: description
     }
 
-    localStorage.posts = JSON.stringify(post)
+    posts.push(post)
+
+    localStorage.posts = JSON.stringify(posts)
 }

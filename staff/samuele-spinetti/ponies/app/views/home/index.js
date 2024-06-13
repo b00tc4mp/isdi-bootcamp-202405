@@ -63,6 +63,8 @@ addPostButton.onclick = function () {
     postButtonSubmit.innerText = 'Submit'
     createPostForm.appendChild(postButtonSubmit)
 
+    addPostButton.onclick = null
+
     var form = document.querySelector('form')
 
     form.onsubmit = function (event) {
@@ -78,9 +80,39 @@ addPostButton.onclick = function () {
             savePost(imageSource, description)
 
             alert('Successfully posted')
+
+            form.reset()
         } catch (error) {
             alert(error.message)
         }
     }
+
+}
+
+
+var showPostButton = document.getElementById('show-post-button')
+
+showPostButton.onclick = function () {
+
+    var image = JSON.parse(localStorage.posts)
+
+    for (var i = 0; i < image.length; i++) {
+
+        var createPostSection = document.createElement('section')
+        document.body.appendChild(createPostSection)
+
+        var createPostTitle = document.createElement('h2')
+        createPostTitle.innerText = image[i].description
+        createPostSection.appendChild(createPostTitle)
+
+        var showPost = document.createElement('img')
+        showPost.src = image[i].src
+        //showPost.width = "50px"
+        //showPost.height = "50px"
+        createPostSection.appendChild(showPost)
+    }
+
+    showPostButton.onclick = null
+
 
 }
