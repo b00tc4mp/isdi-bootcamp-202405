@@ -4,7 +4,7 @@ board.defaultColor();
 let pieces = [];
 let removedPieces = [];
 
-pieces[0] = (b_rook1 = new Rook(1, board.A1, 'rook1', 'black'));
+pieces[0] = (b_rook1 = new Rook(1, board.D4, 'rook1', 'black'));
 pieces[1] = (b_knight1 = new Knight(2, board.A2, 'knight1', 'black'));
 pieces[2] = (b_bishop1 = new Bishop(3, board.A3, 'bishop1', 'black'));
 pieces[3] = (b_queen = new Queen(4, board.A4, 'queen', 'black'));
@@ -46,69 +46,22 @@ document.onclick = function (event) {   //Evalua cada click
     console.log(event)
 
     let click = event.target;   //guarda el id del elemento clickado
+    let piece
 
-    if (click.classList[0] === "pawn_black" && !board.anyActive()) {
-        for (let i = 8; i < 16; i++) {
-            if (pieces[i].id === click) {
-                pieces[i].active = true;
-                pieces[i].disablePieces();
-                pieces[i].moveChecker();
+    if (event.target.classList[1] === "piece") {
+        piece = pieces[event.target.id - 1]
+        piece.disablePieces();
+        piece.moveChecker();
+    }
 
-            }
+    //piece.active = true;
+}
 
-        }
-    } else if (click.classList[0] === "pawn_white" && !board.anyActive()) {
-        for (let i = 16; i < 24; i++) {
-            if (pieces[i].id === click) {
-                pieces[i].active = true;
-                pieces[i].disablePieces();
-                pieces[i].moveChecker();
-            }
 
+function getPositionById(id) {
+    for (let i = 0; i < pieces.length; i++) {
+        if (pieces[i].id === id) {
+            return pieces[i].position;
         }
-    } else if (click.classList[0] === "rook_black" && !board.anyActive()) {
-        if (pieces[0].id === click) {
-            //pieces[0].id rook negro hace algo
-        } else if (pieces[7].id === click) {
-            //pieces[7].id rook negro hace algo
-        }
-    } else if (click.classList[0] === "rook_white" && !board.anyActive()) {
-        if (pieces[24].id === click) {
-            //pieces[24].id rook negro hace algo
-        } else if (pieces[31].id === click) {
-            //pieces[31].id rook negro hace algo
-        }
-    } else if (click.classList[0] === "knight_black" && !board.anyActive()) {
-        if (pieces[1].id === click) {
-            //pieces[1].id rook negro hace algo
-        } else if (pieces[6].id === click) {
-            //pieces[6].id rook negro hace algo
-        }
-    } else if (click.classList[0] === "knight_white" && !board.anyActive()) {
-        if (pieces[25].id === click) {
-            //pieces[25].id rook negro hace algo
-        } else if (pieces[30].id === click) {
-            //pieces[30].id rook negro hace algo
-        }
-    } else if (click.classList[0] === "bishop_black" && !board.anyActive()) {
-        if (pieces[2].id === click) {
-            //pieces[2].id rook negro hace algo
-        } else if (pieces[5].id === click) {
-            //pieces[5].id rook negro hace algo
-        }
-    } else if (click.classList[0] === "bishop_white" && !board.anyActive()) {
-        if (pieces[26].id === click) {
-            //pieces[26].id rook negro hace algo
-        } else if (pieces[29].id === click) {
-            //pieces[29].id rook negro hace algo
-        }
-    } else if (click.classList[0] === "queen_black" && !board.anyActive()) {
-        //pieces[3].id reina negra hace algo
-    } else if (click.classList[0] === "queen_white" && !board.anyActive()) {
-        //pieces[27].id reina blanca hace algo
-    } else if (click.classList[0] === "king_black" && !board.anyActive()) {
-        //pieces[4].id rey negro hace algo
-    } else if (click.classList[0] === "king_white" && !board.anyActive()) {
-        //pieces[28].id rey blanco hace algo
     }
 }

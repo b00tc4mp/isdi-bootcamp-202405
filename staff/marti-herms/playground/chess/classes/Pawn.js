@@ -21,15 +21,11 @@ class Pawn extends Pieces {
     }
 
     moveChecker() {
-        for (const key in board) {
-            if (board[key].piece == this) {
-                let bool1 = this.checkAdvance();
-                let bool2 = this.checkDash();
-                let bool3 = this.checkKill();
-                if (bool1 || bool2 || bool3) {
-                    this.moveSelector();
-                }
-            }
+        let bool1 = this.checkAdvance();
+        let bool2 = this.checkDash();
+        let bool3 = this.checkKill();
+        if (bool1 || bool2 || bool3) {
+            this.moveSelector();
         }
     }
 
@@ -73,12 +69,6 @@ class Pawn extends Pieces {
                 board.defaultColor();
             }
         }
-
-        document.addEventListener('click', killPiece, { once: true });
-
-        function killPiece(e) {
-
-        }
     }
 
     checkAdvance() {
@@ -112,14 +102,14 @@ class Pawn extends Pieces {
         if (pos1 !== OUTOFBOUNDS) {
             if (board[pos1].occupancy) {
                 board.getPieceByPosition(pos1).id.disabled = false;
-                board.getPieceByPosition(pos1).id.style.backgroundColor = "lightblue";
+                document.getElementById(pos1).style.backgroundColor = "lightblue";
                 bool1 = true;
             }
         }
         if (pos2 !== OUTOFBOUNDS) {
             if (board[pos2].occupancy) {
                 board.getPieceByPosition(pos2).id.disabled = false;
-                board.getPieceByPosition(pos2).id.style.backgroundColor = "lightblue";
+                document.getElementById(pos2).style.backgroundColor = "lightblue";
                 bool2 = true;
             }
         }
@@ -166,14 +156,17 @@ Pawn.prototype.move = function (id) {
 }
 
 Pawn.prototype.kill = function (id) {
-    this.position = board.getTileWithId(id);
+    this.position = getPositionById(id);
 
     let index = pieces.indexOf(board[this.position].piece);
     removedPieces.push(pieces.splice(index, 1));
-    board[this.position].piece.remove();
+    board[this.position].piece = undefined;
+    board[this.position].occupancy = false;
 
-    removedPieces[removedPieces.length - 1].style.top = TILE * (removedPieces.length - 1) + PX;
-    removedPieces[removedPieces.length - 1].style.left = (-5) * TILE + PX;
+    document.getElementsByClassName('grid')[0].removeChild(id);
+
+    //removedPieces[removedPieces.length - 1]. = TILE * (removedPieces.length - 1) + PX;
+    //removedPieces[removedPieces.length - 1].id.style.left = (-5) * TILE + PX;
 
     this.top = board[this.position].top;
     this.left = board[this.position].left;

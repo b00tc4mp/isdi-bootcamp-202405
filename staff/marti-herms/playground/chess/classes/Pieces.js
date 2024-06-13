@@ -11,7 +11,7 @@ class Pieces {
         }
     }
 
-    moveChecker(board) {
+    moveChecker() {
         throw new Error("Method 'moveChecker()' must be implemented.");
     }
 
