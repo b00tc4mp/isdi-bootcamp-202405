@@ -1,6 +1,6 @@
-console.log("TEST Array.prototype.at")
+console.info("TEST Array.prototype.at")
 
-console.log("CASE element a positive index")
+console.info("CASE element a positive index")
 
 var nums = [5, 12, 8, 130, 44]
 
