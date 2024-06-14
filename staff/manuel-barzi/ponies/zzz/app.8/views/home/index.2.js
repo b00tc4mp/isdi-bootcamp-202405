@@ -51,7 +51,28 @@ addPostButton.onclick = function () {
                 postListSection.removeChild(child)
             }
 
-            listPosts()
+            var posts = getAllPosts()
+
+            posts.forEach(function (post) {
+                var postArticle = document.createElement('article')
+                postListSection.appendChild(postArticle)
+
+                var postAuthorTitle = document.createElement('h3')
+                postAuthorTitle.innerText = post.author
+                postArticle.appendChild(postAuthorTitle)
+
+                var postImage = document.createElement('img')
+                postImage.src = post.image
+                postArticle.appendChild(postImage)
+
+                var postCaptionText = document.createElement('p')
+                postCaptionText.innerText = post.caption
+                postArticle.appendChild(postCaptionText)
+
+                var postDateTime = document.createElement('time')
+                postDateTime.innerText = formatTime(new Date(post.date))
+                postArticle.appendChild(postDateTime)
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -93,35 +114,25 @@ addPostButton.onclick = function () {
 var postListSection = document.createElement('section')
 document.body.appendChild(postListSection)
 
-function listPosts() {
-    var posts = getAllPosts()
+var posts = getAllPosts()
 
-    posts.forEach(function (post) {
-        var postArticle = document.createElement('article')
-        postListSection.appendChild(postArticle)
+posts.forEach(function (post) {
+    var postArticle = document.createElement('article')
+    postListSection.appendChild(postArticle)
 
-        var postAuthorTitle = document.createElement('h3')
-        postAuthorTitle.innerText = post.author
-        postArticle.appendChild(postAuthorTitle)
+    var postAuthorTitle = document.createElement('h3')
+    postAuthorTitle.innerText = post.author
+    postArticle.appendChild(postAuthorTitle)
 
-        var postImage = document.createElement('img')
-        postImage.src = post.image
-        postArticle.appendChild(postImage)
+    var postImage = document.createElement('img')
+    postImage.src = post.image
+    postArticle.appendChild(postImage)
 
-        var postCaptionText = document.createElement('p')
-        postCaptionText.innerText = post.caption
-        postArticle.appendChild(postCaptionText)
+    var postCaptionText = document.createElement('p')
+    postCaptionText.innerText = post.caption
+    postArticle.appendChild(postCaptionText)
 
-        var postDateTime = document.createElement('time')
-        postDateTime.innerText = formatTime(new Date(post.date))
-        postArticle.appendChild(postDateTime)
-
-        if (post.author === getLoggedInUserUsername()) {
-            var postDeleteButton = document.createElement('button')
-            postDeleteButton.innerText = 'Delete'
-            postArticle.appendChild(postDeleteButton)
-        }
-    })
-}
-
-listPosts()
+    var postDateTime = document.createElement('time')
+    postDateTime.innerText = formatTime(new Date(post.date))
+    postArticle.appendChild(postDateTime)
+})

@@ -40,21 +40,25 @@ addPostButton.onclick = function () {
         var postImage = postImageInput.value
         var postCaption = postCaptionInput.value
 
-        try {
-            createPost(postImage, postCaption)
+        if (!postImage.startsWith('http'))
+            alert('invalid image')
+        else {
+            var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-            document.body.removeChild(createPostSection)
-
-            for (var i = postListSection.children.length - 1; i > -1; i--) {
-                var child = postListSection.children[i]
-
-                postListSection.removeChild(child)
+            var post = {
+                image: postImage,
+                caption: postCaption,
+                user: sessionStorage.username,
+                date: new Date().toISOString()
             }
 
-            listPosts()
-        } catch (error) {
-            alert(error.message)
+            posts.push(post)
+
+            localStorage.posts = JSON.stringify(posts)
+
+            document.body.removeChild(createPostSection)
         }
+
     }
 
     var postImageLabel = document.createElement('label')
@@ -89,39 +93,3 @@ addPostButton.onclick = function () {
         document.body.removeChild(createPostSection)
     }
 }
-
-var postListSection = document.createElement('section')
-document.body.appendChild(postListSection)
-
-function listPosts() {
-    var posts = getAllPosts()
-
-    posts.forEach(function (post) {
-        var postArticle = document.createElement('article')
-        postListSection.appendChild(postArticle)
-
-        var postAuthorTitle = document.createElement('h3')
-        postAuthorTitle.innerText = post.author
-        postArticle.appendChild(postAuthorTitle)
-
-        var postImage = document.createElement('img')
-        postImage.src = post.image
-        postArticle.appendChild(postImage)
-
-        var postCaptionText = document.createElement('p')
-        postCaptionText.innerText = post.caption
-        postArticle.appendChild(postCaptionText)
-
-        var postDateTime = document.createElement('time')
-        postDateTime.innerText = formatTime(new Date(post.date))
-        postArticle.appendChild(postDateTime)
-
-        if (post.author === getLoggedInUserUsername()) {
-            var postDeleteButton = document.createElement('button')
-            postDeleteButton.innerText = 'Delete'
-            postArticle.appendChild(postDeleteButton)
-        }
-    })
-}
-
-listPosts()

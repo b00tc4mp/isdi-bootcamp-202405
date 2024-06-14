@@ -115,12 +115,6 @@ function listPosts() {
         var postDateTime = document.createElement('time')
         postDateTime.innerText = formatTime(new Date(post.date))
         postArticle.appendChild(postDateTime)
-
-        if (post.author === getLoggedInUserUsername()) {
-            var postDeleteButton = document.createElement('button')
-            postDeleteButton.innerText = 'Delete'
-            postArticle.appendChild(postDeleteButton)
-        }
     })
 }
 

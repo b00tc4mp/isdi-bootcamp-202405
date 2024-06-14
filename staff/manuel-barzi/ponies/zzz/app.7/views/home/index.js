@@ -44,14 +44,6 @@ addPostButton.onclick = function () {
             createPost(postImage, postCaption)
 
             document.body.removeChild(createPostSection)
-
-            for (var i = postListSection.children.length - 1; i > -1; i--) {
-                var child = postListSection.children[i]
-
-                postListSection.removeChild(child)
-            }
-
-            listPosts()
         } catch (error) {
             alert(error.message)
         }
@@ -89,39 +81,3 @@ addPostButton.onclick = function () {
         document.body.removeChild(createPostSection)
     }
 }
-
-var postListSection = document.createElement('section')
-document.body.appendChild(postListSection)
-
-function listPosts() {
-    var posts = getAllPosts()
-
-    posts.forEach(function (post) {
-        var postArticle = document.createElement('article')
-        postListSection.appendChild(postArticle)
-
-        var postAuthorTitle = document.createElement('h3')
-        postAuthorTitle.innerText = post.author
-        postArticle.appendChild(postAuthorTitle)
-
-        var postImage = document.createElement('img')
-        postImage.src = post.image
-        postArticle.appendChild(postImage)
-
-        var postCaptionText = document.createElement('p')
-        postCaptionText.innerText = post.caption
-        postArticle.appendChild(postCaptionText)
-
-        var postDateTime = document.createElement('time')
-        postDateTime.innerText = formatTime(new Date(post.date))
-        postArticle.appendChild(postDateTime)
-
-        if (post.author === getLoggedInUserUsername()) {
-            var postDeleteButton = document.createElement('button')
-            postDeleteButton.innerText = 'Delete'
-            postArticle.appendChild(postDeleteButton)
-        }
-    })
-}
-
-listPosts()

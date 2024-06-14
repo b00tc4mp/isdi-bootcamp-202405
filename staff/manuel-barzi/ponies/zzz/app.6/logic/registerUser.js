@@ -19,6 +19,7 @@ function registerUser(name, surname, email, username, password, passwordRepeat) 
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
+
     var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
     var user = users.find(function (user) {
