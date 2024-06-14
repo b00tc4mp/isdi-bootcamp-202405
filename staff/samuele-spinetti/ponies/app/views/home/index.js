@@ -33,6 +33,30 @@ addPostButton.onclick = function () {
     var createPostForm = document.createElement('form')
     createPostSection.appendChild(createPostForm)
 
+    createPostForm.onsubmit = function (event) {
+        event.preventDefault()
+
+        // var postImageInput = document.getElementById('post-image-input')
+        var postImage = postImageInput.value
+        var postCaption = postCaptionInput.value
+
+        try {
+            createPost(postImage, postCaption)
+
+            document.body.removeChild(createPostSection)
+
+            for (var i = postListSection.children.length - 1; i > -1; i--) {
+                var child = postListSection.children[i]
+
+                postListSection.removeChild(child)
+            }
+
+            listPosts()
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     var postImageLabel = document.createElement('label')
     postImageLabel.htmlFor = 'post-image-input'
     postImageLabel.innerText = 'Image'
@@ -42,77 +66,62 @@ addPostButton.onclick = function () {
     postImageInput.id = postImageLabel.htmlFor
     createPostForm.appendChild(postImageInput)
 
-    //var postImage = document.createElement('img')
-    //postImage.src = ''
-    //postImage.alt = ''
+    var postCaptionLabel = document.createElement('label')
+    postCaptionLabel.htmlFor = 'post-caption-input'
+    postCaptionLabel.innerText = 'Caption'
+    createPostForm.appendChild(postCaptionLabel)
 
-    var postTextLabel = document.createElement('label')
-    postTextLabel.htmlFor = 'post-text-input'
-    postTextLabel.innerText = 'Description'
-    createPostForm.appendChild(postTextLabel)
-
-    var postTextInput = document.createElement('input')
-    postTextInput.placeholder = 'Write here'
-    postTextInput.id = postTextLabel.htmlFor
-    createPostForm.appendChild(postTextInput)
+    var postCaptionInput = document.createElement('input')
+    postCaptionInput.id = postCaptionLabel.htmlFor
+    createPostForm.appendChild(postCaptionInput)
 
     var postButtonSubmit = document.createElement('button')
     postButtonSubmit.type = 'submit'
-    postButtonSubmit.className = 'submit-button'
-    postButtonSubmit.id = 'submit-button'
     postButtonSubmit.innerText = 'Submit'
     createPostForm.appendChild(postButtonSubmit)
 
-    addPostButton.onclick = null
+    var postCancelButton = document.createElement('button')
+    postCancelButton.innerText = 'Cancel'
+    postCancelButton.type = 'reset'
+    createPostForm.appendChild(postCancelButton)
 
-    var form = document.querySelector('form')
+    postCancelButton.onclick = function () {
+        document.body.removeChild(createPostSection)
+    }
+}
 
-    form.onsubmit = function (event) {
-        event.preventDefault()
+var postListSection = document.createElement('section')
+document.body.appendChild(postListSection)
 
-        var imageInput = document.getElementById('post-image-input')
-        var descriptionInput = document.getElementById('post-text-input')
+function listPosts() {
+    var posts = getAllPosts()
 
-        var imageSource = imageInput.value
-        var description = descriptionInput.value
+    posts.forEach(function (post) {
+        var postArticle = document.createElement('article')
+        postListSection.appendChild(postArticle)
 
-        try {
-            savePost(imageSource, description)
+        var postAuthorTitle = document.createElement('h3')
+        postAuthorTitle.innerText = post.author
+        postArticle.appendChild(postAuthorTitle)
 
-            alert('Successfully posted')
+        var postImage = document.createElement('img')
+        postImage.src = post.image
+        postArticle.appendChild(postImage)
 
-            form.reset()
-        } catch (error) {
-            alert(error.message)
+        var postCaptionText = document.createElement('p')
+        postCaptionText.innerText = post.caption
+        postArticle.appendChild(postCaptionText)
+
+        var postDateTime = document.createElement('time')
+        postDateTime.innerText = formatTime(new Date(post.date))
+        postArticle.appendChild(postDateTime)
+
+        if (post.author === getUserUsername()) {
+            var postDeleteButton = document.createElement('button')
+            postDeleteButton.innerText = 'Delete'
+            postArticle.appendChild(postDeleteButton)
         }
-    }
-
+    })
 }
 
-
-var showPostButton = document.getElementById('show-post-button')
-
-showPostButton.onclick = function () {
-
-    var image = JSON.parse(localStorage.posts)
-
-    for (var i = 0; i < image.length; i++) {
-
-        var createPostSection = document.createElement('section')
-        document.body.appendChild(createPostSection)
-
-        var createPostTitle = document.createElement('h2')
-        createPostTitle.innerText = image[i].description
-        createPostSection.appendChild(createPostTitle)
-
-        var showPost = document.createElement('img')
-        showPost.src = image[i].src
-        //showPost.width = "50px"
-        //showPost.height = "50px"
-        createPostSection.appendChild(showPost)
-    }
-
-    showPostButton.onclick = null
-
-
-}
+listPosts()
