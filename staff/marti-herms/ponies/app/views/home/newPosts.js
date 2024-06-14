@@ -1,8 +1,8 @@
-function newPosts() {
-    addPostButton.disabled = true;
+function newPosts(event) {
+    event.preventDefault();
+    //addPostButton.disabled = true;
 
-    var createPostSection = document.createElement('section');
-    document.getElementById('add-post').appendChild(createPostSection);
+
 
     var createPostTitle = document.createElement('h2');
     createPostTitle.innerText = 'Create Post';
@@ -35,7 +35,9 @@ function newPosts() {
     postImageSubmit.innerText = 'Post';
     createPostForm.appendChild(postImageSubmit);
 
-    postImageSubmit.onclick = function () {
+    postImageSubmit.onclick = function (event) {
+        event.preventDefault();
         addPost(postImageInput.value, postTextInput.value);
+        document.getElementById('add-post').removeChild(createPostSection);
     }
 }

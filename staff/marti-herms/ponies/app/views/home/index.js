@@ -3,10 +3,7 @@ try {
 
     var title = document.querySelector('h1');
 
-    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
-    var postListSection = document.getElementById('post-list');
 
-    generatePostList()
 
     title.innerText = 'Hello, ' + name + '!';
 } catch (error) {
@@ -27,11 +24,42 @@ logoutButton.onclick = function () {
 
 var addPostButton = document.getElementById('add-post-button');
 
-addPostButton.onclick = function () {
-    newPosts();
+var addPostHasBeenClicked = false;
+var createPostSection;
+
+addPostButton.onclick = function (event) {
+    if (!addPostHasBeenClicked) {
+        addPostHasBeenClicked = true;
+        createPostSection = document.createElement('section');
+        document.getElementById('button-section').appendChild(createPostSection);
+        newPosts(event);
+    } else {
+        addPostHasBeenClicked = false;
+        document.getElementById('button-section').removeChild(createPostSection);
+    }
 }
 
-var postSection = document.createElement('section');
-document.body.appendChild(postSection);
+var showPostButton = document.getElementById('show-post-button');
 
-var postImage = document.createElement('img');
+var showPostHasBeenClicked = false;
+
+var postListSection
+
+showPostButton.onclick = function (event) {
+    event.preventDefault()
+    if (!showPostHasBeenClicked) {
+        showPostHasBeenClicked = true;
+
+        var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
+
+        postListSection = document.createElement('section');
+        document.body.appendChild(postListSection);
+
+        generatePostList(posts, postListSection);
+    } else {
+        showPostHasBeenClicked = false;
+
+        document.body.removeChild(postListSection);
+    }
+
+}

@@ -1,8 +1,8 @@
-function generatePostList() {
+function generatePostList(posts, section) {
     if (posts.length > 0) {
         for (let i = 0; i < posts.length; i++) {
             var imgDiv = document.createElement('div');
-            postListSection.appendChild(imgDiv);
+            section.appendChild(imgDiv);
 
             var postImage = document.createElement('img');
             postImage.src = posts[i].img;
@@ -19,12 +19,18 @@ function generatePostList() {
             imgDiv.appendChild(deletePost);
 
             deletePost.onclick = function (event) {
+                event.preventDefault();
+
                 deletePosts(event.target.id);
+
+                document.body.removeChild(section);
+
+                generatePostList(posts, section);
             }
         }
     } else {
         var noPostText = document.createElement('h2');
         noPostText.innerText = 'No Posts Yet'
-        postListSection.appendChild(noPostText);
+        section.appendChild(noPostText);
     }
 }
