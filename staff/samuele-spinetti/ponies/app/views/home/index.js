@@ -120,6 +120,14 @@ function listPosts() {
             var postDeleteButton = document.createElement('button')
             postDeleteButton.innerText = 'Delete'
             postArticle.appendChild(postDeleteButton)
+
+            postDeleteButton.onclick = function () {
+
+                var id = post.id
+
+                deletePost(id)
+                postListSection.removeChild(postArticle)
+            }
         }
     })
 }

@@ -8,7 +8,8 @@ function createPost(image, caption) {
         image: image,
         caption: caption,
         author: sessionStorage.username,
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
+        id: generateRandomId()
     }
 
     posts.push(post)

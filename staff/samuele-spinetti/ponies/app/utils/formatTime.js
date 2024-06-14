@@ -1,5 +1,5 @@
 function formatTime(date) {
-    var seconds = Math.round((Date.now() - date.getTime()) / 100)
+    var seconds = Math.round((Date.now() - date.getTime()) / 1000)
 
     if (seconds < 60)
         return seconds + ' second' + (seconds === 1 ? '' : 's')
@@ -9,7 +9,7 @@ function formatTime(date) {
     if (minutes < 60)
         return minutes + ' minute' + (minutes === 1 ? '' : 's')
 
-    var hours = MAth.round(minutes / 60)
+    var hours = Math.round(minutes / 60)
 
     if (hours < 24)
         return hours + ' hour' + (hours === 1 ? '' : 's')
