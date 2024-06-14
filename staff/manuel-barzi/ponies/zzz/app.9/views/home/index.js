@@ -116,7 +116,7 @@ function listPosts() {
         postDateTime.innerText = formatTime(new Date(post.date))
         postArticle.appendChild(postDateTime)
 
-        if (post.author === getUserUsername()) {
+        if (post.author === getLoggedInUserUsername()) {
             var postDeleteButton = document.createElement('button')
             postDeleteButton.innerText = 'Delete'
             postArticle.appendChild(postDeleteButton)
