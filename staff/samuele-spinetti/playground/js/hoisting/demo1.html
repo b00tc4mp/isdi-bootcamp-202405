@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        console.info('HOISTING')
+        console.info('Hoisting refers to the process whereby the interpreter appears to move the declaration of functions, variables, classes, or imports to the top of their scope, prior to execution of the code.')
+
+        source = 5;
+
+        console.log(source);
+
+        printFnExp();
+
+        // sintaxis de la expresión de función
+
+        var printFnExp = function print() {
+            console.log("desde la función: " + source);
+        };
+
+        var source;
+    </script>
+
+</body>
+
+</html>

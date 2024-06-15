@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        console.info('SHADOWING')
+        console.info('Variable shadowing is when a variable with the same name is declared in an inner scope as a variable in an outer scope. In such cases, the variable in the inner scope hides the variable in the outer scope. We can shadow var variable by let variable but cannot do the opposite. So, if we try to shadow let variable by var variable, it is known as Illegal Shadowing.')
+
+        function func() {
+            var a = 'Samuele';
+            let b = 'Spinetti';
+
+            if (true) {
+                let a = 'Niccolo'; // Legal Shadowing
+                var b = 'Spinetti'; // Illegal Shadowing
+                console.log(a); // It will print 'Niccolo'
+                console.log(b); // It will print error
+            }
+        }
+        func();
+
+    </script>
+
+</body>
+
+</html>

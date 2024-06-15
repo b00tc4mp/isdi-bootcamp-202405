@@ -9,6 +9,9 @@
 
 <body>
     <script>
+
+        console.info('CLOSURES')
+        console.info('A closure is a function having access to the parent scope, even after the parent function has closed.')
         function createCalculator() {
             var res = 0
 
@@ -31,6 +34,22 @@
         calc.sub(5)
 
         console.log(calc.tot())
+
+
+
+        var add = (function () {
+            var counter = 0;
+            return function () {
+                counter += 1
+                return counter
+            }
+        })();
+
+        add();
+        add();
+        add();
+
+        // the counter is now 3
     </script>
 </body>
 
