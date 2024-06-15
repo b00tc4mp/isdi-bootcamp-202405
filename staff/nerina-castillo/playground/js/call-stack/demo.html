@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      function fruitBasket() {
+        addOranges();
+      }
+      function addOranges() {
+        addApples();
+
+        console.log("2 Oranges");
+      }
+      function addApples() {
+        addCherries();
+
+        console.log("3 Apples");
+      }
+      function addCherries() {
+        console.log("5 cherries");
+      }
+
+      fruitBasket();
+
+      //Hace que las funciones se llamen una dentro de otra por orden
+    </script>
+  </body>
+</html>
