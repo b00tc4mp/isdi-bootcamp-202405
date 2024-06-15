@@ -3,12 +3,12 @@ var form = document.querySelector('form')
 form.onsubmit = function (event) {
     event.preventDefault()
 
-    var nameInput = document.getElementById('name')
-    var surnameInput = document.getElementById('surname')
-    var emailInput = document.getElementById('email')
-    var usernameInput = document.getElementById('username')
-    var passwordInput = document.getElementById('password')
-    var passwordRepeatInput = document.getElementById('password2')
+    var nameInput = document.getElementById('name-input')
+    var surnameInput = document.getElementById('surname-input')
+    var emailInput = document.getElementById('email-input')
+    var usernameInput = document.getElementById('username-input')
+    var passwordInput = document.getElementById('password-input')
+    var passwordRepeatInput = document.getElementById('password2-input')
 
     var name = nameInput.value
     var surname = surnameInput.value

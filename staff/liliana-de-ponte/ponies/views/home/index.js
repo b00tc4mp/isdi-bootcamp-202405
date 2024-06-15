@@ -1,9 +1,9 @@
 try {
     var name = getUserName()
+
     var title = document.querySelector('h1')
 
     title.innerText = 'Hello, ' + name + '!'
-
 } catch (error) {
     alert(error.message)
 }
@@ -33,6 +33,30 @@ addPostButton.onclick = function () {
     var createPostForm = document.createElement('form')
     createPostSection.appendChild(createPostForm)
 
+    createPostForm.onsubmit = function (event) {
+        event.preventDefault()
+
+        //var postImageInput = document.getElementById('post-image-input')
+        var postImage = postImageInput.value
+        var postCaption = postCaptionInput.value
+
+        try {
+            createPost(postImage, postCaption)
+
+            document.body.removeChild(createPostSection)
+
+            for (var i = postListSection.children.length - 1; i > -1; i++) {
+                var child = postListSection.children[i]
+
+                postListSection.removeChild(child)
+            }
+
+            listPosts()
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     var postImageLabel = document.createElement('label')
     postImageLabel.htmlFor = 'post-image-input'
     postImageLabel.innerText = 'Image'
@@ -42,42 +66,86 @@ addPostButton.onclick = function () {
     postImageInput.id = postImageLabel.htmlFor
     createPostForm.appendChild(postImageInput)
 
-    var postTextLabel = document.createElement('label')
-    postTextLabel.htmlFor = 'post-text-input'
-    postTextLabel.innerText = 'Description'
-    createPostForm.appendChild(postTextLabel)
+    var postCaptionLabel = document.createElement('label')
+    postCaptionLabel.htmlFor = 'post-caption-input'
+    postCaptionLabel.innerText = 'Caption'
+    createPostForm.appendChild(postCaptionLabel)
 
-    var postTextInput = document.createElement('input')
-    postTextInput.placeholder = 'Write here'
-    postTextInput.id = postTextLabel.htmlFor
-    createPostForm.appendChild(postTextInput)
+    var postCaptionInput = document.createElement('input')
+    postCaptionInput.id = postCaptionLabel.htmlFor
+    createPostForm.appendChild(postCaptionInput)
 
     var postButtonSubmit = document.createElement('button')
     postButtonSubmit.type = 'submit'
-    postButtonSubmit.classname = "submit-button"
-    postButtonSubmit.id = 'submit-button'
-    postButtonSubmit.innerText = "Submit"
+    postButtonSubmit.innerText = "Create"
     createPostForm.appendChild(postButtonSubmit)
 
-    var form = document.querySelector('form')
+    var postCancelButton = document.createElement('button')
+    postCancelButton.type = 'reset'
+    postCancelButton.innerText = "Cancel"
+    createPostForm.appendChild(postCancelButton)
 
-    form.onsubmit = function (event) {
-        event.preventDefault()
-
-        var imageInput = document.getElementById('post-image-input')
-        var descriptionInput = document.getElementById('post-text-input')
-
-        var imageSource = imageInput.value
-        var description = descriptionInput.value
-
-        try {
-            savePost(imageSource, description)
-
-            alert('Successfully posted')
-        } catch (error) {
-
-            alert(error.message)
-
-        }
+    postCancelButton.onclick = function () {
+        document.body.removeChild(createPostSection)
     }
 }
+
+var postListSection = document.createElement('section')
+document.body.appendChild(postListSection)
+
+function listPosts() {
+    var posts = getAllPosts()
+
+    posts.forEach(function (post) {
+        var postArticle = document.createElement('article')
+        postListSection.appendChild(postArticle)
+
+        var postAuthorTitle = document.createElement('h3')
+        postAuthorTitle.innerText = post.author
+        postArticle.appendChild(postAuthorTitle)
+
+        var postImage = document.createElement('img')
+        postImage.src = post.image
+        postArticle.appendChild(postImage)
+
+        var postCaptionText = document.createElement('p')
+        postCaptionText.innerText = post.caption
+        postArticle.appendChild(postCaptionText)
+
+        var postDateTime = document.createElement('time')
+        postDateTime.innerText = formatTime(new Date(post.date))
+        postArticle.appendChild(postDateTime)
+
+        if (post.author === getUserUsername()) {
+            var postDeleteButton = document.createElement('button')
+            postDeleteButton.innerText = 'Delete'
+            postArticle.appendChild(postDeleteButton)
+
+            postDeleteButton.onclick = function () {
+                var id = post.id
+
+                deletePost(id)
+                postListSection.removeChild(postArticle)
+            }
+
+            if (post.author === getUserUsername()) {
+                var editCaptionButton = document.createElement('button')
+                editCaptionButton.innerText = 'Edit'
+                postArticle.appendChild(editCaptionButton)
+
+                editCaptionButton.onclick = function () {
+
+                    var id = post.id
+
+                    editCaption(newCaption)
+                    postListSection.removeChild(postArticle)
+
+                }
+            }
+        }
+
+    })
+}
+
+listPosts()
+
