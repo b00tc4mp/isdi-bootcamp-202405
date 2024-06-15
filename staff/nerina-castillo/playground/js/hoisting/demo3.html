@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-
   <body>
     <script>
-      console.info(
-        (function multiply(num1, num2) {
-          return num1 * num2;
-        })(12, 5)
-      );
+      console.info("DEMO hoisting with let and const");
 
-      //Es una función que se llama inmediatamente a sí misma
+      console.info(records);
+
+      const records = {
+        1: "Ramones",
+        2: "Bad Nerves",
+        3: "Sex Pistols",
+        4: "The Stooges",
+      };
+      //error
     </script>
   </body>
 </html>
