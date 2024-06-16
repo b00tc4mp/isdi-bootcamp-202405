@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currying</title>
+</head>
+
+<body>
+
+    <script>
+
+        /*transforma una función con múltiples argumentos en una serie de funciones con un solo argumento cada una.*/
+
+        function multiplication(num1) {
+
+            return function (num2) {
+
+                return function (num3) {
+
+                    return 'The result of multiplication is: ' + (num1 * num2 * num3)
+                }
+            }
+        }
+
+        var multiplyByNum2 = multiplication(2)
+        var multiplyByNum2AndNum3 = multiplyByNum2(3)
+        var result = multiplyByNum2AndNum3(4)
+
+        console.info(result)
+
+    </script>
+
+</body>
+
+</html>

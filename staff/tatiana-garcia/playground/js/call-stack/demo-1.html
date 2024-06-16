@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Stack</title>
+</head>
+
+<body>
+    <script>
+
+        /* gestiona las llamadas y ejecuciones de funciones en un programa,
+        ayudando a mantener el orden y el control del flujo de ejecución para que no haya un Stack Overflow.*/
+
+        function start() {
+
+            //aqui se añade start al call-stack
+
+            console.info('Press button')
+            //imprime en consola Press button
+
+            play()
+            //se invoca play()
+
+        }
+
+        function play() {
+
+            //aqui se añade play al call-stack
+
+            console.info('Start game')
+            //imprime en consola Start game
+
+            end()
+            // se invoca end
+        }
+
+        function end() {
+
+            //se añade end al call-stack
+
+            console.info('Game over')
+            // se imprime Game over
+
+        }
+
+        //end termina
+        //se regresa al play y tambien termina
+        // y por ultimo regresa al start y termina y el callstack se queda vacio
+
+        start()
+
+
+    </script>
+</body>
+
+</html>
