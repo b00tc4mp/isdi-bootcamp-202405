@@ -36,7 +36,7 @@ addPostButton.onclick = function () {
     createPostForm.onsubmit = function (event) {
         event.preventDefault()
 
-        //var postImageInput = document.getElementById('post-image-input')
+        // var postImageInput = document.getElementById('post-image-input')
         var postImage = postImageInput.value
         var postCaption = postCaptionInput.value
 
@@ -75,14 +75,14 @@ addPostButton.onclick = function () {
     postCaptionInput.id = postCaptionLabel.htmlFor
     createPostForm.appendChild(postCaptionInput)
 
-    var postSubmitButton = document.createElement('button')
-    postSubmitButton.type = 'submit'
-    postSubmitButton.innerText = 'Create'
-    createPostForm.appendChild(postSubmitButton)
+    var postButtonSubmit = document.createElement('button')
+    postButtonSubmit.type = 'submit'
+    postButtonSubmit.innerText = 'Submit'
+    createPostForm.appendChild(postButtonSubmit)
 
     var postCancelButton = document.createElement('button')
-    postCancelButton.type = 'reset'
     postCancelButton.innerText = 'Cancel'
+    postCancelButton.type = 'reset'
     createPostForm.appendChild(postCancelButton)
 
     postCancelButton.onclick = function () {
@@ -120,6 +120,14 @@ function listPosts() {
             var postDeleteButton = document.createElement('button')
             postDeleteButton.innerText = 'Delete'
             postArticle.appendChild(postDeleteButton)
+
+            postDeleteButton.onclick = function () {
+
+                var id = post.id
+
+                deletePost(id)
+                postListSection.removeChild(postArticle)
+            }
         }
     })
 }

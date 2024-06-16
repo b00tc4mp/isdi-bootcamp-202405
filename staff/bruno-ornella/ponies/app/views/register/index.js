@@ -19,21 +19,19 @@ form.onsubmit = function (event) {
 
     try {
         registerUser(name, surname, email, username, password, passwordRepeat)
+
         alert('user successfully registered')
 
         location.href = '../login'
     } catch (error) {
         alert(error.message)
-
     }
-
 }
-
 
 var a = document.querySelector('a')
 
 a.onclick = function (event) {
     event.preventDefault()
 
-    location.href = 'login.html'
+    location.href = '../login'
 }

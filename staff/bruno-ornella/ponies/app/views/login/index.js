@@ -13,12 +13,9 @@ form.onsubmit = function (event) {
         loginUser(username, password)
 
         location.href = '../home'
-
     } catch (error) {
         alert(error.message)
     }
-
-
 }
 
 var a = document.querySelector('a')
@@ -26,5 +23,5 @@ var a = document.querySelector('a')
 a.onclick = function (event) {
     event.preventDefault()
 
-    location.href = '../register'
+    window.location.href = '../register'
 }
