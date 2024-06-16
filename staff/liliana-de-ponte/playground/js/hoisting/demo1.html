@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //Hoisting: las variables y funciones pueden ser usadas antes de que sean definidas en el código.
+        //el lenguaje revisa y guarda en su memoria todas las variables y funciones 
+
+        var name = 'Liliana'
+        var age = 37
+
+        function myData() {
+
+            console.log(`Mi nombre es : ${name} y tengo: ${age} años`)
+        }
+
+        myData()
+
+        //Funciona tambien si llamas antes a la funcion 
+
+        myData()
+
+        function myData() {
+
+            console.log(`Mi nombre es : ${name} y tengo: ${age} años`)
+        }
+
+        var name = 'Liliana'
+        var age = 37
+
+    </script>
+</body>
+
+</html>
