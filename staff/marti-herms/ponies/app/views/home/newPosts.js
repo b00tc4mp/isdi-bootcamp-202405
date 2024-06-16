@@ -1,8 +1,5 @@
 function newPosts(event) {
     event.preventDefault();
-    //addPostButton.disabled = true;
-
-
 
     var createPostTitle = document.createElement('h2');
     createPostTitle.innerText = 'Create Post';
@@ -20,15 +17,15 @@ function newPosts(event) {
     postImageInput.id = postImageLabel.htmlFor;
     createPostForm.appendChild(postImageInput);
 
-    var postTextLabel = document.createElement('label');
-    postTextLabel.htmlFor = 'post-text-input';
-    postTextLabel.innerText = 'Comment';
-    createPostForm.appendChild(postTextLabel);
+    var postCaptionLabel = document.createElement('label');
+    postCaptionLabel.htmlFor = 'post-text-input';
+    postCaptionLabel.innerText = 'Comment';
+    createPostForm.appendChild(postCaptionLabel);
 
-    var postTextInput = document.createElement('input');
-    postTextInput.id = postTextLabel.htmlFor;
-    postTextInput.placeholder = 'Write your comment'
-    createPostForm.appendChild(postTextInput);
+    var postCaptionInput = document.createElement('input');
+    postCaptionInput.id = postCaptionLabel.htmlFor;
+    postCaptionInput.placeholder = 'Write your caption';
+    createPostForm.appendChild(postCaptionInput);
 
     var postImageSubmit = document.createElement('button');
     postImageSubmit.type = 'submit';
@@ -37,7 +34,20 @@ function newPosts(event) {
 
     postImageSubmit.onclick = function (event) {
         event.preventDefault();
-        addPost(postImageInput.value, postTextInput.value);
-        document.getElementById('add-post').removeChild(createPostSection);
+
+        try {
+            addPost(postImageInput.value, postCaptionInput.value);
+
+            document.getElementById('button-section').removeChild(createPostSection);
+
+            document.getElementById('add-post-button').innerText = 'Add Post';
+
+            addPostHasBeenClicked = false;
+
+            updatePostList();
+        } catch (error) {
+            alert(error.message);
+        }
+
     }
 }

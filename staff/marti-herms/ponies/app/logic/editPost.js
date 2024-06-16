@@ -1,9 +1,9 @@
-function deletePosts(id) {
+function editPost(id, newCaption) {
     var posts = getAllPosts();
 
     var index = posts.findIndex(item => item.id === id);
 
-    posts.splice(index, 1);
+    posts[index].caption = newCaption;
 
     setAllPosts(posts);
 }
