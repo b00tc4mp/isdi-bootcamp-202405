@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var x = 1;
+        if (x === 1) {
+            var y = 1;
+            let z = 2;
+
+            console.log(y); // 1
+            console.log(z); // 2
+        }
+
+        console.log(y); // 1 (var tiene alcance de función/global)
+        console.log(z); // ReferenceError: z is not defined (let tiene alcance de bloque)
+    </script>
+</body>
+
+</html>
