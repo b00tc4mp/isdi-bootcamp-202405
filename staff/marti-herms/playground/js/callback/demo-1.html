@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback</title>
+</head>
+
+<body>
+    <script>
+        /* los callback son funciones que pasan como argumento otras funciones y se ejecutan después 
+        de que la función que las recibe haya completado su tarea */
+
+        function add(a, b, callback) {
+
+            var result = a + b
+            callback(result)
+        }
+
+        function displayResult(result) {
+
+            console.info('el resultado es: ' + result)
+        }
+
+        add(7, 5, displayResult)
+
+    </script>
+
+
+</body>
+
+</html>
