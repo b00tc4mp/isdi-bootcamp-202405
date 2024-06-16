@@ -1,5 +1,7 @@
+var USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
+
 function loginUser(username, password) {
-    if (username.trim().length < 4)
+    if (!USER_REGEX.test(username))
         throw new Error('invalid username')
 
     if (password.trim().length < 8)
@@ -13,6 +15,7 @@ function loginUser(username, password) {
 
     if (user === undefined)
         throw new Error('username does not exist')
+
     if (user.password !== password)
         throw new Error('wrong password')
 

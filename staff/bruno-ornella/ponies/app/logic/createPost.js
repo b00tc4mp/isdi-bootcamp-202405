@@ -8,8 +8,10 @@ function createPost(image, caption) {
         image: image,
         caption: caption,
         author: sessionStorage.username,
-        date: new Date().toDateString()
+        date: new Date().toISOString(),
+        id: generateRandomId()
     }
+
     posts.push(post)
 
     localStorage.posts = JSON.stringify(posts)
