@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Función pura
+        function square(x) {
+            return x * x;
+        }
+
+        // Función impura (efecto secundario)
+        function logAndReturn(x) {
+            console.log("Valor recibido:", x);
+            return x;
+        }
+
+        // Función impura (mutación de argumentos)
+        function pushElement(arr, element) {
+            arr.push(element);
+            return arr;
+        }
+    </script>
+</body>
+
+</html>

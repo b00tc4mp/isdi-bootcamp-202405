@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function createGreeter(greeting) {
+            return function (name) {
+                return `${greeting}, ${name}!`
+            }
+        }
+
+        const sayHello = createGreeter('Hello')
+        const sayHi = createGreeter('Hi')
+        const sayGoodMorning = createGreeter('Good morning')
+
+        console.log(sayHello('Matias'))
+        console.log(sayHi('Juan'))
+        console.log(sayGoodMorning('Pedro'))
+    </script>
+
+</body>
+
+</html>

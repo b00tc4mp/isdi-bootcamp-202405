@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function applyDiscount(discount) {
+            return function (price) {
+                return price - (price * discount / 100)
+            }
+        }
+
+        const tenPercentDiscount = applyDiscount(10)
+        const twentyPercentDiscount = applyDiscount(20)
+
+
+        console.log(tenPercentDiscount(100))
+        console.log(twentyPercentDiscount(50))
+
+    </script>
+</body>
+
+</html>

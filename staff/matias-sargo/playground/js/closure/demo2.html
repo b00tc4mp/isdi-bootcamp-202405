@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function newCounter() {
+            var counter = 0
+
+            function counterFunction() {
+                counter += 1
+                return counter;
+            }
+
+            counterFunction.res = function () {
+                counter = 0;
+            };
+
+            return counterFunction;
+        }
+        var counter1 = newCounter()
+        console.log(counter1())
+        console.log(counter1())
+        console.log(counter1())
+
+        var counter2 = newCounter()
+        console.log(counter2())
+        console.log(counter2())
+
+    </script>
+</body>
+
+</html>
