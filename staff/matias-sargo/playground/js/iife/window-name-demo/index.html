@@ -9,15 +9,12 @@
 
 <body>
     <script>
+        var otherTab = window.open("content.html", "_blank");
 
-        console.info("(Immediately Invoked Function Expression")
-
-            (function () {
-                var message = "Hola Mundo"
-                console.log(message)
-            })()
-
+        if (otherTab) otherTab.name = "other-tab";
     </script>
+
+    <a href="content.html#content-2" target="other-tab">This link will be opened in the other tab.</a>
 </body>
 
 </html>
