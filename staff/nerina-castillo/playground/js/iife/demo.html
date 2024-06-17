@@ -8,13 +8,11 @@
 
   <body>
     <script>
-      console.info(
-        (function multiply(num1, num2) {
-          return num1 * num2;
-        })(12, 5)
-      );
+      var multiply = (function (num1, num2) {
+        return num1 * num2;
+      })(12, 5);
 
-      //Es una función que se llama inmediatamente a sí misma
+      console.info(multiply);
     </script>
   </body>
 </html>
