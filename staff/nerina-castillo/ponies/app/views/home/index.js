@@ -36,7 +36,6 @@ addPostButton.onclick = function () {
   createPostForm.onsubmit = function (event) {
     event.preventDefault();
 
-    // var postImageInput = document.getElementById('post-image-input')
     var postImage = postImageInput.value;
     var postCaption = postCaptionInput.value;
 
@@ -84,6 +83,11 @@ addPostButton.onclick = function () {
   postCancelButton.innerText = "Cancel";
   postCancelButton.type = "reset";
   createPostForm.appendChild(postCancelButton);
+
+  var postCaptionEditButton = document.createElement("button");
+  postCaptionEditButton.innerText = "Edit";
+  postCaptionEditButton.type = "edit";
+  createPostForm.appendChild(postCaptionEditButton);
 
   postCancelButton.onclick = function () {
     document.body.removeChild(createPostSection);
