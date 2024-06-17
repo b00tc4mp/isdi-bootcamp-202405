@@ -1,4 +1,4 @@
-function deletePost(postId) {
+function editCaption(postId, newCaption) {
   if (postId.trim().length === 0) throw new Error("invalid postId");
 
   var posts =
@@ -10,7 +10,7 @@ function deletePost(postId) {
 
   if (postIndex < 0) throw new Error("post not found");
 
-  posts.splice(postIndex, 1);
+  posts[postIndex].caption = newCaption;
 
   localStorage.posts = JSON.stringify(posts);
 }
