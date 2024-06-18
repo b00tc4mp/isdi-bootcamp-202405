@@ -5,6 +5,7 @@ function createPost(image, caption) {
     localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
 
   var post = {
+    id: generateId(),
     image: image,
     caption: caption,
     author: sessionStorage.username,
