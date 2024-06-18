@@ -1,18 +1,16 @@
 var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-var NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
-var USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 
 function registerUser(name, surname, email, username, password, passwordRepeat) {
-    if (!NAME_REGEX.test(name.trim()))
+    if (name.trim() === '')
         throw new Error('invalid name')
 
-    if (!NAME_REGEX.test(surname.trim()))
-        throw new Error('ivalid surname')
+    if (surname.trim().length < 2)
+        throw new Error('invalid surname')
 
     if (!EMAIL_REGEX.test(email))
         throw new Error('invalid email')
 
-    if (!USER_REGEX.test(username))
+    if (username.trim().length < 4)
         throw new Error('invalid username')
 
     if (password.trim().length < 8)

@@ -1,12 +1,16 @@
-function deletePost(id) {
+function deletePost(postId) {
+    if (postId.trim().length === 0) throw new Error
+        ('invalid postId')
 
-    var posts = getAllPosts()
-    var index = posts.findIndex(function (element) {
+    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-        return element.id === id
+    var postIndex = posts.findIndex(function (post) {
+        return post.id === postId
     })
 
-    posts.splice(index, 1)
+    if (postIndex < 0) throw new Error('post not found')
+
+    posts.splice(postIndex, 1)
 
     localStorage.posts = JSON.stringify(posts)
 

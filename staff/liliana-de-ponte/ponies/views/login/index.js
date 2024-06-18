@@ -1,27 +1,86 @@
-var form = document.querySelector('form')
+(function () {
+    var main = document.createElement('main')
+    main.className = 'view'
+    document.body.appendChild(main)
 
-form.onsubmit = function (event) {
-    event.preventDefault()
+    var title = document.createElement('h1')
+    title.className = 'view'
+    title.innerText = 'Login'
+    main.appendChild(title)
 
-    var usernameInput = document.getElementById('username')
-    var passwordInput = document.getElementById('password')
+    var createLoginForm = document.createElement('form')
+    createLoginForm.className = 'form'
+    main.appendChild(createLoginForm)
 
-    var username = usernameInput.value
-    var password = passwordInput.value
+    var usernameFieldDiv = document.createElement('div')
+    usernameFieldDiv.className = 'form__field'
+    createLoginForm.appendChild(usernameFieldDiv)
 
-    try {
-        loginUser(username, password)
-        location.href = '../home'
+    var usernameLabel = document.createElement('label')
+    usernameLabel.htmlFor = 'username-input'
+    usernameLabel.innerText = "Username"
+    usernameFieldDiv.appendChild(usernameLabel)
 
-    } catch (error) {
-        alert(error.message)
+    var usernameInput = document.createElement('input')
+    usernameInput.className = 'form__input'
+    usernameInput.type = 'text'
+    usernameInput.id = usernameLabel.htmlFor
+    usernameInput.name = 'username'
+    usernameInput.placeholder = 'username'
+    postImageFieldDiv.appendChild(usernameInput)
+
+    var passwordFieldDiv = document.createElement('div')
+    passwordFieldDiv.className = 'form__field'
+    createLoginForm.appendChild(passwordFieldDiv)
+
+    var passwordLabel = document.createElement('label')
+    passwordLabel.innerText = 'Password'
+    passwordLabel.htmlFor = 'password-input'
+    passwordFieldDiv.appendChild(passwordLabel)
+
+    var passwordInput = document.createElement('input')
+    passwordInput.className = 'form__input'
+    passwordInput.type = 'password'
+    passwordInput.id = passwordLabel.htmlFor
+    passwordInput.name = 'password'
+    passwordInput.placeholder = 'password'
+    postImageFieldDiv.appendChild(passwordInput)
+
+    var loginButton = document.createElement('button')
+    loginButton.className = 'form__button'
+    loginButton.type = 'submit'
+    loginButton.innerText = 'Login'
+    createLoginForm.appendChild(loginButton)
+
+    createLoginForm.onsubmit = function (event) {
+        event.preventDefault()
+
+        var usernameInput = document.getElementById('username-input')
+        var passwordInput = document.getElementById('password-input')
+
+        var username = usernameInput.value
+        var password = passwordInput.value
+
+        try {
+            loginUser(username, password)
+
+            location.href = '../home'
+        } catch (error) {
+            alert(error.message)
+        }
     }
-}
 
-var a = document.querySelector('a')
+    var footer = document.createElement('footer')
+    footer.className = 'footer'
+    document.body.appendChild(footer)
 
-a.onclick = function (event) {
-    event.preventDefault()
+    var linkRegister = document.createElement('button')
+    linkRegister.innerText = 'Register'
+    footer.appendChild(linkRegister)
 
-    location.href = '../register'
-}
+    linkRegister.onclick = function (event) {
+        event.preventDefault()
+
+        location.href = '../register'
+    }
+})()
