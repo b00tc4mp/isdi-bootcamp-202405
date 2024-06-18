@@ -21,17 +21,20 @@ function generatePostList(posts, section) {
             postArticle.appendChild(postDate);
 
             if (posts[i].author === getUserUsername()) {
-                var deletePostSubmit = document.createElement('button');
-                deletePostSubmit.type = 'submit';
-                deletePostSubmit.innerText = 'Delete this post'
-                postArticle.appendChild(deletePostSubmit);
+                var deletePostButton = document.createElement('button');
+                deletePostButton.innerText = 'Delete this post'
+                postArticle.appendChild(deletePostButton);
 
-                deletePostSubmit.onclick = function (event) {
-                    event.preventDefault();
+                deletePostButton.onclick = function (event) {
+                    if (confirm('Delete Post?')) {
+                        try {
+                            deletePosts(posts[i].id);
 
-                    deletePosts(posts[i].id);
-
-                    section.removeChild(this.parentNode);
+                            updatePostList();
+                        } catch (error) {
+                            alert(error.message);
+                        }
+                    }
                 }
 
                 var editCaptionPost = document.createElement('button');
@@ -39,35 +42,54 @@ function generatePostList(posts, section) {
                 editCaptionPost.innerText = 'Edit this post'
                 postArticle.appendChild(editCaptionPost);
 
-                editCaptionPost.onclick = function (event) {
-                    event.preventDefault();
+                var editButtonHasBeenClicked = false;
 
-                    var captionEditLabel = document.createElement('label');
-                    captionEditLabel.htmlFor = 'caption-edit-input';
-                    captionEditLabel.innerText = 'New Caption';
-                    postArticle.appendChild(captionEditLabel)
+                editCaptionPost.onclick = function () {
+                    if (!editButtonHasBeenClicked) {
+                        editButtonHasBeenClicked = true;
 
-                    var captionEditInput = document.createElement('input');
-                    captionEditInput.id = captionEditLabel.htmlFor;
-                    captionEditInput.placeholder = 'Write your caption';
-                    postArticle.appendChild(captionEditInput);
+                        editCaptionPost.innerText = 'Cancel'
 
-                    var captionEditSubmit = document.createElement('button');
-                    captionEditSubmit.type = 'submit';
-                    captionEditSubmit.innerText = 'Change';
-                    postArticle.appendChild(captionEditSubmit);
+                        var createCaptionForm = document.createElement('form');
+                        postArticle.appendChild(createCaptionForm);
 
-                    captionEditSubmit.onclick = function (event) {
-                        event.preventDefault();
+                        var captionEditLabel = document.createElement('label');
+                        captionEditLabel.htmlFor = 'caption-edit-input';
+                        captionEditLabel.innerText = 'New Caption';
+                        createCaptionForm.appendChild(captionEditLabel)
 
-                        editPost(posts[i].id, captionEditInput.value);
+                        var captionEditInput = document.createElement('input');
+                        captionEditInput.id = captionEditLabel.htmlFor;
+                        captionEditInput.value = posts[i].caption;
+                        createCaptionForm.appendChild(captionEditInput);
 
-                        updatePostList();
+                        var captionEditButton = document.createElement('button');
+                        captionEditButton.type = 'submit'
+                        captionEditButton.innerText = 'Change';
+                        createCaptionForm.appendChild(captionEditButton);
+
+                        createCaptionForm.onsubmit = function (event) {
+                            event.preventDefault();
+
+                            if (confirm('Edit Post?')) {
+                                try {
+                                    editPost(posts[i].id, captionEditInput.value);
+
+                                    updatePostList();
+                                } catch (error) {
+                                    alert(error.message)
+                                }
+                            }
+                        }
+                    } else {
+                        editButtonHasBeenClicked = false;
+
+                        editCaptionPost.innerText = 'Edit this post'
+
+                        postArticle.removeChild(postArticle.querySelector('form'));
                     }
-
                 }
             }
-
         }
     } else {
         var noPostText = document.createElement('h2');

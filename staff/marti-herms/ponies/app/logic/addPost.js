@@ -2,16 +2,19 @@ function addPost(img, caption) {
     if (!img.startsWith('http')) {
         throw new Error('invalidImage');
     }
-    var posts = getAllPosts();
+    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
 
-    var date = new Date().toString();
-    var rdmNum = (Math.random() * 100).toString();
-    var id = rdmNum + date;
+    var post = {
+        id: generateId(),
+        img: img,
+        caption: caption,
+        author: sessionStorage.username,
+        date: new Date().toISOString()
+    };
 
-    var post = { id: id, img: img, caption: caption, author: sessionStorage.username, date: new Date().toISOString() }
     posts.unshift(post);
 
-    setAllPosts(posts);
+    localStorage.posts = JSON.stringify(posts);
 
     addPostButton.disabled = false;
 }

@@ -1,9 +1,9 @@
 function editPost(id, newCaption) {
-    var posts = getAllPosts();
+    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
 
     var index = posts.findIndex(item => item.id === id);
 
     posts[index].caption = newCaption;
 
-    setAllPosts(posts);
+    localStorage.posts = JSON.stringify(posts);
 }

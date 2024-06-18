@@ -37,7 +37,7 @@ addPostButton.onclick = function (event) {
     if (!addPostHasBeenClicked) {
         addPostHasBeenClicked = true;
 
-        document.getElementById('add-post-button').innerText = 'Cancel'
+        addPostButton.innerText = 'Cancel'
 
         createPostSection = document.createElement('section');
 
@@ -47,7 +47,7 @@ addPostButton.onclick = function (event) {
     } else {
         addPostHasBeenClicked = false;
 
-        document.getElementById('add-post-button').innerText = 'Add Post'
+        addPostButton.innerText = 'Add Post'
 
         document.getElementById('button-section').removeChild(createPostSection);
     }
