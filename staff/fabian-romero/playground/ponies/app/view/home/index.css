@@ -1,0 +1,90 @@
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    min-width: 80%;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.form__input {
+    font-size: inherit;
+}
+
+.form__button {
+    font-size: inherit;
+}
+
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post {
+    box-shadow: 1px 1px 10px 1px lightgray;
+}
+
+.post__author {
+    margin: .5rem;
+}
+
+.post__image {
+    width: 100%;
+}
+
+.post__caption {
+    margin: .5rem;
+}
+
+.post__actions {
+    margin: .5rem;
+
+}
+
+.post__time {
+    display: block;
+    margin: .5rem;
+    color: silver;
+    font-size: .9rem;
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 1rem;
+    background-color: white;
+}
+
+.main {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: .5rem 0;
+}

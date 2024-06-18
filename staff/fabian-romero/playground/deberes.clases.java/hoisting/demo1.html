@@ -1,0 +1,40 @@
+// es la forma en que js lee nuestro codigo
+// si es una variable se ponga donde se ponga, js la lee primero y luego la ejecuta
+// lo mismo con las funciones , pero si declaramos la funcion como una varianble, solo se lle primero la variable y no
+la funcion
+//pero si la ejecuto como variable la que se lee y sube sola es la variable y la funcion no se podría ejecutar
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+
+        saludar('pepe')
+
+        function saludar(nombre) {
+            console.log('hello ' + nombre)
+        }
+
+        // si leeo esto solo, la funcion se ejecura antes de la variable
+
+        saludar('pepe')
+        var saludar = function (nombre) {
+            console.log('heeello ' + nombre)
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

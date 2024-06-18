@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function createCalculator() {
+            var res = 0
+
+            return {
+                add: function (num) { res += num },
+                sub: function (num) { res -= num },
+                mul: function (num) { res *= num },
+                div: function (num) { res /= num },
+                tot: function () { return res },
+                res: function () { res = 0 }
+            }
+        }
+
+        var calc = createCalculator()
+
+        calc.add(10)
+        calc.add(20)
+        calc.div(3)
+        calc.mul(5)
+        calc.sub(5)
+
+        console.log(calc.tot())
+
+    </script>
+</body>
+
+</html>
