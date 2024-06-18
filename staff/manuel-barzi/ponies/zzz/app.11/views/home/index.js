@@ -142,61 +142,6 @@
                                 }
                             }
                     }
-
-                    var editButton = document.createElement('button')
-                    editButton.innerText = 'Edit'
-                    postArticle.appendChild(editButton)
-
-                    editButton.onclick = function () {
-
-                        var editCaptionForm = document.createElement('form')
-                        postArticle.appendChild(editCaptionForm)
-
-                        var editCaptionLabel = document.createElement('label')
-                        editCaptionLabel.htmlFor = 'edit-caption-input'
-                        editCaptionForm.appendChild(editCaptionLabel)
-
-                        var editCaptionInput = document.createElement('input')
-                        editCaptionInput.id = editCaptionLabel.htmlFor
-                        editCaptionInput.value = post.caption
-                        editCaptionForm.appendChild(editCaptionInput)
-
-                        var editCaptionSubmitButton = document.createElement('button')
-                        editCaptionSubmitButton.type = 'submit'
-                        editCaptionSubmitButton.innerText = 'Save'
-                        editCaptionForm.appendChild(editCaptionSubmitButton)
-
-                        var editCaptionCancelButton = document.createElement('button')
-                        editCaptionCancelButton.innerText = 'Cancel'
-                        editCaptionCancelButton.type = 'button'
-                        editCaptionForm.appendChild(editCaptionCancelButton)
-
-                        editCaptionCancelButton.onclick = function () {
-                            postArticle.removeChild(editCaptionForm)
-                        }
-
-                        editCaptionForm.onsubmit = function (event) {
-                            event.preventDefault()
-
-                            try {
-                                var newCaption = editCaptionInput.value
-
-                                updatePostCaption(post.id, newCaption)
-
-                                postArticle.removeChild(editCaptionForm)
-
-                                clearPosts()
-                                listPosts()
-                            } catch (error) {
-                                alert(error.message)
-
-                                if (error.message === 'post not found') {
-                                    clearPosts()
-                                    listPosts()
-                                }
-                            }
-                        }
-                    }
                 }
             })
         } catch (error) {
