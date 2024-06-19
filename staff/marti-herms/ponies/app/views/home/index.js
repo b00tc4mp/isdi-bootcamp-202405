@@ -1,15 +1,25 @@
 (function () {
+
+    // <-><-><-><-><->Create Header elements<-><-><-><-><->
+    var header = document.createElement('header');
+    header.className = 'header';
+    document.body.appendChild(header);
+
+    var userName = document.createElement('p');
+    header.appendChild(userName);
+
     try {
         var name = getUserName();
 
-        var title = document.querySelector('h1');
-
-        title.innerText = 'Hello, ' + name + '!';
+        userName.innerText = 'Hello, ' + name + '!';
     } catch (error) {
         alert(error.message);
     }
 
-    var logoutButton = document.getElementById('logout-button');
+    var logoutButton = document.createElement('button');
+    logoutButton.className = 'logout-button';
+    logoutButton.innerText = 'Logout';
+    header.appendChild(logoutButton);
 
     logoutButton.onclick = function () {
         try {
@@ -20,68 +30,18 @@
             alert(error.message);
         }
     }
+    // ^^^^^^^^^^^^^^^Create Header elements^^^^^^^^^^^^^^^
+
+    // <-><-><-><-><->Create Main elements<-><-><-><-><->
+    var main = document.createElement('main');
+    main.className = 'view main';
+    document.body.appendChild(main);
 
     var postListSection = document.createElement('section');
-    postListSection.id = 'post-list-section'
-    document.body.appendChild(postListSection);
+    postListSection.className = 'post-list'
+    main.appendChild(postListSection);
 
-
-
-    function newPosts(event) {
-        event.preventDefault();
-
-        var createPostTitle = document.createElement('h2');
-        createPostTitle.innerText = 'Create Post';
-        createPostSection.appendChild(createPostTitle);
-
-        var createPostForm = document.createElement('form');
-        createPostSection.appendChild(createPostForm);
-
-        var postImageLabel = document.createElement('label');
-        postImageLabel.htmlFor = 'post-image-input';
-        postImageLabel.innerText = 'Image';
-        createPostForm.appendChild(postImageLabel);
-
-        var postImageInput = document.createElement('input');
-        postImageInput.id = postImageLabel.htmlFor;
-        createPostForm.appendChild(postImageInput);
-
-        var postCaptionLabel = document.createElement('label');
-        postCaptionLabel.htmlFor = 'post-text-input';
-        postCaptionLabel.innerText = 'Comment';
-        createPostForm.appendChild(postCaptionLabel);
-
-        var postCaptionInput = document.createElement('input');
-        postCaptionInput.id = postCaptionLabel.htmlFor;
-        postCaptionInput.placeholder = 'Write your caption';
-        createPostForm.appendChild(postCaptionInput);
-
-        var postImageSubmit = document.createElement('button');
-        postImageSubmit.type = 'submit';
-        postImageSubmit.innerText = 'Post';
-        createPostForm.appendChild(postImageSubmit);
-
-        postImageSubmit.onclick = function (event) {
-            event.preventDefault();
-
-            try {
-                addPost(postImageInput.value, postCaptionInput.value);
-
-                document.getElementById('button-section').removeChild(createPostSection);
-
-                document.getElementById('add-post-button').innerText = 'Add Post';
-
-                addPostHasBeenClicked = false;
-
-                clearPosts();
-                generatePostList();
-            } catch (error) {
-                alert(error.message);
-            }
-
-        }
-    }
-
+    // <-><-><-><-><->Function to clear posts<-><-><-><-><->
     function clearPosts() {
         for (var i = postListSection.children.length - 1; i > -1; i--) {
             var child = postListSection.children[i]
@@ -89,36 +49,40 @@
             postListSection.removeChild(child)
         }
     }
-
+    // ^^^^^^^^^^^^^^^Function to clear posts^^^^^^^^^^^^^^^
+    // <-><-><-><-><->Function to list posts<-><-><-><-><->
     function generatePostList() {
         try {
             var posts = getAllPosts();
 
             posts.forEach(function (post) {
                 var postArticle = document.createElement('article');
-                postArticle.id = post.id;
+                postArticle.className = 'post';
                 postListSection.appendChild(postArticle);
 
                 var postAuthor = document.createElement('h3');
+                postAuthor.className = 'post__author';
                 postAuthor.innerText = post.author;
                 postArticle.appendChild(postAuthor);
 
                 var postImage = document.createElement('img');
+                postImage.className = 'post__image';
                 postImage.src = post.img;
                 postArticle.appendChild(postImage);
 
                 var postCaption = document.createElement('p');
+                postCaption.className = 'post__caption'
                 postCaption.innerText = post.caption;
                 postArticle.appendChild(postCaption);
 
-                var postDate = document.createElement('time');
-                postDate.innerText = formatTime(new Date(post.date));
-                postArticle.appendChild(postDate);
-
                 if (post.author === getUserUsername()) {
+                    var postActionButtonsDiv = document.createElement('div')
+                    postActionButtonsDiv.className = 'post__actions'
+                    postArticle.appendChild(postActionButtonsDiv)
+
                     var deletePostButton = document.createElement('button');
-                    deletePostButton.innerText = 'Delete this post'
-                    postArticle.appendChild(deletePostButton);
+                    deletePostButton.innerText = 'Delete'
+                    postActionButtonsDiv.appendChild(deletePostButton);
 
                     deletePostButton.onclick = function (event) {
                         if (confirm('Delete Post?')) {
@@ -139,7 +103,6 @@
                     }
 
                     var editCaptionPostButton = document.createElement('button');
-                    editCaptionPostButton.id = post.id
                     editCaptionPostButton.innerText = 'Edit this post'
                     postArticle.appendChild(editCaptionPostButton);
 
@@ -193,39 +156,124 @@
                         }
                     }
                 }
+
+                var postDate = document.createElement('time');
+                postDate.className = 'post__time'
+                postDate.innerText = formatTime(new Date(post.date));
+                postArticle.appendChild(postDate);
             });
         } catch (error) {
             alert(error.message);
         }
 
     }
+    // ^^^^^^^^^^^^^^^Function to list posts^^^^^^^^^^^^^^^
 
     generatePostList();
 
-    var addPostButton = document.getElementById('add-post-button');
+    var footer = document.createElement('footer');
+    footer.className = 'footer';
+    document.body.appendChild(footer);
 
-    var addPostHasBeenClicked = false;
-    var createPostSection;
+    var addPostButton = document.createElement('button');
+    addPostButton.className = 'add-post-button';
+    addPostButton.innerText = '+';
+    footer.appendChild(addPostButton);
 
+    // <-><-><-><-><->Function to add posts<-><-><-><-><->
     addPostButton.onclick = function (event) {
-        if (!addPostHasBeenClicked) {
-            addPostHasBeenClicked = true;
+        event.stopPropagation()
 
-            addPostButton.innerText = 'Cancel'
+        addPostButton.disabled = true;
 
-            createPostSection = document.createElement('section');
+        var createPostSection = document.createElement('section');
+        createPostSection.className = 'newposts';
+        document.body.appendChild(createPostSection);
 
-            document.getElementById('button-section').appendChild(createPostSection);
+        var createPostTitle = document.createElement('h2');
+        createPostTitle.innerText = 'Create Post';
+        createPostSection.appendChild(createPostTitle);
 
-            newPosts(event);
-        } else {
-            addPostHasBeenClicked = false;
+        var createPostForm = document.createElement('form');
+        createPostForm.className = 'form';
+        createPostSection.appendChild(createPostForm);
 
-            addPostButton.innerText = 'Add Post'
+        createPostForm.onsubmit = function (event) {
+            event.preventDefault();
 
-            document.getElementById('button-section').removeChild(createPostSection);
+            addPostButton.disabled = false;
+
+            var postImage = postImageInput.value;
+            var postCaption = postCaptionInput.value;
+
+            try {
+                addPost(postImage, postCaption);
+
+                document.body.removeChild(createPostSection);
+
+                clearPosts();
+                generatePostList();
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        var postImageFieldDiv = document.createElement('div');
+        postImageFieldDiv.className = 'form__field';
+        createPostForm.appendChild(postImageFieldDiv);
+
+        var postImageLabel = document.createElement('label');
+        postImageLabel.htmlFor = 'post-image-input';
+        postImageLabel.innerText = 'Image';
+        postImageFieldDiv.appendChild(postImageLabel);
+
+        var postImageInput = document.createElement('input');
+        postImageInput.className = 'form__input';
+        postImageInput.id = postImageLabel.htmlFor;
+        postImageFieldDiv.appendChild(postImageInput);
+
+        var postCaptionFieldDiv = document.createElement('div');
+        postCaptionFieldDiv.className = 'form__field';
+        createPostForm.appendChild(postCaptionFieldDiv);
+
+        var postCaptionLabel = document.createElement('label');
+        postCaptionLabel.htmlFor = 'post-caption-input';
+        postCaptionLabel.innerText = 'Caption';
+        postCaptionFieldDiv.appendChild(postCaptionLabel);
+
+        var postCaptionInput = document.createElement('input');
+        postCaptionInput.className = 'form__input';
+        postCaptionInput.id = postCaptionLabel.htmlFor;
+        postCaptionFieldDiv.appendChild(postCaptionInput);
+
+        var postSubmitButton = document.createElement('button');
+        postSubmitButton.className = 'form__button';
+        postSubmitButton.type = 'submit';
+        postSubmitButton.innerText = 'Create';
+        createPostForm.appendChild(postSubmitButton);
+
+        var postCancelButton = document.createElement('button');
+        postCancelButton.className = 'form__button';
+        postCancelButton.type = 'reset';
+        postCancelButton.innerText = 'Cancel';
+        createPostForm.appendChild(postCancelButton);
+
+        postCancelButton.onclick = function () {
+            document.body.removeChild(createPostSection);
+            addPostButton.disabled = false;
+        }
+
+        document.addEventListener('click', handler, true);
+
+        function handler(e) {
+            if (e.target !== createPostSection && e.target !== createPostForm && e.target !== postImageFieldDiv && e.target !== postImageLabel && e.target !== postImageInput && e.target !== postCaptionFieldDiv && e.target !== postCaptionLabel && e.target !== postCaptionInput && e.target !== postSubmitButton && e.target !== postCancelButton) {
+                console.log(e);
+                document.body.removeChild(createPostSection);
+                addPostButton.disabled = false;
+                document.removeEventListener('click', handler, true);
+            }
         }
     }
-
-
+    // ^^^^^^^^^^^^^^^Function to add posts^^^^^^^^^^^^^^^
+    // ^^^^^^^^^^^^^^^Create Main elements^^^^^^^^^^^^^^^
 })();

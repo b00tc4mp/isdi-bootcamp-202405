@@ -15,4 +15,6 @@ function addPost(img, caption) {
     posts.unshift(post);
 
     localStorage.posts = JSON.stringify(posts);
+
+    addPostButton.disabled = false;
 }
