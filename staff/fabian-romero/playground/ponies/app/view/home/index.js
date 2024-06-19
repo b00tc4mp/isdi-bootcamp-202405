@@ -9,7 +9,7 @@
     try {
         var name = getUserName()
 
-        userName.innerText = 'Hello, ' + name + '!'
+        userName.innerText = 'Heeeeello, ' + name + '!!'
     } catch (error) {
         alert(error.message)
     }
@@ -175,9 +175,11 @@
 
     addPostButton.onclick = function () {
         var createPostSection = document.createElement('section')
-        document.body.appendChild(createPostSection)
+        createPostSection.className = 'create-post-section'
+        footer.appendChild(createPostSection)
 
         var createPostTitle = document.createElement('h2')
+        createPostTitle.className = 'create-post-section__title'
         createPostTitle.innerText = 'Create Post'
         createPostSection.appendChild(createPostTitle)
 
@@ -195,7 +197,7 @@
             try {
                 createPost(postImage, postCaption)
 
-                document.body.removeChild(createPostSection)
+                footer.removeChild(createPostSection)
 
                 clearPosts()
                 listPosts()
@@ -232,20 +234,24 @@
         postCaptionInput.id = postCaptionLabel.htmlFor
         postCaptionFieldDiv.appendChild(postCaptionInput)
 
+        var postButtonsDiv = document.createElement('div')
+        postButtonsDiv.className = 'create-post-section__buttons'
+        createPostForm.appendChild(postButtonsDiv)
+
         var postSubmitButton = document.createElement('button')
         postSubmitButton.className = 'form__button'
         postSubmitButton.type = 'submit'
         postSubmitButton.innerText = 'Create'
-        createPostForm.appendChild(postSubmitButton)
+        postButtonsDiv.appendChild(postSubmitButton)
 
         var postCancelButton = document.createElement('button')
         postCancelButton.className = 'form__button'
         postCancelButton.type = 'reset'
         postCancelButton.innerText = 'Cancel'
-        createPostForm.appendChild(postCancelButton)
+        postButtonsDiv.appendChild(postCancelButton)
 
         postCancelButton.onclick = function () {
-            document.body.removeChild(createPostSection)
+            footer.removeChild(createPostSection)
         }
     }
 })()

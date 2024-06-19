@@ -1,13 +1,24 @@
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: table;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 .view {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    font-size: 0.9rem;
 }
 
 .form {
-    display: flex;
+    display: contents;
     flex-direction: column;
     gap: .5rem;
     min-width: 80%;
@@ -24,5 +35,16 @@
 }
 
 .form__button {
-    font-size: small;
+    font-size: inherit;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: .5rem 0;
 }
