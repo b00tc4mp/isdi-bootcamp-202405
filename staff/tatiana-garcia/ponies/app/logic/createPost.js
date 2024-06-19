@@ -4,7 +4,6 @@ function createPost(image, caption) {
         throw new Error('invalid image')
     }
 
-
     var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
     var post = {
@@ -13,7 +12,7 @@ function createPost(image, caption) {
         caption: caption,
         author: sessionStorage.username,
         date: new Date().toISOString(),
-        id: generateDateId()
+        id: generateId()
     }
 
     posts.push(post)
