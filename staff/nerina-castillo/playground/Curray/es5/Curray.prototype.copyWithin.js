@@ -16,7 +16,7 @@ Curray.prototype.copyWithin = function (target, start, end = 0) {
   else if (target > start) return this;
   for (var i = start; i < end; i++) {
     this[item] = this[i];
-    item++;
+    target++;
   }
   return this;
 };

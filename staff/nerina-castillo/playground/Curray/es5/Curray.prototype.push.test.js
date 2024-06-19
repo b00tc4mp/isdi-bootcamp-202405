@@ -20,7 +20,7 @@ console.assert(cars[3] === newCar, "cars at 4 is newCar");
 console.assert(cars.length === 4, "cars length is 4");
 console.assert(count === 4, "count is 4");
 
-console.group("CASE push multiple element to Curray");
+console.info("CASE push multiple element to Curray");
 
 var animals = new Curray("pigs", "goats", "sheep", "cows");
 var count = animals.push("chickens", "cats", "dogs");

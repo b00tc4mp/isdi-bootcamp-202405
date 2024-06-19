@@ -1,5 +1,5 @@
 var Curray = require("./Curray");
-require("./Curray.prototype.concat");
+require(".Curray.prototype.concat");
 
 console.info("TEST Curray.prototype.concat");
 
@@ -53,16 +53,16 @@ nums4.length = 2;
 nums5[0] = -1000;
 nums5.length = 1;
 
-var num6 = num1.concat(num2, num3, num4, num5);
+var nums6 = nums1.concat(nums2, nums3, nums4, nums5);
 
-console.assert(num1[0] === 10, "num1 at 0 is 10");
-console.assert(num1[1] === 20, "num1 at 1 is 20");
-console.assert(num1[2] === 20, "num1 at 2 is 30");
-console.assert(num2[0] === 400, "num2 at 0 is 400");
-console.assert(num2[1] === 500, "num2 at 1 is 500");
-console.assert(num3[0] === -60, "num3 at 0 is -60");
-console.assert(num3[1] === -70, "num3 at 1 is -70");
-console.assert(num4[0] === 800, "num4 at 0 is 900");
-console.assert(num4[2] === 900, "num4 at 1 is 900");
-console.assert(num5[0] === -1000, "num5 at 0 is -1000");
-console.assert(num6.length === 10, "nums6 length is 10");
+console.assert(nums1[0] === 10, "num1 at 0 is 10");
+console.assert(nums1[1] === 20, "num1 at 1 is 20");
+console.assert(nums1[2] === 20, "num1 at 2 is 30");
+console.assert(nums2[0] === 400, "num2 at 0 is 400");
+console.assert(nums2[1] === 500, "num2 at 1 is 500");
+console.assert(nums3[0] === -60, "num3 at 0 is -60");
+console.assert(nums3[1] === -70, "num3 at 1 is -70");
+console.assert(nums4[0] === 800, "num4 at 0 is 900");
+console.assert(nums4[2] === 900, "num4 at 1 is 900");
+console.assert(nums5[0] === -1000, "num5 at 0 is -1000");
+console.assert(nums6.length === 10, "nums6 length is 10");
