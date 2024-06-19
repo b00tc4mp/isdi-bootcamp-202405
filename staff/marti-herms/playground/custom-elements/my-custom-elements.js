@@ -17,14 +17,17 @@ class HelloWorld extends HTMLElement {
 window.customElements.define('hello-world', HelloWorld)
 
 class HelloTo extends HTMLElement {
+
     constructor() {
-        super()
+        super();
     }
 
     connectedCallback() {
         const h1 = document.createElement('h1');
 
         h1.innerText = 'Hello, ' + this.innerText + '!';
+
+        this.innerText = '';
 
         this.appendChild(h1);
     }
