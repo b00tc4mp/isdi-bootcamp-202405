@@ -5,10 +5,11 @@ function createPost(image, caption) {
     var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
     var post = {
+        id: generateId(),
         image: image,
         caption: caption,
         author: sessionStorage.username,
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
     }
 
     posts.push(post)
