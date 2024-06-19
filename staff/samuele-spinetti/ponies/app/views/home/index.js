@@ -4,6 +4,7 @@
     document.body.appendChild(header)
 
     var userName = document.createElement('p')
+    userName.className = 'header__user-name'
     header.appendChild(userName)
 
     try {
@@ -175,9 +176,11 @@
 
     addPostButton.onclick = function () {
         var createPostSection = document.createElement('section')
-        document.body.appendChild(createPostSection)
+        createPostSection.className = 'create-post-section'
+        footer.appendChild(createPostSection)
 
         var createPostTitle = document.createElement('h2')
+        createPostTitle.className = 'create-post-section__title'
         createPostTitle.innerText = 'Create Post'
         createPostSection.appendChild(createPostTitle)
 
@@ -195,7 +198,7 @@
             try {
                 createPost(postImage, postCaption)
 
-                document.body.removeChild(createPostSection)
+                footer.removeChild(createPostSection)
 
                 clearPosts()
                 listPosts()
@@ -219,7 +222,7 @@
         postImageFieldDiv.appendChild(postImageInput)
 
         var postCaptionFieldDiv = document.createElement('div')
-        postCaptionFieldDiv.className = 'fomr__field'
+        postCaptionFieldDiv.className = 'form__field'
         createPostForm.appendChild(postCaptionFieldDiv)
 
         var postCaptionLabel = document.createElement('label')
@@ -232,20 +235,24 @@
         postCaptionInput.id = postCaptionLabel.htmlFor
         postCaptionFieldDiv.appendChild(postCaptionInput)
 
+        var postButtonsDiv = document.createElement('div')
+        postButtonsDiv.className = 'create-post-section__buttons'
+        createPostForm.appendChild(postButtonsDiv)
+
         var postSubmitButton = document.createElement('button')
         postSubmitButton.className = 'form__button'
         postSubmitButton.type = 'submit'
         postSubmitButton.innerText = 'Create'
-        createPostForm.appendChild(postSubmitButton)
+        postButtonsDiv.appendChild(postSubmitButton)
 
         var postCancelButton = document.createElement('button')
         postCancelButton.className = 'form__button'
         postCancelButton.innerText = 'Cancel'
         postCancelButton.type = 'reset'
-        createPostForm.appendChild(postCancelButton)
+        postButtonsDiv.appendChild(postCancelButton)
 
         postCancelButton.onclick = function () {
-            document.body.removeChild(createPostSection)
+            footer.removeChild(createPostSection)
         }
     }
 })()
