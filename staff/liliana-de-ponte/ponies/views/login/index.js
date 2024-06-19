@@ -27,7 +27,7 @@
     usernameInput.id = usernameLabel.htmlFor
     usernameInput.name = 'username'
     usernameInput.placeholder = 'username'
-    postImageFieldDiv.appendChild(usernameInput)
+    usernameFieldDiv.appendChild(usernameInput)
 
     var passwordFieldDiv = document.createElement('div')
     passwordFieldDiv.className = 'form__field'
@@ -44,7 +44,7 @@
     passwordInput.id = passwordLabel.htmlFor
     passwordInput.name = 'password'
     passwordInput.placeholder = 'password'
-    postImageFieldDiv.appendChild(passwordInput)
+    passwordFieldDiv.appendChild(passwordInput)
 
     var loginButton = document.createElement('button')
     loginButton.className = 'form__button'
