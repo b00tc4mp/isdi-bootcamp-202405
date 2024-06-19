@@ -16,13 +16,26 @@
 .form__field {
     display: flex;
     flex-direction: column;
-    gap: .2rem
+    gap: .2rem;
 }
 
 .form__input {
     font-size: inherit;
+    background-color: #FEE5FF;
+    border-radius: 5px;
+    border-color: #F981FB,
 }
 
 .form__button {
     font-size: inherit;
+    background-color: #F981FB;
+    border-radius: 5px;
+}
+
+::placeholder {
+    color: #fa49fd
+}
+
+.register__button {
+    background-color: #F981FB;
 }

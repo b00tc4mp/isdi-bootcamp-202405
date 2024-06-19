@@ -35,7 +35,7 @@
 
 .post {
     /* border: 1px solid black; */
-    box-shadow: 1px 1px 10px 1px lightgray
+    box-shadow: 1px 1px 10px 1px #F981FB
 }
 
 .post__author {
@@ -70,7 +70,7 @@
     justify-content: rigth;
     align-items: center;
     gap: 1rem;
-    background-color: white;
+    background-color: #F981FB;
     padding: .5rem;
     box-sizing: border-box;
     box-shadow: 0px 1px 1px lightgray;
@@ -78,6 +78,14 @@
 
 .header__user-name {
     margin: 0;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+
+.logout-button {
+    background-color: #F981FB;
+    border-radius: 5px;
+
 }
 
 .main {

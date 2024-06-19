@@ -75,6 +75,7 @@
     document.body.appendChild(footer)
 
     var linkRegister = document.createElement('button')
+    linkRegister = "register__button"
     linkRegister.innerText = 'Register'
     footer.appendChild(linkRegister)
 
