@@ -25,11 +25,11 @@ body{
     justify-content: left;
     align-items: center;
     gap: 2rem;
-   
     background: linear-gradient(to right, #A02BE8, #2fd5d5);
-font-family: 'Over the Rainbow';
-color: white;
-font-size: 30px;
+    font-family: 'Over the Rainbow';
+    color: white;
+    font-size: 40px;
+    height: 3.9rem;
 }
 
 .view h1{
@@ -62,7 +62,6 @@ font-size: 30px;
     font-size: inherit;
     border-radius: 5px;
     border:none;
-    background-color: #ccf4f4;
     color:#A02BE8;
     padding: .2rem;
     box-shadow: black;

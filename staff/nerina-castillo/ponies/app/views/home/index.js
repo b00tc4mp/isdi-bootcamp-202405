@@ -4,6 +4,7 @@
   document.body.appendChild(header);
 
   var userName = document.createElement("p");
+  userName.className = "header__user-name";
   header.appendChild(userName);
 
   try {
@@ -76,7 +77,6 @@
 
           var postDeleteButton = document.createElement("button");
           postDeleteButton.innerText = "Delete";
-          postDeleteButton.className = "delete-button";
           postActionButtonsDiv.appendChild(postDeleteButton);
 
           postDeleteButton.onclick = function () {
@@ -98,7 +98,6 @@
 
           var editButton = document.createElement("button");
           editButton.innerText = "Edit";
-          editButton.className = "edit-button";
           postActionButtonsDiv.appendChild(editButton);
 
           editButton.onclick = function () {
@@ -175,9 +174,11 @@
 
   addPostButton.onclick = function () {
     var createPostSection = document.createElement("section");
-    document.body.appendChild(createPostSection);
+    createPostSection.className = "create-post-section";
+    footer.appendChild(createPostSection);
 
     var createPostTitle = document.createElement("h2");
+    createPostTitle.className = "create-post-section__title";
     createPostTitle.innerText = "Create Post";
     createPostSection.appendChild(createPostTitle);
 
@@ -194,7 +195,7 @@
       try {
         createPost(postImage, postCaption);
 
-        document.body.removeChild(createPostSection);
+        footer.removeChild(createPostSection);
 
         clearPosts();
         listPosts();
@@ -231,20 +232,24 @@
     postCaptionInput.id = postCaptionLabel.htmlFor;
     postCaptionFieldDiv.appendChild(postCaptionInput);
 
+    var postButtonsDiv = document.createElement("div");
+    postButtonsDiv.className = "create-post-section__buttons";
+    createPostForm.appendChild(postButtonsDiv);
+
     var postSubmitButton = document.createElement("button");
     postSubmitButton.className = "form__button";
     postSubmitButton.type = "submit";
     postSubmitButton.innerText = "Create";
-    createPostForm.appendChild(postSubmitButton);
+    postButtonsDiv.appendChild(postSubmitButton);
 
     var postCancelButton = document.createElement("button");
     postCancelButton.className = "form__button";
     postCancelButton.type = "reset";
     postCancelButton.innerText = "Cancel";
-    createPostForm.appendChild(postCancelButton);
+    postButtonsDiv.appendChild(postCancelButton);
 
     postCancelButton.onclick = function () {
-      document.body.removeChild(createPostSection);
+      footer.removeChild(createPostSection);
     };
   };
 })();

@@ -14,6 +14,7 @@
     gap: .5rem;
     min-width: 80%;
     font-family: 'Advent pro';
+    margin-bottom: 20%;
     
 }
 
@@ -33,10 +34,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#post-caption-input{
-    height: 50px;
 
-}
 .form__button {
     font-size: inherit;
     border-radius: 5px;
@@ -123,7 +121,9 @@
     gap: 1rem;
     background-color: white;
     font-family: 'Advent pro';
-    
+    padding: .5rem;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 1px lightgray
 }
 
 .logout-button{
@@ -135,12 +135,8 @@
 
 }
 
-button[type='submit'], button[type='button']{
-    background: linear-gradient(to right, #A02BE8, #2fd5d5);
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    border: none;
+.header__user-name{
+    margin: 0;
 }
 
 .main {
@@ -162,4 +158,26 @@ h2{
     justify-content: center;
     background-color: white;
     padding: .5rem 0;
+    box-shadow: 0px -1px 1px lightgray
+    
+}
+
+.create-post-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+}
+
+.create-post-section__title {
+    margin: .5rem 0;
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
