@@ -71,6 +71,13 @@
     align-items: center;
     gap: 1rem;
     background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 1px lightgray;
+}
+
+.header__user-name {
+    margin: 0;
 }
 
 .main {
@@ -87,4 +94,25 @@
     justify-content: center;
     background-color: white;
     padding: .5rem 0;
+    box-shadow: 0px -1px 1px lightgray;
+}
+
+.create-post-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+}
+
+.create-post-section__title {
+    margin: .5rem 0;
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
