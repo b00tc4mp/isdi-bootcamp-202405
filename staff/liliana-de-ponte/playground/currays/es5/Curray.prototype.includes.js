@@ -7,7 +7,7 @@ Curray.prototype.includes = function (element, index) {
     else if (index < 0)
         index = this.length + index
 
-    for (i = index; i < this.length; i++) {
+    for (var i = index; i < this.length; i++) {
         var elem = this[i]
 
         if (elem === element)

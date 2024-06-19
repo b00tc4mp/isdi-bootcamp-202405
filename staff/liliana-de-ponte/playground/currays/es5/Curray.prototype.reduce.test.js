@@ -14,7 +14,7 @@ var sumWithInitial = numbers.reduce(
     initialValue,
 );
 
-console.assert(sumWithInitial === 90, 'sumWithInitial is equal to 10')
+console.assert(sumWithInitial === 10, 'sumWithInitial is equal to 10')
 
 console.log(sumWithInitial);
 // Expected output: 10
