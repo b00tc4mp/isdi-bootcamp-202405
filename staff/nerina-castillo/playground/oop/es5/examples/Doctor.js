@@ -16,7 +16,7 @@ Doctor.prototype.study = function (text) {
 };
 
 Doctor.prototype.toString = function () {
-  return `{ Name: ${Doctor.name}, Surname: ${this.surname}, Age: ${this.age}, Gender: ${this.gender}}`;
+  return `{ Name: ${this.name}, Surname: ${this.surname}, Age: ${this.age}, Gender: ${this.gender}}`;
 };
 
 module.exports = Doctor;
