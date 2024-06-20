@@ -11,7 +11,7 @@ class Animal {
     }
 
     eat(food) {
-        return return '😮 ' + food
+        return '😮 ' + food
     }
 
     poo() {
