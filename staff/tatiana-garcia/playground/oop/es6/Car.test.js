@@ -1,0 +1,15 @@
+const Car = require('./Car')
+const Vehicle = require('./Vehicle')
+
+const car = new Car('Ford', 'Fiesta')
+
+console.log(car)
+console.log(car.start())
+console.log(car.stop())
+console.log(car.doors(4))
+console.log(car.honk())
+console.log(car instanceof Vehicle)
+console.log(car instanceof Car)
+console.log(car instanceof Object)
+console.log(car instanceof Array)
+console.log(car.toString())
