@@ -4,7 +4,6 @@ require('./Curray.prototype.every')
 console.info('TEST every in Curray')
 
 console.info('CASE every')
-// si todos los elementos cumplen la condicion 
 
 var isBelowThreshold = function (currentValue) {
     return currentValue > 3;
