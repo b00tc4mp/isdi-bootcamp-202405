@@ -2,9 +2,9 @@ function createPost(image, caption) {
     if (!image.startsWith('http'))
         throw new Error('invalid image')
 
-    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-    var post = {
+    const post = {
         id: generateId(),
         image: image,
         caption: caption,

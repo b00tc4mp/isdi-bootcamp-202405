@@ -1,9 +1,9 @@
 function deletePost(postId) {
     if (postId.trim().length === 0) throw new Error('invalid postId')
 
-    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-    var postIndex = posts.findIndex(function (post) {
+    const postIndex = posts.findIndex(function (post) {
         return post.id === postId
     })
 
