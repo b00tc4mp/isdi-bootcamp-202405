@@ -16,7 +16,8 @@
 .form__field {
     display: flex;
     flex-direction: column;
-    gap: .2rem
+    gap: .2rem;
+
 }
 
 .form__input {
@@ -24,18 +25,21 @@
 }
 
 .form__button {
-    font-size: inherit;
+    font-size: smaller;
 }
 
 .post-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-sizing: content-box;
 }
 
 .post {
-    /* border: 1px solid black; */
-    box-shadow: 1px 1px 10px 1px lightgray;
+    border: 1px solid rgb(146, 141, 141);
+    box-shadow: 5px 1px 10px 5px lightgray;
+    box-sizing: border-box;
+
 }
 
 .post__author {
@@ -71,7 +75,6 @@
     align-items: center;
     gap: 1rem;
     background-color: white;
-    padding: .5rem;
     box-sizing: border-box;
     box-shadow: 0px 1px 1px lightgray;
 }
@@ -99,12 +102,17 @@
 
 .create-post-section {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: white;
-    padding: .5rem;
+    padding: 0.5rem;
     box-sizing: border-box;
+    border: 1px solid black;
+    box-shadow: 23px 1px 10px 1px lightgray;
 }
 
 .create-post-section__title {

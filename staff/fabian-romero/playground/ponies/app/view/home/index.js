@@ -9,7 +9,7 @@
     try {
         var name = getUserName()
 
-        userName.innerText = 'Heeeeello, ' + name + '!!'
+        userName.innerText = 'Hi, ' + name + '✨!!'
     } catch (error) {
         alert(error.message)
     }
