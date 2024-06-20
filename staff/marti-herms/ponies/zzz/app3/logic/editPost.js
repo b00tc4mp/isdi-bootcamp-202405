@@ -3,9 +3,9 @@ function editPost(id, newCaption) {
         throw new Error('invalid postId')
     }
 
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
+    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
 
-    const post = posts.find(item => item.id === id);
+    var post = posts.find(item => item.id === id);
 
     if (post === undefined) {
         throw new Error('post not found')

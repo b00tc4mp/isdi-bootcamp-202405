@@ -1,7 +1,7 @@
 function getUserName() {
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
+    var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
 
-    const user = users.find(function (user) {
+    var user = users.find(function (user) {
         return user.username === sessionStorage.username;
     })
 

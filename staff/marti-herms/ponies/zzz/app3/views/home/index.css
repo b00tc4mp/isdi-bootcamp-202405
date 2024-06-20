@@ -14,8 +14,6 @@ body {
 .form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: .5rem;
     min-width: 80%;
     box-sizing: border-box;
@@ -24,8 +22,6 @@ body {
 .form__field {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: .2rem;
     box-sizing: border-box;
 }
@@ -33,11 +29,13 @@ body {
 .form__input {
     font-size: inherit;
     box-sizing: border-box;
+    border-radius: 3%;
 }
 
 .form__button {
     font-size: inherit;
     box-sizing: border-box;
+    border-radius: 3%;
 }
 
 .post-list {
@@ -112,7 +110,7 @@ body {
 .newposts {
     position: fixed;
     height: 45%;
-    width: 25%;
+    width: 20%;
     min-width: 238px;
     min-height: 276px;
     margin: 0 auto;

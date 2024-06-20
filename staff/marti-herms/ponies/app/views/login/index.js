@@ -1,14 +1,14 @@
-(function () {
-    var form = document.querySelector('form');
+(() => {
+    const form = document.querySelector('form');
 
-    form.onsubmit = function (event) {
+    form.onsubmit = (event) => {
         event.preventDefault();
 
-        var usernameInput = document.getElementById('username-input');
-        var passwordInput = document.getElementById('password-input');
+        const usernameInput = document.getElementById('username-input');
+        const passwordInput = document.getElementById('password-input');
 
-        var username = usernameInput.value;
-        var password = passwordInput.value;
+        const username = usernameInput.value;
+        const password = passwordInput.value;
 
         try {
             loginUser(username, password);
@@ -19,9 +19,9 @@
         }
     }
 
-    var a = document.querySelector('a')
+    const a = document.querySelector('a')
 
-    a.onclick = function (event) {
+    a.onclick = (event) => {
         event.preventDefault();
 
         location.href = '../register';

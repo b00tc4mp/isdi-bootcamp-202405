@@ -18,9 +18,9 @@ function registerUser(name, surname, email, username, password, passwordRepeat) 
         throw new Error('passwords do not match');
     }
 
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+    var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-    let user = users.find(function (user) {
+    var user = users.find(function (user) {
         return user.email === email
     })
 
@@ -28,7 +28,7 @@ function registerUser(name, surname, email, username, password, passwordRepeat) 
         throw new Error('email already exists');
     }
 
-    user = users.find(function (user) {
+    var user = users.find(function (user) {
         return user.username === username
     })
 

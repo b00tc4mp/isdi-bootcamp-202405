@@ -1,27 +1,29 @@
-(function () {
-
+(() => {
     // <-><-><-><-><->Create Header elements<-><-><-><-><->
-    var header = document.createElement('header');
-    header.className = 'header';
-    document.body.appendChild(header);
+    const body = new Component(document.body);
 
-    var userName = document.createElement('p');
-    header.appendChild(userName);
+    const header = new Header();
+    body.add(header);
+
+    const fader = new Fader();
+    body.add(fader);
+
+    const userName = new Text('p');
+    header.add(userName);
 
     try {
-        var name = getUserName();
+        const name = getUserName();
 
-        userName.innerText = 'Hello, ' + name + '!';
+        userName.setInnerText('Hello, ' + name + '!');
     } catch (error) {
         alert(error.message);
     }
 
-    var logoutButton = document.createElement('button');
-    logoutButton.className = 'logout-button';
-    logoutButton.innerText = 'Logout';
-    header.appendChild(logoutButton);
+    const logoutButton = new Button('logout-button');
+    logoutButton.setInnerText('Logout');
+    header.add(logoutButton);
 
-    logoutButton.onclick = function () {
+    logoutButton.container.onclick = () => {
         try {
             logoutUser();
 
@@ -29,62 +31,56 @@
         } catch (error) {
             alert(error.message);
         }
-    }
+    };
     // ^^^^^^^^^^^^^^^Create Header elements^^^^^^^^^^^^^^^
 
     // <-><-><-><-><->Create Main elements<-><-><-><-><->
-    var main = document.createElement('main');
-    main.className = 'view main';
-    document.body.appendChild(main);
+    const main = new Main();
+    body.add(main);
 
-    var postListSection = document.createElement('section');
-    postListSection.className = 'post-list'
-    main.appendChild(postListSection);
+    const postListSection = new Section('post-list');
+    main.add(postListSection);
 
     // <-><-><-><-><->Function to clear posts<-><-><-><-><->
-    function clearPosts() {
-        for (var i = postListSection.children.length - 1; i > -1; i--) {
-            var child = postListSection.children[i]
+    const clearPosts = () => {
+        for (let i = postListSection.getChildren().length - 1; i > -1; i--) {
+            const child = postListSection.getChildren()[i];
 
-            postListSection.removeChild(child)
+            postListSection.container.removeChild(child);
         }
     }
     // ^^^^^^^^^^^^^^^Function to clear posts^^^^^^^^^^^^^^^
     // <-><-><-><-><->Function to list posts<-><-><-><-><->
-    function generatePostList() {
+    const generatePostList = () => {
         try {
-            var posts = getAllPosts();
+            const posts = getAllPosts();
 
-            posts.forEach(function (post) {
-                var postArticle = document.createElement('article');
-                postArticle.className = 'post';
-                postListSection.appendChild(postArticle);
+            posts.forEach(post => {
+                const postArticle = new Article();
+                postListSection.add(postArticle);
 
-                var postAuthor = document.createElement('h3');
-                postAuthor.className = 'post__author';
-                postAuthor.innerText = post.author;
-                postArticle.appendChild(postAuthor);
+                const postAuthor = new Author();
+                postAuthor.setInnerText(post.author);
+                postArticle.add(postAuthor);
 
-                var postImage = document.createElement('img');
-                postImage.className = 'post__image';
-                postImage.src = post.img;
-                postArticle.appendChild(postImage);
+                const postImage = new Image();
+                postImage.setImage(post.img);
+                postArticle.add(postImage);
 
-                var postCaption = document.createElement('p');
-                postCaption.className = 'post__caption'
-                postCaption.innerText = post.caption;
-                postArticle.appendChild(postCaption);
+                const postCaption = new Text('p');
+                postCaption.setClassName('post__caption');
+                postCaption.setInnerText(post.caption);
+                postArticle.add(postCaption);
 
                 if (post.author === getUserUsername()) {
-                    var postActionButtonsDiv = document.createElement('div')
-                    postActionButtonsDiv.className = 'post__actions'
-                    postArticle.appendChild(postActionButtonsDiv)
+                    const postActionButtonsDiv = new Divider('post__actions');
+                    postArticle.add(postActionButtonsDiv);
 
-                    var deletePostButton = document.createElement('button');
-                    deletePostButton.innerText = 'Delete'
-                    postActionButtonsDiv.appendChild(deletePostButton);
+                    const deletePostButton = new Button();
+                    deletePostButton.setInnerText('Delete');
+                    postActionButtonsDiv.add(deletePostButton);
 
-                    deletePostButton.onclick = function (event) {
+                    deletePostButton.container.onclick = (event) => {
                         if (confirm('Delete Post?')) {
                             try {
                                 deletePosts(post.id);
@@ -102,45 +98,43 @@
                         }
                     }
 
-                    var editCaptionPostButton = document.createElement('button');
-                    editCaptionPostButton.innerText = 'Edit this post'
-                    postArticle.appendChild(editCaptionPostButton);
+                    const editCaptionPostButton = new Button();
+                    editCaptionPostButton.setInnerText('Edit this post');
+                    postActionButtonsDiv.add(editCaptionPostButton);
 
-                    editCaptionPostButton.onclick = function () {
-                        var createCaptionForm = document.createElement('form');
-                        postArticle.appendChild(createCaptionForm);
+                    editCaptionPostButton.container.onclick = () => {
+                        const createCaptionForm = new Form();
+                        postArticle.add(createCaptionForm);
 
-                        var captionEditLabel = document.createElement('label');
-                        captionEditLabel.htmlFor = 'caption-edit-input';
-                        captionEditLabel.innerText = 'New Caption';
-                        createCaptionForm.appendChild(captionEditLabel)
+                        const captionEditLabel = new Label('caption-edit-input');
+                        captionEditLabel.setInnerText('New Caption');
+                        createCaptionForm.add(captionEditLabel)
 
-                        var captionEditInput = document.createElement('input');
-                        captionEditInput.id = captionEditLabel.htmlFor;
+                        const captionEditInput = new Input(captionEditLabel.container.htmlFor);
                         captionEditInput.value = post.caption;
-                        createCaptionForm.appendChild(captionEditInput);
+                        createCaptionForm.add(captionEditInput);
 
-                        var captionEditButton = document.createElement('button');
-                        captionEditButton.type = 'submit'
-                        captionEditButton.innerText = 'Change';
-                        createCaptionForm.appendChild(captionEditButton);
+                        const captionEditButton = new Button();
+                        captionEditButton.setType('submit');
+                        captionEditButton.setInnerText('Change');
+                        createCaptionForm.add(captionEditButton);
 
-                        var editCaptionCancelButton = document.createElement('button');
-                        editCaptionCancelButton.innerText = 'Cancel';
-                        editCaptionCancelButton.type = 'button';
-                        createCaptionForm.appendChild(editCaptionCancelButton);
+                        const editCaptionCancelButton = new Button();
+                        editCaptionCancelButton.setType('button');
+                        editCaptionCancelButton.setInnerText('Cancel');
+                        createCaptionForm.add(editCaptionCancelButton);
 
-                        editCaptionCancelButton.onclick = function () {
-                            postArticle.removeChild(createCaptionForm);
+                        editCaptionCancelButton.container.onclick = () => {
+                            postArticle.remove(createCaptionForm);
                         }
 
-                        createCaptionForm.onsubmit = function (event) {
+                        createCaptionForm.container.onsubmit = (event) => {
                             event.preventDefault();
 
                             try {
                                 editPost(post.id, captionEditInput.value);
 
-                                postArticle.removeChild(createCaptionForm);
+                                postArticle.remove(createCaptionForm);
 
                                 clearPosts();
                                 generatePostList();
@@ -157,10 +151,9 @@
                     }
                 }
 
-                var postDate = document.createElement('time');
-                postDate.className = 'post__time'
-                postDate.innerText = formatTime(new Date(post.date));
-                postArticle.appendChild(postDate);
+                const postDate = new Time('post__time');
+                postDate.setInnerText(formatTime(new Date(post.date)));
+                postArticle.add(postDate);
             });
         } catch (error) {
             alert(error.message);
@@ -171,45 +164,42 @@
 
     generatePostList();
 
-    var footer = document.createElement('footer');
-    footer.className = 'footer';
-    document.body.appendChild(footer);
+    const footer = new Footer();
+    body.add(footer);
 
-    var addPostButton = document.createElement('button');
-    addPostButton.className = 'add-post-button';
-    addPostButton.innerText = '+';
-    footer.appendChild(addPostButton);
+    const addPostButton = new Button('add-post-button');
+    addPostButton.setInnerText('+');
+    footer.add(addPostButton);
 
     // <-><-><-><-><->Function to add posts<-><-><-><-><->
-    addPostButton.onclick = function (event) {
-        event.stopPropagation()
+    addPostButton.container.onclick = (event) => {
+        event.stopPropagation();
 
-        addPostButton.disabled = true;
+        fader.setDisplay('flex');
 
-        var createPostSection = document.createElement('section');
-        createPostSection.className = 'newposts';
-        document.body.appendChild(createPostSection);
+        const createPostSection = new Section('newposts');
+        fader.add(createPostSection);
 
-        var createPostTitle = document.createElement('h2');
-        createPostTitle.innerText = 'Create Post';
-        createPostSection.appendChild(createPostTitle);
+        const createPostTitle = new Text('h2');
+        createPostTitle.setInnerText('Create Post');
+        createPostSection.add(createPostTitle);
 
-        var createPostForm = document.createElement('form');
-        createPostForm.className = 'form';
-        createPostSection.appendChild(createPostForm);
+        const createPostForm = new Form('form');
+        createPostSection.add(createPostForm);
 
-        createPostForm.onsubmit = function (event) {
+        createPostForm.container.onsubmit = (event) => {
             event.preventDefault();
 
-            addPostButton.disabled = false;
+            document.removeEventListener('click', handler, true);
 
-            var postImage = postImageInput.value;
-            var postCaption = postCaptionInput.value;
+            const postImage = postImageInput.container.value;
+            const postCaption = postCaptionInput.container.value;
 
             try {
                 addPost(postImage, postCaption);
 
-                document.body.removeChild(createPostSection);
+                fader.remove(createPostSection);
+                fader.setDisplay('none');
 
                 clearPosts();
                 generatePostList();
@@ -218,58 +208,50 @@
             }
         }
 
-        var postImageFieldDiv = document.createElement('div');
-        postImageFieldDiv.className = 'form__field';
-        createPostForm.appendChild(postImageFieldDiv);
+        const postImageFieldDiv = new Divider('form__field');
+        createPostForm.add(postImageFieldDiv);
 
-        var postImageLabel = document.createElement('label');
-        postImageLabel.htmlFor = 'post-image-input';
-        postImageLabel.innerText = 'Image';
-        postImageFieldDiv.appendChild(postImageLabel);
+        const postImageLabel = new Label('post-image-input');
+        postImageLabel.setInnerText('Image');
+        postImageFieldDiv.add(postImageLabel);
 
-        var postImageInput = document.createElement('input');
-        postImageInput.className = 'form__input';
-        postImageInput.id = postImageLabel.htmlFor;
-        postImageFieldDiv.appendChild(postImageInput);
+        const postImageInput = new Input(postImageLabel.container.htmlFor);
+        postImageInput.setClassName('form__input');
+        postImageFieldDiv.add(postImageInput);
 
-        var postCaptionFieldDiv = document.createElement('div');
-        postCaptionFieldDiv.className = 'form__field';
-        createPostForm.appendChild(postCaptionFieldDiv);
+        const postCaptionFieldDiv = new Divider('form__field');
+        createPostForm.add(postCaptionFieldDiv);
 
-        var postCaptionLabel = document.createElement('label');
-        postCaptionLabel.htmlFor = 'post-caption-input';
-        postCaptionLabel.innerText = 'Caption';
-        postCaptionFieldDiv.appendChild(postCaptionLabel);
+        const postCaptionLabel = new Label('post-caption-input');
+        postCaptionLabel.setInnerText('Caption');
+        postCaptionFieldDiv.add(postCaptionLabel);
 
-        var postCaptionInput = document.createElement('input');
-        postCaptionInput.className = 'form__input';
-        postCaptionInput.id = postCaptionLabel.htmlFor;
-        postCaptionFieldDiv.appendChild(postCaptionInput);
+        const postCaptionInput = new Input(postCaptionLabel.container.htmlFor);
+        postCaptionInput.setClassName('form__input');
+        postCaptionFieldDiv.add(postCaptionInput);
 
-        var postSubmitButton = document.createElement('button');
-        postSubmitButton.className = 'form__button';
-        postSubmitButton.type = 'submit';
-        postSubmitButton.innerText = 'Create';
-        createPostForm.appendChild(postSubmitButton);
+        const postSubmitButton = new Button('form__button');
+        postSubmitButton.setType('submit');
+        postSubmitButton.setInnerText('Create');
+        createPostForm.add(postSubmitButton);
 
-        var postCancelButton = document.createElement('button');
-        postCancelButton.className = 'form__button';
-        postCancelButton.type = 'reset';
-        postCancelButton.innerText = 'Cancel';
-        createPostForm.appendChild(postCancelButton);
+        const postCancelButton = new Button('form__button');
+        postCancelButton.setType('reset');
+        postCancelButton.setInnerText('Cancel');
+        createPostForm.add(postCancelButton);
 
-        postCancelButton.onclick = function () {
-            document.body.removeChild(createPostSection);
-            addPostButton.disabled = false;
+        postCancelButton.container.onclick = () => {
+            fader.remove(createPostSection);
+            fader.setDisplay('none');
+            document.removeEventListener('click', handler, true);
         }
 
         document.addEventListener('click', handler, true);
 
         function handler(e) {
-            if (e.target !== createPostSection && e.target !== createPostForm && e.target !== postImageFieldDiv && e.target !== postImageLabel && e.target !== postImageInput && e.target !== postCaptionFieldDiv && e.target !== postCaptionLabel && e.target !== postCaptionInput && e.target !== postSubmitButton && e.target !== postCancelButton) {
-                console.log(e);
-                document.body.removeChild(createPostSection);
-                addPostButton.disabled = false;
+            if (e.target === fader.container) {
+                fader.remove(createPostSection);
+                fader.setDisplay('none');
                 document.removeEventListener('click', handler, true);
             }
         }
