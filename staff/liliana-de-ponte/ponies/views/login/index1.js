@@ -98,7 +98,7 @@
     var title = new H1
     title.setClassname('view')
     title.setText('Login')
-    main.setClassname('title')
+    main.add(title)
 
     var createLoginForm = new Form
     createLoginForm.setClassname('form')
