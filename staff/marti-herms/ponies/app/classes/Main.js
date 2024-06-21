@@ -1,6 +1,6 @@
 class Main extends Component {
-    constructor() {
+    constructor(className) {
         super(document.createElement('main'));
-        this.container.className = 'view main'
+        this.container.className = className;
     }
 }

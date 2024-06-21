@@ -3,4 +3,8 @@ class Label extends Component {
         super(document.createElement('label'));
         this.container.htmlFor = htmlFor;
     }
+
+    getFor() {
+        return this.container.htmlFor;
+    }
 }

@@ -1,4 +1,10 @@
 function registerUser(name, surname, email, username, password, passwordRepeat) {
+    const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+    const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
+    const USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
+    //const PASSWORD_REGEX = /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$/
+    const PASSWORD_REGEX = /^\w{8,}$/;
+
     if (!NAME_REGEX.test(name.trim())) {
         throw new Error('invalid name');
     }

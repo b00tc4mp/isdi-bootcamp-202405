@@ -35,7 +35,7 @@
     // ^^^^^^^^^^^^^^^Create Header elements^^^^^^^^^^^^^^^
 
     // <-><-><-><-><->Create Main elements<-><-><-><-><->
-    const main = new Main();
+    const main = new Main('view main');
     body.add(main);
 
     const postListSection = new Section('post-list');
@@ -110,7 +110,7 @@
                         captionEditLabel.setInnerText('New Caption');
                         createCaptionForm.add(captionEditLabel)
 
-                        const captionEditInput = new Input(captionEditLabel.container.htmlFor);
+                        const captionEditInput = new Input(captionEditLabel.getFor());
                         captionEditInput.value = post.caption;
                         createCaptionForm.add(captionEditInput);
 
@@ -215,7 +215,7 @@
         postImageLabel.setInnerText('Image');
         postImageFieldDiv.add(postImageLabel);
 
-        const postImageInput = new Input(postImageLabel.container.htmlFor);
+        const postImageInput = new Input(postImageLabel.getFor());
         postImageInput.setClassName('form__input');
         postImageFieldDiv.add(postImageInput);
 
@@ -226,7 +226,7 @@
         postCaptionLabel.setInnerText('Caption');
         postCaptionFieldDiv.add(postCaptionLabel);
 
-        const postCaptionInput = new Input(postCaptionLabel.container.htmlFor);
+        const postCaptionInput = new Input(postCaptionLabel.getFor());
         postCaptionInput.setClassName('form__input');
         postCaptionFieldDiv.add(postCaptionInput);
 

@@ -1,27 +1,116 @@
 (() => {
-    const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-    const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
-    const USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
-    //const PASSWORD_REGEX = /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$/
-    const PASSWORD_REGEX = /^\w{8,}$/;
-    const form = document.querySelector('form')
+    const body = new Component(document.body);
 
-    form.onsubmit = (event) => {
+    const main = new Main('view');
+    body.add(main);
+
+    const login = new Text('h1');
+    login.setInnerText('Register');
+    main.add(login);
+
+    const form = new Form('form');
+    main.add(form);
+
+    const nameDiv = new Divider('form__field');
+    form.add(nameDiv);
+
+    const nameLabel = new Label('name-input');
+    nameLabel.setInnerText('Name');
+    nameDiv.add(nameLabel);
+
+    const nameInput = new Input(nameLabel.getFor());
+    nameInput.setClassName('form__input');
+    nameInput.setType('text');
+    nameInput.setName('name');
+    nameInput.setPlaceholder('name');
+    nameDiv.add(nameInput);
+
+    const surnameDiv = new Divider('form__field');
+    form.add(surnameDiv);
+
+    const surnameLabel = new Label('surname-input');
+    surnameLabel.setInnerText('Surname');
+    surnameDiv.add(surnameLabel);
+
+    const surnameInput = new Input(surnameLabel.getFor());
+    surnameInput.setClassName('form__input');
+    surnameInput.setType('text');
+    surnameInput.setName('surname');
+    surnameInput.setPlaceholder('surname');
+    surnameDiv.add(surnameInput);
+
+    const emailDiv = new Divider('form__field');
+    form.add(emailDiv);
+
+    const emailLabel = new Label('email-input');
+    emailLabel.setInnerText('Email');
+    emailDiv.add(emailLabel);
+
+    const emailInput = new Input(emailLabel.getFor());
+    emailInput.setClassName('form__input');
+    emailInput.setType('email');
+    emailInput.setName('email');
+    emailInput.setPlaceholder('email');
+    emailDiv.add(emailInput);
+
+    const usernameDiv = new Divider('form__field');
+    form.add(usernameDiv);
+
+    const usernameLabel = new Label('username-input');
+    usernameLabel.setInnerText('Username');
+    usernameDiv.add(usernameLabel);
+
+    const usernameInput = new Input(usernameLabel.getFor());
+    usernameInput.setClassName('form__input');
+    usernameInput.setType('text');
+    usernameInput.setName('username');
+    usernameInput.setPlaceholder('username');
+    usernameDiv.add(usernameInput);
+
+    const passwordDiv = new Divider('form__field');
+    form.add(passwordDiv);
+
+    const passwordLabel = new Label('password-input');
+    passwordLabel.setInnerText('Password');
+    passwordDiv.add(passwordLabel);
+
+    const passwordInput = new Input(passwordLabel.getFor());
+    passwordInput.setClassName('form__input');
+    passwordInput.setType('password');
+    passwordInput.setName('password');
+    passwordInput.setPlaceholder('password');
+    passwordDiv.add(passwordInput);
+
+    const passwordRepeatDiv = new Divider('form__field');
+    form.add(passwordRepeatDiv);
+
+    const passwordRepeatLabel = new Label('password2-input');
+    passwordRepeatLabel.setInnerText('Repeat Password');
+    passwordRepeatDiv.add(passwordRepeatLabel);
+
+    const passwordRepeatInput = new Input(passwordRepeatLabel.getFor());
+    passwordRepeatInput.setClassName('form__input');
+    passwordRepeatInput.setType('password');
+    passwordRepeatInput.setName('password2');
+    passwordRepeatInput.setPlaceholder('repeat password');
+    passwordRepeatDiv.add(passwordRepeatInput);
+
+    const submitButton = new Button('form__button');
+    submitButton.setType('submit');
+    submitButton.setInnerText('Register')
+    form.add(submitButton);
+
+
+
+    form.container.onsubmit = (event) => {
         event.preventDefault()
 
-        const nameInput = document.getElementById('name-input')
-        const surnameInput = document.getElementById('surname-input')
-        const emailInput = document.getElementById('email-input')
-        const usernameInput = document.getElementById('username-input')
-        const passwordInput = document.getElementById('password-input')
-        const passwordRepeatInput = document.getElementById('password2-input')
-
-        const name = nameInput.value
-        const surname = surnameInput.value
-        const email = emailInput.value
-        const username = usernameInput.value
-        const password = passwordInput.value
-        const passwordRepeat = passwordRepeatInput.value
+        const name = nameInput.getValue();
+        const surname = surnameInput.getValue();
+        const email = emailInput.getValue();
+        const username = usernameInput.getValue();
+        const password = passwordInput.getValue();
+        const passwordRepeat = passwordRepeatInput.getValue();
 
         try {
             registerUser(name, surname, email, username, password, passwordRepeat);
@@ -34,7 +123,10 @@
         }
     }
 
-    const a = document.querySelector('a')
+    const a = document.createElement('a');
+    a.href = '';
+    a.innerText = 'Login'
+    main.container.appendChild(a);
 
     a.onclick = (event) => {
         event.preventDefault()
