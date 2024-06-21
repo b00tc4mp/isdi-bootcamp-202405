@@ -1,41 +1,63 @@
 class HelloWorld extends HTMLElement {
     constructor() {
+        console.info('HelloWorld -> constructor')
+
         super()
     }
 
     connectedCallback() {
-        const h1 = document.createElement('h1')
+        console.log('HelloWorld -> connectedCallback')
+        // const h1 = document.createElement('h1')
+        // h1.innerText = 'Hello, World!'
+        // h1.style.backgroundColor = 'red'
+        // this.appendChild(h1)
 
-        h1.innerText = 'Hello, World!'
+        // this.innerText = 'Hello, World!'
+        this.style.fontFamily = 'Monaco'
+        this.style.fontSize = '24px'
+        this.style.display = 'block'
 
-        this.appendChild(h1)
+        const self = this
 
-        h1.style.backgroundColor = 'red'
+        setTimeout(function () {
+            self.innerText = self.innerText ? 'Hello, ' + self.innerText + '!' : 'Hello, World!'
+        }, 0)
+
     }
 }
 
 window.customElements.define('hello-world', HelloWorld)
 
-class HelloTo extends HTMLElement {
+class CoolClock extends HTMLElement {
     constructor() {
-        super();
+        console.info('CoolClock -> constructor')
+
+        super()
     }
 
     connectedCallback() {
-        const h1 = document.createElement('h1')
+        console.log('CoolClock -> connectedCallback')
 
-        const name = this.getAttribute('name')
+        this.style.fontFamily = 'Monaco'
+        this.style.fontSize = '24px'
+        this.style.display = 'block'
 
-        h1.innerText = `Hello to ${name}!`
+        const self = this
 
-        this.appendChild(h1);
+        setInterval(function () {
+            //self.innerText = new Date().toISOString()
 
+            const now = new Date().toLocaleTimeString()
 
-        h1.style.backgroundImage = 'url("https://st2.depositphotos.com/2124221/46809/i/450/depositphotos_468095768-stock-photo-abstract-multicolored-background-poly-pattern.jpg")'
-        h1.style.backgroundSize = 'cover'; // Para asegurarse de que la imagen cubra todo el elemento
-        h1.style.color = 'grey'; // Cambiar el color del texto para que sea visible
-        h1.style.padding = '20px';
+            self.innerText = now
+
+            const alarm = self.getAttribute('alarm')
+
+            if (now >= alarm)
+                self.style.backgroundColor = 'red'
+        }, 1000)
+
     }
 }
 
-window.customElements.define('hello-to', HelloTo)
+window.customElements.define('cool-clock', CoolClock)
