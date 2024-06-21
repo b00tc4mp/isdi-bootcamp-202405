@@ -4,14 +4,6 @@
     //      form: 
     // }
 
-    // Car {
-    //       this.color = azul
-    //       car.color = azul
-    //       color: azul
-    // }
-
-
-
 
     class Ponies {
         constructor(container) {
@@ -49,6 +41,7 @@
 
     }
 
+    //super invoca al constructor del objeto padre
     class Form extends Ponies {
         constructor() {
             super(document.createElement('form'))
