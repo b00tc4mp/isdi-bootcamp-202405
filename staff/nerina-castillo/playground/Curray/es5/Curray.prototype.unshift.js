@@ -1,13 +1,14 @@
 var Curray = require("./Curray");
 
-Curray.prototype.unshift = function (element) {
-  for (var i = this.length; i > 0; i--) {
-    this[i] = this[i - 1];
+Curray.prototype.unshift = function () {
+  var originalLength = this.length;
+  for (var i = this.length; i >= 0; i--) {
+    this[i + arguments.length] = this[i];
+  }
+  for (var i = 0; i < arguments.length; i++) {
+    this[i] = arguments[i];
   }
 
-  this.length++;
-
-  this[0] = element;
-
+  this.length = originalLength + arguments.length;
   return this.length;
 };

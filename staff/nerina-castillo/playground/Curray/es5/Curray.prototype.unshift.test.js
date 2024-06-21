@@ -16,5 +16,4 @@ console.assert(numbers[2] === 1, "nums at 2  is 1");
 console.assert(numbers[3] === 2, "nums at 3  is 2");
 console.assert(numbers[4] === 3, "nums at 4  is 3");
 
-console.log(nums);
 console.log(numbers);
