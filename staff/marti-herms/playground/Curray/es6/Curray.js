@@ -431,6 +431,26 @@ class Curray {
             }
         }
     }
+
+    flat(depth = 1) {
+        const flatted = new Curray();
+
+        for (let i = 0; i < this.length; i++) {
+            const element = this[i];
+
+            if (!(element instanceof Curray) || depth === 0) {
+                flatted[flatted.length++] = element
+            } else {
+                const elem = element.flat(depth - 1);
+
+                for (let j = 0; j < elem.length; j++) {
+                    flatted[flatted.length++] = elem[j];
+                }
+            }
+        }
+
+        return flatted;
+    }
 }
 
 module.exports = Curray
