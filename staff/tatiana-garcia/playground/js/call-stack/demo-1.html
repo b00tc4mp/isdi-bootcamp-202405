@@ -14,6 +14,7 @@
         ayudando a mantener el orden y el control del flujo de ejecución para que no haya un Stack Overflow.*/
 
         function start() {
+            console.info('start', '{')
 
             //aqui se añade start al call-stack
 
@@ -23,9 +24,11 @@
             play()
             //se invoca play()
 
+            console.info('start', '}')
         }
 
         function play() {
+            console.info('play', '{')
 
             //aqui se añade play al call-stack
 
@@ -34,15 +37,19 @@
 
             end()
             // se invoca end
+
+            console.info('play', '}')
         }
 
         function end() {
+            console.info('end', '{')
 
             //se añade end al call-stack
 
             console.info('Game over')
             // se imprime Game over
 
+            console.info('end', '}')
         }
 
         //end termina
