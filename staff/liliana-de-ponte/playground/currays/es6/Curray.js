@@ -163,6 +163,23 @@ class Curray {
 
     }
 
+    flat(depth = 1) {
+        const flatted = new Curray()
+
+        function loop(curray, count) {
+            for (let i = 0; i < curray.length; i++) {
+                const element = curray[i]
+
+                if (!(element instanceof Curray) || count === depth)
+                    flatted[flatted.length++] = element
+                else
+                    loop(element, count + 1)
+            }
+        }
+        loop(this, 0)
+        return flatted
+    }
+
     forEach(callback) {
         for (let i = 0; i < this.length; i++) {
             const elem = this[i]
@@ -429,7 +446,6 @@ class Curray {
             },
         };
     };
-
 }
 
 module.exports = Curray

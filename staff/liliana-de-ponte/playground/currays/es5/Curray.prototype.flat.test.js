@@ -1,11 +1,13 @@
+const Curray = require('./Curray')
+
 console.info('TEST flat')
 
 console.info('CASE flats 1 level')
 
-var nums0 = [100, 110]
-var nums1 = [60, 70, 90, nums0]
-var nums2 = [40, 50, nums1]
-var nums = [10, 20, 30, nums2]
+var nums0 = new Curray(100, 110)
+var nums1 = new Curray(60, 70, 90, nums0)
+var nums2 = new Curray(40, 50, nums1)
+var nums = new Curray(10, 20, 30, nums2)
 
 console.assert(nums[0] === 10, 'nums at 0 is 10')
 console.assert(nums[1] === 20, 'nums at 1 is 20')
@@ -29,10 +31,10 @@ console.assert(flatted[5] === nums1, 'flatted at 5 is nums1')
 
 console.info('CASE flats 2 levels')
 
-var nums0 = [100, 110]
-var nums1 = [60, 70, 90, nums0]
-var nums2 = [40, 50, nums1]
-var nums = [10, 20, 30, nums2]
+var nums0 = new Curray(100, 110)
+var nums1 = new Curray(60, 70, 90, nums0)
+var nums2 = new Curray(40, 50, nums1)
+var nums = new Curray(10, 20, 30, nums2)
 
 console.assert(nums[0] === 10, 'nums at 0 is 10')
 console.assert(nums[1] === 20, 'nums at 1 is 20')
@@ -58,10 +60,10 @@ console.assert(flatted[8] === nums0, 'flatted at 8 is nums0 ')
 
 console.info('CASE flats 3 levels')
 
-var nums0 = [100, 110]
-var nums1 = [60, 70, 90, nums0]
-var nums2 = [40, 50, nums1]
-var nums = [10, 20, 30, nums2]
+var nums0 = new Curray(100, 110)
+var nums1 = new Curray(60, 70, 90, nums0)
+var nums2 = new Curray(40, 50, nums1)
+var nums = new Curray(10, 20, 30, nums2)
 
 console.assert(nums[0] === 10, 'nums at 0 is 10')
 console.assert(nums[1] === 20, 'nums at 1 is 20')
@@ -87,10 +89,10 @@ console.assert(flatted[9] === 110, 'flatted at 9 is 110')
 
 console.info('CASE flats all levels (with infinity)')
 
-var nums0 = [100, 110]
-var nums1 = [60, 70, 90, nums0]
-var nums2 = [40, 50, nums1]
-var nums = [10, 20, 30, nums2]
+var nums0 = new Curray(100, 110)
+var nums1 = new Curray(60, 70, 90, nums0)
+var nums2 = new Curray(40, 50, nums1)
+var nums = new Curray(10, 20, 30, nums2)
 
 console.assert(nums[0] === 10, 'nums at 0 is 10')
 console.assert(nums[1] === 20, 'nums at 1 is 20')
@@ -116,11 +118,11 @@ console.assert(flatted[9] === 110, 'flatted at 9 is 110')
 
 console.info('CASE flats 4 levels')
 
-var nums0 = [100, 110]
-var nums1 = [60, 70, 90, nums0]
-var nums2 = [40, 50, nums1]
-var nums3 = [10, 20, 30, nums2]
-var nums = [nusm3, 120, 130]
+var nums0 = new Curray(100, 110)
+var nums1 = new Curray(60, 70, 90, nums0)
+var nums2 = new Curray(40, 50, nums1)
+var nums3 = new Curray(10, 20, 30, nums2)
+var nums = new Curray(nusm3, 120, 130)
 
 console.assert(nums[0] === nums3, 'nums at 0 is nums3')
 console.assert(nums[1] === 120, 'nums at 1 is 120')
