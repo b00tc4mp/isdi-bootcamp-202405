@@ -208,6 +208,22 @@ class Curray {
         return -1
 
     }
+    flat() {
+        const flatted = new Curray()
+        for (let i = 0; i < this.length; i++) {
+            const element = this[i]
+
+            if (!(element instanceof Curray))
+                flatted[flatted.length++] = element
+            else
+                for (let j = 0; j < element.length; j++) {
+                    const elem = element[j]
+                    flatted[flatted.length++] = elem
+                }
+        }
+        return flatted
+
+    }
 
     forEach(callback) {
         for (let i = 0; i < this.length; i++) {
