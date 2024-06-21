@@ -1,37 +1,20 @@
 var Curray = require('./Curray')
 
-Curray.prototype.flat = function (depth) {
-    var flatted = new Curray
+Curray.prototype.flat = function (depth = 1) {
+    var flatted = new Curray()
 
-    if (depth === undefined)
-        depth = 1
+    function loop(curray, count) {
+        for (var i = 0; i < curray.length; i++) {
+            var element = curray[i]
 
-    for (var i = 0; i < this.length; i++) {
-
-        if (i === this.length - 1) {
-
-            var array = this[i]
-
-            for (var j = 0; j < array.length; j++) {
-
-                var element = array[j]
-
-                flatted[i++] = element
-
-                flatted.length++
-
-            }
-
-        } else {
-
-            var element = this[i]
-
-            flatted[i] = element
-
-            flatted.length++
+            if (!(element instanceof Curray) || count === depth)
+                flatted[flatted.length++] = element
+            else
+                loop(element, count + 1)
         }
-
     }
+
+    loop(this, 0)
 
     return flatted
 }
