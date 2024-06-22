@@ -1,7 +1,7 @@
 (function () {
-    var form = document.querySelector('form')
+    var registerForm = new Form('form')
 
-    form.onsubmit = function (event) {
+    registerForm.onSubmit(function (event) {
         event.preventDefault()
 
         var nameInput = document.getElementById('name-input')
@@ -27,13 +27,13 @@
         } catch (error) {
             alert(error.message)
         }
-    }
+    })
 
-    var a = document.querySelector('a')
+    var loginLink = new Link('a')
 
-    a.onclick = function (event) {
+    loginLink.onClick(function (event) {
         event.preventDefault()
 
         location.href = '../login'
-    }
+    })
 })()
