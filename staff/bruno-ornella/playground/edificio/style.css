@@ -1,0 +1,21 @@
+.padre {
+display: flex;
+background-color: rgb(58, 9, 9);
+width: 300px;
+height: 300px;
+align-items: baseline;
+justify-content: space-between;
+flex-direction: row;
+flex-wrap: wrap;
+align-content: stretch;
+padding: 25px;
+background-image: url('imagen/ladrillo.jpg');
+}
+.hijo{
+    background-color: rgb(218, 125, 20);
+    border: 2px solid rgb(66, 170, 184);
+    width: 25%;
+    height: 25%;
+    background-image: url('imagen/ventana.jpg');
+
+}
