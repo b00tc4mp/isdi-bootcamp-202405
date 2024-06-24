@@ -13,5 +13,4 @@ function deletePost(postId) {
     posts.splice(postIndex, 1)
 
     localStorage.posts = JSON.stringify(posts)
-
 }

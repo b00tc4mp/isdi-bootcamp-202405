@@ -37,4 +37,11 @@ class Component {
 
         this.container.className = className
     }
+    setId(id) {
+        if (typeof id !== 'string')
+            throw new TypeError('id is not a string')
+
+        this.container.id = id
+
+    }
 }

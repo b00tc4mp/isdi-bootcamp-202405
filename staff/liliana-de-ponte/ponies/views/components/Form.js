@@ -6,4 +6,8 @@ class Form extends Component {
     onSubmit(callback) {
         this.container.onsubmit = callback
     }
+
+    onClick(callback) {
+        this.container.onclick = callback
+    }
 }
