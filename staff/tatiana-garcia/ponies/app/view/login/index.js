@@ -6,7 +6,7 @@
         event.preventDefault()
 
         const usernameInput = document.getElementById('username-input')
-        const passwordInput = documen.getElementById('password-input')
+        const passwordInput = document.getElementById('password-input')
 
         const username = usernameInput.value
         const password = passwordInput.value
