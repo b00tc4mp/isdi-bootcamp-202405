@@ -2,11 +2,6 @@ body {
     margin: 0;
 }
 
-h1 {
-    font-style: italic;
-    color: purple;
-}
-
 .view {
     display: flex;
     flex-direction: column;
@@ -14,12 +9,19 @@ h1 {
     gap: 1rem;
     font-size: 1.1rem;
     background-color: rgb(184, 130, 148);
+    height: 100vh;
+}
+
+h1 {
+
+    font-style: italic;
+    color: purple;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: .5rem;
     min-width: 80%;
 }
 
@@ -35,8 +37,8 @@ h1 {
 }
 
 .form__button {
-    font-size: inherit;
-    font-weight: bold;
     border-radius: 15px;
+    font-size: inherit;
     background-color: lightgray;
+    font-weight: bold;
 }
