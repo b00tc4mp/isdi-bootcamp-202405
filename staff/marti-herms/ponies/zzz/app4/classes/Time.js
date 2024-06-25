@@ -1,6 +1,6 @@
-class Main extends Component {
+class Time extends Component {
     constructor(className) {
-        super(document.createElement('main'));
+        super(document.createElement('time'));
         this.container.className = className;
     }
-}
+} 
