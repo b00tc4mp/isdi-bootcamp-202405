@@ -3,4 +3,8 @@ class Button extends Component {
         super(document.createElement('button'));
         this.container.className = className;
     }
+
+    onClick(callback) {
+        this.container.onclick = callback;
+    }
 }

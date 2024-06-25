@@ -1,40 +1,22 @@
 (() => {
-    // <-><-><-><-><->Create Header elements<-><-><-><-><->
+    // <-><-><-><-><->Header<-><-><-><-><->
     const body = new Component(document.body);
 
     const header = new Header();
     body.add(header);
 
+    // ^^^^^^^^^^^^^^^Header^^^^^^^^^^^^^^^
+
+
+
+    // <-><-><-><-><->Background fader<-><-><-><-><->
     const fader = new Fader();
     body.add(fader);
+    // ^^^^^^^^^^^^^^^Background fader^^^^^^^^^^^^^^^
 
-    const userName = new Text('p');
-    header.add(userName);
 
-    try {
-        const name = getUserName();
 
-        userName.setInnerText('Hello, ' + name + '!');
-    } catch (error) {
-        alert(error.message);
-    }
-
-    const logoutButton = new Button('logout-button');
-    logoutButton.setInnerText('Logout');
-    header.add(logoutButton);
-
-    logoutButton.container.onclick = () => {
-        try {
-            logoutUser();
-
-            location.href = '../login';
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-    // ^^^^^^^^^^^^^^^Create Header elements^^^^^^^^^^^^^^^
-
-    // <-><-><-><-><->Create Main elements<-><-><-><-><->
+    // <-><-><-><-><->Main elements<-><-><-><-><->
     const main = new Main('view main');
     body.add(main);
 
@@ -50,6 +32,9 @@
         }
     }
     // ^^^^^^^^^^^^^^^Function to clear posts^^^^^^^^^^^^^^^
+
+
+
     // <-><-><-><-><->Function to list posts<-><-><-><-><->
     const generatePostList = () => {
         try {
@@ -67,20 +52,20 @@
                 postImage.setImage(post.img);
                 postArticle.add(postImage);
 
-                const postCaption = new Text('p');
+                const postCaption = new Paragraph('p');
                 postCaption.setClassName('post__caption');
                 postCaption.setInnerText(post.caption);
                 postArticle.add(postCaption);
 
                 if (post.author === getUserUsername()) {
-                    const postActionButtonsDiv = new Divider('post__actions');
+                    const postActionButtonsDiv = new Field('post__actions');
                     postArticle.add(postActionButtonsDiv);
 
                     const deletePostButton = new Button();
                     deletePostButton.setInnerText('Delete');
                     postActionButtonsDiv.add(deletePostButton);
 
-                    deletePostButton.container.onclick = (event) => {
+                    deletePostButton.onClick(() => {
                         if (confirm('Delete Post?')) {
                             try {
                                 deletePosts(post.id);
@@ -96,22 +81,22 @@
                                 }
                             }
                         }
-                    }
+                    });
 
                     const editCaptionPostButton = new Button();
                     editCaptionPostButton.setInnerText('Edit this post');
                     postActionButtonsDiv.add(editCaptionPostButton);
 
-                    editCaptionPostButton.container.onclick = () => {
+                    editCaptionPostButton.onClick(() => {
                         const createCaptionForm = new Form();
                         postArticle.add(createCaptionForm);
 
                         const captionEditLabel = new Label('caption-edit-input');
                         captionEditLabel.setInnerText('New Caption');
-                        createCaptionForm.add(captionEditLabel)
+                        createCaptionForm.add(captionEditLabel);
 
                         const captionEditInput = new Input(captionEditLabel.getFor());
-                        captionEditInput.value = post.caption;
+                        captionEditInput.setValue(post.caption);
                         createCaptionForm.add(captionEditInput);
 
                         const captionEditButton = new Button();
@@ -124,15 +109,15 @@
                         editCaptionCancelButton.setInnerText('Cancel');
                         createCaptionForm.add(editCaptionCancelButton);
 
-                        editCaptionCancelButton.container.onclick = () => {
+                        editCaptionCancelButton.onClick(() => {
                             postArticle.remove(createCaptionForm);
-                        }
+                        });
 
-                        createCaptionForm.container.onsubmit = (event) => {
+                        createCaptionForm.onSubmit((event) => {
                             event.preventDefault();
 
                             try {
-                                editPost(post.id, captionEditInput.value);
+                                editPost(post.id, captionEditInput.getValue());
 
                                 postArticle.remove(createCaptionForm);
 
@@ -147,8 +132,8 @@
                                 }
                             }
 
-                        }
-                    }
+                        });
+                    });
                 }
 
                 const postDate = new Time('post__time');
@@ -162,6 +147,8 @@
     }
     // ^^^^^^^^^^^^^^^Function to list posts^^^^^^^^^^^^^^^
 
+
+
     generatePostList();
 
     const footer = new Footer();
@@ -171,8 +158,10 @@
     addPostButton.setInnerText('+');
     footer.add(addPostButton);
 
+
+
     // <-><-><-><-><->Function to add posts<-><-><-><-><->
-    addPostButton.container.onclick = (event) => {
+    addPostButton.onClick((event) => {
         event.stopPropagation();
 
         fader.setDisplay('flex');
@@ -180,20 +169,20 @@
         const createPostSection = new Section('newposts');
         fader.add(createPostSection);
 
-        const createPostTitle = new Text('h2');
+        const createPostTitle = new Paragraph('h2');
         createPostTitle.setInnerText('Create Post');
         createPostSection.add(createPostTitle);
 
         const createPostForm = new Form('form');
         createPostSection.add(createPostForm);
 
-        createPostForm.container.onsubmit = (event) => {
+        createPostForm.onSubmit((event) => {
             event.preventDefault();
 
             document.removeEventListener('click', handler, true);
 
-            const postImage = postImageInput.container.value;
-            const postCaption = postCaptionInput.container.value;
+            const postImage = postImageInput.getValue();
+            const postCaption = postCaptionInput.getValue();
 
             try {
                 addPost(postImage, postCaption);
@@ -206,9 +195,9 @@
             } catch (error) {
                 alert(error.message);
             }
-        }
+        });
 
-        const postImageFieldDiv = new Divider('form__field');
+        const postImageFieldDiv = new Field('form__field');
         createPostForm.add(postImageFieldDiv);
 
         const postImageLabel = new Label('post-image-input');
@@ -219,7 +208,7 @@
         postImageInput.setClassName('form__input');
         postImageFieldDiv.add(postImageInput);
 
-        const postCaptionFieldDiv = new Divider('form__field');
+        const postCaptionFieldDiv = new Field('form__field');
         createPostForm.add(postCaptionFieldDiv);
 
         const postCaptionLabel = new Label('post-caption-input');
@@ -240,11 +229,11 @@
         postCancelButton.setInnerText('Cancel');
         createPostForm.add(postCancelButton);
 
-        postCancelButton.container.onclick = () => {
+        postCancelButton.onClick(() => {
             fader.remove(createPostSection);
             fader.setDisplay('none');
             document.removeEventListener('click', handler, true);
-        }
+        });
 
         document.addEventListener('click', handler, true);
 
@@ -255,7 +244,9 @@
                 document.removeEventListener('click', handler, true);
             }
         }
-    }
+    })
     // ^^^^^^^^^^^^^^^Function to add posts^^^^^^^^^^^^^^^
-    // ^^^^^^^^^^^^^^^Create Main elements^^^^^^^^^^^^^^^
+
+
+    // ^^^^^^^^^^^^^^^Main elements^^^^^^^^^^^^^^^
 })();

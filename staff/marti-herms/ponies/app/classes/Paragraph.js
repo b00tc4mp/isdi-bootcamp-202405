@@ -1,4 +1,4 @@
-class Text extends Component {
+class Paragraph extends Component {
     constructor(type) {
         super(document.createElement(type));
     }

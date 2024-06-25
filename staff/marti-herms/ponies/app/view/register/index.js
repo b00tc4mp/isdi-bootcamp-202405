@@ -4,14 +4,14 @@
     const main = new Main('view');
     body.add(main);
 
-    const login = new Text('h1');
+    const login = new Paragraph('h1');
     login.setInnerText('Register');
     main.add(login);
 
     const form = new Form('form');
     main.add(form);
 
-    const nameDiv = new Divider('form__field');
+    const nameDiv = new Field('form__field');
     form.add(nameDiv);
 
     const nameLabel = new Label('name-input');
@@ -25,7 +25,7 @@
     nameInput.setPlaceholder('name');
     nameDiv.add(nameInput);
 
-    const surnameDiv = new Divider('form__field');
+    const surnameDiv = new Field('form__field');
     form.add(surnameDiv);
 
     const surnameLabel = new Label('surname-input');
@@ -39,7 +39,7 @@
     surnameInput.setPlaceholder('surname');
     surnameDiv.add(surnameInput);
 
-    const emailDiv = new Divider('form__field');
+    const emailDiv = new Field('form__field');
     form.add(emailDiv);
 
     const emailLabel = new Label('email-input');
@@ -53,7 +53,7 @@
     emailInput.setPlaceholder('email');
     emailDiv.add(emailInput);
 
-    const usernameDiv = new Divider('form__field');
+    const usernameDiv = new Field('form__field');
     form.add(usernameDiv);
 
     const usernameLabel = new Label('username-input');
@@ -67,7 +67,7 @@
     usernameInput.setPlaceholder('username');
     usernameDiv.add(usernameInput);
 
-    const passwordDiv = new Divider('form__field');
+    const passwordDiv = new Field('form__field');
     form.add(passwordDiv);
 
     const passwordLabel = new Label('password-input');
@@ -81,7 +81,7 @@
     passwordInput.setPlaceholder('password');
     passwordDiv.add(passwordInput);
 
-    const passwordRepeatDiv = new Divider('form__field');
+    const passwordRepeatDiv = new Field('form__field');
     form.add(passwordRepeatDiv);
 
     const passwordRepeatLabel = new Label('password2-input');
@@ -102,7 +102,7 @@
 
 
 
-    form.container.onsubmit = (event) => {
+    form.onSubmit((event) => {
         event.preventDefault()
 
         const name = nameInput.getValue();
@@ -121,16 +121,14 @@
         } catch (error) {
             alert(error.message);
         }
-    }
+    });
 
-    const a = document.createElement('a');
-    a.href = '';
-    a.innerText = 'Login'
-    main.container.appendChild(a);
+    const link = new Link('Login');
+    main.add(link);
 
-    a.onclick = (event) => {
-        event.preventDefault()
+    link.onClick((event) => {
+        event.preventDefault();
 
-        location.href = '../login'
-    }
+        location.href = '../login';
+    });
 })();

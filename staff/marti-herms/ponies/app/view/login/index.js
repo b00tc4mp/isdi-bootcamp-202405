@@ -4,14 +4,14 @@
     const main = new Main('view');
     body.add(main);
 
-    const login = new Text('h1');
+    const login = new Paragraph('h1');
     login.setInnerText('Login');
     main.add(login);
 
     const form = new Form('form');
     main.add(form);
 
-    const userDiv = new Divider('form__field');
+    const userDiv = new Field('form__field');
     form.add(userDiv);
 
     const userLabel = new Label('username-input');
@@ -25,7 +25,7 @@
     usernameInput.setPlaceholder('username');
     userDiv.add(usernameInput);
 
-    const passwordDiv = new Divider('form__field');
+    const passwordDiv = new Field('form__field');
     form.add(passwordDiv);
 
     const passwordLabel = new Label('password-input');
@@ -44,7 +44,7 @@
     submitButton.setInnerText('Login')
     form.add(submitButton);
 
-    form.container.onsubmit = (event) => {
+    form.onSubmit((event) => {
         event.preventDefault();
 
         const username = usernameInput.getValue();
@@ -57,16 +57,14 @@
         } catch (error) {
             alert(error.message);
         }
-    }
+    });
 
-    const a = document.createElement('a');
-    a.href = '';
-    a.innerText = 'Register'
-    main.container.appendChild(a);
+    const link = new Link('Register');
+    main.add(link);
 
-    a.onclick = (event) => {
+    link.onClick((event) => {
         event.preventDefault();
 
         location.href = '../register';
-    }
+    });
 })();
