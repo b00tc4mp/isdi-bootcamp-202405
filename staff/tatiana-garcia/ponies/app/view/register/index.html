@@ -5,17 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+
+    <link rel="shortcut icon" href="../../image/poniesSvg.webp" type="image/x-icon">
+
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+    <main class="view">
+        <h1>Register</h1>
 
+        <form class="form">
+            <div class="form__field">
+                <label for="name-input">Name</label>
+                <input class="form__input" type="text" id="name-input" name="name" placeholder="name">
+            </div>
+
+            <div class="form__field">
+                <label for="surname-input">Surname</label>
+                <input class="form__input" type="text" id="surname-input" name="surname" placeholder="surname">
+            </div>
+
+            <div class="form__field">
+                <label for="email-input">Email</label>
+                <input class="form__input" type="email" id="email-input" name="email" placeholder="email">
+            </div>
+
+            <div class="form__field">
+                <label for="username-input">Username</label>
+                <input class="form__input" type="text" id="username-input" name="username" placeholder="username">
+            </div>
+
+            <div class="form__field">
+                <label for="password-input">Password</label>
+                <input class="form__input" type="password" name="password" id="password-input" placeholder="password">
+            </div>
+
+            <div class="form__field">
+                <label for="password2-input">Repeat password</label>
+                <input class="form__input" type="password" name="password2" id="password2-input"
+                    placeholder="repeat password">
+            </div>
+
+            <button class="form__button" type="submit">Register</button>
+        </form>
+
+        <a href="">Loging</a>
+
+    </main>
 
     <script src="../../logic/registerUser.js"></script>
+
+    <script src="../Component.js"></script>
+    <script src="../components/Form.js"></script>
+    <script src="../component/Link.js"></script>
+
     <script src="index.js"></script>
-
-
-
 </body>
 
 </html>

@@ -7,10 +7,16 @@ class Component {
     add(child) {
         if (!(child instanceof Component)) {
 
-            throw new TypeError('child is not a component')
-
+            throw new TypeError('child is not a Component')
         }
         this.container.appendChild(child.container)
+    }
+
+    remove(child) {
+        if (!(child instanceof Component)) {
+            throw new TypeError('child is not a Component')
+        }
+        this.container.removeChild(child.container)
     }
 
     setText(text) {
@@ -27,12 +33,14 @@ class Component {
         if (typeof color !== 'string') {
 
             throw new TypeError('color is not a string')
+
         }
         this.container.style.backgroundColor = color
     }
 
     setColor(color) {
-        if (typeof color != 'string') {
+
+        if (typeof color !== 'string') {
 
             throw new TypeError('color is not a string')
         }

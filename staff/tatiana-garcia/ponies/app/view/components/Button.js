@@ -1,10 +1,8 @@
-class RegisterButton extends Component {
+class Button extends Component {
 
     constructor() {
 
         super(document.createElement('button'))
-        this.setClassName('register-button')
-        this.setText('Register')
     }
 
     onClick(callback) {
