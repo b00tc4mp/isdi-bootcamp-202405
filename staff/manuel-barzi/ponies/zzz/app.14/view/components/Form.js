@@ -1,6 +1,6 @@
 class Form extends Component {
     constructor(selector) {
-        super(selector ? document.querySelector(selector) : document.createElement('form'))
+        super(document.querySelector(selector))
     }
 
     onSubmit(callback) {

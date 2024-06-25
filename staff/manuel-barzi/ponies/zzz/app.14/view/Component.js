@@ -10,13 +10,6 @@ class Component {
         this.container.appendChild(child.container)
     }
 
-    remove(child) {
-        if (!(child instanceof Component))
-            throw new TypeError('child is not a Component')
-
-        this.container.removeChild(child.container)
-    }
-
     setText(text) {
         if (typeof text !== 'string')
             throw new TypeError('text is not a string')

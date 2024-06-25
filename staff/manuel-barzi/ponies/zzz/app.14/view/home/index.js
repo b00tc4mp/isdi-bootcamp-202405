@@ -47,8 +47,8 @@
 
                 footer.removeChild(createPostSection)
 
-                postList.clearPosts()
-                postList.listPosts()
+                clearPosts()
+                listPosts()
             } catch (error) {
                 alert(error.message)
             }
