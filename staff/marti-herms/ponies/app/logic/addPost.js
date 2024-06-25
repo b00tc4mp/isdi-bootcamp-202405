@@ -9,7 +9,8 @@ function addPost(img, caption) {
         img: img,
         caption: caption,
         author: sessionStorage.username,
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
+        likes: 0
     };
 
     posts.unshift(post);

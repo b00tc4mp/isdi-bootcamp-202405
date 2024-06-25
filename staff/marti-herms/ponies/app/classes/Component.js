@@ -10,6 +10,10 @@ class Component {
         this.container.className = className;
     }
 
+    setId(id) {
+        this.container.id = id;
+    }
+
     setType(type) {
         if (!(type.length > 0)) {
             throw new TypeError('type is not a String');

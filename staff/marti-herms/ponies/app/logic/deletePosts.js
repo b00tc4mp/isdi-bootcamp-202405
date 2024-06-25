@@ -13,4 +13,12 @@ function deletePosts(id) {
     posts.splice(index, 1);
 
     localStorage.posts = JSON.stringify(posts);
+
+    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
+
+    users.forEach((user) => {
+        user.liked_posts = user.liked_posts.filter(post_id => post_id !== id)
+    });
+
+    localStorage.users = JSON.stringify(users);
 }

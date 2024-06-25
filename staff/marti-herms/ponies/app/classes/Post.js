@@ -13,6 +13,44 @@ class Post extends Component {
         postImage.setImage(post.img);
         this.add(postImage);
 
+        const postInteractionButtonsDiv = new Field('post__actions');
+        this.add(postInteractionButtonsDiv);
+
+        const likeButton = new LikeButton();
+        likeButton.setClassName('like-button');
+        if (hasLiked(post.id)) {
+            likeButton.setColorRed();
+        } else {
+            likeButton.setColorWhite();
+        }
+        postInteractionButtonsDiv.add(likeButton);
+
+        likeButton.onClick(() => {
+            if (hasLiked(post.id)) {
+                likeButton.setColorWhite();
+
+                post.likes--;
+
+                removeLike(post.id);
+
+                this.onPostLikedCallback();
+
+            } else {
+                likeButton.setColorRed();
+
+                post.likes++;
+
+                addLike(post.id)
+
+                this.onPostLikedCallback();
+
+            }
+        })
+
+        const numberOfLikes = new Paragraph('p');
+        numberOfLikes.setText(post.likes);
+        this.add(numberOfLikes);
+
         const postCaption = new Paragraph('p');
         postCaption.setClassName('post__caption');
         postCaption.setText(post.caption);
@@ -31,12 +69,12 @@ class Post extends Component {
                     try {
                         deletePosts(post.id);
 
-                        self.onPostDeletedCallback();
+                        this.onPostDeletedCallback();
                     } catch (error) {
                         alert(error.message);
 
                         if (error.message === 'post not found') {
-                            self.onPostDeletedCallback();
+                            this.onPostDeletedCallback();
                         }
                     }
                 }
@@ -48,7 +86,7 @@ class Post extends Component {
 
             editCaptionPostButton.onClick(() => {
                 const createCaptionForm = new Form();
-                self.add(createCaptionForm);
+                this.add(createCaptionForm);
 
                 const captionEditLabel = new Label('caption-edit-input');
                 captionEditLabel.setText('New Caption');
@@ -69,7 +107,7 @@ class Post extends Component {
                 createCaptionForm.add(editCaptionCancelButton);
 
                 editCaptionCancelButton.onClick(() => {
-                    self.remove(createCaptionForm);
+                    this.remove(createCaptionForm);
                 });
 
                 createCaptionForm.onSubmit((event) => {
@@ -78,14 +116,14 @@ class Post extends Component {
                     try {
                         editPost(post.id, captionEditInput.getValue());
 
-                        self.remove(createCaptionForm);
+                        this.remove(createCaptionForm);
 
-                        self.onPostDeletedCallback();
+                        this.onPostDeletedCallback();
                     } catch (error) {
                         alert(error.message);
 
                         if (error.message === 'post not found') {
-                            self.onPostDeletedCallback();
+                            this.onPostDeletedCallback();
                         }
                     }
 
@@ -100,5 +138,9 @@ class Post extends Component {
 
     onPostDeleted(callback) {
         this.onPostDeletedCallback = callback;
+    }
+
+    onPostLiked(callback) {
+        this.onPostLikedCallback = callback;
     }
 }

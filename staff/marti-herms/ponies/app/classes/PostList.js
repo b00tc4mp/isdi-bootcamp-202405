@@ -20,7 +20,7 @@ class PostList extends Component {
 
             const self = this;
 
-            posts.forEach(_post => {
+            posts.forEach((_post) => {
                 const post = new Post(_post);
 
                 post.onPostDeleted(() => {
@@ -28,8 +28,15 @@ class PostList extends Component {
                     self.generatePostList();
                 })
 
+                post.onPostLiked(() => {
+                    setAllPosts(posts);
+                    self.clearPosts();
+                    self.generatePostList();
+                })
+
                 self.add(post);
             });
+
         } catch (error) {
             alert(error.message);
         }

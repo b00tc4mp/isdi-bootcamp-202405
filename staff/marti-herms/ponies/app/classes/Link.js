@@ -1,7 +1,7 @@
 class Link extends Component {
     constructor(text) {
         super(document.createElement('a'));
-        this.container.href = '';
+        this.container.href = ''
         this.container.innerText = text;
     }
 

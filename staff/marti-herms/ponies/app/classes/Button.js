@@ -1,7 +1,7 @@
 class Button extends Component {
-    constructor(className) {
+    constructor(id) {
         super(document.createElement('button'));
-        this.container.className = className;
+        this.container.id = id;
     }
 
     onClick(callback) {

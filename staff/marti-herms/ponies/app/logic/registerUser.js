@@ -47,7 +47,8 @@ function registerUser(name, surname, email, username, password, passwordRepeat) 
         surname: surname,
         email: email,
         username: username,
-        password: password
+        password: password,
+        liked_posts: []
     }
 
     users.push(user)
