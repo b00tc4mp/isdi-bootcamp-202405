@@ -1,8 +1,5 @@
 function deletePost(postId) {
-    if (postId.trim().length === 0) {
-
-        throw new Error('invalid postId')
-    }
+    if (postId.trim().length === 0) throw new Error('invalid postId')
 
     var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
@@ -10,13 +7,9 @@ function deletePost(postId) {
         return post.id === postId
     })
 
-    if (postIndex < 0) {
-
-        throw new Error('post not found')
-    }
+    if (postIndex < 0) throw new Error('post not found')
 
     posts.splice(postIndex, 1)
 
     localStorage.posts = JSON.stringify(posts)
-
 }
