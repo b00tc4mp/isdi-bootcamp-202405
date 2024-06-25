@@ -1,22 +1,22 @@
-(function () {
-    var registerForm = new Form('form')
+{
+    const registerForm = new Form('form')
 
     registerForm.onSubmit(function (event) {
         event.preventDefault()
 
-        var nameInput = document.getElementById('name-input')
-        var surnameInput = document.getElementById('surname-input')
-        var emailInput = document.getElementById('email-input')
-        var usernameInput = document.getElementById('username-input')
-        var passwordInput = document.getElementById('password-input')
-        var passwordRepeatInput = document.getElementById('password2-input')
+        const nameInput = document.getElementById('name-input')
+        const surnameInput = document.getElementById('surname-input')
+        const emailInput = document.getElementById('email-input')
+        const usernameInput = document.getElementById('username-input')
+        const passwordInput = document.getElementById('password-input')
+        const passwordRepeatInput = document.getElementById('password2-input')
 
-        var name = nameInput.value
-        var surname = surnameInput.value
-        var email = emailInput.value
-        var username = usernameInput.value
-        var password = passwordInput.value
-        var passwordRepeat = passwordRepeatInput.value
+        const name = nameInput.value
+        const surname = surnameInput.value
+        const email = emailInput.value
+        const username = usernameInput.value
+        const password = passwordInput.value
+        const passwordRepeat = passwordRepeatInput.value
 
         try {
             registerUser(name, surname, email, username, password, passwordRepeat)
@@ -29,11 +29,11 @@
         }
     })
 
-    var loginLink = new Link('a')
+    const loginLink = new Link('a')
 
     loginLink.onClick(function (event) {
         event.preventDefault()
 
         location.href = '../login'
     })
-})()
+}
