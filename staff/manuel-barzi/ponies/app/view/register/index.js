@@ -1,7 +1,7 @@
 {
     const registerForm = new Form('form')
 
-    registerForm.onSubmit(function (event) {
+    registerForm.onSubmit(event => {
         event.preventDefault()
 
         const nameInput = document.getElementById('name-input')
@@ -19,7 +19,7 @@
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            registerUser(name, surname, email, username, password, passwordRepeat)
+            logic.registerUser(name, surname, email, username, password, passwordRepeat)
 
             alert('user successfully registered')
 
@@ -31,7 +31,7 @@
 
     const loginLink = new Link('a')
 
-    loginLink.onClick(function (event) {
+    loginLink.onClick(event => {
         event.preventDefault()
 
         location.href = '../login'

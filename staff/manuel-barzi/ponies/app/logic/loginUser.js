@@ -1,21 +1,23 @@
-function loginUser(username, password) {
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
+{
+    const loginUser = (username, password) => {
+        if (username.trim().length < 4)
+            throw new Error('invalid username')
 
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+        if (password.trim().length < 8)
+            throw new Error('invalid password')
 
-    var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+        const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-    var user = users.find(function (user) {
-        return user.username === username
-    })
+        const user = users.find(user => user.username === username)
 
-    if (user === undefined)
-        throw new Error('username does not exist')
+        if (user === undefined)
+            throw new Error('username does not exist')
 
-    if (user.password !== password)
-        throw new Error('wrong password')
+        if (user.password !== password)
+            throw new Error('wrong password')
 
-    sessionStorage.username = username
+        sessionStorage.username = username
+    }
+
+    logic.loginUser = loginUser
 }

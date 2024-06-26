@@ -20,7 +20,7 @@ class Post extends Component {
 
         const self = this
 
-        if (post.author === getUserUsername()) {
+        if (post.author === logic.getUserUsername()) {
             const postActionButtonsDiv = new Component(document.createElement('div'))
             postActionButtonsDiv.setClassName('post__actions')
             this.add(postActionButtonsDiv)
@@ -29,10 +29,10 @@ class Post extends Component {
             postDeleteButton.setText('Delete')
             postActionButtonsDiv.add(postDeleteButton)
 
-            postDeleteButton.onClick(function () {
+            postDeleteButton.onClick(() => {
                 if (confirm('Delete post?'))
                     try {
-                        deletePost(post.id)
+                        logic.deletePost(post.id)
 
                         // self.clearPosts()
                         // self.listPosts()
@@ -52,7 +52,7 @@ class Post extends Component {
             editButton.setText('Edit')
             postActionButtonsDiv.add(editButton)
 
-            editButton.onClick(function () {
+            editButton.onClick(() => {
                 const editCaptionForm = new Form
                 self.add(editCaptionForm)
 
@@ -75,17 +75,15 @@ class Post extends Component {
                 editCaptionCancelButton.setType('button')
                 editCaptionForm.add(editCaptionCancelButton)
 
-                editCaptionCancelButton.onClick(function () {
-                    self.remove(editCaptionForm)
-                })
+                editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
 
-                editCaptionForm.onSubmit(function (event) {
+                editCaptionForm.onSubmit(event => {
                     event.preventDefault()
 
                     try {
                         const newCaption = editCaptionInput.getValue()
 
-                        updatePostCaption(post.id, newCaption)
+                        logic.updatePostCaption(post.id, newCaption)
 
                         //self.container.removeChild(editCaptionForm.container)
                         self.remove(editCaptionForm)

@@ -1,15 +1,14 @@
 class Header extends Component {
     constructor() {
         super(document.createElement('header'))
+        this.setClassName('header')
 
-        this.container.className = 'header'
-
-        var userName = new Paragraph
+        const userName = new Paragraph
         userName.setClassName('header__user-name')
         this.add(userName)
 
         try {
-            var name = getUserName()
+            const name = logic.getUserName()
 
             userName.setText('Hello, ' + name + '!')
         } catch (error) {
@@ -21,9 +20,9 @@ class Header extends Component {
         logoutButton.setText('Logout')
         this.add(logoutButton)
 
-        logoutButton.onClick(function () {
+        logoutButton.onClick(() => {
             try {
-                logoutUser()
+                logic.logoutUser()
 
                 location.href = '../login'
             } catch (error) {
