@@ -1,6 +1,11 @@
 body {
     margin: 0 0;
     display: block;
+    background-color: skyblue;
+}
+
+hr {
+    margin: 0;
 }
 
 .view {
@@ -49,18 +54,28 @@ body {
 }
 
 .post {
-    box-shadow: 1px 1px 10px 1px slategray;
-    border-radius: 1%;
+    box-shadow: 1px 1px 10px 1px darkblue;
+    border-radius: 2%;
     margin: 8px;
+    background-color: #9E58F9;
 }
 
 .post__author {
-    margin: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0.5rem;
+    background-color: #8947df;
+    border-bottom: 1px solid rgba(139, 0, 139, 0.2);
 }
 
 .post__image {
-    width: 100%;
-    height: auto;
+    display: block;
+    max-width: 100%;
+    max-height: 80vh;
+    margin: 0 auto;
+    padding: auto;
+    background-color: black;
+    box-shadow: 0 2px 4px darkmagenta;
 }
 
 .post__caption {
@@ -89,9 +104,10 @@ body {
     display: flex;
     justify-content: right;
     align-items: center;
-    background-color: lightgray;
+    background-color: rgb(17, 0, 0);
     gap: 1rem;
-    box-shadow: 0px 1px 3px slategray;
+    box-shadow: 0px 1px 3px darkred;
+    z-index: 1;
 }
 
 .main {
@@ -105,10 +121,11 @@ body {
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: center;
-    background-color: lightgray;
-    padding: .5rem 0;
-    box-shadow: 0px -1px 3px slategray;
+    justify-content: space-around;
+    background-color: rgb(17, 0, 0);
+    padding: 0.4rem 0;
+    box-shadow: 0px -1px 3px darkred;
+    z-index: 1;
 }
 
 .newposts {
@@ -126,7 +143,7 @@ body {
     box-shadow: 1px 1px 10px 1px black;
     box-sizing: border-box;
     border-radius: 3%;
-    z-index: 2;
+    z-index: 3;
 }
 
 .newposts h2 {
@@ -140,7 +157,7 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     display: none;
-    z-index: 1;
+    z-index: 2;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -158,9 +175,38 @@ button {
     aspect-ratio: 1;
     border-image: radial-gradient(red 69%, #0000 70%) 84.5%/50%;
     clip-path: polygon(-41% 0, 50% 91%, 141% 0);
+    background-color: #9E58F9;
+}
+
+.save-button {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1;
+    clip-path: polygon(0% 0%, 0% 100%, 50% 70%, 100% 100%, 100% 0%);
+    border: 0px;
+    background-color: white;
 }
 
 .like-counter {
     margin-left: 10px;
     font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+}
+
+.add-post-button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid darkmagenta;
+}
+
+.feed-button {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1;
+    clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0% 100%, 0% 30%);
+    border: 0px;
+    background-color: white;
 }

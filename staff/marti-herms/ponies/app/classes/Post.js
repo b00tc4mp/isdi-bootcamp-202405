@@ -16,52 +16,80 @@ class Post extends Component {
         const postInteractionButtonsDiv = new Field('post__actions');
         this.add(postInteractionButtonsDiv);
 
-        const likeButton = new LikeButton();
+        const likeButton = new Button();
         likeButton.setClassName('like-button');
-        if (hasLikedPost(post.id)) {
-            likeButton.setColorRed();
-        } else if (!hasLikedPost(post.id)) {
-            likeButton.setColorGray();
+        if (logic.hasLikedPost(post.id)) {
+            likeButton.setHeartRed();
+        } else if (!logic.hasLikedPost(post.id)) {
+            likeButton.setHeartWhite();
         }
         postInteractionButtonsDiv.add(likeButton);
 
         likeButton.onClick((event) => {
             event.stopPropagation()
-            if (hasLikedPost(post.id)) {
-                likeButton.setColorGray();
+            if (logic.hasLikedPost(post.id)) {
+                likeButton.setHeartWhite();
 
-                post.likes--;
+                post.likes -= 1;
 
-                removePostLike(post.id);
+                logic.removePostLike(post.id);
 
-                this.onPostLikedCallback();
+                this.onPostInteractedCallback();
 
-            } else if (!hasLikedPost(post.id)) {
-                likeButton.setColorRed();
+            } else if (!logic.hasLikedPost(post.id)) {
+                likeButton.setHeartRed();
 
-                post.likes++;
+                post.likes += 1;
 
-                addPostLike(post.id)
+                logic.addPostLike(post.id)
 
-                this.onPostLikedCallback();
+                this.onPostInteractedCallback();
 
             }
         })
+
+        const saveButton = new Button();
+        saveButton.setClassName('save-button');
+        if (logic.hasPostSaved(post.id)) {
+            saveButton.setColor('black')
+        } else {
+            saveButton.setColor('white')
+        }
+        postInteractionButtonsDiv.add(saveButton);
+
+        saveButton.onClick((event) => {
+            event.stopPropagation();
+            if (logic.hasPostSaved(post.id)) {
+                saveButton.setColor('white');
+
+                logic.removeSavedPost(post.id)
+
+                this.onPostInteractedCallback();
+            } else {
+                saveButton.setColor('black');
+
+                logic.addSavedPost(post.id)
+
+                this.onPostInteractedCallback();
+            }
+
+        })
+
+        const separatorLikesNumber = new Separator();
+        this.add(separatorLikesNumber);
 
         const numberOfLikes = new Paragraph('p');
         numberOfLikes.setClassName('like-counter');
         numberOfLikes.setText(`${post.likes} likes`);
         this.add(numberOfLikes);
 
-        const separator = new Component(document.createElement('hr'));
-        this.add(separator);
 
         const postCaption = new Paragraph('p');
         postCaption.setClassName('post__caption');
         postCaption.setText(post.caption);
         this.add(postCaption);
 
-        if (post.author === getUserUsername()) {
+        if (post.author === logic.getUserUsername()) {
             const postActionButtonsDiv = new Field('post__actions');
             self.add(postActionButtonsDiv);
 
@@ -72,14 +100,14 @@ class Post extends Component {
             deletePostButton.onClick(() => {
                 if (confirm('Delete Post?')) {
                     try {
-                        deletePosts(post.id);
+                        logic.deletePosts(post.id);
 
-                        this.onPostDeletedCallback();
+                        this.onPostInteractedCallback();
                     } catch (error) {
                         alert(error.message);
 
                         if (error.message === 'post not found') {
-                            this.onPostDeletedCallback();
+                            this.onPostInteractedCallback();
                         }
                     }
                 }
@@ -90,6 +118,9 @@ class Post extends Component {
             postActionButtonsDiv.add(editCaptionPostButton);
 
             editCaptionPostButton.onClick(() => {
+                const intervalID = logic.getIntervalID();
+                clearInterval(intervalID);
+
                 const createCaptionForm = new Form();
                 this.add(createCaptionForm);
 
@@ -113,22 +144,23 @@ class Post extends Component {
 
                 editCaptionCancelButton.onClick(() => {
                     this.remove(createCaptionForm);
+                    this.onPostEditedCallback();
                 });
 
                 createCaptionForm.onSubmit((event) => {
                     event.preventDefault();
 
                     try {
-                        editPost(post.id, captionEditInput.getValue());
+                        logic.editPost(post.id, captionEditInput.getValue());
 
                         this.remove(createCaptionForm);
 
-                        this.onPostDeletedCallback();
+                        this.onPostEditedCallback();
                     } catch (error) {
                         alert(error.message);
 
                         if (error.message === 'post not found') {
-                            this.onPostDeletedCallback();
+                            this.onPostEditedCallback();
                         }
                     }
 
@@ -141,11 +173,11 @@ class Post extends Component {
         this.add(postDate);
     };
 
-    onPostDeleted(callback) {
-        this.onPostDeletedCallback = callback;
+    onPostInteracted(callback) {
+        this.onPostInteractedCallback = callback;
     }
 
-    onPostLiked(callback) {
-        this.onPostLikedCallback = callback;
+    onPostEdited(callback) {
+        this.onPostEditedCallback = callback;
     }
 }

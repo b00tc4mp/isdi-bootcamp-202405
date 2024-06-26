@@ -4,10 +4,11 @@ class Header extends Component {
         this.container.className = 'header';
 
         const userName = new Paragraph('p');
+        userName.container.style.color = 'white';
         this.add(userName);
 
         try {
-            const name = getUserName();
+            const name = logic.getUserName();
 
             userName.setText('Hello, ' + name + '!');
         } catch (error) {
@@ -20,7 +21,7 @@ class Header extends Component {
 
         logoutButton.onClick(() => {
             try {
-                logoutUser();
+                logic.logoutUser();
 
                 location.href = '../login';
             } catch (error) {

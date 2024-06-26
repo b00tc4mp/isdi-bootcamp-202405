@@ -1,3 +1,6 @@
-function logoutUser() {
-    delete sessionStorage.username
+{
+    const logoutUser = () => delete sessionStorage.username;
+
+
+    logic.logoutUser = logoutUser;
 }

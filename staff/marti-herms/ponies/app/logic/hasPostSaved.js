@@ -1,13 +1,11 @@
 {
-    const addPostLike = (postId) => {
+    const hasPostSaved = (postId) => {
         const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
 
         const index = users.findIndex(user => user.username === sessionStorage.username);
 
-        users[index].likedPosts.push(postId);
-
-        localStorage.users = JSON.stringify(users);
+        return users[index].savedPosts.some(id => id === postId);
     }
 
-    logic.addPostLike = addPostLike;
+    logic.hasPostSaved = hasPostSaved;
 }

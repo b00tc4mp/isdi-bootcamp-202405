@@ -2,7 +2,7 @@
     const home = new Component(document.body);
 
     const body = new Component(document.createElement('main'));
-    body.setClassName('main');
+    body.setClassName('view');
     home.add(body);
 
     const login = new Paragraph('h1');
@@ -52,7 +52,7 @@
         const password = passwordInput.getValue();
 
         try {
-            loginUser(username, password);
+            logic.loginUser(username, password);
 
             location.href = '../home';
         } catch (error) {

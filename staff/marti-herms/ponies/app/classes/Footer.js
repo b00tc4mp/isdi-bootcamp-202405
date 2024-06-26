@@ -3,7 +3,12 @@ class Footer extends Component {
         super(document.createElement('footer'));
         this.container.className = 'footer';
 
-        const addPostButton = new Button('add-post-button');
+        const FeedLisButton = new Button();
+        FeedLisButton.setClassName('feed-button');
+        this.add(FeedLisButton);
+
+        const addPostButton = new Button();
+        addPostButton.setClassName('add-post-button');
         addPostButton.setText('+');
         this.add(addPostButton);
 
@@ -11,8 +16,6 @@ class Footer extends Component {
             event.stopPropagation();
 
             const home = new Component(document.body);
-
-            const postListSection = new PostList('.post-list');
 
             const fader = new Fader();
             home.add(fader);
@@ -39,13 +42,13 @@ class Footer extends Component {
                 const postCaption = postCaptionInput.getValue();
 
                 try {
-                    addPost(postImage, postCaption);
+                    logic.addPost(postImage, postCaption);
 
                     fader.remove(createPostSection);
                     fader.setDisplay('none');
 
-                    postListSection.clearPosts();
-                    postListSection.generatePostList();
+                    this.onPostCreatedCallback()
+
                 } catch (error) {
                     alert(error.message);
                 }
@@ -99,5 +102,24 @@ class Footer extends Component {
                 }
             }
         })
+
+        const savedPostListButton = new Button();
+        savedPostListButton.setClassName('save-button');
+        this.add(savedPostListButton);
+
+        savedPostListButton.onClick(() => {
+            const intervalID = logic.getIntervalID();
+            clearInterval(intervalID);
+
+            this.onSavedListClickedCallback();
+        })
+    }
+
+    onPostCreated(callback) {
+        this.onPostCreatedCallback = callback;
+    }
+
+    onSavedListClicked(callback) {
+        this.onSavedListClickedCallback = callback;
     }
 }

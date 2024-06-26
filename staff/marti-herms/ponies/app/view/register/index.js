@@ -114,7 +114,7 @@
         const passwordRepeat = passwordRepeatInput.getValue();
 
         try {
-            registerUser(name, surname, email, username, password, passwordRepeat);
+            logic.registerUser(name, surname, email, username, password, passwordRepeat);
 
             alert('user succesfully registered');
 

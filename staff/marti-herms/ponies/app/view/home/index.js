@@ -11,13 +11,25 @@
     const postListSection = new PostList();
     body.add(postListSection);
 
-    postListSection.generatePostList();
+    postListSection.generateFeedPostList();
 
-    setInterval(function () {
-        postListSection.clearPosts()
-        postListSection.generatePostList()
-    }, 2000)
+    const intervalID = setInterval(function () {
+        postListSection.clearPosts();
+        postListSection.generateFeedPostList();
+    }, 2000);
+
+    logic.setIntervalID(intervalID);
 
     const footer = new Footer();
     home.add(footer);
+
+    footer.onPostCreated(() => {
+        postListSection.clearPosts();
+        postListSection.generateFeedPostList();
+    });
+
+    footer.onSavedListClicked(() => {
+        postListSection.clearPosts();
+        postListSection.generateSavedPostList();
+    })
 }

@@ -1,3 +1,5 @@
-function setAllPosts(posts) {
-    localStorage.posts = JSON.stringify(posts);
+{
+    const setAllPosts = (posts) => localStorage.posts = JSON.stringify(posts);
+
+    logic.setAllPosts = setAllPosts;
 }
