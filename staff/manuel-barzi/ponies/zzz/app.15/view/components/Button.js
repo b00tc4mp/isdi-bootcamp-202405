@@ -6,8 +6,4 @@ class Button extends Component {
     onClick(callback) {
         this.container.onclick = callback
     }
-
-    setType(type) {
-        this.container.type = type
-    }
 }

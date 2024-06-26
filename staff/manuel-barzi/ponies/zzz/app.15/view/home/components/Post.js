@@ -56,34 +56,34 @@ class Post extends Component {
                 const editCaptionForm = new Form
                 self.add(editCaptionForm)
 
-                const editCaptionLabel = new Label
-                editCaptionLabel.setFor('edit-caption-input')
-                editCaptionForm.add(editCaptionLabel)
+                const editCaptionLabel = document.createElement('label')
+                editCaptionLabel.htmlFor = 'edit-caption-input'
+                editCaptionForm.container.appendChild(editCaptionLabel)
 
-                const editCaptionInput = new Input
-                editCaptionInput.setId(editCaptionLabel.getFor())
-                editCaptionInput.setValue(post.caption)
-                editCaptionForm.add(editCaptionInput)
+                const editCaptionInput = document.createElement('input')
+                editCaptionInput.id = editCaptionLabel.htmlFor
+                editCaptionInput.value = post.caption
+                editCaptionForm.container.appendChild(editCaptionInput)
 
-                const editCaptionSubmitButton = new Button
-                editCaptionSubmitButton.setType('submit')
-                editCaptionSubmitButton.setText('Save')
-                editCaptionForm.add(editCaptionSubmitButton)
+                const editCaptionSubmitButton = document.createElement('button')
+                editCaptionSubmitButton.type = 'submit'
+                editCaptionSubmitButton.innerText = 'Save'
+                editCaptionForm.container.appendChild(editCaptionSubmitButton)
 
-                const editCaptionCancelButton = new Button
-                editCaptionCancelButton.setText('Cancel')
-                editCaptionCancelButton.setType('button')
-                editCaptionForm.add(editCaptionCancelButton)
+                const editCaptionCancelButton = document.createElement('button')
+                editCaptionCancelButton.innerText = 'Cancel'
+                editCaptionCancelButton.type = 'button'
+                editCaptionForm.container.appendChild(editCaptionCancelButton)
 
-                editCaptionCancelButton.onClick(function () {
+                editCaptionCancelButton.onclick = function () {
                     self.remove(editCaptionForm)
-                })
+                }
 
                 editCaptionForm.onSubmit(function (event) {
                     event.preventDefault()
 
                     try {
-                        const newCaption = editCaptionInput.getValue()
+                        const newCaption = editCaptionInput.value
 
                         updatePostCaption(post.id, newCaption)
 
@@ -106,10 +106,10 @@ class Post extends Component {
             })
         }
 
-        const postDateTime = new Component(document.createElement('time'))
-        postDateTime.setClassName('post__time')
-        postDateTime.setText(formatTime(new Date(post.date)))
-        this.add(postDateTime)
+        const postDateTime = document.createElement('time')
+        postDateTime.className = 'post__time'
+        postDateTime.innerText = formatTime(new Date(post.date))
+        this.container.appendChild(postDateTime)
     }
 
     onPostDeleted(callback) {
