@@ -1,11 +1,11 @@
-function removeLike(post_id) {
+function removePostLike(postId) {
     const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
 
     const index = users.findIndex(user => user.username === sessionStorage.username);
 
-    const post_index = users[index].liked_posts.findIndex(post => post.id === post_id)
+    const postIndex = users[index].likedPosts.findIndex(post => post.id === postId)
 
-    users[index].liked_posts.splice(post_index, 1);
+    users[index].likedPosts.splice(postIndex, 1);
 
     localStorage.users = JSON.stringify(users);
 }

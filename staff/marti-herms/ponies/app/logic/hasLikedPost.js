@@ -1,7 +1,7 @@
-function hasLiked(post_id) {
+function hasLikedPost(postId) {
     const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
 
     const index = users.findIndex(user => user.username === sessionStorage.username);
 
-    return users[index].liked_posts.some(id => id === post_id);
+    return users[index].likedPosts.some(id => id === postId);
 }

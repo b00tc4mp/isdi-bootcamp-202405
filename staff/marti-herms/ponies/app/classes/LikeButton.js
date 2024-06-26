@@ -8,7 +8,7 @@ class LikeButton extends Component {
         this.container.onclick = callback;
     }
 
-    setColorWhite() {
+    setColorGray() {
         this.container.style.borderImage = 'radial-gradient(gray 69%, #0000 70%) 84.5%/50%';
     }
 

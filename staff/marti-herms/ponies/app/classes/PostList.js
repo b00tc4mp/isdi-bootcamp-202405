@@ -36,7 +36,7 @@ class PostList extends Component {
 
                 self.add(post);
             });
-
+            setAllPosts(posts);
         } catch (error) {
             alert(error.message);
         }

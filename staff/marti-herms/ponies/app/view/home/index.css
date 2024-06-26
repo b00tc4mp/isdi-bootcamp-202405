@@ -60,10 +60,12 @@ body {
 
 .post__image {
     width: 100%;
+    height: auto;
 }
 
 .post__caption {
     margin: .5rem;
+    margin-top: 20px;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -148,14 +150,6 @@ button {
     margin: 0.3rem;
 }
 
-/* .like-button {
-    display: block;
-    width: 15px;
-    height: 15px;
-    background-color: white;
-    padding: 0;
-} */
-
 /* heart button */
 
 .like-button {
@@ -164,4 +158,9 @@ button {
     aspect-ratio: 1;
     border-image: radial-gradient(red 69%, #0000 70%) 84.5%/50%;
     clip-path: polygon(-41% 0, 50% 91%, 141% 0);
+}
+
+.like-counter {
+    margin-left: 10px;
+    font-family: 'Courier New', Courier, monospace;
 }

@@ -18,29 +18,30 @@ class Post extends Component {
 
         const likeButton = new LikeButton();
         likeButton.setClassName('like-button');
-        if (hasLiked(post.id)) {
+        if (hasLikedPost(post.id)) {
             likeButton.setColorRed();
-        } else {
-            likeButton.setColorWhite();
+        } else if (!hasLikedPost(post.id)) {
+            likeButton.setColorGray();
         }
         postInteractionButtonsDiv.add(likeButton);
 
-        likeButton.onClick(() => {
-            if (hasLiked(post.id)) {
-                likeButton.setColorWhite();
+        likeButton.onClick((event) => {
+            event.stopPropagation()
+            if (hasLikedPost(post.id)) {
+                likeButton.setColorGray();
 
                 post.likes--;
 
-                removeLike(post.id);
+                removePostLike(post.id);
 
                 this.onPostLikedCallback();
 
-            } else {
+            } else if (!hasLikedPost(post.id)) {
                 likeButton.setColorRed();
 
                 post.likes++;
 
-                addLike(post.id)
+                addPostLike(post.id)
 
                 this.onPostLikedCallback();
 
@@ -48,8 +49,12 @@ class Post extends Component {
         })
 
         const numberOfLikes = new Paragraph('p');
-        numberOfLikes.setText(post.likes);
+        numberOfLikes.setClassName('like-counter');
+        numberOfLikes.setText(`${post.likes} likes`);
         this.add(numberOfLikes);
+
+        const separator = new Component(document.createElement('hr'));
+        this.add(separator);
 
         const postCaption = new Paragraph('p');
         postCaption.setClassName('post__caption');
