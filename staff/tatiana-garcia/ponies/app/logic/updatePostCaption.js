@@ -1,15 +1,17 @@
-function updatePostCaption(postId, newCaption) {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+{
+    const updatePostCaption = (postId, newCaption) => {
+        if (postId.trim().length === 0) throw new Error('invalid postId')
 
-    var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+        var posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-    var post = posts.find(function (post) {
-        return post.id === postId
-    })
+        var post = posts.find(post => post.id === postId)
 
-    if (post === undefined) throw new Error('post not found')
+        if (post === undefined) throw new Error('post not found')
 
-    post.caption = newCaption
+        post.caption = newCaption
 
-    localStorage.posts = JSON.stringify(posts)
+        localStorage.posts = JSON.stringify(posts)
+    }
+
+    logic.updatePostCaption = updatePostCaption
 }
