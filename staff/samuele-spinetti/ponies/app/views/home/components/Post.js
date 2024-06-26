@@ -13,10 +13,38 @@ class Post extends Component {
         postImage.setUrl(post.image)
         this.add(postImage)
 
+        const sectionLike = new Component(document.createElement('section'))
+        sectionLike.setClassName('like-field')
+        this.add(sectionLike)
+
+        const heartButton = new Button
+        heartButton.setClassName('heart-button')
+        sectionLike.add(heartButton)
+
+        const heart = new Image
+        heart.setUrl('https://svgsilh.com/svg/1179072.svg')
+        heart.setClassName('heart')
+        heartButton.add(heart)
+
         const postCaptionText = new Paragraph
         postCaptionText.setClassName('post__caption')
         postCaptionText.setText(post.caption)
         this.add(postCaptionText)
+
+        heartButton.onClick(function () {
+            try {
+
+                logic.addLike(post.id)
+                heart.setUrl('https://svgsilh.com/svg/304420-e91e63.svg')
+
+                logic.removeLike(post.id)
+                heart.setUrl('https://svgsilh.com/svg/1179072.svg')
+
+            } catch (error) {
+                alert(error.message)
+
+            }
+        })
 
         const self = this
 
@@ -110,6 +138,9 @@ class Post extends Component {
         postDateTime.setClassName('post__time')
         postDateTime.setText(formatTime(new Date(post.date)))
         this.add(postDateTime)
+
+
+
     }
 
     onPostDeleted(callback) {

@@ -11,6 +11,7 @@
             caption: caption,
             author: sessionStorage.username,
             date: new Date().toISOString(),
+            likeUsers: []
         }
 
         posts.push(post)

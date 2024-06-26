@@ -46,6 +46,7 @@
 .post {
     /* border: 1px solid black; */
     box-shadow: 1px 1px 10px 1px lightgray;
+    padding: 12px;
 }
 
 .post__author {
@@ -133,4 +134,14 @@
 
 body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.heart {
+    height: 20px;
+    width: 20px;
+}
+
+.heart-button {
+    background-color: transparent;
+    border: none;
 }
