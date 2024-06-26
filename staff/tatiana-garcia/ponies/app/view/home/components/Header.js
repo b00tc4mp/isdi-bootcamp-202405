@@ -2,15 +2,14 @@ class Header extends Component {
     constructor() {
 
         super(document.createElement('header'))
-
-        this.container.className = 'header'
+        this.setClassName('header')
 
         const userName = new Paragraph
         userName.setClassName('header__user-name')
         this.add(userName)
 
         try {
-            const name = getUserName()
+            const name = logic.getUserName()
 
             userName.setText(`Hello, ${name}!`)
 

@@ -6,6 +6,11 @@ class Input extends Component {
     }
 
     setId(id) {
+        this.container.id = id
+    }
+
+    setValue(value) {
+
         this.container.value = value
     }
 

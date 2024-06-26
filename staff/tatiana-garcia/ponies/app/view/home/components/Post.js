@@ -21,7 +21,7 @@ class Post extends Component {
 
         const self = this
 
-        if (post.author === getUserUsername()) {
+        if (post.author === logic.getUserUsername()) {
 
             const postActionButtonsDiv = new Component(document.createElement('div'))
             postActionButtonsDiv.setClassName('post__actions')
@@ -31,12 +31,12 @@ class Post extends Component {
             postDeleteButton.setText('Delete')
             postActionButtonsDiv.add(postDeleteButton)
 
-            postDeleteButton.onClick(function () {
+            postDeleteButton.onClick(() => {
 
                 if (confirm('Delete post?'))
                     try {
 
-                        deletePost(post.id)
+                        logic.deletePost(post.id)
 
                         //self.clearPosts()
                         //self.listPosts()
@@ -61,41 +61,39 @@ class Post extends Component {
             editButton.setText('Edit')
             postActionButtonsDiv.add(editButton)
 
-            editButton.onClick(function () {
+            editButton.onClick(() => {
                 const editCaptionForm = new Form
                 self.add(editCaptionForm)
 
-                const editCaptionLabel = document.createElement('label')
-                editCaptionLabel.htmlFor = 'edit-caption-input'
-                editCaptionForm.container.appendChild(editCaptionLabel)
+                const editCaptionLabel = new Label
+                editCaptionLabel.setFor('edit-caption-input')
+                editCaptionForm.add(editCaptionLabel)
 
-                const editCaptionInput = document.createElement('input')
-                editCaptionInput.id = editCaptionLabel.htmlFor
-                editCaptionInput.value = post.caption
-                editCaptionForm.container.appendChild(editCaptionInput)
+                const editCaptionInput = new Input
+                editCaptionInput.setId(editCaptionLabel.getFor())
+                editCaptionInput.setValue(post.caption)
+                editCaptionForm.add(editCaptionInput)
 
-                const editCaptionSubmitButton = document.createElement('button')
-                editCaptionSubmitButton.type = 'submit'
-                editCaptionSubmitButton.innerText = 'Save'
-                editCaptionForm.container.appendChild(editCaptionSubmitButton)
+                const editCaptionSubmitButton = new Button
+                editCaptionSubmitButton.setType('submit')
+                editCaptionSubmitButton.setText('Save')
+                editCaptionForm.add(editCaptionSubmitButton)
 
-                const editCaptionCancelButton = document.createElement('button')
-                editCaptionCancelButton.type = 'button'
-                editCaptionCancelButton.innerText = 'Cancel'
-                editCaptionForm.container.appendChild(editCaptionCancelButton)
+                const editCaptionCancelButton = new Button
+                editCaptionCancelButton.setText('Cancel')
+                editCaptionCancelButton.setType('button')
+                editCaptionForm.add(editCaptionCancelButton)
 
-                editCaptionCancelButton.onclick = function () {
-                    self.remove(editCaptionForm)
-                }
+                editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
 
-                editCaptionForm.onSubmit(function (event) {
+                editCaptionForm.onSubmit(event => {
                     event.preventDefault()
 
                     try {
 
-                        const newCaption = editCaptionInput.value
+                        const newCaption = editCaptionInput.getValue()
 
-                        updatePostCaption(post.id, newCaption)
+                        logic.updatePostCaption(post.id, newCaption)
 
                         self.remove(editCaptionForm)
 
@@ -120,10 +118,10 @@ class Post extends Component {
 
         }
 
-        const postDateTime = document.createComment('time')
-        postDateTime.ClassName = 'post__time'
-        postDateTime.innerText = formatTime(new Date(post.date))
-        this.container.appendChild(postDateTime)
+        const postDateTime = new Component(document.createElement('time'))
+        postDateTime.setClassName('post__time')
+        postDateTime.setText(formatTime(new Date(post.date)))
+        this.add(postDateTime)
 
 
     }

@@ -18,20 +18,20 @@ class PostList extends Component {
     listPosts() {
 
         try {
-            const posts = getAllPosts()
+            const posts = logic.getAllPosts()
 
             const self = this
 
-            posts.forEach(function (_post) {
+            posts.forEach(_post => {
                 const post = new Post(_post)
 
-                post.onPostDeleted(function () {
+                post.onPostDeleted(() => {
 
                     self.clearPosts()
                     self.listPosts()
                 })
 
-                post.onPostCaptionEdited(function () {
+                post.onPostCaptionEdited(() => {
 
                     self.clearPosts()
                     self.listPosts()
