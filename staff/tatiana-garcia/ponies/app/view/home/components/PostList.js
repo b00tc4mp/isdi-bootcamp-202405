@@ -22,7 +22,7 @@ class PostList extends Component {
 
             const self = this
 
-            posts.foreach(function (_post) {
+            posts.forEach(function (_post) {
                 const post = new Post(_post)
 
                 post.onPostDeleted(function () {

@@ -1,6 +1,6 @@
 class Post extends Component {
 
-    constructor(Post) {
+    constructor(post) {
         super(document.createElement('article'))
         this.setClassName('post')
 
@@ -23,7 +23,7 @@ class Post extends Component {
 
         if (post.author === getUserUsername()) {
 
-            const postActionButtonsDiv = new component(document.createElement('div'))
+            const postActionButtonsDiv = new Component(document.createElement('div'))
             postActionButtonsDiv.setClassName('post__actions')
             this.add(postActionButtonsDiv)
 
@@ -77,12 +77,12 @@ class Post extends Component {
                 const editCaptionSubmitButton = document.createElement('button')
                 editCaptionSubmitButton.type = 'submit'
                 editCaptionSubmitButton.innerText = 'Save'
-                editCaptionSubmitButton.container.appendChild(editCaptionSubmitButton)
+                editCaptionForm.container.appendChild(editCaptionSubmitButton)
 
                 const editCaptionCancelButton = document.createElement('button')
                 editCaptionCancelButton.type = 'button'
                 editCaptionCancelButton.innerText = 'Cancel'
-                editCaptionCancelButton.container.appendChild(editCaptionCancelButton)
+                editCaptionForm.container.appendChild(editCaptionCancelButton)
 
                 editCaptionCancelButton.onclick = function () {
                     self.remove(editCaptionForm)
@@ -130,11 +130,11 @@ class Post extends Component {
 
     onPostDeleted(callback) {
 
-        this.onPostDeletedCalback = callback
+        this.onPostDeletedCallback = callback
     }
 
     onPostCaptionEdited(callback) {
 
-        this.onPostDeletedCalback = callback
+        this.onPostCaptionEditedCallback = callback
     }
 }
