@@ -1,13 +1,22 @@
-(function () {
-    const body = new Component(document.body)
-
+{
+    const home = new Component(document.body)
     const header = new Header
-    body.add(header)
+    home.add(header)
 
-    const main = new Main
-    body.add(main)
+    const body = new Component(document.createElement('main'))
+    body.setClassName('view main')
+    home.add(body)
+
+    const postList = new PostList
+    body.add(postList)
+
+    postList.listPosts()
 
     const footer = new Footer
-    body.add(footer)
+    home.add(footer)
 
-})()
+    footer.onPostCreated(() => {
+        postList.clearPosts()
+        postList.listPosts()
+    })
+}

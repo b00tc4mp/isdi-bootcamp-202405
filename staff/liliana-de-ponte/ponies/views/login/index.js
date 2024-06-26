@@ -1,7 +1,7 @@
 (function () {
     var loginForm = new Form('form')
 
-    loginForm.onSubmit(function (event) {
+    loginForm.onSubmit(event => {
         event.preventDefault()
 
         var usernameInput = document.getElementById('username-input')
@@ -11,7 +11,7 @@
         var password = passwordInput.value
 
         try {
-            loginUser(username, password)
+            logic.loginUser(username, password)
 
             location.href = '../home'
         } catch (error) {
@@ -21,7 +21,7 @@
 
     var registerLink = new Link('a')
 
-    registerLink.onClick(function (event) {
+    registerLink.onClick(event => {
         event.preventDefault()
 
         location.href = '../register'

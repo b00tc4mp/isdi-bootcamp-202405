@@ -3,4 +3,7 @@ class Image extends Component {
         super(document.createElement('img'))
 
     }
+    setUrl(url) {
+        this.container.src = url
+    }
 }

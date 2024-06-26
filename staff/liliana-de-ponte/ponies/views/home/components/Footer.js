@@ -1,100 +1,95 @@
 class Footer extends Component {
     constructor() {
         super(document.createElement('footer'))
+        this.setClassName('footer')
 
-        this.container.className = 'footer'
-
-        var addPostButton = new Button
+        const addPostButton = new Button
         addPostButton.setClassName('add-post-button')
         addPostButton.setText('+')
         this.add(addPostButton)
 
-        var createPostSection = new Section
-        createPostSection.setClassName('create-post-section')
-        this.add(createPostSection)
+        const self = this
 
-        addPostButton.onClick(function () {
-            var createPostSection = new Section
+        addPostButton.onClick(() => {
+            const createPost = new Component(document.createElement('section'))
+            createPost.setClassName('create-post-section')
+            self.add(createPost)
 
-            var createPostTitle = new H2
+            const createPostTitle = new Heading(2)
             createPostTitle.setClassName('create-post-section__title')
             createPostTitle.setText('Create Post')
-            createPostSection.add(createPostTitle)
+            createPost.add(createPostTitle)
 
-            var createPostForm = new Form
+            const createPostForm = new Form
             createPostForm.setClassName('form')
-            createPostSection.add(createPostForm)
-
+            createPost.add(createPostForm)
 
             createPostForm.onSubmit(function (event) {
                 event.preventDefault()
 
                 //var postImageInput = document.getElementById('post-image-input')
-                var postImage = postImageInput.value
-                var postCaption = postCaptionInput.value
+                var postImage = postImageInput.getValue()
+                var postCaption = postCaptionInput.getValue()
 
                 try {
-                    createPost(postImage, postCaption)
+                    logic.createPost(postImage, postCaption)
 
-                    this.removeChild(createPostSection)
+                    self.remove(createPost)
 
-                    clearPosts()
-                    listPosts()
+                    self.onPostCreatedCallback()
                 } catch (error) {
                     alert(error.message)
                 }
             })
 
+            const postImageField = new Component(document.createElement('div'))
+            postImageField.setClassName('form__fied')
+            createPostForm.add(postImageField)
 
-            var postImageFieldDiv = new Div
-            postImageFieldDiv.setClassName('form__fied')
-            createPostForm.add(postImageFieldDiv)
-
-            var postImageLabel = new Label
-            postImageLabel.htmlFor = 'post-image-input'
+            const postImageLabel = new Label
+            postImageLabel.setFor('post-image-input')
             postImageLabel.setText('Image')
-            postImageFieldDiv.add(postImageLabel)
+            postImageField.add(postImageLabel)
 
-            var postImageInput = new Input
+            const postImageInput = new Input
             postImageInput.setClassName('form__input')
-            postImageInput.setId('post-image-input')
-            postImageFieldDiv.add(postImageInput)
+            postImageInput.setId(postImageLabel.getFor())
+            postImageField.add(postImageInput)
 
-            var postCaptionFieldDiv = new Div
-            postCaptionFieldDiv.setClassName('form__field')
-            createPostForm.add(postCaptionFieldDiv)
+            const postCaptionField = new Component(document.createElement('div'))
+            postCaptionField.setClassName('form__field')
+            createPostForm.add(postCaptionField)
 
-            var postCaptionLabel = new Label
-            postCaptionLabel.htmlFor = 'post-caption-input'
+            const postCaptionLabel = new Label
+            postCaptionLabel.setFor('post-caption-input')
             postCaptionLabel.setText('Caption')
-            postCaptionFieldDiv.add(postCaptionLabel)
+            postCaptionField.add(postCaptionLabel)
 
-            var postCaptionInput = new Input
+            const postCaptionInput = new Input
             postCaptionInput.setClassName('form__input')
             postCaptionInput.setId('post-caption-input')
-            postCaptionFieldDiv.add(postCaptionInput)
+            postCaptionField.add(postCaptionInput)
 
-            var postButtonsDiv = new Div
-            postButtonsDiv.setClassName('create-post-section__buttons')
-            createPostForm.add(postButtonsDiv)
+            const postButtons = new Component(document.createElement('div'))
+            postButtons.setClassName('create-post-section__buttons')
+            createPostForm.add(postButtons)
 
-            var postSubmitButton = new Button
+            const postSubmitButton = new Button
             postSubmitButton.setClassName('form__button')
-            postSubmitButton.type = 'submit'
+            postSubmitButton.setType('submit')
             postSubmitButton.setText('Create')
-            postButtonsDiv.add(postSubmitButton)
+            postButtons.add(postSubmitButton)
 
-            var postCancelButton = new Button
+            const postCancelButton = new Button
             postCancelButton.setClassName('form__button')
-            postCancelButton.type = 'reset'
+            postCancelButton.setType('reset')
             postCancelButton.setText('Cancel')
-            postButtonsDiv.add(postCancelButton)
+            postButtons.add(postCancelButton)
 
-            postCancelButton.onClick(function () {
-                this.removeChild(createPostSection)
-            })
+            postCancelButton.onClick(() => self.remove(createPost))
         })
-
     }
-
+    onPostCreated(callback) {
+        this.onPostCreatedCallback = callback
+    }
 }

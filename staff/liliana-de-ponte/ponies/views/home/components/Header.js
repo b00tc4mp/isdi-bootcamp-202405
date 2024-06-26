@@ -1,38 +1,33 @@
 class Header extends Component {
     constructor() {
         super(document.createElement('header'))
-
-        this.container.className = 'header'
+        this.setClassName('header')
 
         var userName = new Paragraph
         userName.setClassName('header__user-name')
         this.add(userName)
 
         try {
-            var name = getUserName()
+            var name = logic.getUserName()
 
             userName.setText('Hello, ' + name + '!')
         } catch (error) {
             alert(error.message)
         }
 
-        var logoutButton = new Button
+        const logoutButton = new Button
         logoutButton.setClassName('logout-button')
         logoutButton.setText('Logout')
         this.add(logoutButton)
 
-
-        logoutButton.onClick(function () {
+        logoutButton.onClick(() => {
             try {
-                logoutUser()
+                logic.logoutUser()
 
                 location.href = '../login'
             } catch (error) {
                 alert(error.message)
             }
         })
-
-
-
     }
 }

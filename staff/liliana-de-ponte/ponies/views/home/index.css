@@ -67,7 +67,7 @@
     top: 0;
     width: 100%;
     display: flex;
-    justify-content: rigth;
+    justify-content: flex-end;
     align-items: center;
     gap: 1rem;
     background-color: #F981FB;
@@ -83,9 +83,22 @@
 }
 
 .logout-button {
-    background-color: #F981FB;
+    background-color: #f7bff8;
     border-radius: 5px;
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 65px;
+    height: 25px;
+}
 
+.post-delete-button,
+.post-edit-button {
+    background-color: #f7bff8;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 55px;
+    height: 25px;
 }
 
 .main {
@@ -100,9 +113,17 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: #F981FB;
     padding: .5rem 0;
     box-shadow: 0px -1px 1px lightgray;
+}
+
+.add-post-button {
+    background: #f7bff8;
+    border-radius: 4px;
+    height: 25px;
+    width: 35px;
+    font-weight: bold;
 }
 
 .create-post-section {

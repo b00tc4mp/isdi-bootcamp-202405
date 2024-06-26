@@ -5,9 +5,16 @@ class Component {
 
     add(child) {
         if (!(child instanceof Component))
-            throw new TyperError('child is not a Component')
+            throw new TypeError('child is not a Component')
 
         this.container.appendChild(child.container)
+    }
+
+    remove(child) {
+        if (!(child instanceof Component))
+            throw new TypeError('child is not a Component')
+
+        this.container.removeChild(child.container)
     }
 
     setText(text) {
@@ -37,11 +44,5 @@ class Component {
 
         this.container.className = className
     }
-    setId(id) {
-        if (typeof id !== 'string')
-            throw new TypeError('id is not a string')
 
-        this.container.id = id
-
-    }
 }
