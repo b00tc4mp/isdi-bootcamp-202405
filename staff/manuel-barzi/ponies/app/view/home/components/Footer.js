@@ -86,9 +86,7 @@ class Footer extends Component {
             postCancelButton.setText('Cancel')
             postButtons.add(postCancelButton)
 
-            postCancelButton.onClick(function () {
-                self.remove(createPost)
-            })
+            postCancelButton.onClick(() => self.remove(createPost))
         })
     }
 
