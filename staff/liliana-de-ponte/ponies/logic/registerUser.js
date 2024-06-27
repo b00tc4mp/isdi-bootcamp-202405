@@ -24,12 +24,12 @@
 
         let user = users.find(user => user.email === email)
 
-        if (user !== undefined)
+        if (user !== null)
             throw new Error('email already exists')
 
         user = users.find(user => user.username === username)
 
-        if (user !== undefined)
+        if (user !== null)
             throw new Error('username already exists')
 
         user = {
@@ -40,9 +40,7 @@
             password: password
         }
 
-        users.push(user)
-
-        localStorage.users = JSON.stringify(users)
+        data.insertUser(user)
     }
 
     logic.registerUser = registerUser
