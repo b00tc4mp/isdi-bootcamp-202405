@@ -20,14 +20,16 @@
         if (password !== passwordRepeat)
             throw new Error('passwords do not match')
 
-        let user = data.findUser(user => user.email === email)
+        const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-        if (user !== null)
+        let user = users.find(user => user.email === email)
+
+        if (user !== undefined)
             throw new Error('email already exists')
 
-        user = data.findUser(user => user.username === username)
+        user = users.find(user => user.username === username)
 
-        if (user !== null)
+        if (user !== undefined)
             throw new Error('username already exists')
 
         user = {
@@ -38,7 +40,9 @@
             password: password
         }
 
-        data.insertUser(user)
+        users.push(user)
+
+        localStorage.users = JSON.stringify(users)
     }
 
     logic.registerUser = registerUser
