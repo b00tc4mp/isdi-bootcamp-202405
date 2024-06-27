@@ -35,7 +35,7 @@ class Post extends Component {
 
                 this.onPostInteractedCallback();
 
-            } else {
+            } else if (!logic.hasLikedPost(post.id)) {
                 likeButton.setHeartRed();
 
                 post.likes += 1;
@@ -60,13 +60,13 @@ class Post extends Component {
             if (logic.hasPostSaved(post.id)) {
                 saveButton.setColor('white');
 
-                logic.toggleSavedPost(post.id)
+                logic.removeSavedPost(post.id)
 
                 this.onPostInteractedCallback();
             } else {
                 saveButton.setColor('black');
 
-                logic.toggleSavedPost(post.id)
+                logic.addSavedPost(post.id)
 
                 this.onPostInteractedCallback();
             }

@@ -11,12 +11,13 @@
     const postListSection = new PostList();
     body.add(postListSection);
 
-    postListSection.generatePostList(logic.getAllPostIDs());
+    const postIDs = logic.getAllPostIDs();
+
+    postListSection.generatePostList(postIDs);
 
     const intervalID = setInterval(function () {
-        postIDs = logic.getAllPostIDs();
         postListSection.clearPosts();
-        postListSection.generatePostList(logic.getAllPostIDs());
+        postListSection.generatePostList(postIDs);
     }, 2000);
 
     logic.setIntervalID(intervalID);
@@ -26,28 +27,29 @@
 
     footer.onPostCreated(() => {
         postListSection.clearPosts();
-        postListSection.generatePostList(logic.getAllPostIDs());
+        postListSection.generatePostList(postIDs);
     });
 
     footer.onListFeed(() => {
         postListSection.clearPosts();
-        postListSection.generatePostList(logic.getAllPostIDs());
+        postListSection.generatePostList(postIDs);
 
         const intervalID = setInterval(function () {
             postListSection.clearPosts();
-            postListSection.generatePostList(logic.getAllPostIDs());
+            postListSection.generatePostList(postIDs);
         }, 2000);
 
         logic.setIntervalID(intervalID);
     })
 
     footer.onListSavedPost(() => {
+        const savedPosts = logic.getUserSavedPosts();
         postListSection.clearPosts();
-        postListSection.generatePostList(logic.getUserSavedPosts());
+        postListSection.generatePostList(savedPosts);
 
         const intervalID = setInterval(function () {
             postListSection.clearPosts();
-            postListSection.generatePostList(logic.getUserSavedPosts());
+            postListSection.generatePostList(savedPosts);
         }, 2000);
 
         logic.setIntervalID(intervalID);

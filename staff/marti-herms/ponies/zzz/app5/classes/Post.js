@@ -31,16 +31,16 @@ class Post extends Component {
 
                 post.likes -= 1;
 
-                logic.togglePostLike(post.id);
+                logic.removePostLike(post.id);
 
                 this.onPostInteractedCallback();
 
-            } else {
+            } else if (!logic.hasLikedPost(post.id)) {
                 likeButton.setHeartRed();
 
                 post.likes += 1;
 
-                logic.togglePostLike(post.id)
+                logic.addPostLike(post.id)
 
                 this.onPostInteractedCallback();
 
@@ -60,13 +60,13 @@ class Post extends Component {
             if (logic.hasPostSaved(post.id)) {
                 saveButton.setColor('white');
 
-                logic.toggleSavedPost(post.id)
+                logic.removeSavedPost(post.id)
 
                 this.onPostInteractedCallback();
             } else {
                 saveButton.setColor('black');
 
-                logic.toggleSavedPost(post.id)
+                logic.addSavedPost(post.id)
 
                 this.onPostInteractedCallback();
             }
@@ -100,12 +100,12 @@ class Post extends Component {
                     try {
                         logic.deletePosts(post.id);
 
-                        this.onPostDeletedCallback();
+                        this.onPostInteractedCallback();
                     } catch (error) {
                         alert(error.message);
 
                         if (error.message === 'post not found') {
-                            this.onPostDeletedCallback();
+                            this.onPostInteractedCallback();
                         }
                     }
                 }
@@ -170,10 +170,6 @@ class Post extends Component {
         postDate.setText(formatTime(new Date(post.date)));
         this.add(postDate);
     };
-
-    onPostDeleted(callback) {
-        this.onPostDeletedCallback = callback;
-    }
 
     onPostInteracted(callback) {
         this.onPostInteractedCallback = callback;

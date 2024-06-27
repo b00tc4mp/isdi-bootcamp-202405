@@ -23,11 +23,6 @@ class PostList extends Component {
                     if (_post.id === list[i]) {
                         const post = new Post(_post);
 
-                        post.onPostDeleted(() => {
-                            self.clearPosts();
-                            self.generatePostList(list);
-                        })
-
                         post.onPostInteracted(() => {
                             logic.setAllPosts(posts);
                             self.clearPosts();
