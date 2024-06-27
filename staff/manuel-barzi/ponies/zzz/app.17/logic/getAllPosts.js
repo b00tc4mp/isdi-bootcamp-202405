@@ -1,6 +1,6 @@
 {
     const getAllPosts = () => {
-        const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+        const posts = data.findPosts(post => true)
 
         return posts.reverse()
     }
