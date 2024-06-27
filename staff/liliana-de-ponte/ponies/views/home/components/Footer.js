@@ -43,7 +43,7 @@ class Footer extends Component {
             })
 
             const postImageField = new Component(document.createElement('div'))
-            postImageField.setClassName('form__fied')
+            postImageField.setClassName('form__field')
             createPostForm.add(postImageField)
 
             const postImageLabel = new Label
