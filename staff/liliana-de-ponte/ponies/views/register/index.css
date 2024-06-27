@@ -1,3 +1,13 @@
+h1 {
+    color: #fb48fe;
+    font-size: 30px;
+    margin-top: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
 .view {
     display: flex;
     flex-direction: column;
@@ -21,8 +31,22 @@
 
 .form__input {
     font-size: inherit;
+    background-color: #FEE5FF;
+    border-radius: 7px;
+    border-color: #F981FB;
+    box-shadow: #F981FB;
+    height: 15px;
+    padding: 5px;
 }
 
 .form__button {
     font-size: inherit;
+    background-color: #F981FB;
+    border-radius: 5px;
+    font-weight: bold;
+    height: 35px;
+}
+
+::placeholder {
+    color: #fa49fd;
 }
