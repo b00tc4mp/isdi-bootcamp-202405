@@ -1,5 +1,5 @@
 {
-    const addLike = (postId) => {
+    const toggleLikePost = (postId) => {
 
         const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
         const user = users.find(user => user.username === sessionStorage.username)
@@ -22,5 +22,5 @@
         localStorage.posts = JSON.stringify(posts)
     }
 
-    logic.addLike = addLike
+    logic.toggleLikePost = toggleLikePost
 }

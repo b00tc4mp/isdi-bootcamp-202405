@@ -22,31 +22,37 @@ class Post extends Component {
         sectionLike.add(heartButton)
 
         const heart = new Image
-        heart.setUrl('https://svgsilh.com/svg/1179072.svg')
+        if (post.likeUsers.includes(logic.getUserUsername()))
+            heart.setUrl('https://svgsilh.com/svg/304420-e91e63.svg')
+        else
+            heart.setUrl('https://svgsilh.com/svg/1179072.svg')
         heart.setClassName('heart')
         heartButton.add(heart)
+
+        const countLikes = new Paragraph
+        countLikes.setClassName('heart__likes')
+        countLikes.setText(post.likeUsers.length + ' like' + (post.likeUsers.length === 1 ? '' : 's'))
+        sectionLike.add(countLikes)
 
         const postCaptionText = new Paragraph
         postCaptionText.setClassName('post__caption')
         postCaptionText.setText(post.caption)
         this.add(postCaptionText)
 
+        const self = this
+
         heartButton.onClick(function () {
             try {
 
-                logic.addLike(post.id)
-                heart.setUrl('https://svgsilh.com/svg/304420-e91e63.svg')
+                logic.toggleLikePost(post.id)
 
-                logic.removeLike(post.id)
-                heart.setUrl('https://svgsilh.com/svg/1179072.svg')
+                self.onPostLikeToggledCallback()
 
             } catch (error) {
                 alert(error.message)
 
             }
         })
-
-        const self = this
 
         if (post.author === logic.getUserUsername()) {
             const postActionButtonsDiv = new Component(document.createElement('div'))
@@ -82,6 +88,7 @@ class Post extends Component {
 
             editButton.onClick(() => {
                 const editCaptionForm = new Form
+                editCaptionForm.setClassName('form-edit-caption')
                 self.add(editCaptionForm)
 
                 const editCaptionLabel = new Label
@@ -149,5 +156,9 @@ class Post extends Component {
 
     onPostCaptionEdited(callback) {
         this.onPostCaptionEditedCallback = callback
+    }
+
+    onPostLikeToggled(callback) {
+        this.onPostLikeToggledCallback = callback
     }
 }

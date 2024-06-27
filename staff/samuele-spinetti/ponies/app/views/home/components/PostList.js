@@ -32,6 +32,11 @@ class PostList extends Component {
                     self.listPosts()
                 })
 
+                post.onPostLikeToggled(() => {
+                    self.clearPosts()
+                    self.listPosts()
+                })
+
                 self.add(post)
             })
         } catch (error) {

@@ -22,6 +22,7 @@
 .form__input {
     font-size: inherit;
     border-radius: 20px;
+    border-color: white;
 }
 
 .form__button {
@@ -31,10 +32,16 @@
 
 .add-post-button {
     border-radius: 10px;
+    height: 25px;
+    width: 25px;
+    background-color: #ffd4ff;
+    border-color: white;
 }
 
 .logout-button {
     border-radius: 10px;
+    background-color: #ffd4ff;
+    border-color: white;
 }
 
 .post-list {
@@ -45,7 +52,7 @@
 
 .post {
     /* border: 1px solid black; */
-    box-shadow: 1px 1px 10px 1px lightgray;
+    box-shadow: 1px 1px 10px 1px #ff4cad;
     padding: 12px;
 }
 
@@ -59,10 +66,18 @@
 
 .post__caption {
     margin: .5rem;
+    margin-left: 0;
 }
 
 .post__actions {
     margin: .5rem;
+    margin-left: 0;
+}
+
+.post__actions>button {
+    border-radius: 20px;
+    background-color: #ffd4ff;
+    border-color: white;
 }
 
 .post__time {
@@ -70,6 +85,7 @@
     margin: .5rem;
     color: silver;
     font-size: .9rem;
+    margin-left: 0;
 }
 
 .header {
@@ -81,10 +97,10 @@
     justify-content: right;
     align-items: center;
     gap: 1rem;
-    background-color: #ffd4ff;
+    background-color: #ff4cad;
     padding: .5rem;
     box-sizing: border-box;
-    box-shadow: 0px 1px 1px lightgray;
+    box-shadow: 0px 1px 1px #ff4cad;
     border-radius: 0 0 20px 20px;
 }
 
@@ -104,9 +120,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: #ffd4ff;
+    background-color: #ff4cad;
     padding: .5rem 0;
-    box-shadow: 0px -1px 1px lightgray;
+    box-shadow: 0px -1px 1px #ff4cad;
     border-radius: 10px 10px 0 0;
 }
 
@@ -115,7 +131,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #ffd4ff;
+    background-color: #ff4cad;
     padding: .5rem;
     box-sizing: border-box;
     border-radius: 25px 25px 0 0;
@@ -132,6 +148,11 @@
     gap: 1rem;
 }
 
+.create-post-section__buttons>button {
+    background-color: #ffd4ff;
+    border-color: white;
+}
+
 body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -144,4 +165,16 @@ body {
 .heart-button {
     background-color: transparent;
     border: none;
+    padding-left: 0;
+}
+
+#edit-caption-input {
+    border-color: white;
+    border-radius: 20px;
+}
+
+.form-edit-caption>button {
+    background-color: #ffd4ff;
+    border-color: white;
+    border-radius: 10px;
 }
