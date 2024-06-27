@@ -1,0 +1,14 @@
+.like-button {
+    font-size: 2em;
+    cursor: pointer;
+    color: black;
+}
+
+.like-count {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.liked {
+    color: red;
+}

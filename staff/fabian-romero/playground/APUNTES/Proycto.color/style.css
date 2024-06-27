@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    height: 100vh;
+    /* es la altura de la pantalla, cuanto lo cubre en este caso es al cien*/
+    background-color: #2B807B;
+    text-align: center;
+}
+
+.centrar-flex {
+    /*el punto antes del nombre es para llamar a una clase en html*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* contenedor*/
+
+#contenedor {
+    /* el # define los estilos que usar ese nombre en html por ID */
+    height: 220px;
+    width: 450px;
+    background-color: antiquewhite;
+    border: 5px black;
+    flex-wrap: wrap;
+    flex-direction: column
+}
+
+/* texto*/
+
+#color {
+    font-size: 70px;
+    font-weight: bold;
+}
+
+/* boton */
+
+button {
+    font-size: 30px;
+    color: blanchedalmond;
+    border-radius: 20px;
+    background-color: aqua;
+    margin: 15px;
+    padding: 10px 30px;
+    border: 3px solid #1c847d;
+    user-select: none;
+    cursor: pointer;
+    /* me pone la manita cuando estoy sobre el boton*/
+    transition-duration: 0, 3s;
+}
+
+button:hover {
+    background-color: rgb(14, 68, 79);
+}

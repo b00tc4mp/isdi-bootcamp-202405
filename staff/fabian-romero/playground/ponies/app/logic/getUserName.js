@@ -1,12 +1,14 @@
-function getUserName() {
-    var users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+{
+    const getUserName = () => {
+        const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-    var user = users.find(function (user) {
-        return user.username === sessionStorage.username
-    })
+        const user = users.find(user => user.username === sessionStorage.username)
 
-    if (user === undefined)
-        throw new Error('user not found')
+        if (user === undefined)
+            throw new Error('User not found')
 
-    return user.name
+        return user.name
+    }
+
+    logic.getUserName = getUserName
 }

@@ -3,11 +3,11 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
 
 .form {
-    display: contents;
+    display: flex;
     flex-direction: column;
     gap: .5rem;
     min-width: 80%;
@@ -16,7 +16,7 @@
 .form__field {
     display: flex;
     flex-direction: column;
-    gap: .2rem;
+    gap: .2rem
 }
 
 .form__input {
@@ -24,16 +24,5 @@
 }
 
 .form__button {
-    font-size: smaller;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    padding: .5rem 0;
+    font-size: inherit;
 }
