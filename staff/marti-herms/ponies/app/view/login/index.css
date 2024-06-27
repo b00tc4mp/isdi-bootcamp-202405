@@ -38,3 +38,13 @@ body {
 .form__button {
     font-size: inherit;
 }
+
+/* link  */
+
+a:link {
+    color: white;
+}
+
+a:hover {
+    color: blue;
+}

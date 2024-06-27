@@ -49,12 +49,13 @@ hr {
     display: flex;
     width: 70%;
     min-width: 310px;
+    max-width: 650px;
     flex-direction: column;
     gap: 1rem;
 }
 
 .post {
-    box-shadow: 1px 1px 10px 1px darkblue;
+    box-shadow: 0px 0px 10px 1px darkblue;
     border-radius: 2%;
     margin: 8px;
     background-color: #9E58F9;
@@ -75,7 +76,7 @@ hr {
     margin: 0 auto;
     padding: auto;
     background-color: black;
-    box-shadow: 0 2px 4px darkmagenta;
+    box-shadow: 0 0 5px 0px darkblue;
 }
 
 .post__caption {
@@ -150,6 +151,28 @@ hr {
     pointer-events: none;
 }
 
+.usersearch {
+    position: fixed;
+    height: 45%;
+    width: 25%;
+    min-width: 238px;
+    min-height: 276px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 1px 1px 10px 1px black;
+    box-sizing: border-box;
+    border-radius: 3%;
+    z-index: 3;
+}
+
+.usersearch h2 {
+    pointer-events: none;
+}
+
 .fader {
     position: fixed;
     top: 0;
@@ -178,6 +201,8 @@ button {
     background-color: #9E58F9;
 }
 
+/* save button */
+
 .save-button {
     display: inline-block;
     width: 20px;
@@ -201,6 +226,8 @@ button {
     border: 1px solid darkmagenta;
 }
 
+/* home button */
+
 .feed-button {
     display: inline-block;
     width: 20px;
@@ -209,4 +236,17 @@ button {
     clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0% 100%, 0% 30%);
     border: 0px;
     background-color: white;
+}
+
+/* search button */
+
+.search-button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid darkmagenta;
+    background-image: url('../../images/search.svg');
+    background-position: 30% 30%;
+    background-size: 70%;
+    background-repeat: no-repeat;
 }
