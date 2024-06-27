@@ -23,9 +23,9 @@ class Header extends Component {
         logoutButton.setText('Logout')
         this.add(logoutButton)
 
-        logoutButton.onClick(function () {
+        logoutButton.onClick(() => {
             try {
-                logoutUser()
+                logic.logoutUser()
 
                 location.href = '../login'
 

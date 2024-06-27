@@ -41,7 +41,7 @@ class Post extends Component {
                         //self.clearPosts()
                         //self.listPosts()
 
-                        self.onPostDeletedCalback()
+                        self.onPostDeletedCallback()
 
                     } catch (error) {
 
@@ -50,7 +50,7 @@ class Post extends Component {
                         if (error.message === 'post not found') {
                             //self.clearPosts()
                             //self.listPosts()
-                            self.onPostDeletedCalback()
+                            self.onPostDeletedCallback()
 
                         }
                     }
