@@ -38,15 +38,8 @@
     box-shadow: 1px 1px 10px 1px lightgray;
 }
 
-.post__top {
-    display: flex;
-    margin: 0 .5rem;
-    align-items: center;
-    gap: .5rem;
-}
-
 .post__author {
-    /* height: .5rem; */
+    margin: .5rem;
 }
 
 .post__image {
@@ -59,8 +52,6 @@
 
 .post__actions {
     margin: .5rem;
-    display: flex;
-    gap: .5rem;
 }
 
 .post__time {
@@ -78,7 +69,7 @@
     display: flex;
     justify-content: right;
     align-items: center;
-    gap: .5rem;
+    gap: 1rem;
     background-color: white;
     padding: .5rem;
     box-sizing: border-box;

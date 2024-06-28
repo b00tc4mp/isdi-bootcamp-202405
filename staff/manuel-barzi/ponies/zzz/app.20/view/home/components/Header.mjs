@@ -23,25 +23,9 @@ class Header extends Component {
             alert(error.message)
         }
 
-        const self = this
-
-        const homeButton = new Button
-        homeButton.setText('🏚️')
-        this.add(homeButton)
-
-        homeButton.onClick(() => self.onHomeClickCallback())
-
-        const followsButton = new Button
-        followsButton.setText('🦄')
-        this.add(followsButton)
-
-        // followsButton.onClick(() => ?)
-
         const favsButton = new Button
         favsButton.setText('🏳️‍🌈')
         this.add(favsButton)
-
-        favsButton.onClick(() => self.onFavsClickCallback())
 
         const logoutButton = new Button
         logoutButton.setClassName('logout-button')
@@ -59,14 +43,6 @@ class Header extends Component {
                 alert(error.message)
             }
         })
-    }
-
-    onHomeClick(callback) {
-        this.onHomeClickCallback = callback
-    }
-
-    onFavsClick(callback) {
-        this.onFavsClickCallback = callback
     }
 }
 

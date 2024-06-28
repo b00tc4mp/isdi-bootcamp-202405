@@ -31,12 +31,6 @@ class Header extends Component {
 
         homeButton.onClick(() => self.onHomeClickCallback())
 
-        const followsButton = new Button
-        followsButton.setText('🦄')
-        this.add(followsButton)
-
-        // followsButton.onClick(() => ?)
-
         const favsButton = new Button
         favsButton.setText('🏳️‍🌈')
         this.add(favsButton)

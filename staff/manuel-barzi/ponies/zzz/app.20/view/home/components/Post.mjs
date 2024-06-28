@@ -16,18 +16,10 @@ class Post extends Component {
         super(document.createElement('article'))
         this.setClassName('post')
 
-        const top = new Component(document.createElement('div'))
-        top.setClassName('post__top')
-        this.add(top)
-
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
         postAuthorTitle.setText(post.author)
-        top.add(postAuthorTitle)
-
-        const followButton = new Button
-        followButton.setText('🐴')
-        top.add(followButton)
+        this.add(postAuthorTitle)
 
         const postImage = new Image
         postImage.setClassName('post__image')
@@ -79,7 +71,7 @@ class Post extends Component {
 
         if (post.author === logic.getUserUsername()) {
             const postDeleteButton = new Button
-            postDeleteButton.setText('🗑️')
+            postDeleteButton.setText('Delete')
             postActionButtons.add(postDeleteButton)
 
             postDeleteButton.onClick(() => {
@@ -104,7 +96,7 @@ class Post extends Component {
             })
 
             const editButton = new Button
-            editButton.setText('📝')
+            editButton.setText('Edit')
             postActionButtons.add(editButton)
 
             let editCaptionForm
