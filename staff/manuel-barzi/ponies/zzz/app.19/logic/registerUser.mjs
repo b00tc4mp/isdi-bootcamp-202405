@@ -36,8 +36,7 @@ const registerUser = (name, surname, email, username, password, passwordRepeat) 
         surname: surname,
         email: email,
         username: username,
-        password: password,
-        favs: []
+        password: password
     }
 
     data.insertUser(user)

@@ -5,7 +5,6 @@ import findUser from './findUser.mjs'
 import insertPost from './insertPost.mjs'
 import insertUser from './insertUser.mjs'
 import updatePost from './updatePost.mjs'
-import updateUser from './updateUser.mjs'
 
 const data = {
     deletePost,
@@ -14,8 +13,7 @@ const data = {
     findUser,
     insertPost,
     insertUser,
-    updatePost,
-    updateUser
+    updatePost
 }
 
 export default data

@@ -38,7 +38,7 @@ class Post extends Component {
         this.add(postActionButtons)
 
         const postToggleLikeButton = new Button
-        postToggleLikeButton.setText((post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's'))
+        postToggleLikeButton.setText((post.likes.includes(logic.getUserUsername()) ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's'))
         postActionButtons.add(postToggleLikeButton)
 
         postToggleLikeButton.onClick(() => {
@@ -46,22 +46,6 @@ class Post extends Component {
                 logic.toggleLikePost(post.id)
 
                 self.onPostLikeToggledCallback()
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-        })
-
-        const postToggleFavButton = new Button
-        postToggleFavButton.setText(post.fav ? '🏳️‍🌈' : '🏳️')
-        postActionButtons.add(postToggleFavButton)
-
-        postToggleFavButton.onClick(() => {
-            try {
-                logic.toggleFavPost(post.id)
-
-                self.onPostFavToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -99,13 +83,8 @@ class Post extends Component {
             editButton.setText('Edit')
             postActionButtons.add(editButton)
 
-            let editCaptionForm
-
             editButton.onClick(() => {
-                //if (editCaptionForm && self.has(editCaptionForm)) return
-                if (editCaptionForm) return
-
-                editCaptionForm = new Form
+                const editCaptionForm = new Form
                 self.add(editCaptionForm)
 
                 const editCaptionLabel = new Label
@@ -127,12 +106,7 @@ class Post extends Component {
                 editCaptionCancelButton.setType('button')
                 editCaptionForm.add(editCaptionCancelButton)
 
-                // editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
-                editCaptionCancelButton.onClick(() => {
-                    self.remove(editCaptionForm)
-
-                    editCaptionForm = undefined
-                })
+                editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
 
                 editCaptionForm.onSubmit(event => {
                     event.preventDefault()
@@ -142,18 +116,22 @@ class Post extends Component {
 
                         logic.updatePostCaption(post.id, newCaption)
 
+                        //self.container.removeChild(editCaptionForm.container)
                         self.remove(editCaptionForm)
 
-                        editCaptionForm = undefined
-
+                        // self.clearPosts()
+                        // self.listPosts()
                         self.onPostCaptionEditedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
-                        if (error.message === 'post not found')
+                        if (error.message === 'post not found') {
+                            // self.clearPosts()
+                            // self.listPosts()
                             self.onPostCaptionEditedCallback()
+                        }
                     }
                 })
             })
@@ -175,10 +153,6 @@ class Post extends Component {
 
     onPostLikeToggled(callback) {
         this.onPostLikeToggledCallback = callback
-    }
-
-    onPostFavToggled(callback) {
-        this.onPostFavToggledCallback = callback
     }
 }
 

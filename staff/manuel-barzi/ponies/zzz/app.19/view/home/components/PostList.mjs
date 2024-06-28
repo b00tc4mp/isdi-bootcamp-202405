@@ -42,11 +42,6 @@ class PostList extends Component {
                     self.listPosts()
                 })
 
-                post.onPostFavToggled(() => {
-                    self.clearPosts()
-                    self.listPosts()
-                })
-
                 self.add(post)
             })
         } catch (error) {
