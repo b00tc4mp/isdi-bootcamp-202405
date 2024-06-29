@@ -21,11 +21,8 @@ class Post extends Component {
 
         const self = this;
 
-        const postAuthor = new Author(post);
-        postAuthor.onAuthorClicked(() => {
-            this.onPostInteractedCallback(logic.getUserPosts(post.author));
-
-        })
+        const postAuthor = new Author();
+        postAuthor.setText(post.author);
         this.add(postAuthor);
 
         const postImage = new Image();
@@ -48,12 +45,19 @@ class Post extends Component {
             try {
                 if (logic.hasLikedPost(post.id)) {
                     likeButton.setHeartWhite();
+
+                    logic.togglePostLike(post.id);
+
+                    this.onPostInteractedCallback();
+
                 } else {
                     likeButton.setHeartRed();
-                }
-                logic.togglePostLike(post.id);
 
-                this.onPostInteractedCallback();
+                    logic.togglePostLike(post.id)
+
+                    this.onPostInteractedCallback();
+
+                }
             } catch (error) {
                 console.error(error);
 
@@ -78,12 +82,17 @@ class Post extends Component {
             try {
                 if (logic.hasPostSaved(post.id)) {
                     saveButton.setColor('white');
+
+                    logic.toggleSavedPost(post.id)
+
+                    this.onPostInteractedCallback();
                 } else {
                     saveButton.setColor('black');
-                }
-                logic.toggleSavedPost(post.id)
 
-                this.onPostInteractedCallback();
+                    logic.toggleSavedPost(post.id)
+
+                    this.onPostInteractedCallback();
+                }
             } catch (error) {
                 console.error(error);
 

@@ -1,9 +1,7 @@
 body {
     margin: 0 0;
     display: block;
-    /* background-color: skyblue; */
-    background-color: silver;
-
+    background-color: skyblue;
 }
 
 hr {
@@ -56,55 +54,19 @@ hr {
     gap: 1rem;
 }
 
-.user-name {
-    border: 0;
-    background-color: inherit;
-    font-weight: bolder;
-    font-size: large;
-    color: white;
-}
-
-.user-name:hover {
-    color: magenta;
-}
-
 .post {
-    box-shadow: 0px 0px 10px 1px black;
+    box-shadow: 0px 0px 10px 1px darkblue;
     border-radius: 2%;
-    min-height: 80vh;
-    max-height: 90vh;
     margin: 8px;
     background-color: #9E58F9;
 }
 
-.post__author__div {
-    display: flex;
-    min-height: 27.6px;
-    margin: 0.1rem 0;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .post__author {
-    margin: 0;
-    margin-left: 3px;
-    font-weight: bolder;
-    font-size: larger;
-    font-family: 'Times New Roman', Times, serif;
-    background-color: #9E58F9;
-    border: 0;
-}
-
-.post__author__button {
-    height: max-content;
-    color: white;
-    background-color: #9E58F9;
-    border: 0;
-}
-
-.post__author__button:hover {
-    color: blue;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0.5rem;
+    background-color: #8947df;
+    border-bottom: 1px solid rgba(139, 0, 139, 0.2);
 }
 
 .post__image {
@@ -114,8 +76,7 @@ hr {
     margin: 0 auto;
     padding: auto;
     background-color: black;
-    box-sizing: border-box;
-    border: 1px solid magenta
+    box-shadow: 0 0 5px 0px darkblue;
 }
 
 .post__caption {
@@ -133,26 +94,6 @@ hr {
     margin: .5rem;
     color: silver;
     font-size: .9rem;
-}
-
-.profile-field {
-    background-color: skyblue;
-    width: 70%;
-    min-width: 310px;
-    max-width: 650px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.profile-info {
-    background-color: skyblue;
-    box-sizing: border-box;
-    border-top: 1px solid black;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
 }
 
 .header {

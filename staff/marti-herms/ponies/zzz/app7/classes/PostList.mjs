@@ -28,23 +28,9 @@ class PostList extends Component {
                     if (_post.id === list[i]) {
                         const post = new Post(_post);
 
-                        post.onPostInteracted((newList) => {
-                            if (newList === undefined) {
-                                newList = list;
-                            }
-
-                            let intervalID = logic.getIntervalID();
-                            clearInterval(intervalID);
-
+                        post.onPostInteracted(() => {
                             self.clearPosts();
-                            self.generatePostList(newList);
-
-                            intervalID = setInterval(function () {
-                                self.clearPosts();
-                                self.generatePostList(newList);
-                            }, 2000);
-
-                            logic.setIntervalID(intervalID);
+                            self.generatePostList(list);
                         })
 
                         post.onPostEdited(() => {

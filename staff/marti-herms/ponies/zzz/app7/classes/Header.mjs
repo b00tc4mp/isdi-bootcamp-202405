@@ -1,7 +1,6 @@
 import Component from './Component.mjs'
 import Paragraph from './Paragraph.mjs'
 import Button from './Button.mjs'
-
 import logic from '../logic/index.mjs'
 
 
@@ -10,24 +9,19 @@ class Header extends Component {
         super(document.createElement('header'));
         this.container.className = 'header';
 
-        const profileButton = new Button();
-        profileButton.setClassName('user-name');
-        profileButton.setText(logic.getUserName());
-        this.add(profileButton);
+        const userName = new Paragraph('p');
+        userName.container.style.color = 'white';
+        this.add(userName);
 
-        profileButton.onClick(() => {
-            try {
-                const intervalID = logic.getIntervalID();
-                clearInterval(intervalID);
+        try {
+            const name = logic.getUserName();
 
-                this.onProfileClickedCallback();
-            } catch (error) {
-                console.error(error);
+            userName.setText('Hello, ' + name + '!');
+        } catch (error) {
+            console.error(error);
 
-                alert(error.message);
-            }
-        })
-
+            alert(error.message);
+        }
 
         const logoutButton = new Button('logout-button');
         logoutButton.setText('Logout');
@@ -44,10 +38,6 @@ class Header extends Component {
                 alert(error.message);
             }
         });
-    }
-
-    onProfileClicked(callback) {
-        this.onProfileClickedCallback = callback;
     }
 }
 

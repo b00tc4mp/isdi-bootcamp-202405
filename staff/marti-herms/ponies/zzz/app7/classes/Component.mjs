@@ -35,21 +35,6 @@ class Component {
         this.container.removeChild(child.container);
     }
 
-    has(child) {
-        if (!(child instanceof Component))
-            throw new TypeError('child is not a Component')
-
-        const children = this.container.children
-
-        for (let i = 0; i < children.length; i++) {
-            const childContainer = children[i]
-
-            if (childContainer === child.container) return true
-        }
-
-        return false
-    }
-
     setText(text) {
         this.container.innerText = text;
     }
