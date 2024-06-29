@@ -63,13 +63,26 @@ input {
 
 .post__actions {
     margin: .5rem;
+    display: flex;
+    gap: .5rem;
+}
+
+.post__actions>button {
+    background-color: #f7bff8;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
 }
 
 .post__time {
     display: block;
     margin: .5rem;
-    color: silver;
+    color: gray;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
     font-size: .9rem;
+
 }
 
 .header {
@@ -93,13 +106,18 @@ input {
     font-weight: bold;
 }
 
-.logout-button {
-    background-color: #f7bff8;
-    border-radius: 5px;
+.logout-button,
+.favs-button,
+.follow-button,
+.home-button {
+    background-color: white;
     font-weight: bold;
     font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     width: 65px;
     height: 25px;
+    border-radius: 5px;
+    border-color: white;
+
 }
 
 .post-delete-button,
