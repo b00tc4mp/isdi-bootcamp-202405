@@ -27,6 +27,8 @@ class Component {
 
             if (childContainer === child.container) return true
         }
+
+        return false
     }
 
     setText(text) {

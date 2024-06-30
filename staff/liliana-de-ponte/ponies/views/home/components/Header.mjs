@@ -27,7 +27,7 @@ class Header extends Component {
 
         const homeButton = new Button
         homeButton.setClassName('home-button')
-        homeButton.setText('🏡')
+        homeButton.setText('🏠')
         this.add(homeButton)
 
         homeButton.onClick(() => self.onHomeClickCallback())
@@ -37,7 +37,7 @@ class Header extends Component {
         followsButton.setText('🪅')
         this.add(followsButton)
 
-        //followsButton.onClick(() => ?)
+        followsButton.onClick(() => self.onFollowClickCallback())
 
         const favsButton = new Button
         favsButton.setClassName('favs-button')
@@ -70,6 +70,10 @@ class Header extends Component {
 
     onFavsClick(callback) {
         this.onFavsClickCallback = callback
+    }
+
+    onFollowClick(callback) {
+        this.onFollowClickCallback = callback
     }
 }
 

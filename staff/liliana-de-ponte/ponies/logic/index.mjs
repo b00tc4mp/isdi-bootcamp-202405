@@ -9,7 +9,9 @@ import updatePostCaption from './updatePostCaption.mjs'
 import createPost from './createPost.mjs'
 import deletePost from './deletePost.mjs'
 import toggleFavPost from './toggleFavPost.mjs'
-import getAllFavPost from './getAllFavPost.mjs'
+import getAllFavPosts from './getAllFavPosts.mjs'
+import toggleFollowUser from './toggleFollowUser.mjs'
+import getAllFollowPosts from './getAllFollowPosts.mjs'
 
 const logic = {
     getAllPosts,
@@ -23,7 +25,9 @@ const logic = {
     createPost,
     deletePost,
     toggleFavPost,
-    getAllFavPost
+    getAllFavPosts,
+    toggleFollowUser,
+    getAllFollowPosts
 }
 
 export default logic

@@ -23,10 +23,28 @@ class Post extends Component {
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
         postAuthorTitle.setText(post.author)
-        this.add(postAuthorTitle)
+        top.add(postAuthorTitle)
 
-        // const followButton = new Button
-        // followButton.setText('')
+        const self = this
+
+        if (post.author !== logic.getUserUsername()) {
+            const followButton = new Button
+            followButton.setClassName('post__button')
+            followButton.setText(post.following ? '🪅' : '🎠')
+            top.add(followButton)
+
+            followButton.onClick(() => {
+                try {
+                    logic.toggleFollowUser(post.id)
+
+                    self.onFollowUserToggledCallback()
+                } catch (error) {
+                    console.error(error)
+
+                    alert(error.message)
+                }
+            })
+        }
 
         const postImage = new Image
         postImage.setClassName('post__image')
@@ -37,8 +55,6 @@ class Post extends Component {
         postCaptionText.setClassName('post__caption')
         postCaptionText.setText(post.caption)
         this.add(postCaptionText)
-
-        const self = this
 
         const postActionButtons = new Component(document.createElement('div'))
         postActionButtons.setClassName('post__actions')
@@ -80,7 +96,7 @@ class Post extends Component {
         if (post.author === logic.getUserUsername()) {
             const postDeleteButton = new Button
             postDeleteButton.setClassName('post-delete-button')
-            postDeleteButton.setText('Delete')
+            postDeleteButton.setText('🗑️')
             postActionButtons.add(postDeleteButton)
 
             postDeleteButton.onClick(() => {
@@ -106,7 +122,7 @@ class Post extends Component {
 
             const editButton = new Button
             editButton.setClassName('post-edit-button')
-            editButton.setText('Edit')
+            editButton.setText('📝')
             postActionButtons.add(editButton)
 
             let editCaptionForm
@@ -191,6 +207,9 @@ class Post extends Component {
     }
     onPostFavToggled(callback) {
         this.onPostFavToggledCallback = callback
+    }
+    onFollowUserToggled(callback) {
+        this.onFollowUserToggledCallback = callback
     }
 }
 

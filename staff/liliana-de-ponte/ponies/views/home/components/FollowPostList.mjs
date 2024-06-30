@@ -1,14 +1,13 @@
-import Component from '../../Component.mjs'
-import Post from './Post.mjs'
+import Component from "../../Component.mjs";
+import Post from "./Post.mjs";
 
-import logic from '../../../logic/index.mjs'
+import logic from "../../../logic/index.mjs";
 
-class PostList extends Component {
+class FollowPostList extends Component {
     constructor() {
         super(document.createElement('section'))
 
         this.setClassName('post-list')
-
     }
 
     clearPosts() {
@@ -18,9 +17,10 @@ class PostList extends Component {
             this.container.removeChild(child)
         }
     }
+
     listPosts() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFollowPosts()
 
             const self = this
 
@@ -62,4 +62,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default FollowPostList

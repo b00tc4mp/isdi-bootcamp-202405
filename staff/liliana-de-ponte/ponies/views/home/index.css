@@ -49,8 +49,17 @@ input {
     box-shadow: 1px 1px 10px 1px #F981FB
 }
 
+.post__top {
+    display: flex;
+    margin: 0 .5rem;
+    align-items: center;
+    gap: .5rem
+}
+
 .post__author {
-    margin: .5rem;
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px
 }
 
 .post__image {
@@ -93,7 +102,7 @@ input {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     background-color: #F981FB;
     padding: .5rem;
     box-sizing: border-box;
@@ -117,7 +126,6 @@ input {
     height: 25px;
     border-radius: 5px;
     border-color: white;
-
 }
 
 .post-delete-button,

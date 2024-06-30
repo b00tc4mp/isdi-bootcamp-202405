@@ -1,10 +1,10 @@
-import getAllFavPosts from './getAllFavPost.mjs'
+import getAllFavPosts from './getAllFavPosts.mjs'
 
 console.info('TEST getAllFavPosts')
 
 console.info('CASE get all fav posts from lilidp')
 
-sessionStorage.username = "lilidp"
+sessionStorage.username = 'lilidp'
 
 const favs = getAllFavPosts()
 
