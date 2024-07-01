@@ -1,27 +1,26 @@
-import data from "../data/index.mjs"
+import data from '../data/index.mjs'
 
-function toggleFollowUser(postId) {
-    if (postId.trim().length === 0) throw new Error
-        ('invalid postId')
+function toggleFollowUser(username) {
+    if (!username.trim().length) throw new Error
+        ('invalid username')
 
     const user = data.findUser(user => user.username === sessionStorage.username)
 
-    if (user === null)
-        throw new Error('post not found')
+    if (!user)
+        throw new Error('user not found')
 
-    const post = data.findPost(post => post.id === postId)
+    const following = data.findUser(user => user.username === username)
 
-    if (post === null)
-        throw new Error('post not found')
+    if (!following)
+        throw new Error('following user not found')
 
-    const index = user.following.indexOf(postId)
+    const index = user.following.indexOf(username)
 
-    // const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+    if (index < 0)
+        user.following.push(username)
 
-    if (user.following.includes(post.author))
-        user.following.splice(index, 1)
     else
-        user.following.push(post.author)
+        user.following.splice(index, 1)
 
     data.updateUser(user => user.username === sessionStorage.username, user)
 }

@@ -22,22 +22,21 @@ class Post extends Component {
 
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
-        postAuthorTitle.setText(post.author)
+        postAuthorTitle.setText(post.author.username)
         top.add(postAuthorTitle)
 
         const self = this
 
-        if (post.author !== logic.getUserUsername()) {
+        if (post.author.username !== logic.getUserUsername()) {
             const followButton = new Button
-            followButton.setClassName('post__button')
-            followButton.setText(post.following ? '🪅' : '🎠')
+            followButton.setText(post.author.following ? '🪅' : '🎠')
             top.add(followButton)
 
             followButton.onClick(() => {
                 try {
-                    logic.toggleFollowUser(post.id)
+                    logic.toggleFollowUser(post.author.username)
 
-                    self.onFollowUserToggledCallback()
+                    self.onUserFollowToggledCallback()
                 } catch (error) {
                     console.error(error)
 
@@ -93,9 +92,8 @@ class Post extends Component {
         })
 
 
-        if (post.author === logic.getUserUsername()) {
+        if (post.author.username === logic.getUserUsername()) {
             const postDeleteButton = new Button
-            postDeleteButton.setClassName('post-delete-button')
             postDeleteButton.setText('🗑️')
             postActionButtons.add(postDeleteButton)
 
@@ -121,7 +119,6 @@ class Post extends Component {
             })
 
             const editButton = new Button
-            editButton.setClassName('post-edit-button')
             editButton.setText('📝')
             postActionButtons.add(editButton)
 
@@ -171,6 +168,8 @@ class Post extends Component {
                         //self.container.removeChild(editCaptionForm.container)
                         self.remove(editCaptionForm)
 
+                        editCaptionForm = undefined
+
                         // self.clearPosts()
                         // self.listPosts()
                         self.onPostCaptionEditedCallback()
@@ -195,6 +194,8 @@ class Post extends Component {
         this.add(postDateTime)
     }
 
+
+    //metodos para setear la instancia del callback
     onPostDeleted(callback) {
         this.onPostDeletedCallback = callback
     }
@@ -208,7 +209,7 @@ class Post extends Component {
     onPostFavToggled(callback) {
         this.onPostFavToggledCallback = callback
     }
-    onFollowUserToggled(callback) {
+    onUserFollowToggled(callback) {
         this.onFollowUserToggledCallback = callback
     }
 }

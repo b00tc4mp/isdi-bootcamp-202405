@@ -13,7 +13,6 @@ class Footer extends Component {
         this.setClassName('footer')
 
         const addPostButton = new Button
-        addPostButton.setClassName('add-post-button')
         addPostButton.setText('+')
         this.add(addPostButton)
 
@@ -86,13 +85,11 @@ class Footer extends Component {
             createPostForm.add(postButtons)
 
             const postSubmitButton = new Button
-            postSubmitButton.setClassName('form__button')
             postSubmitButton.setType('submit')
             postSubmitButton.setText('Create')
             postButtons.add(postSubmitButton)
 
             const postCancelButton = new Button
-            postCancelButton.setClassName('form__button')
             postCancelButton.setType('reset')
             postCancelButton.setText('Cancel')
             postButtons.add(postCancelButton)

@@ -26,28 +26,47 @@ class Header extends Component {
         const self = this
 
         const homeButton = new Button
-        homeButton.setClassName('home-button')
         homeButton.setText('🏠')
+        homeButton.addClassName('Button--active')
         this.add(homeButton)
 
-        homeButton.onClick(() => self.onHomeClickCallback())
+        homeButton.onClick(() => {
+            homeButton.addClassName('Button--active')
 
-        const followsButton = new Button
-        followsButton.setClassName('follow-button')
-        followsButton.setText('🪅')
-        this.add(followsButton)
+            followingButton.removeClassName('Button--active')
+            favsButton.removeClassName('Button--active')
 
-        followsButton.onClick(() => self.onFollowClickCallback())
+            self.onHomeClickCallback()
+        })
+
+        const followingButton = new Button
+        followingButton.setText('🪅')
+        this.add(followingButton)
+
+        followingButton.onClick(() => {
+            followingButton.addClassName('Button--active')
+
+            homeButton.removeClassName('Button--active')
+            favsButton.removeClassName('Button--active')
+
+            self.onFollowingClickCallback()
+
+        })
 
         const favsButton = new Button
-        favsButton.setClassName('favs-button')
         favsButton.setText('🏳️‍🌈')
         this.add(favsButton)
 
-        favsButton.onClick(() => self.onFavsClickCallback())
+        favsButton.onClick(() => {
+            favsButton.addClassName('Button--active')
+
+            followingButton.removeClassName('Button--active')
+            homeButton.removeClassName('Button--active')
+
+            self.onFavsClickCallback()
+        })
 
         const logoutButton = new Button
-        logoutButton.setClassName('logout-button')
         logoutButton.setText('Logout')
         this.add(logoutButton)
 
@@ -72,8 +91,8 @@ class Header extends Component {
         this.onFavsClickCallback = callback
     }
 
-    onFollowClick(callback) {
-        this.onFollowClickCallback = callback
+    onFollowingClick(callback) {
+        this.onFollowingClickCallback = callback
     }
 }
 

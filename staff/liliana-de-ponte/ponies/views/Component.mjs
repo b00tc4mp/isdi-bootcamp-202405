@@ -59,6 +59,27 @@ class Component {
         this.container.className = className
     }
 
+    addClassName(className) {
+        if (typeof className !== 'string')
+            throw new TypeError('className is not a string')
+
+        this.container.classList.add(className)
+    }
+
+    removeClassName(className) {
+        if (typeof className !== 'string')
+            throw new TypeError('className is not a string')
+
+        this.container.classList.remove(className)
+
+    }
+
+    toggleClassName(className) {
+        if (typeof className !== 'string')
+            throw new TypeError('className is not a string')
+
+        this.container.classList.toggle(clasName)
+    }
 }
 
 export default Component

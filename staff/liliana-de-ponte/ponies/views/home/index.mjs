@@ -2,7 +2,7 @@ import Component from '../Component.mjs'
 import Header from './components/Header.mjs'
 import PostList from './components/PostList.mjs'
 import FavPostList from './components/FavPostList.mjs'
-import FollowPostList from './components/FollowPostList.mjs'
+import FollowingUserPostList from './components/FollowingUserPostList.mjs'
 import Footer from './components/Footer.mjs'
 
 const home = new Component(document.body)
@@ -10,15 +10,12 @@ const header = new Header
 home.add(header)
 
 header.onHomeClick(() => {
-    if (favPostList && body.has(favPostList)) {
-        body.remove(favPostList)
-        body.add(postList)
+    if (!body.has(postList)) {
+        if (favPostList && body.has(favPostList))
+            body.remove(favPostList)
+        else if (followingPostList && body.has(followingPostList))
+            body.remove(followingPostList)
 
-        postList.clearPosts()
-        postList.listPosts()
-
-    } else if (followPostList && body.has(followPostList)) {
-        body.remove(followPostList)
         body.add(postList)
 
         postList.clearPosts()
@@ -29,46 +26,34 @@ header.onHomeClick(() => {
 let favPostList
 
 header.onFavsClick(() => {
-    if (body.has(postList)) {
-        body.remove(postList)
+    if (!favPostList || !body.add(favPostList)) {
+        if (body.has(postList))
+            body.remove(postList)
+        else if (followingPostList && body.has(followingPostList))
+            body.remove(followingPostList)
 
         favPostList = new FavPostList
         body.add(favPostList)
 
-    } else if (followPostList && body.has(followPostList)) {
-        body.remove(followPostList)
-
-    } else if (!favPostList) {
-        favPostList = new FavPostList
+        favPostList.listPosts()
     }
-    body.add(favPostList)
-
-    favPostList.clearPosts()
-    favPostList.listPosts()
-
 })
 
-let followPostList
+let followingPostList
 
-header.onFollowClick(() => {
-    if (body.has(postList)) {
-        body.remove(postList)
+header.onFollowingClick(() => {
+    if (!followingPostList || !body.has(followingPostList)) {
+        if (body.has(postList))
+            body.remove(postList)
 
-        followPostList = new FollowPostList
-        body.add(followPostList)
+        else if (favPostList && body.has(favPostList))
+            favPostList && body.remove(favPostList)
 
-        followPostList.listPosts()
+        followingPostList = new FollowingUserPostList
+        body.add(followingPostList)
 
-    } else if (favPostList && body.has(favPostList)) {
-        body.remove(favPostList)
-
-    } else if (!followPostList) {
-        followPostList = new FollowPostList
+        followingPostList.listPosts()
     }
-    body.add(followPostList)
-
-    followPostList.clearPosts()
-    followPostList.listPosts()
 })
 
 const body = new Component(document.createElement('main'))

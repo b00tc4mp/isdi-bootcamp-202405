@@ -1,3 +1,5 @@
+@import url(../components/Button.css);
+
 .view {
     display: flex;
     flex-direction: column;
@@ -115,7 +117,7 @@ input {
     font-weight: bold;
 }
 
-.logout-button,
+/* .logout-button,
 .favs-button,
 .follow-button,
 .home-button {
@@ -126,9 +128,9 @@ input {
     height: 25px;
     border-radius: 5px;
     border-color: white;
-}
+} */
 
-.post-delete-button,
+/* .post-delete-button,
 .post-edit-button {
     background-color: #f7bff8;
     border-radius: 5px;
@@ -136,7 +138,7 @@ input {
     font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     width: 55px;
     height: 25px;
-}
+} */
 
 .main {
     margin-top: 3.5rem;
@@ -155,13 +157,13 @@ input {
     box-shadow: 0px -1px 1px lightgray;
 }
 
-.add-post-button {
+/* .add-post-button {
     background: #f7bff8;
     border-radius: 4px;
     height: 25px;
     width: 35px;
     font-weight: bold;
-}
+} */
 
 .create-post-section {
     position: fixed;

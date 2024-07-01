@@ -47,7 +47,7 @@ class FavPostList extends Component {
                     self.listPosts()
                 })
 
-                post.onFollowUserToggled(() => {
+                post.onUserFollowToggled(() => {
                     self.clearPosts()
                     self.listPosts()
                 })
