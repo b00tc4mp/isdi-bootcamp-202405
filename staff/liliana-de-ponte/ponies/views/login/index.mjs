@@ -6,7 +6,7 @@ import logic from '../../logic/index.mjs'
 const loginForm = new Form('form')
 
 loginForm.onSubmit(event => {
-    event.preventDefault()
+    event.preventDefault() //para que no se resetee la pagina
 
     const usernameInput = document.getElementById('username-input')
     const passwordInput = document.getElementById('password-input')

@@ -36,8 +36,8 @@ class Footer extends Component {
                 event.preventDefault()
 
                 //var postImageInput = document.getElementById('post-image-input')
-                var postImage = postImageInput.getValue()
-                var postCaption = postCaptionInput.getValue()
+                const postImage = postImageInput.getValue()
+                const postCaption = postCaptionInput.getValue()
 
                 try {
                     logic.createPost(postImage, postCaption)

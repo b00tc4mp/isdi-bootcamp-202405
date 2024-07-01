@@ -9,7 +9,7 @@ const getAllPosts = () => {
     const posts = data.findPosts(() => true)
 
     posts.forEach(post => {
-        post.fav = user.favs.includes(post.id)
+        post.fav = user.favs.includes(post.id) //true or false
         post.like = post.likes.includes(sessionStorage.username)
         post.author = {
             username: post.author,

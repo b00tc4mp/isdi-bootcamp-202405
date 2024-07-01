@@ -9,12 +9,12 @@ class Header extends Component {
         super(document.createElement('header'))
         this.setClassName('header')
 
-        var userName = new Paragraph
+        const userName = new Paragraph
         userName.setClassName('header__user-name')
         this.add(userName)
 
         try {
-            var name = logic.getUserName()
+            const name = logic.getUserName()
 
             userName.setText('Hello, ' + name + '!')
         } catch (error) {
