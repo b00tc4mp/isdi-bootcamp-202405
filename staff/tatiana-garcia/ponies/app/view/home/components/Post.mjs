@@ -25,20 +25,20 @@ class Post extends Component {
 
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
-        postAuthorTitle.setText(post.author)
+        postAuthorTitle.setText(post.author.username)
         this.add(postAuthorTitle)
 
-        if (post.author !== logic.getUserUsername()) {
+        if (post.author.username !== logic.getUserUsername()) {
 
             const followButton = new Button
             followButton.setClassName('post__follow')
-            followButton.setText(post.following ? 'Unfollow' : 'Follow')
+            followButton.setText(post.author.following ? 'Follow' : 'Unfollow')
             top.add(followButton)
 
             followButton.onClick(() => {
 
                 try {
-                    logic.toggleFollowUser(post.author)
+                    logic.toggleFollowUser(post.author.username)
 
                     self.onFollowUserToggledCallback()
                 } catch (error) {
@@ -47,6 +47,7 @@ class Post extends Component {
                     alert(error.message)
                 }
             })
+
 
         }
 
@@ -103,7 +104,7 @@ class Post extends Component {
         })
 
 
-        if (post.author === logic.getUserUsername()) {
+        if (post.author.username === logic.getUserUsername()) {
 
             const postDeleteButton = new Button
             postDeleteButton.setClassName = ('post-delete-button')

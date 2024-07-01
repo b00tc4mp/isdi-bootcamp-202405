@@ -12,8 +12,10 @@ const getAllFavPosts = () => {
     posts.forEach(post => {
         post.fav = user.favs.includes(post.id)
         post.like = post.likes.includes(sessionStorage.username)
-        post.following = user.following.includes(post.author)
-
+        post.author = {
+            username: post.author,
+            following: user.following.includes(post.author)
+        }
     })
 
     return posts.reverse()
