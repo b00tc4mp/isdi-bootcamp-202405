@@ -86,10 +86,13 @@ footer.onListSavedPost(() => {
         body.remove(profile);
     }
 
+    let intervalID = logic.getIntervalID();
+    clearInterval(intervalID);
+
     postListSection.clearPosts();
     postListSection.generatePostList(logic.getUserSavedPosts());
 
-    const intervalID = setInterval(function () {
+    intervalID = setInterval(function () {
         postListSection.clearPosts();
         postListSection.generatePostList(logic.getUserSavedPosts());
     }, 2000);
@@ -108,6 +111,22 @@ footer.onUserSearched((user) => {
     const intervalID = setInterval(function () {
         postListSection.clearPosts();
         postListSection.generatePostList(logic.getUserPosts(user));
+    }, 2000);
+
+    logic.setIntervalID(intervalID);
+})
+
+footer.onFollowedList(() => {
+    if (body.has(profile)) {
+        body.remove(profile);
+    }
+
+    postListSection.clearPosts();
+    postListSection.generatePostList(logic.getFollowedUserPosts());
+
+    const intervalID = setInterval(function () {
+        postListSection.clearPosts();
+        postListSection.generatePostList(logic.getFollowedUserPosts());
     }, 2000);
 
     logic.setIntervalID(intervalID);

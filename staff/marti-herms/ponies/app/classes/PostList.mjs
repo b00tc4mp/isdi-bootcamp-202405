@@ -25,10 +25,19 @@ class PostList extends Component {
 
             posts.forEach((_post) => {
                 for (let i = 0; i < list.length; i++) {
-                    if (_post.id === list[i]) {
+                    if (_post.id == list[i]) {
                         const post = new Post(_post);
 
                         post.onPostInteracted((newList) => {
+                            if (newList === undefined) {
+                                newList = list;
+                            }
+
+                            self.clearPosts();
+                            self.generatePostList(newList);
+                        })
+
+                        post.onPostAuthorClicked((newList) => {
                             if (newList === undefined) {
                                 newList = list;
                             }
@@ -40,12 +49,13 @@ class PostList extends Component {
                             self.generatePostList(newList);
 
                             intervalID = setInterval(function () {
-                                self.clearPosts();
-                                self.generatePostList(newList);
+                                postListSection.clearPosts();
+                                postListSection.generatePostList(newList);
                             }, 2000);
 
                             logic.setIntervalID(intervalID);
                         })
+
 
                         post.onPostEdited(() => {
                             self.clearPosts();
@@ -58,6 +68,7 @@ class PostList extends Component {
 
                             logic.setIntervalID(intervalID);
                         })
+
 
                         self.add(post);
                     }

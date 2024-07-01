@@ -2,7 +2,7 @@ body {
     margin: 0 0;
     display: block;
     /* background-color: skyblue; */
-    background-color: silver;
+    background-color: #9E58F9;
 
 }
 
@@ -74,7 +74,7 @@ hr {
     min-height: 80vh;
     max-height: 90vh;
     margin: 8px;
-    background-color: #9E58F9;
+    background-color: white;
 }
 
 .post__author__div {
@@ -92,14 +92,14 @@ hr {
     font-weight: bolder;
     font-size: larger;
     font-family: 'Times New Roman', Times, serif;
-    background-color: #9E58F9;
+    background-color: white;
     border: 0;
 }
 
 .post__author__button {
     height: max-content;
-    color: white;
-    background-color: #9E58F9;
+    color: black;
+    background-color: white;
     border: 0;
 }
 
@@ -131,7 +131,7 @@ hr {
 .post__time {
     display: block;
     margin: .5rem;
-    color: silver;
+    color: slategray;
     font-size: .9rem;
 }
 
@@ -257,7 +257,7 @@ button {
     aspect-ratio: 1;
     border-image: radial-gradient(red 69%, #0000 70%) 84.5%/50%;
     clip-path: polygon(-41% 0, 50% 91%, 141% 0);
-    background-color: #9E58F9;
+    background-color: white;
 }
 
 /* save button */
@@ -269,7 +269,7 @@ button {
     aspect-ratio: 1;
     clip-path: polygon(0% 0%, 0% 100%, 50% 70%, 100% 100%, 100% 0%);
     border: 0px;
-    background-color: white;
+    background-color: silver;
 }
 
 .like-counter {
@@ -305,7 +305,21 @@ button {
     border-radius: 50%;
     border: 1px solid darkmagenta;
     background-image: url('../../images/search.svg');
-    background-position: 30% 30%;
+    background-position: 35% 30%;
+    background-size: 70%;
+    background-repeat: no-repeat;
+}
+
+/* followed posts button */
+
+.followed-button {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid darkmagenta;
+    background-image: url('../../images/usuarios-alt.svg');
+    background-position: 50% 50%;
     background-size: 70%;
     background-repeat: no-repeat;
 }

@@ -23,8 +23,7 @@ class Post extends Component {
 
         const postAuthor = new Author(post);
         postAuthor.onAuthorClicked(() => {
-            this.onPostInteractedCallback(logic.getUserPosts(post.author));
-
+            this.onPostAuthorClickedCallback(logic.getUserPosts(post.author));
         })
         this.add(postAuthor);
 
@@ -39,18 +38,13 @@ class Post extends Component {
         likeButton.setClassName('like-button');
         if (logic.hasLikedPost(post.id)) {
             likeButton.setHeartRed();
-        } else if (!logic.hasLikedPost(post.id)) {
+        } else {
             likeButton.setHeartWhite();
         }
         postInteractionButtonsDiv.add(likeButton);
 
         likeButton.onClick(() => {
             try {
-                if (logic.hasLikedPost(post.id)) {
-                    likeButton.setHeartWhite();
-                } else {
-                    likeButton.setHeartRed();
-                }
                 logic.togglePostLike(post.id);
 
                 this.onPostInteractedCallback();
@@ -67,20 +61,11 @@ class Post extends Component {
 
         const saveButton = new Button();
         saveButton.setClassName('save-button');
-        if (logic.hasPostSaved(post.id)) {
-            saveButton.setColor('black')
-        } else {
-            saveButton.setColor('white')
-        }
+        saveButton.setColor(logic.hasPostSaved(post.id) ? 'black' : 'silver');
         postInteractionButtonsDiv.add(saveButton);
 
         saveButton.onClick(() => {
             try {
-                if (logic.hasPostSaved(post.id)) {
-                    saveButton.setColor('white');
-                } else {
-                    saveButton.setColor('black');
-                }
                 logic.toggleSavedPost(post.id)
 
                 this.onPostInteractedCallback();
@@ -204,6 +189,10 @@ class Post extends Component {
 
     onPostEdited(callback) {
         this.onPostEditedCallback = callback;
+    }
+
+    onPostAuthorClicked(callback) {
+        this.onPostAuthorClickedCallback = callback;
     }
 }
 

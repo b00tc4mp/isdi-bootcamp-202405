@@ -5,6 +5,7 @@ import editPost from './editPost.mjs'
 import getAllPostIDs from './getAllPostIDs.mjs'
 import getAllPosts from './getAllPosts.mjs'
 import getIntervalID from './getIntervalID.mjs'
+import getFollowedUserPosts from './getFollowedUserPosts.mjs'
 import getUserName from './getUserName.mjs'
 import getUserSavedPosts from './getUserSavedPosts.mjs'
 import getUserPosts from './getUserPosts.mjs'
@@ -29,6 +30,7 @@ const logic = {
     getAllPostIDs,
     getAllPosts,
     getIntervalID,
+    getFollowedUserPosts,
     getUserName,
     getUserSavedPosts,
     getUserPosts,

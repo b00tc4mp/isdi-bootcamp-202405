@@ -1,18 +1,10 @@
 import Component from './Component.mjs'
-import Button from './Button.mjs'
-import Fader from './Fader.mjs'
-import Paragraph from './Paragraph.mjs'
-import Form from './Form.mjs'
-import Field from './Field.mjs'
-import Label from './Label.mjs'
-import Input from './Input.mjs'
 
 import HomeButton from './buttons/HomeButton.mjs'
 import AddPostButton from './buttons/AddPostButton.mjs'
 import SavedPostsButton from './buttons/SavedPostsButton.mjs'
 import SearchButton from './buttons/SearchButton.mjs'
-
-import logic from '../logic/index.mjs'
+import FollowedPostsButton from './buttons/FollowedPostsButton.mjs'
 
 class Footer extends Component {
     constructor() {
@@ -31,6 +23,7 @@ class Footer extends Component {
             userSearchButton.setColor('white');
             feedListButton.setColor('gray');
             savedPostListButton.setColor('white');
+            followedUsersPostListButton.setColor('white');
         });
 
         //Search Button definition
@@ -43,6 +36,7 @@ class Footer extends Component {
             userSearchButton.setColor('gray');
             feedListButton.setColor('white');
             savedPostListButton.setColor('white');
+            followedUsersPostListButton.setColor('white');
         });
 
         // Post Button definition
@@ -51,7 +45,20 @@ class Footer extends Component {
         addPostButton.setText('+');
         this.add(addPostButton);
 
-        addPostButton.onClick(this)
+        addPostButton.onClick(this);
+
+        // Followed Users Post Button definition
+        const followedUsersPostListButton = new FollowedPostsButton();
+        followedUsersPostListButton.setClassName('followed-button');
+        followedUsersPostListButton.setColor('white');
+        this.add(followedUsersPostListButton);
+
+        followedUsersPostListButton.onClick(this, () => {
+            userSearchButton.setColor('white');
+            feedListButton.setColor('white');
+            savedPostListButton.setColor('white');
+            followedUsersPostListButton.setColor('gray');
+        })
 
         // Saved Posts Button definition
         const savedPostListButton = new SavedPostsButton();
@@ -63,6 +70,7 @@ class Footer extends Component {
             userSearchButton.setColor('white');
             feedListButton.setColor('white');
             savedPostListButton.setColor('gray');
+            followedUsersPostListButton.setColor('white');
         })
     }
 
@@ -80,6 +88,10 @@ class Footer extends Component {
 
     onUserSearched(callback) {
         this.onUserSearchedCallback = callback;
+    }
+
+    onFollowedList(callback) {
+        this.onFollowedListCallback = callback;
     }
 }
 

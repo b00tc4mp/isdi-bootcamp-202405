@@ -20,7 +20,7 @@ class Button extends Component {
         if (this.container.className !== 'like-button') {
             throw new Error('this button is not the like button');
         }
-        this.container.style.borderImage = 'radial-gradient(white 69%, #0000 70%) 84.5%/50%';
+        this.container.style.borderImage = 'radial-gradient(silver 69%, #0000 70%) 84.5%/50%';
     }
 
     setHeartRed() {
