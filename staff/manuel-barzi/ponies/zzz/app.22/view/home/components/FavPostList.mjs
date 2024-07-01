@@ -3,7 +3,7 @@ import Post from './Post.mjs'
 
 import logic from '../../../logic/index.mjs'
 
-class PostList extends Component {
+class FavPostList extends Component {
     constructor() {
         super(document.createElement('section'))
 
@@ -20,7 +20,7 @@ class PostList extends Component {
 
     listPosts() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             const self = this
 
@@ -47,11 +47,6 @@ class PostList extends Component {
                     self.listPosts()
                 })
 
-                post.onUserFollowToggled(() => {
-                    self.clearPosts()
-                    self.listPosts()
-                })
-
                 self.add(post)
             })
         } catch (error) {
@@ -62,4 +57,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default FavPostList

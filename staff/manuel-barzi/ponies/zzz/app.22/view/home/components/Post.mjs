@@ -22,26 +22,12 @@ class Post extends Component {
 
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
-        postAuthorTitle.setText(post.author.username)
+        postAuthorTitle.setText(post.author)
         top.add(postAuthorTitle)
 
-        const self = this
-
         const followButton = new Button
-        followButton.setText(post.author.following ? '🦄' : '🐴')
+        followButton.setText('🐴')
         top.add(followButton)
-
-        followButton.onClick(() => {
-            try {
-                logic.toggleFollowUser(post.author.username) // { username: ..., following: true | false }
-
-                self.onUserFollowToggledCallback()
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-        })
 
         const postImage = new Image
         postImage.setClassName('post__image')
@@ -52,6 +38,8 @@ class Post extends Component {
         postCaptionText.setClassName('post__caption')
         postCaptionText.setText(post.caption)
         this.add(postCaptionText)
+
+        const self = this
 
         const postActionButtons = new Component(document.createElement('div'))
         postActionButtons.setClassName('post__actions')
@@ -89,7 +77,7 @@ class Post extends Component {
             }
         })
 
-        if (post.author.username === logic.getUserUsername()) {
+        if (post.author === logic.getUserUsername()) {
             const postDeleteButton = new Button
             postDeleteButton.setText('🗑️')
             postActionButtons.add(postDeleteButton)
@@ -199,10 +187,6 @@ class Post extends Component {
 
     onPostFavToggled(callback) {
         this.onPostFavToggledCallback = callback
-    }
-
-    onUserFollowToggled(callback) {
-        this.onUserFollowToggledCallback = callback
     }
 }
 

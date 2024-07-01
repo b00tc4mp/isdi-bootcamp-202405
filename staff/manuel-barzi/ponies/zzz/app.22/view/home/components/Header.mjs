@@ -27,46 +27,25 @@ class Header extends Component {
 
         const homeButton = new Button
         homeButton.setText('🏚️')
-        homeButton.addClassName('Button--active')
         this.add(homeButton)
 
-        homeButton.onClick(() => {
-            homeButton.addClassName('Button--active')
+        homeButton.onClick(() => self.onHomeClickCallback())
 
-            followingButton.removeClassName('Button--active')
-            favsButton.removeClassName('Button--active')
+        const followsButton = new Button
+        followsButton.setText('🦄')
+        this.add(followsButton)
 
-            self.onHomeClickCallback()
-        })
-
-        const followingButton = new Button
-        followingButton.setText('🦄')
-        this.add(followingButton)
-
-        followingButton.onClick(() => {
-            followingButton.addClassName('Button--active')
-
-            homeButton.removeClassName('Button--active')
-            favsButton.removeClassName('Button--active')
-
-            self.onFollowingClickCallback()
-        })
+        // followsButton.onClick(() => ?)
 
         const favsButton = new Button
         favsButton.setText('🏳️‍🌈')
         this.add(favsButton)
 
-        favsButton.onClick(() => {
-            favsButton.addClassName('Button--active')
-
-            followingButton.removeClassName('Button--active')
-            homeButton.removeClassName('Button--active')
-
-            self.onFavsClickCallback()
-        })
+        favsButton.onClick(() => self.onFavsClickCallback())
 
         const logoutButton = new Button
-        logoutButton.setText('🚪')
+        logoutButton.setClassName('logout-button')
+        logoutButton.setText('Logout')
         this.add(logoutButton)
 
         logoutButton.onClick(() => {
@@ -88,10 +67,6 @@ class Header extends Component {
 
     onFavsClick(callback) {
         this.onFavsClickCallback = callback
-    }
-
-    onFollowingClick(callback) {
-        this.onFollowingClickCallback = callback
     }
 }
 

@@ -13,7 +13,8 @@ class Footer extends Component {
         this.setClassName('footer')
 
         const addPostButton = new Button
-        addPostButton.setText('＋')
+        addPostButton.setClassName('add-post-button')
+        addPostButton.setText('+')
         this.add(addPostButton)
 
         const self = this
@@ -85,13 +86,15 @@ class Footer extends Component {
             createPostForm.add(postButtons)
 
             const postSubmitButton = new Button
+            postSubmitButton.setClassName('form__button')
             postSubmitButton.setType('submit')
-            postSubmitButton.setText('✅')
+            postSubmitButton.setText('Create')
             postButtons.add(postSubmitButton)
 
             const postCancelButton = new Button
+            postCancelButton.setClassName('form__button')
             postCancelButton.setType('reset')
-            postCancelButton.setText('ｘ')
+            postCancelButton.setText('Cancel')
             postButtons.add(postCancelButton)
 
             postCancelButton.onClick(() => self.remove(createPost))
