@@ -3,14 +3,19 @@ import Header from './components/Header.mjs'
 import PostList from './components/PostList.mjs'
 import FavPostList from './components/FavPostList.mjs'
 import Footer from './components/Footer.mjs'
+import FollowingUserPostList from './components/FollowingUserPostList.mjs'
 
 const home = new Component(document.body)
 const header = new Header
 home.add(header)
 
 header.onHomeClick(() => {
-    if (favPostList && body.has(favPostList)) {
-        body.remove(favPostList)
+    if (!body.has(postList)) {
+        if (favPostList && body.has(favPostList))
+            body.remove(favPostList)
+        else if (followingPostList && body.has(followingPostList))
+            body.remove(followingPostList)
+
         body.add(postList)
 
         postList.clearPosts()
@@ -21,13 +26,32 @@ header.onHomeClick(() => {
 let favPostList
 
 header.onFavsClick(() => {
-    if (body.has(postList)) {
-        body.remove(postList)
+    if (!favPostList || !body.has(favPostList)) {
+        if (body.has(postList))
+            body.remove(postList)
+        else if (followingPostList && body.has(followingPostList))
+            body.remove(followingPostList)
 
         favPostList = new FavPostList
         body.add(favPostList)
 
         favPostList.listPosts()
+    }
+})
+
+let followingPostList
+
+header.onFollowClick(() => {
+    if (!followingPostList || body.has(followingPostList)) {
+        if (body.has(postList))
+            body.remove(postList)
+        else if (favPostList && bpdy.has(favPostList))
+            favPostList && body.remove(favPostList)
+
+        followingPostList = new FollowingUserPostList
+        body.add(followingPostList)
+
+        followingPostList.listPosts()
     }
 })
 

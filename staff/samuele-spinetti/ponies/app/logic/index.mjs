@@ -11,6 +11,7 @@ import deletePost from './deletePost.mjs'
 import toggleFavPost from './toggleFavPost.mjs'
 import getAllFavPosts from './getAllFavPosts.mjs'
 import toggleFollowUser from './toggleFollowUser.mjs'
+import getAllFollowingUserPosts from './getAllFollowingUserPosts.mjs'
 
 const logic = {
     getAllPosts,
@@ -25,7 +26,8 @@ const logic = {
     deletePost,
     toggleFavPost,
     getAllFavPosts,
-    toggleFollowUser
+    toggleFollowUser,
+    getAllFollowingUserPosts
 }
 
 export default logic

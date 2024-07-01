@@ -22,20 +22,20 @@ class Post extends Component {
 
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
-        postAuthorTitle.setText(post.author)
+        postAuthorTitle.setText(post.author.username)
         top.add(postAuthorTitle)
 
         const self = this
 
-        if (post.author !== logic.getUserUsername()) {
+        if (post.author.username !== logic.getUserUsername()) {
             const followButton = new Button
             followButton.setClassName('post__button')
-            followButton.setText(post.following ? 'Unfollow' : 'Follow')
+            followButton.setText(post.author.following ? 'Unfollow' : 'Follow')
             top.add(followButton)
 
             followButton.onClick(() => {
                 try {
-                    logic.toggleFollowUser(post.id)
+                    logic.toggleFollowUser(post.author.username)
 
                     self.onFollowUserToggledCallback()
                 } catch (error) {
@@ -114,7 +114,7 @@ class Post extends Component {
         })
 
 
-        if (post.author === logic.getUserUsername()) {
+        if (post.author.username === logic.getUserUsername()) {
             const postActionButtonsDiv = new Component(document.createElement('div'))
             postActionButtonsDiv.setClassName('post__actions')
             this.add(postActionButtonsDiv)

@@ -45,14 +45,16 @@ class Header extends Component {
         followsAction.setClassName('follow-action')
         this.add(followsAction)
 
-        const followsButton = new Button
-        followsButton.setClassName('follows__button')
-        followsAction.add(followsButton)
+        const followingButton = new Button
+        followingButton.setClassName('follows__button')
+        followsAction.add(followingButton)
 
         const followsIcon = new Image
         followsIcon.setClassName('follows__icon')
         followsIcon.setUrl('https://svgsilh.com/svg/297837-ffc107.svg')
-        followsButton.add(followsIcon)
+        followingButton.add(followsIcon)
+
+        followingButton.onClick(() => self.onFollowClickCallback())
 
         const favsAction = new Component(document.createElement('div'))
         favsAction.setClassName('favs-action')
@@ -93,6 +95,10 @@ class Header extends Component {
 
     onFavsClick(callback) {
         this.onFavsClickCallback = callback
+    }
+
+    onFollowClick(callback) {
+        this.onFollowClickCallback = callback
     }
 }
 
