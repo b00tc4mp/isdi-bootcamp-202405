@@ -1,4 +1,4 @@
-import Component from '../../component.mjs'
+import Component from '../../Component.mjs'
 import Button from '../../components/Button.mjs'
 import Heading from '../../components/Heading.mjs'
 import Label from '../../components/Label.mjs'
@@ -96,7 +96,7 @@ class Footer extends Component {
             postButtons.add(postSubmitButton)
 
             const postCancelButton = new Button
-            postSubmitButton.setClassName('form__button')
+            postCancelButton.setClassName('form__button')
             postCancelButton.setType('reset')
             postCancelButton.setText('Cancel')
             postButtons.add(postCancelButton)

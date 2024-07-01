@@ -1,6 +1,6 @@
 import getAllPosts from './getAllPosts.mjs'
 import getUserName from './getUserName.mjs'
-import getUserUsername from './getUserUsername.mjs'
+import getUserUsername from './getUserUserName.mjs'
 import loginUser from './loginUser.mjs'
 import logoutUser from './logoutUser.mjs'
 import registerUser from './registerUser.mjs'
@@ -8,6 +8,10 @@ import toggleLikePost from './toggleLikePost.mjs'
 import updatePostCaption from './updatePostCaption.mjs'
 import createPost from './createPost.mjs'
 import deletePost from './deletePost.mjs'
+import toggleFavPost from './toggleFavPost.mjs'
+import getAllFavPosts from './getAllFavPost.mjs'
+import toggleFollowUser from './toggleFollowUser.mjs'
+import getAllFollowingUsersPosts from './getAllFollowingUsersPosts.mjs'
 
 const logic = {
     getAllPosts,
@@ -19,7 +23,11 @@ const logic = {
     toggleLikePost,
     updatePostCaption,
     createPost,
-    deletePost
+    deletePost,
+    toggleFavPost,
+    getAllFavPosts,
+    toggleFollowUser,
+    getAllFollowingUsersPosts
 }
 
 export default logic

@@ -1,4 +1,4 @@
-import Component from '../component.mjs'
+import Component from '../Component.mjs'
 
 class Button extends Component {
 

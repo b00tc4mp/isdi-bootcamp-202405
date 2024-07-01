@@ -4,7 +4,7 @@ const getUserName = () => {
 
     const user = data.findUser(user => user.username === sessionStorage.username)
 
-    if (user === undefined)
+    if (user === null)
         throw new Error('user not found')
 
     return user.name

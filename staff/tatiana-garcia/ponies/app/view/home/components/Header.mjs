@@ -1,4 +1,4 @@
-import Component from '../../component.mjs'
+import Component from '../../Component.mjs'
 import Paragraph from '../../components/Paragraph.mjs'
 import Button from '../../components/Button.mjs'
 
@@ -25,6 +25,29 @@ class Header extends Component {
             alert(error.message)
         }
 
+        const self = this
+
+        const homeButton = new Button
+        homeButton.setClassName('home-button')
+        homeButton.setText("🏯")
+        this.add(homeButton)
+
+        homeButton.onClick(() => self.onHomeClickCallback())
+
+        const followsButton = new Button
+        followsButton.setClassName = ('follow-button')
+        followsButton.setText('follow')
+        this.add(followsButton)
+
+        followsButton.onClick(() => self.onFollowClickCallback())
+
+        const favsButton = new Button
+        favsButton.setClassName = ('favs-button')
+        favsButton.setText('🤩')
+        this.add(favsButton)
+
+        favsButton.onClick(() => self.onFavsClickCallback())
+
         const logoutButton = new Button
         logoutButton.setClassName('logout-button')
         logoutButton.setText('Logout')
@@ -43,6 +66,22 @@ class Header extends Component {
             }
         })
     }
+
+    onHomeClick(callback) {
+
+        this.onHomeClickCallback = callback
+    }
+
+    onFavsClick(callback) {
+
+        this.onFavsClickCallback = callback
+    }
+
+    onFollowClick(callback) {
+
+        this.onFollowClickCallback = callback
+    }
+
 }
 
 export default Header

@@ -3,15 +3,18 @@ import Post from './Post.mjs'
 
 import logic from '../../../logic/index.mjs'
 
-class PostList extends Component {
+class FavPostList extends Component {
+
     constructor() {
         super(document.createElement('section'))
 
         this.setClassName('post-list')
+
     }
 
     clearPosts() {
         for (let i = this.container.children.length - 1; i > -1; i--) {
+
             const child = this.container.children[i]
 
             this.container.removeChild(child)
@@ -19,8 +22,9 @@ class PostList extends Component {
     }
 
     listPosts() {
+
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             const self = this
 
@@ -52,12 +56,10 @@ class PostList extends Component {
                     self.listPosts()
                 })
 
-
-
                 self.add(post)
             })
-        } catch (error) {
 
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
@@ -65,4 +67,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default FavPostList
