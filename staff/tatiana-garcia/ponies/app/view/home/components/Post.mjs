@@ -38,7 +38,7 @@ class Post extends Component {
             followButton.onClick(() => {
 
                 try {
-                    logic.toggleFollowUser(post.id)
+                    logic.toggleFollowUser(post.author)
 
                     self.onFollowUserToggledCallback()
                 } catch (error) {
