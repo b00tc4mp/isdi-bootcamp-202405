@@ -22,37 +22,35 @@ class PostList extends Component {
         try {
             const posts = logic.getAllPosts()
 
-            const self = this
-
             posts.forEach(_post => {
                 const post = new Post(_post)
 
                 post.onPostDeleted(() => {
-                    self.clearPosts()
-                    self.listPosts()
+                    this.clearPosts()
+                    this.listPosts()
                 })
 
                 post.onPostCaptionEdited(() => {
-                    self.clearPosts()
-                    self.listPosts()
+                    this.clearPosts()
+                    this.listPosts()
                 })
 
                 post.onPostLikeToggled(() => {
-                    self.clearPosts()
-                    self.listPosts()
+                    this.clearPosts()
+                    this.listPosts()
                 })
 
                 post.onPostFavToggled(() => {
-                    self.clearPosts()
-                    self.listPosts()
+                    this.clearPosts()
+                    this.listPosts()
                 })
 
                 post.onFollowUserToggled(() => {
-                    self.clearPosts()
-                    self.listPosts()
+                    this.clearPosts()
+                    this.listPosts()
                 })
 
-                self.add(post)
+                this.add(post)
             })
         } catch (error) {
             console.error(error)

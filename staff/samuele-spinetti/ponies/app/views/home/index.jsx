@@ -42,10 +42,10 @@ header.onFavsClick(() => {
 let followingPostList
 
 header.onFollowClick(() => {
-    if (!followingPostList || body.has(followingPostList)) {
+    if (!followingPostList || !body.has(followingPostList)) {
         if (body.has(postList))
             body.remove(postList)
-        else if (favPostList && bpdy.has(favPostList))
+        else if (favPostList && body.has(favPostList))
             favPostList && body.remove(favPostList)
 
         followingPostList = new FollowingUserPostList

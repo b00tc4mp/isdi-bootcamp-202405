@@ -24,8 +24,6 @@ class Header extends Component {
             alert(error.message)
         }
 
-        const self = this
-
         const homeAction = new Component(document.createElement('div'))
         homeAction.setClassName('home-action')
         this.add(homeAction)
@@ -39,7 +37,7 @@ class Header extends Component {
         homeIcon.setUrl('https://svgsilh.com/svg/309113.svg')
         homeButton.add(homeIcon)
 
-        homeButton.onClick(() => self.onHomeClickCallback())
+        homeButton.onClick(() => this.onHomeClickCallback())
 
         const followsAction = new Component(document.createElement('div'))
         followsAction.setClassName('follow-action')
@@ -54,7 +52,7 @@ class Header extends Component {
         followsIcon.setUrl('https://svgsilh.com/svg/297837-ffc107.svg')
         followingButton.add(followsIcon)
 
-        followingButton.onClick(() => self.onFollowClickCallback())
+        followingButton.onClick(() => this.onFollowClickCallback())
 
         const favsAction = new Component(document.createElement('div'))
         favsAction.setClassName('favs-action')
@@ -69,7 +67,7 @@ class Header extends Component {
         favsIcon.setUrl('https://svgsilh.com/svg/2103508.svg')
         favsButton.add(favsIcon)
 
-        favsButton.onClick(() => self.onFavsClickCallback())
+        favsButton.onClick(() => this.onFavsClickCallback())
 
         const logoutButton = new Button
         logoutButton.setClassName('logout-button')

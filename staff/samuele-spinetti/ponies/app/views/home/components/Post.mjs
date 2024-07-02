@@ -25,8 +25,6 @@ class Post extends Component {
         postAuthorTitle.setText(post.author.username)
         top.add(postAuthorTitle)
 
-        const self = this
-
         if (post.author.username !== logic.getUserUsername()) {
             const followButton = new Button
             followButton.setClassName('post__button')
@@ -37,7 +35,7 @@ class Post extends Component {
                 try {
                     logic.toggleFollowUser(post.author.username)
 
-                    self.onFollowUserToggledCallback()
+                    this.onFollowUserToggledCallback()
                 } catch (error) {
                     console.error(error)
 
@@ -82,7 +80,7 @@ class Post extends Component {
             try {
                 logic.toggleLikePost(post.id)
 
-                self.onPostLikeToggledCallback()
+                this.onPostLikeToggledCallback()
 
             } catch (error) {
                 console.error(error)
@@ -105,7 +103,7 @@ class Post extends Component {
             try {
                 logic.toggleFavPost(post.id)
 
-                self.onPostFavToggledCallback()
+                this.onPostFavToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -128,14 +126,14 @@ class Post extends Component {
                     try {
                         logic.deletePost(post.id)
 
-                        self.onPostDeletedCallback()
+                        this.onPostDeletedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found')
-                            self.onPostDeletedCallback()
+                            this.onPostDeletedCallback()
                     }
             })
 
@@ -151,7 +149,7 @@ class Post extends Component {
 
                 editCaptionForm = new Form
                 editCaptionForm.setClassName('form-edit-caption')
-                self.add(editCaptionForm)
+                this.add(editCaptionForm)
 
                 const editCaptionLabel = new Label
                 editCaptionLabel.setFor('edit-caption-input')
@@ -173,7 +171,7 @@ class Post extends Component {
                 editCaptionForm.add(editCaptionCancelButton)
 
                 editCaptionCancelButton.onClick(function () {
-                    self.remove(editCaptionForm)
+                    this.remove(editCaptionForm)
 
                     editCaptionForm = undefined
                 })
@@ -186,18 +184,18 @@ class Post extends Component {
 
                         logic.updatePostCaption(post.id, newCaption)
 
-                        self.remove(editCaptionForm)
+                        this.remove(editCaptionForm)
 
                         editCaptionForm = undefined
 
-                        self.onPostCaptionEditedCallback()
+                        this.onPostCaptionEditedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found')
-                            self.onPostCaptionEditedCallback()
+                            this.onPostCaptionEditedCallback()
                     }
                 })
             })
