@@ -33,24 +33,43 @@ class Header extends Component {
 
     const homeButton = new Button();
     homeButton.setText("🏚️");
-    homeButton.setClassName("home-button");
+    homeButton.addClassName("Button--active");
     this.add(homeButton);
 
-    homeButton.onClick(() => self.onHomeClickCallback());
+    homeButton.onClick(() => {
+      homeButton.addClassName("Button--active");
+
+      followsButton.removeClassName("Button--active");
+      favsButton.removeClassName("Button--active");
+
+      self.onHomeClickCallback();
+    });
 
     const followsButton = new Button();
     followsButton.setText("Following");
-    followsButton.setClassName("follow-button");
     this.add(followsButton);
 
-    followsButton.onClick(() => self.onFollowsClickCallback());
+    followsButton.onClick(() => {
+      followsButton.addClassName("Button--active");
+
+      homeButton.removeClassName("Button--active");
+      favsButton.removeClassName("Button--active");
+
+      self.onFollowsClickCallback();
+    });
 
     const favsButton = new Button();
     favsButton.setText("💫");
-    favsButton.setClassName("fav-button");
     this.add(favsButton);
 
-    favsButton.onClick(() => self.onFavsClickCallback());
+    favsButton.onClick(() => {
+      favsButton.addClassName("Button--active");
+
+      homeButton.removeClassName("Button--active");
+      followsButton.removeClassName("Button--active");
+
+      self.onFavsClickCallback();
+    });
 
     const logoutButton = new Button();
     logoutButton.setClassName("logout-button");

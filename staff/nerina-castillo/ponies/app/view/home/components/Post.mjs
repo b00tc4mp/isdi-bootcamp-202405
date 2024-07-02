@@ -29,13 +29,12 @@ class Post extends Component {
 
     if (post.author !== logic.getUserUsername()) {
       const followButton = new Button();
-      followButton.setClassName("follow-button");
       followButton.setText(post.following ? "Unfollow" : "Follow");
       top.add(followButton);
 
       followButton.onClick(() => {
         try {
-          logic.toggleFollowUser(post.id);
+          logic.toggleFollowUser(post.author);
 
           self.onFollowUserToggledCallback();
         } catch (error) {
@@ -61,7 +60,6 @@ class Post extends Component {
     this.add(postActionButtons);
 
     const postToggleLikeButton = new Button();
-    postToggleLikeButton.setClassName("like-button");
     postToggleLikeButton.setText(
       (post.like ? "❤️" : "🤍") +
         " " +
@@ -85,7 +83,6 @@ class Post extends Component {
 
     const postToggleFavButton = new Button();
     postToggleFavButton.setText(post.fav ? "💫" : "⭐");
-    postToggleFavButton.setClassName("fav-button");
     postActionButtons.add(postToggleFavButton);
 
     postToggleFavButton.onClick(() => {
@@ -103,7 +100,6 @@ class Post extends Component {
     if (post.author === logic.getUserUsername()) {
       const postDeleteButton = new Button();
       postDeleteButton.setText("Delete");
-      postDeleteButton.setClassName("delete-button");
       postActionButtons.add(postDeleteButton);
 
       postDeleteButton.onClick(() => {
@@ -125,7 +121,6 @@ class Post extends Component {
 
       const editButton = new Button();
       editButton.setText("Edit");
-      editButton.setClassName("edit-button");
       postActionButtons.add(editButton);
 
       let editCaptionForm;
@@ -150,13 +145,11 @@ class Post extends Component {
         const editCaptionSubmitButton = new Button();
         editCaptionSubmitButton.setType("submit");
         editCaptionSubmitButton.setText("Save");
-        editCaptionSubmitButton.setClassName("save-button");
         editCaptionForm.add(editCaptionSubmitButton);
 
         const editCaptionCancelButton = new Button();
         editCaptionCancelButton.setText("Cancel");
         editCaptionCancelButton.setType("button");
-        editCaptionCancelButton.setClassName("cancel-button");
         editCaptionForm.add(editCaptionCancelButton);
 
         editCaptionCancelButton.onClick(() => {

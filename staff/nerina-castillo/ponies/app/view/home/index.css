@@ -1,3 +1,6 @@
+@import url(../components/Button.css);
+
+
 body{
     font-family: 'Advent pro';
 
@@ -73,20 +76,13 @@ body{
     margin: 0.5rem;
     align-items: center;
     gap: 0.5rem;
+    justify-content: space-between;
    
 }
 
 .post__author {
     margin: .5rem;
     
-}
-.follow-button{
-    background-color: white;
-    border: none;
-    box-shadow: 1px 1px 10px 1px lightgray;
-    border-radius: 5px;
-
-
 }
 
 .post__image {
@@ -107,6 +103,7 @@ body{
     color: silver;
     font-size: .9rem;
 }
+
 .add-post-button{
     background: linear-gradient(to right, #A02BE8, #2fd5d5);
     color: white;
@@ -122,42 +119,12 @@ body{
     justify-content: space-around;
 }
 
-.delete-button, .edit-button, .save-button, .cancel-button{
-    background: white;
-    color:black;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 70px;
-    height: 30px;
-}
-
 .like-button{
     background-color: transparent;
     border: none;
 
 box-shadow: 1px 1px 10px 1px lightgray;
 border-radius: 5px;
-
-
-}
-
-.fav-button{
-    background-color: white;
-    border: none;
-    box-shadow: 1px 1px 10px 1px lightgray;
-    border-radius: 5px;
-
-
-}
-
-.home-button{
-    background-color: white;
-    border: none;
-    box-shadow: 1px 1px 10px 1px lightgray;
-    border-radius: 5px;
-
-
 
 }
 
@@ -171,9 +138,9 @@ border-radius: 5px;
     align-items: center;
     gap: 1rem;
     background-color: white;
-    padding: .8rem;
     box-sizing: border-box;
-    box-shadow: 0px 1px 1px lightgray
+    box-shadow: 0px 1px 1px lightgray;
+    padding: .4rem;
 }
 
 .logout-button{
@@ -194,7 +161,6 @@ border-radius: 5px;
     font-family:'Over the Rainbow' ;
     height: 20px ;
     margin: -30px 0 10px -5px;
-    
 }
 
 .main {
