@@ -1,3 +1,5 @@
+@import url(../components/Button.css);
+
 .view {
     display: flex;
     flex-direction: column;
@@ -38,9 +40,16 @@
     box-shadow: 1px 1px 10px 1px lightgray;
 }
 
-.post__author {
-    margin: .5rem;
+.post__top {
+    display: flex;
+    margin: 0 .5rem;
+    align-items: center;
+    gap: .5rem;
 }
+
+/* .post__author {
+    /* height: .5rem; */
+
 
 .post__image {
     width: 100%;
@@ -52,6 +61,8 @@
 
 .post__actions {
     margin: .5rem;
+    display: flex;
+    gap: .5rem;
 }
 
 .post__time {
@@ -69,8 +80,15 @@
     display: flex;
     justify-content: right;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 1px lightgray;
+}
+
+.header__user-name {
+    margin: 0;
 }
 
 .main {
@@ -87,4 +105,25 @@
     justify-content: center;
     background-color: white;
     padding: .5rem 0;
+    box-shadow: 0px -1px 1px lightgray;
+}
+
+.create-post-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+}
+
+.create-post-section__title {
+    margin: .5rem 0;
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
