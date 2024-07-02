@@ -25,6 +25,8 @@ class Post extends Component {
         postAuthorTitle.setText(post.author.username)
         top.add(postAuthorTitle)
 
+        const self = this
+
         const followButton = new Button
         followButton.setText(post.author.following ? '🦄' : '🐴')
         top.add(followButton)
@@ -33,7 +35,7 @@ class Post extends Component {
             try {
                 logic.toggleFollowUser(post.author.username) // { username: ..., following: true | false }
 
-                this.onUserFollowToggledCallback()
+                self.onUserFollowToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -63,7 +65,7 @@ class Post extends Component {
             try {
                 logic.toggleLikePost(post.id)
 
-                this.onPostLikeToggledCallback()
+                self.onPostLikeToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -79,7 +81,7 @@ class Post extends Component {
             try {
                 logic.toggleFavPost(post.id)
 
-                this.onPostFavToggledCallback()
+                self.onPostFavToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -97,18 +99,18 @@ class Post extends Component {
                     try {
                         logic.deletePost(post.id)
 
-                        // this.clearPosts()
-                        // this.listPosts()
-                        this.onPostDeletedCallback()
+                        // self.clearPosts()
+                        // self.listPosts()
+                        self.onPostDeletedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found') {
-                            // this.clearPosts()
-                            // this.listPosts()
-                            this.onPostDeletedCallback()
+                            // self.clearPosts()
+                            // self.listPosts()
+                            self.onPostDeletedCallback()
                         }
                     }
             })
@@ -120,11 +122,11 @@ class Post extends Component {
             let editCaptionForm
 
             editButton.onClick(() => {
-                //if (editCaptionForm && this.has(editCaptionForm)) return
+                //if (editCaptionForm && self.has(editCaptionForm)) return
                 if (editCaptionForm) return
 
                 editCaptionForm = new Form
-                this.add(editCaptionForm)
+                self.add(editCaptionForm)
 
                 const editCaptionLabel = new Label
                 editCaptionLabel.setFor('edit-caption-input')
@@ -145,9 +147,9 @@ class Post extends Component {
                 editCaptionCancelButton.setType('button')
                 editCaptionForm.add(editCaptionCancelButton)
 
-                // editCaptionCancelButton.onClick(() => this.remove(editCaptionForm))
+                // editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
                 editCaptionCancelButton.onClick(() => {
-                    this.remove(editCaptionForm)
+                    self.remove(editCaptionForm)
 
                     editCaptionForm = undefined
                 })
@@ -160,18 +162,18 @@ class Post extends Component {
 
                         logic.updatePostCaption(post.id, newCaption)
 
-                        this.remove(editCaptionForm)
+                        self.remove(editCaptionForm)
 
                         editCaptionForm = undefined
 
-                        this.onPostCaptionEditedCallback()
+                        self.onPostCaptionEditedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found')
-                            this.onPostCaptionEditedCallback()
+                            self.onPostCaptionEditedCallback()
                     }
                 })
             })

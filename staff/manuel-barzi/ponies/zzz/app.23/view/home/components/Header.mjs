@@ -23,6 +23,8 @@ class Header extends Component {
             alert(error.message)
         }
 
+        const self = this
+
         const homeButton = new Button
         homeButton.setText('🏚️')
         homeButton.addClassName('Button--active')
@@ -34,7 +36,7 @@ class Header extends Component {
             followingButton.removeClassName('Button--active')
             favsButton.removeClassName('Button--active')
 
-            this.onHomeClickCallback()
+            self.onHomeClickCallback()
         })
 
         const followingButton = new Button
@@ -47,7 +49,7 @@ class Header extends Component {
             homeButton.removeClassName('Button--active')
             favsButton.removeClassName('Button--active')
 
-            this.onFollowingClickCallback()
+            self.onFollowingClickCallback()
         })
 
         const favsButton = new Button
@@ -60,7 +62,7 @@ class Header extends Component {
             followingButton.removeClassName('Button--active')
             homeButton.removeClassName('Button--active')
 
-            this.onFavsClickCallback()
+            self.onFavsClickCallback()
         })
 
         const logoutButton = new Button

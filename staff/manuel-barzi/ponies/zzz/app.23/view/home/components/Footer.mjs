@@ -16,10 +16,12 @@ class Footer extends Component {
         addPostButton.setText('＋')
         this.add(addPostButton)
 
+        const self = this
+
         addPostButton.onClick(() => {
             const createPost = new Component(document.createElement('section'))
             createPost.setClassName('create-post-section')
-            this.add(createPost)
+            self.add(createPost)
 
             const createPostTitle = new Heading(2)
             createPostTitle.setClassName('create-post-section__title')
@@ -40,9 +42,9 @@ class Footer extends Component {
                 try {
                     logic.createPost(postImage, postCaption)
 
-                    this.remove(createPost)
+                    self.remove(createPost)
 
-                    this.onPostCreatedCallback()
+                    self.onPostCreatedCallback()
                 } catch (error) {
                     console.error(error)
 
@@ -92,7 +94,7 @@ class Footer extends Component {
             postCancelButton.setText('ｘ')
             postButtons.add(postCancelButton)
 
-            postCancelButton.onClick(() => this.remove(createPost))
+            postCancelButton.onClick(() => self.remove(createPost))
         })
     }
 

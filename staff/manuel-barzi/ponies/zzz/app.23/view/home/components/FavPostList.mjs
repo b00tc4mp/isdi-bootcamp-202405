@@ -22,35 +22,37 @@ class FavPostList extends Component {
         try {
             const posts = logic.getAllFavPosts()
 
+            const self = this
+
             posts.forEach(_post => {
                 const post = new Post(_post)
 
                 post.onPostDeleted(() => {
-                    this.clearPosts()
-                    this.listPosts()
+                    self.clearPosts()
+                    self.listPosts()
                 })
 
                 post.onPostCaptionEdited(() => {
-                    this.clearPosts()
-                    this.listPosts()
+                    self.clearPosts()
+                    self.listPosts()
                 })
 
                 post.onPostLikeToggled(() => {
-                    this.clearPosts()
-                    this.listPosts()
+                    self.clearPosts()
+                    self.listPosts()
                 })
 
                 post.onPostFavToggled(() => {
-                    this.clearPosts()
-                    this.listPosts()
+                    self.clearPosts()
+                    self.listPosts()
                 })
 
                 post.onUserFollowToggled(() => {
-                    this.clearPosts()
-                    this.listPosts()
+                    self.clearPosts()
+                    self.listPosts()
                 })
 
-                this.add(post)
+                self.add(post)
             })
         } catch (error) {
             console.error(error)
