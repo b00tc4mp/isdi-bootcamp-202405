@@ -25,8 +25,6 @@ class Post extends Component {
         postAuthorTitle.setText(post.author.username)
         top.add(postAuthorTitle)
 
-        const self = this
-
         if (post.author.username !== logic.getUserUsername()) {
             const followButton = new Button
             followButton.setText(post.author.following ? '🪅' : '🎠')
@@ -36,7 +34,7 @@ class Post extends Component {
                 try {
                     logic.toggleFollowUser(post.author.username)
 
-                    self.onUserFollowToggledCallback()
+                    this.onUserFollowToggledCallback()
                 } catch (error) {
                     console.error(error)
 
@@ -67,7 +65,7 @@ class Post extends Component {
             try {
                 logic.toggleLikePost(post.id)
 
-                self.onPostLikeToggledCallback()
+                this.onPostLikeToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -83,7 +81,7 @@ class Post extends Component {
             try {
                 logic.toggleFavPost(post.id)
 
-                self.onPostFavToggledCallback()
+                this.onPostFavToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -102,18 +100,18 @@ class Post extends Component {
                     try {
                         logic.deletePost(post.id)
 
-                        // self.clearPosts()
-                        // self.listPosts()
-                        self.onPostDeletedCallback()
+                        // this.clearPosts()
+                        // this.listPosts()
+                        this.onPostDeletedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found') {
-                            // self.clearPosts()
-                            // self.listPosts()
-                            self.onPostDeletedCallback()
+                            // this.clearPosts()
+                            // this.listPosts()
+                            this.onPostDeletedCallback()
                         }
                     }
             })
@@ -125,11 +123,11 @@ class Post extends Component {
             let editCaptionForm
 
             editButton.onClick(() => {
-                // if (editCaptionForm && self.has(editCaptionForm)) return
+                // if (editCaptionForm && this.has(editCaptionForm)) return
                 if (editCaptionForm) return
 
                 editCaptionForm = new Form
-                self.add(editCaptionForm)
+                this.add(editCaptionForm)
 
                 const editCaptionLabel = new Label
                 editCaptionLabel.setFor('edit-caption-input')
@@ -150,9 +148,9 @@ class Post extends Component {
                 editCaptionCancelButton.setType('button')
                 editCaptionForm.add(editCaptionCancelButton)
 
-                //editCaptionCancelButton.onClick(()=> self.remove((editCaptionForm))
+                //editCaptionCancelButton.onClick(()=> this.remove((editCaptionForm))
                 editCaptionCancelButton.onClick(() => {
-                    self.remove(editCaptionForm)
+                    this.remove(editCaptionForm)
 
                     editCaptionForm = undefined
                 })
@@ -165,23 +163,23 @@ class Post extends Component {
 
                         logic.updatePostCaption(post.id, newCaption)
 
-                        //self.container.removeChild(editCaptionForm.container)
-                        self.remove(editCaptionForm)
+                        //this.container.removeChild(editCaptionForm.container)
+                        this.remove(editCaptionForm)
 
                         editCaptionForm = undefined
 
-                        // self.clearPosts()
-                        // self.listPosts()
-                        self.onPostCaptionEditedCallback()
+                        // this.clearPosts()
+                        // this.listPosts()
+                        this.onPostCaptionEditedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found') {
-                            // self.clearPosts()
-                            // self.listPosts()
-                            self.onPostCaptionEditedCallback()
+                            // this.clearPosts()
+                            // this.listPosts()
+                            this.onPostCaptionEditedCallback()
                         }
                     }
                 })
