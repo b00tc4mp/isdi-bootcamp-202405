@@ -38,6 +38,7 @@ class Rook extends Pieces {
 
         document.addEventListener('click', updatePiece, { once: true });
         let piece = this;
+
         function updatePiece(e) {
             if (e.target.localName === 'input' && e.target.className === 'tile') {
 
@@ -71,7 +72,7 @@ class Rook extends Pieces {
 
     checkAdvance() {
         for (const key in board) {
-            if (board[key].top === this.top && board[key].left !== this.left) {
+            if (board[key].top === this.top && board[key].left !== this.left || board[key].top !== this.top && board[key].left === this.left) {
                 let pos = board.getTile(board[key].top, board[key].left);
                 document.getElementById(pos).disabled = false;
                 document.getElementById(pos).style.backgroundColor = "lightblue";
