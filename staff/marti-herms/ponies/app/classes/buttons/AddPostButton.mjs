@@ -16,7 +16,6 @@ class AddPostButton extends Button {
 
     onClick(buttonBox) {
         this.container.onclick = (event) => {
-
             event.stopPropagation();
 
             const home = new Component(document.body);

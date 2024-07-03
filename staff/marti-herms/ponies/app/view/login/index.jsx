@@ -1,6 +1,6 @@
 import logic from '../../logic/index.mjs';
 
-const Component = React.Component;
+const { Component } = React;
 
 class Login extends Component {
     constructor() {
