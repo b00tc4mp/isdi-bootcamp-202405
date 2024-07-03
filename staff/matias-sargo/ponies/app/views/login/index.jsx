@@ -1,9 +1,9 @@
 import logic from '../../logic/index.mjs'
 
-const component = React.Component
+const Component = React.Component
 
 class Login extends Component {
-    constrctor() {
+    constructor() {
         super()
     }
 
@@ -11,23 +11,24 @@ class Login extends Component {
         event.preventDefault()
 
         location.href = '../register'
-
     }
+
     handleLoginSubmit(event) {
         event.preventDefault()
 
-        const Form = event.target
+        const form = event.target
 
         const usernameInput = form['username-input']
         const passwordInput = form['password-input']
 
         const username = usernameInput.value
-        const password = password.value
+        const password = passwordInput.value
+
         try {
             logic.loginUser(username, password)
 
             location.href = '../home'
-        } catch(error) {
+        } catch (error) {
             console.error(error)
 
             alert(error.message)

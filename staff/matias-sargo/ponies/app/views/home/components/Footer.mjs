@@ -1,15 +1,10 @@
-import Component from '../../Component.mjs'
-import Button from '../../components/Button.mjs'
-import Heading from '../../components/Heading.mjs'
-import Label from '../../components/Label.mjs'
-import Form from '../../components/Form.mjs'
-import Input from '../../components/Input.mjs'
-
 import logic from '../../../logic/index.mjs'
+
+const { Component } = React
 
 class Footer extends Component {
     constructor() {
-        super(document.createElement('footer'))
+        super()
         this.setClassName('footer')
 
         const addPostButton = new Button
