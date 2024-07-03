@@ -1,5 +1,5 @@
 body {
-    background-color: #9E58F9;
+    background-color: rgb(17, 0, 0);
 }
 
 .view {
@@ -14,8 +14,8 @@ body {
     padding: 20px;
     border: 1px solid black;
     border-radius: 10%;
-    box-shadow: 0px 0px 10px 1px black;
-    background-color: white;
+    box-shadow: 0 0 10px 3px darkmagenta;
+    background-color: #9E58F9;
 }
 
 .form {
