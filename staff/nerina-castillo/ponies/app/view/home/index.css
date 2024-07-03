@@ -1,17 +1,22 @@
-@import url(../components/Button.css);
+@import url("./components/Button.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Over+the+Rainbow&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Over+the+Rainbow&display=swap");
 
 
-body{
+
+body {
     font-family: 'Advent pro';
 
 }
+
 .view {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
-   
+
 }
 
 .form {
@@ -20,29 +25,30 @@ body{
     gap: .5rem;
     min-width: 80%;
     margin-bottom: 0%;
-    
+
 }
 
 .form__field {
     display: flex;
     flex-direction: column;
     gap: .2rem
-    
 }
 
 .form__input {
-    font-size: inherit; border-radius: 5px;
-    border:none;
-    color:#000000;
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
     padding: .2rem;
     box-shadow: black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.form__caption-input{
-    font-size: inherit; border-radius: 5px;
-    border:none;
-    color:#000000;
+.form__caption-input {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
     padding: .2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     height: 50px;
@@ -58,7 +64,7 @@ body{
     padding: .2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 1rem;
-    
+
 }
 
 .post-list {
@@ -77,12 +83,12 @@ body{
     align-items: center;
     gap: 0.5rem;
     justify-content: space-between;
-   
+
 }
 
 .post__author {
     margin: .5rem;
-    
+
 }
 
 .post__image {
@@ -104,7 +110,7 @@ body{
     font-size: .9rem;
 }
 
-.add-post-button{
+.add-post-button {
     background: linear-gradient(to right, #A02BE8, #2fd5d5);
     color: white;
     border-radius: 5px;
@@ -114,17 +120,17 @@ body{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.post__actions{
-    display:flex;
+.post__actions {
+    display: flex;
     justify-content: space-around;
 }
 
-.like-button{
+.like-button {
     background-color: transparent;
     border: none;
 
-box-shadow: 1px 1px 10px 1px lightgray;
-border-radius: 5px;
+    box-shadow: 1px 1px 10px 1px lightgray;
+    border-radius: 5px;
 
 }
 
@@ -143,7 +149,7 @@ border-radius: 5px;
     padding: .4rem;
 }
 
-.logout-button{
+.logout-button {
     background: linear-gradient(to right, #A02BE8, #2fd5d5);
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -152,21 +158,21 @@ border-radius: 5px;
     height: 25px;
 }
 
-.header__user-name{
+.header__user-name {
     margin: 0;
 }
 
-.logo{
-    color:linear-gradient(to right, #A02BE8, #2fd5d5);
-    font-family:'Over the Rainbow' ;
-    height: 20px ;
+.logo {
+    color: linear-gradient(to right, #A02BE8, #2fd5d5);
+    font-family: 'Over the Rainbow';
+    height: 20px;
     margin: -30px 0 10px -5px;
 }
 
 .main {
     margin-top: 3.5rem;
     margin-bottom: 3rem;
-    
+
 }
 
 .footer {
@@ -179,7 +185,6 @@ border-radius: 5px;
     background-color: white;
     padding: .5rem 0;
     box-shadow: 0px -1px 1px lightgray
-    
 }
 
 .create-post-section {
@@ -190,6 +195,7 @@ border-radius: 5px;
     background-color: white;
     padding: .5rem;
     box-sizing: border-box;
+
 }
 
 .create-post-section__title {
@@ -198,6 +204,7 @@ border-radius: 5px;
 
 .create-post-section__buttons {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 1rem;
+
 }
