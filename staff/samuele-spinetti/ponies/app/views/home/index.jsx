@@ -1,11 +1,55 @@
-import Component from '../Component.mjs'
-import Header from './components/Header.mjs'
-import PostList from './components/PostList.mjs'
-import FavPostList from './components/FavPostList.mjs'
-import Footer from './components/Footer.mjs'
-import FollowingUserPostList from './components/FollowingUserPostList.mjs'
+import logic from '../../logic/index.mjs'
 
-const home = new Component(document.body)
+import Header from './components/Header'
+import PostList from './components/PostList'
+import Footer from './components/Footer'
+
+const Component = React.Component
+
+class Home extends Component {
+    constructor() {
+        super()
+
+        try {
+            const post = logic.getAllPosts()
+
+            this.state = { post }
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handleLogoutClick() {
+        try {
+            logic.logoutUser()
+
+            location.href = '../login'
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    render() {
+        return <>
+            <Header />
+
+            <main className="view main">
+                <PostList />
+            </main>
+
+            <Footer />
+        </>
+    }
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<Home />)
+
+/*const home = new Component(document.body)
 const header = new Header
 home.add(header)
 
@@ -70,4 +114,4 @@ home.add(footer)
 footer.onPostCreated(() => {
     postList.clearPosts()
     postList.listPosts()
-})
+})*/
