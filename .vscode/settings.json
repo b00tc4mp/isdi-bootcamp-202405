@@ -1,0 +1,51 @@
+{
+    // Workbench settings
+    "editor.minimap.enabled": false,
+
+    // Live Server settings
+    "liveServer.settings.donotShowInfoMsg": true,
+
+    // Managing TypeError 127
+    "terminal.integrated.shell.osx": "/bin/zsh",
+
+    // Explorer settings
+    "explorer.compactFolders": false,
+
+    // Vim settings
+    "vim.insertModeKeyBindingsNonRecursive": [
+        false
+    ],
+    "vim.insertModeKeyBindings": [
+        false
+    ],
+
+    // GitHub settings
+    "githubPullRequests.pullBranch": "never",
+
+    // 
+    "explorer.confirmDelete": false,
+
+    // 
+    "explorer.confirmDragAndDrop": false,
+
+    // Auto Save settings
+    "files.autoSave": "afterDelay",
+
+    // Comment settings
+    "workbench.colorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "comment",
+                    "comment.block"
+                ],
+                "settings": {
+                    // Color del texto de los comentarios (rojo)
+                    "foreground": "#FF0000",
+                    // Color de fondo de los comentarios (azul) 
+                    "background": "#0000FF"
+                }
+            }
+        ]
+    }
+}
