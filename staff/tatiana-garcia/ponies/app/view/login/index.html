@@ -6,36 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
-    <link rel="shortcut icon" href="../../image/poniesSvg.webp" type="image/x-icon">
-
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <main class="view">
-        <h1>Login</h1>
+    <div id="root"></div>
 
-        <form class="form">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
 
-            <div class="form__field">
-                <label for="username-input">Username</label>
-                <input class="form__input" type="text" id="username-input" name="username" placeholder="username">
-            </div>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-            <div class="form__field">
-                <label for="password-input">Password</label>
-                <input class="form__input" type="password" id="password-input" name="password" placeholder="password">
-            </div>
+    <script src="../../util/formatTime.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../util/generateId.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
 
-            <button class="form__button" type="submit">Login</button>
+    <script src="../../data/deletePost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/findPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/findPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/findUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/insertPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/insertUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/updatePost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/updateUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../data/index.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
 
-        </form>
+    <script src="../../logic/getAllPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/getUserName.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/getUserUsername.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/loginUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/logoutUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/registerUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/toggleLikePost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/updatePostCaption.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/createPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/deletePost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/toggleFavPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/getAllFavPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/toggleFollowUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/getAllFollowingUsersPosts.mjs" type="text/babel"
+        data-plugins="transform-modules-umd"></script>
+    <script src="../../logic/index.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
 
-        <a href="">Register</a>
-
-    </main>
-
-    <script src="index.mjs" type="module"></script>
+    <script src="index.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ import updatePostCaption from './updatePostCaption.mjs'
 import createPost from './createPost.mjs'
 import deletePost from './deletePost.mjs'
 import toggleFavPost from './toggleFavPost.mjs'
-import getAllFavPosts from './getAllFavPosts.mjs'
+import getAllFavPosts from './getAllFavPost.mjs'
 import toggleFollowUser from './toggleFollowUser.mjs'
 import getAllFollowingUsersPosts from './getAllFollowingUsersPosts.mjs'
 
