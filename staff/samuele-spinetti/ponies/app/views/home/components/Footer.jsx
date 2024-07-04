@@ -4,10 +4,20 @@ const { Component } = React
 
 class Footer extends Component {
     constructor() {
+        console.debug('Footer -> constructor')
         super()
+
+        this.state = { createPostVisible: false }
     }
 
-    state = { showing: false }
+    handleCreatePostClick() {
+        this.setState({ createPostVisible: true })
+    }
+
+    handleCancelCreatePostClick() {
+        this.setState({ createPostVisible: false })
+    }
+
 
     handleCreatePostSubmit(event) {
         event.preventDefault()
@@ -23,9 +33,9 @@ class Footer extends Component {
         try {
             logic.createPost(postImage, postCaption)
 
-            this.setState({ showing: false })
+            this.setState({ createPostVisible: false })
 
-            this.onPostCreatedCallback()
+            this.props.onPostCreated()
         } catch (error) {
             console.error(error)
 
@@ -33,34 +43,37 @@ class Footer extends Component {
         }
     }
 
-    handlePostCreated(callback) {
-        rhis.handlePostCreatedCallback = callback
-    }
-
     render() {
-        const { showing } = this.state;
+        console.debug('Footer -> render')
+
         return <footer className="footer">
-            <button className="add-post-button" onClick={() => this.setState({ showing: !showing })}>+</button>
-            <section className="create-post-section" style={{ display: (showing ? 'block' : 'none') }}>
+
+            <button className="add-post-button" onClick={this.handleCreatePostClick.bind(this)}>+</button>
+
+            {this.state.createPostVisible && <section className="create-post-section">
+
                 <h2 className="create-post-section__title">Create Post</h2>
-                <form className="form" onSubmit={this.handleCreatePostSubmit}>
+
+                <form className="form" onSubmit={this.handleCreatePostSubmit.bind(this)}>
                     <div className="form__field">
                         <label htmlFor="post-image-input">Image</label>
                         <input className="form__input" id="post-image-input" type="text" />
                     </div>
+
                     <div className="form__field">
                         <label htmlFor="post-caption-input">Caption</label>
                         <input className="form__input" id="post-caption-input" type="text" />
                     </div>
+
                     <div className="create-post-section__buttons">
                         <button className="form__button" type="submit">Create</button>
-                        <button className="form__button" type="reset">Cancel</button>
+                        <button className="form__button" type="reset" onClick={this.handleCancelCreatePostClick.bind(this)}>Cancel</button>
                     </div>
+
                 </form>
-            </section>
+            </section>}
         </footer>
     }
-
 }
 
 export default Footer
