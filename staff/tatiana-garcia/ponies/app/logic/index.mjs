@@ -1,6 +1,6 @@
 import getAllPosts from './getAllPosts.mjs'
 import getUserName from './getUserName.mjs'
-import getUserUsername from './getUserUserName.mjs'
+import getUserUsername from './getUserUsername.mjs'
 import loginUser from './loginUser.mjs'
 import logoutUser from './logoutUser.mjs'
 import registerUser from './registerUser.mjs'
