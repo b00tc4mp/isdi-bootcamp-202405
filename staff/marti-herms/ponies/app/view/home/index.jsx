@@ -2,23 +2,26 @@ import Header from './components/Header';
 import PostList from './components/PostList';
 import Footer from './components/Footer';
 
-import logic from '../../logic/index.mjs';
-
-
 const { Component } = React;
 
 class Home extends Component {
     constructor() {
         super();
+
+        this.state = { refreshStamp: null };
+    }
+
+    handlePostCreated() {
+        this.setState({ refreshStamp: Date.now() })
     }
 
     render() {
         return <>
             <Header />
             <main className="view main">
-                <PostList />
+                <PostList refreshStamp={this.state.refreshStamp} />
             </main>
-            <Footer />
+            <Footer onPostCreated={this.handlePostCreated.bind(this)} />
         </>
     }
 }

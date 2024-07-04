@@ -310,6 +310,17 @@ button {
     background-color: silver;
 }
 
+.save-button-list {
+    display: inline-block;
+    margin: 5px;
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1;
+    clip-path: polygon(0% 0%, 0% 100%, 50% 70%, 100% 100%, 100% 0%);
+    border: 0px;
+    background-color: white;
+}
+
 
 
 .like-counter {

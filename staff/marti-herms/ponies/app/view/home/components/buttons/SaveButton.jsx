@@ -22,10 +22,20 @@ class SaveButton extends Component {
         logic.toggleSavedPost(postId);
     }
 
-    render() {
-        const flag = this.state.saved ? <div className="save-button-active"></div> : <div className="save-button-inactive"></div>
+    componentWillReceiveProps(newProps) {
+        const { postId } = newProps
 
-        return <button className="save-button" onClick={this.handleSave}>{flag}</button>
+        this.setState({
+            saved: logic.hasPostSaved(postId)
+        });
+    }
+
+    render() {
+        const flag = this.state.saved ? "save-button-active" : "save-button-inactive"
+
+        return <button className="save-button" onClick={this.handleSave}>
+            <div className={flag}></div>
+        </button>
     }
 }
 

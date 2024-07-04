@@ -9,8 +9,8 @@ const addPost = (img, caption) => {
 
     const post = {
         id: generateId(),
-        img: img,
-        caption: caption,
+        img,
+        caption,
         author: sessionStorage.username,
         date: new Date().toISOString(),
         likes: []

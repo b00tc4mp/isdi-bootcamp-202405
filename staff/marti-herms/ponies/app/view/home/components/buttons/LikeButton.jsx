@@ -5,27 +5,39 @@ const Component = React.Component;
 class LikeButton extends Component {
     constructor(props) {
         super(props);
-        const { postId } = props
+        const { post } = this.props
 
         this.state = {
-            liked: logic.hasLikedPost(postId)
+            liked: post.likes.includes(logic.getUserUsername())
         };
     }
 
-    handleLike = () => {
-        const { postId } = this.props
+    handleLike() {
+        const { post } = this.props
 
         this.setState({
             liked: !this.state.liked
         });
 
-        logic.togglePostLike(postId);
+        logic.togglePostLike(post.id);
+
+        this.props.onLikeClicked();
+    }
+
+    componentWillReceiveProps(newProps) {
+        const { post } = newProps
+
+        this.setState({
+            liked: post.likes.includes(logic.getUserUsername())
+        });
     }
 
     render() {
-        const heart = this.state.liked ? <div className="like-button-active"></div> : <div className="like-button-inactive"></div>
+        const like = this.state.liked ? 'like-button-active' : 'like-button-inactive'
 
-        return <button className="like-button" onClick={this.handleLike}>{heart}</button>
+        return <button className="like-button" onClick={this.handleLike.bind(this)}>
+            <div className={like}></div>
+        </button>
     }
 }
 
