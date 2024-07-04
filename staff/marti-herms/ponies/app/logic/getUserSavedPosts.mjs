@@ -7,7 +7,7 @@ const getUserSavedPosts = () => {
         throw new Error('user not found');
     }
 
-    return user.savedPosts;
+    return data.findPosts(post => user.savedPosts.includes(post.id));
 }
 
 export default getUserSavedPosts;

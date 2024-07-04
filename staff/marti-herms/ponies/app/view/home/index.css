@@ -348,6 +348,10 @@ button {
     background-color: white;
 }
 
+.active {
+    background-color: gray;
+}
+
 /* search button */
 
 .search-button {

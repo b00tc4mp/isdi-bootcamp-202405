@@ -15,7 +15,9 @@ class Post extends Component {
     }
 
     handleUserPosts() {
+        const post = this.props.post;
 
+        this.props.onUsernameClick(post.author);
     }
 
     handleFollowButton() {
@@ -93,7 +95,7 @@ class Post extends Component {
 
         return <article className="post">
             <div className='post__author__div'>
-                <button className="post__author" onClick={this.handleUserPosts}>{post.author}</button>
+                <button className="post__author" onClick={this.handleUserPosts.bind(this)}>{post.author}</button>
                 {post.author !== logic.getUserUsername() && <button className='post__author__button' onClick={this.handleFollowButton.bind(this)}>{logic.isUserFollowing(post.author) ? 'Unfollow' : 'Follow'}</button>}
             </div>
             <img src={post.img} className="post__image" />

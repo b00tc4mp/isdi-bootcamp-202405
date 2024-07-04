@@ -1,11 +1,13 @@
 import data from "../data/index.mjs";
 
-const getUserPosts = (user) => {
-    if (typeof user === 'string') {
-        user = data.findUser(userSearch => userSearch.username === user)
+const getUserPosts = (username) => {
+    const user = data.findUser(user => user.username === username);
+
+    if (user === null) {
+        throw new Error('user not found');
     }
 
-    return user.yourPosts;
+    return data.findPosts(post => user.yourPosts.includes(post.id));
 
 }
 

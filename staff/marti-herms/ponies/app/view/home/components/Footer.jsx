@@ -1,41 +1,68 @@
 import logic from '../../../logic/index.mjs';
 
+import AddPostSection from './AddPostSection';
+import SearchSection from './SearchSection';
+
 const { Component } = React;
 
 class Footer extends Component {
     constructor() {
         super();
 
-        this.state = { addPostVisibility: false };
+        this.state = { addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false };
     }
+
+
 
     handleHomeButton() {
+        this.setState({ homeButton: true, savedButton: false, searchButton: false, followedButton: false });
 
+        this.props.onHomeButtonClick();
     }
+
+
+
+    handleFollowedPostsButton() {
+        this.setState({ homeButton: false, savedButton: false, searchButton: false, followedButton: true });
+
+        this.props.onFollowedButtonClick();
+    }
+
+
+
+    handleSavedPostsButton() {
+        this.setState({ homeButton: false, savedButton: true, searchButton: false, followedButton: false })
+
+        this.props.onSavedPostsButtonClick();
+    }
+
+
 
     handleSearchUserButton() {
-
+        this.setState({ addPostVisibility: 'searchUser', homeButton: false, savedButton: false, searchButton: true, followedButton: false });
     }
+
+    handleUserSearched(username) {
+        try {
+            this.setState({ addPostVisibility: null, homeButton: false, savedButton: false, searchButton: true, followedButton: false });
+
+            this.props.onSearch(username);
+        } catch (error) {
+            console.error(error);
+
+            alert(error.message);
+        }
+    }
+
+
 
     handleAddPostButton() {
-        this.setState({ addPostVisibility: true })
+        this.setState({ addPostVisibility: 'addPost' })
     }
 
-    handleAddPost(event) {
-        event.preventDefault();
-
-        const form = event.target
-
-        const postImageInput = form['post-image-input'];
-        const postCaptionInput = form['post-caption-input'];
-
-        const postImage = postImageInput.value;
-        const postCaption = postCaptionInput.value;
-
+    handlePostCreated() {
         try {
-            logic.addPost(postImage, postCaption);
-
-            this.setState({ addPostVisibility: false })
+            this.setState({ addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false })
 
             this.props.onPostCreated();
         } catch (error) {
@@ -45,53 +72,26 @@ class Footer extends Component {
         }
     }
 
-    handleCancel(event) {
-        event.stopPropagation();
-
-        if (event.target.className === 'fader')
-            this.setState({ addPostVisibility: false });
-    }
-
-    handleCancelButton() {
-        this.setState({ addPostVisibility: false });
-    }
-
-    handleFollowedPostsButton() {
-
-    }
-
-    handleSavedPostsButton() {
-
+    handleCancel() {
+        this.setState({ addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false });
     }
 
 
 
     render() {
-        const addPostSection = <div className="fader" onClick={this.handleCancel.bind(this)}>
-            <section className='newposts'>
-                <h2>Create Post</h2>
-                <form onSubmit={this.handleAddPost.bind(this)}>
-                    <div className='form__field'>
-                        <label htmlFor="post-image-input">Image:</label>
-                        <input id='post-image-input' className='form__input' type="text" />
-                    </div>
-                    <div className='form__field'>
-                        <label htmlFor="post-caption-input">Caption:</label>
-                        <input id='post-caption-input' className='form__input' type="text" />
-                    </div>
-                    <button className='form__button' type='submit'>Create</button>
-                    <button className='form__button' type='button' onClick={this.handleCancelButton.bind(this)}>Cancel</button>
-                </form>
-            </section>
-        </div>
+        let homeClassName = this.state.homeButton ? 'home-button active' : 'home-button'
+        let savedClassName = this.state.savedButton ? 'save-button-list active' : 'save-button-list'
+        let searchClassName = this.state.searchButton ? 'search-button active' : 'search-button'
+        let followedClassName = this.state.followedButton ? 'followed-button active' : 'followed-button'
 
         return <footer className="footer">
-            {this.state.addPostVisibility && addPostSection}
-            <button className="home-button" onClick={this.handleHomeButton}></button>
-            <button className="search-button" onClick={this.handleSearchUserButton}></button>
+            {this.state.addPostVisibility === 'addPost' && <AddPostSection onPostCreated={this.handlePostCreated.bind(this)} onCancel={this.handleCancel.bind(this)} />}
+            {this.state.addPostVisibility === 'searchUser' && <SearchSection onSearch={this.handleUserSearched.bind(this)} onCancel={this.handleCancel.bind(this)} />}
+            <button className={homeClassName} onClick={this.handleHomeButton.bind(this)}></button>
+            <button className={searchClassName} onClick={this.handleSearchUserButton.bind(this)}></button>
             <button className="add-post-button" onClick={this.handleAddPostButton.bind(this)}>+</button>
-            <button className="followed-button" onClick={this.handleFollowedPostsButton}></button>
-            <button className="save-button-list" onClick={this.handleSavedPostsButton}></button>
+            <button className={followedClassName} onClick={this.handleFollowedPostsButton.bind(this)}></button>
+            <button className={savedClassName} onClick={this.handleSavedPostsButton.bind(this)}></button>
         </footer>
     }
 }

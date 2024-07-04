@@ -20,7 +20,7 @@ class PostList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.refreshStamp !== this.props.refreshStamp) {
+        if (newProps.refreshStamp !== this.props.refreshStamp || (newProps.feed !== this.props.feed && newProps.feed === 'home')) {
             try {
                 const posts = logic.getAllPosts();
 
@@ -30,6 +30,48 @@ class PostList extends Component {
 
                 alert(error.message);
             }
+        } else if (newProps.feed !== this.props.feed && newProps.feed === 'saved') {
+            try {
+                const posts = logic.getUserSavedPosts();
+
+                this.setState({ posts });
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message);
+            }
+        } else if (newProps.feed !== this.props.feed && newProps.feed === 'followed') {
+            try {
+                const posts = logic.getFollowedUserPosts();
+
+                this.setState({ posts });
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message);
+            }
+        } else if (newProps.feed !== this.props.feed && logic.getUserList().includes(newProps.feed)) {
+            try {
+                const posts = logic.getUserPosts(newProps.feed);
+
+                this.setState({ posts });
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message);
+            }
+        }
+    }
+
+    handleUserPosts(username) {
+        try {
+            const posts = logic.getUserPosts(username);
+
+            this.setState({ posts });
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message);
         }
     }
 
@@ -71,7 +113,10 @@ class PostList extends Component {
 
     render() {
         return <section className="post-list">
-            {this.state.posts.map(post => <Post post={post} onPostDeleted={this.handleDeletedPost.bind(this)} onPostEdited={this.handlePostEdited.bind(this)} onPostLiked={this.handlePostliked.bind(this)} />)}
+            {this.state.posts.map(post => <Post post={post}
+                onUsernameClick={this.handleUserPosts.bind(this)}
+                onPostDeleted={this.handleDeletedPost.bind(this)} onPostEdited={this.handlePostEdited.bind(this)}
+                onPostLiked={this.handlePostliked.bind(this)} />)}
         </section>
     }
 }
