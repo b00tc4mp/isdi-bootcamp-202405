@@ -4,8 +4,6 @@ const { Component } = React // taty: "descomponent"
 
 class Header extends Component {
     constructor() {
-        console.debug('Header -> constructor')
-
         super()
 
         try {
@@ -20,8 +18,6 @@ class Header extends Component {
     }
 
     handleLogout() {
-        console.debug('Header -> handleLogout')
-
         try {
             logic.logoutUser()
 
@@ -34,8 +30,6 @@ class Header extends Component {
     }
 
     render() {
-        console.debug('Header -> render')
-
         return <header className="header">
             <p className="header__user-name">Hello, {this.state.name}!</p>
             <button className="Button Button--active">🏚️</button>

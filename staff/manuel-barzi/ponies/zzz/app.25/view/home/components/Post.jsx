@@ -6,14 +6,10 @@ const { Component } = React
 
 class Post extends Component {
     constructor() {
-        console.debug('Post -> constructor')
-
         super()
     }
 
     render() {
-        console.debug('Post -> render')
-
         const post = this.props.post
 
         return <article className="post">

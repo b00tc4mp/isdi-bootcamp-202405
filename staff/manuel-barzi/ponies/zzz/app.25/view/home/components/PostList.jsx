@@ -6,8 +6,6 @@ import Post from './Post.jsx'
 
 class PostList extends Component {
     constructor() {
-        console.debug('PostList -> constructor')
-
         super()
 
         try {
@@ -22,8 +20,6 @@ class PostList extends Component {
     }
 
     render() {
-        console.debug('PostList -> render')
-
         return <section className="post-list">
             {this.state.posts.map(post => <Post post={post} />)}
         </section>
