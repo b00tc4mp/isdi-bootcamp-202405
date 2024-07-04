@@ -16,10 +16,32 @@ class Post extends Component {
         super(document.createElement('article'))
         this.setClassName('post')
 
+        const top = new Component(document.createElement('div'))
+        top.setClassName('post__top')
+        this.add(top)
+
         const postAuthorTitle = new Heading(3)
         postAuthorTitle.setClassName('post__author')
-        postAuthorTitle.setText(post.author)
-        this.add(postAuthorTitle)
+        postAuthorTitle.setText(post.author.username)
+        top.add(postAuthorTitle)
+
+        const self = this
+
+        const followButton = new Button
+        followButton.setText(post.author.following ? '🦄' : '🐴')
+        top.add(followButton)
+
+        followButton.onClick(() => {
+            try {
+                logic.toggleFollowUser(post.author.username) // { username: ..., following: true | false }
+
+                self.onUserFollowToggledCallback()
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message)
+            }
+        })
 
         const postImage = new Image
         postImage.setClassName('post__image')
@@ -31,14 +53,12 @@ class Post extends Component {
         postCaptionText.setText(post.caption)
         this.add(postCaptionText)
 
-        const self = this
-
         const postActionButtons = new Component(document.createElement('div'))
         postActionButtons.setClassName('post__actions')
         this.add(postActionButtons)
 
         const postToggleLikeButton = new Button
-        postToggleLikeButton.setText((post.likes.includes(logic.getUserUsername()) ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's'))
+        postToggleLikeButton.setText((post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's'))
         postActionButtons.add(postToggleLikeButton)
 
         postToggleLikeButton.onClick(() => {
@@ -53,9 +73,25 @@ class Post extends Component {
             }
         })
 
-        if (post.author === logic.getUserUsername()) {
+        const postToggleFavButton = new Button
+        postToggleFavButton.setText(post.fav ? '🏳️‍🌈' : '🏳️')
+        postActionButtons.add(postToggleFavButton)
+
+        postToggleFavButton.onClick(() => {
+            try {
+                logic.toggleFavPost(post.id)
+
+                self.onPostFavToggledCallback()
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message)
+            }
+        })
+
+        if (post.author.username === logic.getUserUsername()) {
             const postDeleteButton = new Button
-            postDeleteButton.setText('Delete')
+            postDeleteButton.setText('🗑️')
             postActionButtons.add(postDeleteButton)
 
             postDeleteButton.onClick(() => {
@@ -80,11 +116,16 @@ class Post extends Component {
             })
 
             const editButton = new Button
-            editButton.setText('Edit')
+            editButton.setText('📝')
             postActionButtons.add(editButton)
 
+            let editCaptionForm
+
             editButton.onClick(() => {
-                const editCaptionForm = new Form
+                //if (editCaptionForm && self.has(editCaptionForm)) return
+                if (editCaptionForm) return
+
+                editCaptionForm = new Form
                 self.add(editCaptionForm)
 
                 const editCaptionLabel = new Label
@@ -106,7 +147,12 @@ class Post extends Component {
                 editCaptionCancelButton.setType('button')
                 editCaptionForm.add(editCaptionCancelButton)
 
-                editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
+                // editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
+                editCaptionCancelButton.onClick(() => {
+                    self.remove(editCaptionForm)
+
+                    editCaptionForm = undefined
+                })
 
                 editCaptionForm.onSubmit(event => {
                     event.preventDefault()
@@ -116,22 +162,18 @@ class Post extends Component {
 
                         logic.updatePostCaption(post.id, newCaption)
 
-                        //self.container.removeChild(editCaptionForm.container)
                         self.remove(editCaptionForm)
 
-                        // self.clearPosts()
-                        // self.listPosts()
+                        editCaptionForm = undefined
+
                         self.onPostCaptionEditedCallback()
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
-                        if (error.message === 'post not found') {
-                            // self.clearPosts()
-                            // self.listPosts()
+                        if (error.message === 'post not found')
                             self.onPostCaptionEditedCallback()
-                        }
                     }
                 })
             })
@@ -153,6 +195,14 @@ class Post extends Component {
 
     onPostLikeToggled(callback) {
         this.onPostLikeToggledCallback = callback
+    }
+
+    onPostFavToggled(callback) {
+        this.onPostFavToggledCallback = callback
+    }
+
+    onUserFollowToggled(callback) {
+        this.onUserFollowToggledCallback = callback
     }
 }
 

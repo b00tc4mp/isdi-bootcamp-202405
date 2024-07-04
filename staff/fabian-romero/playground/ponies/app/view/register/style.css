@@ -1,3 +1,10 @@
+body {
+    background: #f3d7fa;
+    box-sizing: border-box;
+    height: 100%;
+
+}
+
 .view {
     display: flex;
     flex-direction: column;
