@@ -17,7 +17,7 @@ class Login extends Component {
     handleLoginSubmit(event) {
         event.preventDefault() //para que no se resetee la pagina
 
-        const form = event.target
+        const form = event.target //propiedad que permite acceder al elemento
 
         const usernameInput = form['username-input']
         const passwordInput = form['password-input']
@@ -42,7 +42,7 @@ class Login extends Component {
 
             <form className="form" onSubmit={this.handleLoginSubmit}>
                 <div className="form__field">
-                    <label htmlor="username-input">Username</label>
+                    <label htmFor="username-input">Username</label>
                     <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
                 </div>
 
