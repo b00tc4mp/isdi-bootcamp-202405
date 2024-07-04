@@ -33,3 +33,4 @@ function formatTime(date) {
 
     return years + ' year' + (years === 1 ? '' : 's')
 }
+export default formatTime
