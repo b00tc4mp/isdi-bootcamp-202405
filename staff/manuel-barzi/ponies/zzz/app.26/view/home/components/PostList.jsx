@@ -36,35 +36,11 @@ class PostList extends Component {
             }
     }
 
-    handlePostDeleted() {
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    handlePostEdited() {
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
     render() {
         console.debug('PostList -> render')
 
         return <section className="post-list">
-            {this.state.posts.map(post => <Post post={post} onPostDeleted={this.handlePostDeleted.bind(this)} onPostEdited={this.handlePostEdited.bind(this)} />)}
+            {this.state.posts.map(post => <Post post={post} />)}
         </section>
     }
 }
