@@ -66,6 +66,48 @@ class Post extends Component {
         }
     }
 
+    handleLikePostClick() {
+        console.debug('Post -> handleLikePostClick')
+
+        try {
+            logic.toggleLikePost(this.props.post.id)
+
+            this.props.onPostLikeToggled()
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handleFavPostClick() {
+        console.debug('Post -> handleFavPostClick')
+
+        try {
+            logic.toggleFavPost(this.props.post.id)
+
+            this.props.onPostFavToggled()
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handleFollowUserClick() {
+        console.debug('Post -> handleFollowUserClick')
+
+        try {
+            logic.toggleFollowUser(this.props.post.author.username)
+
+            this.props.onUserFollowToggled()
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     render() {
         console.debug('Post -> render')
 
@@ -75,7 +117,7 @@ class Post extends Component {
             <div className="post__top">
                 <h3 className="post__author">{post.author.username}</h3>
 
-                <button className="Button">{post.author.following ? '🦄' : '🐴'}</button>
+                <button className="Button" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🦄' : '🐴'}</button>
             </div>
 
             <img className="post__image" src={post.image} />
@@ -83,8 +125,8 @@ class Post extends Component {
             <p className="post__caption">{post.caption}</p>
 
             <div className="post__actions">
-                <button className="Button">{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</button>
-                <button className="Button">{post.fav ? '🏳️‍🌈' : '🏳️'}</button>
+                <button className="Button" onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</button>
+                <button className="Button" onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🏳️‍🌈' : '🏳️'}</button>
 
                 {post.author.username === logic.getUserUsername() && <>
                     <button className="Button" onClick={this.handleDeletePostClick.bind(this)}>🗑️</button>
