@@ -19,6 +19,24 @@ class Header extends Component {
         }
     }
 
+    handleHomeClick() {
+        console.debug('Header -> handleHomeClick')
+
+        this.props.onHomeClick()
+    }
+
+    handlePoniesClick() {
+        console.debug('Header -> handlePoniesClick')
+
+        this.props.onPoniesClick()
+    }
+
+    handleFavsClick() {
+        console.debug('Header -> handleFavsClick')
+
+        this.props.onFavsClick()
+    }
+
     handleLogout() {
         console.debug('Header -> handleLogout')
 
@@ -38,9 +56,9 @@ class Header extends Component {
 
         return <header className="header">
             <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button className="Button Button--active">🏚️</button>
-            <button className="Button">🦄</button>
-            <button className="Button">🏳️‍🌈</button>
+            <button className="Button Button--active" onClick={this.handleHomeClick.bind(this)}>🏚️</button>
+            <button className="Button" onClick={this.handlePoniesClick.bind(this)}>🦄</button>
+            <button className="Button" onClick={this.handleFavsClick.bind(this)}>🏳️‍🌈</button>
             <button className="Button" onClick={this.handleLogout}>🚪</button>
         </header>
     }

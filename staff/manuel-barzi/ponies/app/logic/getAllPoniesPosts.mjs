@@ -1,6 +1,6 @@
 import data from '../data/index.mjs'
 
-const getAllFollowingUserPosts = () => {
+const getAllPoniesPosts = () => {
     const user = data.findUser(user => user.username === sessionStorage.username)
 
     if (user === null)
@@ -20,4 +20,4 @@ const getAllFollowingUserPosts = () => {
     return posts.reverse()
 }
 
-export default getAllFollowingUserPosts
+export default getAllPoniesPosts
