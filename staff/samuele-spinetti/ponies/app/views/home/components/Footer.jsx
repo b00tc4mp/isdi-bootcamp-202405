@@ -4,7 +4,6 @@ const { Component } = React
 
 class Footer extends Component {
     constructor() {
-        console.debug('Footer -> constructor')
         super()
 
         this.state = { createPostVisible: false }
@@ -44,7 +43,6 @@ class Footer extends Component {
     }
 
     render() {
-        console.debug('Footer -> render')
 
         return <footer className="footer">
 

@@ -1,5 +1,5 @@
 import Header from './components/Header'
-import PostList from './components/PostList'
+import Body from './components/Body'
 import Footer from './components/Footer'
 
 const Component = React.Component
@@ -8,7 +8,7 @@ class Home extends Component {
     constructor() {
         super()
 
-        this.state = { refreshStamp: null }
+        this.state = { refreshStamp: null, view: 'home' }
     }
 
     handlePostCreated() {
@@ -16,13 +16,23 @@ class Home extends Component {
         this.setState({ refreshStamp: Date.now() })
     }
 
+    handleHome() {
+        this.setState({ view: 'home' })
+    }
+
+    handleFavsPosts() {
+        this.setState({ view: 'favorites' })
+    }
+
+    handleFollowingUsersPosts() {
+        this.setState({ view: 'following' })
+    }
+
     render() {
         return <>
-            <Header />
+            <Header onHomeClicked={this.handleHome.bind(this)} onFavsPostsClicked={this.handleFavsPosts.bind(this)} onFollowingUsersPostsClicked={this.handleFollowingUsersPosts.bind(this)} />
 
-            <main className="view main">
-                <PostList refreshStamp={this.state.refreshStamp} />
-            </main>
+            <Body refreshStamp={this.state.refreshStamp} view={this.state.view} />
 
             <Footer onPostCreated={this.handlePostCreated.bind(this)} />
         </>
