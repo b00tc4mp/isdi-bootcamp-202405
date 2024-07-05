@@ -60,11 +60,55 @@ class PostList extends Component {
         }
     }
 
+    handlePostLikeToggled() {
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(message.error)
+        }
+    }
+
+    handlePostFavToggled() {
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handleUserFollowToggled() {
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     render() {
         console.debug('PostList -> render')
 
         return <section className="post-list">
-            {this.state.posts.map(post => <Post post={post} onPostDeleted={this.handlePostDeleted.bind(this)} onPostEdited={this.handlePostEdited.bind(this)} />)}
+            {this.state.posts.map(post => <Post
+                key={post.id}
+                post={post}
+                onPostDeleted={this.handlePostDeleted.bind(this)}
+                onPostEdited={this.handlePostEdited.bind(this)}
+                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
+                onPostFavToggled={this.handlePostFavToggled.bind(this)}
+                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
+            />)}
         </section>
     }
 }
