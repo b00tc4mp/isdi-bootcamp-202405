@@ -42,8 +42,8 @@ class Post extends Component {
         this.setState({ editPostVisible: false })
     }
 
-    handleEditpostSubmit(event) {
-        console.debug('Post -> handleCancelEditPostClick')
+    handleEditPostSubmit(event) {
+        console.debug('Post -> handleEditPostSubmit')
 
         event.preventDefault()
 
@@ -94,7 +94,7 @@ class Post extends Component {
 
             <time className="post__time">{formatTime(new Date(post.date))}</time>
 
-            {this.state.editPostVisible && <form onSubmit={this.handleEditpostSubmit.bind(this)}>
+            {this.state.editPostVisible && <form onSubmit={this.handleEditPostSubmit.bind(this)}>
                 <label for="edit-caption-input"></label>
                 <input id="edit-caption-input" defaultValue={post.caption} />
 
