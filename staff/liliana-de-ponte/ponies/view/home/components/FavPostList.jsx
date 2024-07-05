@@ -4,14 +4,14 @@ const { Component } = React
 
 import Post from './Post.jsx'
 
-class PostList extends Component {
+class FavPostList extends Component {
     constructor() {
-        console.debug('PostList -> constructor')
+        console.debug('FavPostList -> constructor')
 
         super()
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.state = { posts } //objeto que contiene datos que pueden cambiar en el tiempo 
         } catch (error) {
@@ -26,7 +26,7 @@ class PostList extends Component {
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                const posts = logic.getAllFavPosts()
 
                 this.setState({ posts })
 
@@ -39,7 +39,7 @@ class PostList extends Component {
 
     handlePostDeleted() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -51,7 +51,7 @@ class PostList extends Component {
 
     handlePostEdited() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -63,7 +63,7 @@ class PostList extends Component {
 
     handlePostLikeToggled() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -75,7 +75,7 @@ class PostList extends Component {
 
     handlePostFavToggled() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -87,7 +87,7 @@ class PostList extends Component {
 
     handleUserFollowToggled() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -102,15 +102,14 @@ class PostList extends Component {
 
         return <section className="post-list">
             {this.state.posts.map(post => <Post
+                key={post.id}
                 post={post}
                 onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
+                onPostEdited={this.handlePostEdited.bind(this)} onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
                 onPostFavToggled={this.handlePostFavToggled.bind(this)}
-                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
-            />)}
+                onUserFollowToggled={this.handleUserFollowToggled.bind(this)} />)}
         </section>
     }
 }
 
-export default PostList
+export default FavPostList

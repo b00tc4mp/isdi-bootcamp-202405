@@ -4,14 +4,14 @@ const { Component } = React
 
 import Post from './Post.jsx'
 
-class PostList extends Component {
+class PoniesPostList extends Component {
     constructor() {
-        console.debug('PostList -> constructor')
+        console.debug('PoniesPostList -> constructor')
 
         super()
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.state = { posts } //objeto que contiene datos que pueden cambiar en el tiempo 
         } catch (error) {
@@ -22,11 +22,11 @@ class PostList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
+        console.debug('PoniesPostList -> componentWillReceiveProps', newProps, this.props)
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                const posts = logic.getAllPoniesPosts()
 
                 this.setState({ posts })
 
@@ -38,8 +38,9 @@ class PostList extends Component {
     }
 
     handlePostDeleted() {
+        console.debug('PoniesPostList -> handlePostDeleted')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -50,8 +51,9 @@ class PostList extends Component {
     }
 
     handlePostEdited() {
+        console.debug('PoniesPostList -> handlePostDeleted')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -62,8 +64,9 @@ class PostList extends Component {
     }
 
     handlePostLikeToggled() {
+        console.debug('PoniesPostList -> handlePostLikeToggled')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -74,8 +77,9 @@ class PostList extends Component {
     }
 
     handlePostFavToggled() {
+        console.debug('PoniesPostList -> handlePostFavToggled')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -86,8 +90,9 @@ class PostList extends Component {
     }
 
     handleUserFollowToggled() {
+        console.debug('PoniesPostList -> handleUserFollowToggled')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -102,15 +107,14 @@ class PostList extends Component {
 
         return <section className="post-list">
             {this.state.posts.map(post => <Post
+                key={post.id}
                 post={post}
                 onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
+                onPostEdited={this.handlePostEdited.bind(this)} onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
                 onPostFavToggled={this.handlePostFavToggled.bind(this)}
-                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
-            />)}
+                onUserFollowToggled={this.handleUserFollowToggled.bind(this)} />)}
         </section>
     }
 }
 
-export default PostList
+export default PoniesPostList
