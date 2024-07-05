@@ -75,7 +75,7 @@ class Post extends Component {
         try {
             logic.toggleLikePost(this.props.post.id) // aqui esto porque es propuedad de js 
 
-            this.props.onPostLiked()
+            this.props.onPostLikeToggled()
         } catch (error) {
             console.error(error)
 
@@ -90,7 +90,7 @@ class Post extends Component {
         try {
             logic.toggleFavPost(this.props.post.id) // esto viene de la logica de toggle
 
-            this.props.onPostFavorited() // aqui se pone el nombre que le puse en postlistrender
+            this.props.onPostFavToggled() // aqui se pone el nombre que le puse en postlistrender
         } catch (error) {
             console.error(error)
 
@@ -102,9 +102,9 @@ class Post extends Component {
         console.debug('Post -> handleFollowUserClick')
 
         try {
-            logic.toggleFollowUser(this.props.post.author.username) // esta logica es la que adjuntamos del archivo anterior post.js
+            logic.toggleFollowUser(this.props.post.author.username) // esta logica es la que adjuntamos del archivo anterior
 
-            this.props.onFollowedUser()
+            this.props.onUserFollowToggled()
         } catch (error) {
             console.error(error)
 

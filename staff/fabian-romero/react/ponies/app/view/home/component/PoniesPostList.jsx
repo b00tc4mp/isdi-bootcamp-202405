@@ -4,16 +4,16 @@ const { Component } = React
 
 import Post from './Post.jsx'
 
-class PostList extends Component {
+class PoniesPostList extends Component {
     constructor() {
-        console.debug('PostList -> contructor')
+        console.debug('PoniesPostList -> contructor')
 
         super()
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts() // caambiar por la logica que trae solo los ffollower ya no seria get all post si no el get all fav post que ahora los ponies es followCORRIEGIR
 
-            this.state = { posts } // inicializar los post lo llamamos, se contruye y luego en render lo pinta y me devulve todo el DOM // es un estado 
+            this.state = { posts } // inicializar los post lo llamamos, se contruye y luego en render lo pinta y me devulve todo el DOM
         } catch (error) {
             console.error(error)
 
@@ -22,16 +22,14 @@ class PostList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.debug('PostList -> componentWillReceiveProps', newProps, this.props) // esto es una funcion que tengo que saber que hace ciclo de vida del componente
-
-        // react lo llama cuando detecta que cambia un props
-
+        console.debug('PoniesPostList -> componentWillReceiveProps', newProps, this.props) // esto es una funcuon que tengo que saber que hace ciclo de vida del componente
+        // react lo llama cuando detecta que cambia un prop 
         //se puede implementar a demanda y me dice que voy a recibir nuevos props (newProps)
         // new props
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                const posts = logic.getAllPoniesPosts()
 
                 this.setState({ posts })
             } catch (error) {
@@ -43,7 +41,7 @@ class PostList extends Component {
 
     handlePostDeleted() {// aqui llamo a la logica de deleted dentro del post list abajo
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -55,7 +53,7 @@ class PostList extends Component {
 
     handlePostEdited() { // aqui llamo a la logica de edited  dentro del post list abajo
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -68,7 +66,7 @@ class PostList extends Component {
     handlePostLikeToggled() {
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -81,7 +79,7 @@ class PostList extends Component {
     handlePostFavToggled() {
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -94,7 +92,7 @@ class PostList extends Component {
     handleUserFollowToggled() { // este es el mismo nombre que tengo en el renders
 
         try {
-            const posts = logic.getAllPosts() // esta logica es la misma de arriba
+            const posts = logic.getAllPoniesPosts() // esta logica es la misma de arriba
 
             this.setState({ posts })
         } catch (error) {
@@ -107,7 +105,7 @@ class PostList extends Component {
 
 
     render() {
-        console.debug('PostList -> render')
+        console.debug('PoniesPostList -> render')
 
         return <section className="post-list">
             {this.state.posts.map(post => <Post
@@ -123,7 +121,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
-
-
-//KEY OBLIOGATORIA PARA IDENTICAR EN ALGUN OTRO OBJETO IDENTIFICADOR DEL DATO CUANDO HAGO UN MAP, EN ALGUNO QUE SE REPITE LOS COMPONENTES TENGO QUE BUSCAR ALGO QUE LO IDENTIFIQUE Y LO PONGO ENTRE LAS LLAVES EN MODO DE IDENTIFICADOR
+export default PoniesPostList
