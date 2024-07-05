@@ -47,7 +47,7 @@ class Post extends Component {
 
         const form = event.target
 
-        const editCaptionInput = from['edit-caption-input']
+        const editCaptionInput = form['edit-caption-input']
 
         const newCaption = editCaptionInput.value
 
