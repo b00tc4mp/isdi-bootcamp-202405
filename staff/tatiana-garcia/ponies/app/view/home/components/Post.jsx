@@ -14,7 +14,7 @@ class Post extends Component {
     }
 
     handleDeletePostClick() {
-        if (confirm('Delete pos')) {
+        if (confirm('Delete post?')) {
             try {
                 logic.deletePost(this.props.post.id)
 
@@ -112,7 +112,7 @@ class Post extends Component {
     render() {
         console.debug('Post -> render')
 
-        const post = this.props.post
+        const { post } = this.props
 
         return <article className="post">
             <div className="post__top">
