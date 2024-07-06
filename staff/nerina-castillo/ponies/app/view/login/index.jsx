@@ -1,5 +1,13 @@
 import logic from '../../logic/index.mjs'
 
+import Button from '../components/Button'
+import Input from '../components/Input'
+import Link from '../components/Link'
+import Label from '../components/Label'
+import Form from '../components/Form'
+import Heading from '../components/Heading'
+
+
 const Component = React.Component
 
 class Login extends Component {
@@ -39,25 +47,25 @@ class Login extends Component {
 
     render() {
         return <main className="view">
-        <div className="header">Ponies</div>
+            <div className="header">Ponies</div>
 
-            <h1>Login</h1>
+            <Heading level={1} text="Login" />
 
-            <form className="form" onSubmit={this.handleLoginSubmit}>
+            <Form className={"form"} onSubmit={this.handleLoginSubmit}>
                 <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
+                    <Label htmlFor={"username-input"} text={"Username"} />
+                    <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} placeholder={"username"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
-                    <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
+                    <Label htmlFor={"password-input"} text={"Password"} />
+                    <Input className={"form__input"} type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
                 </div>
 
-                <button className="form__button" type="submit">Login</button>
-            </form>
+                <Button className={"form__button"} type={"submit"} text={"Login"} />
+            </Form>
 
-            <a href="" onClick={this.handleRegisterClick}>Register</a>
+            <Link href={""} onClick={this.handleRegisterClick} text={"Register"} />
         </main>
     }
 }

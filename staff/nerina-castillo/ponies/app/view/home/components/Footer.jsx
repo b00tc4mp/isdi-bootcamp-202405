@@ -1,64 +1,90 @@
-import logic from "../../../logic/index.mjs";
+import logic from "../../../logic/index.mjs"
+
+import Button from "../../components/Button"
+import Input from "../../components/Input"
+import Label from "../../components/Label"
+import Form from "../../components/Form"
+import Heading from "../../components/Heading"
 
 const { Component } = React
 
 class Footer extends Component {
     constructor() {
+        console.debug('Footer -> constructor')
+
         super()
 
+        this.state = { createPostVisible: false }  //se inicializa el estado de createPostVisible en false (para que no se muestre)
     }
 
-    state = { showing: false }
+    handleCreatePostClick() {
+        console.debug('Footer -> handleCreatePostClick')
+
+        this.setState({ createPostVisible: true })  //se cambia el estado decreatePostVisible a true (para que se muestre)
+    }
+
+    handleCancelCreatePostClick() {
+        console.debug('Footer -> handleCancelCreatePostClick')
+
+        this.setState({ createPostVisible: false })  //se cambia el estado de createPostVisible en false (para que deje de mostrarse)
+    }
 
     handleCreatePostSubmit(event) {
+        console.debug('Footer -> handleCreatePostSubmit')
+
         event.preventDefault()
 
-        const form = event.target
+        const form = event.target  //el elemento sobre el que se va a dirigir la acción
 
-        const postImageInput = form['post-image-input']
-        const postCaptionInput = form['post-caption-input']
+        const postImageInput = form['post-image-input']  //se recoge el elemento HTML del input de la imagen
+        const postCaptionInput = form['post-caption-input']   //se recoge el elemento HTML del input del caption
 
-        const postImage = postImageInput.value
-        const postCaption = postCaptionInput.value
+        const postImage = postImageInput.value  //se recoge el valor del input de la imagen
+        const postCaption = postCaptionInput.value   //se recoge el valor del input del caption
 
         try {
-            logic.createPost(postImage, postCaption);
-            this.setState({ showing: false });
+            logic.createPost(postImage, postCaption)  //actualiza el PostList
 
-            this.onPostCreatedCallback();
+            this.setState({ createPostVisible: false })  //cambia el estado de createPostVisible a false para que deje de mostrarse
+
+            this.props.onPostCreated()
         } catch (error) {
-            console.error(error);
-            alert(error.message);
+            console.error(error)
+
+            alert(error.message)
         }
     }
 
-    handlePostCreated(callback) {
-        this.handlePostCreatedCallback = callback
-    }
+
 
     render() {
-        const { showing } = this.state
+        console.debug('Footer -> render')
+
         return <footer className="footer">
-            <button className="Button add-post-button" onClick={() => this.setState({ showing: !showing })}>+</button>
-            <section className="create-post-section" style={{ display: (showing ? 'block' : 'none') }}>
-                <h2 className="create-post-section__title">Create Post</h2>
-                <form className="form__input" onSubmit={this.handleCreatePostSubmit}>
+            <Button className={"Button add-post-button"} onClick={this.handleCreatePostClick.bind(this)} text={"+"} />
+
+            {this.state.createPostVisible && <section className={"create-post-section"}>
+                <Heading level={2} className={"create-post-section__title"} text={"Create Post"} />
+
+                <Form className={"form"} onSubmit={this.handleCreatePostSubmit.bind(this)}>
                     <div className="form__field">
-                        <label htmlFor="post-image-input"></label>
-                        <input className="form__input" id="post-image-input" />
+                        <Label htmlFor={"post-image-input"} text={"Image"} />
+                        <Input className={"form__input"} id={"post-image-input"} />
                     </div>
                     <div className="form__field">
-                        <label htmlFor="post-caption-input"></label>
-                        <input className="form__caption-input" id="post-caption-input" />
+                        <Label htmlFor={"post-caption-input"} text={"Caption"} />
+                        <Input className={"form__caption-input"} id={"post-caption-input"} />
                     </div>
+
                     <div className="create-post-section__buttons">
-                        <button className="form__button " type="submit">Create</button>
-                        <button className="form__button " type="reset">Cancel</button>
+                        <Button className={"form__button"} type={"submit"} text={"Create"} />
+                        <Button className={"form__button"} type={"reset"} onClick={this.handleCancelCreatePostClick.bind(this)} text={"Cancel"} />
                     </div>
-                </form>
-            </section>
+                </Form>
+            </section>}
         </footer>
     }
 }
+
 
 export default Footer

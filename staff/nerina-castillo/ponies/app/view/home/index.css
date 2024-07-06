@@ -45,13 +45,13 @@ body {
 }
 
 .form__caption-input {
-    font-size: inherit;
     border-radius: 5px;
     border: none;
     color: #000000;
     padding: .2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     height: 50px;
+    width: 100%;
 }
 
 
@@ -64,7 +64,17 @@ body {
     padding: .2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 1rem;
+}
 
+.form__button-save,
+.form__button-cancel {
+    border-radius: 5px;
+    border: none;
+    padding: .2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 1rem;
+    width: 100%;
+    background-color: white;
 }
 
 .post-list {

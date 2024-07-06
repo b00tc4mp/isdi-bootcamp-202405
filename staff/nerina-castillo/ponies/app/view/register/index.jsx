@@ -1,5 +1,11 @@
-// import React from 'react'
 import logic from '../../logic/index.mjs'
+
+import Button from '../components/Button'
+import Input from '../components/Input'
+import Link from '../components/Link'
+import Label from '../components/Label'
+import Form from '../components/Form'
+import Heading from '../components/Heading'
 
 const Component = React.Component
 
@@ -48,46 +54,46 @@ class Register extends Component {
 
     render() {
         return <main className="view">
-        <div className="header">Ponies</div>
+            <div className="header">Ponies</div>
 
-            <h1>Register</h1>
+            <Heading level={1} text={"Register"} />
 
-            <form className="form" onSubmit={this.handleRegisterSubmit}>
+            <Form className={"form"} onSubmit={this.handleRegisterSubmit}>
                 <div className="form__field">
-                    <label htmlFor="name-input">Name</label>
-                    <input className="form__input" type="text" id="name-input" name="name" placeholder="Name" />
+                    <Label htmlFor={"name-input"} text={"Name"} />
+                    <Input className={"form__input"} type={"text"} id={"name-input"} name={"name"} placeholder={"name"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="surname-input">Surname</label>
-                    <input className="form__input" type="text" id="surname-input" name="surname" placeholder="Surname" />
+                    <Label htmlFor={"surname-input"} text={"Surname"} />
+                    <Input className={"form__input"} type={"text"} id={"surname-input"} name={"surname"} placeholder={"surname"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="email-input">Email</label>
-                    <input className="form__input" type="email" id="email-input" name="email" placeholder="Email" />
+                    <Label htmlFor={"email-input"} text={"Email"} />
+                    <Input className={"form__input"} type={"email"} id={"email-input"} name={"email"} placeholder={"email"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="userame" />
+                    <Label htmlFor={"username-input"} text={"Username"} />
+                    <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} placeholder={"userame"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
-                    <input className="form__input" type="password" id="password-input" name="password" placeholder="Password" />
+                    <Label htmlFor={"password-input"} text={"Password"} />
+                    <Input className={"form__input"} type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password2-input">Repeat Password</label>
-                    <input className="form__input" type="password" id="password2-input" name="password2"
-                        placeholder="Repeat Password" />
+                    <Label htmlFor={"password2-input"} text={"Repeat Password"} />
+                    <Input className={"form__input"} type={"password"} id={"password2-input"} name={"password2"}
+                        placeholder="repeat password" />
                 </div>
 
-                <button className="form__button" type="submit">Register</button>
-            </form>
+                <Button className={"form__button"} type={"submit"} text={"Register"} />
+            </Form>
 
-            <a href="" onClick={this.handleLoginClick}>Login</a>
+            <Link href={""} onClick={this.handleLoginClick} text={"Login"} />
         </main>
     }
 }

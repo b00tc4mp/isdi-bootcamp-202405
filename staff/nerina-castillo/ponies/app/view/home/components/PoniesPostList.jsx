@@ -4,14 +4,14 @@ const { Component } = React
 
 import Post from './Post.jsx'
 
-class PostList extends Component {
+class PoniesPostList extends Component {
     constructor() {
-        console.debug('PostList -> constructor')
+        console.debug('PoniesPostList -> constructor')
 
         super()
 
         try {
-            const posts = logic.getAllPosts()  //se traen todos los posts
+            const posts = logic.getAllFollowingUserPosts()  //se traen todos los posts
 
             this.state = { posts }
         } catch (error) {
@@ -22,11 +22,11 @@ class PostList extends Component {
     }
 
     componentWillReceiveProps(newProps) {  //se activa cuando el componente recibe nuevas props
-        console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
+        console.debug('PoniesPostList -> componentWillReceiveProps', newProps, this.props)
 
         if (newProps.refreshStamp !== this.props.refreshStamp)  //verifica si el valor de refreshStamp en las nuevas props es diferente de las props actuales y si lo es, indica que hay que obtener los nuevos datos
             try {
-                const posts = logic.getAllPosts()  //se obtienen las publicaciones
+                const posts = logic.getAllFollowingUserPosts()  //se obtienen las publicaciones
 
                 this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
             } catch (error) {
@@ -38,7 +38,7 @@ class PostList extends Component {
 
     handlePostLiked() {
         try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+            const posts = logic.getAllFollowingUserPosts()  //trae todos los posts
 
             this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
         } catch (error) {
@@ -50,7 +50,7 @@ class PostList extends Component {
 
     handlePostFaved() {
         try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+            const posts = logic.getAllFollowingUserPosts()  //trae todos los posts
 
             this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
         } catch (error) {
@@ -62,7 +62,7 @@ class PostList extends Component {
 
     handleUserFollowed() {
         try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+            const posts = logic.getAllFollowingUserPosts()  //trae todos los posts
 
             this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
         } catch (error) {
@@ -74,7 +74,7 @@ class PostList extends Component {
 
     handlePostDeleted() {
         try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+            const posts = logic.getAllFollowingUserPosts()  //trae todos los posts
 
             this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
         } catch (error) {
@@ -88,7 +88,7 @@ class PostList extends Component {
 
     handlePostEdited() {
         try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+            const posts = logic.getAllFollowingUserPosts()  //trae todos los posts
 
             this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
         } catch (error) {
@@ -98,8 +98,8 @@ class PostList extends Component {
         }
     }
 
-    render() {  //renderiza el contenido del componente PostList
-        console.debug('PostList -> render')
+    render() {  //renderiza el contenido del componente PoniesPostList
+        console.debug('PoniesPostList -> render')
 
         return <section className="post-list">
             {this.state.posts.map(post => <Post
@@ -114,4 +114,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default PoniesPostList
