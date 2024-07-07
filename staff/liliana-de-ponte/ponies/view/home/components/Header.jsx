@@ -1,4 +1,6 @@
 import logic from "../../..//logic/index.mjs"
+import Button from "../../components/Button"
+import Paragraph from "../../components/Paragraph"
 
 const { Component } = React
 
@@ -54,11 +56,11 @@ class Header extends Component {
         console.debug('Header -> render')
 
         return <header className="header">
-            <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button className="Button Button--active" onClick={this.handleHomeClick.bind(this)}>🏠</button>
-            <button className="Button" onClick={this.handlePoniesClick.bind(this)}>🪅</button>
-            <button className="Button" onClick={this.handleFavsClick.bind(this)}>🏳️‍🌈</button>
-            <button className="Button" onClick={this.handleLogout}>Logout</button>
+            <Paragraph className={"header__user-name"} text={"Hello, {this.state.name}!"} />
+            <Button className={"Button Button--active"} onClick={this.handleHomeClick.bind(this)} text={"🏠"} />
+            <Button className={"Button"} onClick={this.handlePoniesClick.bind(this)} text={"🪅"} />
+            <Button className={"Button"} onClick={this.handleFavsClick.bind(this)} text={"🏳️‍🌈"} />
+            <Button className={"Button"} onClick={this.handleLogout} text={"Logout"} />
         </header>
     }
 }

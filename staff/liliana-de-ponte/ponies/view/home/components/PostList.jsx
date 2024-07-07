@@ -103,6 +103,7 @@ class PostList extends Component {
         return <section className="post-list">
             {this.state.posts.map(post => <Post
                 post={post}
+                key={post.id}
                 onPostDeleted={this.handlePostDeleted.bind(this)}
                 onPostEdited={this.handlePostEdited.bind(this)}
                 onPostLikeToggled={this.handlePostLikeToggled.bind(this)}

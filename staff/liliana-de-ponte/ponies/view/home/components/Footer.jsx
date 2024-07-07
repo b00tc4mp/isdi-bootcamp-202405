@@ -1,4 +1,9 @@
 import logic from "../../../logic/index.mjs"
+import Button from "../../components/Button"
+import Heading from "../../components/Heading"
+import Form from "../../components/Form"
+import Label from "../../components/Label"
+import Input from "../../components/Input"
 
 const { Component } = React
 
@@ -53,27 +58,27 @@ class Footer extends Component {
         console.debug('Footer -> render')
 
         return <footer className="footer">
-            <button className="Button" onClick={this.handleCreatePostClick.bind(this)}>+</button>
+            <Button className={"Button"} onClick={this.handleCreatePostClick.bind(this)} text={"+"} />
 
             {this.state.createPostVisible && <section className="create-post-section">
-                <h2 className="create-post-section__title">Create Post</h2>
+                <Heading level={2} className={"create-post-section__title"} text={"Create Post"} />
 
-                <form className="form" onSubmit={this.handleCreatePostSubmit.bind(this)}>
+                <Form className={"form"} onSubmit={this.handleCreatePostSubmit.bind(this)}>
                     <div className="form__field">
-                        <label htmlFor="post-image-input">Image</label>
-                        <input className="form__input" id="post-image-input" />
+                        <Label htmlFor={"post-image-input"} text={"Image"} />
+                        <Input className={"form__input"} id={"post-image-input"} />
                     </div>
 
                     <div className="form__field">
-                        <label htmlFor="post-caption-input">Caption</label>
-                        <input className="form__input" id="post-caption-input" />
+                        <Label htmlFor={"post-caption-input"} text={"Caption"} />
+                        <Input className={"form__input"} id={"post-caption-input"} />
                     </div>
 
                     <div className="create-post-section__buttons" >
-                        <button className="Button" type="submit">Create</button>
-                        <button className="Button" type="reset" onClick={this.handleCancelCreatePostClick.bind(this)}>Cancel</button>
+                        <Button className={"Button"} type={"submit"} text={"Create"} />
+                        <Button className={"Button"} type={"reset"} onClick={this.handleCancelCreatePostClick.bind(this)} text={"Cancel"} />
                     </div>
-                </form>
+                </Form>
             </section>}
         </footer >
     }
