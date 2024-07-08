@@ -20,6 +20,8 @@ class SaveButton extends Component {
         });
 
         logic.toggleSavedPost(postId);
+
+        this.props.onSaveClicked();
     }
 
     componentWillReceiveProps(newProps) {

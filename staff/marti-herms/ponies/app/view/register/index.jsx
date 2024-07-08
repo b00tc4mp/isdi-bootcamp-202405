@@ -1,3 +1,5 @@
+import Link from '../components/Link';
+
 import logic from '../../logic/index.mjs';
 
 const { Component } = React;
@@ -83,7 +85,7 @@ class Register extends Component {
                 <button className='form__button' type='submit'>Register</button>
             </form>
 
-            <a href='' onClick={this.handleLoginClicked}>Login</a>
+            <Link href="Login" />
         </main>
     }
 }

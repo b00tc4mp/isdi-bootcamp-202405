@@ -1,7 +1,5 @@
-import logic from '../../../logic/index.mjs';
-
-import AddPostSection from './AddPostSection';
-import SearchSection from './SearchSection';
+import AddPostSection from './sections/AddPostSection';
+import SearchSection from './sections/SearchSection';
 
 const { Component } = React;
 
@@ -12,15 +10,11 @@ class Footer extends Component {
         this.state = { addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false };
     }
 
-
-
     handleHomeButton() {
         this.setState({ homeButton: true, savedButton: false, searchButton: false, followedButton: false });
 
         this.props.onHomeButtonClick();
     }
-
-
 
     handleFollowedPostsButton() {
         this.setState({ homeButton: false, savedButton: false, searchButton: false, followedButton: true });
@@ -28,15 +22,11 @@ class Footer extends Component {
         this.props.onFollowedButtonClick();
     }
 
-
-
     handleSavedPostsButton() {
         this.setState({ homeButton: false, savedButton: true, searchButton: false, followedButton: false })
 
         this.props.onSavedPostsButtonClick();
     }
-
-
 
     handleSearchUserButton() {
         this.setState({ addPostVisibility: 'searchUser', homeButton: false, savedButton: false, searchButton: true, followedButton: false });
@@ -53,8 +43,6 @@ class Footer extends Component {
             alert(error.message);
         }
     }
-
-
 
     handleAddPostButton() {
         this.setState({ addPostVisibility: 'addPost' })
@@ -76,11 +64,9 @@ class Footer extends Component {
         this.setState({ addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false });
     }
 
-
-
     render() {
         let homeClassName = this.state.homeButton ? 'home-button active' : 'home-button'
-        let savedClassName = this.state.savedButton ? 'save-button-list active' : 'save-button-list'
+        let savedClassName = this.state.savedButton ? 'saved-list-button active' : 'saved-list-button'
         let searchClassName = this.state.searchButton ? 'search-button active' : 'search-button'
         let followedClassName = this.state.followedButton ? 'followed-button active' : 'followed-button'
 

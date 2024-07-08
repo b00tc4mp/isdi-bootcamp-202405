@@ -1,3 +1,5 @@
+import LogoutButton from './buttons/LogoutButton';
+
 import logic from '../../../logic/index.mjs';
 
 const { Component } = React;
@@ -22,7 +24,7 @@ class Header extends Component {
     render() {
         return <header className="header">
             <p className="user-name">{logic.getUserName()}</p>
-            <button className="logout-button" onClick={this.handleLogoutClicked}>Logout</button>
+            <LogoutButton />
         </header>
     }
 }

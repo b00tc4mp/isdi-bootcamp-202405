@@ -8,10 +8,14 @@ import SaveButton from './buttons/SaveButton.jsx';
 const { Component } = React;
 
 class Post extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.state = { editMode: false };
+        this.state = { editMode: false, value: props.post.caption };
+    }
+
+    handleChange(event) {
+        this.setState({ value: event.target.value });
     }
 
     handleUserPosts() {
@@ -53,6 +57,10 @@ class Post extends Component {
         this.props.onPostLiked();
     }
 
+    handleSaveClick() {
+        this.props.onPostSaved();
+    }
+
     handleEditButton() {
         this.setState({ editMode: true });
     }
@@ -60,12 +68,13 @@ class Post extends Component {
     handleCaptionEdit(event) {
         event.preventDefault();
 
+        const post = this.props.post;
+
+        const form = event.target;
+
+        const captionEditInput = form['caption-edit-input']
+
         try {
-            const post = this.props.post;
-
-            const form = event.target;
-
-            const captionEditInput = form['caption-edit-input']
 
             logic.editPost(post.id, captionEditInput.value);
 
@@ -86,30 +95,30 @@ class Post extends Component {
     render() {
         const post = this.props.post;
 
-        const editCaptionForm = <form onSubmit={this.handleCaptionEdit.bind(this)}>
-            <label htmlFor="caption-edit-input"></label>
-            <input id="caption-edit-input" type="text" value={post.caption} />
-            <button type='submit'>Edit</button>
-            <button type='button' onClick={this.handleEditCancel.bind(this)}>Cancel</button>
+        const editCaptionForm = <form className="form__field edit" onSubmit={this.handleCaptionEdit.bind(this)}>
+            <label htmlFor="caption-edit-input"> New Caption: </label>
+            <input id="caption-edit-input" className="form__input" type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
+            <button className="form__button" type="submit">Edit</button>
+            <button className="form__button" type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</button>
         </form>
 
         return <article className="post">
-            <div className='post__author__div'>
+            <div className="post__author__div">
                 <button className="post__author" onClick={this.handleUserPosts.bind(this)}>{post.author}</button>
-                {post.author !== logic.getUserUsername() && <button className='post__author__button' onClick={this.handleFollowButton.bind(this)}>{logic.isUserFollowing(post.author) ? 'Unfollow' : 'Follow'}</button>}
+                {post.author !== logic.getUserUsername() && <button className="post__author__button" onClick={this.handleFollowButton.bind(this)}>{logic.isUserFollowing(post.author) ? 'Unfollow' : 'Follow'}</button>}
             </div>
             <img src={post.img} className="post__image" />
             <div className="post__actions">
                 <LikeButton post={post} onLikeClicked={this.handleLikeClick.bind(this)} />
-                <SaveButton postId={post.id} />
+                <SaveButton postId={post.id} onSaveClicked={this.handleSaveClick.bind(this)} />
             </div>
             <hr></hr>
             <p className="like-counter">{post.likes.length + ' like' + (post.likes.length > 1 ? 's' : '')}</p>
             <p className="post__caption">{post.caption}</p>
             {
                 post.author === logic.getUserUsername() && <><div className='post__actions'>
-                    <button onClick={this.handleDeleteButton.bind(this)}>Delete</button>
-                    <button onClick={this.handleEditButton.bind(this)}>Edit</button>
+                    <button className="form__button" onClick={this.handleDeleteButton.bind(this)}>Delete</button>
+                    <button className="form__button" onClick={this.handleEditButton.bind(this)}>Edit</button>
                     {this.state.editMode && editCaptionForm}
                 </div></>
             }

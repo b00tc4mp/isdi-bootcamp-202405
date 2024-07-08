@@ -1,3 +1,5 @@
+import Link from '../components/Link';
+
 import logic from '../../logic/index.mjs';
 
 const { Component } = React;
@@ -5,12 +7,6 @@ const { Component } = React;
 class Login extends Component {
     constructor() {
         super();
-    }
-
-    handleRegisterClick(event) {
-        event.preventDefault();
-
-        location.href = '../register';
     }
 
     handleLoginSubmit(event) {
@@ -53,7 +49,7 @@ class Login extends Component {
                 <button className='form__button' type='submit'>Login</button>
             </form>
 
-            <a href='' onClick={this.handleRegisterClick}>Register</a>
+            <Link href="Register" />
         </main>
     }
 }

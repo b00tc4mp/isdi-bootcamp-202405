@@ -4,7 +4,7 @@ import Post from './Post';
 
 const { Component } = React;
 
-class PostList extends Component {
+class Body extends Component {
     constructor() {
         super();
 
@@ -87,7 +87,7 @@ class PostList extends Component {
         }
     }
 
-    handlePostliked() {
+    handlePostLiked() {
         try {
             const posts = logic.getAllPosts();
 
@@ -96,6 +96,20 @@ class PostList extends Component {
             console.error(error)
 
             alert(error.message);
+        }
+    }
+
+    handlePostSaved() {
+        if (this.props.feed === 'saved') {
+            try {
+                const posts = logic.getUserSavedPosts();
+
+                this.setState({ posts });
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message);
+            }
         }
     }
 
@@ -112,13 +126,17 @@ class PostList extends Component {
     }
 
     render() {
-        return <section className="post-list">
-            {this.state.posts.map(post => <Post post={post}
-                onUsernameClick={this.handleUserPosts.bind(this)}
-                onPostDeleted={this.handleDeletedPost.bind(this)} onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLiked={this.handlePostliked.bind(this)} />)}
-        </section>
+        return <main className="view main">
+            <section className="post-list">
+                {this.state.posts.map(post => <Post post={post}
+                    onUsernameClick={this.handleUserPosts.bind(this)}
+                    onPostDeleted={this.handleDeletedPost.bind(this)}
+                    onPostEdited={this.handlePostEdited.bind(this)}
+                    onPostLiked={this.handlePostLiked.bind(this)}
+                    onPostSaved={this.handlePostSaved.bind(this)} />)}
+            </section>
+        </main>
     }
 }
 
-export default PostList
+export default Body

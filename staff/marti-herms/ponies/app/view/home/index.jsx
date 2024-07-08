@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import PostList from './components/PostList';
+import Body from './components/Body';
 import Footer from './components/Footer';
 
 const { Component } = React;
@@ -34,9 +34,9 @@ class Home extends Component {
     render() {
         return <>
             <Header />
-            <main className="view main">
-                <PostList refreshStamp={this.state.refreshStamp} feed={this.state.feed} />
-            </main>
+
+            <Body refreshStamp={this.state.refreshStamp} feed={this.state.feed} />
+
             <Footer onHomeButtonClick={this.handleHomeFeed.bind(this)} onSearch={this.handleSearchUser.bind(this)} onPostCreated={this.handlePostCreated.bind(this)} onFollowedButtonClick={this.handleFollowedFeed.bind(this)} onSavedPostsButtonClick={this.handleSavedPostsFeed.bind(this)} />
         </>
     }

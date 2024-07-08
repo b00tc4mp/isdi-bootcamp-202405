@@ -1,5 +1,3 @@
-import logic from '../../../logic/index.mjs';
-
 const { Component } = React;
 
 class SearchSection extends Component {

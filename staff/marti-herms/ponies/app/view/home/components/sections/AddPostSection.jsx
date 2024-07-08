@@ -1,4 +1,4 @@
-import logic from '../../../logic/index.mjs';
+import logic from '../../../../logic/index.mjs';
 
 const { Component } = React;
 
@@ -46,15 +46,17 @@ class AddPostSection extends Component {
                 <h2>Create Post</h2>
                 <form className="form" onSubmit={this.handleAddPost.bind(this)}>
                     <div className="form__field">
-                        <label htmlFor="post-image-input">Image:</label>
-                        <input id="post-image-input" className="form__input" type="text" />
+                        <input id="post-image-input" className="form__input" type="text" placeholder=" " required />
+                        <label htmlFor="post-image-input" className='form__image__label'>Image</label>
                     </div>
                     <div className="form__field">
-                        <label htmlFor="post-caption-input">Caption:</label>
-                        <input id="post-caption-input" className="form__input" type="text" />
+                        <input id="post-caption-input" className="form__input" type="text" placeholder=" " />
+                        <label htmlFor="post-caption-input" className='form__caption__label'>Caption</label>
                     </div>
+                    {/* <div> */}
                     <button className="form__button" type="submit">Create</button>
                     <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
+                    {/* </div> */}
                 </form>
             </section>
         </div>
