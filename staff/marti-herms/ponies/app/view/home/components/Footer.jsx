@@ -67,7 +67,7 @@ class Footer extends Component {
     render() {
         let homeClassName = this.state.homeButton ? 'home-button active' : 'home-button'
         let savedClassName = this.state.savedButton ? 'saved-list-button active' : 'saved-list-button'
-        let searchClassName = this.state.searchButton ? 'search-button active' : 'search-button'
+        let searchClassName = this.state.searchButton ? 'search-button-active' : 'search-button'
         let followedClassName = this.state.followedButton ? 'followed-button active' : 'followed-button'
 
         return <footer className="footer">
@@ -75,7 +75,7 @@ class Footer extends Component {
             {this.state.addPostVisibility === 'searchUser' && <SearchSection onSearch={this.handleUserSearched.bind(this)} onCancel={this.handleCancel.bind(this)} />}
             <button className={homeClassName} onClick={this.handleHomeButton.bind(this)}></button>
             <button className={searchClassName} onClick={this.handleSearchUserButton.bind(this)}></button>
-            <button className="add-post-button" onClick={this.handleAddPostButton.bind(this)}>+</button>
+            <button className="add-post-button" onClick={this.handleAddPostButton.bind(this)}></button>
             <button className={followedClassName} onClick={this.handleFollowedPostsButton.bind(this)}></button>
             <button className={savedClassName} onClick={this.handleSavedPostsButton.bind(this)}></button>
         </footer>

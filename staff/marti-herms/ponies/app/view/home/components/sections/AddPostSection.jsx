@@ -53,10 +53,10 @@ class AddPostSection extends Component {
                         <input id="post-caption-input" className="form__input" type="text" placeholder=" " />
                         <label htmlFor="post-caption-input" className='form__caption__label'>Caption</label>
                     </div>
-                    {/* <div> */}
-                    <button className="form__button" type="submit">Create</button>
-                    <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
-                    {/* </div> */}
+                    <div className="form__actions">
+                        <button className="form__button" type="submit">Create</button>
+                        <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
+                    </div>
                 </form>
             </section>
         </div>

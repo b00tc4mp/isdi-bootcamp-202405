@@ -96,7 +96,7 @@ class Post extends Component {
         const post = this.props.post;
 
         const editCaptionForm = <form className="form__field edit" onSubmit={this.handleCaptionEdit.bind(this)}>
-            <label htmlFor="caption-edit-input"> New Caption: </label>
+            <label htmlFor="caption-edit-input">Caption:</label>
             <input id="caption-edit-input" className="form__input" type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
             <button className="form__button" type="submit">Edit</button>
             <button className="form__button" type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</button>
@@ -113,13 +113,15 @@ class Post extends Component {
                 <SaveButton postId={post.id} onSaveClicked={this.handleSaveClick.bind(this)} />
             </div>
             <hr></hr>
-            <p className="like-counter">{post.likes.length + ' like' + (post.likes.length > 1 ? 's' : '')}</p>
+            <p className="like-counter">{post.likes.length + ' like' + (post.likes.length !== 1 ? 's' : '')}</p>
             <p className="post__caption">{post.caption}</p>
             {
-                post.author === logic.getUserUsername() && <><div className='post__actions'>
+                post.author === logic.getUserUsername() && <><div className='post__options'>
                     <button className="form__button" onClick={this.handleDeleteButton.bind(this)}>Delete</button>
                     <button className="form__button" onClick={this.handleEditButton.bind(this)}>Edit</button>
-                    {this.state.editMode && editCaptionForm}
+                    <div className="edit">
+                        {this.state.editMode && editCaptionForm}
+                    </div>
                 </div></>
             }
             <time className="post__time">{formatTime(new Date(post.date))}</time>

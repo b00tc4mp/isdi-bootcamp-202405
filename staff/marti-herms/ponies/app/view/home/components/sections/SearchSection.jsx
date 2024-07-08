@@ -40,11 +40,13 @@ class SearchSection extends Component {
                 <h2>Search User</h2>
                 <form className="form" onSubmit={this.handleSearchUser.bind(this)}>
                     <div className="form__field">
-                        <label htmlFor="post-caption-input">Username:</label>
-                        <input id="post-caption-input" className="form__input" type="text" />
+                        <input id="post-caption-input" className="form__input" type="text" required />
+                        <label htmlFor="post-caption-input">Username</label>
                     </div>
-                    <button className="form__button" type="submit">Search</button>
-                    <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
+                    <div className="form__actions">
+                        <button className="form__button" type="submit">Search</button>
+                        <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
+                    </div>
                 </form>
             </section>
         </div>
