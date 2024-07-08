@@ -2,9 +2,6 @@ import logic from '../../../logic/index.mjs'
 
 const { Component } = React // taty: "descomponent"
 
-import Button from '../../components/Button'
-import Paragraph from '../../components/Paragraph'
-
 class Header extends Component {
     constructor() {
         console.debug('Header -> constructor')
@@ -57,12 +54,12 @@ class Header extends Component {
     render() {
         console.debug('Header -> render')
 
-        return <header className="Header">
-            <Paragraph>Hello, {this.state.name}!</Paragraph>
-            <Button onClick={this.handleHomeClick.bind(this)}>🏚️</Button>
-            <Button onClick={this.handlePoniesClick.bind(this)}>🦄</Button>
-            <Button onClick={this.handleFavsClick.bind(this)}>🏳️‍🌈</Button>
-            <Button onClick={this.handleLogout}>🚪</Button>
+        return <header className="header">
+            <p className="header__user-name">Hello, {this.state.name}!</p>
+            <button className="Button Button--active" onClick={this.handleHomeClick.bind(this)}>🏚️</button>
+            <button className="Button" onClick={this.handlePoniesClick.bind(this)}>🦄</button>
+            <button className="Button" onClick={this.handleFavsClick.bind(this)}>🏳️‍🌈</button>
+            <button className="Button" onClick={this.handleLogout}>🚪</button>
         </header>
     }
 }

@@ -4,14 +4,14 @@ const { Component } = React
 
 import Post from './Post.jsx'
 
-class PostList extends Component {
+class PoniesPostList extends Component {
     constructor() {
-        console.debug('PostList -> constructor')
+        console.debug('PoniesPostList -> constructor')
 
         super()
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.state = { posts }
         } catch (error) {
@@ -22,11 +22,11 @@ class PostList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
+        console.debug('PoniesPostList -> componentWillReceiveProps', newProps, this.props)
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                const posts = logic.getAllPoniesPosts()
 
                 this.setState({ posts })
             } catch (error) {
@@ -38,7 +38,7 @@ class PostList extends Component {
 
     handlePostDeleted() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -50,7 +50,7 @@ class PostList extends Component {
 
     handlePostEdited() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -62,7 +62,7 @@ class PostList extends Component {
 
     handlePostLikeToggled() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -74,7 +74,7 @@ class PostList extends Component {
 
     handlePostFavToggled() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -86,7 +86,7 @@ class PostList extends Component {
 
     handleUserFollowToggled() {
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -97,9 +97,9 @@ class PostList extends Component {
     }
 
     render() {
-        console.debug('PostList -> render')
+        console.debug('PoniesPostList -> render')
 
-        return <section className="PostList">
+        return <section className="post-list">
             {this.state.posts.map(post => <Post
                 key={post.id}
                 post={post}
@@ -113,4 +113,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default PoniesPostList

@@ -99,7 +99,7 @@ class PostList extends Component {
     render() {
         console.debug('PostList -> render')
 
-        return <section className="PostList">
+        return <section className="post-list">
             {this.state.posts.map(post => <Post
                 key={post.id}
                 post={post}
