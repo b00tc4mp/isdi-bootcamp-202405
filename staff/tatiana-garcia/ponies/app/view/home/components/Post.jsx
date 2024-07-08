@@ -4,6 +4,16 @@ import formatTime from '../../../util/formatTime.mjs'
 
 const { Component } = React
 
+import Button from '../../components/Button.jsx'
+import Input from '../../components/Input.jsx'
+import Label from '../../components/Label.jsx'
+import Form from '../../components/Form.jsx'
+import Time from '../../components/Time.jsx'
+import Image from '../../components/Image.jsx'
+import Paragraph from '../../components/Paragraph.jsx'
+import Heading from '../../components/Heading.jsx'
+import Container from '../../components/Container.jsx'
+
 class Post extends Component {
     constructor() {
         console.debug('Post -> constructor')
@@ -115,37 +125,37 @@ class Post extends Component {
         const { post } = this.props
 
         return <article className="post">
-            <div className="post__top">
-                <h3 className="post__author">{post.author.username}</h3>
+            <Container>
+                <Heading level="4">{post.author.username}</Heading>
 
-                <button className="Button" onClick={this.handleFollowUserClick.bind(this)} >{post.author.following ? '🦄' : '🐴'}</button>
-            </div>
+                <Button onClick={this.handleFollowUserClick.bind(this)} >{post.author.following ? '🦄' : '🐴'}</Button>
+            </Container>
 
-            <img className="post__image" src={post.image} />
+            <Image src={post.image} alt={post.caption} title={post.caption} />
 
-            <p className="post__caption">{post.caption}</p>
+            <Paragraph>{post.caption}</Paragraph>
 
-            <div className="post__actions">
-                <button className="Button" onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</button>
-                <button className="Button" onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🤩' : '😔'}</button>
+            <Container>
+                <Button onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+                <Button onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🤩' : '😔'}</Button>
 
                 {post.author.username === logic.getUserUsername() && <>
-                    <button className="Button" onClick={this.handleDeletePostClick.bind(this)}>🗑️</button>
-                    <button className="Button" onClick={this.handleEditPostClick.bind(this)}>📝</button>
+                    <Button onClick={this.handleDeletePostClick.bind(this)}>🗑️</Button>
+                    <Button onClick={this.handleEditPostClick.bind(this)}>📝</Button>
 
                 </>}
-            </div>
+            </Container>
 
-            <time className="post__time">{formatTime(new Date(post.date))}</time>
+            <Time>{formatTime(new Date(post.date))}</Time>
 
-            {this.state.editPostVisible && <form onSubmit={this.handleEditPostSubmit.bind(this)}>
-                <label htmlFor="edit-caption-input"></label>
-                <input id="edit-caption-input" defaultValue={post.caption} />
+            {this.state.editPostVisible && <Form onSubmit={this.handleEditPostSubmit.bind(this)}>
+                <Label htmlFor="edit-caption-input">Caption</Label>
+                <Input id="edit-caption-input" defaultValue={post.caption} />
 
-                <button className="Button" type="submit">Save</button>
-                <button className="Button" type="button" onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</button>
+                <Button type="submit">Save</Button>
+                <Button type="button" onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</Button>
 
-            </form>}
+            </Form>}
         </article>
     }
 }

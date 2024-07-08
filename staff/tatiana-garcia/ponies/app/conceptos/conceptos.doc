@@ -55,3 +55,6 @@
 - props -> permiten que el componente reciba datos del componente padre.Permiten configurar el comportamiento 
     y la apariencia del componente hijo sin modificar su definición.  hacen que los componentes sean reutilizables 
     con diferentes configuraciones. En componentes de funcion se usa props.nombre, en componentes de clase se usa this.props.nombre
+
+- defaultValue -> establece un valor inicial que no se ve afectado por futuras actualizaciones del componente. Se usa
+    cuando no necesitas que el valor del input cambie despues de la inicializacion, a menos que sea modificado por el usuario.

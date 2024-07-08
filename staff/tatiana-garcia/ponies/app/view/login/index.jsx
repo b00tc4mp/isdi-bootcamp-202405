@@ -1,4 +1,11 @@
 import logic from '../../logic/index.mjs'
+import Form from '../components/Form'
+
+import Heading from '../components/Heading'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Button from '../components/Button'
+import Link from '../components/Link'
 
 const Component = React.Component
 
@@ -37,22 +44,23 @@ class Login extends Component {
 
     render() {
         return <main className="view">
-            <h1>Login</h1>
+            <Heading>Login</Heading>
 
-            <form className="form" onSubmit={this.handleLoginSubmit}>
+            <Form className={"form"} onSubmit={this.handleLoginSubmit}>
                 <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
+                    <Label htmlFor={"username-input"}>{'Username'}</Label>
+                    <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} placeholder={"username"} />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
-                    <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
+                    <Label htmlFor={"password-input"}>{'Password'}</Label>
+                    <Input className={"form__input"} type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
                 </div>
 
-                <button className="form__button" type="submit">Login</button>
-            </form>
-            <a href="" onClick={this.handleRegisterClick}>Register</a>
+                <Button className={"form__button"} type={"submit"}>{'Login'}</Button>
+            </Form>
+
+            <Link href={""} onClick={this.handleRegisterClick} text={'Register'} />
         </main>
     }
 }
