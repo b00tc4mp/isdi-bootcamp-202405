@@ -5,17 +5,22 @@ import formatTime from '../../util/formatTime.mjs';
 import LikeButton from './buttons/LikeButton.jsx';
 import SaveButton from './buttons/SaveButton.jsx';
 
+import Form from '../../components/Form.jsx';
+import Label from '../../components/Label.jsx';
+import Input from '../../components/Input.jsx';
+import Button from '../../components/Button.jsx';
+import Container from '../../components/Container.jsx';
+import Image from '../../components/Image.jsx';
+import Paragraph from '../../components/Paragraph.jsx';
+import Time from '../../components/Time.jsx';
+
 const { Component } = React;
 
 class Post extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
-        this.state = { editMode: false, value: props.post.caption };
-    }
-
-    handleChange(event) {
-        this.setState({ value: event.target.value });
+        this.state = { editMode: false };
     }
 
     handleUserPosts() {
@@ -95,36 +100,36 @@ class Post extends Component {
     render() {
         const post = this.props.post;
 
-        const editCaptionForm = <form className="form__field edit" onSubmit={this.handleCaptionEdit.bind(this)}>
-            <label htmlFor="caption-edit-input">Caption:</label>
-            <input id="caption-edit-input" className="form__input" type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
-            <button className="form__button" type="submit">Edit</button>
-            <button className="form__button" type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</button>
-        </form>
+        const editCaptionForm = <Form className="edit" onSubmit={this.handleCaptionEdit.bind(this)}>
+            <Label htmlFor="caption-edit-input">Caption:</Label>
+            <Input id="caption-edit-input" defaultValue={this.state.value} />
+            <Button type="submit">Edit</Button>
+            <Button type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</Button>
+        </Form>
 
-        return <article className="post">
-            <div className="post__author__div">
-                <button className="post__author" onClick={this.handleUserPosts.bind(this)}>{post.author}</button>
-                {post.author !== logic.getUserUsername() && <button className="post__author__button" onClick={this.handleFollowButton.bind(this)}>{logic.isUserFollowing(post.author) ? 'Unfollow' : 'Follow'}</button>}
-            </div>
-            <img src={post.img} className="post__image" />
-            <div className="post__actions">
+        return <article className="Post">
+            <Container className="Container--top">
+                <Button className="Button--author" onClick={this.handleUserPosts.bind(this)}>{post.author}</Button>
+                {post.author !== logic.getUserUsername() && <Button onClick={this.handleFollowButton.bind(this)}>{logic.isUserFollowing(post.author) ? 'Unfollow' : 'Follow'}</Button>}
+            </Container>
+            <Image src={post.img} alt={post.caption} title={post.caption} />
+            <Container className="Container--actions">
                 <LikeButton post={post} onLikeClicked={this.handleLikeClick.bind(this)} />
                 <SaveButton postId={post.id} onSaveClicked={this.handleSaveClick.bind(this)} />
-            </div>
-            <hr></hr>
-            <p className="like-counter">{post.likes.length + ' like' + (post.likes.length !== 1 ? 's' : '')}</p>
-            <p className="post__caption">{post.caption}</p>
+            </Container>
+            <hr />
+            <Paragraph className="Paragraph--likes">{post.likes.length + ' like' + (post.likes.length !== 1 ? 's' : '')}</Paragraph>
+            <Paragraph>{post.caption}</Paragraph>
             {
-                post.author === logic.getUserUsername() && <><div className='post__options'>
-                    <button className="form__button" onClick={this.handleDeleteButton.bind(this)}>Delete</button>
-                    <button className="form__button" onClick={this.handleEditButton.bind(this)}>Edit</button>
-                    <div className="edit">
+                post.author === logic.getUserUsername() && <Container className='Container--options'>
+                    <Button onClick={this.handleDeleteButton.bind(this)}>Delete</Button>
+                    <Button onClick={this.handleEditButton.bind(this)}>Edit</Button>
+                    <Container className="Container--edit">
                         {this.state.editMode && editCaptionForm}
-                    </div>
-                </div></>
+                    </Container>
+                </Container>
             }
-            <time className="post__time">{formatTime(new Date(post.date))}</time>
+            <Time>{formatTime(new Date(post.date))}</Time>
         </article >
     }
 }

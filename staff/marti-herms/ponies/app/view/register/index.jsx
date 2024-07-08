@@ -1,15 +1,15 @@
 import Link from '../components/Link';
+import Heading from '../components/Heading'
+import Form from '../components/Form'
+import Container from '../components/Container'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Button from '../components/Button'
 
 import logic from '../../logic/index.mjs';
 
-const { Component } = React;
-
-class Register extends Component {
-    constructor() {
-        super();
-    }
-
-    handleRegisterSubmit(event) {
+function Register({ }) {
+    const handleRegisterSubmit = (event) => {
         event.preventDefault();
 
         const form = event.target;
@@ -41,53 +41,46 @@ class Register extends Component {
         }
     }
 
-    handleLoginClicked(event) {
-        event.preventDefault();
 
-        location.href = '../login';
-    }
+    return <main className='main'>
+        <Heading level="1">Register</Heading>
 
-    render() {
-        return <main className='main'>
-            <h1>Register</h1>
+        <Form className="Form--column" onSubmit={handleRegisterSubmit}>
+            <Container>
+                <Label htmlFor='name-input'>Name:</Label>
+                <Input id='name-input' type='text' placeholder='name' />
+            </Container>
 
-            <form className='form' onSubmit={this.handleRegisterSubmit}>
-                <div className='form__field'>
-                    <label htmlFor='name-input'>Name:</label>
-                    <input id='name-input' className='form__input' type='text' name='name' placeholder='name' />
-                </div>
+            <Container>
+                <Label htmlFor='surname-input'>Surname:</Label>
+                <Input id='surname-input' type='text' placeholder='surname' />
+            </Container>
 
-                <div className='form__field'>
-                    <label htmlFor='surname-input'>Surname:</label>
-                    <input id='surname-input' className='form__input' type='text' name='surname' placeholder='surname' />
-                </div>
+            <Container>
+                <Label htmlFor='email-input'>Email:</Label>
+                <Input id='email-input' type='email' placeholder='email' />
+            </Container>
 
-                <div className='form__field'>
-                    <label htmlFor='email-input'>Email:</label>
-                    <input id='email-input' className='form__input' type='email' name='email' placeholder='email' />
-                </div>
+            <Container>
+                <Label htmlFor='username-input'>Username:</Label>
+                <Input id='username-input' type='text' placeholder='username' />
+            </Container>
 
-                <div className='form__field'>
-                    <label htmlFor='username-input'>Username:</label>
-                    <input id='username-input' className='form__input' type='text' name='username' placeholder='username' />
-                </div>
+            <Container>
+                <Label htmlFor='password-input'>Password:</Label>
+                <Input id='password-input' type='password' placeholder='password' />
+            </Container>
 
-                <div className='form__field'>
-                    <label htmlFor='password-input'>Password:</label>
-                    <input id='password-input' className='form__input' type='password' name='password' placeholder='password' />
-                </div>
+            <Container>
+                <Label htmlFor='password2-input'>Repeat Password:</Label>
+                <Input id='password2-input' type='password' placeholder='repeat password' />
+            </Container>
 
-                <div className='form__field'>
-                    <label htmlFor='password2-input'>Repeat Password:</label>
-                    <input id='password2-input' className='form__input' type='password' name='password2' placeholder='repeat password' />
-                </div>
+            <Button className='Button--register' type='submit'>Register</Button>
+        </Form>
 
-                <button className='form__button' type='submit'>Register</button>
-            </form>
-
-            <Link href="Login" />
-        </main>
-    }
+        <Link href="Login" />
+    </main>
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

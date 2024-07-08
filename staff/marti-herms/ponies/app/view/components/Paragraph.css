@@ -1,0 +1,11 @@
+.Paragraph {
+    font-family: inherit;
+    margin: .5rem;
+}
+
+.Paragraph--likes {
+    font-family: inherit;
+    margin: .5rem;
+    font-size: small;
+    color: dimgray;
+}

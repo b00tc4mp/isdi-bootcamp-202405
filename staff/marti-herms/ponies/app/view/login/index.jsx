@@ -1,15 +1,15 @@
 import Link from '../components/Link';
+import Heading from '../components/Heading'
+import Form from '../components/Form'
+import Container from '../components/Container'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Button from '../components/Button'
 
 import logic from '../../logic/index.mjs';
 
-const { Component } = React;
-
-class Login extends Component {
-    constructor() {
-        super();
-    }
-
-    handleLoginSubmit(event) {
+function Login({ }) {
+    const handleLoginSubmit = (event) => {
         event.preventDefault();
 
         const form = event.target;
@@ -31,27 +31,25 @@ class Login extends Component {
         }
     }
 
-    render() {
-        return <main className='view'>
-            <h1>Login</h1>
+    return <main className='view'>
+        <Heading level="1">Login</Heading>
 
-            <form className='form' onSubmit={this.handleLoginSubmit}>
-                <div className='form__field'>
-                    <label htmlFor='username-input'>Username:</label>
-                    <input id='username-input' className='form__input' type='text' name='username' placeholder='username' />
-                </div>
+        <Form className="Form--column" onSubmit={handleLoginSubmit}>
+            <Container>
+                <Label htmlFor='username-input'>Username:</Label>
+                <Input id='username-input' type='text' placeholder='username' />
+            </Container>
 
-                <div className='form__field'>
-                    <label htmlFor='password-input'>Password:</label>
-                    <input id='password-input' className='form__input' type='password' name="password" placeholder='password' />
-                </div>
+            <Container>
+                <Label htmlFor='password-input'>Password:</Label>
+                <Input id='password-input' type='password' placeholder='password' />
+            </Container>
 
-                <button className='form__button' type='submit'>Login</button>
-            </form>
+            <Button className='Button--login' type='submit'>Login</Button>
+        </Form>
 
-            <Link href="Register" />
-        </main>
-    }
+        <Link href="Register" />
+    </main>
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -2,6 +2,8 @@ import LogoutButton from './buttons/LogoutButton';
 
 import logic from '../../../logic/index.mjs';
 
+import Paragraph from '../../components/Paragraph';
+
 const { Component } = React;
 
 class Header extends Component {
@@ -22,8 +24,8 @@ class Header extends Component {
     }
 
     render() {
-        return <header className="header">
-            <p className="user-name">{logic.getUserName()}</p>
+        return <header className="Header">
+            <Paragraph>{logic.getUserName()}</Paragraph>
             <LogoutButton />
         </header>
     }

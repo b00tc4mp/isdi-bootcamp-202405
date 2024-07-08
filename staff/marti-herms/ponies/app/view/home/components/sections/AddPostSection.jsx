@@ -1,13 +1,13 @@
 import logic from '../../../../logic/index.mjs';
 
-const { Component } = React;
+import Container from '../../../components/Container';
+import Heading from '../../../components/Heading';
+import Form from '../../../components/Form';
+import Button from '../../../components/Button';
+import Label from '../../../components/Button';
 
-class AddPostSection extends Component {
-    constructor() {
-        super();
-    }
-
-    handleAddPost(event) {
+function AddPostSection({ onPostCreated, onCancel }) {
+    const handleAddPost = (event) => {
         event.preventDefault();
 
         const form = event.target
@@ -21,7 +21,7 @@ class AddPostSection extends Component {
         try {
             logic.addPost(postImage, postCaption);
 
-            this.props.onPostCreated();
+            onPostCreated();
         } catch (error) {
             console.error(error);
 
@@ -29,38 +29,36 @@ class AddPostSection extends Component {
         }
     }
 
-    handleCancel(event) {
+    const handleCancel = (event) => {
         event.stopPropagation();
 
-        if (event.target.className === 'fader')
-            this.props.onCancel();
+        if (event.target.className === 'Container--fader')
+            onCancel();
     }
 
-    handleCancelButton() {
-        this.props.onCancel();
+    const handleCancelButton = () => {
+        onCancel();
     }
 
-    render() {
-        return <div className="fader" onClick={this.handleCancel.bind(this)}>
-            <section className="newposts">
-                <h2>Create Post</h2>
-                <form className="form" onSubmit={this.handleAddPost.bind(this)}>
-                    <div className="form__field">
-                        <input id="post-image-input" className="form__input" type="text" placeholder=" " required />
-                        <label htmlFor="post-image-input" className='form__image__label'>Image</label>
-                    </div>
-                    <div className="form__field">
-                        <input id="post-caption-input" className="form__input" type="text" placeholder=" " />
-                        <label htmlFor="post-caption-input" className='form__caption__label'>Caption</label>
-                    </div>
-                    <div className="form__actions">
-                        <button className="form__button" type="submit">Create</button>
-                        <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
-                    </div>
-                </form>
-            </section>
-        </div>
-    }
+    return <Container className="Container--fader" onClick={handleCancel}>
+        <section className="newposts">
+            <Heading level="2">Create Post</Heading>
+            <Form onSubmit={handleAddPost}>
+                <Container className="Container--field">
+                    <input id="post-image-input" type="text" placeholder=" " required />
+                    <label htmlFor="post-image-input">Image</label>
+                </Container>
+                <Container className="Container--field">
+                    <input id="post-caption-input" type="text" placeholder=" " />
+                    <label htmlFor="post-caption-input">Caption</label>
+                </Container>
+                <Container className="Container--actions">
+                    <Button type="submit">Create</Button>
+                    <Button type="button" onClick={handleCancelButton}>Cancel</Button>
+                </Container>
+            </Form>
+        </section>
+    </Container>
 }
 
 export default AddPostSection;

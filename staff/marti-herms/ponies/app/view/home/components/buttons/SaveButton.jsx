@@ -1,4 +1,5 @@
 import logic from '../../../../logic/index.mjs'
+import Button from '../../../components/Button';
 
 const Component = React.Component;
 
@@ -33,11 +34,11 @@ class SaveButton extends Component {
     }
 
     render() {
-        const flag = this.state.saved ? "save-button-active" : "save-button-inactive"
+        const flag = this.state.saved ? "Save--active" : "Save--inactive"
 
-        return <button className="save-button" onClick={this.handleSave}>
+        return <Button className="Save--button" onClick={this.handleSave}>
             <div className={flag}></div>
-        </button>
+        </Button>
     }
 }
 

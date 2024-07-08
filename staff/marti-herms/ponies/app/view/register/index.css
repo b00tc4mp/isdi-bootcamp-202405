@@ -1,3 +1,10 @@
+@import url('../components/Button.css');
+@import url('../components/Container.css');
+@import url('../components/Form.css');
+@import url('../components/Heading.css');
+@import url('../components/Input.css');
+@import url('../components/Label.css');
+
 body {
     min-height: 100vh;
     background: linear-gradient(125deg, #9E58F9 10%, blue 50%, #007FFF 80%);
@@ -19,33 +26,27 @@ main {
     background-color: white;
 }
 
-.form {
+.Form {
     display: flex;
     flex-direction: column;
     gap: .5rem;
     min-width: 80%;
 }
 
-.form__field {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.form__input {
+.Input {
     font-size: inherit;
     padding: 0.3rem 5px;
     border-radius: 3px;
     box-shadow: 0 2px 5px 1px slategray;
     border: 0;
+    width: 98%;
 }
 
-.form__input:hover {
+.Input:hover {
     background-color: rgba(0, 255, 255, 20%);
 }
 
-.form__button {
+.Button--register {
     font-size: inherit;
     margin-top: 2px;
     padding: 0.3rem 5px;
@@ -54,7 +55,7 @@ main {
     border: 0;
 }
 
-.form__button:hover {
+.Button--register:hover {
     background-color: rgba(158, 88, 249, 40%);
 }
 

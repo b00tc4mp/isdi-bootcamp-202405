@@ -1,5 +1,6 @@
 import AddPostSection from './sections/AddPostSection';
 import SearchSection from './sections/SearchSection';
+import Button from '../../components/Button'
 
 const { Component } = React;
 
@@ -65,19 +66,19 @@ class Footer extends Component {
     }
 
     render() {
-        let homeClassName = this.state.homeButton ? 'home-button active' : 'home-button'
-        let savedClassName = this.state.savedButton ? 'saved-list-button active' : 'saved-list-button'
-        let searchClassName = this.state.searchButton ? 'search-button-active' : 'search-button'
-        let followedClassName = this.state.followedButton ? 'followed-button active' : 'followed-button'
+        let homeClassName = this.state.homeButton ? 'Button--home active' : 'Button--home'
+        let savedClassName = this.state.savedButton ? 'Button--saved active' : 'Button--saved'
+        let searchClassName = this.state.searchButton ? 'Button--search--active' : 'Button--search'
+        let followedClassName = this.state.followedButton ? 'Button--followed active' : 'Button--followed'
 
-        return <footer className="footer">
+        return <footer className="Footer">
             {this.state.addPostVisibility === 'addPost' && <AddPostSection onPostCreated={this.handlePostCreated.bind(this)} onCancel={this.handleCancel.bind(this)} />}
             {this.state.addPostVisibility === 'searchUser' && <SearchSection onSearch={this.handleUserSearched.bind(this)} onCancel={this.handleCancel.bind(this)} />}
-            <button className={homeClassName} onClick={this.handleHomeButton.bind(this)}></button>
-            <button className={searchClassName} onClick={this.handleSearchUserButton.bind(this)}></button>
-            <button className="add-post-button" onClick={this.handleAddPostButton.bind(this)}></button>
-            <button className={followedClassName} onClick={this.handleFollowedPostsButton.bind(this)}></button>
-            <button className={savedClassName} onClick={this.handleSavedPostsButton.bind(this)}></button>
+            <Button className={homeClassName} onClick={this.handleHomeButton.bind(this)}></Button>
+            <Button className={searchClassName} onClick={this.handleSearchUserButton.bind(this)}></Button>
+            <Button className="Button--add--post" onClick={this.handleAddPostButton.bind(this)}></Button>
+            <Button className={followedClassName} onClick={this.handleFollowedPostsButton.bind(this)}></Button>
+            <Button className={savedClassName} onClick={this.handleSavedPostsButton.bind(this)}></Button>
         </footer>
     }
 }

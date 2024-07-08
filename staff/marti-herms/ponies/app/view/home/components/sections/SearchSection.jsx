@@ -1,11 +1,11 @@
-const { Component } = React;
+import Heading from '../../../components/Heading';
+import Container from '../../../components/Container';
+import Form from '../../../components/Form';
+import Button from '../../../components/Button';
+import Label from '../../../components/Button';
 
-class SearchSection extends Component {
-    constructor() {
-        super();
-    }
-
-    handleSearchUser(event) {
+function SearchSection({ onSearch, onCancel }) {
+    const handleSearchUser = (event) => {
         event.preventDefault();
 
         const form = event.target
@@ -15,7 +15,7 @@ class SearchSection extends Component {
         const username = searchUserInput.value;
 
         try {
-            this.props.onSearch(username);
+            onSearch(username);
         } catch (error) {
             console.error(error);
 
@@ -23,34 +23,32 @@ class SearchSection extends Component {
         }
     }
 
-    handleCancel(event) {
+    const handleCancel = (event) => {
         event.stopPropagation();
 
-        if (event.target.className === 'fader')
-            this.props.onCancel();
+        if (event.target.className === 'Container--fader')
+            onCancel();
     }
 
-    handleCancelButton() {
-        this.props.onCancel();
+    const handleCancelButton = () => {
+        onCancel();
     }
 
-    render() {
-        return <div className="fader" onClick={this.handleCancel.bind(this)}>
-            <section className="usersearch">
-                <h2>Search User</h2>
-                <form className="form" onSubmit={this.handleSearchUser.bind(this)}>
-                    <div className="form__field">
-                        <input id="post-caption-input" className="form__input" type="text" required />
-                        <label htmlFor="post-caption-input">Username</label>
-                    </div>
-                    <div className="form__actions">
-                        <button className="form__button" type="submit">Search</button>
-                        <button className="form__button" type="button" onClick={this.handleCancelButton.bind(this)}>Cancel</button>
-                    </div>
-                </form>
-            </section>
-        </div>
-    }
+    return <Container className="Container--fader" onClick={handleCancel}>
+        <section className="Usersearch">
+            <Heading level="2" >Search User</Heading>
+            <Form onSubmit={handleSearchUser}>
+                <Container className="Container--field">
+                    <input id="post-caption-input" type="text" placeholder=" " required />
+                    <label htmlFor="post-caption-input">Username</label>
+                </Container>
+                <Container className="Container--actions">
+                    <Button type="submit">Search</Button>
+                    <Button onClick={handleCancelButton}>Cancel</Button>
+                </Container>
+            </Form>
+        </section>
+    </Container>
 }
 
 export default SearchSection;

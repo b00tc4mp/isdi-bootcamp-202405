@@ -1,27 +1,25 @@
 import logic from '../../../../logic/index.mjs'
 
-const Component = React.Component;
+import Button from '../../../components/Button'
 
-class LikeButton extends Component {
-    constructor() {
-        super();
+function LikeButton({ post, onLikeClicked }) {
+    const handleLike = () => {
+        try {
+            logic.togglePostLike(post.id);
+
+            onLikeClicked();
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
 
-    handleLike() {
-        const { post } = this.props
+    const like = post.likes.includes(logic.getUserUsername()) ? 'Like--active' : 'Like--inactive'
 
-        logic.togglePostLike(post.id);
-
-        this.props.onLikeClicked();
-    }
-
-    render() {
-        const like = this.props.post.likes.includes(logic.getUserUsername()) ? 'like-button-active' : 'like-button-inactive'
-
-        return <button className="like-button" onClick={this.handleLike.bind(this)}>
-            <div className={like}></div>
-        </button>
-    }
+    return <Button className="Like--button" onClick={handleLike}>
+        <div className={like}></div>
+    </Button>
 }
 
 export default LikeButton
