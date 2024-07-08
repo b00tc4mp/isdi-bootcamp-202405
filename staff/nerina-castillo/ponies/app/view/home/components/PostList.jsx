@@ -101,15 +101,15 @@ class PostList extends Component {
     render() {  //renderiza el contenido del componente PostList
         console.debug('PostList -> render')
 
-        return <section className="post-list">
+        return <section className="PostList">
             {this.state.posts.map(post => <Post
                 key={post.id}
                 post={post}
                 onPostDeleted={this.handlePostDeleted.bind(this)}
                 onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLiked={this.handlePostLiked.bind(this)}
+                onPostLikeToggled={this.handlePostLiked.bind(this)}
                 onPostFavToggled={this.handlePostFaved.bind(this)}
-                onUserFollowed={this.handleUserFollowed.bind(this)} />)}
+                onUserFollowToggled={this.handleUserFollowed.bind(this)} />)}
         </section>
     }
 }

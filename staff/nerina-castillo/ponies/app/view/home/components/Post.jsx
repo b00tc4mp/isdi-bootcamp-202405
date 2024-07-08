@@ -9,6 +9,8 @@ import Input from '../../components/Input'
 import Label from '../../components/Label'
 import Form from '../../components/Form'
 import Heading from '../../components/Heading'
+import Container from '../../components/Container'
+import Time from '../../components/Time'
 
 const { Component } = React
 
@@ -40,7 +42,7 @@ class Post extends Component {
         try {
             logic.toggleLikePost(this.props.post.id)  //accede a la id del post al que se va a dar like
 
-            this.props.onPostLiked()  //notifica al padre del post que se le ha dado like
+            this.props.onPostLikeToggled()  //notifica al padre del post que se le ha dado like
         } catch (error) {
             console.error(error)
 
@@ -68,7 +70,7 @@ class Post extends Component {
         try {
             logic.toggleFollowUser(this.props.post.author.username)  //acede al username del autor del post al que se va a seguir
 
-            this.props.onUserFollowed()  //notifica al padre del usuario que se ha seguido
+            this.props.onUserFollowToggled()  //notifica al padre del usuario que se ha seguido
         } catch (error) {
             console.error(error)
 
@@ -121,35 +123,35 @@ class Post extends Component {
 
         const { post } = this.props
 
-        return <article className="post">
-            <div className="post__top">
-                <Heading level={3} className={"post__author"} text={post.author.username} />
+        return <article className="Post">
+            <Container className='Container--top'>
+                <Heading level={3} >{post.author.username}</Heading>
 
-                <Button className={"Button"} onClick={this.handleFollowUserClick.bind(this)} text={post.author.following ? 'Unfollow' : 'Follow'} />
-            </div>
+                <Button onClick={this.handleFollowUserClick.bind(this)} >{post.author.following ? 'Unfollow' : 'Follow'}</Button>
+            </Container>
 
-            <Image className={"post__image"} src={post.image} />
+            <Image src={post.image} title={post.title} alt={post.alt} />
 
-            <Paragraph className="post__caption" text={post.caption} />
+            <Paragraph>{post.caption}</Paragraph>
 
-            <div className="post__actions">
-                <Button className={"Button"} onClick={this.handleLikePostClick.bind(this)} text={(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')} />
-                <Button className={"Button"} onClick={this.handleFavPostClick.bind(this)} text={post.fav ? '💫' : '⭐'} />
+            <Container>
+                <Button onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+                <Button onClick={this.handleFavPostClick.bind(this)} >{post.fav ? '💫' : '⭐'}</Button>
 
                 {post.author.username === logic.getUserUsername() && <>
-                    <Button className={"Button"} onClick={this.handleDeletePostClick.bind(this)} text={"Delete"} />
-                    <Button className={"Button"} onClick={this.handleEditPostClick.bind(this)} text={"Edit"} />
+                    <Button onClick={this.handleDeletePostClick.bind(this)}  >{"Delete"}</Button>
+                    <Button onClick={this.handleEditPostClick.bind(this)}  >{"Edit"}</Button>
                 </>}
-            </div>
+            </Container>
 
-            <time className={"post__time"}>{formatTime(new Date(post.date))}</time>
+            <Time>{formatTime(new Date(post.date))}</Time>
 
-            {this.state.editPostVisible && <Form onSubmit={this.handleEditpostSubmit.bind(this)}>
-                <Label htmlFor={"edit-caption-input"} />
-                <Input className={"form__caption-input "} id={"edit-caption-input"} defaultValue={post.caption} />
+            {this.state.editPostVisible && <Form className='Form--edit' onSubmit={this.handleEditpostSubmit.bind(this)}>
+                <Label htmlFor={"edit-caption-input"}>Caption</Label>
+                <Input className={"Input--caption "} id={"edit-caption-input"} defaultValue={post.caption} />
 
-                <Button className={" form__button-save"} type={"submit"} text={"Save"} />
-                <Button className={" form__button-cancel"} type={"button"} onClick={this.handleCancelEditPostClick.bind(this)} text={"Cancel"} />
+                <Button className={"Button--section"} type={"submit"}  >{"Save"}</Button>
+                <Button className={"Button--section"} type={"button"} onClick={this.handleCancelEditPostClick.bind(this)} >{"Cancel"}</Button>
             </Form>}
 
         </article>

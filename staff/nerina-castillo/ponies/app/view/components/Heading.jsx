@@ -1,19 +1,10 @@
-const { Component } = React
 
-class Heading extends Component {
-    constructor() {
-        console.debug('Heading -> constructor')
-        super()
-    }
+function Heading({ level = 1, children }) {
+    const Tag = `h${level}` // 'h' + {this.props.level}
 
-
-    render() {
-        const Tag = `h${this.props.level}` // 'h' + {this.props.level}
-
-        return <Tag className={this.props.className}>
-            {this.props.text}
-        </Tag>
-    }
+    return <Tag className='Heading'>
+        {children}
+    </Tag>
 }
 
 export default Heading

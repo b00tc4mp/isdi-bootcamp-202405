@@ -1,14 +1,11 @@
-const { Component } = React
-class Image extends Component {
-    constructor() {
-        console.debug('Image -> constructor')
-        super()
-    }
 
-    render() {
-        return <img src={this.props.src}
-            className={this.props.className} />
-    }
+
+function Image({ src, alt, title }) {
+    return <img src={src}
+        className={'Image'}
+        alt={alt}
+        title={title} />
 }
+
 
 export default Image

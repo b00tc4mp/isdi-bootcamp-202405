@@ -1,23 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Over+the+Rainbow&display=swap");
+@import url('../components/Input.css');
+@import url('../components/Heading.css');
+@import url('../components/Button.css');
+@import url('../components/Form.css');
 
+@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Over+the+Rainbow&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Over+the+Rainbow&display=swap");
 
 
-body{
-    margin: 0 ;
+body {
+    margin: 0;
 
 }
 
-.view{
+.view {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:1rem;
+    gap: 1rem;
     font-size: 1.1rem;
     font-family: 'Advent pro';
     color: #A02BE8;
     height: 100vh;
-    background: linear-gradient(to bottom left, rgb(251, 245, 252),   rgb(192, 217, 255));
+    background: linear-gradient(to bottom left, rgb(251, 245, 252), rgb(192, 217, 255));
 
 }
 
@@ -34,53 +38,22 @@ body{
     font-family: 'Over the Rainbow';
     color: white;
     font-size: 30px;
-    height: 3.9rem;
 }
 
-.view h1{
+.view h1 {
     align-self: flex-start;
     margin-left: 1rem;
     position: relative;
     top: 2rem;
     font-size: 25px;
     margin-top: 50px;
+    margin-bottom: 50px;
     color: #5834e7;
 }
 
-.form{
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    min-width: 80%;
-    margin-top: 60px
 
-}
-
-.form__field{
+.form__field {
     display: flex;
     flex-direction: column;
     gap: .2rem;
-}
-
-.form__input{
-
-    font-size: inherit;
-    border-radius: 5px;
-    border:none;
-    color:#A02BE8;
-    padding: .2rem;
-    box-shadow: black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-}
-
-.form__button{
-    font-size: inherit;
-    border-radius: 5px;
-    border: none;
-    background: linear-gradient(to right, #A02BE8, #2fd5d5);
-    color: white;
-    padding: .2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 1rem;
 }

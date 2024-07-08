@@ -1,0 +1,15 @@
+.Container {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    padding: 0 .5rem;
+    justify-content: space-around;
+}
+
+.Container--top {
+    display: flex;
+    margin: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0
+}

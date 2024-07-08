@@ -52,12 +52,12 @@ class Header extends Component {
 
 
     render() {
-        return <header className="header">
-            <Paragraph className={"header__user-name"} text={"Hello, " + this.state.name + "!"} />
-            <Button className={"Button Button--active"} onClick={this.handleHomeClick.bind(this)} text={"🏚️"} />
-            <Button className={"Button"} onClick={this.handlePoniesClick.bind(this)} text={"Following"} />
-            <Button className={"Button"} onClick={this.handleFavsClick.bind(this)} text={"💫"} />
-            <Button className={"logout-button"} onClick={this.handleLogout} text={"Logout"} />
+        return <header className="Header">
+            <Paragraph>{"Hello, " + this.state.name + "!"}</Paragraph>
+            <Button onClick={this.handleHomeClick.bind(this)} >{"🏚️"}</Button>
+            <Button onClick={this.handlePoniesClick.bind(this)} >{"Following"}</Button>
+            <Button onClick={this.handleFavsClick.bind(this)} >{"💫"}</Button>
+            <Button className={"Button--logout"} onClick={this.handleLogout} >{"Logout"}</Button>
         </header>
     }
 }

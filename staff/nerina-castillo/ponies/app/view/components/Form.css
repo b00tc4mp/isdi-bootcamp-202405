@@ -1,0 +1,17 @@
+.Form {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    min-width: 80%;
+    margin-bottom: 0%;
+}
+
+.Form--edit {
+    display: flex;
+    flex-direction: column;
+    min-width: 80%;
+    margin-bottom: 0%;
+    padding: 0;
+    gap: 0;
+    font-size: 16px;
+}

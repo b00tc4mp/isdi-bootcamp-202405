@@ -1,17 +1,11 @@
-const { Component } = React
 
-class Paragraph extends Component {
-    constructor() {
-        console.debug('Paragraph -> constructor')
-        super()
-    }
 
-    render() {
-        return <p className={this.props.className}>
-            {this.props.text}
-        </p>
+function Paragraph({ children }) {
+    return <p className='Paragraph'>
+        {children}
+    </p>
 
-    }
 }
+
 
 export default Paragraph

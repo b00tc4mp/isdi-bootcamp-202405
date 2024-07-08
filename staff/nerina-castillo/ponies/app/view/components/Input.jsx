@@ -1,20 +1,13 @@
-const { Component } = React
 
-class Input extends Component {
-    constructor() {
-        console.debug('Input -> constructor')
-        super()
-    }
+function Input({ id, defaultValue, type, name, placeholder, className = '' }) {
+    return <input className={`Input ${className}`}
+        id={id}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        defaultValue={defaultValue} />
 
-    render() {
-        return <input className={this.props.className}
-            id={this.props.id}
-            type={this.props.type}
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            defaultValue={this.props.defaultValue} />
-
-    }
 }
+
 
 export default Input

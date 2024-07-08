@@ -6,21 +6,17 @@ import Link from '../components/Link'
 import Label from '../components/Label'
 import Form from '../components/Form'
 import Heading from '../components/Heading'
+import Container from '../components/Container'
 
-const Component = React.Component
+function Register() {
 
-class Register extends Component {
-    constructor() {
-        super()
-    }
-
-    handleLoginClick(event) {
+    const handleLoginClick = (event) => {
         event.preventDefault()
 
         location.href = '../login'
     }
 
-    handleRegisterSubmit(event) {
+    const handleRegisterSubmit = (event) => {
         event.preventDefault()
 
         const form = event.target
@@ -52,50 +48,50 @@ class Register extends Component {
         }
     }
 
-    render() {
-        return <main className="view">
-            <div className="header">Ponies</div>
 
-            <Heading level={1} text={"Register"} />
+    return <main className="view">
+        <Container className="header">Ponies</Container>
 
-            <Form className={"form"} onSubmit={this.handleRegisterSubmit}>
-                <div className="form__field">
-                    <Label htmlFor={"name-input"} text={"Name"} />
-                    <Input className={"form__input"} type={"text"} id={"name-input"} name={"name"} placeholder={"name"} />
-                </div>
+        <Heading level={1}>{"Register"} </Heading>
 
-                <div className="form__field">
-                    <Label htmlFor={"surname-input"} text={"Surname"} />
-                    <Input className={"form__input"} type={"text"} id={"surname-input"} name={"surname"} placeholder={"surname"} />
-                </div>
+        <Form className={"Form"} onSubmit={handleRegisterSubmit}>
+            <div className="form__field">
+                <Label htmlFor={"name-input"}>{"Name"}</Label>
+                <Input type={"text"} id={"name-input"} name={"name"} placeholder={"name"} />
+            </div>
 
-                <div className="form__field">
-                    <Label htmlFor={"email-input"} text={"Email"} />
-                    <Input className={"form__input"} type={"email"} id={"email-input"} name={"email"} placeholder={"email"} />
-                </div>
+            <div className="form__field">
+                <Label htmlFor={"surname-input"}>{"Surname"}</Label>
+                <Input type={"text"} id={"surname-input"} name={"surname"} placeholder={"surname"} />
+            </div>
 
-                <div className="form__field">
-                    <Label htmlFor={"username-input"} text={"Username"} />
-                    <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} placeholder={"userame"} />
-                </div>
+            <div className="form__field">
+                <Label htmlFor={"email-input"}>{"Email"}</Label>
+                <Input type={"email"} id={"email-input"} name={"email"} placeholder={"email"} />
+            </div>
 
-                <div className="form__field">
-                    <Label htmlFor={"password-input"} text={"Password"} />
-                    <Input className={"form__input"} type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
-                </div>
+            <div className="form__field">
+                <Label htmlFor={"username-input"}>{"Username"}</Label>
+                <Input type={"text"} id={"username-input"} name={"username"} placeholder={"userame"} />
+            </div>
 
-                <div className="form__field">
-                    <Label htmlFor={"password2-input"} text={"Repeat Password"} />
-                    <Input className={"form__input"} type={"password"} id={"password2-input"} name={"password2"}
-                        placeholder="repeat password" />
-                </div>
+            <div className="form__field">
+                <Label htmlFor={"password-input"} >{"Password"}</Label>
+                <Input type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
+            </div>
 
-                <Button className={"form__button"} type={"submit"} text={"Register"} />
-            </Form>
+            <div className="form__field">
+                <Label htmlFor={"password2-input"} >{"Repeat Password"}</Label>
+                <Input type={"password"} id={"password2-input"} name={"password2"}
+                    placeholder="repeat password" />
+            </div>
 
-            <Link href={""} onClick={this.handleLoginClick} text={"Login"} />
-        </main>
-    }
+            <Button className={"Button--section"} type={"submit"} >{"Register"} </Button>
+        </Form>
+
+        <Link href={""} onClick={handleLoginClick} text={"Login"} />
+    </main>
+
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

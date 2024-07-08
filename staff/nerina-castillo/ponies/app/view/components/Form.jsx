@@ -1,20 +1,13 @@
-const { Component } = React
 
 
-class Form extends Component {
-    constructor() {
-        console.debug('Form -> constructor')
-        super()
-    }
+function Form({ onSubmit, children, className = '' }) {
+    return <form className={`Form ${className}`}
+        onSubmit={onSubmit}>
+        {children}
 
-    render() {
-        return <form className={this.props.className}
-            onSubmit={this.props.onSubmit}>
-            {this.props.children}
+    </form>
 
-        </form>
-
-    }
 }
+
 
 export default Form

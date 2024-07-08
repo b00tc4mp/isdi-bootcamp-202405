@@ -1,21 +1,12 @@
-const { Component } = React
 
-class Button extends Component {
-    constructor() {
-        console.debug('Button -> constructor')
-        super()
-    }
-
-
-
-    render() {
-        return <button onClick={this.props.onClick}
-            type={this.props.type}
-            className={this.props.className}
-        >
-            {this.props.text}
-        </button>
-    }
+function Button({ type, onClick, children, className = '' }) {
+    return <button className={`Button ${className}`}
+        onClick={onClick}
+        type={type}
+    >
+        {children}
+    </button>
 }
+
 
 export default Button

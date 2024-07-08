@@ -1,18 +1,12 @@
-const { Component } = React
 
-class Label extends Component {
-    constructor() {
-        console.debug('Label -> constructor')
-        super()
 
-    }
+function Label({ htmlFor, children }) {
+    return <label className="Label"
+        htmlFor={htmlFor}>
+        {children}
+    </label>
 
-    render() {
-        return <label htmlFor={this.props.htmlFor}>
-            {this.props.text}
-        </label>
-
-    }
 }
+
 
 export default Label
