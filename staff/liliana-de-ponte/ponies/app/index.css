@@ -1,0 +1,114 @@
+@import url('./view/components/Button.css');
+@import url('./view/components/Input.css');
+@import url('./view/components/Label.css');
+@import url('./view/components/Form.css');
+@import url('./view/components/Time.css');
+@import url('./view/components/Image.css');
+@import url('./view/components/Paragraph.css');
+@import url('./view/components/Container.css');
+@import url('./view/components/Heading.css');
+
+@import url('./view/home/Header.css');
+@import url('./view/home/Footer.css');
+@import url('./view/home/Post.css');
+@import url('./view/home/PostList.css');
+@import url('./view/home/CreatePost.jsx');
+@import url('./view/home/Avatar.css');
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.main {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+
+
+/* ya aplicado*/
+/* .form__field,
+label,
+input {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 3px;
+}
+
+.form__input {
+    font-size: inherit;
+}
+
+.form__button {
+    font-size: inherit;
+    background-color: #f7bff8;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 70px;
+    height: 30px;
+}
+
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* .post { */
+/* border: 1px solid black; */
+/* box-shadow: 1px 1px 10px 1px #F981FB
+} */
+
+/* .post__top {
+    display: flex;
+    margin: 0 .5rem;
+    align-items: center;
+    gap: .5rem
+} */
+
+
+/* .post__caption {
+    margin: .5rem;
+    } */
+
+/* .post__actions {
+        margin: .5rem;
+        display: flex;
+        gap: .5rem;
+        } */
+
+/* .post__actions>button {
+            background-color: #f7bff8;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            
+            } */
+
+
+
+/*sin aplicar*/
+/* .header__user-name {
+                margin: 0;
+                font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                font-weight: bold;
+            }
+            
+            
+            .post__author {
+                font-weight: bold;
+                font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                font-size: 16px
+            }
+            
+            .post__image {
+                width: 100%;
+            } */
