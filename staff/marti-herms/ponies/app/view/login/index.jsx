@@ -31,21 +31,21 @@ function Login({ }) {
         }
     }
 
-    return <main className='view'>
-        <Heading level="1">Login</Heading>
+    return <main className="view">
+        <Heading>Login</Heading>
 
         <Form className="Form--column" onSubmit={handleLoginSubmit}>
             <Container>
-                <Label htmlFor='username-input'>Username:</Label>
-                <Input id='username-input' type='text' placeholder='username' />
+                <Label htmlFor="username-input">Username:</Label>
+                <Input id="username-input" type="text" name="username" placeholder="username" />
             </Container>
 
             <Container>
-                <Label htmlFor='password-input'>Password:</Label>
-                <Input id='password-input' type='password' placeholder='password' />
+                <Label htmlFor="password-input">Password:</Label>
+                <Input id="password-input" type="password" name="password" placeholder="password" />
             </Container>
 
-            <Button className='Button--login' type='submit'>Login</Button>
+            <Button className="Button--login" type="submit">Login</Button>
         </Form>
 
         <Link href="Register" />

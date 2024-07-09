@@ -42,41 +42,41 @@ function Register({ }) {
     }
 
 
-    return <main className='main'>
-        <Heading level="1">Register</Heading>
+    return <main className="main">
+        <Heading>Register</Heading>
 
         <Form className="Form--column" onSubmit={handleRegisterSubmit}>
             <Container>
-                <Label htmlFor='name-input'>Name:</Label>
-                <Input id='name-input' type='text' placeholder='name' />
+                <Label htmlFor="name-input">Name:</Label>
+                <Input id="name-input" type="text" name="name" placeholder="name" />
             </Container>
 
             <Container>
-                <Label htmlFor='surname-input'>Surname:</Label>
-                <Input id='surname-input' type='text' placeholder='surname' />
+                <Label htmlFor="surname-input">Surname:</Label>
+                <Input id="surname-input" type="text" name="surname" placeholder="surname" />
             </Container>
 
             <Container>
-                <Label htmlFor='email-input'>Email:</Label>
-                <Input id='email-input' type='email' placeholder='email' />
+                <Label htmlFor="email-input">Email:</Label>
+                <Input id="email-input" type="email" name="email" placeholder="email" />
             </Container>
 
             <Container>
-                <Label htmlFor='username-input'>Username:</Label>
-                <Input id='username-input' type='text' placeholder='username' />
+                <Label htmlFor="username-input">Username:</Label>
+                <Input id="username-input" type="text" name="username" placeholder="username" />
             </Container>
 
             <Container>
-                <Label htmlFor='password-input'>Password:</Label>
-                <Input id='password-input' type='password' placeholder='password' />
+                <Label htmlFor="password-input">Password:</Label>
+                <Input id="password-input" type="password" name="password" placeholder="password" />
             </Container>
 
             <Container>
-                <Label htmlFor='password2-input'>Repeat Password:</Label>
-                <Input id='password2-input' type='password' placeholder='repeat password' />
+                <Label htmlFor="password2-input">Repeat Password:</Label>
+                <Input id="password2-input" type="password" name="repassword" placeholder="repeat password" />
             </Container>
 
-            <Button className='Button--register' type='submit'>Register</Button>
+            <Button className="Button--register" type="submit">Register</Button>
         </Form>
 
         <Link href="Login" />

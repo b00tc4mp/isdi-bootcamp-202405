@@ -24,14 +24,14 @@ class Post extends Component {
     }
 
     handleUserPosts() {
-        const post = this.props.post;
+        const { post } = this.props;
 
         this.props.onUsernameClick(post.author);
     }
 
     handleFollowButton() {
         try {
-            const post = this.props.post;
+            const { post } = this.props;
 
             logic.toggleUserFollow(post.author)
         } catch (error) {
@@ -44,7 +44,7 @@ class Post extends Component {
     handleDeleteButton() {
         if (confirm('Delete Post?')) {
             try {
-                const post = this.props.post;
+                const { post } = this.props;
 
                 logic.deletePosts(post.id);
 
@@ -73,7 +73,7 @@ class Post extends Component {
     handleCaptionEdit(event) {
         event.preventDefault();
 
-        const post = this.props.post;
+        const { post } = this.props;
 
         const form = event.target;
 
@@ -98,11 +98,11 @@ class Post extends Component {
     }
 
     render() {
-        const post = this.props.post;
+        const { post } = this.props;
 
         const editCaptionForm = <Form className="edit" onSubmit={this.handleCaptionEdit.bind(this)}>
             <Label htmlFor="caption-edit-input">Caption:</Label>
-            <Input id="caption-edit-input" defaultValue={this.state.value} />
+            <Input id="caption-edit-input" name="edit" defaultValue={this.state.value} />
             <Button type="submit">Edit</Button>
             <Button type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</Button>
         </Form>

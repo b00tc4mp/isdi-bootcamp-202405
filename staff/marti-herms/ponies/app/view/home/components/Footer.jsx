@@ -76,7 +76,7 @@ class Footer extends Component {
             {this.state.addPostVisibility === 'searchUser' && <SearchSection onSearch={this.handleUserSearched.bind(this)} onCancel={this.handleCancel.bind(this)} />}
             <Button className={homeClassName} onClick={this.handleHomeButton.bind(this)}></Button>
             <Button className={searchClassName} onClick={this.handleSearchUserButton.bind(this)}></Button>
-            <Button className="Button--add--post" onClick={this.handleAddPostButton.bind(this)}></Button>
+            <Button className="Button--add--post" onClick={this.handleAddPostButton.bind(this)}>+</Button>
             <Button className={followedClassName} onClick={this.handleFollowedPostsButton.bind(this)}></Button>
             <Button className={savedClassName} onClick={this.handleSavedPostsButton.bind(this)}></Button>
         </footer>

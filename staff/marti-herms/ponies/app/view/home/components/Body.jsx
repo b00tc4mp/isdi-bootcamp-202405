@@ -20,7 +20,7 @@ class Body extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.refreshStamp !== this.props.refreshStamp || (newProps.feed !== this.props.feed && newProps.feed === 'home')) {
+        if (newProps.refreshStamp !== this.props.refreshStamp || (/*newProps.feed !== this.props.feed &&*/ newProps.feed === 'home')) {
             try {
                 const posts = logic.getAllPosts();
 
@@ -125,10 +125,22 @@ class Body extends Component {
         }
     }
 
+    handleFollowedUser() {
+        try {
+            const posts = logic.getAllPosts();
+
+            this.setState({ posts });
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message);
+        }
+    }
+
     render() {
         return <main className="view main">
             <section className="post-list">
-                {this.state.posts.map(post => <Post post={post}
+                {this.state.posts.map(post => <Post key={post.id} post={post}
                     onUsernameClick={this.handleUserPosts.bind(this)}
                     onPostDeleted={this.handleDeletedPost.bind(this)}
                     onPostEdited={this.handlePostEdited.bind(this)}

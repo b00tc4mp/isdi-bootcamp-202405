@@ -1,15 +1,11 @@
 const { Component } = React;
 
-class Link extends Component {
-    constructor() {
-        super();
-    }
-
-    handleClick(event) {
+function Link({ href }) {
+    const handleClick = (event) => {
         event.preventDefault();
 
         try {
-            location.href = '../' + this.props.href.toLowerCase();
+            location.href = '../' + href.toLowerCase();
         } catch (error) {
             console.error(error);
 
@@ -18,9 +14,7 @@ class Link extends Component {
 
     }
 
-    render() {
-        return <a href='' onClick={this.handleClick.bind(this)} >{this.props.href}</a>
-    }
+    return <a href='' onClick={handleClick} >{href}</a>
 }
 
 export default Link
