@@ -1,0 +1,60 @@
+- const { Component } = React -> desestructuracion (destructuring) de React. 
+    Toma Component de React para que podamos usarlo más fácilmente más adelante. sin desdestructurar
+    es asi : const Component = React.Component.
+
+- class -> Define propiedades y comportamientos que esos objetos tendrán. 
+    ejemplo, clase Car define que todos los coches tienen (ruedas, motor)=propiedades, y pueden (arrancar)= comportamiento.
+
+- constructor(){} -> se llama automáticamente cuando creas (instancias) un nuevo objeto de esa clase. 
+    Imagina que el constructor es la parte de la fábrica que le da forma al auto cuando lo construyes.
+
+- extends = Hereda ->  Esto es cuando una clase (llamada clase hija (Car)) toma prestadas propiedades y comportamientos de 
+    otra clase (llamada clase padre (component)). ejemplo: ElectricCar hereda cosas de un Car, pero puede agregar o cambiar 
+    algunas cosas.
+
+- super() -> se utiliza en una clase hija para llamar al constructor de la clase padre. 
+    Es como decir "quiero usar la parte de la fábrica del auto general antes de agregar mis 
+    propias partes específicas".
+
+- event.preventDefault() -> se utiliza para detener el comportamiento predeterminado de un evento. En este caso, la pagina 
+    no se recargará automaticamente. Para que se haga esto, en el metodo tiene que ir entre parentesis la 
+    palabra event, ejemplo: handleRegisterSubmit(event).
+
+- const form = event.target -> Esto está capturando el elemento del formulario que causó el evento(como hacer clic en un boton
+    de enviar). Aqui se está guardando una referencia al formulario en sí mismo, lo que permite acceder a los datos ingresados
+    en los campos del formulario y realizar acciones adicionales con ellos.
+
+- {const nameInput = form['name-input']
+    const surnameInput = form['surname-input']
+    const emailInput = form['email-input']
+    const usernameInput = form['username-input']
+    const passwordInput = form['password-input']
+    const passwordRepeatInput = form['password2-input']
+} -> Todo esto obtiene los elementos de entrada del formulario por sus nombres.
+
+- {  const name = nameInput.value
+    const surname = surnameInput.value
+    const email = emailInput.value
+    const username = usernameInput.value
+    const password = passwordInput.value
+    const passwordRepeat = passwordRepeatInput.value
+} -> Todo esto extrae los valores de los campos de entrada.
+
+- {
+    try {
+
+    } catch (error) {
+        
+    }
+} -> se usa para manejar los errores. si todo sale correcto entra en try, pero si hay algun error
+        entrará en catch y mostrará una mensaje de error.
+
+- render() -> Este método define la interfaz gráfica del componente. O sea renderiza lo que hay dentro
+    del método (pinta lo que hay dentro)
+
+- props -> permiten que el componente reciba datos del componente padre.Permiten configurar el comportamiento 
+    y la apariencia del componente hijo sin modificar su definición.  hacen que los componentes sean reutilizables 
+    con diferentes configuraciones. En componentes de funcion se usa props.nombre, en componentes de clase se usa this.props.nombre
+
+- defaultValue -> establece un valor inicial que no se ve afectado por futuras actualizaciones del componente. Se usa
+    cuando no necesitas que el valor del input cambie despues de la inicializacion, a menos que sea modificado por el usuario.
