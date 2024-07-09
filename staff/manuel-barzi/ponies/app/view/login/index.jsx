@@ -1,19 +1,21 @@
 import logic from '../../logic/index.mjs'
 
-const Component = React.Component
+import Heading from '../components/Heading'
+import Form from '../components/Form'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Container from '../components/Container'
+import Link from '../components/Link'
+import Button from '../components/Button'
 
-class Login extends Component {
-    constructor() {
-        super()
-    }
-
-    handleRegisterClick(event) {
+function Login() {
+    const handleRegisterClick = event => {
         event.preventDefault()
 
         location.href = '../register'
     }
 
-    handleLoginSubmit(event) {
+    const handleLoginSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -35,27 +37,25 @@ class Login extends Component {
         }
     }
 
-    render() {
-        return <main className="view">
-            <h1>Login</h1>
+    return <main className="view">
+        <Heading level="1">Login</Heading>
 
-            <form className="form" onSubmit={this.handleLoginSubmit}>
-                <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
-                </div>
+        <Form onSubmit={handleLoginSubmit} className="Form--column">
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="username-input">Username</Label>
+                <Input type="text" id="username-input" name="username" placeholder="username" />
+            </Container>
 
-                <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
-                    <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
-                </div>
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="password-input">Password</Label>
+                <Input type="password" id="password-input" name="password" placeholder="password" />
+            </Container>
 
-                <button className="form__button" type="submit">Login</button>
-            </form>
+            <Button type="submit">Login</Button>
+        </Form>
 
-            <a href="" onClick={this.handleRegisterClick}>Register</a>
-        </main>
-    }
+        <Link onClick={handleRegisterClick}>Register</Link>
+    </main>
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

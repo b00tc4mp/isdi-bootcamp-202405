@@ -1,5 +1,5 @@
-function Input({ id, defaultValue }) {
-    return <input className="Input" id={id} defaultValue={defaultValue} />
+function Input({ id, defaultValue, type, name, placeholder, className = '' }) {
+    return <input className={`Input ${className}`} id={id} defaultValue={defaultValue} type={type} name={name} placeholder={placeholder} />
 }
 
 export default Input

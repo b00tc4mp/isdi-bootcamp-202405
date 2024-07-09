@@ -1,3 +1,10 @@
+@import url('../components/Button.css');
+@import url('../components/Input.css');
+@import url('../components/Label.css');
+@import url('../components/Form.css');
+@import url('../components/Container.css');
+@import url('../components/Heading.css');
+
 .view {
     display: flex;
     flex-direction: column;

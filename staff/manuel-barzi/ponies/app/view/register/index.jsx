@@ -1,19 +1,21 @@
 import logic from '../../logic/index.mjs'
 
-const Component = React.Component
+import Heading from '../components/Heading'
+import Form from '../components/Form'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Container from '../components/Container'
+import Link from '../components/Link'
+import Button from '../components/Button'
 
-class Register extends Component {
-    constructor() {
-        super()
-    }
-
-    handleLoginClick(event) {
+function Register() {
+    const handleLoginClick = event => {
         event.preventDefault()
 
         location.href = '../login'
     }
 
-    handleRegisterSubmit(event) {
+    const handleRegisterSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -45,47 +47,45 @@ class Register extends Component {
         }
     }
 
-    render() {
-        return <main className="view">
-            <h1>Register</h1>
+    return <main className="view">
+        <Heading>Register</Heading>
 
-            <form className="form" onSubmit={this.handleRegisterSubmit}>
-                <div className="form__field">
-                    <label htmlFor="name-input">Name</label>
-                    <input className="form__input" type="text" id="name-input" name="name" placeholder="name" />
-                </div>
+        <Form onSubmit={handleRegisterSubmit} className="Form--column">
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="name-input">Name</Label>
+                <Input type="text" id="name-input" name="name" placeholder="name" />
+            </Container>
 
-                <div className="form__field">
-                    <label htmlFor="surname-input">Surname</label>
-                    <input className="form__input" type="text" id="surname-input" name="surname" placeholder="surname" />
-                </div>
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="surname-input">Surname</Label>
+                <Input type="text" id="surname-input" name="surname" placeholder="surname" />
+            </Container>
 
-                <div className="form__field">
-                    <label htmlFor="email-input">E-mail</label>
-                    <input className="form__input" type="email" id="email-input" name="email" placeholder="email" />
-                </div>
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="email-input">E-mail</Label>
+                <Input type="email" id="email-input" name="email" placeholder="email" />
+            </Container>
 
-                <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
-                </div>
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="username-input">Username</Label>
+                <Input type="text" id="username-input" name="username" placeholder="username" />
+            </Container>
 
-                <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
-                    <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
-                </div>
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="password-input">Password</Label>
+                <Input type="password" id="password-input" name="password" placeholder="password" />
+            </Container>
 
-                <div className="form__field">
-                    <label htmlFor="password-repeat-input">Repeat Password</label>
-                    <input className="form__input" type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
-                </div>
+            <Container className="Container--column Container--column-left">
+                <Label htmlFor="password-repeat-input">Repeat Password</Label>
+                <Input type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
+            </Container>
 
-                <button className="form__button" type="submit">Register</button>
-            </form>
+            <Button type="submit">Register</Button>
+        </Form>
 
-            <a href="" onClick={this.handleLoginClick}>Login</a>
-        </main>
-    }
+        <Link onClick={handleLoginClick}>Login</Link>
+    </main>
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

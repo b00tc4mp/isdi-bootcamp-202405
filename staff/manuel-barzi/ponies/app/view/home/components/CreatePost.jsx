@@ -38,20 +38,22 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         <Heading level="2">Create Post</Heading>
 
         <Form className="Form--column" onSubmit={handleCreatePostSubmit}>
-            <div className="form__field">
-                <Label htmlFor="post-image-input">Image</Label>
-                <Input id="post-image-input" />
-            </div>
+            <Container className="Container--column">
+                <Container className="Container--column Container--column-left">
+                    <Label htmlFor="post-image-input">Image</Label>
+                    <Input className="Input--full-width" id="post-image-input" />
+                </Container>
 
-            <div className="form__field">
-                <Label htmlFor="post-caption-input">Caption</Label>
-                <Input id="post-caption-input" />
-            </div>
+                <Container className="Container--column Container--column-left">
+                    <Label htmlFor="post-caption-input">Caption</Label>
+                    <Input className="Input--full-width" id="post-caption-input" />
+                </Container>
 
-            <div className="create-post-section__buttons">
-                <Button type="submit">✅</Button>
-                <Button type="reset" onClick={handleCancelCreatePostClick}>ｘ</Button>
-            </div>
+                <Container className="Container--center">
+                    <Button type="submit">✅</Button>
+                    <Button type="reset" onClick={handleCancelCreatePostClick}>ｘ</Button>
+                </Container>
+            </Container>
         </Form>
     </section>
 }

@@ -1,28 +1,14 @@
+@import url('../components/Button.css');
+@import url('../components/Input.css');
+@import url('../components/Label.css');
+@import url('../components/Form.css');
+@import url('../components/Container.css');
+@import url('../components/Heading.css');
+
 .view {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    min-width: 80%;
-}
-
-.form__field {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem
-}
-
-.form__input {
-    font-size: inherit;
-}
-
-.form__button {
-    font-size: inherit;
 }
