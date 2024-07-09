@@ -37,6 +37,8 @@ class FavsPostList extends Component {
     }
 
     handlePostDeleted() {
+        console.debug('FavsPostList -> handlePostDeleted')
+
         try {
             const posts = logic.getAllFavPosts()
 
@@ -49,6 +51,7 @@ class FavsPostList extends Component {
     }
 
     handlePostEdited() {
+        console.debug('FavsPostList -> handlePostEdited')
         try {
             const posts = logic.getAllFavPosts()
 
@@ -61,6 +64,7 @@ class FavsPostList extends Component {
     }
 
     handlePostLikeToggled() {
+        console.debug('FavPostList -> hnadlePostLikeToggled')
         try {
             const posts = logic.getAllFavPosts()
 
@@ -73,6 +77,7 @@ class FavsPostList extends Component {
     }
 
     handlePostFavToggled() {
+        console.debug('FavsPostList -> handlePostFavToggled')
         try {
             const posts = logic.getAllFavPosts()
 
@@ -85,6 +90,8 @@ class FavsPostList extends Component {
     }
 
     handleUserFollowToggled() {
+        console.debug('FavsPostList -> handleUserFollowToggled')
+
         try {
             const posts = logic.getAllFavPosts()
 

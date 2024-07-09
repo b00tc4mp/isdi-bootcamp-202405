@@ -1,5 +1,5 @@
-function Container({ children }) {
-    return <div className="Container">{children}</div>
+function Container({ children, className = '' }) {
+    return <div className={`form__field ${className}`}>{children}</div>
 
 }
 

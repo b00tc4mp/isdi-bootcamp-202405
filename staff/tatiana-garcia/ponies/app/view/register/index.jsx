@@ -1,4 +1,11 @@
 import logic from '../../logic/index.mjs'
+import Heading from '../components/Heading'
+import Container from '../components/Container'
+import Form from '../components/Form'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Button from '../components/Button'
+import Link from '../components/Link'
 
 const { Component } = React
 
@@ -47,43 +54,43 @@ class Register extends Component {
 
     render() {
         return <main className="view">
-            <h1>Register</h1>
+            <Heading>Register</Heading>
 
-            <form className="form" onSubmit={this.handleRegisterSubmit} >
-                <div className="form__field">
-                    <label htmlFor="name-input">Name</label>
-                    <input className="form__input" type="text" id="name-input" name="name" placeholder="name" />
-                </div>
+            <Form onSubmit={this.handleRegisterSubmit} >
+                <Container className={"form__field"}>
+                    <Label htmlFor={"name-input"}>{'Name'}</Label>
+                    <Input className={"form__input"} type={"text"} id={"name-input"} name={"name"} placeholder={"name"} />
+                </Container>
 
-                <div className="form__field">
-                    <label htmlFor="surname-input">Surname</label>
-                    <input className="form__input" type="text" id="surname-input" name="surname" placeholder="surname" />
-                </div>
+                <Container className={"form__field"}>
+                    <Label htmlFor={"surname-input"}>{'Surname'}</Label>
+                    <Input className={"form__input"} type={"text"} id={"surname-input"} name={"surname"} placeholder={"surname"} />
+                </Container>
 
-                <div className="form__field">
-                    <label htmlFor="email-input">Email</label>
-                    <input className="form__input" type="email" id="email-input" name="email" placeholder="email" />
-                </div>
+                <Container className={"form__field"}>
+                    <Label htmlFor={"email-input"}>{'Email'}</Label>
+                    <Input className={"form__input"} type={"email"} id={"email-input"} name={"email"} placeholder={"email"} />
+                </Container>
 
-                <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
-                </div>
+                <Container className={"form__field"}>
+                    <Label htmlFor={"username-input"}>{'Username'}</Label>
+                    <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} placeholder={"username"} />
+                </Container>
 
-                <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
-                    <input className="form__input" type="password" name="password" id="password-input" placeholder="password" />
-                </div>
+                <Container className={"form__field"}>
+                    <Label htmlFor={"password-input"}>{'Password'}</Label>
+                    <Input className={"form__input"} type={"password"} name={"password"} id={"password-input"} placeholder={"password"} />
+                </Container>
 
-                <div className="form__field">
-                    <label htmlFor="password2-input">Repeat password</label>
-                    <input className="form__input" type="password" name="password2" id="password2-input" placeholder="repeat password" />
-                </div>
+                <Container className={"form__field"}>
+                    <Label htmlFor={"password2-input"}>{'Repeat password'}</Label>
+                    <Input className={"form__input"} type={"password"} name={"password2"} id={"password2-input"} placeholder={"repeat password"} />
+                </Container>
 
-                <button className="form__button" type="submit">Register</button>
-            </form>
+                <Button className={"form__button"} type={"submit"}>{'Register'}</Button>
+            </Form>
 
-            <a href="" onClick={this.handleLoginClick}>Login</a>
+            <Link onClick={this.handleLoginClick} text={'Login'} />
         </main>
     }
 }

@@ -28,13 +28,13 @@ class Footer extends Component {
     handlePostCreated() {
         this.setState({ createPostVisible: false })
 
-        this.props.onPostcreated()
+        this.props.onPostCreated()
     }
 
     render() {
         console.debug('Footer -> render')
 
-        return <footer className="Footer">
+        return <footer className="footer">
             <Button onClick={this.handleCreatePostClick.bind(this)}>＋</Button>
 
             {this.state.createPostVisible && <CreatePost onPostCreated={this.handlePostCreated.bind(this)} onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)} />}

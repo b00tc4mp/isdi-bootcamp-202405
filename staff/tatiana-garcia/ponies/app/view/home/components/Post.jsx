@@ -148,13 +148,16 @@ class Post extends Component {
 
             <Time>{formatTime(new Date(post.date))}</Time>
 
-            {this.state.editPostVisible && <Form onSubmit={this.handleEditPostSubmit.bind(this)}>
-                <Label htmlFor="edit-caption-input">Caption</Label>
-                <Input id="edit-caption-input" defaultValue={post.caption} />
+            {this.state.editPostVisible && <Form onSubmit={this.handleEditPostSubmit.bind(this)} className="Form--column">
+                <Container className="Container--column">
+                    <Label htmlFor="edit-caption-input">{'Caption'}</Label>
+                    <Input id="edit-caption-input" defaultValue={post.caption} />
+                </Container>
 
-                <Button type="submit">Save</Button>
-                <Button type="button" onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</Button>
-
+                <Container className="Container--center">
+                    <Button type="submit">{'Save'}</Button>
+                    <Button type="button" onClick={this.handleCancelEditPostClick.bind(this)}>{'Cancel'}</Button>
+                </Container>
             </Form>}
         </article>
     }

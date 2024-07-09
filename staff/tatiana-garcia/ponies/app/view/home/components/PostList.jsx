@@ -37,6 +37,8 @@ class PostList extends Component {
     }
 
     handlePostDeleted() {
+        console.debug('PostList -> handlePostDeleted')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -49,6 +51,8 @@ class PostList extends Component {
     }
 
     handlePostEdited() {
+        console.debug('PostList -> handlePostEdited')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -61,6 +65,8 @@ class PostList extends Component {
     }
 
     handlePostLikeToggled() {
+        console.debug('PostList -> handlePostLikeToggled')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -73,6 +79,8 @@ class PostList extends Component {
     }
 
     handlePostFavToggled() {
+        console.debug('PostList -> handlePostFavToggled')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -85,6 +93,8 @@ class PostList extends Component {
     }
 
     handleUserFollowToggled() {
+        console.debug('PostList -> handleUserFollowToggled')
+
         try {
             const posts = logic.getAllPosts()
 

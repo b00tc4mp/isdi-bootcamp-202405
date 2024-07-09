@@ -35,7 +35,7 @@ class Header extends Component {
     }
 
     handleFavsClick() {
-        console.debug()
+        console.debug('Header -> handleFavsClick')
 
         this.props.onFavsClick()
     }
@@ -56,6 +56,7 @@ class Header extends Component {
 
     render() {
         console.debug('Header -> render')
+
         return <header className="header">
             <Paragraph>Hello, {this.state.name}!</Paragraph>
             <Button onClick={this.handleHomeClick.bind(this)}>🏯</Button>
