@@ -1,0 +1,25 @@
+.Container {
+    display: flex;
+    gap: .5rem;
+    padding: 0 .5rem;
+}
+
+.Container--left {
+    justify-content: left;
+}
+
+.Container--center {
+    justify-content: center;
+}
+
+.Container--column {
+    flex-direction: column;
+}
+
+.Container--column-center {
+    align-items: center;
+}
+
+.Container--column-left {
+    align-items: start;
+}

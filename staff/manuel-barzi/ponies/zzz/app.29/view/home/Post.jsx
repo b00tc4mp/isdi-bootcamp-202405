@@ -14,8 +14,6 @@ import Paragraph from '../components/Paragraph.jsx'
 import Heading from '../components/Heading.jsx'
 import Container from '../components/Container.jsx'
 
-import Avatar from './Avatar.jsx'
-
 class Post extends Component {
     constructor() {
         console.debug('Post -> constructor')
@@ -126,9 +124,7 @@ class Post extends Component {
         const { post } = this.props
 
         return <article className="Post">
-            <Container className="Container--column-center">
-                <Avatar url={post.author.avatar} />
-
+            <Container>
                 <Heading level="4">{post.author.username}</Heading>
 
                 <Button onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🦄' : '🐴'}</Button>
