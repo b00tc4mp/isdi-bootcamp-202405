@@ -1,0 +1,32 @@
+.Button {
+    font-size: 1.1rem;
+    background-color: #F981FB;
+    /* border-color: transparent; */
+    border-radius: 5px;
+    /* border-width: 1px; */
+    /* border-style: solid; */
+    /* padding: 0; */
+    font-weight: bold;
+    height: 35px;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Button:hover {
+    border-color: lightgray;
+    background-color: #f7bff8
+}
+
+.Button--active {
+    border-color: lightgray
+}
+
+
+.Button--form {
+    /* button login*/
+    font-size: inherit;
+    background-color: #F981FB;
+    border-radius: 5px;
+    font-weight: bold;
+    height: 35px;
+    width: 90%;
+}
