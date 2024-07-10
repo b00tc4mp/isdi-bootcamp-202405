@@ -1,7 +1,6 @@
 import data from '../data/index.mjs'
 
 const getAllFavPosts = () => {
-
     const user = data.findUser(user => user.username === sessionStorage.username)
 
     if (user === null)
@@ -12,9 +11,13 @@ const getAllFavPosts = () => {
     posts.forEach(post => {
         post.fav = user.favs.includes(post.id)
         post.like = post.likes.includes(sessionStorage.username)
+
+        const author = data.findUser(user => user.username === post.author)
+
         post.author = {
-            username: post.author,
-            following: user.following.includes(post.author)
+            username: author.username,
+            avatar: author.avatar,
+            following: user.following.includes(author.username)
         }
     })
 

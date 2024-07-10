@@ -2,7 +2,7 @@ import logic from '../../../logic/index.mjs'
 
 const { Component } = React
 
-import Post from './Post.jsx'
+import Post from './Post'
 
 class PostList extends Component {
     constructor() {
@@ -74,7 +74,7 @@ class PostList extends Component {
         } catch (error) {
             console.error(error)
 
-            alert(message.error)
+            alert(error.message)
         }
     }
 

@@ -7,3 +7,11 @@
     color: dimgray;
     padding: 0;
 }
+
+.form__button {
+    border-radius: 15px;
+    font-size: inherit;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    font-weight: bold;
+    color: rgb(88, 5, 88);
+}

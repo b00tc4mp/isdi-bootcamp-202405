@@ -1,11 +1,11 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../../logic/index.mjs'
 
-import Heading from '../components/Heading'
-import Form from '../components/Form'
-import Input from '../components/Input'
-import Label from '../components/Label'
-import Button from '../components/Button'
-import Container from '../components/Container'
+import Heading from '../../components/Heading'
+import Form from '../../components/Form'
+import Input from '../../components/Input'
+import Label from '../../components/Label'
+import Button from '../../components/Button'
+import Container from '../../components/Container'
 
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
@@ -41,7 +41,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
     }
 
     return <section className="CreatePost">
-        <Heading level="2">Create Post</Heading>
+        <Heading level="2">{'Create Post'}</Heading>
 
         <Form className="Form--column" onSubmit={handleCreatePostSubmit}>
             <Container className="Container--column">

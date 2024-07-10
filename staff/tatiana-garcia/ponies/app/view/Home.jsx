@@ -1,8 +1,8 @@
-import Header from './components/Header'
-import PostList from './components/PostList'
-import Footer from './components/Footer'
-import PoniesPostList from './components/PoniesPostList'
-import FavsPostList from './components/FavsPostList'
+import Header from './home/components/Header'
+import PostList from './home/components/PostList'
+import Footer from './home/components/Footer'
+import PoniesPostList from './home/components/PoniesPostList'
+import FavsPostList from './home/components/FavsPostList'
 
 const { Component } = React
 
@@ -39,7 +39,6 @@ class Home extends Component {
         this.setState({ view: 'favs' })
     }
 
-
     render() {
         console.debug('Home -> render')
 
@@ -48,7 +47,7 @@ class Home extends Component {
                 onHomeClick={this.handleHomeClick.bind(this)}
                 onPoniesClick={this.handlePoniesClick.bind(this)}
                 onFavsClick={this.handleFavsClick.bind(this)}
-
+                onLogout={this.props.onLogout}
             />
 
             <main className="view main">
@@ -64,5 +63,4 @@ class Home extends Component {
     }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<Home />)
+export default Home

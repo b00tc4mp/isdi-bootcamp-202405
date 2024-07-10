@@ -1,9 +1,10 @@
-.form__field {
+/* .form__field {
     display: flex;
     flex-direction: column;
     gap: .2rem;
     font-weight: bold;
-}
+    color: rgb(88, 5, 88);
+} */
 
 .Container {
     display: flex;

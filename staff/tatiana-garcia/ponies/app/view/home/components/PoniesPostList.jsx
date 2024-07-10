@@ -38,6 +38,7 @@ class PoniesPostList extends Component {
 
     handlePostDeleted() {
         console.debug('PoniesPostList -> handlePostDeleted')
+
         try {
             const posts = logic.getAllPoniesPosts()
 
@@ -51,6 +52,7 @@ class PoniesPostList extends Component {
 
     handlePostEdited() {
         console.debug('PoniesPostList -> handlePostEdited')
+
         try {
             const posts = logic.getAllPoniesPosts()
 
@@ -72,7 +74,7 @@ class PoniesPostList extends Component {
         } catch (error) {
             console.error(error)
 
-            alert(message.error)
+            alert(error.message)
         }
     }
 

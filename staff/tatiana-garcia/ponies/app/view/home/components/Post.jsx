@@ -14,6 +14,8 @@ import Paragraph from '../../components/Paragraph.jsx'
 import Heading from '../../components/Heading.jsx'
 import Container from '../../components/Container.jsx'
 
+import Avatar from '../components/Avatar.jsx'
+
 class Post extends Component {
     constructor() {
         console.debug('Post -> constructor')
@@ -24,7 +26,7 @@ class Post extends Component {
     }
 
     handleDeletePostClick() {
-        if (confirm('Delete post?')) {
+        if (confirm('Delete post?'))
             try {
                 logic.deletePost(this.props.post.id)
 
@@ -34,7 +36,6 @@ class Post extends Component {
 
                 alert(error.message)
             }
-        }
     }
 
     componentWillUnmount() {
@@ -70,7 +71,7 @@ class Post extends Component {
             this.setState({ editPostVisible: false })
 
             this.props.onPostEdited()
-        } catch {
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
@@ -125,10 +126,12 @@ class Post extends Component {
         const { post } = this.props
 
         return <article className="post">
-            <Container>
+            <Container className="Container--column-center">
+                <Avatar url={post.author.avatar} />
+
                 <Heading level="4">{post.author.username}</Heading>
 
-                <Button onClick={this.handleFollowUserClick.bind(this)} >{post.author.following ? '🦄' : '🐴'}</Button>
+                <Button onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🦄' : '🐴'}</Button>
             </Container>
 
             <Image src={post.image} alt={post.caption} title={post.caption} />

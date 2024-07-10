@@ -44,25 +44,24 @@ function Login({ onLogin, onRegisterClick }) {
     }
 
     return <main className="view">
-        <Heading level="1">Login</Heading>
+        <Heading>Login</Heading>
 
         <Form onSubmit={handleLoginSubmit} className="Form--column">
             <Container className="Container--column Container--column-left">
-                <Label htmlFor="username-input">Username</Label>
+                <Label htmlFor="username-input">{'Username'}</Label>
                 <Input type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
             <Container className="Container--column Container--column-left">
-                <Label htmlFor="password-input">Password</Label>
+                <Label htmlFor="password-input">{'Password'}</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
-            <Button type="submit">Login</Button>
+            <Button className='form__button' type="submit">{'Login'}</Button>
         </Form>
 
         <Link onClick={handleRegisterClick}>Register</Link>
     </main>
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<Login />)
+export default Login
