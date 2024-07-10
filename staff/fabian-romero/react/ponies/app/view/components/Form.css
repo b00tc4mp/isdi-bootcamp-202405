@@ -1,0 +1,22 @@
+.Form {
+    margin-top: 0em;
+    unicode-bidi: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    min-width: 80%;
+}
+
+.Form__field {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem
+}
+
+.Form__input {
+    font-size: inherit;
+}
+
+.Form__button {
+    font-size: inherit;
+}
