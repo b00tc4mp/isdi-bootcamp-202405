@@ -3,10 +3,6 @@ import deletePosts from './deletePosts.mjs'
 import editPost from './editPost.mjs'
 import getAllPosts from './getAllPosts.mjs'
 import getFollowedUserPosts from './getFollowedUserPosts.mjs'
-import getUserAvatar from './getUserAvatar.mjs'
-import getUserFollowed from './getUserFollowed.mjs'
-import getUserFollowers from './getUserFollowers.mjs'
-import getUserPostNumber from './getUserPostNumber.mjs'
 import getUserList from './getUserList.mjs'
 import getUserName from './getUserName.mjs'
 import getUserSavedPosts from './getUserSavedPosts.mjs'
@@ -28,10 +24,6 @@ const logic = {
     editPost,
     getAllPosts,
     getFollowedUserPosts,
-    getUserAvatar,
-    getUserFollowed,
-    getUserFollowers,
-    getUserPostNumber,
     getUserList,
     getUserName,
     getUserSavedPosts,

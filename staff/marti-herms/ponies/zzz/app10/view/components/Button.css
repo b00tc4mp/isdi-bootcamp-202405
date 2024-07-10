@@ -1,30 +1,16 @@
 .Button {
-    border: 1px solid transparent;
+    background-color: transparent;
+    border-color: transparent;
     border-radius: .5rem;
-    color: black;
+    border-width: 1px;
+    border-style: solid;
+    color: dimgray;
     padding: 0;
 }
 
-.Button--logout {
-    margin-right: 10px;
-}
-
-.Container--top .Button {
-    background-color: transparent;
-    padding: 0 6px;
-    margin: 3px;
-}
-
 .Button--author {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: inherit;
-    border: 0;
-}
-
-.Button--author .Heading {
     margin: 3px;
+    margin-left: 3px;
     font-weight: bolder;
     font-size: larger;
     background-color: inherit;
@@ -33,12 +19,11 @@
 
 .Container--options .Button {
     border-radius: 3px;
-    border: .5px solid slategray;
-    padding: .2rem;
+    border: 1px solid lightgray;
 }
 
 .Container--options .Button:hover {
-    background-color: rgb(253, 157, 106);
+    background-color: tomato;
 }
 
 /*<<<<<<<<<<<<<<<<<<< Footer Buttons >>>>>>>>>>>>>>>>>>>>>>>>*/

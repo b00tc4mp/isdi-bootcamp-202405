@@ -48,8 +48,7 @@ const registerUser = (name, surname, email, username, password, passwordRepeat) 
         likedPosts: [],
         savedPosts: [],
         followers: [],
-        following: [],
-        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+        following: []
     };
 
     data.insertUser(user)

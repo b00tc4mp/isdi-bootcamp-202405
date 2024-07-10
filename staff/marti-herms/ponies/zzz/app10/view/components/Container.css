@@ -7,15 +7,6 @@
     padding: 0 .5rem;
 }
 
-.Container--center-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: .5rem;
-    align-items: center;
-    padding: 0 .5rem;
-}
-
 .Container--top {
     display: flex;
     min-height: 27.6px;
@@ -26,12 +17,6 @@
     justify-content: space-between;
     align-items: center;
     background: repeating-linear-gradient(125deg, rgba(158, 88, 249, 0.7) 0%, rgba(200, 52, 205, 0.7) 33%, rgba(0, 127, 255, 0.4) 50%, rgba(0, 72, 255, 0.4) 66%, rgba(158, 88, 249, 0.4) 100%);
-}
-
-.Container--profile {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 }
 
 .Container--actions {

@@ -1,11 +1,11 @@
 const { Component } = React;
 
-function Link({ onClick, text }) {
+function Link({ href }) {
     const handleClick = (event) => {
         event.preventDefault();
 
         try {
-            onClick();
+            location.href = '../' + href.toLowerCase();
         } catch (error) {
             console.error(error);
 
@@ -14,7 +14,7 @@ function Link({ onClick, text }) {
 
     }
 
-    return <a href='' onClick={handleClick} >{text}</a>
+    return <a href='' onClick={handleClick} >{href}</a>
 }
 
 export default Link
