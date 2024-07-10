@@ -1,3 +1,5 @@
+import './Time.css'
+
 function Time({ children }) {
     console.debug('Time -> call')
 

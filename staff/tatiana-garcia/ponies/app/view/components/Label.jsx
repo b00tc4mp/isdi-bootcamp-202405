@@ -1,3 +1,5 @@
+import './Label.css'
+
 function Label({ htmlFor, children }) {
     console.debug('Label -> call')
 

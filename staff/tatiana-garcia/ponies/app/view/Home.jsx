@@ -1,10 +1,10 @@
+import { Component } from 'react'
+
 import Header from './home/components/Header'
 import PostList from './home/components/PostList'
 import Footer from './home/components/Footer'
 import PoniesPostList from './home/components/PoniesPostList'
 import FavsPostList from './home/components/FavsPostList'
-
-const { Component } = React
 
 class Home extends Component {
     constructor() {

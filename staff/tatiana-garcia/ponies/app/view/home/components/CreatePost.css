@@ -1,4 +1,4 @@
-.add-post-button {
+/* .add-post-button {
     background: linear-gradient(to right, palevioletred, blueviolet);
     color: white;
     border-radius: 5px;
@@ -21,7 +21,7 @@
     color: black;
     width: 70px;
     height: 30px;
-}
+} */
 
 .CreatePost {
     position: fixed;

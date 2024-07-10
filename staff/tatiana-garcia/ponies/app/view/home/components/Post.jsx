@@ -1,8 +1,10 @@
+import { Component } from 'react'
+
 import logic from '../../../logic/index.mjs'
 
 import formatTime from '../../../util/formatTime.mjs'
 
-const { Component } = React
+import './Post.css'
 
 import Button from '../../components/Button.jsx'
 import Input from '../../components/Input.jsx'

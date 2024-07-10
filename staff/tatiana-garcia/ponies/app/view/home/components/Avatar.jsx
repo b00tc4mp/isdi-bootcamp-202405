@@ -1,3 +1,5 @@
+import './Avatar.css'
+
 import Image from "../../components/Image"
 
 function Avatar({ url }) {

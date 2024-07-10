@@ -1,6 +1,8 @@
+import { Component } from 'react'
+
 import logic from '../../../logic/index.mjs'
 
-const { Component } = React
+import './Header.css'
 
 import Button from '../../components/Button'
 import Paragraph from '../../components/Paragraph'

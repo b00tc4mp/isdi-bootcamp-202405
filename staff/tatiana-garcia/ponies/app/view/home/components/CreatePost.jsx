@@ -7,6 +7,8 @@ import Label from '../../components/Label'
 import Button from '../../components/Button'
 import Container from '../../components/Container'
 
+import './CreatePost'
+
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 
