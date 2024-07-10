@@ -7,6 +7,8 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import Container from '../components/Container'
 
+import './CreatePost.css'
+
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 

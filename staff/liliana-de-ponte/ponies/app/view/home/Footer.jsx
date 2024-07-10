@@ -1,8 +1,10 @@
-const { Component } = React
+import { Component } from 'react'
 
 import CreatePost from './CreatePost'
 
 import Button from '../components/Button'
+
+import './Footer.css'
 
 class Footer extends Component {
     constructor() {

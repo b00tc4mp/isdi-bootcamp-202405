@@ -2,7 +2,7 @@ import logic from '../../logic/index.mjs'
 
 import formatTime from '../../utils/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 import Button from '../components/Button'
 import Label from '../components/Label'
@@ -15,6 +15,8 @@ import Time from '../components/Time'
 import Container from '../components/Container'
 
 import Avatar from './Avatar.jsx'
+
+import './Post.css'
 
 class Post extends Component {
     constructor() {
@@ -127,7 +129,7 @@ class Post extends Component {
             <Container className="Container--column-center">
                 <Avatar url={post.author.avatar} />
 
-                <Heading level="3" >{post.author.username}</Heading>
+                <Heading level="3" className="Heading--post" >{post.author.username}</Heading>
 
                 <Button className="Button--post" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🪅' : '🎠'} </Button>
             </Container>
