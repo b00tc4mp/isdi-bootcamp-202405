@@ -1,3 +1,5 @@
+import './Form.css'
+
 function Form({ onSubmit, children, className = '' }) {
     console.debug('Form -> call')
 

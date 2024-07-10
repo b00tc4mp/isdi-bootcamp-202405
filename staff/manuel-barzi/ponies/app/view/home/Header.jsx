@@ -1,9 +1,11 @@
 import logic from '../../logic/index.mjs'
 
-const { Component } = React // taty: "descomponent"
+import { Component } from 'react'
 
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
+
+import './Header.css'
 
 class Header extends Component {
     constructor() {

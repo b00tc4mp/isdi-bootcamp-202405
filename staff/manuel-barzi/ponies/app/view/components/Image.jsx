@@ -1,3 +1,5 @@
+import './Image.css'
+
 function Image({ src, alt, title, className = 'Image' }) {
     console.debug('Image -> call')
 

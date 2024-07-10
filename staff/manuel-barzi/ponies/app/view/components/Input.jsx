@@ -1,3 +1,5 @@
+import './Input.css'
+
 function Input({ id, defaultValue, type, name, placeholder, className = '' }) {
     console.debug('Input -> call')
 

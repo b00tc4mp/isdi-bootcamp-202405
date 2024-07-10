@@ -1,3 +1,5 @@
+import './Paragraph.css'
+
 function Paragraph({ children }) {
     console.debug('Paragraph -> call')
 

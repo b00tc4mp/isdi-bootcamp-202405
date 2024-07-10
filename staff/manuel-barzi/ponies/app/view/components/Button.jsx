@@ -1,3 +1,5 @@
+import './Button.css'
+
 function Button({ type, onClick, children }) {
     console.debug('Button -> call')
 

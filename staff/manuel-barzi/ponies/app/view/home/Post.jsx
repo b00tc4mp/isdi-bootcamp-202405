@@ -2,7 +2,7 @@ import logic from '../../logic/index.mjs'
 
 import formatTime from '../../util/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 import Button from '../components/Button.jsx'
 import Input from '../components/Input.jsx'
@@ -15,6 +15,8 @@ import Heading from '../components/Heading.jsx'
 import Container from '../components/Container.jsx'
 
 import Avatar from './Avatar.jsx'
+
+import './Post.css'
 
 class Post extends Component {
     constructor() {
