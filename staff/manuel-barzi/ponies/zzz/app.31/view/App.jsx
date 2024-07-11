@@ -4,15 +4,13 @@ import Login from './Login'
 import Register from './Register'
 import Home from './Home'
 
-import logic from '../logic'
-
 class App extends Component {
     constructor() {
         console.debug('App -> constructor')
 
         super()
 
-        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+        this.state = { view: 'login' }
     }
 
     handleLogin() {
