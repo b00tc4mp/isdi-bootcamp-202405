@@ -1,4 +1,4 @@
-import data from '../data/index.mjs'
+import data from '../data'
 
 import generateId from '../util/generateId.mjs'
 

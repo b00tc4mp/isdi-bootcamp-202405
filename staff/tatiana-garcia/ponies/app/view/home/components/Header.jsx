@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 
 import './Header.css'
 
@@ -64,7 +64,7 @@ class Header extends Component {
             <Button onClick={this.handleHomeClick.bind(this)}>🏯</Button>
             <Button onClick={this.handlePoniesClick.bind(this)}>🦄</Button>
             <Button onClick={this.handleFavsClick.bind(this)}>🤩</Button>
-            <Button onClick={this.handleLogout.bind(this)}>Logout</Button>
+            <Button className='post-action-button' onClick={this.handleLogout.bind(this)}>Logout</Button>
         </header>
     }
 }

@@ -15,3 +15,26 @@
     font-weight: bold;
     color: rgb(88, 5, 88);
 }
+
+.post-action-button {
+
+    background: white;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    border-radius: 5px;
+    border: 1px black;
+    color: black;
+    font-weight: bold;
+    width: 70px;
+    height: 30px;
+}
+
+.add-post-button {
+    font-weight: bold;
+    background: lightblue;
+    color: black;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+}

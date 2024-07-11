@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 import './PostList.css'
 
 import Post from './Post.jsx'

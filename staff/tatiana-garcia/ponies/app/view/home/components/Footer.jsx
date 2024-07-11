@@ -37,7 +37,7 @@ class Footer extends Component {
         console.debug('Footer -> render')
 
         return <footer className="footer">
-            <Button className="form__button" onClick={this.handleCreatePostClick.bind(this)}>＋</Button>
+            <Button className="add-post-button" onClick={this.handleCreatePostClick.bind(this)}>＋</Button>
 
             {this.state.createPostVisible && <CreatePost onPostCreated={this.handlePostCreated.bind(this)} onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)} />}
         </footer>

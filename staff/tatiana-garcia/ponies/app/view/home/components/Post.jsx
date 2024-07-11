@@ -1,8 +1,8 @@
 import { Component } from 'react'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 
-import formatTime from '../../../util/formatTime.mjs'
+import formatTime from '../../../util/formatTime'
 
 import './Post.css'
 
@@ -141,12 +141,12 @@ class Post extends Component {
             <Paragraph>{post.caption}</Paragraph>
 
             <Container>
-                <Button onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-                <Button onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🤩' : '😔'}</Button>
+                <Button className='post-action-button' onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+                <Button className='post-action-button' onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🤩' : '😔'}</Button>
 
                 {post.author.username === logic.getUserUsername() && <>
-                    <Button onClick={this.handleDeletePostClick.bind(this)}>🗑️</Button>
-                    <Button onClick={this.handleEditPostClick.bind(this)}>📝</Button>
+                    <Button className='post-action-button' onClick={this.handleDeletePostClick.bind(this)}>🗑️</Button>
+                    <Button className='post-action-button' onClick={this.handleEditPostClick.bind(this)}>📝</Button>
 
                 </>}
             </Container>
@@ -160,8 +160,8 @@ class Post extends Component {
                 </Container>
 
                 <Container className="Container--center">
-                    <Button type="submit">{'Save'}</Button>
-                    <Button type="button" onClick={this.handleCancelEditPostClick.bind(this)}>{'Cancel'}</Button>
+                    <Button className='post-action-button' type="submit">{'Save'}</Button>
+                    <Button className='post-action-button' type="button" onClick={this.handleCancelEditPostClick.bind(this)}>{'Cancel'}</Button>
                 </Container>
             </Form>}
         </article>
