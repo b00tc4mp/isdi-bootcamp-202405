@@ -6,7 +6,7 @@ import Label from './components/Label';
 import Input from './components/Input';
 import Button from './components/Button';
 
-import logic from '../logic/index.mjs';
+import logic from '../logic';
 
 import './Register.css';
 

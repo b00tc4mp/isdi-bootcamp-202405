@@ -1,4 +1,4 @@
-import logic from '../../logic/index.mjs';
+import logic from '../../logic';
 
 import Container from '../components/Container';
 import Heading from '../components/Heading';

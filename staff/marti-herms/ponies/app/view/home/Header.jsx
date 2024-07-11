@@ -1,4 +1,4 @@
-import logic from '../../logic/index.mjs';
+import logic from '../../logic';
 
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
