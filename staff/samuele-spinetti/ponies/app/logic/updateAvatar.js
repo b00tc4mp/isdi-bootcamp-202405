@@ -1,4 +1,4 @@
-import data from '../data/index.mjs'
+import data from '../data'
 
 const updateAvatar = (newAvatar) => {
     if (!newAvatar.startsWith('http')) throw new Error('invalid image')

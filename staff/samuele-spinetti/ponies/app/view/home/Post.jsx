@@ -1,6 +1,6 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic'
 
-import formatTime from '../../util/formatTime.mjs'
+import formatTime from '../../util/formatTime.js'
 
 import { Component } from 'react'
 

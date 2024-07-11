@@ -1,4 +1,4 @@
-import data from '../data/index.mjs'
+import data from '../data'
 
 const updatePassword = (oldPassword, newPassword) => {
     if (oldPassword.trim().length < 8) throw new Error('Invalid password')

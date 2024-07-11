@@ -1,14 +1,14 @@
-import data from "../data/index.mjs"
+import data from '../data'
 
-const getAllPosts = () => {
+const getAllFollowingUserPosts = () => {
     const user = data.findUser(user => user.username === sessionStorage.username)
 
     if (user === null)
         throw new Error('User not found')
 
-    const posts = data.findPosts(() => true)
+    const posts = data.findPosts(post => user.following.includes(post.author))
 
-    posts.forEach(post => {
+    posts.forEach((post) => {
         post.fav = user.favs.includes(post.id)
         post.like = post.likes.includes(sessionStorage.username)
 
@@ -24,4 +24,4 @@ const getAllPosts = () => {
     return posts.reverse()
 }
 
-export default getAllPosts
+export default getAllFollowingUserPosts

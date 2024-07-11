@@ -1,6 +1,6 @@
-import data from "../data/index.mjs"
+import data from "../data"
 
-import generateId from '../util/generateId.mjs'
+import generateId from '../util/generateId.js'
 
 const createPost = (image, caption) => {
     if (!image.startsWith('http'))

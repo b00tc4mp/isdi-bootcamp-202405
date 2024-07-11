@@ -1,8 +1,8 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic'
 
 import { Component } from 'react'
 
-import Post from './Post.jsx'
+import Post from './Post'
 
 class FavPostList extends Component {
     constructor() {

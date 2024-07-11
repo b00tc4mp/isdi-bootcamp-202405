@@ -1,4 +1,4 @@
-import data from "../data/index.mjs"
+import data from "../data"
 
 function toggleLikePost(postId) {
     if (postId.trim().length === 0) throw new Error('Invalid postId')

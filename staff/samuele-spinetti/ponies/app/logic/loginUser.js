@@ -1,4 +1,4 @@
-import data from "../data/index.mjs"
+import data from "../data"
 
 const user_regex = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 

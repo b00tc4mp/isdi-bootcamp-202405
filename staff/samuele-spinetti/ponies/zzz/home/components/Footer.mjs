@@ -1,11 +1,11 @@
-import Component from '../../Component.mjs'
-import Button from '../../components/Button.mjs'
-import Heading from '../../components/Heading.mjs'
-import Label from '../../components/Label.mjs'
-import Form from '../../components/Form.mjs'
-import Input from '../../components/Input.mjs'
+import Component from '../../Component.js'
+import Button from '../../components/Button.js'
+import Heading from '../../components/Heading.js'
+import Label from '../../components/Label.js'
+import Form from '../../components/Form.js'
+import Input from '../../components/Input.js'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 
 class Footer extends Component {
     constructor() {

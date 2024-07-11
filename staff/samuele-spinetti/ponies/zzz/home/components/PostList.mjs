@@ -1,7 +1,7 @@
-import Component from '../../Component.mjs'
-import Post from './Post.mjs'
+import Component from '../../Component.js'
+import Post from './Post.js'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 
 class PostList extends Component {
     constructor() {

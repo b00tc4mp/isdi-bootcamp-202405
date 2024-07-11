@@ -1,4 +1,4 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic'
 
 import { Component } from 'react'
 

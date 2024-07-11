@@ -1,9 +1,9 @@
-import Component from '../../Component.mjs'
-import Image from '../../components/Image.mjs'
-import Paragraph from '../../components/Paragraph.mjs'
-import Button from '../../components/Button.mjs'
+import Component from '../../Component.js'
+import Image from '../../components/Image.js'
+import Paragraph from '../../components/Paragraph.js'
+import Button from '../../components/Button.js'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 
 class Header extends Component {
     constructor() {

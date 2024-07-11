@@ -1,7 +1,7 @@
-import Form from '../components/Form.mjs'
-import Link from '../components/Link.mjs'
+import Form from '../components/Form.js'
+import Link from '../components/Link.js'
 
-import logic from '../../logic/index.mjs'
+import logic from '../../logic'
 
 const registerForm = new Form('form')
 

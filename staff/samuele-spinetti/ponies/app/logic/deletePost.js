@@ -1,4 +1,4 @@
-import data from "../data/index.mjs"
+import data from "../data"
 
 const deletePost = postId => {
     if (postId.trim().length === 0) throw new Error('invalid postId')

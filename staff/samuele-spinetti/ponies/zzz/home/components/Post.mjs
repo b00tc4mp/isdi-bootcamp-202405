@@ -1,15 +1,15 @@
-import Component from '../../Component.mjs'
-import Heading from '../../components/Heading.mjs'
-import Image from '../../components/Image.mjs'
-import Paragraph from '../../components/Paragraph.mjs'
-import Button from '../../components/Button.mjs'
-import Form from '../../components/Form.mjs'
-import Label from '../../components/Label.mjs'
-import Input from '../../components/Input.mjs'
+import Component from '../../Component.js'
+import Heading from '../../components/Heading.js'
+import Image from '../../components/Image.js'
+import Paragraph from '../../components/Paragraph.js'
+import Button from '../../components/Button.js'
+import Form from '../../components/Form.js'
+import Label from '../../components/Label.js'
+import Input from '../../components/Input.js'
 
-import logic from '../../../logic/index.mjs'
+import logic from '../../../logic'
 
-import formatTime from '../../../util/formatTime.mjs'
+import formatTime from '../../../util/formatTime.js'
 
 class Post extends Component {
     constructor(post) {
