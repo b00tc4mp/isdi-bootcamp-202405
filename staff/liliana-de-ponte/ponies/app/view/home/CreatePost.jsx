@@ -1,4 +1,4 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic/index.js'
 
 import Heading from '../components/Heading'
 import Form from '../components/Form'

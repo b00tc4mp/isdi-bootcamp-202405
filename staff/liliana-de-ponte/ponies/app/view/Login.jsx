@@ -1,4 +1,4 @@
-import logic from '../logic/index.mjs'
+import logic from '../logic'
 
 import Heading from './components/Heading'
 import Form from './components/Form'
@@ -49,12 +49,12 @@ function Login({ onLogin, onRegisterClick }) {
         <Form onSubmit={handleLoginSubmit} className="Form--column">
             <Container className="Container--column Container--column-left" >
                 <Label htmFor="username-input">Username</Label>
-                <Input type="text" id="username-input" name="username" placeholder="username" />
+                <Input className="Input--full-width" type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
             <Container className="Container--column Container--column-left">
                 <Label htmlFor="password-input">Password</Label>
-                <Input type="password" id="password-input" name="password" placeholder="password" />
+                <Input className="Input--full-width" type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
             <Button className="Button--form" type="submit">Login</Button>
