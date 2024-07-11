@@ -40,7 +40,8 @@ const registerUser = (name, surname, email, username, password, passwordRepeat) 
         username: username,
         password: password,
         favs: [],
-        following: []
+        following: [],
+        avatar: 'https://svgsilh.com/svg/145535-707070.svg'
     }
 
     data.insertUser(user)

@@ -2,7 +2,7 @@ import logic from '../../../logic/index.mjs'
 
 import formatTime from '../../../util/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 class Post extends Component {
     constructor() {
@@ -54,7 +54,7 @@ class Post extends Component {
         }
     }
 
-    handleLikePost() {
+    handleLikePostClick() {
         try {
             logic.toggleLikePost(this.props.post.id)
 
@@ -67,7 +67,7 @@ class Post extends Component {
         }
     }
 
-    handleSavePost() {
+    handleSavePostClick() {
         try {
             logic.toggleFavPost(this.props.post.id)
 
@@ -79,7 +79,7 @@ class Post extends Component {
         }
     }
 
-    handleFollowUser() {
+    handleFollowUserClick() {
         try {
             logic.toggleFollowUser(this.props.post.author.username)
 
@@ -100,7 +100,7 @@ class Post extends Component {
                 <h3 className="post__author">{post.author.username}</h3>
 
                 {post.author.username !== logic.getUserUsername() && <>
-                    <button className="post__button" onClick={this.handleFollowUser.bind(this)}>{post.author.following ? 'Unfollow' : 'Follow'}</button>
+                    <button className="post__button" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? 'Unfollow' : 'Follow'}</button>
                 </>}
             </div>
 
@@ -109,13 +109,13 @@ class Post extends Component {
             <section className="like-save-field">
 
                 <div className="like__actions">
-                    <button className="heart-button" onClick={this.handleLikePost.bind(this)}>
+                    <button className="heart-button" onClick={this.handleLikePostClick.bind(this)}>
                         <img className="heart" src={post.like ? 'https://svgsilh.com/svg/304420-e91e63.svg' : 'https://svgsilh.com/svg/1179072.svg'} />
                     </button>
                     <p className="hearts__likes">{post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</p>
                 </div>
 
-                <button className="save-post-button" onClick={this.handleSavePost.bind(this)}>
+                <button className="save-post-button" onClick={this.handleSavePostClick.bind(this)}>
                     <img className="save-icon" src={post.fav ? 'https://svgsilh.com/svg/1202757-ff0088.svg' : 'https://svgsilh.com/svg/1202757-c7d5dc.svg'} />
                 </button>
 

@@ -1,6 +1,6 @@
 import logic from '../../../logic/index.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 class Header extends Component {
     constructor() {

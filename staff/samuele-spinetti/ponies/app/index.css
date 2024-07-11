@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .form {
@@ -32,10 +32,15 @@
 
 .add-post-button {
     border-radius: 10px;
-    height: 25px;
-    width: 25px;
-    background-color: #ffd4ff;
-    border-color: white;
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    border: none;
+}
+
+.add-post-button__icon {
+    height: 30px;
+    width: 30px;
 }
 
 .logout-button {
@@ -96,14 +101,13 @@
     top: 0;
     width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: space-around;
     align-items: center;
     gap: 1rem;
     background-color: #ff4cad;
     padding: .5rem;
     box-sizing: border-box;
     box-shadow: 0px 1px 1px #ff4cad;
-    border-radius: 0 0 20px 20px;
 }
 
 .header__username {
@@ -123,9 +127,7 @@
     display: flex;
     justify-content: center;
     background-color: #ff4cad;
-    padding: .5rem 0;
     box-shadow: 0px -1px 1px #ff4cad;
-    border-radius: 10px 10px 0 0;
 }
 
 .create-post-section {
@@ -156,7 +158,7 @@
 }
 
 body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: arial, sans-serif;
 }
 
 .heart {
@@ -247,4 +249,142 @@ body {
 .post__button {
     background-color: transparent;
     border: none;
+}
+
+.logout-button {
+    background-color: transparent;
+    border: none;
+}
+
+.logout__icon {
+    height: 25px;
+    width: 25px;
+}
+
+.profile-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-button {
+    background-color: transparent;
+    border: none;
+}
+
+.profile__icon {
+    height: 20px;
+    width: 25px;
+}
+
+.header__username {
+    font-size: 13px;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    background-color: #bebebe;
+}
+
+.post__top-author {
+    display: flex;
+    align-items: center;
+}
+
+.container-edit-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.container-form-avatar {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.container-edit-avatar__avatar {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    background-color: #bebebe;
+}
+
+#edit-avatar-input {
+    border-color: white;
+    border-radius: 20px;
+}
+
+.container-form-button>button {
+    background-color: #ffd4ff;
+    border-color: white;
+    border-radius: 10px;
+}
+
+.container-form-button {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.edit-avatar-button {
+    background-color: #ffd4ff;
+    border-color: white;
+    border-radius: 10px;
+}
+
+.edit-avatar-heading {
+    margin: 0rem;
+    margin-top: 2rem;
+}
+
+.edit-password-button {
+    background-color: #ffd4ff;
+    border-color: white;
+    border-radius: 10px;
+}
+
+.container-form-password {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.container-password-button {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-password-button>button {
+    background-color: #ffd4ff;
+    border-color: white;
+    border-radius: 10px;
+}
+
+.form-edit-password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.form-edit-password>input {
+    border-color: white;
+    border-radius: 20px;
+}
+
+.form-edit-password>input:active {
+    box-shadow: 2px 2px 5px #616161;
 }

@@ -2,7 +2,7 @@ import logic from '../../../logic/index.mjs'
 
 import Post from './Post.jsx'
 
-const { Component } = React
+import { Component } from 'react'
 
 class Body extends Component {
     constructor() {
@@ -120,7 +120,14 @@ class Body extends Component {
 
             <section className="post-list">
 
-                {this.state.posts.map(post => <Post post={post} onPostDeleted={this.handlePostDeleted.bind(this)} onPostEdited={this.handlePostEdited.bind(this)} onPostLikeToggled={this.handleLikedPost.bind(this)} onPostFavToggled={this.handleFavPost.bind(this)} onFollowUserToggled={this.handleFollowedUser.bind(this)} />)}
+                {this.state.posts.map(post => <Post
+                    post={post}
+                    onPostDeleted={this.handlePostDeleted.bind(this)}
+                    onPostEdited={this.handlePostEdited.bind(this)}
+                    onPostLikeToggled={this.handleLikedPost.bind(this)}
+                    onPostFavToggled={this.handleFavPost.bind(this)}
+                    onFollowUserToggled={this.handleFollowedUser.bind(this)}
+                />)}
 
             </section>
 

@@ -2,7 +2,7 @@ import Header from './components/Header'
 import Body from './components/Body'
 import Footer from './components/Footer'
 
-const Component = React.Component
+import { Component } from 'react'
 
 class Home extends Component {
     constructor() {
@@ -30,11 +30,15 @@ class Home extends Component {
 
     render() {
         return <>
-            <Header onHomeClicked={this.handleHome.bind(this)} onFavsPostsClicked={this.handleFavsPosts.bind(this)} onFollowingUsersPostsClicked={this.handleFollowingUsersPosts.bind(this)} />
+            <Header
+                onHomeClicked={this.handleHome.bind(this)} onFavsPostsClicked={this.handleFavsPosts.bind(this)} onFollowingUsersPostsClicked={this.handleFollowingUsersPosts.bind(this)} />
 
-            <Body refreshStamp={this.state.refreshStamp} view={this.state.view} />
+            <Body
+                refreshStamp={this.state.refreshStamp}
+                view={this.state.view} />
 
-            <Footer onPostCreated={this.handlePostCreated.bind(this)} />
+            <Footer
+                onPostCreated={this.handlePostCreated.bind(this)} />
         </>
     }
 }
