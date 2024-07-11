@@ -2,7 +2,9 @@ import Header from './home/Header';
 import Body from './home/Body';
 import Footer from './home/Footer';
 
-const { Component } = React;
+import { Component } from 'react';
+
+import './Home.css';
 
 class Home extends Component {
     constructor() {

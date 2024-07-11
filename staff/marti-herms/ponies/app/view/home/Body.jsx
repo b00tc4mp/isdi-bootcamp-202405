@@ -3,7 +3,7 @@ import logic from '../../logic/index.mjs';
 import Post from './Post';
 import Profile from './Profile';
 
-const { Component } = React;
+import { Component } from 'react';
 
 class Body extends Component {
     constructor() {

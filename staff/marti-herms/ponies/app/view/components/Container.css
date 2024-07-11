@@ -7,6 +7,23 @@
     padding: 0 .5rem;
 }
 
+.Container--row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .5rem;
+    align-items: flex-start;
+    padding: 0 .5rem;
+}
+
+.Container--start {
+    align-self: flex-start;
+}
+
+.Container--space-around {
+    justify-content: space-around;
+}
+
 .Container--center-column {
     display: flex;
     flex-direction: column;
@@ -25,7 +42,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: repeating-linear-gradient(125deg, rgba(158, 88, 249, 0.7) 0%, rgba(200, 52, 205, 0.7) 33%, rgba(0, 127, 255, 0.4) 50%, rgba(0, 72, 255, 0.4) 66%, rgba(158, 88, 249, 0.4) 100%);
+    /* background: repeating-linear-gradient(125deg, rgba(158, 88, 249, 0.7) 0%, rgba(200, 52, 205, 0.7) 33%, rgba(0, 127, 255, 0.4) 50%, rgba(0, 72, 255, 0.4) 66%, rgba(158, 88, 249, 0.4) 100%); */
+    background-color: #9E58F9;
 }
 
 .Container--profile {
@@ -44,7 +62,7 @@
 .Container--options {
     margin: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     flex-wrap: wrap;
     box-sizing: content-box;
@@ -56,6 +74,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    box-sizing: content-box;
     gap: 0.2rem;
 }
 

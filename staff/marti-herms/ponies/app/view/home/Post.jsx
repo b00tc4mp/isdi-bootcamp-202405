@@ -16,7 +16,9 @@ import Image from '../components/Image.jsx';
 import Paragraph from '../components/Paragraph.jsx';
 import Time from '../components/Time.jsx';
 
-const { Component } = React;
+import { Component } from 'react';
+
+import './Post.css';
 
 class Post extends Component {
     constructor() {
@@ -104,11 +106,15 @@ class Post extends Component {
     render() {
         const { post } = this.props;
 
-        const editCaptionForm = <Form className="edit" onSubmit={this.handleCaptionEdit.bind(this)}>
-            <Label htmlFor="caption-edit-input">Caption:</Label>
-            <Input id="caption-edit-input" name="edit" defaultValue={this.state.value} />
-            <Button type="submit">Edit</Button>
-            <Button type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</Button>
+        const editCaptionForm = <Form className="Form--column" onSubmit={this.handleCaptionEdit.bind(this)}>
+            <Container>
+                <Label htmlFor="caption-edit-input">Caption:</Label>
+                <Input id="caption-edit-input" name="edit" defaultValue={post.caption} />
+            </Container>
+            <Container className="Container--row">
+                <Button type="submit">Edit</Button>
+                <Button type="button" onClick={this.handleEditCancel.bind(this)}>Cancel</Button>
+            </Container>
         </Form>
 
         return <article className="Post">
@@ -129,8 +135,10 @@ class Post extends Component {
             <Paragraph>{post.caption}</Paragraph>
             {
                 post.author === logic.getUserUsername() && <Container className='Container--options'>
-                    <Button onClick={this.handleDeleteButton.bind(this)}>Delete</Button>
-                    <Button onClick={this.handleEditButton.bind(this)}>Edit</Button>
+                    <Container className='Container--row Container--start'>
+                        <Button onClick={this.handleDeleteButton.bind(this)}>Delete</Button>
+                        <Button onClick={this.handleEditButton.bind(this)}>Edit</Button>
+                    </Container>
                     <Container className="Container--edit">
                         {this.state.editMode && editCaptionForm}
                     </Container>

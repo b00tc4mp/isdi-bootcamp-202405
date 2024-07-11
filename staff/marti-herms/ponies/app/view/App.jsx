@@ -4,7 +4,7 @@ import Register from './Register';
 import Login from './Login';
 import Home from './Home';
 
-const { Component } = React;
+import { Component } from 'react';
 
 class App extends Component {
     constructor() {

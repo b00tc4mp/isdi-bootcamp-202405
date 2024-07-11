@@ -1,7 +1,9 @@
 import logic from '../../logic/index.mjs'
 import Button from '../components/Button';
 
-const Component = React.Component;
+import { Component } from 'react';
+
+import './SaveButton.css';
 
 class SaveButton extends Component {
     constructor(props) {

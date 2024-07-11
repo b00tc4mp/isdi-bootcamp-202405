@@ -1,17 +1,15 @@
-import logic from "../../logic/index.mjs"
+import logic from '../../logic/index.mjs';
 
-import Container from "../components/Container"
-import Avatar from "./Avatar"
-import Heading from "../components/Heading"
-import Paragraph from "../components/Paragraph"
-import Button from "../components/Button"
-import Form from "../components/Form"
-import Label from "../components/Label"
-import Input from "../components/Input"
+import Container from '../components/Container';
+import Avatar from './Avatar';
+import Heading from '../components/Heading';
+import Paragraph from '../components/Paragraph';
+import Button from '../components/Button';
+import Form from '../components/Form';
+import Label from '../components/Label';
+import Input from '../components/Input';
 
-const PASSWORD_REGEX = /^\w{8,}$/;
-
-const { Component } = React;
+import { Component } from 'react';
 
 class Profile extends Component {
     constructor() {
@@ -61,9 +59,9 @@ class Profile extends Component {
                 <Heading level="3">{username}</Heading>
             </Container>
             <Container className="Container--profile">
-                <Paragraph>{logic.getUserPostNumber(username) + ' posts'}</Paragraph>
-                <Paragraph>{logic.getUserFollowers(username).length + ' followers'}</Paragraph>
-                <Paragraph>{logic.getUserFollowed(username).length + ' followed'}</Paragraph>
+                <Paragraph className="Paragraph--center">{logic.getUserPostNumber(username) + ' posts'}</Paragraph>
+                <Paragraph className="Paragraph--center">{logic.getUserFollowers(username).length + ' followers'}</Paragraph>
+                <Paragraph className="Paragraph--center">{logic.getUserFollowed(username).length + ' followed'}</Paragraph>
             </Container>
             {username === sessionStorage.username && <Button onClick={this.handleOptions.bind(this)}>Edit</Button>}
             {this.state.editUserVisibility && <Container className="Container--center-column">
@@ -84,7 +82,7 @@ class Profile extends Component {
                         <Label htmlFor="actual-password">Password</Label>
                         <Input id="actual-password" type="password" required={true} />
                     </Container>
-                    <Container className="Container--actions">
+                    <Container className="Container--actions Container--space-around">
                         <Button type="submit">Submit</Button>
                         <Button onClick={this.handleEditUserCancel.bind(this)}>Cancel</Button>
                     </Container>

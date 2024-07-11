@@ -1,6 +1,8 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic/index.mjs';
 
-import Button from '../components/Button'
+import Button from '../components/Button';
+
+import './LikeButton.css';
 
 function LikeButton({ post, onLikeClicked }) {
     const handleLike = () => {

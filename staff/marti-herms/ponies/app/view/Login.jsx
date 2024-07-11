@@ -1,12 +1,14 @@
 import Link from './components/Link';
-import Heading from './components/Heading'
-import Form from './components/Form'
-import Container from './components/Container'
-import Label from './components/Label'
-import Input from './components/Input'
-import Button from './components/Button'
+import Heading from './components/Heading';
+import Form from './components/Form';
+import Container from './components/Container';
+import Label from './components/Label';
+import Input from './components/Input';
+import Button from './components/Button';
 
 import logic from '../logic/index.mjs';
+
+import './Login.css';
 
 function Login({ onLogin, onRegisterClick }) {
     const handleLoginSubmit = (event) => {

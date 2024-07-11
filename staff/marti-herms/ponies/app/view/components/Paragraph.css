@@ -3,9 +3,15 @@
     margin: .5rem;
 }
 
+.Paragraph--center {
+    text-align: center;
+}
+
 .Paragraph--likes {
-    font-family: inherit;
-    margin: .5rem;
     font-size: small;
     color: dimgray;
+}
+
+.Header .Paragraph {
+    color: white;
 }

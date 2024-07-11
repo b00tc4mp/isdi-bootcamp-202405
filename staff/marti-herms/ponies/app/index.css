@@ -1,26 +1,3 @@
-@import url('./view/home/Post.css');
-@import url('./view/home/Header.css');
-@import url('./view/home/Footer.css');
-@import url('./view/home/SearchSection.css');
-@import url('./view/home/AddPostSection.css');
-@import url('./view/home/LikeButton.css');
-@import url('./view/home/SaveButton.css');
-@import url('./view/home/Avatar.css');
-
-@import url('./view/components/Button.css');
-@import url('./view/components/Container.css');
-@import url('./view/components/Form.css');
-@import url('./view/components/Heading.css');
-@import url('./view/components/Image.css');
-@import url('./view/components/Input.css');
-@import url('./view/components/Label.css');
-@import url('./view/components/Paragraph.css');
-@import url('./view/components/Time.css');
-
-@import url('./view/Login.css');
-@import url('./view/Register.css');
-@import url('./view/Home.css');
-
 #root {
     box-sizing: content-box;
     width: 100%;

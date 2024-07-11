@@ -4,7 +4,8 @@ import Container from '../components/Container';
 import Heading from '../components/Heading';
 import Form from '../components/Form';
 import Button from '../components/Button';
-import Label from '../components/Button';
+
+import './AddPostSection.css';
 
 function AddPostSection({ onPostCreated, onCancel }) {
     const handleAddPost = (event) => {

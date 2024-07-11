@@ -3,6 +3,8 @@ import logic from '../../logic/index.mjs';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
 
+import './Header.css';
+
 function Header({ onLogout }) {
     const handleLogoutClick = () => {
         try {

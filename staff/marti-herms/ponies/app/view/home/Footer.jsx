@@ -1,8 +1,10 @@
-import AddPostSection from './sections/AddPostSection';
-import SearchSection from './sections/SearchSection';
-import Button from '../components/Button'
+import AddPostSection from './AddPostSection';
+import SearchSection from './SearchSection';
+import Button from '../components/Button';
 
-const { Component } = React;
+import { Component } from 'react';
+
+import './Footer.css';
 
 class Footer extends Component {
     constructor() {

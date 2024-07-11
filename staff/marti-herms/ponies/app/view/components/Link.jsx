@@ -1,5 +1,3 @@
-const { Component } = React;
-
 function Link({ onClick, text }) {
     const handleClick = (event) => {
         event.preventDefault();
