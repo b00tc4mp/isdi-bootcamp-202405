@@ -1,8 +1,22 @@
-import logic from '../../../logic/index.mjs'
+import logic from '../../logic/index.mjs'
 
-import formatTime from '../../../util/formatTime.mjs'
+import formatTime from '../../util/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
+
+import Button from '../components/Button'
+import Paragraph from '../components/Paragraph'
+import Image from '../components/Image'
+import Input from '../components/Input'
+import Label from '../components/Label'
+import Form from '../components/Form'
+import Time from '../components/Time'
+import Heading from '../components/Heading'
+import Container from '../components/Container'
+
+import Avatar from './Avatar'
+
+import './Post.css'
 
 class Post extends Component {
     constructor() {
@@ -99,37 +113,39 @@ class Post extends Component {
 
     render() {
         const post = this.props.post
+        return <article className="Post">
 
-        return <article className="post">
-            <div className="post__top">
-                <h3 className="post__author">{post.author.username}</h3>
+            <Container>
+                <Avatar url={post.author.avatar} />
 
-                <button className="button" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? 'Unfollow' : 'Follow'}</button>
-            </div>
+                <Heading level="4">{post.author.username}</Heading>
 
-            <img className="post__image" src={post.image} />
+                <Button onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
+            </Container>
 
-            <p className="post__caption">{post.caption}</p>
+            <Image src={post.image} alt={post.caption} title={post.caption} />
 
-            <div className="post__actions">
-                <button className="button" onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</button>
-                <button className="button" onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🏴‍☠️' : '🏳️'}</button>
+            <Paragraph>{post.caption}</Paragraph>
+
+            <Container>
+                <Button onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+                <Button onClick={this.handleFavPostClick.bind(this)}>{post.fav ? '🏴‍☠️' : '🏳️'}</Button>
 
                 {post.author.username === logic.getUserUsername() && <>
-                    <button className="button" onClick={this.handleDeletePostClick.bind(this)}>🗑</button>
-                    <button className="button" onClick={this.handleEditPostClick.bind(this)}>📝</button>
+                    <Button onClick={this.handleDeletePostClick.bind(this)}>🗑</Button>
+                    <Button onClick={this.handleEditPostClick.bind(this)}>📝</Button>
                 </>}
-            </div>
+            </Container>
 
-            <time className="post__time">{formatTime(new Date(post.date))}</time>
+            <Time>{formatTime(new Date(post.date))}</Time>
 
-            {this.state.editPostVisible && <form onSubmit={this.handleEditPostSubmit.bind(this)}>
-                <label htmlFor="edit-caption-input"></label>
-                <input id="edit-caption-input" defaultValue={post.caption} />
+            {this.state.editPostVisible && <Form onSubmit={this.handleEditPostSubmit.bind(this)}>
+                <Label htmlFor="edit-caption-input">Caption</Label>
+                <Input id="edit-caption-input" defaultValue={post.caption} />
 
-                <button className="button" type="submit">Save</button>
-                <button className="button" type="reset" onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</button>
-            </form>}
+                <Button type="submit">Save</Button>
+                <Button type="button" onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</Button>
+            </Form>}
         </article>
     }
 }

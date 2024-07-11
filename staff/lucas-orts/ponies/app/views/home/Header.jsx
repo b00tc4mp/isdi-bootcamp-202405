@@ -1,7 +1,11 @@
-import logic from '../../../logic/index.mjs'
+import logic from "../../logic/index.mjs"
 
-const { Component } = React
+import { Component } from 'react'
 
+import Paragraph from "../components/Paragraph"
+import Button from "../components/Button"
+
+import './Header.css'
 class Header extends Component {
     constructor() {
         super()
@@ -36,7 +40,7 @@ class Header extends Component {
         try {
             logic.logoutUser()
 
-            location.href = '../Login'
+            this.props.onLogout()
         }
         catch (error) {
             console.error(error)
@@ -48,11 +52,11 @@ class Header extends Component {
 
     render() {
         return <header className="header">
-            <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button className="button" onClick={this.handleHomeClick.bind(this)}>🏠</button>
-            <button className="button" onClick={this.handleFollowClick.bind(this)}>Follow</button>
-            <button className="button" onClick={this.handleFavsClick.bind(this)}>🏴‍☠️</button>
-            <button className="button" onClick={this.handleLogout}>Logout</button>
+            <Paragraph>Hello, {this.state.name}!</Paragraph>
+            <Button onClick={this.handleHomeClick.bind(this)}>🏠</Button>
+            <Button onClick={this.handleFollowClick.bind(this)}>Following</Button>
+            <Button onClick={this.handleFavsClick.bind(this)}>🏴‍☠️</Button>
+            <Button onClick={this.handleLogout.bind(this)}>Logout</Button>
         </header>
     }
 }

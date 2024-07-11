@@ -1,8 +1,9 @@
 import logic from '../../logic/index.mjs'
 
-const { Component } = React
-
+import { Component } from 'react'
 import Post from './Post.jsx'
+
+import './PostList.css'
 
 class FavsPostList extends Component {
     constructor() {

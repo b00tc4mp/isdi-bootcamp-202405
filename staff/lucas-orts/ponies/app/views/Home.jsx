@@ -1,10 +1,11 @@
-import Header from "./components/Header"
-import PostList from "./components/PostList"
-import Footer from "./components/Footer"
-import FollowingPostList from "./components/FollowingPostList"
-import FavsPostList from "./components/FavsPostList"
+import { Component } from 'react'
 
-const { Component } = React
+import Header from "./home/Header"
+import PostList from "./home/PostList"
+import Footer from "./home/Footer"
+import FollowingPostList from "./home/FollowingPostList"
+import FavsPostList from "./home/FavsPostList"
+
 
 class Home extends Component {
     constructor() {
@@ -38,6 +39,8 @@ class Home extends Component {
                 onFollowClick={this.handleFollowClick.bind(this)}
 
                 onFavsClick={this.handleFavsClick.bind(this)}
+
+                onLogout={this.props.onLogout}
             />
 
             <main className="view main">
@@ -52,5 +55,4 @@ class Home extends Component {
     }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<Home />)
+export default Home

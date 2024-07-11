@@ -1,15 +1,16 @@
 import logic from '../../logic/index.mjs'
 
-const { Component } = React
-
+import { Component } from 'react'
 import Post from './Post.jsx'
 
-class FollowingPostList extends Component {
+import './PostList.css'
+
+class PostList extends Component {
     constructor() {
         super()
 
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            const posts = logic.getAllPosts()
 
             this.state = { posts }
         }
@@ -23,7 +24,7 @@ class FollowingPostList extends Component {
     componentWillReceiveProps(newProps) {
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllFollowingUserPosts()
+                const posts = logic.getAllPosts()
 
                 this.setState({ posts })
             } catch (error) {
@@ -35,7 +36,7 @@ class FollowingPostList extends Component {
 
     handlePostDeleted() {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            const posts = logic.getAllPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -47,7 +48,7 @@ class FollowingPostList extends Component {
 
     handlePostEdited() {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            const posts = logic.getAllPosts()
             this.setState({ posts })
         } catch (error) {
             console.error(error)
@@ -58,7 +59,7 @@ class FollowingPostList extends Component {
 
     handlePostLiked() {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            const posts = logic.getAllPosts()
             this.setState({ posts })
         } catch (error) {
             console.error(error)
@@ -69,7 +70,7 @@ class FollowingPostList extends Component {
 
     handlePostFav() {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            const posts = logic.getAllPosts()
             this.setState({ posts })
         } catch (error) {
             console.error(error)
@@ -80,7 +81,7 @@ class FollowingPostList extends Component {
 
     handleUserFollowed() {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            const posts = logic.getAllPosts()
             this.setState({ posts })
         } catch (error) {
             console.error(error)
@@ -103,4 +104,4 @@ class FollowingPostList extends Component {
     }
 }
 
-export default FollowingPostList
+export default PostList
