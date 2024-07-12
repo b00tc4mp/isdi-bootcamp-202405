@@ -1,7 +1,10 @@
 import data from '../data/index.js'
 
+import validate from '../validate.js'
+
 const updateAvatar = (username, newAvatar) => {
-    if (!newAvatar.startsWith('http')) throw new Error('invalid image')
+    validate.username(username)
+    validate.image(newAvatar, 'avatar')
 
     const user = data.findUser(user => user.username === username)
 

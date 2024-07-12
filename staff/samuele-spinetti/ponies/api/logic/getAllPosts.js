@@ -1,6 +1,10 @@
-import data from "../data/index.js"
+import data from '../data/index.js'
+
+import validate from '../validate.js'
 
 const getAllPosts = username => {
+    validate.username(username)
+
     const user = data.findUser(user => user.username === username)
 
     if (user === null)

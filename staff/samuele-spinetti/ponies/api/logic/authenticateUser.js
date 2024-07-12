@@ -1,21 +1,18 @@
 import data from "../data/index.js"
 
-const user_regex = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
+import validate from '../validate.js'
 
 const authenticateUser = (username, password) => {
-    if (!user_regex.test(username))
-        throw new Error('invalid username')
-
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+    validate.username(username)
+    validate.password(password)
 
     const user = data.findUser(user => user.username === username)
 
     if (user === null)
-        throw new Error('username does not exist')
+        throw new Error('User not found')
 
     if (user.password !== password)
-        throw new Error('wrong password')
+        throw new Error('Wrong password')
 }
 
 export default authenticateUser
