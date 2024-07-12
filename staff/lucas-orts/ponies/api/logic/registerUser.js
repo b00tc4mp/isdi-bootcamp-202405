@@ -1,4 +1,4 @@
-import data from '../data/index.mjs'
+import data from '../data'
 
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
 

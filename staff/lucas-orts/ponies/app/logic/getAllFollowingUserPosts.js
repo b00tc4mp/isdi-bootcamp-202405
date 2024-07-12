@@ -1,4 +1,4 @@
-import data from '../data/index.mjs'
+import data from '../data'
 
 const getAllFollowingUserPosts = () => {
     const user = data.findUser(user => user.username === sessionStorage.username)

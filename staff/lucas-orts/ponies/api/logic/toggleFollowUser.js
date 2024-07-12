@@ -1,4 +1,4 @@
-import data from '../data/index.mjs'
+import data from '../data'
 
 function toggleFollowUser(username) {
     if (!username.trim().length) throw new Error('invalid username')

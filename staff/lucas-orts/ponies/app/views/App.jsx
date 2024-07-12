@@ -1,3 +1,4 @@
+import logic from "../logic"
 import { Component } from 'react'
 
 import Login from './Login'
@@ -8,7 +9,7 @@ class App extends Component {
     constructor() {
         super()
 
-        this.state = { view: 'login' }
+        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
     }
     handleLogin() {
         this.setState({ view: 'home' })
