@@ -1,4 +1,4 @@
-import data from '../data'
+import data from '../data/index.js'
 
 const email_regex = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
 const name_regex = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/

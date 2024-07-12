@@ -1,6 +1,10 @@
-import data from "../data"
+import data from "../data/index.js"
 
-function toggleLikePost(postId) {
+function toggleLikePost(username, postId) {
+    const user = data.findUser(user => user.username === username)
+
+    if (!user) throw new Error('User not found')
+
     if (postId.trim().length === 0) throw new Error('Invalid postId')
 
     const post = data.findPost(post => post.id === postId)
@@ -8,10 +12,10 @@ function toggleLikePost(postId) {
     if (post === null)
         throw new Error('Post not found')
 
-    const index = post.likes.indexOf(sessionStorage.username)
+    const index = post.likes.indexOf(username)
 
     if (index < 0)
-        post.likes.push(sessionStorage.username)
+        post.likes.push(username)
     else
         post.likes.splice(index, 1)
 

@@ -1,8 +1,8 @@
-import data from "../data"
+import data from "../data/index.js"
 
 const user_regex = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 
-const loginUser = (username, password) => {
+const authenticateUser = (username, password) => {
     if (!user_regex.test(username))
         throw new Error('invalid username')
 
@@ -16,8 +16,6 @@ const loginUser = (username, password) => {
 
     if (user.password !== password)
         throw new Error('wrong password')
-
-    sessionStorage.username = username
 }
 
-export default loginUser
+export default authenticateUser

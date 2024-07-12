@@ -1,6 +1,10 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const updatePostCaption = (postId, newCaption) => {
+const updatePostCaption = (username, postId, newCaption) => {
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null) throw new Error('User not found')
+
     if (postId.trim().length === 0) throw new Error('invalid postId')
 
     const post = data.findPost(post => post.id === postId)

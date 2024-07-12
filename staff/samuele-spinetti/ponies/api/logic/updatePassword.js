@@ -1,11 +1,11 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const updatePassword = (oldPassword, newPassword) => {
+const updatePassword = (oldPassword, newPassword, username) => {
     if (oldPassword.trim().length < 8) throw new Error('Invalid password')
 
     if (newPassword.trim().length < 8) throw new Error('Invalid password')
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const user = data.findUser(user => user.username === username)
 
     if (user === null) throw new Error('User not found')
 
@@ -13,7 +13,7 @@ const updatePassword = (oldPassword, newPassword) => {
 
     user.password = newPassword
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+    data.updateUser(user => user.username === username, user)
 }
 
 export default updatePassword

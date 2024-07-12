@@ -1,7 +1,7 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const getAllFollowingUserPosts = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+const getAllFollowingUserPosts = username => {
+    const user = data.findUser(user => user.username === username)
 
     if (user === null)
         throw new Error('User not found')
@@ -10,7 +10,7 @@ const getAllFollowingUserPosts = () => {
 
     posts.forEach((post) => {
         post.fav = user.favs.includes(post.id)
-        post.like = post.likes.includes(sessionStorage.username)
+        post.like = post.likes.includes(username)
 
         const author = data.findUser(user => user.username === post.author)
 
