@@ -1,12 +1,23 @@
+import fs from 'fs'
+
+import validate from '../validate.js'
+
 function updatePost(condition, post) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+    validate.callback(condition, 'condition')
+    validate.object(post, 'post')
 
-    const index = posts.findIndex(condition)
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    if (index > -1) {
-        posts.splice(index, 1, post)
+    const posts = json ? JSON.parse(json) : []
 
-        localStorage.posts = JSON.stringify(posts)
+    const postIndex = posts.findIndex(condition)
+
+    if (postIndex > -1) {
+        posts.splice(postIndex, 1, post)
+
+        json = JSON.stringify(posts)
+
+        fs.writeFileSync('./data/posts.json', json)
     }
 }
 

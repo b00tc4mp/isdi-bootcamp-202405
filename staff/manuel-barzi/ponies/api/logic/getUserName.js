@@ -1,7 +1,7 @@
-import data from '../data'
+import data from "../data/index.js"
 
-const getUserName = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+const getUserName = username => {
+    const user = data.findUser(user => user.username === username)
 
     if (user === null)
         throw new Error('user not found')

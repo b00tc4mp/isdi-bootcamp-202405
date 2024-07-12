@@ -1,4 +1,4 @@
-import insertUser from './insertUser.js'
+import findUser from './findUser.js'
 
 const mari = {
     name: 'Marika',
@@ -8,4 +8,4 @@ const mari = {
     password: '123123123'
 }
 
-insertUser(mari)
+findUser(user => user.username === 'mari')

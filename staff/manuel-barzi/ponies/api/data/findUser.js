@@ -1,5 +1,13 @@
+import fs from 'fs'
+
+import validate from '../validate.js'
+
 function findUser(condition) {
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+    validate.callback(condition, 'condition')
+
+    const json = fs.readFileSync('./data/users.json', 'utf8')
+
+    const users = json ? JSON.parse(json) : []
 
     const user = users.find(condition)
 

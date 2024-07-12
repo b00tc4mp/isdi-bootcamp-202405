@@ -1,9 +1,9 @@
-import data from '../data'
+import data from "../data/index.js"
 
-function toggleFavPost(postId) {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+function toggleFavPost(username, postId) {
+    if (postId.trim().length === 0) throw new Error('Invalid postId')
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const user = data.findUser(user => user.username == username)
 
     if (user === null)
         throw new Error('user not found')
@@ -11,7 +11,7 @@ function toggleFavPost(postId) {
     const post = data.findPost(post => post.id === postId)
 
     if (post === null)
-        throw new Error('post not found')
+        throw new Error('Post not found')
 
     const index = user.favs.indexOf(postId)
 
@@ -20,7 +20,7 @@ function toggleFavPost(postId) {
     else
         user.favs.splice(index, 1)
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+    data.updateUser(user => user.username === username, user)
 }
 
 export default toggleFavPost

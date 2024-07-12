@@ -1,9 +1,19 @@
+import fs from 'fs'
+
+import validate from '../validate.js'
+
 function insertPost(post) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+    validate.object(post, 'post')
+
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
+
+    const posts = json ? JSON.parse(json) : []
 
     posts.push(post)
 
-    localStorage.posts = JSON.stringify(posts)
+    json = JSON.stringify(posts)
+
+    fs.writeFileSync('./data/posts.json', json)
 }
 
 export default insertPost

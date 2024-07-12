@@ -1,21 +1,18 @@
-import data from '../data'
+import data from "../data/index.js"
+
+import validate from "../validate.js"
 
 const authenticateUser = (username, password) => {
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
-
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+    validate.username(username)
+    validate.password(password)
 
     const user = data.findUser(user => user.username === username)
 
     if (user === null)
-        throw new Error('username does not exist')
+        throw new Error('user not found')
 
     if (user.password !== password)
         throw new Error('wrong password')
-
-    //sessionStorage.username = username
 }
 
 export default authenticateUser
