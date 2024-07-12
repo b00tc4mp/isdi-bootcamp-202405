@@ -1,4 +1,4 @@
-
+import './Paragraph.css'
 
 function Paragraph({ children }) {
     return <p className='Paragraph'>

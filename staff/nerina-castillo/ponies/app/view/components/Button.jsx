@@ -1,3 +1,5 @@
+import './Button.css'
+
 
 function Button({ type, onClick, children, className = '' }) {
     return <button className={`Button ${className}`}

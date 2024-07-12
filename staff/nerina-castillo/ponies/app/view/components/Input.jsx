@@ -1,3 +1,4 @@
+import './Input.css'
 
 function Input({ id, defaultValue, type, name, placeholder, className = '' }) {
     return <input className={`Input ${className}`}
