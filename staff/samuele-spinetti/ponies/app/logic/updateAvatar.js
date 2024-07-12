@@ -1,7 +1,9 @@
-import data from '../data'
+import data from '../data/index.js'
+
+import validate from '../validate.js'
 
 const updateAvatar = (newAvatar) => {
-    if (!newAvatar.startsWith('http')) throw new Error('invalid image')
+    validate.image(newAvatar, 'avatar')
 
     const user = data.findUser(user => user.username === sessionStorage.username)
 

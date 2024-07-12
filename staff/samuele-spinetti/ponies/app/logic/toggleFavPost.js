@@ -1,17 +1,17 @@
-import data from "../data"
+import data from '../data/index.js'
+
+import validate from '../validate.js'
 
 function toggleFavPost(postId) {
-    if (postId.trim().length === 0) throw new Error('Invalid postId')
+    validate.postId(postId)
 
     const user = data.findUser(user => user.username == sessionStorage.username)
 
-    if (user === null)
-        throw new Error('User not found')
+    if (user === null) throw new Error('User not found')
 
     const post = data.findPost(post => post.id === postId)
 
-    if (post === null)
-        throw new Error('Post not found')
+    if (post === null) throw new Error('Post not found')
 
     const index = user.favs.indexOf(postId)
 

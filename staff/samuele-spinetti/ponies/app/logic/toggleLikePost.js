@@ -1,12 +1,13 @@
-import data from "../data"
+import data from '../data/index.js'
+
+import validate from '../validate.js'
 
 function toggleLikePost(postId) {
-    if (postId.trim().length === 0) throw new Error('Invalid postId')
+    validate.postId(postId)
 
     const post = data.findPost(post => post.id === postId)
 
-    if (post === null)
-        throw new Error('Post not found')
+    if (post === null) throw new Error('Post not found')
 
     const index = post.likes.indexOf(sessionStorage.username)
 

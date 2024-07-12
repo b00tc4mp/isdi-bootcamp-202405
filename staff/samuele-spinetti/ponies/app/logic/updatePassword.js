@@ -1,9 +1,11 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const updatePassword = (oldPassword, newPassword) => {
-    if (oldPassword.trim().length < 8) throw new Error('Invalid password')
+import validate from '../validate.js'
 
-    if (newPassword.trim().length < 8) throw new Error('Invalid password')
+const updatePassword = (oldPassword, newPassword, newPasswordRepeat) => {
+    validate.password(oldPassword)
+    validate.password(newPassword)
+    validate.password(newPasswordRepeat)
 
     const user = data.findUser(user => user.username === sessionStorage.username)
 
