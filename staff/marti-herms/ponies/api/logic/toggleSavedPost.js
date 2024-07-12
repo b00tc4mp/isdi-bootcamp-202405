@@ -1,17 +1,26 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const toggleSavedPost = (postID) => {
-    const user = data.findUser(user => user.username === sessionStorage.username);
+import validate from '../validate.js'
 
-    const postIndex = user.savedPosts.findIndex(id => id === postID);
+const toggleSavedPost = (username, postId) => {
+    validate.username(username)
+    validate.string(postId, 'postId')
 
-    if (postIndex !== -1) {
-        user.savedPosts.splice(postIndex, 1);
-    } else {
-        user.savedPosts.push(postID);
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null) {
+        throw new Error('user not found')
     }
 
-    data.updateUser(user => user.username === sessionStorage.username, user);
+    const postIndex = user.savedPosts.findIndex(id => id === postId)
+
+    if (postIndex !== -1) {
+        user.savedPosts.splice(postIndex, 1)
+    } else {
+        user.savedPosts.push(postId)
+    }
+
+    data.updateUser(user => user.username === username, user)
 }
 
-export default toggleSavedPost;
+export default toggleSavedPost

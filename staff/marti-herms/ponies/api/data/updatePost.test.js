@@ -1,4 +1,4 @@
-import updatePost from './updatePost.js';
+import updatePost from './updatePost.js'
 
 const post = {
     id: "olzkh3ya8hs",
@@ -9,4 +9,4 @@ const post = {
     likes: ["Eden", "samu"]
 }
 
-updatePost((_post => _post.id === post.id), post);
+updatePost((_post => _post.id === post.id), post)

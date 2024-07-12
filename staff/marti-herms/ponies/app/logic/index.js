@@ -48,6 +48,6 @@ const logic = {
     toggleUserFollow,
     togglePostLike,
     toggleSavedPost
-};
+}
 
-export default logic;
+export default logic

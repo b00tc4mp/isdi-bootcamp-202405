@@ -1,15 +1,19 @@
-import fs from 'fs';
+import fs from 'fs'
+
+import validate from '../validate.js'
 
 function insertPost(post) {
-    let json = fs.readFileSync('./data/posts.json', 'utf8');
+    validate.object(post, 'post')
 
-    const posts = json ? JSON.parse(json) : [];
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    posts.push(post);
+    const posts = json ? JSON.parse(json) : []
 
-    json = JSON.stringify(posts);
+    posts.push(post)
 
-    fs.writeFileSync('./data/posts.json', json);
+    json = JSON.stringify(posts)
+
+    fs.writeFileSync('./data/posts.json', json)
 }
 
-export default insertPost;
+export default insertPost

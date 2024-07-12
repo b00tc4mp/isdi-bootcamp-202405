@@ -1,9 +1,9 @@
 function insertPost(post) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
+    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-    posts.unshift(post);
+    posts.unshift(post)
 
-    localStorage.posts = JSON.stringify(posts);
+    localStorage.posts = JSON.stringify(posts)
 }
 
-export default insertPost;
+export default insertPost

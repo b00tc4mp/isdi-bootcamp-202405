@@ -1,15 +1,19 @@
-import fs from 'fs';
+import fs from 'fs'
+
+import validate from '../validate.js'
 
 function insertUser(user) {
-    let json = fs.readFileSync('./data/users.json', 'utf8');
+    validate.object(user, 'user')
 
-    const users = json ? JSON.parse(json) : [];
+    let json = fs.readFileSync('./data/users.json', 'utf8')
 
-    users.push(user);
+    const users = json ? JSON.parse(json) : []
 
-    json = JSON.stringify(users);
+    users.push(user)
 
-    fs.writeFileSync('./data/users.json', json);
+    json = JSON.stringify(users)
+
+    fs.writeFileSync('./data/users.json', json)
 }
 
-export default insertUser;
+export default insertUser

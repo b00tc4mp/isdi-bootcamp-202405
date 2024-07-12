@@ -1,13 +1,19 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const getUserSavedPosts = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username);
+import validate from '../validate.js'
+
+const getUserSavedPosts = (username) => {
+    validate.username(username)
+
+    const user = data.findUser(user => user.username === username)
 
     if (user === null) {
-        throw new Error('user not found');
+        throw new Error('user not found')
     }
 
-    return data.findPosts(post => user.savedPosts.includes(post.id));
+    const posts = data.findPosts(post => user.savedPosts.includes(post.id))
+
+    return posts.reverse()
 }
 
-export default getUserSavedPosts;
+export default getUserSavedPosts

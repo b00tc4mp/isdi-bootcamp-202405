@@ -1,13 +1,17 @@
-import fs from 'fs';
+import fs from 'fs'
+
+import validate from '../validate.js'
 
 function findPosts(condition) {
-    let json = fs.readFileSync('./data/posts.json', 'utf8');
+    validate.callback(condition, 'condition')
 
-    const posts = json ? JSON.parse(json) : [];
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    const foundPosts = posts.filter(condition);
+    const posts = json ? JSON.parse(json) : []
 
-    return foundPosts;
+    const foundPosts = posts.filter(condition)
+
+    return foundPosts
 }
 
-export default findPosts;
+export default findPosts

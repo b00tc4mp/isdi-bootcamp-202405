@@ -1,9 +1,9 @@
 import data from '../data'
 
 const getAllPosts = () => {
-    const posts = data.findPosts(() => true);
+    const posts = data.findPosts(() => true)
 
-    return posts;
+    return posts
 }
 
-export default getAllPosts;
+export default getAllPosts

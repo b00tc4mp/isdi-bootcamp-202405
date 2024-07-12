@@ -1,13 +1,13 @@
 import data from "../data"
 
 const getUserFollowers = (username) => {
-    const user = data.findUser(user => user.username === username);
+    const user = data.findUser(user => user.username === username)
 
     if (user === null) {
-        throw new Error('user not found');
+        throw new Error('user not found')
     }
 
-    return user.followers;
+    return user.followers
 }
 
-export default getUserFollowers;
+export default getUserFollowers

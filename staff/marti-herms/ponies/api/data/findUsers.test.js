@@ -1,4 +1,4 @@
-import findUsers from './findUsers.js';
+import findUsers from './findUsers.js'
 
 
-console.log(findUsers(user => user.likedPosts.includes('olzkh3ya8hs')));
+console.log(findUsers(user => user.likedPosts.includes('olzkh3ya8hs')))

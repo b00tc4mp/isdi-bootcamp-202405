@@ -1,4 +1,4 @@
-import insertPost from './insertPost.js';
+import insertPost from './insertPost.js'
 
 const post = {
     id: '11111111111',
@@ -9,4 +9,4 @@ const post = {
     likes: ['samu']
 }
 
-insertPost(post);
+insertPost(post)

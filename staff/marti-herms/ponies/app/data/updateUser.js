@@ -1,13 +1,13 @@
 function updateUser(condition, user) {
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : [];
+    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-    const postIndex = users.findIndex(condition);
+    const postIndex = users.findIndex(condition)
 
     if (postIndex > -1) {
-        users.splice(postIndex, 1, user);
+        users.splice(postIndex, 1, user)
 
-        localStorage.users = JSON.stringify(users);
+        localStorage.users = JSON.stringify(users)
     }
 }
 
-export default updateUser;
+export default updateUser

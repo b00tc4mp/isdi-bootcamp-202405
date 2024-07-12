@@ -1,20 +1,33 @@
+import data from '../data/index.js'
 
-import data from '../data'
+import validate from '../validate.js'
 
-const editPost = (id, newCaption) => {
-    if (id.trim().length === 0) {
-        throw new Error('invalid postId');
+const editPost = (username, id, newCaption) => {
+    validate.username(username)
+    validate.string(id, 'id')
+    validate.string(newCaption, 'newCaption')
+
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null) {
+        throw new Error('user not found')
     }
 
-    const post = data.findPost(item => item.id === id);
+    if (!user.yourPosts.includes(id)) {
+        throw new Error('post is not from user')
+    }
+
+    const post = data.findPost(item => item.id === id)
 
     if (post === undefined) {
-        throw new Error('post not found');
+        throw new Error('post not found')
     }
 
-    post.caption = newCaption;
+    if (post.caption !== newCaption) {
+        post.caption = newCaption
 
-    data.updatePost(post => post.id === id, post);
+        data.updatePost(post => post.id === id, post)
+    }
 }
 
-export default editPost;
+export default editPost

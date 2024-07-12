@@ -1,36 +1,44 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const togglePostLike = (postID) => {
-    if (postID.trim().length === 0) throw new Error('invalid postId');
+import validate from '../validate.js'
 
-    const post = data.findPost(post => post.id === postID);
+const togglePostLike = (username, postId) => {
+    validate.username(username)
+    validate.string(postId, 'postId')
+
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null) {
+        throw new Error('user not found')
+    }
+
+    if (postId.trim().length === 0) throw new Error('invalid postId')
+
+    const post = data.findPost(post => post.id === postId)
 
     if (post === null) {
-        throw new Error('post not found');
+        throw new Error('post not found')
     }
 
-    const index = post.likes.indexOf(sessionStorage.username);
+    const index = post.likes.indexOf(username)
 
     if (index < 0) {
-        post.likes.push(sessionStorage.username);
+        post.likes.push(username)
     } else {
-        post.likes.splice(index, 1);
+        post.likes.splice(index, 1)
     }
 
-    data.updatePost(post => post.id === postID, post);
+    data.updatePost(post => post.id === postId, post)
 
-
-    const user = data.findUser(user => user.username === sessionStorage.username);
-
-    const postIndex = user.likedPosts.findIndex(id => id === postID);
+    const postIndex = user.likedPosts.findIndex(id => id === postId)
 
     if (postIndex !== -1) {
-        user.likedPosts.splice(postIndex, 1);
+        user.likedPosts.splice(postIndex, 1)
     } else {
-        user.likedPosts.push(postID);
+        user.likedPosts.push(postId)
     }
 
-    data.updateUser(user => user.username === sessionStorage.username, user);
+    data.updateUser(user => user.username === username, user)
 }
 
-export default togglePostLike;
+export default togglePostLike

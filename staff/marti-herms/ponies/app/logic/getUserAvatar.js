@@ -1,13 +1,13 @@
 import data from "../data"
 
 const getUserAvatar = (username) => {
-    const user = data.findUser(user => user.username === username);
+    const user = data.findUser(user => user.username === username)
 
     if (user === null) {
-        throw new Error('user not found');
+        throw new Error('user not found')
     }
 
-    return user.avatar;
+    return user.avatar
 }
 
-export default getUserAvatar;
+export default getUserAvatar

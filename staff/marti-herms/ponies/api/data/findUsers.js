@@ -1,13 +1,17 @@
-import fs from 'fs';
+import fs from 'fs'
+
+import validate from '../validate.js'
 
 function findUsers(condition) {
-    let json = fs.readFileSync('./data/users.json', 'utf8');
+    validate.callback(condition, 'condition')
 
-    const users = json ? JSON.parse(json) : [];
+    let json = fs.readFileSync('./data/users.json', 'utf8')
 
-    const foundUsers = users.filter(condition);
+    const users = json ? JSON.parse(json) : []
 
-    return foundUsers || null;
+    const foundUsers = users.filter(condition)
+
+    return foundUsers || null
 }
 
-export default findUsers;
+export default findUsers

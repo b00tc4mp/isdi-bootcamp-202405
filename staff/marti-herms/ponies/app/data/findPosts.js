@@ -1,9 +1,9 @@
 function findPosts(condition) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
+    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-    const foundPosts = posts.filter(condition);
+    const foundPosts = posts.filter(condition)
 
-    return foundPosts;
+    return foundPosts
 }
 
-export default findPosts;
+export default findPosts

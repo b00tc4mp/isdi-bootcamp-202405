@@ -1,4 +1,4 @@
-import findPosts from './findPosts.js';
+import findPosts from './findPosts.js'
 
 
-console.log(findPosts(post => post.author === 'Eden'));
+console.log(findPosts(post => post.author === 'Eden'))

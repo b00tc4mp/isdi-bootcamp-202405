@@ -1,19 +1,24 @@
-import fs from 'fs';
+import fs from 'fs'
+
+import validate from '../validate.js'
 
 function updatePost(condition, post) {
-    let json = fs.readFileSync('./data/posts.json', 'utf8');
+    validate.callback(condition, 'condition')
+    validate.object(post, 'post')
 
-    const posts = json ? JSON.parse(json) : [];
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    const postIndex = posts.findIndex(condition);
+    const posts = json ? JSON.parse(json) : []
+
+    const postIndex = posts.findIndex(condition)
 
     if (postIndex > -1) {
-        posts.splice(postIndex, 1, post);
+        posts.splice(postIndex, 1, post)
 
-        json = JSON.stringify(posts);
+        json = JSON.stringify(posts)
 
         fs.writeFileSync('./data/posts.json', json)
     }
 }
 
-export default updatePost;
+export default updatePost

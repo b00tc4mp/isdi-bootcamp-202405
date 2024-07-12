@@ -1,15 +1,25 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const getUserList = () => {
-    const users = data.findUsers(() => true);
+import validate from '../validate.js'
 
-    if (users === null) {
-        throw new Error('user not found');
+const getUserList = (username) => {
+    validate.username(username)
+
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null) {
+        throw new Error('user not found')
     }
 
-    const usernames = users.map(user => user.username);
+    if (user === null) {
+        throw new Error('user not found')
+    }
 
-    return usernames;
+    const users = data.findUsers(() => true)
+
+    const usernames = users.map(user => user.username)
+
+    return usernames
 }
 
-export default getUserList;
+export default getUserList

@@ -1,5 +1,5 @@
 const getUserUsername = () => {
-    return sessionStorage.username;
+    return sessionStorage.username
 }
 
-export default getUserUsername;
+export default getUserUsername

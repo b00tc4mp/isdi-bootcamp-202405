@@ -1,13 +1,13 @@
 function updatePost(condition, post) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : [];
+    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
-    const postIndex = posts.findIndex(condition);
+    const postIndex = posts.findIndex(condition)
 
     if (postIndex > -1) {
-        posts.splice(postIndex, 1, post);
+        posts.splice(postIndex, 1, post)
 
-        localStorage.posts = JSON.stringify(posts);
+        localStorage.posts = JSON.stringify(posts)
     }
 }
 
-export default updatePost;
+export default updatePost

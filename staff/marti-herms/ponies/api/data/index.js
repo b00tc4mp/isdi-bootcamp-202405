@@ -8,7 +8,7 @@ import insertUser from './insertUser.js'
 import updatePost from './updatePost.js'
 import updatePosts from './updatePosts.js'
 import updateUser from './updateUser.js'
-import updateUserPostArrays from './updateUserPostArrays.js'
+import removePostFromUsers from './removePostFromUsers.js'
 
 const data = {
     deletePost,
@@ -21,7 +21,7 @@ const data = {
     updatePost,
     updatePosts,
     updateUser,
-    updateUserPostArrays
+    removePostFromUsers
 }
 
 export default data

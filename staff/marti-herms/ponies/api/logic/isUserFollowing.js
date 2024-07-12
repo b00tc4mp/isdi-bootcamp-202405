@@ -1,13 +1,18 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const isUserFollowing = (author) => {
-    const user = data.findUser(user => user.username === sessionStorage.username);
+import validate from '../validate.js'
+
+const isUserFollowing = (username, author) => {
+    validate.username(username)
+    validate.username(author, 'author')
+
+    const user = data.findUser(user => user.username === username)
 
     if (user === null) {
-        throw new Error('user not found');
+        throw new Error('user not found')
     }
 
-    return user.following.some(username => username === author);
+    return user.following.some(username => username === author)
 }
 
 export default isUserFollowing

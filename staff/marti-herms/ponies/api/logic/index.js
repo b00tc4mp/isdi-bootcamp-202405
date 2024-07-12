@@ -1,5 +1,5 @@
 import addPost from './addPost.js'
-import deletePosts from './deletePosts.js'
+import deletePost from './deletePost.js'
 import editPost from './editPost.js'
 import editUserInfo from './editUserInfo.js'
 import getAllPosts from './getAllPosts.js'
@@ -12,12 +12,9 @@ import getUserList from './getUserList.js'
 import getUserName from './getUserName.js'
 import getUserSavedPosts from './getUserSavedPosts.js'
 import getUserPosts from './getUserPosts.js'
-import getUserUsername from './getUserUsername.js'
-import hasLikedPost from './NUhasLikedPost.js'
 import hasPostSaved from './hasPostSaved.js'
 import isUserFollowing from './isUserFollowing.js'
-import loginUser from './loginUser.js'
-import logoutUser from './logoutUser.js'
+import authenticateUser from './authenticateUser.js'
 import registerUser from './registerUser.js'
 import toggleUserFollow from './toggleUserFollow.js'
 import togglePostLike from './togglePostLike.js'
@@ -25,7 +22,7 @@ import toggleSavedPost from './toggleSavedPost.js'
 
 const logic = {
     addPost,
-    deletePosts,
+    deletePost,
     editPost,
     editUserInfo,
     getAllPosts,
@@ -38,16 +35,13 @@ const logic = {
     getUserName,
     getUserSavedPosts,
     getUserPosts,
-    getUserUsername,
-    hasLikedPost,
     hasPostSaved,
     isUserFollowing,
-    loginUser,
-    logoutUser,
+    authenticateUser,
     registerUser,
     toggleUserFollow,
     togglePostLike,
     toggleSavedPost
-};
+}
 
-export default logic;
+export default logic

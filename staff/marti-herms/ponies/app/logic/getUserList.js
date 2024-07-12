@@ -1,15 +1,15 @@
 import data from '../data'
 
 const getUserList = () => {
-    const users = data.findUsers(() => true);
+    const users = data.findUsers(() => true)
 
     if (users === null) {
-        throw new Error('user not found');
+        throw new Error('user not found')
     }
 
-    const usernames = users.map(user => user.username);
+    const usernames = users.map(user => user.username)
 
-    return usernames;
+    return usernames
 }
 
-export default getUserList;
+export default getUserList

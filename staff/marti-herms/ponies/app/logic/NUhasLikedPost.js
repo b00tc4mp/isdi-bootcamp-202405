@@ -1,13 +1,13 @@
 import data from '../data'
 
 const hasLikedPost = (postId) => {
-    const user = data.findUser(user => user.username === sessionStorage.username);
+    const user = data.findUser(user => user.username === sessionStorage.username)
 
     if (user === null) {
-        throw new Error('user not found');
+        throw new Error('user not found')
     }
 
-    return user.likedPosts.some(id => id === postId);
+    return user.likedPosts.some(id => id === postId)
 }
 
-export default hasLikedPost;
+export default hasLikedPost
