@@ -5,7 +5,7 @@ import validate from "../validate.js";
 import generateId from "../util/generateId";
 
 const createPost = (image, caption) => {
-  validate.string(image, 'image')
+  validate.image(image, 'image')
   validate.string(caption, 'caption')
   if (!image.startsWith("http")) throw new Error("invalid image");
 

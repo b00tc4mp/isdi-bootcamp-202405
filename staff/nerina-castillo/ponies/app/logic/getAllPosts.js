@@ -5,7 +5,7 @@ const getAllPosts = () => {
     (user) => user.username === sessionStorage.username
   );
 
-  if (user === null) throw new Error("User not found");
+  if (user === null) throw new Error("user not found");
 
   const posts = data.findPosts(() => true);
 
