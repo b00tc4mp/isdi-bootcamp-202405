@@ -6,7 +6,7 @@ const getAllFavPosts = username => {
     const user = data.findUser(user => user.username === username)
 
     if (user === null)
-        throw new Error('User not found')
+        throw new Error('user not found')
 
     const posts = data.findPosts(post => user.favs.includes(post.id))
 

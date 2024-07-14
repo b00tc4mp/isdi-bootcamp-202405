@@ -7,7 +7,7 @@ const authenticateUser = (username, password) => {
 validate.username(username)
 validate.password(password)
 
-    if (!user_regex.test(username))
+    if (!USER_REGEX.test(username))
         throw new Error('invalid username')
 
     if (password.trim().length < 8)

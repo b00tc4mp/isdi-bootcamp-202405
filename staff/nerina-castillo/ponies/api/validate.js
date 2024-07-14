@@ -25,13 +25,6 @@ function validatePassword(password) {
     if (password.includes(' ')) throw new SyntaxError('password has empty spaces')
 }
 
-function validateRepeatPassword(passwordRepeat){
-    validateString(passwordRepeat, 'repeat password')
-    if(passwordRepeat.trim().length < 8) throw new RangeError('password length is lower than 8 characters')
-    if(passwordRepeat.includes(' ')) throw new SyntaxError('password has empty spaces')
-    if(passwordRepeat !== password) throw new SyntaxError('passwords do not match')
-}
-
 function validateName(name, explain = 'name') {
     validateString(name, explain)
     if (!NAME_REGEX.test(name)) throw new SyntaxError(`invalid ${explain}`)
@@ -63,7 +56,6 @@ const validate = {
     object: validateObject,
     username: validateUsername,
     password: validatePassword,
-    passwordRepeat: validateRepeatPassword,
     name: validateName,
     surname: validateSurname,
     email: validateEmail,

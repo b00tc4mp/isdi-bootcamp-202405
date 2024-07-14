@@ -12,7 +12,7 @@ const createPost = (username, image, caption) => {
   const user = data.findUser(user => user.username == username)
 
   if (user === null)
-        throw new Error('User not found')
+        throw new Error('user not found')
   if (!image.startsWith("http")) throw new Error("invalid image");
 
   const post = {

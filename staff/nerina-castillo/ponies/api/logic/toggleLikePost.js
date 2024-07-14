@@ -8,7 +8,7 @@ function toggleLikePost(username, postId) {
 
   const user = data.findUser(user => user.username === username)
   
-  if (!user) throw new Error('User not found')
+  if (!user) throw new Error('user not found')
 
   if (postId.trim().length === 0) throw new Error("invalid postId");
 

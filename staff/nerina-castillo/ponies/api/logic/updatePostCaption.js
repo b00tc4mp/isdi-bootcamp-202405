@@ -7,7 +7,7 @@ const updatePostCaption = (username, postId, newCaption) => {
   validate.postId(postId, 'postId')
   const user = data.findUser(user => user.username === username)
 
-    if (user === null) throw new Error('User not found')
+    if (user === null) throw new Error('user not found')
 
   if (postId.trim().length === 0) throw new Error("invalid postId");
 
