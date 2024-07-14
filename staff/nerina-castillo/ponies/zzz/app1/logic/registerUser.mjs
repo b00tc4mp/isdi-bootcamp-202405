@@ -1,8 +1,8 @@
 import data from "../data/index.js";
 
-const email_regex = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/;
-const name_regex = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
-const user_regex = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
+const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/;
+const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
+const USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
 
 const registerUser = (
   name,
@@ -12,13 +12,13 @@ const registerUser = (
   password,
   passwordRepeat
 ) => {
-  if (!name_regex.test(name.trim())) throw new Error("invalid name");
+  if (!NAME_REGEX.test(name.trim())) throw new Error("invalid name");
 
-  if (!name_regex.test(surname.trim())) throw new Error("ivalid surname");
+  if (!NAME_REGEX.test(surname.trim())) throw new Error("ivalid surname");
 
-  if (!email_regex.test(email)) throw new Error("invalid email");
+  if (!EMAIL_REGEX.test(email)) throw new Error("invalid email");
 
-  if (!user_regex.test(username)) throw new Error("invalid username");
+  if (!USER_REGEX.test(username)) throw new Error("invalid username");
 
   if (password.trim().length < 8) throw new Error("invalid password");
 
