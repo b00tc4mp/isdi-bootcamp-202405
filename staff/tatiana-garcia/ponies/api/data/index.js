@@ -1,11 +1,11 @@
-import deletePost from './deletePost'
-import findPost from './findPost'
-import findPosts from './findPosts'
-import findUser from './findUser'
-import insertPost from './insertPost'
-import insertUser from './insertUser'
-import updatePost from './updatePost'
-import updateUser from './updateUser'
+import deletePost from './deletePost.js'
+import findPost from './findPost.js'
+import findPosts from './findPosts.js'
+import findUser from './findUser.js'
+import insertPost from './insertPost.js'
+import insertUser from './insertUser.js'
+import updatePost from './updatePost.js'
+import updateUser from './updateUser.js'
 
 const data = {
     deletePost,

@@ -1,8 +1,14 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const deletePost = postId => {
+import validate from '../validate.js'
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const deletePost = (username, postId) => {
+    validate.username(username)
+    validate.postId(postId)
+
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null) throw new Error('user not found')
 
     const post = data.findPost(post => post.id === postId)
 

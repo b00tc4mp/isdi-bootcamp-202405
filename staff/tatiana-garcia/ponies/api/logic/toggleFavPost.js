@@ -1,10 +1,11 @@
-import data from '../data'
+import data from '../data/index.js'
+import validate from '../validate.js'  //ME SALE UNDEFINED
 
-function toggleFavPost(postId) {
+function toggleFavPost(username, postId) {
+    validate.username(username, 'username')
+    validate.postId(postId, 'postId')
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
-
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const user = data.findUser(user => user.username === username)
 
     if (user === null) {
 
@@ -24,7 +25,7 @@ function toggleFavPost(postId) {
     else
         user.favs.splice(index, 1)
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+    data.updateUser(user => user.username === username, user)
 
 }
 

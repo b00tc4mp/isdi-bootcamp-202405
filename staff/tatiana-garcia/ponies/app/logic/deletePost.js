@@ -1,8 +1,9 @@
 import data from '../data'
 
-const deletePost = postId => {
+import validate from '../validate.js'
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const deletePost = postId => {
+    validate.postId(postId, 'postId')
 
     const post = data.findPost(post => post.id === postId)
 

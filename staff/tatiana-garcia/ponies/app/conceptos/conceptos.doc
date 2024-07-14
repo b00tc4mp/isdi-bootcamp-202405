@@ -58,3 +58,13 @@
 
 - defaultValue -> establece un valor inicial que no se ve afectado por futuras actualizaciones del componente. Se usa
     cuando no necesitas que el valor del input cambie despues de la inicializacion, a menos que sea modificado por el usuario.
+
+- API RESTfull -> es una interfaz que permite crear servicios web. Se basa en la representación de los recursos mediante métodos HTTP y URI.
+
+- EXPRESS -> crea un servidor.
+
+-HTTP -> El Protocolo de transferencia de hipertexto (HTTP) es la base de la World Wide Web, y se utiliza 
+    para cargar páginas web mediante enlaces de hipertexto.
+
+
+    curl es GET por defecto si no se pone nada. es una herramienta de línea de comandos utilizada para la transferencia de ficheros con formato URL

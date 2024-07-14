@@ -1,4 +1,4 @@
-import updateUser from "./updateUser.js"
+import updateUser from './updateUser.js'
 
 const user = {
     "name": "liliana",

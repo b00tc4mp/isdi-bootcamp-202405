@@ -1,12 +1,9 @@
 import data from '../data'
+import validate from '../validate'
 
 const loginUser = (username, password) => {
-
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
-
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+    validate.username(username, 'username')
+    validate.password(password, 'password')
 
     const user = data.findUser(user => user.username === username)
 
