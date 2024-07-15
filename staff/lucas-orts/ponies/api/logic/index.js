@@ -1,8 +1,5 @@
 import getAllPosts from './getAllPosts'
 import getUserName from './getUserName'
-import getUserUsername from './getUserUsername'
-import loginUser from './loginUser'
-import logoutUser from './logoutUser'
 import registerUser from './registerUser'
 import toggleLikePost from './toggleLikePost'
 import updatePostCaption from './updatePostCaption'
@@ -12,14 +9,11 @@ import toggleFavPost from './toggleFavPost'
 import getAllFavPosts from './getAllFavPosts'
 import toggleFollowUser from './toggleFollowUser'
 import getAllFollowingUserPosts from './getAllFollowingUserPosts'
-import isUserLoggedIn from "./isUserLoggedIn"
+import authenticateUser from './authenticateUser'
 
 const logic = {
     getAllPosts,
     getUserName,
-    getUserUsername,
-    loginUser,
-    logoutUser,
     registerUser,
     toggleLikePost,
     updatePostCaption,
@@ -29,7 +23,7 @@ const logic = {
     getAllFavPosts,
     toggleFollowUser,
     getAllFollowingUserPosts,
-    isUserLoggedIn
+    authenticateUser
 }
 
 export default logic

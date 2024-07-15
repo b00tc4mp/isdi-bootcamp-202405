@@ -1,8 +1,18 @@
-import data from '../data'
+import data from '../data/index.js'
+import validate from '../validate.js'
 
-import generateId from '../util/generateId'
+import generateId from '../util/generateId.js'
 
-const createPost = (image, caption) => {
+const createPost = (username, image, caption) => {
+    validate.username(username)
+    validate.image(image)
+    validate.string(caption, 'Caption')
+
+    const user = data.findUser(user => user.username === username)
+
+    if (user === null)
+        throw new Error('user not found')
+
     if (!image.startsWith('http'))
         throw new Error('invalid image')
 
@@ -10,7 +20,7 @@ const createPost = (image, caption) => {
         id: generateId(),
         image: image,
         caption: caption,
-        author: sessionStorage.username,
+        author: username,
         date: new Date().toISOString(),
         likes: []
     }

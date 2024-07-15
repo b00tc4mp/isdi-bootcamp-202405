@@ -1,7 +1,12 @@
 import fs from 'fs'
-let json = fs.readFileSync('./data/posts.json')
+import validate from '../validate.js'
 
 function updatePost(condition, post) {
+    validate.callback(condition, 'condition')
+    validate.object(post, 'post')
+
+    let json = fs.readFileSync('./data/posts.json')
+
     const posts = json ? JSON.parse(json) : []
 
     const index = posts.findIndex(condition)

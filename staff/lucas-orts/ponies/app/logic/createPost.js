@@ -1,8 +1,12 @@
 import data from '../data'
+import validate from '../validate.js'
 
 import generateId from '../util/generateId'
 
 const createPost = (image, caption) => {
+    validate.image(image)
+    validate.string(caption)
+
     if (!image.startsWith('http'))
         throw new Error('invalid image')
 

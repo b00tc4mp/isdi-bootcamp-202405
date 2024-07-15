@@ -1,15 +1,17 @@
 import data from '../data/index.js'
 import validate from '../validate.js'
 
-const getUserName = (username) => {
+const authenticateUser = (username, password) => {
     validate.username(username)
+    validate.password(password)
 
     const user = data.findUser(user => user.username === username)
 
-    if (user === null) {
+    if (user === null)
         throw new Error('user not found')
-    }
-    return user.name
+
+    if (user.password !== password)
+        throw new Error('wrong password')
 }
 
-export default getUserName
+export default authenticateUser

@@ -1,6 +1,10 @@
 import data from '../data'
+import validate from '../validate.js'
 
 const loginUser = (username, password) => {
+    validate.username(username)
+    validate.password(password)
+
     if (username.trim().length < 4)
         throw new Error('invalid username')
 

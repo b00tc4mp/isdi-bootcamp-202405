@@ -1,4 +1,8 @@
+import validate from '../validate.js'
+
 function deletePost(condition) {
+    validate.callback(condition, 'condition')
+
     const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
 
     const postIndex = posts.findIndex(condition)
