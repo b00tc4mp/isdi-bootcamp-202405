@@ -1,8 +1,10 @@
 import data from '../data'
 
-function toggleFavPost(postId) {
-    if (postId.trim().length === 0) throw new Error
-        ('invalid postId')
+import validate from '../validate.js'
+
+function toggleFavPost(username, postId) {
+    validate.username(username)
+    validate.postId(postId)
 
     const user = data.findUser(user => user.username === sessionStorage.username)
 

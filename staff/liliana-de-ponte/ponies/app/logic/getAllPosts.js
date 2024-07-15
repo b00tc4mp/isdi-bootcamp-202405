@@ -1,6 +1,10 @@
 import data from '../data'
 
-const getAllPosts = () => {
+import validate from '../validate.js'
+
+const getAllPosts = username => {
+    validate.username(username)
+
     const user = data.findUser(user => user.username === sessionStorage.username)
 
     if (user === null)

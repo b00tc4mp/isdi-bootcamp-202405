@@ -1,8 +1,9 @@
 import data from '../data'
 
+import validate from '../validate.js'
+
 function toggleLikePost(postId) {
-    if (postId.trim().length === 0) throw new Error
-        ('invalid postId')
+    validate.postId(postId)
 
     const post = data.findPost(post => post.id === postId)
 

@@ -1,7 +1,11 @@
 import fs from 'fs'
 
+import validate from '../validate.js'
+
 function findUser(condition) {
-    let json = fs.readFileSync('./data/users.json', 'utf8')
+    validate.callback(condition, 'condition')
+
+    const json = fs.readFileSync('./data/users.json', 'utf8')
 
     const users = json ? JSON.parse(json) : []
 

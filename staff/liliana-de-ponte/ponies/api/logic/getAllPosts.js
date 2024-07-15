@@ -1,7 +1,11 @@
-import data from '../data'
+import data from '../data/index.js'
 
-const getAllPosts = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+import validate from '../validate.js'
+
+const getAllPosts = (username) => {
+validate.username(username)
+
+    const user = data.findUser(user => user.username === username)
 
     if (user === null)
         throw new Error('user not found')
@@ -10,7 +14,7 @@ const getAllPosts = () => {
 
     posts.forEach(post => {
         post.fav = user.favs.includes(post.id) //true or false
-        post.like = post.likes.includes(sessionStorage.username)
+        post.like = post.likes.includes(username)
 
         const author = data.findUser(user => user.username === post.author)
 

@@ -1,11 +1,5 @@
 import getAllFavPosts from './getAllFavPosts.js'
 
-console.info('TEST getAllFavPosts')
+const posts= getAllFavPosts("lilideponte")
 
-console.info('CASE get all fav posts from lilidp')
-
-sessionStorage.username = 'lilidp'
-
-const favs = getAllFavPosts()
-
-console.log(favs)
+console.log(posts)

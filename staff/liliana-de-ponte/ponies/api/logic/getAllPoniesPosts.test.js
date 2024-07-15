@@ -1,11 +1,5 @@
-import getAllFollowPosts from './getAllFollowPosts.js'
+import getAllPoniesPosts from "./getAllPoniesPosts.js"
 
-console.info('TEST getAllFollowPosts')
-
-console.info('CASE get all follow posts from lilidp')
-
-sessionStorage.username = 'lilidp'
-
-const follows = getAllFollowPosts()
+const follows = getAllPoniesPosts("eduardhernandez")
 
 console.log(follows)

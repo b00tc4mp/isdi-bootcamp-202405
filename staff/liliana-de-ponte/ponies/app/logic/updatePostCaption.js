@@ -1,7 +1,10 @@
 import data from '../data'
 
-const updatePostCaption = (postId, newCaption) => {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+import validate from '../validate.js'
+
+const updatePostCaption = (username, postId, newCaption) => {
+    validate.username(username)
+    validate.postId(postId)
 
     const post = data.findPost(post => post.id === postId)
 

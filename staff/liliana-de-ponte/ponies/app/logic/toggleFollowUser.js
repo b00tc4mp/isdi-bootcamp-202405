@@ -1,8 +1,9 @@
 import data from '../data'
 
+import validate from '../validate.js'
+
 function toggleFollowUser(username) {
-    if (!username.trim().length) throw new Error
-        ('invalid username')
+    validate.username(username)
 
     const user = data.findUser(user => user.username === sessionStorage.username)
 

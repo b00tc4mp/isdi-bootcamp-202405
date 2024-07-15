@@ -7,7 +7,10 @@ const liliana = {
     surname: 'De Ponte',
     email: 'lili@deponte.com',
     username: 'lilideponte',
-    password: '123456789'
+    password: '123456789',
+    favs: [],
+    following: [],
+    avatar: []
 }
 
 const samuele = {
@@ -15,7 +18,10 @@ const samuele = {
     surname: 'Spinetti',
     email: 'samuele@spinetti.com',
     username: 'samuelespinetti',
-    password: '123456789'
+    password: '123456789',
+    favs: [],
+    following: [],
+    avatar: []
 }
 
 const tatiana = {
@@ -23,7 +29,10 @@ const tatiana = {
     surname: 'Garcia',
     email: 'tatiana@garcia.com',
     username: 'tatianagarcia',
-    password: '123456789'
+    password: '123456789',
+    favs: [],
+    following: [],
+    avatar: []
 }
 
 const fabian = {
@@ -31,7 +40,10 @@ const fabian = {
     surname: 'Romero',
     email: 'fabian@romero.com',
     username: 'fabianromero',
-    password: '123456789'
+    password: '123456789',
+    favs: [],
+    following: [],
+    avatar: []
 }
 
 users.push(liliana)
@@ -56,7 +68,8 @@ const post1 = {
     caption: "Fri-yay..",
     date: "2024-06-28T11:07:08.899Z",
     id: "onlstpoafkw",
-    image: "https://media4.giphy.com/media/iG1DhZHNrOMObDNxgb/giphy.webp?cid=790b7611phw7xmfqnzf6cutq1xl6qlwt1r61ear7m0184syb&ep=v1_gifs_search&rid=giphy.webp&ct=g"
+    image: "https://media4.giphy.com/media/iG1DhZHNrOMObDNxgb/giphy.webp?cid=790b7611phw7xmfqnzf6cutq1xl6qlwt1r61ear7m0184syb&ep=v1_gifs_search&rid=giphy.webp&ct=g",
+    likes: []
 }
 
 const post2 = {
@@ -64,7 +77,8 @@ const post2 = {
     caption: "Hello",
     date: "2024-06-21T11:07:08.899Z",
     id: "3fswobxum9q0",
-    image: "https://media1.giphy.com/media/QxSSrQxSKaFECD7ywx/giphy.webp?cid=82a1493b6gf1qqoahwen6wob6oll8c8uo7gnqajd01d16erk&ep=v1_gifs_trending&rid=giphy.webp&ct=g"
+    image: "https://media1.giphy.com/media/QxSSrQxSKaFECD7ywx/giphy.webp?cid=82a1493b6gf1qqoahwen6wob6oll8c8uo7gnqajd01d16erk&ep=v1_gifs_trending&rid=giphy.webp&ct=g",
+    likes: []
 }
 
 const post3 = {
@@ -73,7 +87,8 @@ const post3 = {
     date: "2024-06-22T11:07:08.899Z",
     id: "2cxgeu12zsw0",
     image:
-        "https://media2.giphy.com/media/2VYui7kj5C5I4/200.webp?cid=ecf05e47bfmp9wy35qj5daedm8klj8lstrxmmxrn5kup38gw&ep=v1_gifs_search&rid=200.webp&ct=g"
+        "https://media2.giphy.com/media/2VYui7kj5C5I4/200.webp?cid=ecf05e47bfmp9wy35qj5daedm8klj8lstrxmmxrn5kup38gw&ep=v1_gifs_search&rid=200.webp&ct=g",
+        likes: []
 }
 
 

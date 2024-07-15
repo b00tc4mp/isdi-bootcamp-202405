@@ -1,10 +1,10 @@
 import insertUser from './insertUser.js'
 
 const user = {
-    name: 'Liliana',
-    surname: 'De Ponte',
-    email: 'lili@deponte.com',
-    username: 'lilideponte',
+    name: 'Eduard',
+    surname: 'Hernandez',
+    email: 'edu@hernandez.com',
+    username: 'eduardhernandez',
     password: '123456789'
 }
 

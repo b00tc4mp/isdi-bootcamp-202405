@@ -1,6 +1,10 @@
 import data from '../data'
 
-const getUserName = () => {
+import validate from '../validate.js'
+
+const getUserName = username => {
+    validate.username(username)
+
     const user = data.findUser(user => user.username === sessionStorage.username)
 
     if (user === null) //gestion de errores

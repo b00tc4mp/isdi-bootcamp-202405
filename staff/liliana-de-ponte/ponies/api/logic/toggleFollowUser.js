@@ -1,10 +1,14 @@
-import data from '../data'
+import data from '../data/index.js'
+
+import validate from '../validate.js'
 
 function toggleFollowUser(username) {
+validate.username(username)
+
     if (!username.trim().length) throw new Error
         ('invalid username')
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const user = data.findUser(user => user.username === username)
 
     if (!user)
         throw new Error('user not found')
@@ -22,7 +26,7 @@ function toggleFollowUser(username) {
     else
         user.following.splice(index, 1)
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+    data.updateUser(user => user.username === username, user)
 }
 
 export default toggleFollowUser
