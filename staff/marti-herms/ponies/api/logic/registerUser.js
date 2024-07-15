@@ -2,16 +2,16 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat) => {
+const registerUser = (name, surname, email, username, password/*, passwordRepeat*/) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
 
-    if (password !== passwordRepeat) {
-        throw new Error('passwords do not match')
-    }
+    // if (password !== passwordRepeat) {
+    //     throw new Error('passwords do not match')
+    // }
 
     let user = data.findUser(user => user.email === email)
 

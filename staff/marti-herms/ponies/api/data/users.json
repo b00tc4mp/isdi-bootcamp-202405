@@ -76,5 +76,18 @@
             "Eden"
         ],
         "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "Pepito",
+        "surname": "grillo",
+        "email": "pepito@grillo.com",
+        "username": "pepitogrillo",
+        "password": "11111111",
+        "yourPosts": [],
+        "likedPosts": [],
+        "savedPosts": [],
+        "followers": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
     }
 ]
