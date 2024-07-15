@@ -1,0 +1,33 @@
+[
+    {
+        "name": "matias",
+        "surname": "Sargo",
+        "email": "matisargo@gmail.com",
+        "username": "matif",
+        "password": "123456123456"
+    },
+    {
+        "name": "mamo",
+        "surname": "racho",
+        "email": "mamo@racho.com",
+        "username": "mamoracho",
+        "password": "123456123456"
+    },
+    {
+        "name": "ni",
+        "surname": "tro",
+        "email": "ni@tro.com",
+        "username": "nitro",
+        "password": "123456123456"
+    },
+    {
+        "name": "marti",
+        "surname": "herms",
+        "email": "marti@herms.com",
+        "username": "matriherms",
+        "password": "123456123456",
+        "favs": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    }
+]
