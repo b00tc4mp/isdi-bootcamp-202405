@@ -7,7 +7,7 @@ const { stdin: input, stdout: output } = require('node:process');
 const socket = new Socket()
 
 // const host = '127.0.0.1'
-const host = '192.168.1.117'
+const host = '192.168.1.112'
 
 socket.connect(1337, host, () => {
     console.log('connected to server')
@@ -16,7 +16,7 @@ socket.connect(1337, host, () => {
 
     rl.question('Who? ', who => {
         function loop() {
-            rl.question('What? ', what => {
+            rl.question('', what => {
                 if (what === 'stop') {
                     rl.close()
 

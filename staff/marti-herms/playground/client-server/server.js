@@ -1,8 +1,24 @@
-var net = require('net');
+const net = require('net')
 
-var server = net.createServer(function (socket) {
-    socket.write('Hola Manu viva españa\r\n');
-    socket.pipe(socket);
-});
+const sockets = []
 
-server.listen(1337, '192.168.1.108');
+const server = net.createServer(socket => {
+    sockets.push(socket)
+
+    socket.on('data', data => {
+        console.log(data.toString(), new Date)
+
+        sockets.forEach(socket => socket.write(data.toString()))
+    })
+
+    socket.on('close', () => {
+        const index = sockets.findIndex(_socket => _socket === socket)
+
+        sockets.splice(index, 1)
+    })
+})
+
+const host = '127.0.0.1'
+// const host = '192.168.1.117'
+
+server.listen(1337, host, () => console.log('server is up'))
