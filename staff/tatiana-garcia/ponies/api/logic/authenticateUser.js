@@ -1,6 +1,6 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'  //ME SALE UNDEFINED
+import validate from '../validate.js'
 
 const authenticateUser = (username, password) => {
     validate.username(username)

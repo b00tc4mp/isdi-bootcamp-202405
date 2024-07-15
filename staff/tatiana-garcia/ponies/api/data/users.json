@@ -53,5 +53,15 @@
             "tatig"
         ],
         "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "Benito",
+        "surname": "Camelas",
+        "email": "benito@camelas.com",
+        "username": "benitocamelas",
+        "password": "123123123",
+        "favs": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
     }
 ]
