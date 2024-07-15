@@ -1,4 +1,4 @@
-import logic from '../logic/index.mjs'
+import logic from '../logic'
 
 import Heading from './components/Heading'
 import Form from './components/Form'
@@ -56,12 +56,10 @@ function Login({ onLogin, onRegisterClick }) {
                 <Label htmlFor="password-input">Password</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
-
             <Button type="submit">Login</Button>
         </Form>
 
         <Link onClick={handleRegisterClick}>Register</Link>
     </main>
 }
-
 export default Login

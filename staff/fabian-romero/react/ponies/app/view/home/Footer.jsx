@@ -35,7 +35,7 @@ class Footer extends Component {
         console.debug('Footer -> render')
 
         return <footer className="Footer">
-            <button className="Button" onClick={this.handleCreatePostClick.bind(this)}>＋</button>
+            <button className="Button--add" onClick={this.handleCreatePostClick.bind(this)}>＋</button>
 
             {this.state.createPostVisible && <CreatePost onPostCreated={this.handlePostCreated.bind(this)} onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)} />}
         </footer>
@@ -43,3 +43,5 @@ class Footer extends Component {
 }
 
 export default Footer
+
+// aqui puedo hacer cambios por que no tengo mi Button... 

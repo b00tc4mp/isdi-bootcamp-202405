@@ -1,20 +1,20 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic'
 
-import formatTime from '../../util/formatTime.mjs'
+import formatTime from '../../util/formatTime'
 
 import { Component } from 'react'
 
-import Button from '../components/Button.jsx'
-import Input from '../components/Input.jsx'
-import Label from '../components/Label.jsx'
-import Form from '../components/Form.jsx'
-import Time from '../components/Time.jsx'
-import Image from '../components/Image.jsx'
-import Paragraph from '../components/Paragraph.jsx'
-import Heading from '../components/Heading.jsx'
-import Container from '../components/Container.jsx'
+import Button from '../components/Button'
+import Input from '../components/Input'
+import Label from '../components/Label'
+import Form from '../components/Form'
+import Time from '../components/Time'
+import Image from '../components/Image'
+import Paragraph from '../components/Paragraph'
+import Heading from '../components/Heading'
+import Container from '../components/Container'
 
-import Avatar from './Avatar.jsx'
+import Avatar from './Avatar'
 
 import './Post.css'
 

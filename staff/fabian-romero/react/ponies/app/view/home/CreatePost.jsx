@@ -1,4 +1,4 @@
-import logic from '../../logic/index.mjs'
+import logic from '../../logic'
 
 import Heading from '../components/Heading'
 import Form from '../components/Form'
@@ -43,7 +43,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
     }
 
     return <section className="CreatePost">
-        <Heading level="2">Create Post</Heading>
+        <Heading level="3">Create Post</Heading>
 
         <Form className="Form--column" onSubmit={handleCreatePostSubmit}>
             <Container className="Container--column">

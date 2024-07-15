@@ -9,12 +9,13 @@
 }
 
 .Button--add {
-    background: linear-gradient(to right, #A02BE8, #2fd5d5);
+    background: transparent;
+    align-self: center;
     color: white;
     border-radius: 5px;
-    width: 50px;
-    height: 30px;
-    border: none;
+    width: 31px;
+    height: 22px;
+    border: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -42,3 +43,16 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 1rem;
 }
+
+/* .Button--Login {
+    background: transparent;
+    align-self: center;
+    color: black;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: -0.8rem 0.5rem;
+    cursor: pointer;
+    width: 9rem;
+    margin-top: 1rem;
+} */
