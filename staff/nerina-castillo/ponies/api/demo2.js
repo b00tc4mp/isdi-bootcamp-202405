@@ -3,8 +3,6 @@ import findPost from './data/findPost.js'
 
 const app = express()  //es la instancia de express que se usará para definir rutas y middleware
 
-app.use(express.json())  //le dice a la aplicación que use el middleware 'express.json()' para parsear las peticiones
-
 app.get('/posts/:postId', (req, res) => {  //se define una ruta GET en el endpoint '/posts/:postId
     const postId = req.params.postId  //extrae el valor del parámetro de la URL 'postId'
 

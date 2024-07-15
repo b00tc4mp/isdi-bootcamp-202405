@@ -1,1 +1,1 @@
-curl -X GET http://localhost:8080/posts/onlstpoafkw
+curl http://localhost:8080/posts/onlstpoafkw -v

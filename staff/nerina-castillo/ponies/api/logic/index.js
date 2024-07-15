@@ -1,24 +1,24 @@
-import getAllPosts from "./getAllPosts";
-import getUserName from "./getUserName";
-import getUserUsername from "./getUserUsername";
-import loginUser from "./loginUser";
-import logoutUser from "./logoutUser";
-import registerUser from "./registerUser";
-import toggleLikePost from "./toggleLikePost";
-import updatePostCaption from "./updatePostCaption";
-import createPost from "./createPost";
-import deletePost from "./deletePost";
-import toggleFavPost from "./toggleFavPost";
-import getAllFavPosts from "./getAllFavPosts";
-import toggleFollowUser from "./toggleFollowUser";
-import getAllFollowingUserPosts from "./getAllFollowingUserPosts";
+import getAllPosts from "./getAllPosts.js";
+import getUserName from "./getUserName.js";
+import getUserUsername from "./getUserUsername.js";
+import authenticateUser from "./authenticateUser.js";
+import logoutUser from "./logoutUser.js";
+import registerUser from "./registerUser.js";
+import toggleLikePost from "./toggleLikePost.js";
+import updatePostCaption from "./updatePostCaption.js";
+import createPost from "./createPost.js";
+import deletePost from "./deletePost.js";
+import toggleFavPost from "./toggleFavPost.js";
+import getAllFavPosts from "./getAllFavPosts.js";
+import toggleFollowUser from "./toggleFollowUser.js";
+import getAllFollowingUserPosts from "./getAllFollowingUserPosts.js";
 // import createAvatar from "./createAvatar.js";
 
 const logic = {
   getAllPosts,
   getUserName,
   getUserUsername,
-  loginUser,
+  authenticateUser,
   logoutUser,
   registerUser,
   toggleLikePost,

@@ -12,14 +12,14 @@ const registerUser = (
   email,
   username,
   password,
-  passwordRepeat
+  // passwordRepeat
 ) => {
   validate.name(name)
   validate.surname(surname)
   validate.email(email)
   validate.username(username)
   validate.password(password)
-  validate.password(passwordRepeat)
+  // validate.password(passwordRepeat)
 
   if (!NAME_REGEX.test(name.trim())) throw new Error("invalid name");
 
@@ -31,7 +31,7 @@ const registerUser = (
 
   if (password.trim().length < 8) throw new Error("invalid password");
 
-  if (password !== passwordRepeat) throw new Error("passwords do not match");
+  // if (password !== passwordRepeat) throw new Error("passwords do not match");
 
   let user = data.findUser((user) => user.email === email);
 
