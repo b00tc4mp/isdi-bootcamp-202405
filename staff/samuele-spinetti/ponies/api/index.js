@@ -1,19 +1,25 @@
 import express from 'express'
 
+import logic from './logic/index.js'
+
 const api = express()
 
-import React from 'react'
+api.use(express.json())
 
-import Register from '../app/view/Register.jsx'
+api.post('/register/user', (req, res) => {
+    const { name, surname, email, username, password } = req.body
+
+    try {
+        logic.registerUser(name, surname, email, username, password)
+
+        res.send('Correct')
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
 
 api.get('/hello', (req, res) => {
     res.send('Hello, World!')
 })
 
-api.get('/app/register', (req, res) => {
-    const html = React.renderToString(Register)
-
-    req.send(html)
-})
-
-api.listen(8080, () => console.log('server up'))
+api.listen(8080, () => console.log('server listening on port 8080'))
