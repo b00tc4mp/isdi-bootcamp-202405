@@ -8,7 +8,7 @@ import deletePost from './deletePost.js'
 import toggleFavPost from './toggleFavPost.js'
 import getAllFavPosts from './getAllFavPosts.js'
 import toggleFollowUser from './toggleFollowUser.js'
-import getAllFollowingUserPosts from './getAllFollowingUserPosts.js'
+import getAllPoniesPosts from './getAllPoniesPosts.js'
 import updateAvatar from './updateAvatar.js'
 import getUser from './getUser.js'
 import updatePassword from './updatePassword.js'
@@ -19,7 +19,7 @@ const logic = {
     createPost,
     deletePost,
     getAllFavPosts,
-    getAllFollowingUserPosts,
+    getAllPoniesPosts,
     getAllPosts,
     getUser,
     getUserName,
