@@ -4,10 +4,10 @@ const {stdin: input, stdout: output} = require('node:process')
 
 const socket = new Socket()
 
-const host = '192.168.1.124' //modifi
+const host = '192.168.1.117' //IP del host al cual se conectará el cliente
 
 socket.connect(1337, host, () => {
-    console.log('connected to server')
+    console.log('connected to server') //conectamos con el servidor en el puerto 1337
 
     const rl = readline.createInterface({input, output})
 
