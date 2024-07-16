@@ -1,11 +1,16 @@
 import fs from 'fs'
+import path from 'path';
+import { fileURLToPath } from 'url'
 
 import validate from '../validate.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 function removePostFromUsers(id) {
     validate.string(id, 'id')
 
-    let json = fs.readFileSync('./data/users.json', 'utf8')
+    let json = fs.readFileSync(`${__dirname}/users.json`, 'utf8')
 
     const users = json ? JSON.parse(json) : []
 
@@ -17,7 +22,7 @@ function removePostFromUsers(id) {
 
     json = JSON.stringify(users)
 
-    fs.writeFileSync('./data/users.json', json)
+    fs.writeFileSync(`${__dirname}/users.json`, json)
 }
 
 export default removePostFromUsers
