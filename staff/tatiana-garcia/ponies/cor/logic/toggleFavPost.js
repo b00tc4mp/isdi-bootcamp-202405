@@ -1,5 +1,5 @@
 import data from '../data/index.js'
-import validate from '../validate.js'  //ME SALE UNDEFINED
+import validate from '../../app/validate.js'
 
 function toggleFavPost(username, postId) {
     validate.username(username, 'username')

@@ -1,5 +1,5 @@
 import data from '../data/index.js'
-import validate from '../validate.js'
+import validate from '../../app/validate.js'
 
 const getAllFavPosts = (username) => {
     validate.username(username)

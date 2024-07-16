@@ -1,6 +1,6 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import validate from '../../app/validate.js'
 
 const authenticateUser = (username, password) => {
     validate.username(username)
