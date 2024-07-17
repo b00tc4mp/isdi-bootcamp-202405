@@ -1,5 +1,6 @@
 import getAllPosts from './getAllPosts.js'
 import getUserName from './getUserName.js'
+import getUser from './getUser.js'
 import registerUser from './registerUser.js'
 import authenticateUser from './authenticateUser.js'
 import toggleLikePost from './toggleLikePost.js'
@@ -15,6 +16,7 @@ const logic = {
     getAllPosts,
     getUserName,
     registerUser,
+    getUser,
     authenticateUser,
     toggleLikePost,
     updatePostCaption,

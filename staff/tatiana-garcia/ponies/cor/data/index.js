@@ -7,6 +7,7 @@ import insertUser from './insertUser.js'
 import updatePost from './updatePost.js'
 import updateUser from './updateUser.js'
 
+
 const data = {
     deletePost,
     findPost,

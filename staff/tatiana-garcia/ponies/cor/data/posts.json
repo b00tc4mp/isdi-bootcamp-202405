@@ -34,8 +34,16 @@
         "id": "j20x3n4r37k",
         "image": "https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg",
         "caption": "ardilla",
-        "author": "solomillo",
+        "author": "tatig",
         "date": "2024-07-10T20:47:28.365Z",
+        "likes": []
+    },
+    {
+        "id": "qtmk3rrsa34",
+        "image": "https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg",
+        "caption": "mapache",
+        "author": "tatig",
+        "date": "2024-07-17T21:05:12.054Z",
         "likes": []
     }
 ]

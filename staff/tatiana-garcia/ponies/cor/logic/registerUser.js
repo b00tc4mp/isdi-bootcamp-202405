@@ -3,7 +3,7 @@ import validate from '../../app/validate.js'
 
 const registerUser = (name, surname, email, username, password, passwordRepeat) => {
     validate.name(name, 'name')
-    validate.name(surname, 'surname')
+    validate.surname(surname, 'surname')
     validate.email(email, 'email')
     validate.username(username, 'username')
     validate.password(password, 'password')
