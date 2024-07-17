@@ -1,4 +1,4 @@
-import data from "../data/index.js"
+import data from '../data/index.js'
 
 import validate from '../validate.js'
 

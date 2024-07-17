@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Web Server</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>Register</h1>
+
+    <form class="form" action="/register" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" name="surname">
+
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email">
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+
+        <label for="repeat-password">Repeat Password</label>
+        <input type="password" id="repeat-password" name="repeat-password">
+
+        <button type="submit">Register</button>
+        <button type="reset">Clear</button>
+
+    </form>
+    <a href="/loginUser">Login</a>
+</body>
+
+</html>

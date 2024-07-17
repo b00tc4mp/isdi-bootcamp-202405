@@ -42,5 +42,15 @@
         "favs": [],
         "following": [],
         "avatar": "https://svgsilh.com/svg/145535-707070.svg"
+    },
+    {
+        "name": "Tatiana",
+        "surname": "Garcia",
+        "email": "tatiana@garcia.com",
+        "username": "tati",
+        "password": "123123123",
+        "favs": [],
+        "following": [],
+        "avatar": "https://svgsilh.com/svg/145535-707070.svg"
     }
 ]

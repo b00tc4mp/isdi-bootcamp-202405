@@ -34,9 +34,9 @@ const usersJSON = JSON.stringify(users)
 
 console.log('usersJSON', usersJSON)
 
-fs.writeFileSync('./data/users.json', usersJSON)
+fs.writeFileSync(`${__dirname}/users.json`, usersJSON)
 
-const usersJSON2 = fs.readFileSync('./data/users.json', 'utf8')
+const usersJSON2 = fs.readFileSync(`${__dirname}/users.json`, 'utf8')
 
 console.log('usersJSON2', usersJSON2)
 
@@ -65,8 +65,8 @@ const postsJSON = JSON.stringify(posts)
 
 console.log('postsJSON', postsJSON)
 
-fs.writeFileSync('./data/posts.json', postsJSON)
+fs.writeFileSync(`${__dirname}/posts.json`, postsJSON)
 
-const postsJSON2 = fs.readFileSync('./data/posts.json', 'utf8')
+const postsJSON2 = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
 
 console.log('postsJSON2', postsJSON2)
