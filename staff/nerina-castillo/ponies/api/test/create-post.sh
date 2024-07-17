@@ -1,0 +1,1 @@
+curl -v -X POST http://localhost:8080/posts -H "Authorization: Basic julitoCamelas" -H "Content-Type: application/json" -d '{"username": "julitoCamelas", "image": "https://example.com/image.jpg", "caption": "This is a caption"}'
