@@ -38,14 +38,11 @@ server.post('/login', (req, res) => {
 
             res.redirect('/')
         } catch (error) {
-            const login = fs.readFileSync('./login.html', 'utf-8')
+            const loginError = fs.readFileSync('./login-error.html')
 
             res.setHeader('Content-Type', 'text/html')
 
-            res.send(login
-                .replace('<p></p>', `<p>${error.message}</p>`)
-                .replace('placeholder="username"', `placeholder="username" value="${username}"`)
-            )
+            res.send(loginError)
         }
     })
 })
@@ -79,17 +76,11 @@ server.post('/register', (req, res) => {
 
             res.redirect('/login')
         } catch (error) {
-            const register = fs.readFileSync('./register.html', 'utf-8')
+            const registerError = fs.readFileSync('./register-error.html')
 
             res.setHeader('Content-Type', 'text/html')
 
-            res.send(register
-                .replace('<p></p>', `<p>${error.message}</p>`)
-                .replace('placeholder="name"', `placeholder="name" value="${name}"`)
-                .replace('placeholder="surname"', `placeholder="surname" value="${surname}"`)
-                .replace('placeholder="email"', `placeholder="email" value="${email}"`)
-                .replace('placeholder="username"', `placeholder="username" value="${username}"`)
-            )
+            res.send(registerError)
         }
     })
 })

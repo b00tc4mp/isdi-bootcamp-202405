@@ -10,19 +10,19 @@
 </head>
 
 <body>
-    <h1>Login</h1>
+    <h1>Register</h1>
 
-    <form class="form" action="/login" method="POST">
+    <form class="form" action="/register" method="POST">
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="surname" placeholder="surname">
+        <input type="email" name="email" placeholder="email">
         <input type="text" name="username" placeholder="username">
         <input type="password" name="password" placeholder="password">
+        <input type="password" name="password-repeat" placeholder="repeat password">
 
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
         <button type="reset">Clear</button>
     </form>
-
-    <p></p>
-
-    <a href="/register">Register</a>
 </body>
 
 </html>

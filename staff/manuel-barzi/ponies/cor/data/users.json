@@ -42,5 +42,25 @@
         "favs": [],
         "following": [],
         "avatar": "https://svgsilh.com/svg/145535-707070.svg"
+    },
+    {
+        "name": "Kellie Duffy",
+        "surname": "Farrell",
+        "email": "jyra@mailinator.com",
+        "username": "wexid",
+        "password": "Pa$$w0rd!",
+        "favs": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "Peter",
+        "surname": "Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123",
+        "favs": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
     }
 ]
