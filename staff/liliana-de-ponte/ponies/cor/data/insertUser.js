@@ -17,7 +17,7 @@ validate.object(user, 'user')
     users.push(user)
     json = JSON.stringify(users)
 
-    fs.writeFileSync(`${__dirnmae}/users.json`, json)
+    fs.writeFileSync(`${__dirname}/users.json`, json)
 
 }
 

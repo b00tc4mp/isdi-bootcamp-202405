@@ -31,7 +31,7 @@ function validateName(name, explain = 'name') {
 
 function validateEmail(email) {
     validateString(email, 'email')
-    if (!EMAIL_REGEX.test(email)) throw new SyntaxError(`invalid ${email}`)
+    if (!EMAIL_REGEX.test(email)) throw new SyntaxError(`invalid email`)
 }
 
 function validateImage(image){

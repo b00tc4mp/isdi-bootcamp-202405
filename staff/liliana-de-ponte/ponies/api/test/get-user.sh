@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/lilideponte/name -H "Authorization: Basic lilideponte"
