@@ -1,12 +1,16 @@
 import data from "../data/index.js"
 
-const getUserName = username => {
+const getUserName = (username, targetUsername) => {
     const user = data.findUser(user => user.username === username)
 
-    if (user === null)
+    if (!user)
         throw new Error('user not found')
 
-    return user.name
+    const targetUser = data.findUser(user => user.username === targetUsername)
+
+    if (!targetUser) throw new Error('target user not found')
+
+    return targetUser.name
 }
 
 export default getUserName
