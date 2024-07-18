@@ -1,1 +1,93 @@
-[{"name":"marti","surname":"herms","email":"marti@herms.com","username":"Eden","password":"11111111","likedPosts":["olzkh3ya8hs","iz8vnuu9xxk","pnh3hr39ljk","h6e5w1v00xk","2kpksv8mgl4"],"yourPosts":["olzkh3ya8hs","iz8vnuu9xxk","h6e5w1v00xk","2kpksv8mgl4"],"savedPosts":["olzkh3ya8hs","h6e5w1v00xk"],"followers":["umat","samu"],"following":["umat","samu"],"avatar":"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjRqZTNnbDg4bWkxY2ttb2MzMzRwZXA4c2hicmhpOWJwejJnNjR3NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7TTgV830a3luvc0FbJ/giphy.gif"},{"name":"uma","surname":"thurman","email":"uma@thurman.com","username":"umat","password":"11111111","likedPosts":[],"yourPosts":["pnh3hr39ljk"],"savedPosts":[],"followers":["Eden"],"following":["Eden"],"avatar":"https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"},{"name":"samu","surname":"elle","email":"samu@elle.com","username":"samu","password":"11111111","yourPosts":["p201mht7hls"],"likedPosts":["p201mht7hls","2kpksv8mgl4","h6e5w1v00xk","olzkh3ya8hs"],"savedPosts":["h6e5w1v00xk"],"followers":["Eden"],"following":["Eden"],"avatar":"https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"},{"name":"Pepito","surname":"grillo","email":"pepito@grillo.com","username":"pepitogrillo","password":"11111111","yourPosts":[],"likedPosts":[],"savedPosts":[],"followers":[],"following":[],"avatar":"https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"},{"name":"marti","surname":"herms","email":"mhermsrubio@gmail.com","username":"eden","password":"11111111","yourPosts":[],"likedPosts":[],"savedPosts":[],"followers":[],"following":[],"avatar":"https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"}]
+[
+    {
+        "name": "marti",
+        "surname": "herms",
+        "email": "marti@herms.com",
+        "username": "Eden",
+        "password": "11111111",
+        "likedPosts": [
+            "olzkh3ya8hs",
+            "iz8vnuu9xxk",
+            "pnh3hr39ljk",
+            "h6e5w1v00xk",
+            "2kpksv8mgl4"
+        ],
+        "yourPosts": [
+            "olzkh3ya8hs",
+            "iz8vnuu9xxk",
+            "h6e5w1v00xk",
+            "2kpksv8mgl4"
+        ],
+        "savedPosts": [
+            "olzkh3ya8hs",
+            "h6e5w1v00xk"
+        ],
+        "followers": [
+            "umat",
+            "samu"
+        ],
+        "following": [
+            "umat",
+            "samu"
+        ],
+        "avatar": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjRqZTNnbDg4bWkxY2ttb2MzMzRwZXA4c2hicmhpOWJwejJnNjR3NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7TTgV830a3luvc0FbJ/giphy.gif"
+    },
+    {
+        "name": "uma",
+        "surname": "thurman",
+        "email": "uma@thurman.com",
+        "username": "umat",
+        "password": "11111111",
+        "likedPosts": [],
+        "yourPosts": [
+            "pnh3hr39ljk"
+        ],
+        "savedPosts": [],
+        "followers": [
+            "Eden"
+        ],
+        "following": [
+            "Eden"
+        ],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "samu",
+        "surname": "elle",
+        "email": "samu@elle.com",
+        "username": "samu",
+        "password": "11111111",
+        "yourPosts": [
+            "p201mht7hls"
+        ],
+        "likedPosts": [
+            "p201mht7hls",
+            "2kpksv8mgl4",
+            "h6e5w1v00xk",
+            "olzkh3ya8hs"
+        ],
+        "savedPosts": [
+            "h6e5w1v00xk"
+        ],
+        "followers": [
+            "Eden"
+        ],
+        "following": [
+            "Eden"
+        ],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "Peter",
+        "surname": "Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123",
+        "yourPosts": [],
+        "likedPosts": [],
+        "savedPosts": [],
+        "followers": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    }
+]
