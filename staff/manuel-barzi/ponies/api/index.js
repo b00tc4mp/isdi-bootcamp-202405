@@ -56,6 +56,14 @@ api.get('/users/:targetUsername/name', (req, res) => {
     }
 })
 
+api.options('/posts', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    res.send()
+})
+
 api.get('/posts', (req, res) => {
     const { authorization } = req.headers
 
@@ -63,6 +71,10 @@ api.get('/posts', (req, res) => {
 
     try {
         const posts = logic.getAllPosts(username)
+
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        res.setHeader('Access-Control-Allow-Headers', '*')
+        res.setHeader('Access-Control-Allow-Methods', '*')
 
         res.json(posts)
     } catch (error) {

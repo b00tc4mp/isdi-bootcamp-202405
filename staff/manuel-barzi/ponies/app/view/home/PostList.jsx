@@ -12,10 +12,24 @@ class PostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('PostList -> componentDidMount')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
