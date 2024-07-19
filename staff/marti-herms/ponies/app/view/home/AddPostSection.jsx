@@ -20,9 +20,17 @@ function AddPostSection({ onPostCreated, onCancel }) {
         const postCaption = postCaptionInput.value;
 
         try {
-            logic.addPost(postImage, postCaption);
+            logic.addPost(postImage, postCaption, (error) => {
+                if (error) {
+                    console.error(error)
 
-            onPostCreated();
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated();
+            });
         } catch (error) {
             console.error(error);
 

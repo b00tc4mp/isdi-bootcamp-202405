@@ -1,38 +1,52 @@
 import logic from '../../logic'
-import Button from '../components/Button';
+import Button from '../components/Button'
 
-import { Component } from 'react';
+import { Component } from 'react'
 
-import './SaveButton.css';
+import './SaveButton.css'
 
 class SaveButton extends Component {
     constructor(props) {
-        super(props);
-        const { postId } = props
+        super(props)
+
+        const { post } = props
 
         this.state = {
-            saved: logic.hasPostSaved(postId)
-        };
+            saved: post.fav
+        }
     }
 
     handleSave = () => {
-        const { postId } = this.props
+        const { post } = this.props
 
-        this.setState({
-            saved: !this.state.saved
-        });
+        try {
+            logic.toggleSavedPost(post.id, (error) => {
+                if (error) {
+                    console.error(error)
 
-        logic.toggleSavedPost(postId);
+                    alert(error.message)
 
-        this.props.onSaveClicked();
+                    return
+                }
+                this.setState({
+                    saved: !this.state.saved
+                })
+
+                this.props.onSaveClicked()
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
 
     componentWillReceiveProps(newProps) {
-        const { postId } = newProps
+        const { post } = newProps
 
         this.setState({
-            saved: logic.hasPostSaved(postId)
-        });
+            saved: post.fav
+        })
     }
 
     render() {

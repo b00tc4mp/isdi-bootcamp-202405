@@ -1,156 +1,278 @@
-import logic from '../../logic';
+import logic from '../../logic'
 
-import Post from './Post';
-import Profile from './Profile';
+import Post from './Post'
+import Profile from './Profile'
 
-import { Component } from 'react';
+import { Component } from 'react'
 
 class Body extends Component {
     constructor() {
-        super();
+        super()
 
+        this.state = { posts: [], profile: null }
+    }
+
+    componentDidMount() {
         try {
-            const posts = logic.getAllPosts();
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.state = { posts, profile: null };
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     componentWillReceiveProps(newProps) {
-        const newFeed = newProps.feed;
+        const newFeed = newProps.feed
 
-        const oldFeed = this.props.feed;
+        const oldFeed = this.props.feed
 
         if (newProps.refreshStamp !== this.props.refreshStamp || (/*newFeed !== oldFeed &&*/ newFeed === 'home')) {
             try {
-                const posts = logic.getAllPosts();
+                logic.getAllPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts, profile: null });
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts, profile: null })
+                })
             } catch (error) {
                 console.error(error)
 
-                alert(error.message);
+                alert(error.message)
             }
         } else if (newFeed !== oldFeed && newFeed === 'saved') {
             try {
-                const posts = logic.getUserSavedPosts();
+                logic.getUserSavedPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts, profile: null });
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts, profile: null })
+                })
             } catch (error) {
                 console.error(error)
 
-                alert(error.message);
+                alert(error.message)
             }
         } else if (newFeed !== oldFeed && newFeed === 'followed') {
             try {
-                const posts = logic.getFollowedUserPosts();
+                logic.getFollowedUserPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts, profile: null });
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts, profile: null })
+                })
             } catch (error) {
                 console.error(error)
 
-                alert(error.message);
+                alert(error.message)
             }
         } else if (newFeed !== oldFeed && logic.getUserList().includes(newFeed)) {
             try {
-                const posts = logic.getUserPosts(newFeed);
+                logic.getUserPosts(newFeed, (error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts, profile: newFeed });
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts, profile: newFeed })
+                })
             } catch (error) {
                 console.error(error)
 
-                alert(error.message);
+                alert(error.message)
             }
         }
     }
 
     handleUserProfile(username) {
         try {
-            const posts = logic.getUserPosts(username);
+            logic.getUser(username, (error, user) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts, profile: username });
+                    alert(error.message)
+
+                    return
+                }
+
+                logic.getUserPosts(username, (error, posts) => {
+                    if (error) {
+                        console.error(error)
+
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts, profile: user })
+                })
+            })
         } catch (error) {
             console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     handleDeletedPost() {
         try {
-            const posts = logic.getAllPosts();
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts });
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     handlePostLiked() {
         try {
-            const posts = logic.getAllPosts();
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts });
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     handlePostSaved() {
         if (this.props.feed === 'saved') {
             try {
-                const posts = logic.getUserSavedPosts();
+                logic.getUserSavedPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts });
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
+
             } catch (error) {
                 console.error(error)
 
-                alert(error.message);
+                alert(error.message)
             }
         }
     }
 
     handlePostEdited() {
         try {
-            const posts = logic.getAllPosts();
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts });
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     handleUserFollowed() {
         try {
-            let posts = [];
-            if (logic.getUserList().includes(this.state.profile)) {
-                posts = logic.getUserPosts(this.state.profile);
-            } else {
-                posts = logic.getAllPosts();
-            }
+            const username = this.state.profile
+            logic.getUserList((error, userList) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts });
+                    alert(error.message)
+
+                    return
+                }
+                if (userList.includes(username)) {
+                    logic.getUserPosts(username, (error, posts) => {
+                        if (error) {
+                            console.error(error)
+
+                            alert(error.message)
+
+                            return
+                        }
+
+                        this.setState({ posts })
+                    })
+                } else {
+                    logic.getAllPosts((error, posts) => {
+                        if (error) {
+                            console.error(error)
+
+                            alert(error.message)
+
+                            return
+                        }
+
+                        this.setState({ posts })
+                    })
+                }
+            })
         } catch (error) {
             console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     render() {
-        const { profile } = this.state;
+        const { profile } = this.state
         return <main className="View--home">
-            {profile && <Profile username={profile} onChange={this.handleUserProfile.bind(this)} />}
+            {profile && <Profile user={profile} onChange={this.handleUserProfile.bind(this)} />}
             <section className="Post-list">
                 {this.state.posts.map(post => <Post key={post.id} post={post}
                     onUserClick={this.handleUserProfile.bind(this)}

@@ -1,15 +1,23 @@
-import logic from '../../logic';
+import logic from '../../logic'
 
-import Button from '../components/Button';
+import Button from '../components/Button'
 
-import './LikeButton.css';
+import './LikeButton.css'
 
 function LikeButton({ post, onLikeClicked }) {
     const handleLike = () => {
         try {
-            logic.togglePostLike(post.id);
+            logic.togglePostLike(post.id, (error) => {
+                if (error) {
+                    console.error(error)
 
-            onLikeClicked();
+                    alert(error.message)
+
+                    return
+                }
+
+                onLikeClicked()
+            })
         } catch (error) {
             console.error(error)
 
@@ -17,7 +25,7 @@ function LikeButton({ post, onLikeClicked }) {
         }
     }
 
-    const like = post.likes.includes(logic.getUserUsername()) ? 'Like--active' : 'Like--inactive'
+    const like = post.like ? 'Like--active' : 'Like--inactive'
 
     return <Button className="Like--button" onClick={handleLike}>
         <div className={like}></div>

@@ -1,16 +1,32 @@
 import logic from '../../logic';
 
+import { Component } from 'react';
+
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
 
 import './Header.css';
 
-function Header({ onLogout }) {
-    const handleLogoutClick = () => {
-        try {
-            logic.logoutUser();
+class Header extends Component {
+    constructor() {
+        super()
 
-            onLogout();
+        this.state = { name: null }
+    }
+
+    componentDidMount() {
+        try {
+            logic.getUserName((error, name) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ name })
+            })
         } catch (error) {
             console.error(error);
 
@@ -18,10 +34,24 @@ function Header({ onLogout }) {
         }
     }
 
-    return <header className="Header">
-        <Paragraph>{logic.getUserName()}</Paragraph>
-        <Button className="Button--logout" onClick={handleLogoutClick}>Logout</Button>
-    </header>
+    handleLogoutClick() {
+        try {
+            logic.logoutUser();
+
+            this.props.onLogout();
+        } catch (error) {
+            console.error(error);
+
+            alert(error.message);
+        }
+    }
+
+    render() {
+        return <header className="Header">
+            <Paragraph>{this.state.name}</Paragraph>
+            <Button className="Button--logout" onClick={this.handleLogoutClick.bind(this)}>Logout</Button>
+        </header>
+    }
 }
 
 export default Header;

@@ -1,42 +1,49 @@
-import logic from '../../logic';
+import logic from '../../logic'
 
-import Container from '../components/Container';
-import Avatar from './Avatar';
-import Heading from '../components/Heading';
-import Paragraph from '../components/Paragraph';
-import Button from '../components/Button';
-import Form from '../components/Form';
-import Label from '../components/Label';
-import Input from '../components/Input';
+import Container from '../components/Container'
+import Avatar from './Avatar'
+import Heading from '../components/Heading'
+import Paragraph from '../components/Paragraph'
+import Button from '../components/Button'
+import Form from '../components/Form'
+import Label from '../components/Label'
+import Input from '../components/Input'
 
-import { Component } from 'react';
+import { Component } from 'react'
 
 class Profile extends Component {
     constructor() {
-        super();
+        super()
 
         this.state = { editUserVisibility: false }
     }
 
     handleOptions() {
-        this.setState({ editUserVisibility: true });
+        this.setState({ editUserVisibility: true })
     }
 
     handleEditUserInfo(event) {
-        event.preventDefault();
+        event.preventDefault()
         try {
-            const form = event.target;
+            const form = event.target
 
-            const avatarInput = form["new-avatar"];
-            const usernameInput = form["new-username"];
-            // const newPasswordInput = form["new-password"];
-            const actualPasswordInput = form["actual-password"];
+            const avatarInput = form["new-avatar"]
+            const usernameInput = form["new-username"]
+            // const newPasswordInput = form["new-password"]
+            const actualPasswordInput = form["actual-password"]
 
-            logic.editUserInfo(avatarInput.value, usernameInput.value, /*newPasswordInput.value,*/ actualPasswordInput.value);
+            logic.editUserInfo(avatarInput.value, usernameInput.value, /*newPasswordInput.value,*/ actualPasswordInput.value, (error) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ editUserVisibility: false })
+                    alert(error.message)
 
-            this.props.onChange(usernameInput.value);
+                    return
+                }
+                this.setState({ editUserVisibility: false })
+
+                this.props.onChange(usernameInput.value)
+            })
         } catch (error) {
             console.error(error)
 
@@ -49,30 +56,28 @@ class Profile extends Component {
     }
 
     render() {
-        const username = this.props.username;
-
-        const avatar = logic.getUserAvatar(username);
+        const { user } = this.props
 
         return <>
             <Container className="Container--profile">
-                <Avatar url={avatar} />
-                <Heading level="3">{username}</Heading>
+                <Avatar url={user.avatar} />
+                <Heading level="3">{user.username}</Heading>
             </Container>
             <Container className="Container--profile">
-                <Paragraph className="Paragraph--center">{logic.getUserPostNumber(username) + ' posts'}</Paragraph>
-                <Paragraph className="Paragraph--center">{logic.getUserFollowers(username).length + ' followers'}</Paragraph>
-                <Paragraph className="Paragraph--center">{logic.getUserFollowed(username).length + ' followed'}</Paragraph>
+                <Paragraph className="Paragraph--center">{user.yourPosts.length + ' posts'}</Paragraph>
+                <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
+                <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
             </Container>
-            {username === sessionStorage.username && <Button onClick={this.handleOptions.bind(this)}>Edit</Button>}
+            {user.username === sessionStorage.username && <Button onClick={this.handleOptions.bind(this)}>Edit</Button>}
             {this.state.editUserVisibility && <Container className="Container--center-column">
                 <Form className="Form--column" onSubmit={this.handleEditUserInfo.bind(this)}>
                     <Container>
                         <Label htmlFor="new-avatar">Avatar</Label>
-                        <Input id="new-avatar" defaultValue={avatar} />
+                        <Input id="new-avatar" defaultValue={user.avatar} />
                     </Container>
                     <Container>
                         <Label htmlFor="new-username">Username</Label>
-                        <Input id="new-username" defaultValue={username} />
+                        <Input id="new-username" defaultValue={user.username} />
                     </Container>
                     {/* <Container>
                         <Label htmlFor="new-password">New Password</Label>

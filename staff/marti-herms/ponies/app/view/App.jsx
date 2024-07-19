@@ -10,12 +10,29 @@ class App extends Component {
     constructor() {
         super();
 
-        try {
-            if (sessionStorage.username && !logic.getUserList().includes(sessionStorage.username)) {
-                throw new Error('user doesn\'t exist');
-            }
+        this.state = { view: 'login' };
 
-            this.state = { view: sessionStorage.username ? 'home' : 'login' };
+    }
+
+    componentDidMount() {
+        try {
+            if (sessionStorage.username) {
+                logic.getUserList((error, userList) => {
+                    if (error) {
+                        console.error(error)
+
+                        alert(error.message)
+
+                        return
+                    }
+
+                    if (!userList.includes(sessionStorage.username)) {
+                        throw new Error('user doesn\'t exist');
+                    }
+
+                    this.setState({ view: 'home' })
+                })
+            }
         } catch (error) {
             console.error(error);
 
@@ -23,8 +40,6 @@ class App extends Component {
                 logic.logoutUser();
             }
         }
-
-
     }
 
     handleLogin() {

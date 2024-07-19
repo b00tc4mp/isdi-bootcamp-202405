@@ -1,45 +1,52 @@
-import Link from './components/Link';
-import Heading from './components/Heading';
-import Form from './components/Form';
-import Container from './components/Container';
-import Label from './components/Label';
-import Input from './components/Input';
-import Button from './components/Button';
+import Link from './components/Link'
+import Heading from './components/Heading'
+import Form from './components/Form'
+import Container from './components/Container'
+import Label from './components/Label'
+import Input from './components/Input'
+import Button from './components/Button'
 
-import logic from '../logic';
+import logic from '../logic'
 
-import './Register.css';
+import './Register.css'
 
 function Register({ onRegister, onLoginClick }) {
     const handleRegisterSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const form = event.target;
+        const form = event.target
 
-        const nameInput = form['name-input'];
-        const surnameInput = form['surname-input'];
-        const emailInput = form['email-input'];
-        const usernameInput = form['username-input'];
-        const passwordInput = form['password-input'];
-        const passwordRepeatInput = form['password2-input'];
+        const nameInput = form['name-input']
+        const surnameInput = form['surname-input']
+        const emailInput = form['email-input']
+        const usernameInput = form['username-input']
+        const passwordInput = form['password-input']
+        const passwordRepeatInput = form['password2-input']
 
-        const name = nameInput.value;
-        const surname = surnameInput.value;
-        const email = emailInput.value;
-        const username = usernameInput.value;
-        const password = passwordInput.value;
-        const passwordRepeat = passwordRepeatInput.value;
+        const name = nameInput.value
+        const surname = surnameInput.value
+        const email = emailInput.value
+        const username = usernameInput.value
+        const password = passwordInput.value
+        const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat);
+            logic.registerUser(name, surname, email, username, password, passwordRepeat, (error) => {
+                if (error) {
+                    console.error(error)
 
-            alert('user succesfully registered');
+                    alert(error.message)
 
-            onRegister();
+                    return
+                }
+                alert('user succesfully registered')
+
+                onRegister()
+            })
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
