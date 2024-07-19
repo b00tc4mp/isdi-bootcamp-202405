@@ -1,5 +1,3 @@
-import data from '../data'
-
 const loginUser = (username, password, callback) => {
     // TODO input validation
 

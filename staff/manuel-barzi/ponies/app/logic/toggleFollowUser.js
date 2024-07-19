@@ -1,24 +1,28 @@
-import data from '../data'
+const toggleFollowUser = (username, callback) => {
+    // TODO input validation
 
-function toggleFollowUser(username) {
-    if (!username.trim().length) throw new Error('invalid username')
+    const xhr = new XMLHttpRequest
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    if (!user) throw new Error('user not found')
+            return
+        }
 
-    const following = data.findUser(user => user.username === username)
+        const { error, message } = JSON.parse(xhr.response)
 
-    if (!following) throw new Error('following user not found')
+        const constructor = window[error]
 
-    const index = user.following.indexOf(username)
+        callback(new constructor(message))
+    }
 
-    if (index < 0)
-        user.following.push(username)
-    else
-        user.following.splice(index, 1)
+    xhr.onerror = () => callback(new Error('network error'))
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+    xhr.open('PATCH', `http://localhost:8080/users/${username}/follows`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+
+    xhr.send()
 }
 
 export default toggleFollowUser

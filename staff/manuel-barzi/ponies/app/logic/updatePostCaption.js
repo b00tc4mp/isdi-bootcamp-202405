@@ -1,15 +1,29 @@
-import data from '../data'
+const updatePostCaption = (postId, caption, callback) => {
+    // TODO input validation
 
-const updatePostCaption = (postId, newCaption) => {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+    const xhr = new XMLHttpRequest
 
-    const post = data.findPost(post => post.id === postId)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    if (post === null) throw new Error('post not found')
+            return
+        }
 
-    post.caption = newCaption
+        const { error, message } = JSON.parse(xhr.response)
 
-    data.updatePost(post => post.id === postId, post)
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/caption`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ caption }))
 }
 
 export default updatePostCaption

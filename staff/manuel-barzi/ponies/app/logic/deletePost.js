@@ -1,13 +1,28 @@
-import data from '../data'
+const deletePost = (postId, callback) => {
+    // TODO input validation
 
-const deletePost = postId => {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+    const xhr = new XMLHttpRequest
 
-    const post = data.findPost(post => post.id === postId)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    if (post === null) throw new Error('post not found')
+            return
+        }
 
-    data.deletePost(post => post.id === postId)
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+
+    xhr.send()
 }
 
 export default deletePost

@@ -26,9 +26,17 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption)
+            logic.createPost(postImage, postCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            onPostCreated()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch (error) {
             console.error(error)
 

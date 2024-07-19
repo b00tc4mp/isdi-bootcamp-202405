@@ -42,9 +42,17 @@ class PostList extends Component {
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                logic.getAllPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
             } catch (error) {
                 console.error(error)
 
@@ -56,9 +64,17 @@ class PostList extends Component {
         console.debug('PostList -> handlePostDeleted')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -70,9 +86,17 @@ class PostList extends Component {
         console.debug('PostList -> handlePostEdited')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -84,9 +108,17 @@ class PostList extends Component {
         console.debug('PostList -> handlePostLikeToggled')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -98,9 +130,17 @@ class PostList extends Component {
         console.debug('PostList -> handlePostFavToggled')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -112,9 +152,17 @@ class PostList extends Component {
         console.debug('PostList -> handleUserFollowToggled')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 

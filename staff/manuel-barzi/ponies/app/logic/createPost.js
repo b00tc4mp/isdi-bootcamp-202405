@@ -1,21 +1,29 @@
-import data from '../data'
+const createPost = (image, caption, callback) => {
+    // TODO input validation
 
-import generateId from '../util/generateId.js'
+    const xhr = new XMLHttpRequest
 
-const createPost = (image, caption) => {
-    if (!image.startsWith('http'))
-        throw new Error('invalid image')
+    xhr.onload = () => {
+        if (xhr.status === 201) {
+            callback(null)
 
-    const post = {
-        id: generateId(),
-        image: image,
-        caption: caption,
-        author: sessionStorage.username,
-        date: new Date().toISOString(),
-        likes: []
+            return
+        }
+
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
     }
 
-    data.insertPost(post)
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ image, caption }))
 }
 
 export default createPost
