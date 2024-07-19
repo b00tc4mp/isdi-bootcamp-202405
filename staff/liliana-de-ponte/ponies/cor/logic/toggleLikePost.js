@@ -2,8 +2,14 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-function toggleLikePost(postId) {
-validate.postId(postId)
+function toggleLikePost(username, postId) {
+    validate.postId(postId)
+
+    const user = data.findUser(user => user.username === username)
+
+    if (!user) throw new Error('user not found')
+
+    if (postId.trim().length === 0) throw new Error('invalid postId')
 
     const post = data.findPost(post => post.id === postId)
 

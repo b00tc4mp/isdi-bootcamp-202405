@@ -1,16 +1,27 @@
-import data from '../data'
+const getUserName = callback => {
+    const xhr = new XMLHttpRequest
 
-import validate from '../validate.js'
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const name = JSON.parse(xhr.response)
 
-const getUserName = username => {
-    validate.username(username)
+            callback(null, name)
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+            return
+        }
 
-    if (user === null) //gestion de errores
-        throw new Error('user not found')
+        const { error, message } = JSON.parse(xhr.response)
 
-    return user.name
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.username}/name`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
 }
 
 export default getUserName

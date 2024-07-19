@@ -2,13 +2,21 @@ import express from 'express'
 
 import logic from 'cor/logic/index.js'
 
-const api = express ()
+const api = express()
+
+api.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    next()
+})
 
 api.get('/hello', (req, res) => {
     res.send('Hello, World!')
 })
 
-api.post('/users', (req, res)=> {
+api.post('/users', (req, res) => {
     req.setEncoding('utf-8')
 
     req.on('data', json => {
@@ -25,18 +33,16 @@ api.post('/users', (req, res)=> {
 
 })
 
-api.post('/users/auth',(req,res)=> {
+api.post('/users/auth', (req, res) => {
     req.setEncoding('utf-8')
 
     req.on('data', json => {
-        const {  username, password } = JSON.parse(json)
+        const { username, password } = JSON.parse(json)
 
         try {
             logic.authenticateUser(username, password)
 
-            res.setHeader('Authorization', `Basic ${username}`)
-
-            res.status(200).send()
+            res.send()
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
@@ -44,50 +50,168 @@ api.post('/users/auth',(req,res)=> {
 
 })
 
+api.get('/users/:targetUsername/name', (req, res) => { //:ruta dinamica
+    const { authorization } = req.headers
 
-api.get('/users/:username/name',(req,res)=> { //:ruta dinamica
+    const username = authorization.slice(6)
+
+    const { targetUsername } = req.params
+
+    try {
+        const name = logic.getUserName(username, targetUsername)
+
+        res.json(name)
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    try {
+        const posts = logic.getAllPosts(username)
+
+        res.json(posts)
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts/ponies', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    try {
+        const posts = logic.getAllPoniesPosts(username)
+
+        res.json(posts)
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts/favs', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    try {
+        const posts = logic.getAllFavPosts(username)
+
+        res.json(posts)
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.post('/posts', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
     req.setEncoding('utf-8')
 
-    const {username}= req.params
-
-    const {authorization }= req.headers
+    req.on('data', json => {
+        const { image, caption } = JSON.parse(json)
 
         try {
-            const user = logic.getUser(username)
+            logic.createPost(username, image, caption)
 
-            if(!authorization || user.username !== authorization.split(' ')[1]) throw new Error('no authorization')
-
-            const name = logic.getUserName(username)
-
-            res.status(200).send(name)
+            res.status(201).send()
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
     })
+})
 
+api.delete('/posts/:postId', (req, res) => {
+    const { authorization } = req.headers
 
-    api.get('/posts',(req,res)=> {  
-        req.setEncoding('utf-8') 
+    const username = authorization.slice(6)
 
-        const { authorization }= req.headers
+    const { postId } = req.params
 
-        const author= authorization.split(' ')[1] 
-    
-            try {
-                const user = logic.getUser(author)
-    
-                if(!authorization || user.username !== author) throw new Error('no authorization')
-    
-               const posts=  logic.getAllPosts(user.username)
-    
-                res.status(200).json({posts})
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
+    try {
+        logic.deletePost(username, postId)
 
+        res.status(204).send()
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
 
+api.patch('/posts/:postId/likes', (req, res) => {
+    const { authorization } = req.headers
 
-// TODO 
- 
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleLikePost(username, postId)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('/posts/:postId/favs', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleFavPost(username, postId)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('/users/:targetUsername/follows', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { targetUsername } = req.params
+
+    try {
+        logic.toggleFollowUser(username, targetUsername)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('/posts/:postId/caption', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { caption } = JSON.parse(json)
+
+        try {
+            logic.updatePostCaption(username, postId, caption)
+
+            res.status(204).send()
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
 api.listen(8080, () => console.log('API is up'))

@@ -1,20 +1,27 @@
-import data from '../data/index.js'
+const deletePost = (postId, callback) => {
+    //TODO input calidation
 
-import validate from '../validate.js'
+    const xhr = new XMLHttpRequest
 
-const deletePost = (username,postId) => {
-    validate.username(username)
-    validate.postId(postId)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    const user = data.findUser(user => user.username === username)
+            return
+        }
 
-    if (user === null)
-        throw new Error('User not found')
-    const post = data.findPost(post => post.id === postId)
+        const { error, message } = JSON.parse(xhr.response)
 
-    if (post === null) throw new Error('post not found')
+        const constructor = window[error]
 
-    data.deletePost(post => post.id === postId)
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+
+    xhr.send()
 }
-
 export default deletePost

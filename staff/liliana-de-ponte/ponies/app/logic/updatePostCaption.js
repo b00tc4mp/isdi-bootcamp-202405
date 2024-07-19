@@ -1,18 +1,31 @@
-import data from '../data'
+const updatePostCaption = (postId, caption, callback) => {
+    //validate.username(username)
+    //validate.postId(postId)
 
-import validate from '../validate.js'
+    const xhr = new XMLHttpRequest
 
-const updatePostCaption = (username, postId, newCaption) => {
-    validate.username(username)
-    validate.postId(postId)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    const post = data.findPost(post => post.id === postId)
+            return
+        }
 
-    if (post === null) throw new Error('post not found')
+        const { error, message } = JSON.parse(xhr.response)
 
-    post.caption = newCaption
+        const constructor = window[error]
 
-    data.updatePost(post => post.id === postId, post)
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/caption`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ caption }))
 }
+
 
 export default updatePostCaption

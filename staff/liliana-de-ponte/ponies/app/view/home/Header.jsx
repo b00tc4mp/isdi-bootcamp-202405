@@ -10,12 +10,26 @@ import './Header.css'
 class Header extends Component {
     constructor() {
         console.debug('Header -> constructor')
+
         super()
 
-        try {
-            const name = logic.getUserName()
+        this.state = { name: null }
+    }
 
-            this.state = { name }
+    componentDidMount() {
+        try {
+            logic.getUserName((error, name) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ name })
+            })
+
         } catch (error) {
             console.error(error)
 

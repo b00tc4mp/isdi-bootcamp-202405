@@ -1,23 +1,27 @@
-import data from '../data'
+const toggleLikePost = (postId, callback) => {
+    //TODO input validation
 
-import validate from '../validate.js'
+    const xhr = new XMLHttpRequest
 
-function toggleLikePost(postId) {
-    validate.postId(postId)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    const post = data.findPost(post => post.id === postId)
+            return
+        }
 
-    if (post === null)
-        throw new Error('post not found')
+        const { error, message } = JSON.parse(xhr.response)
 
-    const index = post.likes.indexOf(sessionStorage.username)
+        const constructor = window[error]
 
-    if (index < 0)
-        post.likes.push(sessionStorage.username)
-    else
-        post.likes.splice(index, 1)
+        callback(new constructor(message))
+    }
 
-    data.updatePost(post => post.id === postId, post)
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
 }
 
 export default toggleLikePost

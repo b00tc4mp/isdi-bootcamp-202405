@@ -1,29 +1,27 @@
-import data from '../data'
+const toggleFavPost = (postId, callback) => {
+    //TODO input validation
 
-import validate from '../validate.js'
+    const xhr = new XMLHttpRequest
 
-function toggleFavPost(username, postId) {
-    validate.username(username)
-    validate.postId(postId)
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+            return
+        }
 
-    if (user === null)
-        throw new Error('user not found')
+        const { error, message } = JSON.parse(xhr.response)
 
-    const post = data.findPost(post => post.id === postId)
+        const constructor = window[error]
 
-    if (post === null)
-        throw new Error('post not found')
+        callback(new constructor(message))
+    }
 
-    const index = user.favs.indexOf(postId)
+    xhr.onerror = () => callback(new Error('network error'))
 
-    if (index < 0)
-        user.favs.push(postId)
-    else
-        user.favs.splice(index, 1)
-
-    data.updateUser(user => user.username === sessionStorage.username, user)
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/favs`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
 }
 
 export default toggleFavPost

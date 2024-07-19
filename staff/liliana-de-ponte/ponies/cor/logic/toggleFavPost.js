@@ -3,8 +3,8 @@ import data from '../data/index.js'
 import validate from '../validate.js'
 
 function toggleFavPost(username, postId) {
-validate.username(username)
-validate.postId(postId)
+    //validate.username(username)
+    //validate.postId(postId)
 
     const user = data.findUser(user => user.username === username)
 
