@@ -12,10 +12,24 @@ class PoniesPostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllPoniesPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('PoniesPostList -> componentDidMount')
+
+        try {
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 

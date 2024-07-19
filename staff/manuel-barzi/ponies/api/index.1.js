@@ -4,16 +4,16 @@ import logic from 'cor/logic/index.js'
 
 const api = express()
 
-api.use((req, res, next) => {
+api.get('/', (req, res) => {
+    res.send('Hello, World!')
+})
+
+api.options('/users', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', '*')
     res.setHeader('Access-Control-Allow-Methods', '*')
 
-    next()
-})
-
-api.get('/', (req, res) => {
-    res.send('Hello, World!')
+    res.send()
 })
 
 api.post('/users', (req, res) => {
@@ -24,6 +24,10 @@ api.post('/users', (req, res) => {
 
         try {
             logic.registerUser(name, surname, email, username, password, passwordRepeat)
+
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader('Access-Control-Allow-Headers', '*')
+            res.setHeader('Access-Control-Allow-Methods', '*')
 
             res.status(201).send()
         } catch (error) {
@@ -64,6 +68,14 @@ api.get('/users/:targetUsername/name', (req, res) => {
     }
 })
 
+api.options('/posts', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    res.send()
+})
+
 api.get('/posts', (req, res) => {
     const { authorization } = req.headers
 
@@ -72,10 +84,22 @@ api.get('/posts', (req, res) => {
     try {
         const posts = logic.getAllPosts(username)
 
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        res.setHeader('Access-Control-Allow-Headers', '*')
+        res.setHeader('Access-Control-Allow-Methods', '*')
+
         res.json(posts)
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
+})
+
+api.options('/posts/ponies', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    res.send()
 })
 
 api.get('/posts/ponies', (req, res) => {
@@ -86,10 +110,22 @@ api.get('/posts/ponies', (req, res) => {
     try {
         const posts = logic.getAllPoniesPosts(username)
 
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        res.setHeader('Access-Control-Allow-Headers', '*')
+        res.setHeader('Access-Control-Allow-Methods', '*')
+
         res.json(posts)
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
+})
+
+api.options('/posts/favs', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    res.send()
 })
 
 api.get('/posts/favs', (req, res) => {
@@ -99,6 +135,10 @@ api.get('/posts/favs', (req, res) => {
 
     try {
         const posts = logic.getAllFavPosts(username)
+
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        res.setHeader('Access-Control-Allow-Headers', '*')
+        res.setHeader('Access-Control-Allow-Methods', '*')
 
         res.json(posts)
     } catch (error) {

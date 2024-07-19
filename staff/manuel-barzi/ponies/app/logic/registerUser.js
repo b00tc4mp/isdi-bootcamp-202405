@@ -1,48 +1,28 @@
-import data from '../data'
+const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+    // TODO input validation
 
-const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+    const xhr = new XMLHttpRequest
 
-const registerUser = (name, surname, email, username, password, passwordRepeat) => {
-    if (name.trim() === '')
-        throw new Error('invalid name')
+    xhr.onload = () => {
+        if (xhr.status === 201) {
+            callback(null)
 
-    if (surname.trim().length < 2)
-        throw new Error('invalid surname')
+            return
+        }
 
-    if (!EMAIL_REGEX.test(email))
-        throw new Error('invalid email')
+        const { error, message } = JSON.parse(xhr.response)
 
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
+        const constructor = window[error]
 
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
-
-    if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
-
-    let user = data.findUser(user => user.email === email)
-
-    if (user !== null)
-        throw new Error('email already exists')
-
-    user = data.findUser(user => user.username === username)
-
-    if (user !== null)
-        throw new Error('username already exists')
-
-    user = {
-        name: name,
-        surname: surname,
-        email: email,
-        username: username,
-        password: password,
-        favs: [],
-        following: [],
-        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+        callback(new constructor(message))
     }
 
-    data.insertUser(user)
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
 
 export default registerUser

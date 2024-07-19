@@ -1,21 +1,32 @@
 import data from '../data'
 
-const loginUser = (username, password) => {
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
+const loginUser = (username, password, callback) => {
+    // TODO input validation
 
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+    const xhr = new XMLHttpRequest
 
-    const user = data.findUser(user => user.username === username)
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            sessionStorage.username = username
 
-    if (user === null)
-        throw new Error('username does not exist')
+            callback(null)
 
-    if (user.password !== password)
-        throw new Error('wrong password')
+            return
+        }
 
-    sessionStorage.username = username
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('POST', 'http://localhost:8080/users/auth')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ username, password }))
 }
 
 export default loginUser

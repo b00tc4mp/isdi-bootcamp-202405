@@ -13,10 +13,23 @@ class Header extends Component {
 
         super()
 
-        try {
-            const name = logic.getUserName()
 
-            this.state = { name }
+        this.state = { name: null }
+    }
+
+    componentDidMount() {
+        try {
+            logic.getUserName((error, name) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ name })
+            })
         } catch (error) {
             console.error(error)
 

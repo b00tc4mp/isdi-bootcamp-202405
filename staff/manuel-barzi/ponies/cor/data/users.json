@@ -62,5 +62,25 @@
         "favs": [],
         "following": [],
         "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "Cucu",
+        "surname": "Rucho",
+        "email": "cucu@rucho.com",
+        "username": "cucurucho",
+        "password": "123123123",
+        "favs": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
+    },
+    {
+        "name": "Auto",
+        "surname": "Fill",
+        "email": "auto@fill.com",
+        "username": "autofill",
+        "password": "123123123",
+        "favs": [],
+        "following": [],
+        "avatar": "https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg"
     }
 ]

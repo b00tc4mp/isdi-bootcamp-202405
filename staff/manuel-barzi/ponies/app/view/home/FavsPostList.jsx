@@ -12,10 +12,24 @@ class FavsPostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllFavPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('FavsPostList -> componentDidMount')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
