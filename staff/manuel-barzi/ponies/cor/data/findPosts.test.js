@@ -1,5 +1,11 @@
 import findPosts from './findPosts.js'
 
-const posts = findPosts(() => true)
+const posts = findPosts(() => true, (error, posts) => {
+    if (error) {
+        console.error(error)
 
-console.log(posts)
+        return
+    }
+
+    console.log(posts)
+})

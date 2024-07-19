@@ -1,5 +1,11 @@
 import getAllPoniesPosts from './getAllPoniesPosts.js'
 
-const posts = getAllPoniesPosts("samu")
+getAllPoniesPosts('samu', (error, posts) => {
+    if (error) {
+        console.error(error)
 
-console.log(posts)
+        return
+    }
+
+    console.log(posts)
+})

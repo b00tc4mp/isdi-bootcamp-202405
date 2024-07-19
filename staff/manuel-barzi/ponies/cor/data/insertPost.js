@@ -7,18 +7,33 @@ import validate from '../validate.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function insertPost(post) {
+function insertPost(post, callback) {
     validate.object(post, 'post')
+    validate.callback(callback)
 
-    let json = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
+    fs.readFile(`${__dirname}/posts.json`, 'utf8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const posts = json ? JSON.parse(json) : []
+            return
+        }
 
-    posts.push(post)
+        const posts = json ? JSON.parse(json) : []
 
-    json = JSON.stringify(posts)
+        posts.push(post)
 
-    fs.writeFileSync(`${__dirname}/posts.json`, json)
+        json = JSON.stringify(posts)
+
+        fs.writeFile(`${__dirname}/posts.json`, json, error => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            callback(null)
+        })
+    })
 }
 
 export default insertPost

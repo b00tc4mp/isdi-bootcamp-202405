@@ -1,18 +1,33 @@
-import data from "../data/index.js"
+import data from '../data/index.js'
 
-import validate from "../validate.js"
+import validate from '../validate.js'
 
-const authenticateUser = (username, password) => {
+const authenticateUser = (username, password, callback) => {
     validate.username(username)
     validate.password(password)
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (user === null)
-        throw new Error('user not found')
+            return
+        }
 
-    if (user.password !== password)
-        throw new Error('wrong password')
+        if (user === null) {
+            callback(new Error('user not found'))
+
+            return
+        }
+
+        if (user.password !== password) {
+            callback(new Error('wrong password'))
+
+            return
+        }
+
+        callback(null)
+    })
 }
 
 export default authenticateUser

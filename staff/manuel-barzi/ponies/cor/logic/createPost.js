@@ -1,28 +1,47 @@
-import data from "../data/index.js"
+import data from '../data/index.js'
 
 import generateId from '../util/generateId.js'
 
-const createPost = (username, image, caption) => {
-    // TODO input validation
+import validate from '../validate.js'
 
-    const user = data.findUser(user => user.username == username)
+const createPost = (username, image, caption, callback) => {
+    validate.username(username)
+    validate.url(image, 'image')
+    validate.string(caption, 'caption')
+    validate.callback(callback)
 
-    if (user === null)
-        throw new Error('user not found')
+    data.findUser(user => user.username == username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (!image.startsWith('http'))
-        throw new Error('invalid image')
+            return
+        }
 
-    const post = {
-        id: generateId(),
-        image,
-        caption,
-        author: username,
-        date: new Date().toISOString(),
-        likes: []
-    }
+        if (user === null) {
+            callback(new Error('user not found'))
 
-    data.insertPost(post)
+            return
+        }
+
+        const post = {
+            id: generateId(),
+            image,
+            caption,
+            author: username,
+            date: new Date().toISOString(),
+            likes: []
+        }
+
+        data.insertPost(post, error => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            callback(null)
+        })
+    })
 }
 
 export default createPost

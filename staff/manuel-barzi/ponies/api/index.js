@@ -23,9 +23,15 @@ api.post('/users', (req, res) => {
         const { name, surname, email, username, password, passwordRepeat } = JSON.parse(json)
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.status(201).send()
+                    return
+                }
+
+                res.status(201).send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
@@ -39,9 +45,15 @@ api.post('/users/auth', (req, res) => {
         const { username, password } = JSON.parse(json)
 
         try {
-            logic.authenticateUser(username, password)
+            logic.authenticateUser(username, password, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.send()
+                    return
+                }
+
+                res.send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
@@ -117,9 +129,15 @@ api.post('/posts', (req, res) => {
         const { image, caption } = JSON.parse(json)
 
         try {
-            logic.createPost(username, image, caption)
+            logic.createPost(username, image, caption, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.status(201).send()
+                    return
+                }
+
+                res.status(201).send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }

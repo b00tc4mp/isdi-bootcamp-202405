@@ -35,13 +35,20 @@ function validateEmail(email) {
     if (!EMAIL_REGEX.test(email)) throw new SyntaxError(`invalid email`)
 }
 
+function validateUrl(url, explain = 'url') {
+    validateString(url, explain)
+    if (!url.startsWith('http')) throw new SyntaxError(`invalid ${explain}`)
+}
+
 const validate = {
     callback: validateCallback,
     object: validateObject,
     username: validateUsername,
     password: validatePassword,
     name: validateName,
-    email: validateEmail
+    email: validateEmail,
+    url: validateUrl,
+    string: validateString
 }
 
 export default validate

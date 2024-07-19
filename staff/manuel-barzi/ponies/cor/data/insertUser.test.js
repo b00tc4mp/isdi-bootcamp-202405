@@ -8,4 +8,12 @@ const mari = {
     password: '123123123'
 }
 
-insertUser(mari)
+insertUser(mari, error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('user inserted')
+})

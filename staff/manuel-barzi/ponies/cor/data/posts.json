@@ -1,1 +1,28 @@
-[{"id":"abcdefghl","author":"cami","date":"11-07-2024","caption":"Hello","image":"https://njebvbeviobvb","likes":[]},{"id":"kg6nl8j0imo","image":"https//nlknvliver","caption":"Hello it s me","author":"marti","date":"2024-07-12T07:20:38.280Z","likes":["samu"]},{"id":"1ksy8z2bdn6o","image":"https://media.giphy.com/media/Ty9Sg8oHghPWg/giphy.gif?cid=790b7611k1isspkgnlxqcvk07kqq26fe137qherkek4mavvf&ep=v1_gifs_trending&rid=giphy.gif&ct=g","caption":"ok...","author":"samu","date":"2024-07-18T07:57:21.320Z","likes":[]},{"id":"1isteie3c2gw","image":"https://media.giphy.com/media/l3fQf1OEAq0iri9RC/giphy.gif?cid=82a1493bnfiha6xz45snfv67wzgj8099b8sa66wboylw6cdd&ep=v1_gifs_trending&rid=giphy.gif&ct=g","caption":"ta bien, ya tu sabe....","author":"samu","date":"2024-07-19T09:16:23.280Z","likes":["samu"]}]
+[
+    {
+        "id": "abcdefghl",
+        "author": "cami",
+        "date": "11-07-2024",
+        "caption": "Hello",
+        "image": "https://njebvbeviobvb",
+        "likes": []
+    },
+    {
+        "id": "kg6nl8j0imo",
+        "image": "https//nlknvliver",
+        "caption": "Hello it s me",
+        "author": "marti",
+        "date": "2024-07-12T07:20:38.280Z",
+        "likes": [
+            "samu"
+        ]
+    },
+    {
+        "id": "1ksy8z2bdn6o",
+        "image": "https://media.giphy.com/media/Ty9Sg8oHghPWg/giphy.gif?cid=790b7611k1isspkgnlxqcvk07kqq26fe137qherkek4mavvf&ep=v1_gifs_trending&rid=giphy.gif&ct=g",
+        "caption": "ok...",
+        "author": "samu",
+        "date": "2024-07-18T07:57:21.320Z",
+        "likes": []
+    }
+]

@@ -8,4 +8,12 @@ const post = {
     image: "https://njebvbeviobvb"
 }
 
-insertPost(post)
+insertPost(post, error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('post inserted')
+})
