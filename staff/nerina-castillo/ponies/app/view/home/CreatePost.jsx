@@ -1,4 +1,4 @@
-import logic from '../../logic/index'
+import logic from '../../logic'
 
 import Heading from '../components/Heading'
 import Form from '../components/Form'
@@ -10,23 +10,33 @@ import Container from '../components/Container'
 import './CreatePost.css'
 
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
+    console.debug('CreatePost -> call')
+
     const handleCreatePostSubmit = event => {
-        console.debug('Footer -> handleCreatePostSubmit')
+        console.debug('CreatePost -> handleCreatePostSubmit')
 
         event.preventDefault()
 
-        const form = event.target  //el elemento sobre el que se va a dirigir la acción
+        const form = event.target
 
-        const postImageInput = form['post-image-input']  //se recoge el elemento HTML del input de la imagen
-        const postCaptionInput = form['post-caption-input']   //se recoge el elemento HTML del input del caption
+        const postImageInput = form['post-image-input']
+        const postCaptionInput = form['post-caption-input']
 
-        const postImage = postImageInput.value  //se recoge el valor del input de la imagen
-        const postCaption = postCaptionInput.value   //se recoge el valor del input del caption
+        const postImage = postImageInput.value
+        const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption)  //actualiza el PostList
+            logic.createPost(postImage, postCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            onPostCreated()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch (error) {
             console.error(error)
 
@@ -34,7 +44,13 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         }
     }
 
-    const handleCancelCreatePostClick = () => onCancelCreatePost()
+    const handleCancelCreatePostClick = () => {
+        console.debug('CreatePost -> handleCancelCreatePostClick')
+
+        onCancelCreatePost()
+    }
+
+
 
 
     return <section className="CreatePost">

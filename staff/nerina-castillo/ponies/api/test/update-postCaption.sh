@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/lfhkbfbgers/caption -X PATCH -d '{"caption":"ta bien"}' -H "Authorization: Basic julitoCamelas" -H "Content-Type: application/json"

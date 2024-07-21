@@ -1,13 +1,27 @@
-import data from "../data/index";
+const getUserName = callback => {
+    const xhr = new XMLHttpRequest
 
-const getUserName = () => {
-  const user = data.findUser(
-    (user) => user.username === sessionStorage.username
-  );
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const name = JSON.parse(xhr.response)
 
-  if (user === null) throw new Error("user not found");
+            callback(null, name)
 
-  return user.name;
-};
+            return
+        }
 
-export default getUserName;
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.username}/name`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
+}
+
+export default getUserName

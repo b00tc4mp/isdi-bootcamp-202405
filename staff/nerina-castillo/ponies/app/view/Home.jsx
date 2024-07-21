@@ -1,11 +1,10 @@
-import { Component } from 'react'
-
 import Header from './home/Header'
 import PostList from './home/PostList'
 import Footer from './home/Footer'
 import PoniesPostList from './home/PoniesPostList'
 import FavsPostList from './home/FavsPostList'
 
+import { Component } from 'react'
 
 class Home extends Component {
     constructor() {
@@ -16,11 +15,6 @@ class Home extends Component {
         this.state = { refreshStamp: null, view: 'home' }
     }
 
-    // handleAvatarCreated() {
-    //     console.debug('Home -> handleAvatarCreated')
-
-    //     this.setState({ view: 'avatar' })
-    // }
     handlePostCreated() {
         console.debug('Home -> handlePostCreated')
 

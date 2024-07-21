@@ -1,0 +1,1 @@
+curl -v -X PATCH http://localhost:8080/posts/3fswobxum974/likes -H "Authorization: Basic julitoCamelas" 

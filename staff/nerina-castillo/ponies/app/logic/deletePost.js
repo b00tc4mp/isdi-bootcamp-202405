@@ -1,16 +1,33 @@
-import data from "../data/index";
+import validate from "../../cor/validate.js"
 
-import validate from "../validate.js";
+const deletePost = (postId, callback) => {
+  validate.callback(callback)
+  validate.string(postId)
 
-const deletePost = (postId) => {
-  validate.postId(postId, 'postId')
-  if (postId.trim().length === 0) throw new Error("invalid postId");
+ 
+  const xhr = new XMLHttpRequest
 
-  const post = data.findPost((post) => post.id === postId);
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-  if (post === null) throw new Error("post not found");
+            return
+        }
 
-  data.deletePost((post) => post.id === postId);
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+
+    xhr.send()
+  
 };
 
 export default deletePost;

@@ -1,28 +1,27 @@
-import data from "../data/index";
+const getAllFavPosts = callback => {
+  const xhr = new XMLHttpRequest
 
-const getAllFavPosts = () => {
-  const user = data.findUser(
-    (user) => user.username === sessionStorage.username
-  );
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const posts = JSON.parse(xhr.response)
 
-  if (user === null) throw new Error("user not found");
+            callback(null, posts)
 
-  const posts = data.findPosts((post) => user.favs.includes(post.id));
+            return
+        }
 
-  posts.forEach((post) => {
-    post.fav = user.favs.includes(post.id);
-    post.like = post.likes.includes(sessionStorage.username);
+        const { error, message } = JSON.parse(xhr.response)
 
-    const author = data.findUser(user => user.username === post.author)
+        const constructor = window[error]
 
-    post.author = {
-      username: post.author,
-      avatar: author.avatar,
-      following: user.following.includes(post.author)
+        callback(new constructor(message))
     }
-  });
 
-  return posts.reverse();
-};
+    xhr.onerror = () => callback(new Error('network error'))
 
-export default getAllFavPosts;
+    xhr.open('GET', 'http://localhost:8080/posts/favs')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
+}
+
+export default getAllFavPosts

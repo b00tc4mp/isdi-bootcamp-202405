@@ -1,26 +1,19 @@
-import logic from '../logic/index'
+import logic from '../logic'
 
-import Button from './components/Button'
-import Input from './components/Input'
-import Link from './components/Link'
-import Label from './components/Label'
-import Form from './components/Form'
 import Heading from './components/Heading'
+import Form from './components/Form'
+import Label from './components/Label'
+import Input from './components/Input'
 import Container from './components/Container'
-
-
+import Link from './components/Link'
+import Button from './components/Button'
 
 function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
 
-    const handleRegisterClick = (event) => {
-        console.debug('Login -> handleRegisterClick')
-        event.preventDefault()
+    const handleLoginSubmit = event => {
+        console.debug('Login -> handleLoginSubmit')
 
-        onRegisterClick()
-    }
-
-    const handleLoginSubmit = (event) => {
         event.preventDefault()
 
         const form = event.target
@@ -32,9 +25,17 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    console.error(error)
 
-            onLogin()
+                    alert(error.message)
+
+                    return
+                }
+
+                onLogin()
+            })
         } catch (error) {
             console.error(error)
 
@@ -42,8 +43,13 @@ function Login({ onLogin, onRegisterClick }) {
         }
     }
 
+    const handleRegisterClick = event => {
+        console.debug('Login -> handleRegisterClick')
 
+        event.preventDefault()
 
+        onRegisterClick()
+    }
 
     return <main className="view--login">
         <Container className="Container--login">Ponies</Container>

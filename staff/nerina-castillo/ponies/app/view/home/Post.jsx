@@ -1,22 +1,22 @@
-import logic from '../../logic/index'
+import logic from '../../logic'
 
 import formatTime from '../../util/formatTime'
 
+import { Component } from 'react'
+
 import Button from '../components/Button'
-import Paragraph from '../components/Paragraph'
-import Image from '../components/Image'
 import Input from '../components/Input'
 import Label from '../components/Label'
 import Form from '../components/Form'
+import Time from '../components/Time'
+import Image from '../components/Image'
+import Paragraph from '../components/Paragraph'
 import Heading from '../components/Heading'
 import Container from '../components/Container'
-import Time from '../components/Time'
 
 import Avatar from './Avatar'
 
 import './Post.css'
-
-import { Component } from 'react'
 
 class Post extends Component {
     constructor() {
@@ -24,15 +24,23 @@ class Post extends Component {
 
         super()
 
-        this.state = { editPostVisible: false }  //inicializa el estado de editPostVisible (propiedad de Post) en false (para que no se muestre el formulario)
+        this.state = { editPostVisible: false }
     }
 
     handleDeletePostClick() {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(this.props.post.id) //accede a la id del post que va a eliminar
+                logic.deletePost(this.props.post.id, error => {
+                    if (error) {
+                        console.error(error)
 
-                this.props.onPostDeleted()  //notifica al padre que el post ha sido eliminado (podría suponer la actualización del PostList)
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.props.onPostDeleted()
+                })
             } catch (error) {
                 console.error(error)
 
@@ -40,13 +48,69 @@ class Post extends Component {
             }
     }
 
-    handleLikePostClick() {
-        console.debug('Post -> handleLikePost')
+    componentWillUnmount() {
+        console.debug('Post -> componentWillUnmount')
+    }
+
+    handleEditPostClick() {
+        console.debug('Post -> handleEditPost')
+
+        this.setState({ editPostVisible: true })
+    }
+
+    handleCancelEditPostClick() {
+        console.debug('Post -> handleCancelEditPostClick')
+
+        this.setState({ editPostVisible: false })
+    }
+
+    handleEditPostSubmit(event) {
+        console.debug('Post -> handleEditPostSubmit')
+
+        event.preventDefault()
+
+        const form = event.target
+
+        const editCaptionInput = form['edit-caption-input']
+
+        const newCaption = editCaptionInput.value
 
         try {
-            logic.toggleLikePost(this.props.post.id)  //accede a la id del post al que se va a dar like
+            logic.updatePostCaption(this.props.post.id, newCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostLikeToggled()  //notifica al padre del post que se le ha dado like
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ editPostVisible: false })
+
+                this.props.onPostEdited()
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handleLikePostClick() {
+        console.debug('Post -> handleLikePostClick')
+
+        try {
+            logic.toggleLikePost(this.props.post.id, error => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.props.onPostLikeToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -55,12 +119,20 @@ class Post extends Component {
     }
 
     handleFavPostClick() {
-        console.debug('Post -> handleFavPost')
+        console.debug('Post -> handleFavPostClick')
 
         try {
-            logic.toggleFavPost(this.props.post.id)  //accede a la id del post que se va a guardar en favoritos
+            logic.toggleFavPost(this.props.post.id, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostFavToggled()  //notifica al padre del post que se ha guardado en favoritos
+                    alert(error.message)
+
+                    return
+                }
+
+                this.props.onPostFavToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -69,52 +141,21 @@ class Post extends Component {
     }
 
     handleFollowUserClick() {
-        console.debug('Post -> handleFollowUser')
+        console.debug('Post -> handleFollowUserClick')
 
         try {
-            logic.toggleFollowUser(this.props.post.author.username)  //acede al username del autor del post al que se va a seguir
+            logic.toggleFollowUser(this.props.post.author.username, error => {
 
-            this.props.onUserFollowToggled()  //notifica al padre del usuario que se ha seguido
-        } catch (error) {
-            console.error(error)
+                if (error) {
+                    console.error(error)
 
-            alert(error.message)
-        }
-    }
+                    alert(error.message)
 
-    componentWillUnmount() {
-        console.debug('Post -> componentWillUnmount')  //informa de que el componente está a punto de desmontarse
-    }
+                    return
+                }
 
-    handleEditPostClick() {
-        console.debug('Post -> handleEditPost')
-
-        this.setState({ editPostVisible: true })  //cambia el estado de editPostVisible a true (para que se muestre el formulario)
-    }
-
-    handleCancelEditPostClick() {
-        console.debug('Post -> handleCancelEditPostClick')
-
-        this.setState({ editPostVisible: false }) //cambia el estado de editPostVisible a false (para que no se muestre el formulario)
-    }
-
-    handleEditpostSubmit(event) {
-        console.debug('Post -> handleCancelEditPostClick')
-
-        event.preventDefault()
-
-        const form = event.target  //es el elemento al que va dirigida la acción
-
-        const editCaptionInput = form['edit-caption-input']  //se recoge el elemento de HTML por su id
-
-        const newCaption = editCaptionInput.value  //se recoge el valor del input
-
-        try {
-            logic.updatePostCaption(this.props.post.id, newCaption)  //actualiza el caption del post
-
-            this.setState({ editPostVisible: false })  //cambia el estado de editPostVisible a false para que deje de mostrarse
-
-            this.props.onPostEdited()  //le comunica al padre que un post ha sido editado
+                this.props.onUserFollowToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -152,7 +193,7 @@ class Post extends Component {
 
             <Time>{formatTime(new Date(post.date))}</Time>
 
-            {this.state.editPostVisible && <Form className='Form--edit' onSubmit={this.handleEditpostSubmit.bind(this)}>
+            {this.state.editPostVisible && <Form className='Form--edit' onSubmit={this.handleEditPostSubmit.bind(this)}>
                 <Label htmlFor={"edit-caption-input"}>Caption</Label>
                 <Input className={"Input--caption "} id={"edit-caption-input"} defaultValue={post.caption} />
 

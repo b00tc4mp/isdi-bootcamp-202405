@@ -1,9 +1,10 @@
-import logic from '../../logic/index'
-import './PostList.css'
+import logic from '../../logic'
 
 import { Component } from 'react'
 
-import Post from './Post.jsx'
+import Post from './Post'
+
+import './PostList.css'
 
 class PostList extends Component {
     constructor() {
@@ -11,10 +12,24 @@ class PostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllPosts()  //se traen todos los posts
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('PostList -> componentDidMount')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -22,14 +37,22 @@ class PostList extends Component {
         }
     }
 
-    componentWillReceiveProps(newProps) {  //se activa cuando el componente recibe nuevas props
+    componentWillReceiveProps(newProps) {
         console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
 
-        if (newProps.refreshStamp !== this.props.refreshStamp)  //verifica si el valor de refreshStamp en las nuevas props es diferente de las props actuales y si lo es, indica que hay que obtener los nuevos datos
+        if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()  //se obtienen las publicaciones
+                logic.getAllPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
             } catch (error) {
                 console.error(error)
 
@@ -37,61 +60,43 @@ class PostList extends Component {
             }
     }
 
-    handlePostLiked() {
-        try {
-            const posts = logic.getAllPosts()  //trae todos los posts
-
-            this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    handlePostFaved() {
-        try {
-            const posts = logic.getAllPosts()  //trae todos los posts
-
-            this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    handleUserFollowed() {
-        try {
-            const posts = logic.getAllPosts()  //trae todos los posts
-
-            this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
     handlePostDeleted() {
-        try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+        console.debug('PostList -> handlePostDeleted')
 
-            this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
     }
-
-
 
     handlePostEdited() {
-        try {
-            const posts = logic.getAllPosts()  //trae todos los posts
+        console.debug('PostList -> handlePostEdited')
 
-            this.setState({ posts })  //actualiza el estado del componente con la nueva lista de posts
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -99,7 +104,73 @@ class PostList extends Component {
         }
     }
 
-    render() {  //renderiza el contenido del componente PostList
+    handlePostLikeToggled() {
+        console.debug('PostList -> handlePostLikeToggled')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handlePostFavToggled() {
+        console.debug('PostList -> handlePostFavToggled')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handleUserFollowToggled() {
+        console.debug('PostList -> handleUserFollowToggled')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    render() {
         console.debug('PostList -> render')
 
         return <section className="PostList">
@@ -108,9 +179,10 @@ class PostList extends Component {
                 post={post}
                 onPostDeleted={this.handlePostDeleted.bind(this)}
                 onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLiked.bind(this)}
-                onPostFavToggled={this.handlePostFaved.bind(this)}
-                onUserFollowToggled={this.handleUserFollowed.bind(this)} />)}
+                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
+                onPostFavToggled={this.handlePostFavToggled.bind(this)}
+                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
+            />)}
         </section>
     }
 }

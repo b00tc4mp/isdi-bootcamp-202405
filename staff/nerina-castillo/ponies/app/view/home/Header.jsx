@@ -1,20 +1,35 @@
-import logic from '../../logic/index'
+import logic from '../../logic'
+
+import { Component } from 'react'
 
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
 
 import './Header.css'
 
-import { Component } from 'react'
-
 class Header extends Component {
     constructor() {
+        console.debug('Header -> constructor')
+
         super()
 
-        try {
-            const name = logic.getUserName()  //obtiene el nombre de usuario
 
-            this.state = { name }  //guarda el nombre de usuario encontrado
+        this.state = { name: null }
+    }
+
+    componentDidMount() {
+        try {
+            logic.getUserName((error, name) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ name })
+            })
         } catch (error) {
             console.error(error)
 
@@ -25,26 +40,28 @@ class Header extends Component {
     handleHomeClick() {
         console.debug('Header -> handleHomeClick')
 
-        this.props.onHomeClick()  //lógica para manejar el click en Home
+        this.props.onHomeClick()
     }
 
     handlePoniesClick() {
         console.debug('Header -> handlePoniesClick')
 
-        this.props.onPoniesClick()  //lógica para manejar el click en Ponies
+        this.props.onPoniesClick()
     }
 
     handleFavsClick() {
         console.debug('Header -> handleFavsClick')
 
-        this.props.onFavsClick()  //lógica para manejar el click en Favoritos
+        this.props.onFavsClick()
     }
 
-    handleLogout() {  //lógica para manejar el click en Logout
+    handleLogout() {
+        console.debug('Header -> handleLogout')
+
         try {
             logic.logoutUser()
 
-            this.props.onLogout() //al hacer click en Logout te lleva a login
+            this.props.onLogout()
         } catch (error) {
             console.error(error)
 
@@ -52,14 +69,10 @@ class Header extends Component {
         }
     }
 
-    // handleAvatarCreated() {
-    //     this.setState({ createAvatarVisible: false })
-
-    //     this.props.onAvatarCreated()
-    // }
-
 
     render() {
+        console.debug('Header -> render')
+
         return <header className="Header">
             <Paragraph>{"Hello, " + this.state.name + "!"}</Paragraph>
             <Button onClick={this.handleHomeClick.bind(this)} >🏚️</Button>

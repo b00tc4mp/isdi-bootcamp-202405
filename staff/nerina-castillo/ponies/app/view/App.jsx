@@ -4,6 +4,7 @@ import Login from './Login'
 import Register from './Register'
 import Home from './Home'
 
+import logic from '../logic'
 
 class App extends Component {
     constructor() {
@@ -11,7 +12,7 @@ class App extends Component {
 
         super()
 
-        this.state = { view: 'login' }
+        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
     }
 
     handleLogin() {
@@ -43,6 +44,7 @@ class App extends Component {
 
         this.setState({ view: 'login' })
     }
+
 
     render() {
         console.debug('App -> render')

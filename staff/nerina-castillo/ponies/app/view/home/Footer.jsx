@@ -1,10 +1,10 @@
-
-import Button from "../components/Button"
-
-import CreatePost from "./CreatePost"
-import './Footer.css'
-
 import { Component } from 'react'
+
+import CreatePost from './CreatePost'
+
+import Button from '../components/Button'
+
+import './Footer.css'
 
 class Footer extends Component {
     constructor() {
@@ -12,19 +12,19 @@ class Footer extends Component {
 
         super()
 
-        this.state = { createPostVisible: false }  //se inicializa el estado de createPostVisible en false (para que no se muestre)
+        this.state = { createPostVisible: false }
     }
 
     handleCreatePostClick() {
         console.debug('Footer -> handleCreatePostClick')
 
-        this.setState({ createPostVisible: true })  //se cambia el estado decreatePostVisible a true (para que se muestre)
+        this.setState({ createPostVisible: true })
     }
 
     handleCancelCreatePostClick() {
         console.debug('Footer -> handleCancelCreatePostClick')
 
-        this.setState({ createPostVisible: false })  //se cambia el estado de createPostVisible en false (para que deje de mostrarse)
+        this.setState({ createPostVisible: false })
     }
 
     handlePostCreated() {

@@ -1,57 +1,36 @@
-import data from "../data/index";
-import validate from "../validate";
+import validate from "../../cor/validate.js"
 
-const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/;
-const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/;
-const USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/;
-
-const registerUser = (
-  name,
-  surname,
-  email,
-  username,
-  password,
-  passwordRepeat
-) => {
+const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
   validate.name(name)
-  validate.surname(surname)
+  validate.name(surname)
   validate.email(email)
   validate.username(username)
   validate.password(password)
   validate.password(passwordRepeat)
+  validate.callback(callback)
 
-  if (!NAME_REGEX.test(name.trim())) throw new Error("invalid name");
+  const xhr = new XMLHttpRequest
 
-  if (!NAME_REGEX.test(surname.trim())) throw new Error("ivalid surname");
+  xhr.onload = () => {
+      if (xhr.status === 201) {
+          callback(null)
 
-  if (!EMAIL_REGEX.test(email)) throw new Error("invalid email");
+          return
+      }
 
-  if (!USER_REGEX.test(username)) throw new Error("invalid username");
+      const { error, message } = JSON.parse(xhr.response)
 
-  if (password.trim().length < 8) throw new Error("invalid password");
+      const constructor = window[error]
 
-  if (password !== passwordRepeat) throw new Error("passwords do not match");
-
-  let user = data.findUser((user) => user.email === email);
-
-  if (user !== null) throw new Error("email already exists");
-
-  user = data.findUser((user) => user.username === username);
-
-  if (user !== null) throw new Error("username already exists");
-
-  user = {
-    name: name,
-    surname: surname,
-    email: email,
-    username: username,
-    password: password,
-    favs: [],
-    following: [],
-    avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+      callback(new constructor(message))
   }
 
-  data.insertUser(user);
-};
+  xhr.onerror = () => callback(new Error('network error'))
+
+  xhr.open('POST', 'http://localhost:8080/users')
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
+}
 
 export default registerUser;

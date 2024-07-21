@@ -12,6 +12,7 @@ import toggleFavPost from "./toggleFavPost";
 import getAllFavPosts from "./getAllFavPosts";
 import toggleFollowUser from "./toggleFollowUser";
 import getAllFollowingUserPosts from "./getAllFollowingUserPosts";
+import isUserLoggedIn from "./isUserLoggedIn";
 // import createAvatar from "./createAvatar.js";
 
 const logic = {
@@ -29,6 +30,7 @@ const logic = {
   getAllFavPosts,
   toggleFollowUser,
   getAllFollowingUserPosts,
+  isUserLoggedIn
   // createAvatar
 };
 
