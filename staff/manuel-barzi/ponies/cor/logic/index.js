@@ -9,9 +9,6 @@ import toggleFavPost from './toggleFavPost.js'
 import getAllFavPosts from './getAllFavPosts.js'
 import toggleFollowUser from './toggleFollowUser.js'
 import getAllPoniesPosts from './getAllPoniesPosts.js'
-import updateAvatar from './updateAvatar.js'
-import getUser from './getUser.js'
-import updatePassword from './updatePassword.js'
 import authenticateUser from './authenticateUser.js'
 
 const logic = {
@@ -21,14 +18,11 @@ const logic = {
     getAllFavPosts,
     getAllPoniesPosts,
     getAllPosts,
-    getUser,
     getUserName,
     registerUser,
     toggleFavPost,
     toggleFollowUser,
     toggleLikePost,
-    updateAvatar,
-    updatePassword,
     updatePostCaption
 }
 

@@ -14,9 +14,9 @@ function validateObject(object, explain = 'object') {
     if (object === null || typeof object !== 'object' || object.constructor !== Object) throw new TypeError(`${explain} is not an object`)
 }
 
-function validateUsername(username) {
-    validateString(username, 'username')
-    if (!USERNAME_REGEX.test(username)) throw new SyntaxError('invalid username')
+function validateUsername(username, explain = 'username') {
+    validateString(username, explain)
+    if (!USERNAME_REGEX.test(username)) throw new SyntaxError(`invalid ${explain}`)
 }
 
 function validatePassword(password) {

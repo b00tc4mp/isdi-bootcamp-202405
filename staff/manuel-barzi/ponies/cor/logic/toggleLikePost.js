@@ -1,27 +1,56 @@
-import data from "../data/index.js"
+import data from '../data/index.js'
 
-function toggleLikePost(username, postId) {
-    // TODO input validation
+import validate from '../validate.js'
 
-    const user = data.findUser(user => user.username === username)
+function toggleLikePost(username, postId, callback) {
+    validate.username(username)
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
-    if (!user) throw new Error('user not found')
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+            return
+        }
 
-    const post = data.findPost(post => post.id === postId)
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (post === null)
-        throw new Error('post not found')
+            return
+        }
 
-    const index = post.likes.indexOf(username)
+        data.findPost(post => post.id === postId, (error, post) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    if (index < 0)
-        post.likes.push(username)
-    else
-        post.likes.splice(index, 1)
+                return
+            }
 
-    data.updatePost(post => post.id === postId, post)
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            const index = post.likes.indexOf(username)
+
+            if (index < 0)
+                post.likes.push(username)
+            else
+                post.likes.splice(index, 1)
+
+            data.updatePost(post => post.id === postId, post, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+    })
 }
 
 export default toggleLikePost

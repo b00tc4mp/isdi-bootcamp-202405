@@ -1,24 +1,57 @@
 import data from '../data/index.js'
 
-function toggleFollowUser(username, targetUsername) {
-    if (!username.trim().length) throw new Error('invalid username')
+import validate from '../validate.js'
 
-    const user = data.findUser(user => user.username === username)
+function toggleFollowUser(username, targetUsername, callback) {
+    validate.username(username)
+    validate.username(targetUsername, 'targetUserName')
+    validate.callback(callback)
 
-    if (!user) throw new Error('user not found')
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const following = data.findUser(user => user.username === targetUsername)
+            return
+        }
 
-    if (!following) throw new Error('following user not found')
+        if (!user) {
+            callback(new Error('user not found'))
 
-    const index = user.following.indexOf(targetUsername)
+            return
+        }
 
-    if (index < 0)
-        user.following.push(targetUsername)
-    else
-        user.following.splice(index, 1)
+        data.findUser(user => user.username === targetUsername, (error, following) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    data.updateUser(user => user.username === username, user)
+                return
+            }
+
+            if (!following) {
+                callback(new Error('following user not found'))
+
+                return
+            }
+
+            const index = user.following.indexOf(targetUsername)
+
+            if (index < 0)
+                user.following.push(targetUsername)
+            else
+                user.following.splice(index, 1)
+
+            data.updateUser(user => user.username === username, user, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+
+    })
 }
 
 export default toggleFollowUser

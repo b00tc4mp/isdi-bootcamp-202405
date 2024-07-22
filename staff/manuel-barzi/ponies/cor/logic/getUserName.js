@@ -1,16 +1,42 @@
-import data from "../data/index.js"
+import data from '../data/index.js'
 
-const getUserName = (username, targetUsername) => {
-    const user = data.findUser(user => user.username === username)
+import validate from '../validate.js'
 
-    if (!user)
-        throw new Error('user not found')
+const getUserName = (username, targetUsername, callback) => {
+    validate.username(username)
+    validate.username(targetUsername, 'targetUsername')
+    validate.callback(callback)
 
-    const targetUser = data.findUser(user => user.username === targetUsername)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (!targetUser) throw new Error('target user not found')
+            return
+        }
 
-    return targetUser.name
+        if (!user) {
+            callback(new Error('user not found'))
+
+            return
+        }
+
+        data.findUser(user => user.username === targetUsername, (error, targetUser) => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            if (!targetUser) {
+                callback(new Error('target user not found'))
+
+                return
+            }
+
+            callback(null, targetUser.name)
+        })
+
+    })
 }
 
 export default getUserName

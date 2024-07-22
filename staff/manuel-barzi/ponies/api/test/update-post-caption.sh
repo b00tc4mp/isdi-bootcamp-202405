@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/1isteie3c2gw/caption -X PATCH -d '{"caption":"ta bien"}' -H "Authorization: Basic samu" -H "Content-Type: application/json"
+curl -v http://localhost:8080/posts/1ksy8z2bdn6o/caption -X PATCH -d '{"caption":"ta bien"}' -H "Authorization: Basic samu" -H "Content-Type: application/json"
