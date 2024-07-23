@@ -1,9 +1,11 @@
+import logic from '../../../logic'
+
 import { Component } from 'react'
 
-import logic from '../../../logic'
+import Post from './Post'
+
 import './PostList.css'
 
-import Post from './Post.jsx'
 
 class FavsPostList extends Component {
     constructor() {
@@ -11,10 +13,24 @@ class FavsPostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllFavPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('FavsPostList -> componentDidMount')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -27,9 +43,17 @@ class FavsPostList extends Component {
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllFavPosts()
+                logic.getAllFavPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
             } catch (error) {
                 console.error(error)
 
@@ -41,9 +65,17 @@ class FavsPostList extends Component {
         console.debug('FavsPostList -> handlePostDeleted')
 
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -53,10 +85,19 @@ class FavsPostList extends Component {
 
     handlePostEdited() {
         console.debug('FavsPostList -> handlePostEdited')
-        try {
-            const posts = logic.getAllFavPosts()
 
-            this.setState({ posts })
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -65,24 +106,42 @@ class FavsPostList extends Component {
     }
 
     handlePostLikeToggled() {
-        console.debug('FavPostList -> hnadlePostLikeToggled')
-        try {
-            const posts = logic.getAllFavPosts()
+        console.debug('FavsPostList -> handlePostLikeToggled')
 
-            this.setState({ posts })
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
-            alert(message.error)
+            alert(error.message)
         }
     }
 
     handlePostFavToggled() {
         console.debug('FavsPostList -> handlePostFavToggled')
-        try {
-            const posts = logic.getAllFavPosts()
 
-            this.setState({ posts })
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -94,9 +153,17 @@ class FavsPostList extends Component {
         console.debug('FavsPostList -> handleUserFollowToggled')
 
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 

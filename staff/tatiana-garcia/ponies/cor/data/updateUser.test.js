@@ -9,4 +9,12 @@ const user = {
 
 }
 
-updateUser(user => user.name === 'lili', user)
+updateUser(user => user.name === 'lili', user, (error) => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('user updated')
+})

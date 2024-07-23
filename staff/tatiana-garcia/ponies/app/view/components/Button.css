@@ -8,6 +8,12 @@
     padding: 0;
 }
 
+.Button--add {
+    position: fixed;
+    bottom: 5px;
+    margin: 5px;
+}
+
 .form__button {
     border-radius: 15px;
     font-size: inherit;

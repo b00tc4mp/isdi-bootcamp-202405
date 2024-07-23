@@ -1,3 +1,11 @@
 import toggleFavPost from "./toggleFavPost.js";
 
-toggleFavPost("abtg", "2qgbjm658wk")
+toggleFavPost("abtg", "qvqbt790bs0", error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('post favorite')
+})

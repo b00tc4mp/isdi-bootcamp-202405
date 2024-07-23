@@ -1,16 +1,23 @@
 import updatePost from './updatePost.js';
 
 const post = {
-    id: "2qgbjm658wk",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTevjVOWR09WNiBjquXYh83ydHIKCUd_fhafA&s",
-    caption: "Nelli",
-    author: "tatig",
-    date: "2024-07-10T07:31:21.889Z",
+    id: "qvqbt790bs0",
+    image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR3cd9Zo1f_nPGQEAUhN2r-VRf05szjz84Qv1Utrto7tMC-f0Ji",
+    caption: "ardilla",
+    author: "abtg",
+    date: "2024-07-20T15:14:38.538Z",
     likes: [
-        "solomillo",
         "abtg"
     ]
 }
 
-updatePost(_post => _post.caption === 'Nelliel', post)
-console.log(post)
+updatePost(_post => _post.caption === 'Nelliel', post, error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('post updated')
+})
+

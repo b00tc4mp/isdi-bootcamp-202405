@@ -1,13 +1,29 @@
 import data from '../data/index.js'
 
-const getUser = username => {
-    const user = data.findUser(user => user.username === username)
+import validate from '../../app/validate.js'
 
-    if (user === null) throw new Error('user not found')
+const getUser = (username, callback) => {
+    validate.username(username)
+    validate.callback(callback)
 
-    delete user.password
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    return user
+            return
+        }
+
+        if (user === null) {
+            callback(new Error('user not found'))
+
+            return
+        }
+
+        delete user.password
+
+        callback(null, user)
+    })
+
 }
 
 export default getUser

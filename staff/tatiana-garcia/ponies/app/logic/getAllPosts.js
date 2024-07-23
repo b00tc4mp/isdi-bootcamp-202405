@@ -1,30 +1,27 @@
-import data from '../data'
+const getAllPosts = callback => {
+    const xhr = new XMLHttpRequest
 
-const getAllPosts = () => {
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const posts = JSON.parse(xhr.response)
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+            callback(null, posts)
 
-    if (user === null) {
-        throw new Error('user not found')
-    }
-    const posts = data.findPosts(() => true)
-
-
-    posts.forEach(post => {
-        post.fav = user.favs.includes(post.id)
-        post.like = post.likes.includes(sessionStorage.username)
-
-        const author = data.findUser(user => user.username === post.author)
-
-        post.author = {
-            username: author.username,
-            avatar: author.avatar,
-            following: user.following.includes(author.username)
+            return
         }
 
-    })
+        const { error, message } = JSON.parse(xhr.response)
 
-    return posts.reverse()
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('GET', 'http://localhost:8080/posts')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
 }
 
 export default getAllPosts

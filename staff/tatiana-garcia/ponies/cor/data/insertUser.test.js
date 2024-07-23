@@ -1,11 +1,19 @@
 import insertUser from './insertUser.js'
 
 const user = {
-    name: "lili",
-    surname: "daponte",
-    email: "lili@daponte.com",
-    username: "lilidaponte",
+    name: "Carmen",
+    surname: "Valdivia",
+    email: "carmen@valdivia.com",
+    username: "carmen",
     password: "123123123"
 }
 
-insertUser(user)
+insertUser(user, error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('user inserted')
+})

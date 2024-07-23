@@ -7,24 +7,42 @@ import validate from '../../app/validate.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function updateUser(condition, user) {
-    validate.callback(condition, user)
+function updateUser(condition, user, callback) {
+    validate.callback(condition, 'condition')
     validate.object(user, 'user')
+    validate.callback(callback)
 
-    let json = fs.readFileSync(`${__dirname}/users.json`, "utf-8")
+    fs.readFile(`${__dirname}/users.json`, 'utf-8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const users = json ? JSON.parse(json) : []
+            return
+        }
 
-    const index = users.findIndex(condition)
+        const users = json ? JSON.parse(json) : []
 
-    if (index > -1) {
+        const index = users.findIndex(condition)
 
-        users.splice(index, 1, user)
+        if (index > -1) {
+            users.splice(index, 1, user)
 
-        json = JSON.stringify(users)
+            json = JSON.stringify(users)
 
-        fs.writeFileSync(`${__dirname}/users.json`, json)
-    }
+            fs.writeFile(`${__dirname}/users.json`, json, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+
+            return
+        }
+
+        callback(null)
+    })
 }
 
 export default updateUser

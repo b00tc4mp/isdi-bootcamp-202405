@@ -7,22 +7,38 @@ import validate from '../../app/validate.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function deletePost(condition) {
+function deletePost(condition, callback) {
     validate.callback(condition, 'consition')
+    validate.callback(callback)
 
-    let json = fs.readFileSync(`${__dirname}/posts.json`, "utf-8") // lee dentro de la info si esta el archivo
+    fs.readFile(`${__dirname}/posts.json`, 'utf-8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const posts = json ? JSON.parse(json) : [] // si esta lo parsea y lo mete en posts
+            return
+        }
 
-    const postIndex = posts.findIndex(condition) //aqui los busca y los mete en postIndex
+        const posts = json ? JSON.parse(json) : [] // si esta lo parsea y lo mete en posts
 
-    if (postIndex > -1) {
-        posts.splice(postIndex, 1)
+        const postIndex = posts.findIndex(condition) //aqui los busca y los mete en postIndex
 
-        json = JSON.stringify(posts)
+        if (postIndex > -1) {
+            posts.splice(postIndex, 1)
 
-        fs.writeFileSync(`${__dirname}/posts.json`, json)
-    }
+            json = JSON.stringify(posts)
+
+            fs.writeFile(`${__dirname}/posts.json`, json, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        }
+    })
+
 }
 
 export default deletePost

@@ -1,6 +1,6 @@
 .form__field {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: .2rem;
     font-weight: bold;
     color: rgb(88, 5, 88);

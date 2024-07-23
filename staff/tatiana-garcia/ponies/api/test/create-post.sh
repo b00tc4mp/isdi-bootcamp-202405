@@ -1,1 +1,1 @@
-curl -X POST -v http://localhost:8080/posts -H "Authorization: Basic tatig" -H "Content-Type: application/json" -d '{"username":"tatig", "image":"https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg", "caption":"mapache"}'
+curl -X POST -v http://localhost:8080/posts -H "Authorization: Basic tatig" -H "Content-Type: application/json" -d '{"image":"https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg", "caption":"mapache"}'

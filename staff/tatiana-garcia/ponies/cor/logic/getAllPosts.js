@@ -2,31 +2,57 @@ import data from '../data/index.js'
 
 import validate from '../../app/validate.js'
 
-const getAllPosts = (username) => {
+const getAllPosts = (username, callback) => {
     validate.username(username)
-    const user = data.findUser(user => user.username === username)
+    validate.callback(callback)
 
-    if (user === null) {
-        throw new Error('user not found')
-    }
-    const posts = data.findPosts(() => true)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-
-    posts.forEach(post => {
-        post.fav = user.favs.includes(post.id)
-        post.like = post.likes.includes(username)
-
-        const author = data.findUser(user => user.username === post.author)
-
-        post.author = {
-            username: author.username,
-            avatar: author.avatar,
-            following: user.following.includes(author.username)
+            return
         }
 
-    })
+        if (user === null) {
+            callback(new Error('user not found'))
 
-    return posts.reverse()
+            return
+        }
+
+        data.findPosts(post => true, (error, posts) => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            let count = 0
+
+            posts.forEach(post => {
+                post.fav = user.favs.includes(post.id)
+                post.like = post.likes.includes(username)
+
+                data.findUser(user => user.username === post.author, (error, author) => {
+                    if (error) {
+                        callback(new Error(error.message))
+
+                        return
+                    }
+
+                    post.author = {
+                        username: author.username,
+                        avatar: author.avatar,
+                        following: user.following.includes(author.username)
+                    }
+
+                    count++
+
+                    if (count === posts.length)
+                        callback(null, posts.reverse())
+                })
+            })
+        })
+    })
 }
 
 export default getAllPosts

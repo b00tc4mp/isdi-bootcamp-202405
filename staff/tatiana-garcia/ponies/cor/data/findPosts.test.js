@@ -1,3 +1,11 @@
-import findPosts from './findPosts.js';
+import findPosts from './findPosts.js'
 
-console.log(findPosts(post => post.author === "abtg"));
+const posts = findPosts(() => true, (error, posts) => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log(posts)
+})

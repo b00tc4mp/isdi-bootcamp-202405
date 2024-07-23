@@ -1,4 +1,5 @@
 import logic from '../logic'
+
 import Heading from './components/Heading'
 import Container from './components/Container'
 import Form from './components/Form'
@@ -32,7 +33,15 @@ function Register({ onRegister, onLoginClick }) {
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+            })
 
             alert('user successfully registered')
 

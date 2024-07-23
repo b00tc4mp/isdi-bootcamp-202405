@@ -1,21 +1,51 @@
 import data from '../data/index.js'
 import validate from '../../app/validate.js'
 
-const updatePostCaption = (username, postId, newCaption) => {
-    validate.username(username, 'username')
+const updatePostCaption = (username, postId, caption, callback) => {
+    validate.username(username,)
     validate.postId(postId, 'postId')
+    validate.string(caption, 'caption')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (user === null) throw new Error('user not found')
+            return
+        }
 
-    const post = data.findPost(post => post.id === postId)
+        if (user === null) {
+            callback(new Error('user not found'))
 
-    if (post === null) throw new Error('post not found')
+            return
+        }
 
-    post.caption = newCaption
+        data.findPost(post => post.id === postId, (error, post) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    data.updatePost(post => post.id === postId, post)
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            post.caption = caption
+
+            data.updatePost(post => post.id === postId, post, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+    })
 }
 
 export default updatePostCaption

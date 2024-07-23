@@ -7,20 +7,33 @@ import validate from '../../app/validate.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function insertUser(user) {
+function insertUser(user, callback) {
     validate.object(user, 'user')
+    validate.callback(callback)
 
-    let json = fs.readFileSync(`${__dirname}/users.json`, "utf-8")
+    fs.readFile(`${__dirname}/users.json`, 'utf-8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const users = json ? JSON.parse(json) : []
+            return
+        }
 
-    users.push(user)
+        const users = json ? JSON.parse(json) : []
 
-    json = JSON.stringify(users)
+        users.push(user)
 
-    fs.writeFileSync(`${__dirname}/users.json`, json)
+        json = JSON.stringify(users)
 
+        fs.writeFile(`${__dirname}/users.json`, json, error => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            callback(null)
+        })
+    })
 }
 
 export default insertUser
-

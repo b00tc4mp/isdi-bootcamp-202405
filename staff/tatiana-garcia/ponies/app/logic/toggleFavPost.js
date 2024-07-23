@@ -1,32 +1,31 @@
-import data from '../data'
-
 import validate from '../validate'
 
-function toggleFavPost(postId) {
-    validate.postId(postId, 'postId')
+const toggleFavPost = (postId, callback) => {
+    validate.postId(postId)
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const xhr = new XMLHttpRequest
 
-    if (user === null) {
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-        throw new Error('user not found')
+            return
+        }
+
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
     }
 
-    const post = data.findPost(post => post.id === postId)
+    xhr.onerror = () => callback(new Error('network error'))
 
-    if (post === null)
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/favs`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
 
-        throw new Error('post not found')
-
-    const index = user.favs.indexOf(postId)
-
-    if (index < 0)
-        user.favs.push(postId)
-    else
-        user.favs.splice(index, 1)
-
-    data.updateUser(user => user.username === sessionStorage.username, user)
-
+    xhr.send()
 }
 
 export default toggleFavPost

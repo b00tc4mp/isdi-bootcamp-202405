@@ -1,20 +1,34 @@
-import data from '../data'
 import validate from '../validate'
 
-const loginUser = (username, password) => {
+const loginUser = (username, password, callback) => {
     validate.username(username, 'username')
-    validate.password(password, 'password')
+    validate.password(password)
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    const xhr = new XMLHttpRequest
 
-    if (user === null)
-        throw new Error('username does not exist')
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            sessionStorage.username = username
 
-    if (user.password !== password)
-        throw new Error('wrong password')
+            callback(null)
 
-    sessionStorage.username = username
+            return
+        }
+
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('POST', 'http://localhost:8080/users/auth')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ username, password }))
 }
 
 export default loginUser
-

@@ -1,23 +1,55 @@
 import data from '../data/index.js'
 import validate from '../../app/validate.js'
 
-function toggleLikePost(username, postId) {
-    validate.username(username, 'username')
+function toggleLikePost(username, postId, callback) {
+    validate.username(username)
     validate.postId(postId, 'postId')
+    validate.callback(callback)
 
-    const post = data.findPost(post => post.id === postId)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (post === null) throw new Error('post not found')
+            return
+        }
 
-    const index = post.likes.indexOf(username)
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (index < 0)
-        post.likes.push(username)
-    else
-        post.likes.splice(index, 1)
+            return
+        }
 
-    data.updatePost(post => post.id === postId, post)
+        data.findPost(post => post.id === postId, (error, post) => {
+            if (error) {
+                callback(new Error(error.message))
 
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            const index = post.likes.indexOf(username)
+
+            if (index < 0)
+                post.likes.push(username)
+            else
+                post.likes.splice(index, 1)
+
+            data.updatePost(post => post.id === postId, post, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+    })
 }
 
 export default toggleLikePost

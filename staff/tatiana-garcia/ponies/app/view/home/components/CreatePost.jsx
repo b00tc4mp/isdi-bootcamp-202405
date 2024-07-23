@@ -7,7 +7,7 @@ import Label from '../../components/Label'
 import Button from '../../components/Button'
 import Container from '../../components/Container'
 
-import './CreatePost'
+import './CreatePost.css'
 
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
@@ -26,9 +26,17 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption)
+            logic.createPost(postImage, postCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            onPostCreated()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch (error) {
             console.error(error)
 

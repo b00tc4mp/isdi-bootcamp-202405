@@ -12,10 +12,24 @@ class PoniesPostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllPoniesPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('PoniesPostList -> componentDidMount')
+
+        try {
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -28,9 +42,17 @@ class PoniesPostList extends Component {
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPoniesPosts()
+                logic.getAllPoniesPosts((error, post) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
             } catch (error) {
                 console.error(error)
 
@@ -42,9 +64,17 @@ class PoniesPostList extends Component {
         console.debug('PoniesPostList -> handlePostDeleted')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -56,9 +86,17 @@ class PoniesPostList extends Component {
         console.debug('PoniesPostList -> handlePostEdited')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -70,9 +108,17 @@ class PoniesPostList extends Component {
         console.debug('PoniesPostList -> handlePostLikeToggled')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -84,9 +130,17 @@ class PoniesPostList extends Component {
         console.debug('PoniesPostList -> handlePostFavToggled')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -98,9 +152,17 @@ class PoniesPostList extends Component {
         console.debug('PoniesPostList -> handleUserFollowToggled')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 

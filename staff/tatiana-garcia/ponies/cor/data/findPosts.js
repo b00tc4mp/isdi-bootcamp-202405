@@ -7,17 +7,23 @@ import validate from '../../app/validate.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function findPosts(condition) {
+function findPosts(condition, callback) {
     validate.callback(condition, 'condition')
+    validate.callback(callback)
 
-    const json = fs.readFileSync(`${__dirname}/posts.json`, "utf-8")
+    fs.readFile(`${__dirname}/posts.json`, 'utf8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const posts = json ? JSON.parse(json) : []
+            return
+        }
 
-    const foundPosts = posts.filter(condition)
+        const posts = json ? JSON.parse(json) : []
 
-    return foundPosts
+        const foundPosts = posts.filter(condition)
 
+        callback(null, foundPosts)
+    })
 }
 
 export default findPosts
