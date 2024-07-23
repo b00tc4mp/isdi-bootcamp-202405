@@ -1,0 +1,46 @@
+.Button {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: .5rem;
+    border-width: 1px;
+    border-style: solid;
+    color: dimgray;
+    padding: 0;
+}
+
+.Button--add {
+    position: fixed;
+    bottom: 5px;
+    margin: 5px;
+}
+
+.form__button {
+    border-radius: 15px;
+    font-size: inherit;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    font-weight: bold;
+    color: rgb(88, 5, 88);
+}
+
+.post-action-button {
+
+    background: white;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    border-radius: 5px;
+    border: 1px black;
+    color: black;
+    font-weight: bold;
+    width: 70px;
+    height: 30px;
+}
+
+.add-post-button {
+    font-weight: bold;
+    background: lightblue;
+    color: black;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+}

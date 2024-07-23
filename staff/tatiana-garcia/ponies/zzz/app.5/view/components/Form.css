@@ -1,0 +1,12 @@
+.Form--column {
+    flex-direction: column;
+}
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 .5rem .5rem .5rem;
+    gap: .5rem;
+    min-width: 80%;
+    margin-bottom: 0%;
+}
