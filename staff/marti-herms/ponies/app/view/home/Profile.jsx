@@ -1,7 +1,7 @@
 import logic from '../../logic'
 
 import Container from '../components/Container'
-import Avatar from './Avatar'
+import Avatar from '../components/Avatar'
 import Heading from '../components/Heading'
 import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
@@ -9,30 +9,31 @@ import Form from '../components/Form'
 import Label from '../components/Label'
 import Input from '../components/Input'
 
-import { Component } from 'react'
+import { useState } from 'react'
 
-class Profile extends Component {
-    constructor() {
-        super()
+const Profile = ({ user, onChange }) => {
+    const [editUsernameVisibility, setEditUsernameVisibility] = useState(false)
+    const [editAvatarVisibility, setEditAvatarVisibility] = useState(false)
 
-        this.state = { editUserVisibility: false }
+    const handleEditUsernameClick = () => {
+        setEditUsernameVisibility(true)
+        setEditAvatarVisibility(false)
     }
 
-    handleOptions() {
-        this.setState({ editUserVisibility: true })
+    const handleEditAvatarClick = () => {
+        setEditUsernameVisibility(false)
+        setEditAvatarVisibility(true)
     }
 
-    handleEditUserInfo(event) {
+    const handleEditUsername = (event) => {
         event.preventDefault()
         try {
             const form = event.target
 
-            const avatarInput = form["new-avatar"]
             const usernameInput = form["new-username"]
-            // const newPasswordInput = form["new-password"]
             const actualPasswordInput = form["actual-password"]
 
-            logic.editUserInfo(avatarInput.value, usernameInput.value, /*newPasswordInput.value,*/ actualPasswordInput.value, (error) => {
+            logic.editUserUsername(usernameInput.value, actualPasswordInput.value, (error) => {
                 if (error) {
                     console.error(error)
 
@@ -40,9 +41,9 @@ class Profile extends Component {
 
                     return
                 }
-                this.setState({ editUserVisibility: false })
+                onChange(usernameInput.value)
 
-                this.props.onChange(usernameInput.value)
+                setEditUsernameVisibility(false)
             })
         } catch (error) {
             console.error(error)
@@ -51,50 +52,80 @@ class Profile extends Component {
         }
     }
 
-    handleEditUserCancel() {
-        this.setState({ editUserVisibility: false })
+    const handleEditAvatar = (event) => {
+        event.preventDefault()
+        try {
+            const form = event.target
+
+            const avatarInput = form["new-avatar"]
+
+            logic.editUserAvatar(avatarInput.value, (error) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+                onChange(user.username)
+
+                setEditAvatarVisibility(false)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
 
-    render() {
-        const { user } = this.props
+    const handleEditUserCancel = () => {
+        setEditUsernameVisibility(false)
+        setEditAvatarVisibility(false)
+    }
 
-        return <>
-            <Container className="Container--profile">
-                <Avatar url={user.avatar} />
-                <Heading level="3">{user.username}</Heading>
-            </Container>
-            <Container className="Container--profile">
-                <Paragraph className="Paragraph--center">{user.yourPosts.length + ' posts'}</Paragraph>
-                <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
-                <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
-            </Container>
-            {user.username === sessionStorage.username && <Button onClick={this.handleOptions.bind(this)}>Edit</Button>}
-            {this.state.editUserVisibility && <Container className="Container--center-column">
-                <Form className="Form--column" onSubmit={this.handleEditUserInfo.bind(this)}>
-                    <Container>
-                        <Label htmlFor="new-avatar">Avatar</Label>
-                        <Input id="new-avatar" defaultValue={user.avatar} />
-                    </Container>
+    return <>
+        <Container className="Container--profile">
+            <Avatar url={user.avatar} />
+            <Heading level="3">{user.username}</Heading>
+        </Container>
+        <Container className="Container--profile">
+            <Paragraph className="Paragraph--center">{user.yourPosts.length + ' posts'}</Paragraph>
+            <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
+            <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
+        </Container>
+        {user.username === sessionStorage.username && <div>
+            {/* <Button onClick={handleEditUsernameClick}>Edit Username</Button> */}
+            <Button onClick={handleEditAvatarClick}>Edit Avatar</Button>
+        </div>}
+        {/* {editUsernameVisibility && <Container className="Container--center-column">
+                <Form className="Form--column" onSubmit={handleEditUsername}>
                     <Container>
                         <Label htmlFor="new-username">Username</Label>
                         <Input id="new-username" defaultValue={user.username} />
                     </Container>
-                    {/* <Container>
-                        <Label htmlFor="new-password">New Password</Label>
-                        <Input id="new-password" type="password" />
-                    </Container> */}
                     <Container>
                         <Label htmlFor="actual-password">Password</Label>
                         <Input id="actual-password" type="password" required={true} />
                     </Container>
                     <Container className="Container--actions Container--space-around">
                         <Button type="submit">Submit</Button>
-                        <Button onClick={this.handleEditUserCancel.bind(this)}>Cancel</Button>
+                        <Button onClick={handleEditUserCancel}>Cancel</Button>
                     </Container>
                 </Form>
-            </Container>}
-        </>
-    }
+            </Container>} */}
+        {editAvatarVisibility && <Container className="Container--center-column">
+            <Form className="Form--column" onSubmit={handleEditAvatar}>
+                <Container>
+                    <Label htmlFor="new-avatar">Avatar</Label>
+                    <Input id="new-avatar" defaultValue={user.avatar} />
+                </Container>
+                <Container className="Container--actions Container--space-around">
+                    <Button type="submit">Submit</Button>
+                    <Button onClick={handleEditUserCancel}>Cancel</Button>
+                </Container>
+            </Form>
+        </Container>}
+    </>
 }
 
 export default Profile

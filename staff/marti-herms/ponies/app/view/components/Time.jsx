@@ -1,6 +1,6 @@
 import './Time.css';
 
-function Time({ children }) {
+const Time = ({ children }) => {
     return <time className="Time">{children}</time>
 }
 

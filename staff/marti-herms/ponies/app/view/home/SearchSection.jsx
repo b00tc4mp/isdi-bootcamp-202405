@@ -5,7 +5,7 @@ import Button from '../components/Button';
 
 import './SearchSection.css';
 
-function SearchSection({ onSearch, onCancel }) {
+const SearchSection = ({ onSearch, onCancel }) => {
     const handleSearchUser = (event) => {
         event.preventDefault();
 

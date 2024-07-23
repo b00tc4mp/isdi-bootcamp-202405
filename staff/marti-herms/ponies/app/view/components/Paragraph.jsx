@@ -1,6 +1,6 @@
 import './Paragraph.css';
 
-function Paragraph({ className = "", children }) {
+const Paragraph = ({ className = "", children }) => {
     return <p className={`Paragraph ${className}`}>{children}</p>
 }
 

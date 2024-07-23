@@ -1,71 +1,34 @@
-import logic from '../logic';
-
 import Register from './Register';
 import Login from './Login';
 import Home from './Home';
 
-import { Component } from 'react';
+import { useState } from 'react';
 
-class App extends Component {
-    constructor() {
-        super();
+const App = () => {
+    const [view, setView] = useState(sessionStorage.username ? 'home' : 'login')
 
-        this.state = { view: 'login' };
-
+    const handleLogin = () => {
+        setView('home');
     }
 
-    componentDidMount() {
-        try {
-            if (sessionStorage.username) {
-                logic.getUserList((error, userList) => {
-                    if (error) {
-                        console.error(error)
-
-                        alert(error.message)
-
-                        return
-                    }
-
-                    if (!userList.includes(sessionStorage.username)) {
-                        throw new Error('user doesn\'t exist');
-                    }
-
-                    this.setState({ view: 'home' })
-                })
-            }
-        } catch (error) {
-            console.error(error);
-
-            if (error.message === 'user doesn\'t exist') {
-                logic.logoutUser();
-            }
-        }
+    const handleRegister = () => {
+        setView('login');
     }
 
-    handleLogin() {
-        this.setState({ view: 'home' });
+    const handleRegisterClick = () => {
+        setView('register');
     }
 
-    handleRegister() {
-        this.setState({ view: 'login' });
+    const handleLogout = () => {
+        setView('login');
     }
 
-    handleRegisterClick() {
-        this.setState({ view: 'register' });
-    }
+    return <>
+        {view === 'login' && <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />}
+        {view === 'register' && <Register onRegister={handleRegister} onLoginClick={handleRegister} />}
+        {view === 'home' && <Home onLogout={handleLogout} />}
+    </>
 
-    handleLogout() {
-        this.setState({ view: 'login' });
-    }
-
-    render() {
-        const { view } = this.state;
-        return <>
-            {view === 'login' && <Login onLogin={this.handleLogin.bind(this)} onRegisterClick={this.handleRegisterClick.bind(this)} />}
-            {view === 'register' && <Register onRegister={this.handleRegister.bind(this)} onLoginClick={this.handleRegister.bind(this)} />}
-            {view === 'home' && <Home onLogout={this.handleLogout.bind(this)} />}
-        </>
-    }
 }
 
 export default App

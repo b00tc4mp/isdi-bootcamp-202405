@@ -4,7 +4,7 @@ import Button from '../components/Button'
 
 import './LikeButton.css'
 
-function LikeButton({ post, onLikeClicked }) {
+const LikeButton = ({ post, onLikeClicked }) => {
     const handleLike = () => {
         try {
             logic.togglePostLike(post.id, (error) => {

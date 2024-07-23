@@ -1,88 +1,83 @@
-import AddPostSection from './AddPostSection';
-import SearchSection from './SearchSection';
-import Button from '../components/Button';
+import AddPostSection from './AddPostSection'
+import SearchSection from './SearchSection'
+import Button from '../components/Button'
 
-import { Component } from 'react';
+import { useState } from 'react'
 
-import './Footer.css';
+import './Footer.css'
 
-class Footer extends Component {
-    constructor() {
-        super();
+const Footer = ({ onHomeButtonClick, onSearch, onPostCreated, onFollowedButtonClick, onSavedPostsButtonClick }) => {
+    const [addPostVisibility, setAddPostVisibility] = useState(null)
+    const [activeButton, setActiveButton] = useState('home')
 
-        this.state = { addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false };
+    const handleHomeButton = () => {
+        setActiveButton('home')
+
+        onHomeButtonClick()
     }
 
-    handleHomeButton() {
-        this.setState({ homeButton: true, savedButton: false, searchButton: false, followedButton: false });
+    const handleFollowedPostsButton = () => {
+        setActiveButton('followed')
 
-        this.props.onHomeButtonClick();
+        onFollowedButtonClick()
     }
 
-    handleFollowedPostsButton() {
-        this.setState({ homeButton: false, savedButton: false, searchButton: false, followedButton: true });
+    const handleSavedPostsButton = () => {
+        setActiveButton('saved')
 
-        this.props.onFollowedButtonClick();
+        onSavedPostsButtonClick()
     }
 
-    handleSavedPostsButton() {
-        this.setState({ homeButton: false, savedButton: true, searchButton: false, followedButton: false })
-
-        this.props.onSavedPostsButtonClick();
+    const handleSearchUserButton = () => {
+        setAddPostVisibility('searchUser')
+        setActiveButton('search')
     }
 
-    handleSearchUserButton() {
-        this.setState({ addPostVisibility: 'searchUser', homeButton: false, savedButton: false, searchButton: true, followedButton: false });
-    }
-
-    handleUserSearched(username) {
+    const handleUserSearched = (username) => {
         try {
-            this.setState({ addPostVisibility: null, homeButton: false, savedButton: false, searchButton: true, followedButton: false });
+            setAddPostVisibility(null)
 
-            this.props.onSearch(username);
+            onSearch(username)
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
-    handleAddPostButton() {
-        this.setState({ addPostVisibility: 'addPost' })
+    const handleAddPostButton = () => {
+        setAddPostVisibility('addPost')
     }
 
-    handlePostCreated() {
+    const handlePostCreated = () => {
         try {
-            this.setState({ addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false })
+            setAddPostVisibility(null)
+            setActiveButton('home')
 
-            this.props.onPostCreated();
+            onPostCreated()
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
-    handleCancel() {
-        this.setState({ addPostVisibility: null, homeButton: true, savedButton: false, searchButton: false, followedButton: false });
+    const handleCancel = () => {
+        setAddPostVisibility(null)
+        setActiveButton(
+            'home')
+        onPostCreated()
     }
 
-    render() {
-        let homeClassName = this.state.homeButton ? 'Button--home active' : 'Button--home'
-        let savedClassName = this.state.savedButton ? 'Button--saved active' : 'Button--saved'
-        let searchClassName = this.state.searchButton ? 'Button--search--active' : 'Button--search'
-        let followedClassName = this.state.followedButton ? 'Button--followed active' : 'Button--followed'
-
-        return <footer className="Footer">
-            {this.state.addPostVisibility === 'addPost' && <AddPostSection onPostCreated={this.handlePostCreated.bind(this)} onCancel={this.handleCancel.bind(this)} />}
-            {this.state.addPostVisibility === 'searchUser' && <SearchSection onSearch={this.handleUserSearched.bind(this)} onCancel={this.handleCancel.bind(this)} />}
-            <Button className={homeClassName} onClick={this.handleHomeButton.bind(this)}></Button>
-            <Button className={searchClassName} onClick={this.handleSearchUserButton.bind(this)}></Button>
-            <Button className="Button--add--post" onClick={this.handleAddPostButton.bind(this)}>+</Button>
-            <Button className={followedClassName} onClick={this.handleFollowedPostsButton.bind(this)}></Button>
-            <Button className={savedClassName} onClick={this.handleSavedPostsButton.bind(this)}></Button>
-        </footer>
-    }
+    return <footer className="Footer">
+        {addPostVisibility === 'addPost' && <AddPostSection onPostCreated={handlePostCreated} onCancel={handleCancel} />}
+        {addPostVisibility === 'searchUser' && <SearchSection onSearch={handleUserSearched} onCancel={handleCancel} />}
+        <Button className={activeButton === 'home' ? 'Button--home active' : 'Button--home'} onClick={handleHomeButton}></Button>
+        <Button className={activeButton === 'search' ? 'Button--search--active' : 'Button--search'} onClick={handleSearchUserButton}></Button>
+        <Button className="Button--add--post" onClick={handleAddPostButton}>+</Button>
+        <Button className={activeButton === 'followed' ? 'Button--followed active' : 'Button--followed'} onClick={handleFollowedPostsButton}></Button>
+        <Button className={activeButton === 'saved' ? 'Button--saved active' : 'Button--saved'} onClick={handleSavedPostsButton}></Button>
+    </footer>
 }
 
-export default Footer;
+export default Footer

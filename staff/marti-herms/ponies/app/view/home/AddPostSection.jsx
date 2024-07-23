@@ -7,7 +7,7 @@ import Button from '../components/Button';
 
 import './AddPostSection.css';
 
-function AddPostSection({ onPostCreated, onCancel }) {
+const AddPostSection = ({ onPostCreated, onCancel }) => {
     const handleAddPost = (event) => {
         event.preventDefault();
 

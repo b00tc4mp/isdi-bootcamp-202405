@@ -2,47 +2,51 @@ import Header from './home/Header';
 import Body from './home/Body';
 import Footer from './home/Footer';
 
-import { Component } from 'react';
-
 import './Home.css';
 
-class Home extends Component {
-    constructor() {
-        super();
+import { useState } from 'react';
 
-        this.state = { refreshStamp: null, feed: 'home' };
+const Home = ({ onLogout }) => {
+    const [refreshStamp, setRefreshStamp] = useState(null)
+    const [feed, setFeed] = useState('home')
+
+    const handleHomeFeed = () => {
+        setFeed('home');
     }
 
-    handleHomeFeed() {
-        this.setState({ feed: 'home' });
+    const handleSearchUser = (username) => {
+        setFeed(username)
     }
 
-    handleSearchUser(username) {
-        this.setState({ feed: username })
+    const handlePostCreatedOrCanceled = () => {
+        setRefreshStamp(Date.now());
+        setFeed('home')
     }
 
-    handlePostCreated() {
-        this.setState({ refreshStamp: Date.now() });
+    const handleUserFollow = () => {
+        setRefreshStamp(Date.now())
     }
 
-    handleFollowedFeed() {
-        this.setState({ feed: 'followed' });
+    const handleFollowedFeed = () => {
+        setFeed('followed');
     }
 
-    handleSavedPostsFeed() {
-        this.setState({ feed: 'saved' });
+    const handleSavedPostsFeed = () => {
+        setFeed('saved');
     }
 
-    render() {
-        const { onLogout } = this.props;
-        return <>
-            <Header onLogout={onLogout} />
+    return <>
+        <Header onLogout={onLogout} />
 
-            <Body refreshStamp={this.state.refreshStamp} feed={this.state.feed} />
+        <Body refreshStamp={refreshStamp} feed={feed} onProfile={handleSearchUser} onFollow={handleUserFollow} />
 
-            <Footer onHomeButtonClick={this.handleHomeFeed.bind(this)} onSearch={this.handleSearchUser.bind(this)} onPostCreated={this.handlePostCreated.bind(this)} onFollowedButtonClick={this.handleFollowedFeed.bind(this)} onSavedPostsButtonClick={this.handleSavedPostsFeed.bind(this)} />
-        </>
-    }
+        <Footer onHomeButtonClick={handleHomeFeed}
+            onSearch={handleSearchUser}
+            onPostCreated={handlePostCreatedOrCanceled}
+            onFollowedButtonClick={handleFollowedFeed}
+            onSavedPostsButtonClick={handleSavedPostsFeed} />
+    </>
+
 }
 
 export default Home

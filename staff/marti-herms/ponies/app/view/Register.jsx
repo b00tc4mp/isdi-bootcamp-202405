@@ -10,7 +10,7 @@ import logic from '../logic'
 
 import './Register.css'
 
-function Register({ onRegister, onLoginClick }) {
+const Register = ({ onRegister, onLoginClick }) => {
     const handleRegisterSubmit = (event) => {
         event.preventDefault()
 

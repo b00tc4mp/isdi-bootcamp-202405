@@ -3,42 +3,41 @@ import logic from '../../logic'
 import Post from './Post'
 import Profile from './Profile'
 
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 
-class Body extends Component {
-    constructor() {
-        super()
+const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
+    const [posts, setPosts] = useState([])
+    const [user, setUser] = useState(null)
 
-        this.state = { posts: [], profile: null }
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
+            if (!user) {
+                logic.getUser(sessionStorage.username, (error, user) => {
+                    if (error) {
+                        console.error(error)
 
-                    alert(error.message)
+                        alert(error.message)
 
-                    return
-                }
+                        return
+                    }
 
-                this.setState({ posts })
-            })
-        } catch (error) {
-            console.error(error)
+                    setUser(user)
+                })
+            } else if (user.username !== feed) {
+                logic.getUser((feed === 'home' || feed === 'saved' || feed === 'followed') ? sessionStorage.username : feed, (error, user) => {
+                    if (error) {
+                        console.error(error)
 
-            alert(error.message)
-        }
-    }
+                        alert(error.message)
 
-    componentWillReceiveProps(newProps) {
-        const newFeed = newProps.feed
+                        return
+                    }
 
-        const oldFeed = this.props.feed
+                    setUser(user)
+                })
+            }
 
-        if (newProps.refreshStamp !== this.props.refreshStamp || (/*newFeed !== oldFeed &&*/ newFeed === 'home')) {
-            try {
+            if (feed === 'home') {
                 logic.getAllPosts((error, posts) => {
                     if (error) {
                         console.error(error)
@@ -48,15 +47,9 @@ class Body extends Component {
                         return
                     }
 
-                    this.setState({ posts, profile: null })
+                    setPosts(posts)
                 })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-        } else if (newFeed !== oldFeed && newFeed === 'saved') {
-            try {
+            } else if (feed === 'saved') {
                 logic.getUserSavedPosts((error, posts) => {
                     if (error) {
                         console.error(error)
@@ -66,15 +59,9 @@ class Body extends Component {
                         return
                     }
 
-                    this.setState({ posts, profile: null })
+                    setPosts(posts)
                 })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-        } else if (newFeed !== oldFeed && newFeed === 'followed') {
-            try {
+            } else if (feed === 'followed') {
                 logic.getFollowedUserPosts((error, posts) => {
                     if (error) {
                         console.error(error)
@@ -84,16 +71,10 @@ class Body extends Component {
                         return
                     }
 
-                    this.setState({ posts, profile: null })
+                    setPosts(posts)
                 })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-        } else if (newFeed !== oldFeed && logic.getUserList().includes(newFeed)) {
-            try {
-                logic.getUserPosts(newFeed, (error, posts) => {
+            } else {
+                logic.getUserPosts(feed, (error, posts) => {
                     if (error) {
                         console.error(error)
 
@@ -102,39 +83,19 @@ class Body extends Component {
                         return
                     }
 
-                    this.setState({ posts, profile: newFeed })
+                    setPosts(posts)
                 })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
             }
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
         }
-    }
+    }, [refreshStamp, feed])
 
-    handleUserProfile(username) {
+    const handleUserProfile = (username) => {
         try {
-            logic.getUser(username, (error, user) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                logic.getUserPosts(username, (error, posts) => {
-                    if (error) {
-                        console.error(error)
-
-                        alert(error.message)
-
-                        return
-                    }
-
-                    this.setState({ posts, profile: user })
-                })
-            })
+            onProfile(username)
         } catch (error) {
             console.error(error)
 
@@ -142,7 +103,7 @@ class Body extends Component {
         }
     }
 
-    handleDeletedPost() {
+    const handleDeletedPost = () => {
         try {
             logic.getAllPosts((error, posts) => {
                 if (error) {
@@ -153,7 +114,7 @@ class Body extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -162,7 +123,7 @@ class Body extends Component {
         }
     }
 
-    handlePostLiked() {
+    const handlePostLiked = () => {
         try {
             logic.getAllPosts((error, posts) => {
                 if (error) {
@@ -173,7 +134,7 @@ class Body extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -182,8 +143,8 @@ class Body extends Component {
         }
     }
 
-    handlePostSaved() {
-        if (this.props.feed === 'saved') {
+    const handlePostSaved = () => {
+        if (feed === 'saved') {
             try {
                 logic.getUserSavedPosts((error, posts) => {
                     if (error) {
@@ -194,7 +155,7 @@ class Body extends Component {
                         return
                     }
 
-                    this.setState({ posts })
+                    setPosts(posts)
                 })
 
             } catch (error) {
@@ -205,7 +166,7 @@ class Body extends Component {
         }
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         try {
             logic.getAllPosts((error, posts) => {
                 if (error) {
@@ -216,7 +177,7 @@ class Body extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -225,43 +186,9 @@ class Body extends Component {
         }
     }
 
-    handleUserFollowed() {
+    const handleUserFollowed = () => {
         try {
-            const username = this.state.profile
-            logic.getUserList((error, userList) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-                if (userList.includes(username)) {
-                    logic.getUserPosts(username, (error, posts) => {
-                        if (error) {
-                            console.error(error)
-
-                            alert(error.message)
-
-                            return
-                        }
-
-                        this.setState({ posts })
-                    })
-                } else {
-                    logic.getAllPosts((error, posts) => {
-                        if (error) {
-                            console.error(error)
-
-                            alert(error.message)
-
-                            return
-                        }
-
-                        this.setState({ posts })
-                    })
-                }
-            })
+            onFollow()
         } catch (error) {
             console.error(error)
 
@@ -269,21 +196,18 @@ class Body extends Component {
         }
     }
 
-    render() {
-        const { profile } = this.state
-        return <main className="View--home">
-            {profile && <Profile user={profile} onChange={this.handleUserProfile.bind(this)} />}
-            <section className="Post-list">
-                {this.state.posts.map(post => <Post key={post.id} post={post}
-                    onUserClick={this.handleUserProfile.bind(this)}
-                    onPostDeleted={this.handleDeletedPost.bind(this)}
-                    onPostEdited={this.handlePostEdited.bind(this)}
-                    onPostLiked={this.handlePostLiked.bind(this)}
-                    onPostSaved={this.handlePostSaved.bind(this)}
-                    onFollow={this.handleUserFollowed.bind(this)} />)}
-            </section>
-        </main>
-    }
+    return <main className="View--home">
+        {user && user.username === feed && <Profile user={user} onChange={handleUserProfile} />}
+        <section className="Post-list">
+            {posts.map(post => <Post key={post.id} post={post}
+                onUserClick={handleUserProfile}
+                onPostDeleted={handleDeletedPost}
+                onPostEdited={handlePostEdited}
+                onPostLiked={handlePostLiked}
+                onPostSaved={handlePostSaved}
+                onFollow={handleUserFollowed} />)}
+        </section>
+    </main>
 }
 
 export default Body

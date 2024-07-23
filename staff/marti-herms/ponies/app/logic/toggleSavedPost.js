@@ -1,4 +1,9 @@
+import validate from '../../core/validate.js'
+
 const toggleSavedPost = (postId, callback) => {
+    validate.string(postId, 'postId')
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {

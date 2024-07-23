@@ -1,24 +1,14 @@
 import logic from '../../logic'
 import Button from '../components/Button'
 
-import { Component } from 'react'
+import { useState } from 'react'
 
 import './SaveButton.css'
 
-class SaveButton extends Component {
-    constructor(props) {
-        super(props)
+const SaveButton = ({ post, onSaveClicked }) => {
+    const [saved, setSaved] = useState(post.fav)
 
-        const { post } = props
-
-        this.state = {
-            saved: post.fav
-        }
-    }
-
-    handleSave = () => {
-        const { post } = this.props
-
+    const handleSave = () => {
         try {
             logic.toggleSavedPost(post.id, (error) => {
                 if (error) {
@@ -28,11 +18,9 @@ class SaveButton extends Component {
 
                     return
                 }
-                this.setState({
-                    saved: !this.state.saved
-                })
+                setSaved(!saved)
 
-                this.props.onSaveClicked()
+                onSaveClicked()
             })
         } catch (error) {
             console.error(error)
@@ -41,21 +29,9 @@ class SaveButton extends Component {
         }
     }
 
-    componentWillReceiveProps(newProps) {
-        const { post } = newProps
-
-        this.setState({
-            saved: post.fav
-        })
-    }
-
-    render() {
-        const flag = this.state.saved ? "Save--active" : "Save--inactive"
-
-        return <Button className="Save--button" onClick={this.handleSave}>
-            <div className={flag}></div>
-        </Button>
-    }
+    return <Button className="Save--button" onClick={handleSave}>
+        <div className={saved ? "Save--active" : "Save--inactive"}></div>
+    </Button>
 }
 
 export default SaveButton

@@ -1,4 +1,4 @@
-function Link({ onClick, text }) {
+const Link = ({ onClick, text }) => {
     const handleClick = (event) => {
         event.preventDefault();
 

@@ -1,20 +1,16 @@
 import logic from '../../logic';
 
-import { Component } from 'react';
-
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
 
 import './Header.css';
 
-class Header extends Component {
-    constructor() {
-        super()
+import { useEffect, useState } from 'react';
 
-        this.state = { name: null }
-    }
+const Header = ({ onLogout }) => {
+    const [name, setName] = useState(null)
 
-    componentDidMount() {
+    useEffect(() => {
         try {
             logic.getUserName((error, name) => {
                 if (error) {
@@ -25,20 +21,21 @@ class Header extends Component {
                     return
                 }
 
-                this.setState({ name })
+                setName(name)
             })
         } catch (error) {
             console.error(error);
 
             alert(error.message);
         }
-    }
+    })
 
-    handleLogoutClick() {
+
+    const handleLogoutClick = () => {
         try {
             logic.logoutUser();
 
-            this.props.onLogout();
+            onLogout();
         } catch (error) {
             console.error(error);
 
@@ -46,12 +43,10 @@ class Header extends Component {
         }
     }
 
-    render() {
-        return <header className="Header">
-            <Paragraph>{this.state.name}</Paragraph>
-            <Button className="Button--logout" onClick={this.handleLogoutClick.bind(this)}>Logout</Button>
-        </header>
-    }
+    return <header className="Header">
+        <Paragraph>{name}</Paragraph>
+        <Button className="Button--logout" onClick={handleLogoutClick}>Logout</Button>
+    </header>
 }
 
 export default Header;

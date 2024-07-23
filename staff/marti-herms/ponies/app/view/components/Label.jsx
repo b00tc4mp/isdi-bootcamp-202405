@@ -1,6 +1,6 @@
 import './Label.css';
 
-function Label({ htmlFor, children }) {
+const Label = ({ htmlFor, children }) => {
     return <label className="Label" htmlFor={htmlFor}>{children}</label>
 }
 
