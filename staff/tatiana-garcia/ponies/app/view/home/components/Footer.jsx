@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import CreatePost from "./CreatePost"
 
@@ -6,42 +6,35 @@ import Button from "../../components/Button"
 
 import './Footer.css'
 
-class Footer extends Component {
-    constructor() {
-        console.debug('Footer -> constructor')
+const Footer = ({ onPostCreated }) => {
+    console.debug('Footer -> call')
 
-        super()
+    const [createPostVisible, setCreatePostVisible] = useState(false)
 
-        this.state = { createPostVisible: false }
-    }
-
-    handleCreatePostClick() {
+    const handleCreatePostClick = () => {
         console.debug('Footer -> handleCreatePostClick')
 
-        this.setState({ createPostVisible: true })
+        setCreatePostVisible(true)
     }
 
-    handleCancelCreatePostClick() {
+    const handleCancelCreatePostClick = () => {
         console.debug('Footer -> handleCancelCreatePostClick')
 
-        this.setState({ createPostVisible: false })
+        setCreatePostVisible(false)
     }
 
-    handlePostCreated() {
-        this.setState({ createPostVisible: false })
+    const handlePostCreated = () => {
+        setCreatePostVisible(false)
 
-        this.props.onPostCreated()
+        onPostCreated()
     }
 
-    render() {
-        console.debug('Footer -> render')
+    return <footer className="footer">
+        <Button className="add-post-button Button--add" onClick={handleCreatePostClick}>＋</Button>
 
-        return <footer className="footer">
-            <Button className="add-post-button Button--add" onClick={this.handleCreatePostClick.bind(this)}>＋</Button>
+        {createPostVisible && <CreatePost onPostCreated={handlePostCreated} onCancelCreatePost={handleCancelCreatePostClick} />}
+    </footer>
 
-            {this.state.createPostVisible && <CreatePost onPostCreated={this.handlePostCreated.bind(this)} onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)} />}
-        </footer>
-    }
 }
 
 export default Footer
