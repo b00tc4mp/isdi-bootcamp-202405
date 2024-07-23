@@ -2,28 +2,55 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-function toggleLikePost(username, postId) {
-    validate.postId(postId)
+function toggleLikePost(username, postId, callback) {
+    validate.username(username)
+    validate.postId(postId, 'postId')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (!user) throw new Error('user not found')
+            return
+        }
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+        if (!user) {
+            callback(new Error('user not found'))
 
-    const post = data.findPost(post => post.id === postId)
+            return
+        }
 
-    if (post === null)
-        throw new Error('post not found')
+        data.findPost(post => post.id === postId, (error, post) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    const index = post.likes.indexOf(username)
+                return
+            }
 
-    if (index < 0)
-        post.likes.push(username)
-    else
-        post.likes.splice(index, 1)
+            if (!post) {
+                callback(new Error('post not found'))
 
-    data.updatePost(post => post.id === postId, post)
+                return
+            }
+
+            const index = post.likes.indexOf(username)
+
+            if (index < 0)
+                post.likes.push(username)
+            else
+                post.likes.splice(index, 1)
+
+            data.updatePost(post => post.id === postId, post, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+    })
 }
 
 export default toggleLikePost

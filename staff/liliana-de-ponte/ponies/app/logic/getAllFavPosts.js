@@ -19,7 +19,7 @@ const getAllFavPosts = callback => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts/ponies')
+    xhr.open('GET', 'http://localhost:8080/posts/favs')
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }

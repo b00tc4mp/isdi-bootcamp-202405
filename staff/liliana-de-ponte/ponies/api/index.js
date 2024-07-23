@@ -12,7 +12,7 @@ api.use((req, res, next) => {
     next()
 })
 
-api.get('/hello', (req, res) => {
+api.get('/', (req, res) => {
     res.send('Hello, World!')
 })
 
@@ -23,14 +23,19 @@ api.post('/users', (req, res) => {
         const { name, surname, email, username, password, passwordRepeat } = JSON.parse(json)
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.status(201).send()
+                    return
+                }
+
+                res.status(201).send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
     })
-
 })
 
 api.post('/users/auth', (req, res) => {
@@ -40,17 +45,22 @@ api.post('/users/auth', (req, res) => {
         const { username, password } = JSON.parse(json)
 
         try {
-            logic.authenticateUser(username, password)
+            logic.authenticateUser(username, password, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.send()
+                    return
+                }
+
+                res.send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
     })
-
 })
 
-api.get('/users/:targetUsername/name', (req, res) => { //:ruta dinamica
+api.get('/users/:targetUsername/name', (req, res) => {
     const { authorization } = req.headers
 
     const username = authorization.slice(6)
@@ -58,9 +68,15 @@ api.get('/users/:targetUsername/name', (req, res) => { //:ruta dinamica
     const { targetUsername } = req.params
 
     try {
-        const name = logic.getUserName(username, targetUsername)
+        logic.getUserName(username, targetUsername, (error, name) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.json(name)
+                return
+            }
+
+            res.json(name)
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -72,9 +88,15 @@ api.get('/posts', (req, res) => {
     const username = authorization.slice(6)
 
     try {
-        const posts = logic.getAllPosts(username)
+        logic.getAllPosts(username, (error, posts) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.json(posts)
+                return
+            }
+
+            res.json(posts)
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -86,9 +108,15 @@ api.get('/posts/ponies', (req, res) => {
     const username = authorization.slice(6)
 
     try {
-        const posts = logic.getAllPoniesPosts(username)
+        logic.getAllPoniesPosts(username, (error, posts) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.json(posts)
+                return
+            }
+
+            res.json(posts)
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -100,9 +128,15 @@ api.get('/posts/favs', (req, res) => {
     const username = authorization.slice(6)
 
     try {
-        const posts = logic.getAllFavPosts(username)
+        logic.getAllFavPosts(username, (error, posts) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.json(posts)
+                return
+            }
+
+            res.json(posts)
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -119,9 +153,15 @@ api.post('/posts', (req, res) => {
         const { image, caption } = JSON.parse(json)
 
         try {
-            logic.createPost(username, image, caption)
+            logic.createPost(username, image, caption, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.status(201).send()
+                    return
+                }
+
+                res.status(201).send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
@@ -136,9 +176,15 @@ api.delete('/posts/:postId', (req, res) => {
     const { postId } = req.params
 
     try {
-        logic.deletePost(username, postId)
+        logic.deletePost(username, postId, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.status(204).send()
+                return
+            }
+
+            res.status(204).send()
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -152,9 +198,15 @@ api.patch('/posts/:postId/likes', (req, res) => {
     const { postId } = req.params
 
     try {
-        logic.toggleLikePost(username, postId)
+        logic.toggleLikePost(username, postId, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.status(204).send()
+                return
+            }
+
+            res.status(204).send()
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -168,9 +220,15 @@ api.patch('/posts/:postId/favs', (req, res) => {
     const { postId } = req.params
 
     try {
-        logic.toggleFavPost(username, postId)
+        logic.toggleFavPost(username, postId, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.status(204).send()
+                return
+            }
+
+            res.status(204).send()
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -184,9 +242,15 @@ api.patch('/users/:targetUsername/follows', (req, res) => {
     const { targetUsername } = req.params
 
     try {
-        logic.toggleFollowUser(username, targetUsername)
+        logic.toggleFollowUser(username, targetUsername, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
 
-        res.status(204).send()
+                return
+            }
+
+            res.status(204).send()
+        })
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
@@ -205,9 +269,15 @@ api.patch('/posts/:postId/caption', (req, res) => {
         const { caption } = JSON.parse(json)
 
         try {
-            logic.updatePostCaption(username, postId, caption)
+            logic.updatePostCaption(username, postId, caption, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
 
-            res.status(204).send()
+                    return
+                }
+
+                res.status(204).send()
+            })
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }

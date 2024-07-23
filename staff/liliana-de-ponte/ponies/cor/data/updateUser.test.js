@@ -8,6 +8,12 @@ const lucas = {
     password: '123456789'
 }
 
-const tatiana = updateUser(user => user.username === 'tatianagarcia', lucas)
+updateUser(user => user.username === 'tatianagarcia', lucas, error => {
+    if (error) {
+        console.error(error)
 
-console.log(tatiana)
+        return
+    }
+
+    console.log('user updated')
+})

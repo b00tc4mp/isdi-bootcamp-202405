@@ -122,9 +122,17 @@ class Post extends Component {
     handleFavPostClick() {
         console.debug('Post -> handleFavPostClick')
         try {
-            logic.toggleFavPost(this.props.post.id)
+            logic.toggleFavPost(this.props.post.id, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostFavToggled()
+                    alert(error.message)
+
+                    return
+                }
+                this.props.onPostFavToggled()
+            })
+
         } catch (error) {
             console.error(error)
 

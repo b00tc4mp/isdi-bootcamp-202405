@@ -1,12 +1,19 @@
 import findUser from "./findUser.js";
 
-const liliana = findUser(user => user.username === 'lilideponte')
-const samuele = findUser(user => user.username === 'samuelespinetti')
-const lucas = findUser(user => user.username === 'lucas')
-const tatiana = findUser(user => user.username === 'tatianagarcia')
+const peter = {
+    name: "Peter",
+    surname: "Pan",
+    email: "peter@pan.com",
+    username: "peterpan",
+    password: "123456789",
+}
 
+findUser(user => user.username === 'peterpan', (error, user) => {
+    if (error) {
+        console.error(error)
 
-console.log(liliana)
-console.log(samuele)
-console.log(lucas)
-console.log(tatiana)
+        return
+    }
+
+    console.log('user found', user)
+})

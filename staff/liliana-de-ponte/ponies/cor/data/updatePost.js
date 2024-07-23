@@ -1,29 +1,48 @@
 import fs from 'fs'
 import path from 'path'
-import {fileURLToPath} from 'url'
+import { fileURLToPath } from 'url'
 
 import validate from '../validate.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function updatePost(condition, post) {
+function updatePost(condition, post, callback) {
     validate.callback(condition, 'condition')
     validate.object(post, 'post')
+    validate.callback(callback)
 
-    let json = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
+    fs.readFile(`${__dirname}/posts.json`, 'utf8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const posts = json? JSON.parse(json) : []
+            return
+        }
 
-    const index = posts.findIndex(condition)
+        const posts = json ? JSON.parse(json) : []
 
-    if (index > -1) {
-        posts.splice(index, 1, post)
+        const index = posts.findIndex(condition)
 
-        json= JSON.stringify(posts)
+        if (index > -1) {
+            posts.splice(index, 1, post)
 
-       fs.writeFileSync(`${__dirname}/posts.json`, json)
-    }
+            json = JSON.stringify(posts)
+
+            fs.writeFile(`${__dirname}/posts.json`, json, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+                callback(null)
+            })
+
+            return
+        }
+
+        callback(null)
+
+    })
 }
 
 export default updatePost

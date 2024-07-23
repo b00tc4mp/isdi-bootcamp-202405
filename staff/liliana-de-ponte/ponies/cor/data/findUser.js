@@ -1,22 +1,29 @@
 import fs from 'fs'
 import path from 'path'
-import {fileURLToPath} from 'url'
+import { fileURLToPath } from 'url'
 
 import validate from '../validate.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function findUser(condition) {
+function findUser(condition, callback) {
     validate.callback(condition, 'condition')
+    validate.callback(callback)
 
-    const json = fs.readFileSync(`${__dirname}/users.json`, 'utf8')
+    fs.readFile(`${__dirname}/users.json`, 'utf8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const users = json ? JSON.parse(json) : []
+            return
+        }
 
-    const user = users.find(condition)
+        const users = json ? JSON.parse(json) : []
 
-    return user || null
+        const user = users.find(condition)
+
+        callback(null, user || null)
+    })
 }
 
 export default findUser

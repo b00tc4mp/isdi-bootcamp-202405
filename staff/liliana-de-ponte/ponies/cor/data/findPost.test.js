@@ -1,5 +1,11 @@
 import findPost from "./findPost.js";
 
-const post1 = findPost(post => post.id === '2cxgeu12zsw0')
+findPost(post => post.id === '2cxgeu12zjkh8', (error, post) => {
+    if (error) {
+        console.error(error)
 
-console.log(post1)
+        return
+    }
+
+    console.log('post found', post)
+})

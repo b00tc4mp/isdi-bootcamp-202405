@@ -2,28 +2,55 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-function toggleFavPost(username, postId) {
-    //validate.username(username)
-    //validate.postId(postId)
+function toggleFavPost(username, postId, callback) {
+    validate.username(username)
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username == username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (user === null)
-        throw new Error('user not found')
+            return
+        }
 
-    const post = data.findPost(post => post.id === postId)
+        if (user === null) {
+            callback(new Error('user not found'))
 
-    if (post === null)
-        throw new Error('post not found')
+            return
+        }
 
-    const index = user.favs.indexOf(postId)
+        data.findPost(post => post.id === postId, (error, post) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    if (index < 0)
-        user.favs.push(postId)
-    else
-        user.favs.splice(index, 1)
+                return
+            }
 
-    data.updateUser(user => user.username === username, user)
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            const index = user.favs.indexOf(postId)
+
+            if (index < 0)
+                user.favs.push(postId)
+            else
+                user.favs.splice(index, 1)
+
+            data.updateUser(user => user.username === username, user, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+    })
 }
 
 export default toggleFavPost

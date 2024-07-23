@@ -1,5 +1,11 @@
 import getAllFavPosts from './getAllFavPosts.js'
 
-const posts= getAllFavPosts("lilideponte")
+getAllFavPosts("lilideponte", (error, posts) => {
+    if (error) {
+        console.error(error)
 
-console.log(posts)
+        return
+    }
+
+    console.log(posts)
+})

@@ -1,5 +1,11 @@
 import getAllPosts from './getAllPosts.js'
 
-const posts= getAllPosts('lilideponte')
+const posts = getAllPosts('lilideponte', (error, posts) => {
+    if (error) {
+        console.error(error)
 
-console.log(posts)
+        return
+    }
+
+    console.log(posts)
+})

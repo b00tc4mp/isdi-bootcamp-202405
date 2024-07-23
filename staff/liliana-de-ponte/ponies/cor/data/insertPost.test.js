@@ -3,9 +3,16 @@ import insertPost from "./insertPost.js";
 const post = {
     id: "abcdefghm",
     author: "lilideponte",
-    date: "17-07-2023",
+    date: "19-07-2024",
     caption: "Bye",
     image: "https://njebvbeviobvb"
 }
 
-insertPost(post)
+insertPost(post, error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+    console.log('post inserted')
+})
