@@ -1,45 +1,41 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import CreatePost from './CreatePost'
 import Button from '../components/Button'
 import Image from '../components/Image'
-import Container from '../components/Container'
 
-class Footer extends Component {
-    constructor() {
-        super()
+const Footer = ({ onPostCreated }) => {
+    const [createPostVisible, setCreatePostVisible] = useState(false)
 
-        this.state = { createPostVisible: false }
+    const handleCreatePostClick = () => {
+        setCreatePostVisible(true)
     }
 
-    handleCreatePostClick() {
-        this.setState({ createPostVisible: true })
+    const handleCancelCreatePostClick = () => {
+        setCreatePostVisible(false)
     }
 
-    handleCancelCreatePostClick() {
-        this.setState({ createPostVisible: false })
+    const handlePostCreated = () => {
+        setCreatePostVisible(false)
+
+        onPostCreated()
     }
 
-    handlePostCreated() {
-        this.setState({ createPostVisible: false })
+    return <footer className="footer">
 
-        this.props.onPostCreated()
-    }
+        <Button className={"add-post-button"} onClick={handleCreatePostClick}>
+            <Image className={"add-post-button__icon"} src={"https://svgsilh.com/svg/1721865.svg"} />
+        </Button>
 
-    render() {
-        return <footer className="footer">
+        <Button className={"chat-button"}>
+            <Image className={"chat-button__icon"} src={"https://svgsilh.com/svg/1294839.svg"} />
+        </Button>
 
-            <Button className={"add-post-button"} onClick={this.handleCreatePostClick.bind(this)}>
-                <Image className={"add-post-button__icon"} src={"https://svgsilh.com/svg/1721865.svg"} />
-            </Button>
-
-            <Button className={"chat-button"}>
-                <Image className={"chat-button__icon"} src={"https://svgsilh.com/svg/1294839.svg"} />
-            </Button>
-
-            {this.state.createPostVisible && <CreatePost onPostCreated={this.handlePostCreated.bind(this)} onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)} />}
-        </footer >
-    }
+        {createPostVisible &&
+            <CreatePost
+                onPostCreated={handlePostCreated}
+                onCancelCreatePost={handleCancelCreatePostClick} />}
+    </footer >
 }
 
 export default Footer

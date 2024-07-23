@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import Login from './Login'
 import Register from './Register'
@@ -6,44 +6,36 @@ import Home from './Home'
 
 import logic from '../logic'
 
-class App extends Component {
-    constructor() {
-        super()
+const App = () => {
+    const [view, setView] = useState(logic.isUserLoggedIn() ? 'home' : 'login')
 
-        this.state = { view: logic.isUserLoggedIn() ? 'home' : 'login' }
+    const handleLogin = () => {
+        setView('home')
     }
 
-    handleLogin() {
-        this.setState({ view: 'home' })
+    const handleRegisterClick = () => {
+        setView('register')
     }
 
-    handleRegisterClick() {
-        this.setState({ view: 'register' })
+    const handleRegister = () => {
+        setView('login')
     }
 
-    handleRegister() {
-        this.setState({ view: 'login' })
+    const handleLoginClick = () => {
+        setView('login')
     }
 
-    handleLoginClick() {
-        this.setState({ view: 'login' })
+    const handleLogout = () => {
+        setView('login')
     }
 
-    handleLogout() {
-        this.setState({ view: 'login' })
-    }
+    return <>
+        {view === 'login' && <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />}
 
-    render() {
-        const { view } = this.state
+        {view === 'register' && <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />}
 
-        return <>
-            {view === 'login' && <Login onLogin={this.handleLogin.bind(this)} onRegisterClick={this.handleRegisterClick.bind(this)} />}
-
-            {view === 'register' && <Register onRegister={this.handleRegister.bind(this)} onLoginClick={this.handleLoginClick.bind(this)} />}
-
-            {view === 'home' && <Home onLogout={this.handleLogout.bind(this)} />}
-        </>
-    }
+        {view === 'home' && <Home onLogout={handleLogout} />}
+    </>
 }
 
 export default App

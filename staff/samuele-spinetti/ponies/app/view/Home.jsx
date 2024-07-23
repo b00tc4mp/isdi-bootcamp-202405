@@ -5,58 +5,54 @@ import PoniesPostList from './home/PoniesPostList'
 import FavPostList from './home/FavPostList'
 import ProfileSettings from './home/ProfileSettings'
 
-import { Component } from 'react'
+import { useState } from 'react'
 
-class Home extends Component {
-    constructor() {
-        super()
+const Home = ({ onLogout }) => {
+    const [refreshStamp, setRefreshStamp] = useState(null)
+    const [view, setView] = useState('home')
 
-        this.state = { refreshStamp: null, view: 'home' }
+    const handlePostCreated = () => {
+
+        setRefreshStamp(Date.now())
     }
 
-    handlePostCreated() {
-
-        this.setState({ refreshStamp: Date.now() })
+    const handleProfileSettings = () => {
+        setView('profile')
     }
 
-    handleProfileSettings() {
-        this.setState({ view: 'profile' })
+    const handleHome = () => {
+        setView('home')
     }
 
-    handleHome() {
-        this.setState({ view: 'home' })
+    const handleFavsPosts = () => {
+        setView('favorites')
     }
 
-    handleFavsPosts() {
-        this.setState({ view: 'favorites' })
+    const handleFollowingUsersPosts = () => {
+        setView('following')
     }
 
-    handleFollowingUsersPosts() {
-        this.setState({ view: 'following' })
-    }
+    return <>
+        <Header
+            onHomeClicked={handleHome}
+            onFavsPostsClicked={handleFavsPosts}
+            onFollowingUsersPostsClicked={handleFollowingUsersPosts}
+            onProfileSettingsClicked={handleProfileSettings}
+            onLogout={onLogout} />
 
-    render() {
-        return <>
-            <Header
-                onHomeClicked={this.handleHome.bind(this)}
-                onFavsPostsClicked={this.handleFavsPosts.bind(this)}
-                onFollowingUsersPostsClicked={this.handleFollowingUsersPosts.bind(this)}
-                onProfileSettingsClicked={this.handleProfileSettings.bind(this)} />
+        <main className='view main'>
+            {view === 'home' && <PostList refreshStamp={refreshStamp} />}
 
-            <main className='view main'>
-                {this.state.view === 'home' && <PostList refreshStamp={this.state.refreshStamp} />}
+            {view === 'following' && <PoniesPostList />}
 
-                {this.state.view === 'following' && <PoniesPostList />}
+            {view === 'favorites' && <FavPostList />}
 
-                {this.state.view === 'favorites' && <FavPostList />}
+            {view === 'profile' && <ProfileSettings />}
+        </main>
 
-                {this.state.view === 'profile' && <ProfileSettings />}
-            </main>
-
-            <Footer
-                onPostCreated={this.handlePostCreated.bind(this)} />
-        </>
-    }
+        <Footer
+            onPostCreated={handlePostCreated} />
+    </>
 }
 
 export default Home

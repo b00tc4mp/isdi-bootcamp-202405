@@ -1,17 +1,13 @@
 import logic from '../../logic'
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-class FavPostList extends Component {
-    constructor() {
-        super()
+const FavPostList = () => {
+    const [posts, setPosts] = useState([])
 
-        this.state = { posts: [] }
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         try {
             logic.getAllFavPosts((error, posts) => {
                 if (error) {
@@ -22,7 +18,7 @@ class FavPostList extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
 
         } catch (error) {
@@ -30,30 +26,9 @@ class FavPostList extends Component {
 
             alert(error.message)
         }
-    }
+    }, [])
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.refreshStamp !== this.props.refreshStamp)
-            try {
-                logic.getAllFavPosts((error, posts) => {
-                    if (error) {
-                        console.error(error)
-
-                        alert(error.message)
-
-                        return
-                    }
-
-                    this.setState({ posts })
-                })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-    }
-
-    handlePostDeleted() {
+    const handlePostDeleted = () => {
         try {
             logic.getAllFavPosts((error, posts) => {
                 if (error) {
@@ -64,7 +39,7 @@ class FavPostList extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -73,7 +48,7 @@ class FavPostList extends Component {
         }
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         try {
             logic.getAllFavPosts((error, posts) => {
                 if (error) {
@@ -84,7 +59,7 @@ class FavPostList extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -93,7 +68,7 @@ class FavPostList extends Component {
         }
     }
 
-    handlePostLikeToggled() {
+    const handlePostLikeToggled = () => {
         try {
             logic.getAllFavPosts((error, posts) => {
                 if (error) {
@@ -104,7 +79,7 @@ class FavPostList extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -113,7 +88,7 @@ class FavPostList extends Component {
         }
     }
 
-    handlePostFavToggled() {
+    const handlePostFavToggled = () => {
         try {
             logic.getAllFavPosts((error, posts) => {
                 if (error) {
@@ -124,7 +99,7 @@ class FavPostList extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -133,7 +108,7 @@ class FavPostList extends Component {
         }
     }
 
-    handleUserFollowToggled() {
+    const handleUserFollowToggled = () => {
         try {
             logic.getAllFavPosts((error, posts) => {
                 if (error) {
@@ -144,7 +119,7 @@ class FavPostList extends Component {
                     return
                 }
 
-                this.setState({ posts })
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)
@@ -153,19 +128,17 @@ class FavPostList extends Component {
         }
     }
 
-    render() {
-        return <section className="post-list">
-            {this.state.posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
-                onPostFavToggled={this.handlePostFavToggled.bind(this)}
-                onFollowUserToggled={this.handleUserFollowToggled.bind(this)}
-            />)}
-        </section>
-    }
+    return <section className="post-list">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited}
+            onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onFollowUserToggled={handleUserFollowToggled}
+        />)}
+    </section>
 }
 
 export default FavPostList

@@ -2,7 +2,7 @@ import logic from '../../logic'
 
 import formatTime from '../../util/formatTime.js'
 
-import { Component } from 'react'
+import { useState } from 'react'
 
 import Button from '../components/Button'
 import Container from '../components/Container'
@@ -16,17 +16,13 @@ import Time from '../components/Time'
 
 import Avatar from './Avatar'
 
-class Post extends Component {
-    constructor() {
-        super()
+const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavToggled, onFollowUserToggled }) => {
+    const [editPostVisible, setEditPostVisible] = useState(false)
 
-        this.state = { editPostVisible: false }
-    }
-
-    handleDeletePostClick() {
+    const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(this.props.post.id, error => {
+                logic.deletePost(post.id, error => {
                     if (error) {
                         console.error(error)
 
@@ -35,7 +31,7 @@ class Post extends Component {
                         return
                     }
 
-                    this.props.onPostDeleted()
+                    onPostDeleted()
                 })
             } catch (error) {
                 console.error(error)
@@ -44,15 +40,15 @@ class Post extends Component {
             }
     }
 
-    handleEditPostClick() {
-        this.setState({ editPostVisible: true })
+    const handleEditPostClick = () => {
+        setEditPostVisible(true)
     }
 
-    handleCancelEditPostClick() {
-        this.setState({ editPostVisible: false })
+    const handleCancelEditPostClick = () => {
+        setEditPostVisible(false)
     }
 
-    handleEditPostSubmit(event) {
+    const handleEditPostSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -62,7 +58,7 @@ class Post extends Component {
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(this.props.post.id, newCaption, error => {
+            logic.updatePostCaption(post.id, newCaption, error => {
                 if (error) {
                     console.error(error)
 
@@ -71,9 +67,9 @@ class Post extends Component {
                     return
                 }
 
-                this.setState({ editPostVisible: false })
+                setEditPostVisible(false)
 
-                this.props.onPostEdited()
+                onPostEdited()
             })
         } catch (error) {
             console.error(error)
@@ -82,9 +78,9 @@ class Post extends Component {
         }
     }
 
-    handleLikePostClick() {
+    const handleLikePostClick = () => {
         try {
-            logic.toggleLikePost(this.props.post.id, error => {
+            logic.toggleLikePost(post.id, error => {
                 if (error) {
                     console.error(error)
 
@@ -93,7 +89,7 @@ class Post extends Component {
                     return
                 }
 
-                this.props.onPostLikeToggled()
+                onPostLikeToggled()
             })
         } catch (error) {
             console.error(error)
@@ -102,9 +98,9 @@ class Post extends Component {
         }
     }
 
-    handleSavePostClick() {
+    const handleSavePostClick = () => {
         try {
-            logic.toggleFavPost(this.props.post.id, error => {
+            logic.toggleFavPost(post.id, error => {
                 if (error) {
                     console.error(error)
 
@@ -113,7 +109,7 @@ class Post extends Component {
                     return
                 }
 
-                this.props.onPostFavToggled()
+                onPostFavToggled()
             })
         } catch (error) {
             console.error(error)
@@ -122,9 +118,9 @@ class Post extends Component {
         }
     }
 
-    handleFollowUserClick() {
+    const handleFollowUserClick = () => {
         try {
-            logic.toggleFollowUser(this.props.post.author.username, error => {
+            logic.toggleFollowUser(post.author.username, error => {
                 if (error) {
                     console.error(error)
 
@@ -133,7 +129,7 @@ class Post extends Component {
                     return
                 }
 
-                this.props.onFollowUserToggled()
+                onFollowUserToggled()
             })
         } catch (error) {
             console.error(error)
@@ -142,60 +138,56 @@ class Post extends Component {
         }
     }
 
-    render() {
-        const { post } = this.props
+    return <article className="post">
 
-        return <article className="post">
+        <Container className={"post__top"}>
+            <Container className={"post__top-author"}>
+                <Avatar url={post.author.avatar} className={"avatar"} />
 
-            <Container className={"post__top"}>
-                <Container className={"post__top-author"}>
-                    <Avatar url={post.author.avatar} className={"avatar"} />
-
-                    <Heading level="4" className={"post__author"}>{post.author.username}</Heading>
-                </Container>
-
-                {post.author.username !== logic.getUserUsername() && <>
-                    <Button className={"post__button"} onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
-                </>}
+                <Heading level="4" className={"post__author"}>{post.author.username}</Heading>
             </Container>
 
-            <Image className={"post__image"} src={post.image} alt={post.caption} title={post.caption} />
-
-            <section className="like-save-field">
-
-                <Container className={"like__actions"}>
-                    <Button className={"heart-button"} onClick={this.handleLikePostClick.bind(this)}>
-                        <Image className={"heart"} src={post.like ? 'https://svgsilh.com/svg/304420-e91e63.svg' : 'https://svgsilh.com/svg/1179072.svg'} />
-                    </Button>
-                    <Paragraph className={"hearts__likes"}>{post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Paragraph>
-                </Container>
-
-                <Button className={"save-post-button"} onClick={this.handleSavePostClick.bind(this)}>
-                    <Image className={"save-icon"} src={post.fav ? 'https://svgsilh.com/svg/1202757-ff0088.svg' : 'https://svgsilh.com/svg/1202757-c7d5dc.svg'} />
-                </Button>
-
-            </section>
-
-            <Paragraph className={"post__caption"}>{post.caption}</Paragraph>
-
-            {post.author.username === logic.getUserUsername() && <>
-                <Container className={"post__actions"}>
-                    <Button onClick={this.handleDeletePostClick.bind(this)}>Delete</Button>
-                    <Button onClick={this.handleEditPostClick.bind(this)}>Edit</Button>
-                </Container>
+            {post.author.username !== logic.getUserUsername() && <>
+                <Button className={"post__button"} onClick={handleFollowUserClick}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
             </>}
+        </Container>
 
-            <Time className={"post__time"}>{formatTime(new Date(post.date))}</Time>
+        <Image className={"post__image"} src={post.image} alt={post.caption} title={post.caption} />
 
-            {this.state.editPostVisible && <Form className={"form-edit-caption"} onSubmit={this.handleEditPostSubmit.bind(this)}>
-                <Label htmlFor={"edit-caption-input"}></Label>
-                <Input id={"edit-caption-input"} defaultValue={post.caption} type={"text"} />
+        <section className="like-save-field">
 
-                <Button type={"submit"}>Save</Button>
-                <Button type={"button"} onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</Button>
-            </Form>}
-        </article>
-    }
+            <Container className={"like__actions"}>
+                <Button className={"heart-button"} onClick={handleLikePostClick}>
+                    <Image className={"heart"} src={post.like ? 'https://svgsilh.com/svg/304420-e91e63.svg' : 'https://svgsilh.com/svg/1179072.svg'} />
+                </Button>
+                <Paragraph className={"hearts__likes"}>{post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Paragraph>
+            </Container>
+
+            <Button className={"save-post-button"} onClick={handleSavePostClick}>
+                <Image className={"save-icon"} src={post.fav ? 'https://svgsilh.com/svg/1202757-ff0088.svg' : 'https://svgsilh.com/svg/1202757-c7d5dc.svg'} />
+            </Button>
+
+        </section>
+
+        <Paragraph className={"post__caption"}>{post.caption}</Paragraph>
+
+        {post.author.username === logic.getUserUsername() && <>
+            <Container className={"post__actions"}>
+                <Button onClick={handleDeletePostClick}>Delete</Button>
+                <Button onClick={handleEditPostClick}>Edit</Button>
+            </Container>
+        </>}
+
+        <Time className={"post__time"}>{formatTime(new Date(post.date))}</Time>
+
+        {editPostVisible && <Form className={"form-edit-caption"} onSubmit={handleEditPostSubmit}>
+            <Label htmlFor={"edit-caption-input"}></Label>
+            <Input id={"edit-caption-input"} defaultValue={post.caption} type={"text"} />
+
+            <Button type={"submit"}>Save</Button>
+            <Button type={"button"} onClick={handleCancelEditPostClick}>Cancel</Button>
+        </Form>}
+    </article>
 }
 
 export default Post

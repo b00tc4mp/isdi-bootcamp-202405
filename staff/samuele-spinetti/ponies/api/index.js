@@ -254,8 +254,8 @@ api.patch('/users/:targetUsername/follows', (req, res) => {
     }
 })
 
-api.patch('posts/:postId/caption', (req, res) => {
-    const { authorization } = rq.headers
+api.patch('/posts/:postId/caption', (req, res) => {
+    const { authorization } = req.headers
 
     const username = authorization.slice(6)
 

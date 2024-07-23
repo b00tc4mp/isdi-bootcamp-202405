@@ -8,16 +8,14 @@ import Button from '../components/Button'
 import Avatar from './Avatar'
 import Form from '../components/Form'
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
-class ProfileSettings extends Component {
-    constructor() {
-        super()
+const ProfileSettings = () => {
+    const [user, setUser] = useState(null)
+    const [editAvatarVisible, setEditAvatarVisible] = useState(false)
+    const [editPasswordVisible, setEditPasswordVisible] = useState(false)
 
-        this.state = { user: null, editAvatarVisible: false, editPasswordVisible: false }
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         try {
             logic.getUser((error, user) => {
                 if (error) {
@@ -28,24 +26,24 @@ class ProfileSettings extends Component {
                     return
                 }
 
-                this.setState({ user })
+                setUser(user)
             })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
+    }, [user])
+
+    const handleEditAvatarClick = () => {
+        setEditAvatarVisible(true)
     }
 
-    handleEditAvatarClick() {
-        this.setState({ editAvatarVisible: true })
+    const handleCancelEditAvatarClick = () => {
+        setEditAvatarVisible(false)
     }
 
-    handleCancelEditAvatarClick() {
-        this.setState({ editAvatarVisible: false })
-    }
-
-    handleEditAvatarSubmit(event) {
+    const handleEditAvatarSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -64,7 +62,7 @@ class ProfileSettings extends Component {
                     return
                 }
 
-                this.setState({ editAvatarVisible: false })
+                setEditAvatarVisible(false)
 
                 logic.getUser((error, user) => {
                     if (error) {
@@ -75,7 +73,7 @@ class ProfileSettings extends Component {
                         return
                     }
 
-                    this.setState({ user })
+                    setUser(user)
                 })
             })
         } catch (error) {
@@ -85,15 +83,15 @@ class ProfileSettings extends Component {
         }
     }
 
-    handleEditPasswordClick() {
-        this.setState({ editPasswordVisible: true })
+    const handleEditPasswordClick = () => {
+        setEditPasswordVisible(true)
     }
 
-    handleCancelEditPasswordClick() {
-        this.setState({ editPasswordVisible: false })
+    const handleCancelEditPasswordClick = () => {
+        setEditPasswordVisible(false)
     }
 
-    handleEditPasswordSubmit(event) {
+    const handleEditPasswordSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -114,7 +112,7 @@ class ProfileSettings extends Component {
                     return
                 }
 
-                this.setState({ editPasswordVisible: false })
+                setEditPasswordVisible(false)
             })
         } catch (error) {
             console.error(error)
@@ -123,46 +121,44 @@ class ProfileSettings extends Component {
         }
     }
 
-    render() {
-        return <section>
-            <Container className={"container-edit-avatar"}>
-                <Heading className={"edit-avatar-heading"}>Hello {this.state.user?.username}!</Heading>
-                <Avatar url={this.state.user?.avatar} className={"container-edit-avatar__avatar"} />
-                <Button className={"edit-avatar-button"} onClick={this.handleEditAvatarClick.bind(this)}>Edit Your Avatar</Button>
-                <Button className={"edit-password-button"} onClick={this.handleEditPasswordClick.bind(this)}>Edit Password</Button>
+    return <section>
+        < Container className={"container-edit-avatar"} >
+            <Heading className={"edit-avatar-heading"}>Hello {user?.username}!</Heading>
+            <Avatar url={user?.avatar} className={"container-edit-avatar__avatar"} />
+            <Button className={"edit-avatar-button"} onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
+            <Button className={"edit-password-button"} onClick={handleEditPasswordClick}>Edit Password</Button>
 
-                {this.state.editAvatarVisible &&
-                    <Container className={"container-form-avatar"}>
-                        <Form className={"form-edit-avatar"} onSubmit={this.handleEditAvatarSubmit.bind(this)}>
-                            <Label htmlFor={"edit-avatar-input"}></Label>
-                            <Input id={"edit-avatar-input"} type={"text"} />
+            {editAvatarVisible &&
+                <Container className={"container-form-avatar"}>
+                    <Form className={"form-edit-avatar"} onSubmit={handleEditAvatarSubmit}>
+                        <Label htmlFor={"edit-avatar-input"}></Label>
+                        <Input id={"edit-avatar-input"} type={"text"} />
 
-                            <Container className={"container-form-button"}>
-                                <Button type={"submit"}>Save</Button>
-                                <Button type={"button"} onClick={this.handleCancelEditAvatarClick.bind(this)}>Cancel</Button>
-                            </Container>
-                        </Form>
-                    </Container>
-                }
+                        <Container className={"container-form-button"}>
+                            <Button type={"submit"}>Save</Button>
+                            <Button type={"button"} onClick={handleCancelEditAvatarClick}>Cancel</Button>
+                        </Container>
+                    </Form>
+                </Container>
+            }
 
-                {this.state.editPasswordVisible &&
-                    <Container className={"container-form-password"}>
-                        <Form className={"form-edit-password"} onSubmit={this.handleEditPasswordSubmit.bind(this)}>
-                            <Label htmlFor={"edit-oldPassword-input"}></Label>
-                            <Input id={"edit-oldPassword-input"} type={"password"} placeholder={"Old password"} />
-                            <Label htmlFor={"edit-newPassword-input"}></Label>
-                            <Input id={"edit-newPassword-input"} type={"password"} placeholder={"New Password"} />
+            {editPasswordVisible &&
+                <Container className={"container-form-password"}>
+                    <Form className={"form-edit-password"} onSubmit={handleEditPasswordSubmit}>
+                        <Label htmlFor={"edit-oldPassword-input"}></Label>
+                        <Input id={"edit-oldPassword-input"} type={"password"} placeholder={"Old password"} />
+                        <Label htmlFor={"edit-newPassword-input"}></Label>
+                        <Input id={"edit-newPassword-input"} type={"password"} placeholder={"New Password"} />
 
-                            <Container className={"container-password-button"}>
-                                <Button type={"submit"}>Save</Button>
-                                <Button type={"button"} onClick={this.handleCancelEditPasswordClick.bind(this)}>Cancel</Button>
-                            </Container>
-                        </Form>
-                    </Container>
-                }
-            </Container>
-        </section>
-    }
+                        <Container className={"container-password-button"}>
+                            <Button type={"submit"}>Save</Button>
+                            <Button type={"button"} onClick={handleCancelEditPasswordClick}>Cancel</Button>
+                        </Container>
+                    </Form>
+                </Container>
+            }
+        </Container >
+    </section >
 }
 
 export default ProfileSettings
