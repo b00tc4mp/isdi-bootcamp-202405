@@ -26,31 +26,33 @@ const getAllPosts = (username, callback) => {
                 return
             }
 
-            let count = 0
+            if (posts.length) {
+                let count = 0
 
-            posts.forEach(post => {
-                post.fav = user.favs.includes(post.id)
-                post.like = post.likes.includes(username)
+                posts.forEach(post => {
+                    post.fav = user.favs.includes(post.id)
+                    post.like = post.likes.includes(username)
 
-                data.findUser(user => user.username === post.author, (error, author) => {
-                    if (error) {
-                        callback(new Error(error.message))
+                    data.findUser(user => user.username === post.author, (error, author) => {
+                        if (error) {
+                            callback(new Error(error.message))
 
-                        return
-                    }
+                            return
+                        }
 
-                    post.author = {
-                        username: author.username,
-                        avatar: author.avatar,
-                        following: user.following.includes(author.username)
-                    }
+                        post.author = {
+                            username: author.username,
+                            avatar: author.avatar,
+                            following: user.following.includes(author.username)
+                        }
 
-                    count++
+                        count++
 
-                    if (count === posts.length)
-                        callback(null, posts.reverse())
+                        if (count === posts.length)
+                            callback(null, posts.reverse())
+                    })
                 })
-            })
+            } else callback(null, [])
         })
     })
 }
