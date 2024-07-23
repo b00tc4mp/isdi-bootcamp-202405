@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/authenticateUser -X POST -d '{"username":"Fabito","password":"fabi1234"}'

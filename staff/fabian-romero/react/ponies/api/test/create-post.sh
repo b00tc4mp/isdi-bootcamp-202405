@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts -X POST -d '{"image":"http//image","caption":"nones"}' -H "Authorization: Basic Fabito"

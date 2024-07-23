@@ -25,9 +25,17 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    console.error(error)
 
-            onLogin()
+                    alert(error.message)
+
+                    return
+                }
+
+                onLogin()
+            })
         } catch (error) {
             console.error(error)
 
@@ -43,7 +51,7 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="View">
+    return <main className="view">
         <Heading level="1">Login</Heading>
 
         <Form onSubmit={handleLoginSubmit} className="Form--column">
@@ -56,10 +64,12 @@ function Login({ onLogin, onRegisterClick }) {
                 <Label htmlFor="password-input">Password</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
+
             <Button type="submit">Login</Button>
         </Form>
 
         <Link onClick={handleRegisterClick}>Register</Link>
     </main>
 }
+
 export default Login

@@ -1,21 +1,31 @@
-import data from '../data'
+import validate from '../../cor/validate.js'
 
-function toggleLikePost(postId) {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const toggleLikePost = (postId, callback) => {
+    validate.string(postId)
+    validate.callback(callback)
 
-    const post = data.findPost(post => post.id === postId)
+    const xhr = new XMLHttpRequest
 
-    if (post === null)
-        throw new Error('post not found')
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    const index = post.likes.indexOf(sessionStorage.username)
+            return
+        }
 
-    if (index < 0)
-        post.likes.push(sessionStorage.username)
-    else
-        post.likes.splice(index, 1)
+        const { error, message } = JSON.parse(xhr.response)
 
-    data.updatePost(post => post.id === postId, post)
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+
+    xhr.send()
 }
 
 export default toggleLikePost

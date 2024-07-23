@@ -1,50 +1,53 @@
 import logic from '../../logic'
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
 import Post from './Post'
+
 import './PostList.css'
 
+const PoniesPostList = () => {
+    console.debug('PoniesPostList -> call')
 
-class PoniesPostList extends Component {
-    constructor() {
-        console.debug('PoniesPostList -> constructor')
+    const [posts, setPosts] = useState([])
 
-        super()
+    useEffect(() => {
+        console.debug('PoniesPostList -> useEffect')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.state = { posts }
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
-    }
+    }, [])
 
-    componentWillReceiveProps(newProps) {
-        console.debug('PoniesPostList -> componentWillReceiveProps', newProps, this.props)
-
-        if (newProps.refreshStamp !== this.props.refreshStamp)
-            try {
-                const posts = logic.getAllPoniesPosts()
-
-                this.setState({ posts })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-    }
-
-    handlePostDeleted() {
+    const handlePostDeleted = () => {
         console.debug('PoniesPostList -> handlePostDeleted')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -52,13 +55,21 @@ class PoniesPostList extends Component {
         }
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         console.debug('PoniesPostList -> handlePostEdited')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -66,13 +77,21 @@ class PoniesPostList extends Component {
         }
     }
 
-    handlePostLikeToggled() {
+    const handlePostLikeToggled = () => {
         console.debug('PoniesPostList -> handlePostLikeToggled')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -80,13 +99,21 @@ class PoniesPostList extends Component {
         }
     }
 
-    handlePostFavToggled() {
+    const handlePostFavToggled = () => {
         console.debug('PoniesPostList -> handlePostFavToggled')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -94,13 +121,21 @@ class PoniesPostList extends Component {
         }
     }
 
-    handleUserFollowToggled() {
+    const handleUserFollowToggled = () => {
         console.debug('PoniesPostList -> handleUserFollowToggled')
 
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -108,21 +143,17 @@ class PoniesPostList extends Component {
         }
     }
 
-    render() {
-        console.debug('PoniesPostList -> render')
-
-        return <section className="PostList">
-            {this.state.posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
-                onPostFavToggled={this.handlePostFavToggled.bind(this)}
-                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
-            />)}
-        </section>
-    }
+    return <section className="PostList">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited}
+            onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onUserFollowToggled={handleUserFollowToggled}
+        />)}
+    </section>
 }
 
 export default PoniesPostList
