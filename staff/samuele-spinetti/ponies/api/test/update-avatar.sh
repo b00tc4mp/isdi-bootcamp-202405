@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/user/avatar -X PATCH -d '{"avatar":"http://avatarnew"}' -H "Content-Type: application/json" -H "Authorization: Basic marti"

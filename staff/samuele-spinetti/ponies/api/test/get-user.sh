@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/marti/settings -H "Authorization: Basic marti"

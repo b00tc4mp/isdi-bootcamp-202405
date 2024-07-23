@@ -1,3 +1,9 @@
 import toggleFollowUser from './toggleFollowUser.js'
 
-toggleFollowUser("samu", "marti")
+toggleFollowUser('marti', 'marti', error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+})

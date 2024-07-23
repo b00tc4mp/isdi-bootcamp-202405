@@ -1,16 +1,14 @@
 [
     {
-        "name": "Samuele",
-        "surname": "Spinetti",
-        "email": "samuele@spinetti.com",
-        "username": "samu",
-        "password": "123123123",
+        "name": "Marti",
+        "surname": "Herms",
+        "email": "marti@herms.com",
+        "username": "marti",
+        "password": "123456789",
         "favs": [
-            "kg6nl8j0imo"
+            "nh1u0hpf4cw"
         ],
-        "following": [
-            "samu"
-        ],
+        "following": [],
         "avatar": "https://svgsilh.com/svg/145535-707070.svg"
     },
     {
@@ -34,16 +32,6 @@
         "avatar": "https://svgsilh.com/svg/145535-707070.svg"
     },
     {
-        "name": "Marti",
-        "surname": "Herms",
-        "email": "marti@herms.com",
-        "username": "marti",
-        "password": "123456789",
-        "favs": [],
-        "following": [],
-        "avatar": "https://svgsilh.com/svg/145535-707070.svg"
-    },
-    {
         "name": "Tatiana",
         "surname": "Garcia",
         "email": "tatiana@garcia.com",
@@ -52,5 +40,27 @@
         "favs": [],
         "following": [],
         "avatar": "https://svgsilh.com/svg/145535-707070.svg"
+    },
+    {
+        "name": "Peter",
+        "surname": "Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123",
+        "favs": [],
+        "following": [],
+        "avatar": "https://svgsilh.com/svg/145535-707070.svg"
+    },
+    {
+        "name": "Samuele",
+        "surname": "Spinetti",
+        "email": "samuele@spinetti.com",
+        "username": "samu",
+        "password": "123456789",
+        "favs": [
+            "nh1u0hpf4cw"
+        ],
+        "following": [],
+        "avatar": "https://media.giphy.com/media/OjmrBW4ZQbWjkq6RkC/giphy.gif?cid=790b7611gfrmjuz28tgcytrfxlwzvkbojf0mwppxjfzanobc&ep=v1_gifs_trending&rid=giphy.gif&ct=g"
     }
 ]

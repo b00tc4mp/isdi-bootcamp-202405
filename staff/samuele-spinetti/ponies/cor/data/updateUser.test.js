@@ -1,11 +1,24 @@
 import updateUser from './updateUser.js'
 
-const ale = {
-    name: 'Alessandro',
-    surname: 'Spinetti',
-    email: 'alessandro@spinetti.com',
-    username: 'ale',
-    password: '123123123'
+const user = {
+    name: "Marti",
+    surname: "Herms",
+    email: "marti@herms.com",
+    username: "marti",
+    password: "123123123",
+    favs: [],
+    following: [
+        "marti"
+    ],
+    avatar: "https//:jbvidbviobfiofobi"
 }
 
-updateUser(user => user.username === 'mari', ale)
+updateUser(user => user.username === 'marti', user, error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('User updated')
+})

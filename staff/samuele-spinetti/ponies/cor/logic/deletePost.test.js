@@ -1,3 +1,11 @@
 import deletePost from './deletePost.js'
 
-deletePost("samu", "3cpx3rsbvqw0")
+deletePost('marti', 'ksu6h1uon7k', error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('Post deleted')
+})

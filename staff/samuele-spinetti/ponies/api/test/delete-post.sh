@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/21otiimsh43 -X DELETE -H "Authorization: Basic samu"

@@ -2,26 +2,55 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-function toggleFollowUser(username, targetUsername) {
+const toggleFollowUser = (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername)
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (!user) throw new Error('User not found')
+            return
+        }
 
-    const following = data.findUser(user => user.username === targetUsername)
+        if (!user) {
+            callback(new Error('User not found'))
 
-    if (!following) throw new Error('Following user not found')
+            return
+        }
 
-    const index = user.following.indexOf(targetUsername)
+        data.findUser(user => user.username === targetUsername, (error, targetUser) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    if (index < 0)
-        user.following.push(targetUsername)
-    else
-        user.following.splice(index, 1)
+                return
+            }
 
-    data.updateUser(user => user.username === username, user)
+            if (!targetUser) {
+                callback(new Error('Following user not found'))
+
+                return
+            }
+
+            const index = user.following.indexOf(targetUsername)
+
+            if (index < 0)
+                user.following.push(targetUsername)
+            else
+                user.following.splice(index, 1)
+
+            data.updateUser(user => user.username === username, user, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+    })
 }
 
 export default toggleFollowUser

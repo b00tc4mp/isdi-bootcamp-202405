@@ -1,17 +1,32 @@
-import data from '../data/index.js'
-
 import validate from '../validate.js'
 
-const updateAvatar = (newAvatar) => {
+const updateAvatar = (newAvatar, callback) => {
     validate.image(newAvatar, 'avatar')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const xhr = new XMLHttpRequest
 
-    if (user === null) throw new Error('User not found')
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    user.avatar = newAvatar
+            return
+        }
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('Network error'))
+
+    xhr.open('PATCH', 'http://localhost:8080/users/avatar')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ avatar: newAvatar }))
 }
 
 export default updateAvatar

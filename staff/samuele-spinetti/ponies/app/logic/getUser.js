@@ -1,13 +1,31 @@
-import data from '../data/index.js'
+import validate from '../validate'
 
-const getUser = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+const getUser = (callback) => {
+    validate.callback(callback)
 
-    if (user === null) throw new Error('User not found')
+    const xhr = new XMLHttpRequest
 
-    delete user.password
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const user = JSON.parse(xhr.response)
 
-    return user
+            callback(null, user)
+
+            return
+        }
+
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('Network error'))
+
+    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.username}/settings`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
 }
 
 export default getUser

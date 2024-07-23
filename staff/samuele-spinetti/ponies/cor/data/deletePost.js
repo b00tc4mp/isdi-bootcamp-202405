@@ -7,22 +7,37 @@ import validate from '../validate.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-function deletePost(condition) {
+const deletePost = (condition, callback) => {
     validate.callback(condition, 'condition')
+    validate.callback(callback)
 
-    let json = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
+    fs.readFile(`${__dirname}/posts.json`, 'utf8', (error, json) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    const posts = json ? JSON.parse(json) : []
+            return
+        }
 
-    const postIndex = posts.findIndex(condition)
+        const posts = json ? JSON.parse(json) : []
 
-    if (postIndex > -1) {
-        posts.splice(postIndex, 1)
+        const postIndex = posts.findIndex(condition)
 
-        json = JSON.stringify(posts)
+        if (postIndex > -1) {
+            posts.splice(postIndex, 1)
 
-        fs.writeFileSync(`${__dirname}/posts.json`, json)
-    }
+            json = JSON.stringify(posts)
+
+            fs.writeFile(`${__dirname}/posts.json`, json, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        }
+    })
 }
 
 export default deletePost

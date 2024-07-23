@@ -8,7 +8,6 @@ import Container from './components/Container'
 import Label from './components/Label'
 import Button from './components/Button'
 
-
 function Login({ onLogin, onRegisterClick }) {
     const handleLoginSubmit = event => {
         event.preventDefault()
@@ -22,9 +21,17 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    console.error(error)
 
-            onLogin()
+                    alert(error.message)
+
+                    return
+                }
+
+                onLogin()
+            })
         } catch (error) {
             console.error(error)
 

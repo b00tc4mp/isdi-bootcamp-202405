@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/nico/follows -X PATCH -H "Authorization: Basic samu" 

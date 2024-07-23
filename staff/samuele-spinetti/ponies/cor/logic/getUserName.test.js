@@ -1,5 +1,11 @@
 import getUserName from './getUserName.js'
 
-const user = getUserName("samu")
+const user = getUserName('marti', 'marti', (error, name) => {
+    if (error) {
+        console.error(error)
 
-console.log(user)
+        return
+    }
+
+    console.log(name)
+})

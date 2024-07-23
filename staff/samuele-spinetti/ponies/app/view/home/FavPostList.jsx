@@ -8,10 +8,23 @@ class FavPostList extends Component {
     constructor() {
         super()
 
-        try {
-            const posts = logic.getAllFavPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = ({ posts })
+    componentDidMount() {
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
+
         } catch (error) {
             console.error(error)
 
@@ -22,9 +35,17 @@ class FavPostList extends Component {
     componentWillReceiveProps(newProps) {
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllFavPosts()
+                logic.getAllFavPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
             } catch (error) {
                 console.error(error)
 
@@ -34,9 +55,17 @@ class FavPostList extends Component {
 
     handlePostDeleted() {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -46,9 +75,17 @@ class FavPostList extends Component {
 
     handlePostEdited() {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -58,9 +95,17 @@ class FavPostList extends Component {
 
     handlePostLikeToggled() {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -70,9 +115,17 @@ class FavPostList extends Component {
 
     handlePostFavToggled() {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -82,9 +135,17 @@ class FavPostList extends Component {
 
     handleUserFollowToggled() {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 

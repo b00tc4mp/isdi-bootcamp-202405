@@ -1,36 +1,35 @@
-import data from '../data/index.js'
-
 import validate from '../validate.js'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat) => {
+const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
-    validate.surname(surname, 'surname')
+    validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
+    validate.callback(callback)
 
-    if (password !== passwordRepeat) throw new Error('Passwords do not match')
+    const xhr = new XMLHttpRequest
 
-    let user = data.findUser(user => user.email === email)
+    xhr.onload = () => {
+        if (xhr.status === 201) {
+            callback(null)
 
-    if (user !== null) throw new Error('Email already exists')
+            return
+        }
 
-    user = data.findUser(user => user.username === username)
+        const { error, message } = JSON.parse(xhr.response)
 
-    if (user !== null) throw new Error('Username already exists')
+        const constructor = window[error]
 
-    user = {
-        name,
-        surname,
-        email,
-        username,
-        password,
-        favs: [],
-        following: [],
-        avatar: 'https://svgsilh.com/svg/145535-707070.svg'
+        callback(new constructor(message))
     }
 
-    data.insertUser(user)
+    xhr.onerror = () => callback(new Error('Network error'))
+
+    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
 
 export default registerUser

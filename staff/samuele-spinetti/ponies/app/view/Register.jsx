@@ -9,11 +9,6 @@ import Container from './components/Container'
 import Form from './components/Form'
 
 function Register({ onRegister, onLoginClick }) {
-    const handleLoginClick = event => {
-        event.preventDefault()
-
-        onLoginClick()
-    }
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
@@ -35,16 +30,30 @@ function Register({ onRegister, onLoginClick }) {
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    console.error(error)
 
-            alert('user successfully registered')
+                    alert(error.message)
 
-            onRegister()
+                    return
+                }
+
+                alert('user successfully registered')
+
+                onRegister()
+            })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
+    }
+
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        onLoginClick()
     }
 
     return <main className="view">

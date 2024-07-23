@@ -2,21 +2,43 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const updatePassword = (username, oldPassword, newPassword, newPasswordRepeat) => {
+const updatePassword = (username, oldPassword, newPassword, callback) => {
     validate.username(username)
     validate.password(oldPassword)
     validate.password(newPassword)
-    validate.password(newPasswordRepeat)
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (user === null) throw new Error('User not found')
+            return
+        }
 
-    if (oldPassword !== user.password) throw new Error('Invalid password')
+        if (user === null) {
+            callback(new Error('User not found'))
 
-    user.password = newPassword
+            return
+        }
 
-    data.updateUser(user => user.username === username, user)
+        if (oldPassword !== user.password) {
+            callback(new Error('Invalid password'))
+
+            return
+        }
+
+        user.password = newPassword
+
+        data.updateUser(user => user.username === username, user, error => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            callback(null)
+        })
+    })
 }
 
 export default updatePassword

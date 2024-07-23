@@ -8,4 +8,12 @@ const mari = {
     password: '123123123'
 }
 
-findUser(user => user.username === 'mari')
+findUser(user => user.username === 'mari', (error, user) => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+
+    console.log('User found', user)
+})

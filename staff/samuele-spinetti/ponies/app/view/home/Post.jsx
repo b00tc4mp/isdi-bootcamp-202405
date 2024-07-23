@@ -26,9 +26,17 @@ class Post extends Component {
     handleDeletePostClick() {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(this.props.post.id)
+                logic.deletePost(this.props.post.id, error => {
+                    if (error) {
+                        console.error(error)
 
-                this.props.onPostDeleted()
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.props.onPostDeleted()
+                })
             } catch (error) {
                 console.error(error)
 
@@ -54,11 +62,19 @@ class Post extends Component {
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(this.props.post.id, newCaption)
+            logic.updatePostCaption(this.props.post.id, newCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ editPostVisible: false })
+                    alert(error.message)
 
-            this.props.onPostEdited()
+                    return
+                }
+
+                this.setState({ editPostVisible: false })
+
+                this.props.onPostEdited()
+            })
         } catch (error) {
             console.error(error)
 
@@ -68,22 +84,37 @@ class Post extends Component {
 
     handleLikePostClick() {
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(this.props.post.id, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostLikeToggled()
+                    alert(error.message)
+
+                    return
+                }
+
+                this.props.onPostLikeToggled()
+            })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
-
         }
     }
 
     handleSavePostClick() {
         try {
-            logic.toggleFavPost(this.props.post.id)
+            logic.toggleFavPost(this.props.post.id, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostFavToggled()
+                    alert(error.message)
+
+                    return
+                }
+
+                this.props.onPostFavToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -93,9 +124,17 @@ class Post extends Component {
 
     handleFollowUserClick() {
         try {
-            logic.toggleFollowUser(this.props.post.author.username)
+            logic.toggleFollowUser(this.props.post.author.username, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onFollowUserToggled()
+                    alert(error.message)
+
+                    return
+                }
+
+                this.props.onFollowUserToggled()
+            })
         } catch (error) {
             console.error(error)
 

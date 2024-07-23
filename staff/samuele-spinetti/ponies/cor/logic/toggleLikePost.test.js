@@ -1,3 +1,9 @@
 import toggleLikePost from './toggleLikePost.js'
 
-toggleLikePost("samu", "kg6nl8j0imo")
+toggleLikePost('marti', 'aey5mjq704g', error => {
+    if (error) {
+        console.error(error)
+
+        return
+    }
+})

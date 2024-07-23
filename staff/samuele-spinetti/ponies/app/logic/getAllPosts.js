@@ -1,26 +1,31 @@
-import data from '../data/index.js'
+import validate from '../validate.js'
 
-const getAllPosts = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+const getAllPosts = callback => {
+    validate.callback(callback)
 
-    if (user === null) throw new Error('User not found')
+    const xhr = new XMLHttpRequest
 
-    const posts = data.findPosts(() => true)
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const posts = JSON.parse(xhr.response)
 
-    posts.forEach(post => {
-        post.fav = user.favs.includes(post.id)
-        post.like = post.likes.includes(sessionStorage.username)
+            callback(null, posts)
 
-        const author = data.findUser(user => user.username === post.author)
-
-        post.author = {
-            username: author.username,
-            avatar: author.avatar,
-            following: user.following.includes(author.username)
+            return
         }
-    })
 
-    return posts.reverse()
+        const { error, message } = JSON.parse(xhr.response)
+
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('Network error'))
+
+    xhr.open('GET', 'http://localhost:8080/posts')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
 }
 
 export default getAllPosts

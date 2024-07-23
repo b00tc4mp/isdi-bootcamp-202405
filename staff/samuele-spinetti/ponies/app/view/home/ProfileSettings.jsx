@@ -14,10 +14,22 @@ class ProfileSettings extends Component {
     constructor() {
         super()
 
-        try {
-            const user = logic.getUser()
+        this.state = { user: null, editAvatarVisible: false, editPasswordVisible: false }
+    }
 
-            this.state = { user, editAvatarVisible: false, editPasswordVisible: false }
+    componentDidMount() {
+        try {
+            logic.getUser((error, user) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ user })
+            })
         } catch (error) {
             console.error(error)
 
@@ -43,11 +55,29 @@ class ProfileSettings extends Component {
         const newAvatar = editAvatarInput.value
 
         try {
-            logic.updateAvatar(newAvatar)
+            logic.updateAvatar(newAvatar, error => {
+                if (error) {
+                    console.error(error)
 
-            const user = logic.getUser()
+                    alert(error.message)
 
-            this.setState({ user, editAvatarVisible: false })
+                    return
+                }
+
+                this.setState({ editAvatarVisible: false })
+
+                logic.getUser((error, user) => {
+                    if (error) {
+                        console.error(error)
+
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ user })
+                })
+            })
         } catch (error) {
             console.error(error)
 
@@ -75,9 +105,17 @@ class ProfileSettings extends Component {
         const newPassword = editNewPasswordInput.value
 
         try {
-            logic.updatePassword(oldPassword, newPassword)
+            logic.updatePassword(oldPassword, newPassword, error => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ editPasswordVisible: false })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ editPasswordVisible: false })
+            })
         } catch (error) {
             console.error(error)
 
@@ -88,8 +126,8 @@ class ProfileSettings extends Component {
     render() {
         return <section>
             <Container className={"container-edit-avatar"}>
-                <Heading className={"edit-avatar-heading"}>Hello {this.state.user.username}!</Heading>
-                <Avatar url={this.state.user.avatar} className={"container-edit-avatar__avatar"} />
+                <Heading className={"edit-avatar-heading"}>Hello {this.state.user?.username}!</Heading>
+                <Avatar url={this.state.user?.avatar} className={"container-edit-avatar__avatar"} />
                 <Button className={"edit-avatar-button"} onClick={this.handleEditAvatarClick.bind(this)}>Edit Your Avatar</Button>
                 <Button className={"edit-password-button"} onClick={this.handleEditPasswordClick.bind(this)}>Edit Password</Button>
 

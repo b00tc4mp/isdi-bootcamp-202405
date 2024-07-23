@@ -1,21 +1,33 @@
-import data from '../data/index.js'
-
 import validate from '../validate.js'
 
-const updatePassword = (oldPassword, newPassword, newPasswordRepeat) => {
+const updatePassword = (oldPassword, newPassword, callback) => {
     validate.password(oldPassword)
     validate.password(newPassword)
-    validate.password(newPasswordRepeat)
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const xhr = new XMLHttpRequest
 
-    if (user === null) throw new Error('User not found')
+    xhr.onload = () => {
+        if (xhr.status === 204) {
+            callback(null)
 
-    if (oldPassword !== user.password) throw new Error('Invalid password')
+            return
+        }
 
-    user.password = newPassword
+        const { error, message } = JSON.parse(xhr.response)
 
-    data.updateUser(user => user.username === sessionStorage.username, user)
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('Network error'))
+
+    xhr.open('PATCH', 'http://localhost:8080/users/password')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ oldPassword, newPassword }))
 }
 
 export default updatePassword

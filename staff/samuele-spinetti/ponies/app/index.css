@@ -30,6 +30,7 @@
     border-radius: 20px;
 }
 
+
 .add-post-button {
     border-radius: 10px;
     height: 40px;
@@ -39,6 +40,19 @@
 }
 
 .add-post-button__icon {
+    height: 30px;
+    width: 30px;
+}
+
+.chat-button {
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    border: none;
+}
+
+.chat-button__icon {
     height: 30px;
     width: 30px;
 }

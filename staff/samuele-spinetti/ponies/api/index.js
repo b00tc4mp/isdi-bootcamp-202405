@@ -1,25 +1,359 @@
 import express from 'express'
 
-import logic from './logic/index.js'
+import logic from 'cor/logic/index.js'
 
 const api = express()
 
-api.use(express.json())
+api.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
 
-api.post('/register/user', (req, res) => {
-    const { name, surname, email, username, password } = req.body
-
-    try {
-        logic.registerUser(name, surname, email, username, password)
-
-        res.send('Correct')
-    } catch (error) {
-        res.status(400).send(error.message)
-    }
+    next()
 })
 
-api.get('/hello', (req, res) => {
+api.get('/', (req, res) => {
     res.send('Hello, World!')
 })
 
-api.listen(8080, () => console.log('server listening on port 8080'))
+api.post('/users', (req, res) => {
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { name, surname, email, username, password, passwordRepeat } = JSON.parse(json)
+
+        try {
+            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                    return
+                }
+
+                res.status(201).send()
+            })
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
+api.post('/users/auth', (req, res) => {
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { username, password } = JSON.parse(json)
+
+        try {
+            logic.authenticateUser(username, password, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                    return
+                }
+
+                res.send()
+            })
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
+api.post('/posts', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    req.on('data', data => {
+        const { image, caption } = JSON.parse(data)
+
+        try {
+            logic.createPost(username, image, caption, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                    return
+                }
+
+                res.status(201).send()
+            })
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
+api.get('/users/:targetUsername/name', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { targetUsername } = req.params
+
+    try {
+        const name = logic.getUserName(username, targetUsername, (error, name) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(name)
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    try {
+        const posts = logic.getAllPosts(username, (error, posts) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(posts)
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts/ponies', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    try {
+        const posts = logic.getAllFollowingUserPosts(username, (error, posts) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(posts)
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts/favs', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    try {
+        const posts = logic.getAllFavPosts(username, (error, posts) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(posts)
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.delete('/posts/:postId', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.deletePost(username, postId, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(204).send()
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('/posts/:postId/likes', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleLikePost(username, postId, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(204).send()
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('/posts/:postId/favs', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    try {
+        logic.toggleFavPost(username, postId, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(204).send()
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('/users/:targetUsername/follows', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { targetUsername } = req.params
+
+    try {
+        logic.toggleFollowUser(username, targetUsername, error => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(204).send()
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.patch('posts/:postId/caption', (req, res) => {
+    const { authorization } = rq.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { caption } = JSON.parse(json)
+
+        try {
+            logic.updatePostCaption(username, postId, caption, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                    return
+                }
+
+                res.status(204).send()
+            })
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
+api.patch('/users/avatar', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { avatar } = JSON.parse(json)
+
+        try {
+            logic.updateAvatar(username, avatar, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                    return
+                }
+
+                res.status(204).send()
+            })
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
+api.patch('/users/password', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { oldPassword, newPassword } = JSON.parse(json)
+
+        try {
+            logic.updatePassword(username, oldPassword, newPassword, error => {
+                if (error) {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                    return
+                }
+
+                res.status(204).send()
+            })
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
+})
+
+api.get('/users/:targetUsername/settings', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { targetUsername } = req.params
+
+    try {
+        logic.getUser(username, targetUsername, (error, user) => {
+            if (error) {
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.send(user)
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.listen(8080, () => console.log('API is up'))

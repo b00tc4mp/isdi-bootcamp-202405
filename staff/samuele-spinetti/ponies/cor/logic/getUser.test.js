@@ -1,5 +1,11 @@
 import getUser from './getUser.js'
 
-const user = getUser("samu")
+getUser('samu', (error, user) => {
+    if (error) {
+        console.error(error.message)
 
-console.log(user)
+        return
+    }
+
+    console.log(user)
+})
