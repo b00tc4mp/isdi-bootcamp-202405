@@ -22,9 +22,17 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption)
+            logic.createPost(postImage, postCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            onPostCreated()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch (error) {
             console.error(error)
 
@@ -37,7 +45,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
     return <section className="CreatePost">
         <Heading level="2">Create Post</Heading>
 
-        <Form className="form--column" onSubmit={handleCreatePostSubmit.bind(this)}>
+        <Form className="form--column" onSubmit={handleCreatePostSubmit}>
             <Container className="form__field">
                 <Label htmlFor="post-image-input">Image</Label>
                 <Input id="post-image-input" />
@@ -49,7 +57,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
 
             <Container className="create-post-section__buttons">
                 <Button type="submit">Create</Button>
-                <Button type="reset" onClick={handleCancelCreatePostClick.bind(this)}>Cancel</Button>
+                <Button type="reset" onClick={handleCancelCreatePostClick}>Cancel</Button>
             </Container>
         </Form>
     </section>

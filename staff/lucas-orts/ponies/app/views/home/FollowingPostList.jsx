@@ -1,42 +1,48 @@
 import logic from '../../logic'
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
+
 import Post from './Post'
 
-class FollowingPostList extends Component {
-    constructor() {
-        super()
+import './PostList.css'
 
+const FollowingPostList = () => {
+
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            logic.getAllFollowingUserPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.state = { posts }
-        }
-        catch (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
-    }
+    }, [])
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.refreshStamp !== this.props.refreshStamp)
-            try {
-                const posts = logic.getAllFollowingUserPosts()
-
-                this.setState({ posts })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-    }
-
-    handlePostDeleted() {
+    const handlePostDeleted = () => {
         try {
-            const posts = logic.getAllFollowingUserPosts()
+            logic.getAllFollowingUserPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -44,10 +50,19 @@ class FollowingPostList extends Component {
         }
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         try {
-            const posts = logic.getAllFollowingUserPosts()
-            this.setState({ posts })
+            logic.getAllFollowingUserPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -55,10 +70,19 @@ class FollowingPostList extends Component {
         }
     }
 
-    handlePostLiked() {
+    const handlePostLikeToggled = () => {
         try {
-            const posts = logic.getAllFollowingUserPosts()
-            this.setState({ posts })
+            logic.getAllFollowingUserPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -66,10 +90,19 @@ class FollowingPostList extends Component {
         }
     }
 
-    handlePostFav() {
+    const handlePostFavToggled = () => {
         try {
-            const posts = logic.getAllFollowingUserPosts()
-            this.setState({ posts })
+            logic.getAllFollowingUserPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -77,10 +110,19 @@ class FollowingPostList extends Component {
         }
     }
 
-    handleUserFollowed() {
+    const handleUserFollowToggled = () => {
         try {
-            const posts = logic.getAllFollowingUserPosts()
-            this.setState({ posts })
+            logic.getAllFollowingUserPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -88,18 +130,17 @@ class FollowingPostList extends Component {
         }
     }
 
-    render() {
-        return <section className="post-list">
-            {this.state.posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLiked.bind(this)}
-                onPostFavToggled={this.handlePostFav.bind(this)}
-                onUserFollowToggled={this.handleUserFollowed.bind(this)} />)}
-        </section>
-    }
+    return <section className="PostList">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited}
+            onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onUserFollowToggled={handleUserFollowToggled}
+        />)}
+    </section>
 }
 
 export default FollowingPostList

@@ -23,9 +23,17 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    console.error(error)
 
-            onLogin()
+                    alert(error.message)
+
+                    return
+                }
+
+                onLogin()
+            })
         } catch (error) {
             console.error(error)
 

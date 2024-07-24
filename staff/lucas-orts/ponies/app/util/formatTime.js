@@ -1,7 +1,5 @@
-import validate from '../validate.js'
 
 function formatTime(date) {
-    validate.date(date)
 
     const seconds = Math.round((Date.now() - date.getTime()) / 1000)
 

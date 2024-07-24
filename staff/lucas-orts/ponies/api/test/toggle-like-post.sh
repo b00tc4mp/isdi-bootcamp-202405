@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/4zcpc42md1w/likes -X PATCH -H "Authorization: Basic Tomasturbao"

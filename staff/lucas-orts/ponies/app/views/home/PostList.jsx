@@ -1,44 +1,47 @@
 import logic from '../../logic'
 
-import { Component } from 'react'
-import Post from './Post.jsx'
+import { useState, useEffect } from 'react'
+
+import Post from './Post'
 
 import './PostList.css'
 
-class PostList extends Component {
-    constructor() {
-        super()
+const PostList = ({ refreshStamp }) => {
+    const [posts, setPosts] = useState([])
 
+    useEffect(() => {
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.state = { posts }
-        }
-        catch (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
-    }
+    }, [refreshStamp])
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.refreshStamp !== this.props.refreshStamp)
-            try {
-                const posts = logic.getAllPosts()
-
-                this.setState({ posts })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-    }
-
-    handlePostDeleted() {
+    const handlePostDeleted = () => {
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -46,10 +49,19 @@ class PostList extends Component {
         }
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         try {
-            const posts = logic.getAllPosts()
-            this.setState({ posts })
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -57,10 +69,19 @@ class PostList extends Component {
         }
     }
 
-    handlePostLiked() {
+    const handlePostLikeToggled = () => {
         try {
-            const posts = logic.getAllPosts()
-            this.setState({ posts })
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -68,10 +89,19 @@ class PostList extends Component {
         }
     }
 
-    handlePostFav() {
+    const handlePostFavToggled = () => {
         try {
-            const posts = logic.getAllPosts()
-            this.setState({ posts })
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -79,10 +109,19 @@ class PostList extends Component {
         }
     }
 
-    handleUserFollowed() {
+    const handleUserFollowToggled = () => {
         try {
-            const posts = logic.getAllPosts()
-            this.setState({ posts })
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -90,18 +129,17 @@ class PostList extends Component {
         }
     }
 
-    render() {
-        return <section className="post-list">
-            {this.state.posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLiked.bind(this)}
-                onPostFavToggled={this.handlePostFav.bind(this)}
-                onUserFollowToggled={this.handleUserFollowed.bind(this)} />)}
-        </section>
-    }
+    return <section className="PostList">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited}
+            onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onUserFollowToggled={handleUserFollowToggled}
+        />)}
+    </section>
 }
 
 export default PostList

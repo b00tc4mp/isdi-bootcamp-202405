@@ -1,48 +1,53 @@
-import logic from "../../logic"
+import logic from '../../logic'
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
-import Paragraph from "../components/Paragraph"
-import Button from "../components/Button"
+import Button from '../components/Button'
+import Paragraph from '../components/Paragraph'
 
 import './Header.css'
-class Header extends Component {
-    constructor() {
-        super()
 
+const Header = ({ onHomeClick, onFollowClick, onFavsClick, onLogout }) => {
+    const [name, setName] = useState(null)
+
+    useEffect(() => {
         try {
-            const name = logic.getUserName()
+            logic.getUserName((error, name) => {
+                if (error) {
+                    console.error(error)
 
-            this.state = { name }
-        }
-        catch (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setName(name)
+            })
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
+    }, [])
+
+    const handleHomeClick = () => {
+        onHomeClick()
     }
 
-
-
-    handleHomeClick() {
-        this.props.onHomeClick()
+    const handleFollowClick = () => {
+        onFollowClick()
     }
 
-    handleFollowClick() {
-        this.props.onFollowClick()
+    const handleFavsClick = () => {
+        onFavsClick()
     }
 
-    handleFavsClick() {
-        this.props.onFavsClick()
-    }
-
-    handleLogout() {
+    const handleLogout = () => {
         try {
             logic.logoutUser()
 
-            this.props.onLogout()
-        }
-        catch (error) {
+            onLogout()
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
@@ -50,15 +55,13 @@ class Header extends Component {
     }
 
 
-    render() {
-        return <header className="header">
-            <Paragraph>Hello, {this.state.name}!</Paragraph>
-            <Button onClick={this.handleHomeClick.bind(this)}>🏠</Button>
-            <Button onClick={this.handleFollowClick.bind(this)}>Following</Button>
-            <Button onClick={this.handleFavsClick.bind(this)}>🏴‍☠️</Button>
-            <Button onClick={this.handleLogout.bind(this)}>Logout</Button>
-        </header>
-    }
+    return <header className="header">
+        <Paragraph>Hello, {name}!</Paragraph>
+        <Button onClick={handleHomeClick}>🏠</Button>
+        <Button onClick={handleFollowClick}>Following</Button>
+        <Button onClick={handleFavsClick}>🏴‍☠️</Button>
+        <Button onClick={handleLogout}>Logout</Button>
+    </header>
 }
 
 export default Header

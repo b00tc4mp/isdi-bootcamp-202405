@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/Petazeta/follows -X PATCH -H "Authorization: Basic Tomasturbao"

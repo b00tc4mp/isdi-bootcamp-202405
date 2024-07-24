@@ -5,12 +5,15 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "inspect": "node --inspect-brk .",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cor": "file:../cor",
     "express": "^4.19.2"
   }
 }

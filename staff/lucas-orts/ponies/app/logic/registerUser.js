@@ -1,38 +1,34 @@
-import data from '../data'
-import validate from '../validate.js'
+import validate from '../../cor/validate.js'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat) => {
+const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
-    validate.surname(surname, 'surname')
+    validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
+    validate.callback(callback)
 
-    if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
+    const xhr = new XMLHttpRequest
 
-    let user = data.findUser(user => user.email === email)
+    xhr.onload = () => {
+        if (xhr.status === 201) {
+            callback(null)
 
-    if (user !== null)
-        throw new Error('email already exists')
+            return
+        }
 
-    user = data.findUser(user => user.username === username)
+        const { error, message } = JSON.parse(xhr.response)
 
-    if (user !== null)
-        throw new Error('username already exists')
+        const constructor = window[error]
 
-    user = {
-        name: name,
-        surname: surname,
-        email: email,
-        username: username,
-        password: password,
-        favs: [],
-        following: [],
-        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+        callback(new constructor(message))
     }
 
-    data.insertUser(user)
-}
+    xhr.onerror = () => callback(new Error('network error'))
 
+    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
+}
 export default registerUser

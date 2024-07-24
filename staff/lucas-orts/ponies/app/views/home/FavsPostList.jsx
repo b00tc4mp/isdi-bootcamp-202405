@@ -1,44 +1,46 @@
 import logic from '../../logic'
 
-import { Component } from 'react'
-import Post from './Post.jsx'
+import { useState, useEffect } from 'react'
 
-import './PostList.css'
+import Post from './Post'
 
-class FavsPostList extends Component {
-    constructor() {
-        super()
+const FavPostList = () => {
+    const [posts, setPosts] = useState([])
 
+    useEffect(() => {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.state = { posts }
-        }
-        catch (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
-    }
+    }, [])
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.refreshStamp !== this.props.refreshStamp)
-            try {
-                const posts = logic.getAllFavPosts()
-
-                this.setState({ posts })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-    }
-
-    handlePostDeleted() {
+    const handlePostDeleted = () => {
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -46,10 +48,19 @@ class FavsPostList extends Component {
         }
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         try {
-            const posts = logic.getAllFavPosts()
-            this.setState({ posts })
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -57,10 +68,19 @@ class FavsPostList extends Component {
         }
     }
 
-    handlePostLiked() {
+    const handlePostLikeToggled = () => {
         try {
-            const posts = logic.getAllFavPosts()
-            this.setState({ posts })
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -68,10 +88,19 @@ class FavsPostList extends Component {
         }
     }
 
-    handlePostFav() {
+    const handlePostFavToggled = () => {
         try {
-            const posts = logic.getAllFavPosts()
-            this.setState({ posts })
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -79,10 +108,19 @@ class FavsPostList extends Component {
         }
     }
 
-    handleUserFollowed() {
+    const handleUserFollowToggled = () => {
         try {
-            const posts = logic.getAllFavPosts()
-            this.setState({ posts })
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             console.error(error)
 
@@ -90,18 +128,17 @@ class FavsPostList extends Component {
         }
     }
 
-    render() {
-        return <section className="post-list">
-            {this.state.posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLiked.bind(this)}
-                onPostFavToggled={this.handlePostFav.bind(this)}
-                onUserFollowToggled={this.handleUserFollowed.bind(this)} />)}
-        </section>
-    }
+    return <section className="post-list">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited}
+            onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onFollowUserToggled={handleUserFollowToggled}
+        />)}
+    </section>
 }
 
-export default FavsPostList
+export default FavPostList
