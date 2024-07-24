@@ -12,54 +12,40 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
-    data.findUser(user => user.email === email, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user !== null) {
-            callback(new Error('email already exists'))
-
-            return
-        }
-
-        data.findUser(user => user.username === username, (error, user) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ email })
+        .then(user => {
+            if (user) {
+                callback(new Error('user already exists'))
 
                 return
             }
 
-            if (user !== null) {
-                callback(new Error('username already exists'))
+            data.users.findOne({ username })
+                .then(user => {
+                    if (user) {
+                        callback(new Error('user already exists'))
 
-                return
-            }
+                        return
+                    }
 
-            const newUser = {
-                name,
-                surname,
-                email,
-                username,
-                password,
-                favs: [],
-                following: [],
-                avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
-            }
+                    const newUser = {
+                        name,
+                        surname,
+                        email,
+                        username,
+                        password,
+                        favs: [],
+                        following: [],
+                        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+                    }
 
-            data.insertUser(newUser, error => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
+                    data.users.insertOne(newUser)
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default registerUser

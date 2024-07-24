@@ -2,51 +2,38 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
+import { ObjectId } from 'mongodb'
+
 const updatePostCaption = (username, postId, caption, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            if (!post) {
-                callback(new Error('post not found'))
+            data.posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-                return
-            }
+                        return
+                    }
 
-            post.caption = caption
+                    data.posts.updateOne({ _id: new ObjectId(postId) }, { $set: { caption } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
 
-            data.updatePost(post => post.id === postId, post, error => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default updatePostCaption

@@ -1,11 +1,32 @@
 import toggleLikePost from './toggleLikePost.js'
+import data from '../data/index.js'
 
-toggleLikePost('samu', '1ksy8z2bdn6o', error => {
-    if (error) {
-        console.error(error)
+import { MongoClient } from 'mongodb'
 
-        return
-    }
+const client = new MongoClient('mongodb://127.0.0.1:27017')
 
-    console.log('like post toggled')
-})
+client.connect()
+    .then(() => {
+        console.log('connected')
+
+        const test = client.db('test')
+        const users = test.collection('users')
+        const posts = test.collection('posts')
+
+        data.users = users
+        data.posts = posts
+
+        toggleLikePost('samuelespinetti', '66a0cd0632ecf3c75b98dbf9', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('like post toggled')
+
+            client.close()
+        })
+    })
+    .catch(error => console.error(error))
+

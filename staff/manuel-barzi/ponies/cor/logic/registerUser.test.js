@@ -1,11 +1,29 @@
 import registerUser from './registerUser.js'
+import data from '../data/index.js'
 
-registerUser('Marti', 'Herms', 'marti@herms.com', 'marti', '123456789', '123456789', error => {
-    if (error) {
-        console.error(error)
+import { MongoClient } from 'mongodb'
 
-        return
-    }
+const client = new MongoClient('mongodb://127.0.0.1:27017')
 
-    console.log('user registered')
-})
+client.connect()
+    .then(() => {
+        console.log('connected')
+
+        const test = client.db('test')
+        const users = test.collection('users')
+
+        data.users = users
+
+        registerUser('Samu', 'Spinetti', 'samu@spinetti.com', 'samu', '123123123', '123123123', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('user registered')
+
+            client.close()
+        })
+    })
+    .catch(error => console.error(error))
