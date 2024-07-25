@@ -1,0 +1,1 @@
+curl  -v http://localhost:8080/posts/18974sh9g5y8/caption -X PATCH -d {"caption":"huroncitos"} -H "Authorization: Basic tatig" -H "Content-Type: application/json"

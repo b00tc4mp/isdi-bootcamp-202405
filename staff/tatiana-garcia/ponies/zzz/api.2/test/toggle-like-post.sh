@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/nftix764nv4/likes -X PATCH -H "Authorization: Basic abtg"
