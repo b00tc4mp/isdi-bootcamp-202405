@@ -85,8 +85,6 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
     const handleCaptionEdit = (event) => {
         event.preventDefault()
 
-        const { post } = this.props
-
         const form = event.target
 
         const captionEditInput = form['caption-edit-input']

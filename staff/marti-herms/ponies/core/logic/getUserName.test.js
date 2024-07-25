@@ -1,5 +1,33 @@
 import getUserName from './getUserName.js'
 
-const name = getUserName('Eden', 'samu')
+import data from '../data/index.js'
 
-console.log(name)
+import { MongoClient } from 'mongodb'
+
+const client = new MongoClient('mongodb://127.0.0.1:27017')
+
+client.connect()
+    .then(() => {
+        console.log('connected')
+
+        const test = client.db('test')
+
+        const users = test.collection('users')
+        const posts = test.collection('posts')
+
+        data.users = users
+        data.posts = posts
+
+        getUserName("eden", 'val', (error, name) => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log(name)
+
+            client.close()
+        })
+    })
+    .catch(error => console.error(error))

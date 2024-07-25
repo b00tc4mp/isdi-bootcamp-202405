@@ -7,27 +7,23 @@ const authenticateUser = (username, password, callback) => {
     validate.password(password)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (user === null) {
+                callback(new Error('user not found'))
 
-            return
-        }
+                return
+            }
 
-        if (user === null) {
-            callback(new Error('user not found'))
+            if (user.password !== password) {
+                callback(new Error('wrong password'))
 
-            return
-        }
+                return
+            }
 
-        if (user.password !== password) {
-            callback(new Error('wrong password'))
-
-            return
-        }
-
-        callback(null)
-    })
+            callback(null)
+        })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default authenticateUser

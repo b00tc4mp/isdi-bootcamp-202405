@@ -1,6 +1,6 @@
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
 const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
-const USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
+const USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{3,16}$/
 //const PASSWORD_REGEX = /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$/
 const PASSWORD_REGEX = /^\w{8,}$/
 

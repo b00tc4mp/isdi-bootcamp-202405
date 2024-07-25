@@ -7,26 +7,19 @@ const editUserAvatar = (username, newAvatar, callback) => {
     validate.string(newAvatar, 'avatar')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user.avatar === avatar) return
-
-        user.avatar = avatar
-
-        data.updateUser(user => user.username === username, user, (error) => {
-            if (error) {
+    data.users.findOne({ username })
+        .then(user => {
+            if (user.avatar === newAvatar) {
                 callback(new Error(error.message))
 
                 return
             }
-            callback(null)
+
+            data.users.updateOne({ username }, { $set: { avatar: newAvatar } })
+                .then(() => callback(null))
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default editUserAvatar

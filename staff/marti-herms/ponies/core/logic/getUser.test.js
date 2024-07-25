@@ -1,4 +1,4 @@
-import editPost from './editPost.js'
+import getUser from './getUser.js'
 
 import data from '../data/index.js'
 
@@ -18,14 +18,14 @@ client.connect()
         data.users = users
         data.posts = posts
 
-        editPost('eden', '66a0f6b48739a63eddc00299', 'My Nicholas <3', error => {
+        getUser("eden", 'val', (error, user) => {
             if (error) {
                 console.error(error)
 
                 return
             }
 
-            console.log('post edited')
+            console.log(user)
 
             client.close()
         })

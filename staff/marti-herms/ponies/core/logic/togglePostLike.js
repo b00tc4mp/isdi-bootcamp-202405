@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import data from '../data/index.js'
 
 import validate from '../validate.js'
@@ -7,72 +8,49 @@ const togglePostLike = (username, postId, callback) => {
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        if (postId.trim().length === 0) {
-            callback(new Error('invalid postId'))
-
-            return
-        }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            if (post === null) {
-                callback(new Error('post not found'))
-
-                return
-            }
-
-            const index = post.likes.indexOf(username)
-
-            if (index < 0) {
-                post.likes.push(username)
-            } else {
-                post.likes.splice(index, 1)
-            }
-
-            data.updatePost(post => post.id === postId, post, (error) => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                const postIndex = user.likedPosts.findIndex(id => id === postId)
-
-                if (postIndex !== -1) {
-                    user.likedPosts.splice(postIndex, 1)
-                } else {
-                    user.likedPosts.push(postId)
-                }
-
-                data.updateUser(user => user.username === username, user, (error) => {
-                    if (error) {
-                        callback(new Error(error.message))
+            data.posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
                         return
                     }
-                    callback(null)
+
+                    const index = post.likes.indexOf(username)
+
+                    if (index < 0) {
+                        post.likes.push(username)
+                    } else {
+                        post.likes.splice(index, 1)
+                    }
+
+                    data.posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: post.likes } })
+                        .then(() => {
+                            const postIndex = user.likedPosts.findIndex(id => id === postId)
+
+                            if (postIndex !== -1) {
+                                user.likedPosts.splice(postIndex, 1)
+                            } else {
+                                user.likedPosts.push(postId)
+                            }
+
+                            data.users.updateOne({ username }, { $set: { likedPosts: user.likedPosts } })
+                                .then(() => callback(null))
+                                .catch(error => callback(new Error(error.message)))
+                        })
+                        .catch(error => callback(new Error(error.message)))
                 })
-            })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default togglePostLike

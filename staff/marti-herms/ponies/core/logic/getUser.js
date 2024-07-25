@@ -7,37 +7,33 @@ const getUser = (username, targetUsername, callback) => {
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findUser(user => user.username === targetUsername, (error, user) => {
-            if (error) {
-                callback(new Error(error.message))
-
-                return
-            }
-
+    data.users.findOne({ username })
+        .then(user => {
             if (!user) {
-                callback(new Error('target user not found'))
+                callback(new Error('user not found'))
 
                 return
             }
 
-            delete user.password
+            data.users.findOne({ username: targetUsername })
+                .then(user => {
+                    if (!user) {
+                        callback(new Error('target user not found'))
 
-            callback(null, user)
+                        return
+                    }
+
+                    user.id = user._id.toString()
+
+                    delete user._id
+
+                    delete user.password
+
+                    callback(null, user)
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default getUser

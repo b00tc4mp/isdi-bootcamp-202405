@@ -6,34 +6,25 @@ const getUserList = (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-        }
-
-        data.findUsers(() => true, (error, users) => {
-            if (error) {
-                callback(new Error(error.message))
-
-                return
+    data.users.findOne({ username })
+        .then(user => {
+            if (user === null) {
+                callback(new Error('user not found'))
             }
 
-            const usernames = users.map(user => user.username)
+            if (user === null) {
+                callback(new Error('user not found'))
+            }
 
-            callback(null, usernames)
+            data.users.find().toArray()
+                .then(users => {
+                    const usernames = users.map(user => user.username)
+
+                    callback(null, usernames)
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default getUserList

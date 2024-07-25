@@ -7,37 +7,27 @@ const toggleSavedPost = (username, postId, callback) => {
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        const postIndex = user.savedPosts.findIndex(id => id === postId)
-
-        if (postIndex !== -1) {
-            user.savedPosts.splice(postIndex, 1)
-        } else {
-            user.savedPosts.push(postId)
-        }
-
-        data.updateUser(user => user.username === username, user, (error) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            callback(null)
+            const postIndex = user.savedPosts.findIndex(id => id === postId)
+
+            if (postIndex !== -1) {
+                user.savedPosts.splice(postIndex, 1)
+            } else {
+                user.savedPosts.push(postId)
+            }
+
+            data.users.updateOne({ username }, { $set: { savedPosts: user.savedPosts } })
+                .then(() => callback(null))
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default toggleSavedPost

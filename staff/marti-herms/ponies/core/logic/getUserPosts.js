@@ -7,50 +7,50 @@ const getUserPosts = (username, targetUsername, callback) => {
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findUser(user => user.username === targetUsername, (error, targetUser) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            if (!targetUser) {
-                callback(new Error('target user not found'))
+            data.posts.find({ author: targetUsername })
+                .then(posts => {
+                    if (posts.length) {
+                        let count = 0
 
-                return
-            }
+                        posts.forEach(post => {
+                            post.id = post._id.toString()
+                            delete post._id
 
-            data.findPosts(post => targetUser.yourPosts.includes(post.id), (error, posts) => {
-                if (error) {
-                    callback(new Error(error.message))
+                            post.fav = user.savedPosts.includes(post.id)
+                            post.like = post.likes.includes(username)
 
-                    return
-                }
+                            data.users.findOne({ username: post.author })
+                                .then(author => {
+                                    post.author = {
+                                        username: author.username,
+                                        avatar: author.avatar,
+                                        following: user.following.includes(author.username)
+                                    }
 
-                posts.forEach(post => {
-                    post.fav = user.savedPosts.includes(post.id)
-                    post.like = post.likes.includes(username)
+                                    count++
 
-                    post.author.following = user.following.includes(post.author.username)
+                                    if (count === posts.length) {
+                                        callback(null, posts)
+                                    }
+                                })
+                                .catch(error => callback(new Error(error.message)))
+                        })
+                    } else callback(null, [])
                 })
-
-                callback(null, posts.reverse())
-            })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
+
+
+
 }
 
 export default getUserPosts

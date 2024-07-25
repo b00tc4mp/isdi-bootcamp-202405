@@ -6,36 +6,47 @@ const getUserSavedPosts = (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findPosts(post => user.savedPosts.includes(post.id), (error, posts) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            posts.forEach(post => {
-                post.fav = user.savedPosts.includes(post.id)
-                post.like = post.likes.includes(username)
+            data.posts.find({ author: { $in: user.savedPosts } }).sort({ date: -1 }).toArray()
+                .then(posts => {
+                    if (posts.length) {
+                        let count = 0
 
-                post.author.following = user.following.includes(post.author.username)
-            })
+                        posts.forEach(post => {
+                            post.id = post._id.toString()
+                            delete post._id
 
-            callback(null, posts.reverse())
+                            post.fav = user.savedPosts.includes(post.id)
+                            post.like = post.likes.includes(username)
+
+                            data.users.findOne({ username: post.author })
+                                .then(author => {
+                                    post.author = {
+                                        username: author.username,
+                                        avatar: author.avatar,
+                                        following: user.following.includes(author.username)
+                                    }
+
+                                    count++
+
+                                    if (count === posts.length) {
+                                        callback(null, posts)
+                                    }
+                                })
+                                .catch(error => callback(new Error(error.message)))
+                        })
+                    } else callback(null, [])
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default getUserSavedPosts

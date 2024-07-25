@@ -10,57 +10,43 @@ const registerUser = (name, surname, email, username, password, callback) => {
     validate.password(password)
     validate.callback(callback)
 
-    data.findUser(user => user.email === email, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user !== null) {
-            callback(new Error('email already exists'))
-
-            return
-        }
-
-        data.findUser(user => user.username === username, (error, user) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ email })
+        .then((user => {
+            if (user) {
+                callback(new Error('email already exists'))
 
                 return
             }
 
-            if (user !== null) {
-                callback(new Error('username already exists'))
+            data.users.findOne({ username })
+                .then(user => {
+                    if (user) {
+                        callback(new Error('username already exists'))
 
-                return
-            }
+                        return
+                    }
 
-            user = {
-                name,
-                surname,
-                email,
-                username,
-                password,
-                yourPosts: [],
-                likedPosts: [],
-                savedPosts: [],
-                followers: [],
-                following: [],
-                avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
-            }
+                    user = {
+                        name,
+                        surname,
+                        email,
+                        username,
+                        password,
+                        yourPosts: [],
+                        likedPosts: [],
+                        savedPosts: [],
+                        followers: [],
+                        following: [],
+                        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+                    }
 
-            data.insertUser(user, (error) => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
-        })
-    })
+                    data.users.insertOne(user)
+                        .then(() => callback(null))
+                        .catch(error => new Error(error.message))
+                })
+                .catch(error => new Error(error.message))
+        }))
+        .catch(error => new Error(error.message))
 }
 
 export default registerUser

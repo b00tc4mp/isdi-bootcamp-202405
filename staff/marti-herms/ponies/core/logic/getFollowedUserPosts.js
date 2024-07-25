@@ -6,46 +6,47 @@ const getFollowedUserPosts = (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findUsers(followedUser => user.following.includes(followedUser.username), (error, users) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (user === null) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            const posts = users.map(user => user.yourPosts).flat(Infinity)
+            data.posts.find({ author: { $in: user.following } }).sort({ date: -1 }).toArray()
+                .then(posts => {
+                    if (posts.length) {
+                        let count = 0
 
-            data.findPosts(post => posts.includes(post.id), (error, posts) => {
-                if (error) {
-                    callback(new Error(error.message))
+                        posts.forEach(post => {
+                            post.id = post._id.toString()
+                            delete post._id
 
-                    return
-                }
+                            post.fav = user.savedPosts.includes(post.id)
+                            post.like = post.likes.includes(username)
 
-                posts.forEach(post => {
-                    post.fav = user.savedPosts.includes(post.id)
-                    post.like = post.likes.includes(username)
+                            data.users.findOne({ username: post.author })
+                                .then(author => {
+                                    post.author = {
+                                        username: author.username,
+                                        avatar: author.avatar,
+                                        following: user.following.includes(author.username)
+                                    }
 
-                    post.author.following = user.following.includes(post.author.username)
+                                    count++
+
+                                    if (count === posts.length) {
+                                        callback(null, posts)
+                                    }
+                                })
+                                .catch(error => callback(new Error(error.message)))
+                        })
+                    } else callback(null, [])
                 })
-
-                callback(null, posts.reverse())
-            })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default getFollowedUserPosts
