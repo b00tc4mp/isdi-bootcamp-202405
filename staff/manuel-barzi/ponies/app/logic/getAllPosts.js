@@ -1,4 +1,8 @@
+import { validate } from 'com'
+
 export default callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {

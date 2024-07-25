@@ -1,5 +1,5 @@
 {
-  "name": "cor",
+  "name": "com",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -9,12 +9,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "com": "file:../com",
-    "mongodb": "^6.8.0"
-  },
-  "devDependencies": {
-    "dotenv": "^16.4.5"
-  }
+  "license": "ISC"
 }

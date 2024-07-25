@@ -1,5 +1,8 @@
+import { validate } from 'com'
+
 const toggleLikePost = (postId, callback) => {
-    // TODO input validation
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

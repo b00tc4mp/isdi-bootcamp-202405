@@ -1,5 +1,9 @@
+import { validate } from 'com'
+
 export default (postId, caption, callback) => {
-    // TODO input validation
+    validate.string(postId, 'postId')
+    validate.string(caption, 'caption')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

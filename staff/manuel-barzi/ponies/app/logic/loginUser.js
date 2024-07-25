@@ -1,5 +1,9 @@
+import { validate } from 'com'
+
 export default (username, password, callback) => {
-    // TODO input validation
+    validate.username(username)
+    validate.password(password)
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

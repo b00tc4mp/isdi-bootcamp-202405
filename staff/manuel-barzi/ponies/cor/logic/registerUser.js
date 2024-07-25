@@ -1,5 +1,5 @@
 import data from '../data/index.js'
-import validate from '../validate.js'
+import { validate } from 'com'
 
 export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)

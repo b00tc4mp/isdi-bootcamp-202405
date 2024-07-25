@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
 export default (username, postId, callback) => {
     validate.username(username)

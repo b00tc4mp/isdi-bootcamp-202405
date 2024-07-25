@@ -1,6 +1,6 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
 export default (username, image, caption, callback) => {
     validate.username(username)

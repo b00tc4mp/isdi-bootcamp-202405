@@ -1,9 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 
-import logic from 'cor/logic/index.js'
-
-import { mongodb, data } from 'cor'
+import { mongodb, data, logic } from 'cor'
 
 const { MongoClient } = mongodb
 
