@@ -1,21 +1,10 @@
 import 'dotenv/config'
-
-import data from '../data/index.js'
-
-import { MongoClient } from 'mongodb'
-
 import toggleFollowUser from './toggleFollowUser.js'
+import mongoose from 'mongoose'
 
-const client = new MongoClient(process.env.MONGODB_URI)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected')
-
-        const test = client.db('test')
-        const users = test.collection('users')
-
-        data.users = users
 
         toggleFollowUser('samu', 'marco', error => {
             if (error) {
@@ -26,7 +15,7 @@ client.connect()
 
             console.log('Follow user toggled')
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))

@@ -1,4 +1,4 @@
-import validate from '../validate.js'
+import { validate } from '../../com/index.js'
 
 export default (newAvatar, callback) => {
     validate.image(newAvatar, 'avatar')

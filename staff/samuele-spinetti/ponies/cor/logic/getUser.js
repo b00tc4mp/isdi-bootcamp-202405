@@ -1,13 +1,12 @@
-import data from '../data/index.js'
-
-import validate from '../validate.js'
+import { User } from '../data/models.js'
+import { validate } from 'com'
 
 export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername)
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('User not found'))
@@ -15,7 +14,7 @@ export default (username, targetUsername, callback) => {
                 return
             }
 
-            data.users.findOne({ username: targetUsername })
+            User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
                     if (!targetUser) {
                         callback(new Error('Target user not found'))

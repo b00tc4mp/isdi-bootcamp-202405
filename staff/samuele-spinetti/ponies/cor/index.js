@@ -1,7 +1,9 @@
-import mongodb from 'mongodb'
+import mongoose from 'mongoose'
 import data from './data/index.js'
+import logic from './logic/index.js'
 
 export {
-    mongodb,
-    data
+    mongoose,
+    data,
+    logic
 }

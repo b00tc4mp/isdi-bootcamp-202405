@@ -1,4 +1,4 @@
-import validate from '../validate.js'
+import { validate } from '../../com/index.js'
 
 export default (username, callback) => {
     validate.username(username)

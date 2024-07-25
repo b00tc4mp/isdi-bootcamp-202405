@@ -1,23 +1,10 @@
 import 'dotenv/config'
-
-import data from '../data/index.js'
-
-import { MongoClient } from 'mongodb'
-
 import getAllFavPosts from './getAllFavPosts.js'
+import mongoose from 'mongoose'
 
-const client = new MongoClient(process.env.MONGODB_URI)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected')
-
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
 
         getAllFavPosts('samu', (error, posts) => {
             if (error) {
@@ -28,7 +15,7 @@ client.connect()
 
             console.log(posts)
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))

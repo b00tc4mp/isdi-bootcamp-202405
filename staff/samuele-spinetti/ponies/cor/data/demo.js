@@ -1,72 +1,43 @@
-import fs from 'fs'
+import 'dotenv/config'
+import mongoose from 'mongoose'
 
-const users = []
+import { User, Post } from './models.js'
 
-const samu = {
-    name: 'Samuele',
-    surname: 'Spinetti',
-    email: 'samuele@spinetti.com',
-    username: 'samu',
-    password: '123123123'
-}
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        // const user = new User({ name: 'Muele', surname: 'Netti', email: 'muele@netti.com', username: 'muelenetti', password: '123123123' })
 
-const nico = {
-    name: 'Niccolo',
-    surname: 'Spinetti',
-    email: 'niccolo@spinetti.com',
-    username: 'nico',
-    password: '123123123'
-}
+        // user.save()
+        //     .then(() => console.log('user saved'))
+        //     .catch(error => console.error(error))
 
-const cami = {
-    name: 'Camilla',
-    surname: 'Spinetti',
-    email: 'camilla@spinetti.com',
-    username: 'cami',
-    password: '123123123'
-}
+        // User.create({ name: 'Suma', surname: 'Speni', email: 'suma@speni.com', username: 'sumaspeni', password: '123123123' })
+        //     .then(() => console.log('user saved'))
+        //     .catch(error => console.error(error))
 
-users.push(samu)
-users.push(nico)
-users.push(cami)
+        // User.findOne({ username: 'sumaspeni' })
+        //     .then(user => {
+        //         user.name = 'Samu'
+        //         user.surname = 'Spine'
+        //         user.email = 'samu@spine.com'
+        //         user.username = 'samuspine'
 
-const usersJSON = JSON.stringify(users)
+        //         user.save()
+        //             .then(() => console.log('user updated'))
+        //             .catch(error => console.error(error))
+        //     })
+        //     .catch(error => console.error(error))
 
-console.log('usersJSON', usersJSON)
+        // User.updateOne({ username: 'samu' }, { $set: { name: 'Samuelet' } })
+        //     .then(() => console.log('user updated'))
+        //     .catch(error => console.error(error))
 
-fs.writeFileSync(`${__dirname}/users.json`, usersJSON)
+        // User.deleteOne({ username: 'samuspine' })
+        //     .then(() => console.log('user deleted'))
+        //     .catch(error => console.error(error))
 
-const usersJSON2 = fs.readFileSync(`${__dirname}/users.json`, 'utf8')
-
-console.log('usersJSON2', usersJSON2)
-
-const posts = []
-
-const post1 = {
-    id: 'abcdefghi',
-    author: 'samu',
-    date: '11-07-2024',
-    caption: 'Hello',
-    image: 'https://njebvbeviobvo'
-}
-
-const post2 = {
-    id: 'abcdefghl',
-    author: 'cami',
-    date: '11-07-2024',
-    caption: 'Hello',
-    image: 'https://njebvbeviobvb'
-}
-
-posts.push(post1)
-posts.push(post2)
-
-const postsJSON = JSON.stringify(posts)
-
-console.log('postsJSON', postsJSON)
-
-fs.writeFileSync(`${__dirname}/posts.json`, postsJSON)
-
-const postsJSON2 = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
-
-console.log('postsJSON2', postsJSON2)
+        User.find()
+            .then(users => console.log(users))
+            .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))

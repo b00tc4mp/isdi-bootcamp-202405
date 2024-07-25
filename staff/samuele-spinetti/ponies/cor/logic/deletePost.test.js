@@ -1,22 +1,10 @@
 import 'dotenv/config'
-
 import deletePost from './deletePost.js'
-import data from '../data/index.js'
+import mongoose from 'mongoose'
 
-import { MongoClient } from 'mongodb'
-
-const client = new MongoClient(process.env.MONGODB_URI)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected')
-
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
 
         deletePost('samu', '66a111da21d28f7435d5c1d6', error => {
             if (error) {
@@ -27,7 +15,7 @@ client.connect()
 
             console.log('Post deleted')
 
-            client.close()
+            mongoose.connection()
         })
     })
     .catch(error => console.error(error))

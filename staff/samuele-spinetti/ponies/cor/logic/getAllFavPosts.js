@@ -1,12 +1,11 @@
-import data from '../data/index.js'
-
-import validate from '../validate.js'
+import { User, Post } from '../data/models.js'
+import { validate } from 'com'
 
 export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('User not found'))
@@ -14,7 +13,7 @@ export default (username, callback) => {
                 return
             }
 
-            data.posts.find({ _id: { $in: user.favs } }).sort({ date: -1 }).toArray()
+            Post.find({ _id: { $in: user.favs } }).sort({ date: -1 }).lean()
                 .then(posts => {
                     if (posts.length) {
                         let count = 0
@@ -23,7 +22,7 @@ export default (username, callback) => {
                             post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
                             post.like = post.likes.includes(username)
 
-                            data.users.findOne({ username: post.author })
+                            User.findOne({ username: post.author }).lean()
                                 .then(author => {
                                     post.author = {
                                         username: author.username,

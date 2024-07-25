@@ -1,7 +1,6 @@
 {
-  "name": "cor",
+  "name": "com",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -10,11 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "dotenv": "^16.4.5"
-  },
-  "dependencies": {
-    "com": "file:../com",
-    "mongoose": "^8.5.1"
-  }
+  "description": ""
 }

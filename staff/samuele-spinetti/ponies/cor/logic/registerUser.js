@@ -1,6 +1,5 @@
-import data from '../data/index.js'
-
-import validate from '../validate.js'
+import { User } from '../data/models.js'
+import { validate } from 'com'
 
 export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
@@ -13,7 +12,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
     if (password !== passwordRepeat)
         throw new Error('Passwords do not match')
 
-    data.users.findOne({ email })
+    User.findOne({ email }).lean()
         .then(user => {
             if (user) {
                 callback(new Error('Email already exists'))
@@ -21,7 +20,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                 return
             }
 
-            data.users.findOne({ username })
+            User.findOne({ username }).lean()
                 .then(user => {
                     if (user) {
                         callback(new Error('Username already exists'))
@@ -29,18 +28,13 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                         return
                     }
 
-                    const newUser = {
+                    User.create({
                         name,
                         surname,
                         email,
                         username,
                         password,
-                        favs: [],
-                        following: [],
-                        avatar: 'https://svgsilh.com/svg/145535-707070.svg'
-                    }
-
-                    data.users.insertOne(newUser)
+                    })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })
