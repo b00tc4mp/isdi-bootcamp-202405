@@ -1,5 +1,9 @@
-const loginUser = (username, password, callback) => {
-    //TODO input validation
+import { validate } from 'com'
+
+export default (username, password, callback) => {
+    validate.username(username)
+    validate.password(password)
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -21,10 +25,8 @@ const loginUser = (username, password, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/users/auth')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ username, password }))
 }
-
-export default loginUser

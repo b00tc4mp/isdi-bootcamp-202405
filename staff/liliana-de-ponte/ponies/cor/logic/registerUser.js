@@ -1,7 +1,7 @@
-import data from '../data/index.js'
-import validate from '../validate.js'
+import { User } from '../data/models.js'
+import { validate } from 'com'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -9,62 +9,36 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
     validate.password(password)
     validate.callback(callback)
 
-    if (password !== passwordRepeat) {
+    if (password !== passwordRepeat)
         callback(new Error('passwords do not match'))
 
-        return
-    }
-
-    data.findUser(user => user.email === email, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user !== null) {
-            callback(new Error('email already exists'))
-
-            return
-        }
-
-        data.findUser(user => user.username === username, (error, user) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ email }).lean()
+        .then(user => {
+            if (user) {
+                callback(new Error('user already exists'))
 
                 return
             }
 
-            if (user !== null) {
-                callback(new Error('username already exists'))
+            User.findOne({ username }).lean()
+                .then(user => {
+                    if (user) {
+                        callback(new Error('user already exists'))
 
-                return
+                        return
+                    }
 
-            }
-
-            const newUser = {
-                name,
-                surname,
-                email,
-                username,
-                password,
-                favs: [],
-                following: [],
-                avatar: 'https://www.shutterstock.com/shutterstock/photos/1284452899/display_1500/stock-vector-illustrator-of-unicorn-cartoon-pony-horse-cartoon-dream-pastel-color-happy-unicorn-expressions-1284452899.jpg'
-            }
-
-            data.insertUser(newUser, error => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
+                    User.create({
+                        name,
+                        surname,
+                        email,
+                        username,
+                        password,
+                    })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
-
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default registerUser

@@ -1,5 +1,13 @@
-const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
-    //TODO input validation
+import { validate } from 'com'
+
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
+    validate.name(name)
+    validate.name(surname, 'surname')
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
+    validate.passwrord(passwordRepeat, 'passwordRepeat')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -19,10 +27,8 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
-
-export default registerUser

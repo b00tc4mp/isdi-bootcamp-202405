@@ -1,12 +1,23 @@
+import 'dotenv/config'
 import toggleFavPost from './toggleFavPost.js'
 
-toggleFavPost('lilideponte', "2cxgeu12zjkh8", error => {
-    if (error) {
-        cancelIdleCallback(new Error(error.message))
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log('fav post toggled')
+        toggleFavPost('lilideponte', '66a2159ae4df01c62b263e34', error => {
+            if (error) {
+                console.error(error)
 
-})
+                return
+            }
+
+            console.log('fav post toggled')
+
+            mongoose.disconnect()
+
+        })
+    })
+    .catch(error => console.error(error))

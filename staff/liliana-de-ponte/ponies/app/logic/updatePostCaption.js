@@ -1,6 +1,9 @@
-const updatePostCaption = (postId, caption, callback) => {
-    //validate.username(username)
-    //validate.postId(postId)
+import { validate } from 'com'
+
+export default (postId, caption, callback) => {
+    validate.string(postId, 'postId')
+    validate.string(caption, 'caption')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -20,12 +23,9 @@ const updatePostCaption = (postId, caption, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/caption`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/caption`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ caption }))
 }
-
-
-export default updatePostCaption

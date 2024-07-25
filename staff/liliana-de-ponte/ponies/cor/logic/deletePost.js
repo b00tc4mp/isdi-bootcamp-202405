@@ -1,52 +1,34 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const deletePost = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
-    validate.postId(postId, 'postId')
+    validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('User not found'))
-
-            return
-        }
-
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('User not found'))
 
                 return
             }
 
-            if (post === null) {
-                callback(new Error('post not found'))
+            Post.findOne({ _id: postId }).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-                return
+                        return
+                    }
 
-            }
+                    Post.deleteOne({ _id: postId })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
 
-            data.deletePost(post => post.id === postId, error => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-
-                }
-
-                callback(null)
-            })
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default deletePost

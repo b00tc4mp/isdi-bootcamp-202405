@@ -1,11 +1,22 @@
-import registerUser from "./registerUser.js";
+import 'dotenv/config'
+import registerUser from "./registerUser.js"
 
-registerUser("Cara", "Papa", "cara@papa.com", "carapapa", "123456789", "123456789", error => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log('user registered')
-})
+        registerUser("Samu", "Spine", "samu@spine.com", "samuspine", "123456789", "123456789", error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('user registered')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

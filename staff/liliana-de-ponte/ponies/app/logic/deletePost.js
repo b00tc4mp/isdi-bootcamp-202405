@@ -1,5 +1,8 @@
-const deletePost = (postId, callback) => {
-    //TODO input calidation
+import { validate } from 'com'
+
+export default (postId, callback) => {
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -19,9 +22,8 @@ const deletePost = (postId, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
 
     xhr.send()
 }
-export default deletePost

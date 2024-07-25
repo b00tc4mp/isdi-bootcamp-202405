@@ -7,12 +7,13 @@ import Paragraph from '../components/Paragraph'
 
 import './Header.css'
 
-const Header = ({ onHomeClick, onPoniesClick, onFavsClick }) => {
-    console.debug('Header -> constructor')
+const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
+    console.debug('Header -> call')
 
     const [name, setName] = useState(null)
 
     useEffect(() => {
+        console.debug('Header -> useEffect')
         try {
             logic.getUserName((error, name) => {
                 if (error) {
