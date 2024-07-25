@@ -1,9 +1,10 @@
+import 'dotenv/config'
 import getAllPosts from './getAllPosts.js'
 import data from '../data/index.js'
 
 import { MongoClient } from 'mongodb'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
+const client = new MongoClient(process.env.MONGODB_URI)
 
 client.connect()
     .then(() => {

@@ -3,7 +3,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-function toggleLikePost(username, postId, callback) {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
@@ -41,5 +41,3 @@ function toggleLikePost(username, postId, callback) {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleLikePost

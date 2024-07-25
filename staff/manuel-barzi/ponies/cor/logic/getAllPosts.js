@@ -2,7 +2,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const getAllPosts = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -51,5 +51,3 @@ const getAllPosts = (username, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default getAllPosts

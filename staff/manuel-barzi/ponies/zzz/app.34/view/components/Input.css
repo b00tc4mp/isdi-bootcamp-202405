@@ -1,0 +1,9 @@
+.Input {
+    border: 1px solid lightgray;
+    border-radius: .25rem;
+    font-size: inherit;
+}
+
+.Input--full-width {
+    width: 100%;
+}

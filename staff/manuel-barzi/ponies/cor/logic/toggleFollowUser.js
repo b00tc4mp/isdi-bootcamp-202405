@@ -2,9 +2,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-import { ObjectId } from 'mongodb'
-
-function toggleFollowUser(username, targetUsername, callback) {
+export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
@@ -42,5 +40,3 @@ function toggleFollowUser(username, targetUsername, callback) {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleFollowUser

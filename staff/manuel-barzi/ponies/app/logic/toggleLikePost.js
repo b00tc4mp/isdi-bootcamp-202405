@@ -19,7 +19,7 @@ const toggleLikePost = (postId, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/likes`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
 
     xhr.send()

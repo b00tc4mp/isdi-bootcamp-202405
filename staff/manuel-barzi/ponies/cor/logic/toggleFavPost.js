@@ -4,7 +4,7 @@ import validate from '../validate.js'
 
 import { ObjectId } from 'mongodb'
 
-function toggleFavPost(username, postId, callback) {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
@@ -42,5 +42,3 @@ function toggleFavPost(username, postId, callback) {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleFavPost

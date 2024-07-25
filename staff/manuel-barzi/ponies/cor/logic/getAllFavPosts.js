@@ -2,7 +2,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const getAllFavPosts = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -52,5 +52,3 @@ const getAllFavPosts = (username, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default getAllFavPosts

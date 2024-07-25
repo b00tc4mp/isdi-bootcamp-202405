@@ -2,7 +2,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const authenticateUser = (username, password, callback) => {
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
     validate.callback(callback)
@@ -25,5 +25,3 @@ const authenticateUser = (username, password, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default authenticateUser

@@ -3,7 +3,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const deletePost = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
@@ -33,5 +33,3 @@ const deletePost = (username, postId, callback) => {
         .catch(error => callback(new Error(error.message)))
 
 }
-
-export default deletePost

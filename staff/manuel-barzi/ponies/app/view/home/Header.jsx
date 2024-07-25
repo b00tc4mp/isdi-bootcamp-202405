@@ -7,7 +7,7 @@ import Paragraph from '../components/Paragraph'
 
 import './Header.css'
 
-const Header = ({ onHomeClick, onPoniesClick, onFavsClick }) => {
+const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)

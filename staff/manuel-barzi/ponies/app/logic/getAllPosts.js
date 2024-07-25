@@ -1,4 +1,4 @@
-const getAllPosts = callback => {
+export default callback => {
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
@@ -19,9 +19,7 @@ const getAllPosts = callback => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts')
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getAllPosts

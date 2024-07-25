@@ -1,4 +1,4 @@
-const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
     // TODO input validation
 
     const xhr = new XMLHttpRequest
@@ -19,10 +19,8 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
-
-export default registerUser

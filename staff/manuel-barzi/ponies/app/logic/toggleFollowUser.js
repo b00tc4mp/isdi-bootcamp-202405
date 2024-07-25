@@ -1,4 +1,4 @@
-const toggleFollowUser = (username, callback) => {
+export default (username, callback) => {
     // TODO input validation
 
     const xhr = new XMLHttpRequest
@@ -19,10 +19,8 @@ const toggleFollowUser = (username, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/users/${username}/follows`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/follows`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
 
     xhr.send()
 }
-
-export default toggleFollowUser

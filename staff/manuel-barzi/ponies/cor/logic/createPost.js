@@ -2,7 +2,7 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const createPost = (username, image, caption, callback) => {
+export default (username, image, caption, callback) => {
     validate.username(username)
     validate.url(image, 'image')
     validate.string(caption, 'caption')
@@ -30,5 +30,3 @@ const createPost = (username, image, caption, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default createPost

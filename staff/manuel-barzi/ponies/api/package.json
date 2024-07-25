@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "cor": "file:../cor",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2"
   }
 }

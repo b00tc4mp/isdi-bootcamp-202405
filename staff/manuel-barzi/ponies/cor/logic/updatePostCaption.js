@@ -4,7 +4,7 @@ import validate from '../validate.js'
 
 import { ObjectId } from 'mongodb'
 
-const updatePostCaption = (username, postId, caption, callback) => {
+export default (username, postId, caption, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
@@ -35,5 +35,3 @@ const updatePostCaption = (username, postId, caption, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default updatePostCaption

@@ -1,4 +1,4 @@
-const createPost = (image, caption, callback) => {
+export default (image, caption, callback) => {
     // TODO input validation
 
     const xhr = new XMLHttpRequest
@@ -19,11 +19,9 @@ const createPost = (image, caption, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ image, caption }))
 }
-
-export default createPost
