@@ -93,10 +93,10 @@ const Profile = ({ user, onChange }) => {
             <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
             <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
         </Container>
-        {user.username === sessionStorage.username && <div>
+        {user.username === sessionStorage.username && <Container className='Container--options'>
             {/* <Button onClick={handleEditUsernameClick}>Edit Username</Button> */}
             <Button onClick={handleEditAvatarClick}>Edit Avatar</Button>
-        </div>}
+        </Container>}
         {/* {editUsernameVisibility && <Container className="Container--center-column">
                 <Form className="Form--column" onSubmit={handleEditUsername}>
                     <Container>

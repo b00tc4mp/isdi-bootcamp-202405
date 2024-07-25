@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const editPost = (id, newCaption, callback) => {
+export default (id, newCaption, callback) => {
     validate.string(id, 'id')
     validate.string(newCaption, 'newCaption')
     validate.callback(callback)
@@ -23,9 +23,7 @@ const editPost = (id, newCaption, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${id}/caption`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${id}/caption`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send(JSON.stringify({ newCaption }))
 }
-
-export default editPost

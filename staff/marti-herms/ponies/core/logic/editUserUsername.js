@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const editUserUsername = (oldUsername, newUsername, password, callback) => {
+export default (oldUsername, newUsername, password, callback) => {
     validate.username(oldUsername, 'oldUsername')
     validate.username(newUsername, 'newUsername')
     validate.password(password)
@@ -140,5 +140,3 @@ const editUserUsername = (oldUsername, newUsername, password, callback) => {
         })
     })
 }
-
-export default editUserUsername

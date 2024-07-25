@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const getUserName = (username, targetUsername, callback) => {
+export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -28,5 +28,3 @@ const getUserName = (username, targetUsername, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default getUserName

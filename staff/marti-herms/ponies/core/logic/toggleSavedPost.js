@@ -1,8 +1,9 @@
+import { ObjectId } from 'mongodb'
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const toggleSavedPost = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
@@ -20,7 +21,7 @@ const toggleSavedPost = (username, postId, callback) => {
             if (postIndex !== -1) {
                 user.savedPosts.splice(postIndex, 1)
             } else {
-                user.savedPosts.push(postId)
+                user.savedPosts.push(new ObjectId(postId))
             }
 
             data.users.updateOne({ username }, { $set: { savedPosts: user.savedPosts } })
@@ -29,5 +30,3 @@ const toggleSavedPost = (username, postId, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleSavedPost

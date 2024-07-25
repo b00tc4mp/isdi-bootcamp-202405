@@ -2,9 +2,9 @@ import { ObjectId } from 'mongodb'
 
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const deletePost = (username, id, callback) => {
+export default (username, id, callback) => {
     validate.username(username)
     validate.string(id, 'id')
     validate.callback(callback, 'id')
@@ -37,5 +37,3 @@ const deletePost = (username, id, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default deletePost

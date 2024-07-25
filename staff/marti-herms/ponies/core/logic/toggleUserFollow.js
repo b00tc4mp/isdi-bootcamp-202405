@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const toggleUserFollow = (username, targetUsername, callback) => {
+export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
@@ -58,5 +58,3 @@ const toggleUserFollow = (username, targetUsername, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleUserFollow

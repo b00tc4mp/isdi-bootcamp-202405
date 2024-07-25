@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const toggleSavedPost = (postId, callback) => {
+export default (postId, callback) => {
     validate.string(postId, 'postId')
     validate.callback(callback)
 
@@ -22,9 +22,7 @@ const toggleSavedPost = (postId, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/saved`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/saved`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default toggleSavedPost

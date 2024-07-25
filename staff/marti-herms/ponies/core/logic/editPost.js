@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb'
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const editPost = (username, id, newCaption, callback) => {
+export default (username, id, newCaption, callback) => {
     validate.username(username)
     validate.string(id, 'id')
     validate.string(newCaption, 'newCaption')
@@ -35,12 +35,8 @@ const editPost = (username, id, newCaption, callback) => {
                         data.posts.updateOne({ _id: new ObjectId(id) }, { $set: { caption: newCaption } })
                             .then(() => callback(null))
                             .catch(error => callback(new Error(error.message)))
-                    }
-
-                    callback(null)
+                    } else callback(null)
                 })
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default editPost

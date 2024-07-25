@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const editUserAvatar = (username, newAvatar, callback) => {
+export default (username, newAvatar, callback) => {
     validate.username(username)
     validate.string(newAvatar, 'avatar')
     validate.callback(callback)
@@ -21,5 +21,3 @@ const editUserAvatar = (username, newAvatar, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default editUserAvatar

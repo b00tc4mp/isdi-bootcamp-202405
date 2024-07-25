@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const addPost = (username, img, caption, callback) => {
+export default (username, img, caption, callback) => {
     validate.username(username)
     validate.string(img, 'img')
     validate.string(caption, 'caption')
@@ -43,5 +43,3 @@ const addPost = (username, img, caption, callback) => {
         .catch(error => callback(new Error(error.message)))
 
 }
-
-export default addPost

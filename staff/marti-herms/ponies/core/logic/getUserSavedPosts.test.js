@@ -10,7 +10,7 @@ client.connect()
     .then(() => {
         console.log('connected')
 
-        const test = client.db('test')
+        const test = client.db('ponies')
 
         const users = test.collection('users')
         const posts = test.collection('posts')
@@ -18,7 +18,7 @@ client.connect()
         data.users = users
         data.posts = posts
 
-        getUserSavedPosts('eden', (error, posts) => {
+        getUserSavedPosts('samu', (error, posts) => {
             if (error) {
                 console.error(error)
 

@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const addPost = (img, caption, callback) => {
+export default (img, caption, callback) => {
     validate.string(img, 'img')
     validate.string(caption, 'caption')
     validate.callback(callback)
@@ -23,7 +23,7 @@ const addPost = (img, caption, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/posts')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
@@ -31,5 +31,3 @@ const addPost = (img, caption, callback) => {
 
     xhr.send(JSON.stringify(data))
 }
-
-export default addPost

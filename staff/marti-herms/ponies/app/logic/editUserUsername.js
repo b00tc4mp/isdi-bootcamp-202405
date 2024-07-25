@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const editUserUsername = (newUsername, password, callback) => {
+export default (newUsername, password, callback) => {
     validate.username(newUsername)
     validate.password(password)
     validate.callback(callback)
@@ -25,9 +25,7 @@ const editUserUsername = (newUsername, password, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/users/${sessionStorage.username}/username`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${sessionStorage.username}/username`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send(JSON.stringify({ newUsername, password }))
 }
-
-export default editUserUsername

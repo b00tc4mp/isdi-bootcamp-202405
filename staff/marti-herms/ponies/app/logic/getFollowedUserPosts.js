@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const getFollowedUserPosts = callback => {
+export default callback => {
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -23,9 +23,7 @@ const getFollowedUserPosts = callback => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts/followed')
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/followed`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getFollowedUserPosts

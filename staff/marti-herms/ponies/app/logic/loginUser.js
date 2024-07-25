@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const loginUser = (username, password, callback) => {
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
     validate.callback(callback)
@@ -25,10 +25,8 @@ const loginUser = (username, password, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/users/auth')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader("Content-Type", "application/json")
 
     xhr.send(`{"username":"${username}","password":"${password}"}`)
 }
-
-export default loginUser

@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const editUserAvatar = (avatar, callback) => {
+export default (avatar, callback) => {
     validate.string(avatar, 'avatar')
     validate.callback(callback)
 
@@ -22,9 +22,7 @@ const editUserAvatar = (avatar, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/users/${sessionStorage.username}/avatar`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${sessionStorage.username}/avatar`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send(JSON.stringify({ avatar, password }))
 }
-
-export default editUserAvatar

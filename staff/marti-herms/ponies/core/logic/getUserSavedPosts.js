@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const getUserSavedPosts = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -14,17 +14,17 @@ const getUserSavedPosts = (username, callback) => {
                 return
             }
 
-            data.posts.find({ author: { $in: user.savedPosts } }).sort({ date: -1 }).toArray()
+            data.posts.find({ _id: { $in: user.savedPosts } }).sort({ date: -1 }).toArray()
                 .then(posts => {
                     if (posts.length) {
                         let count = 0
 
                         posts.forEach(post => {
+                            post.fav = user.savedPosts.includes(post._id)
+                            post.like = post.likes.includes(username)
+
                             post.id = post._id.toString()
                             delete post._id
-
-                            post.fav = user.savedPosts.includes(post.id)
-                            post.like = post.likes.includes(username)
 
                             data.users.findOne({ username: post.author })
                                 .then(author => {
@@ -48,5 +48,3 @@ const getUserSavedPosts = (username, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default getUserSavedPosts

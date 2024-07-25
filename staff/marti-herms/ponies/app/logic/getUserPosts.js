@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const getUserPosts = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -24,9 +24,7 @@ const getUserPosts = (username, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', `http://localhost:8080/users/${username}/posts`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${username}/posts`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getUserPosts

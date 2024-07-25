@@ -1,16 +1,15 @@
+import 'dotenv/config'
 import express from 'express'
 
-import logic from 'core/logic/index.js'
-
-import { mongodb, data } from 'core'
+import { mongodb, data, logic } from 'core'
 
 const { MongoClient } = mongodb
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
+const client = new MongoClient(process.env.MONGODB_URI)
 
 client.connect()
     .then(() => {
-        console.log('DB connected')
+        console.log(`API connected to ${process.env.MONGODB_URI}`)
 
         const ponies = client.db('ponies')
 
@@ -418,6 +417,6 @@ client.connect()
             })
         })
 
-        api.listen(8080, () => console.log('server listening on port 8080'))
+        api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
     })
     .catch(error => console.error(error))

@@ -1,6 +1,6 @@
-import validate from '../../core/validate.js'
+import { validate } from 'com'
 
-const deletePosts = (id, callback) => {
+export default (id, callback) => {
     validate.string(id, 'id')
     validate.callback(callback)
 
@@ -26,9 +26,7 @@ const deletePosts = (id, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${id}`)
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${id}`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default deletePosts

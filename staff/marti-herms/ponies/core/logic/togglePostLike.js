@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb'
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const togglePostLike = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
@@ -39,7 +39,7 @@ const togglePostLike = (username, postId, callback) => {
                             if (postIndex !== -1) {
                                 user.likedPosts.splice(postIndex, 1)
                             } else {
-                                user.likedPosts.push(postId)
+                                user.likedPosts.push(new ObjectId(postId))
                             }
 
                             data.users.updateOne({ username }, { $set: { likedPosts: user.likedPosts } })
@@ -52,5 +52,3 @@ const togglePostLike = (username, postId, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default togglePostLike

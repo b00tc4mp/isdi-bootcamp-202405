@@ -16,5 +16,8 @@
   "dependencies": {
     "core": "file:../core",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }

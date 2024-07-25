@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const registerUser = (name, surname, email, username, password, callback) => {
+export default (name, surname, email, username, password, callback) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -48,5 +48,3 @@ const registerUser = (name, surname, email, username, password, callback) => {
         }))
         .catch(error => new Error(error.message))
 }
-
-export default registerUser

@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const getUserPosts = (username, targetUsername, callback) => {
+export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
@@ -15,7 +15,7 @@ const getUserPosts = (username, targetUsername, callback) => {
                 return
             }
 
-            data.posts.find({ author: targetUsername })
+            data.posts.find({ author: targetUsername }).sort({ date: -1 }).toArray()
                 .then(posts => {
                     if (posts.length) {
                         let count = 0
@@ -48,9 +48,4 @@ const getUserPosts = (username, targetUsername, callback) => {
                 .catch(error => callback(new Error(error.message)))
         })
         .catch(error => callback(new Error(error.message)))
-
-
-
 }
-
-export default getUserPosts

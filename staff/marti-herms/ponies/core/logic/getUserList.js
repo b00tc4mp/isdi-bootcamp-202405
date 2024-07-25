@@ -1,8 +1,8 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const getUserList = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -26,5 +26,3 @@ const getUserList = (username, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default getUserList
