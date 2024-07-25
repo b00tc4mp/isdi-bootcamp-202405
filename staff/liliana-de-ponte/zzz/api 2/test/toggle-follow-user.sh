@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/eduardhernandez/follows -X PATCH -H "Authorization: Basic lilideponte"
