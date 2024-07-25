@@ -1,11 +1,22 @@
 import 'dotenv/config'
 import express from 'express'
 
-import { mongoose, data, logic } from 'cor'
+import { mongodb, data, logic } from 'cor'
 
-mongoose.connect(process.env.MONGODB_URI)
+const { MongoClient } = mongodb
+
+const client = new MongoClient(process.env.MONGODB_URI)
+
+client.connect()
     .then(() => {
         console.info(`API connected to ${process.env.MONGODB_URI}`)
+
+        const test = client.db('test')
+        const users = test.collection('users')
+        const posts = test.collection('posts')
+
+        data.users = users
+        data.posts = posts
 
         const api = express()
 

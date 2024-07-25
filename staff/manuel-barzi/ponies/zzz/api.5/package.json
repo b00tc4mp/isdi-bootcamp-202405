@@ -1,20 +1,21 @@
 {
-  "name": "cor",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "watch": "node --watch .",
+    "inspect": "node --inspect-brk .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "com": "file:../com",
-    "mongoose": "^8.5.1"
-  },
-  "devDependencies": {
-    "dotenv": "^16.4.5"
+    "cor": "file:../cor",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
   }
 }

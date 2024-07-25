@@ -1,22 +1,43 @@
-import { MongoClient } from 'mongodb'
+import 'dotenv/config'
+import mongoose from 'mongoose'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
+import { User, Post } from './models.js'
 
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
-        console.log('connected')
+        // const user = new User({ name: 'Muele', surname: 'Netti', email: 'muele@netti.com', username: 'muelenetti', password: '123123123' })
 
-        const test = client.db('test')
-        const users = test.collection('users')
-
-        // users.insertOne({ name: 'Samuele', surname: 'Spinetti', email: 'samuele@spinetti.com', username: 'samuelespinetti', password: '12312323' })
-        //     .then(() => console.log('samuele inserted'))
+        // user.save()
+        //     .then(() => console.log('user saved'))
         //     .catch(error => console.error(error))
 
-        // users.find({}).toArray()
-        //     .then(users => console.log(users))
+        // User.create({ name: 'Suma', surname: 'Speni', email: 'suma@speni.com', username: 'sumaspeni', password: '123123123' })
+        //     .then(() => console.log('user saved'))
         //     .catch(error => console.error(error))
 
-        // TODO learn how to CRUD (.findOne, .updateOne, .deleteOne...)
+        // User.findOne({ username: 'sumaspeni' })
+        //     .then(user => {
+        //         user.name = 'Samu'
+        //         user.surname = 'Spine'
+        //         user.email = 'samu@spine.com'
+        //         user.username = 'samuspine'
+
+        //         user.save()
+        //             .then(() => console.log('user updated'))
+        //             .catch(error => console.error(error))
+        //     })
+        //     .catch(error => console.error(error))
+
+        // User.updateOne({ username: 'samu' }, { $set: { name: 'Samuelet' } })
+        //     .then(() => console.log('user updated'))
+        //     .catch(error => console.error(error))
+
+        // User.deleteOne({ username: 'samuspine' })
+        //     .then(() => console.log('user deleted'))
+        //     .catch(error => console.error(error))
+
+        User.find()
+            .then(users => console.log(users))
+            .catch(error => console.error(error))
     })
     .catch(error => console.error(error))

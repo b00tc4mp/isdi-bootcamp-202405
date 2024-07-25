@@ -1,4 +1,4 @@
-import { User } from '../data/models.js'
+import data from '../data/index.js'
 import { validate } from 'com'
 
 export default (name, surname, email, username, password, passwordRepeat, callback) => {
@@ -12,7 +12,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
-    User.findOne({ email }).lean()
+    data.users.findOne({ email })
         .then(user => {
             if (user) {
                 callback(new Error('user already exists'))
@@ -20,7 +20,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                 return
             }
 
-            User.findOne({ username }).lean()
+            data.users.findOne({ username })
                 .then(user => {
                     if (user) {
                         callback(new Error('user already exists'))
@@ -28,13 +28,18 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                         return
                     }
 
-                    User.create({
+                    const newUser = {
                         name,
                         surname,
                         email,
                         username,
-                        password
-                    })
+                        password,
+                        favs: [],
+                        following: [],
+                        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+                    }
+
+                    data.users.insertOne(newUser)
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })

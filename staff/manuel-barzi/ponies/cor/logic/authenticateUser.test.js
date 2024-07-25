@@ -1,21 +1,13 @@
 import 'dotenv/config'
 import authenticateUser from './authenticateUser.js'
-import data from '../data/index.js'
 
-import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose'
 
-const client = new MongoClient(process.env.MONGODB_URI)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        const test = client.db('test')
-        const users = test.collection('users')
-
-        data.users = users
-
-        authenticateUser('samuelespinetti', '123123123', error => {
+        authenticateUser('samu', '123123123', error => {
             if (error) {
                 console.error(error)
 
@@ -24,7 +16,7 @@ client.connect()
 
             console.log('user authenticated')
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))
