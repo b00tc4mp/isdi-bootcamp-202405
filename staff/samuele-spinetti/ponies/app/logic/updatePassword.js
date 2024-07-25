@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const updatePassword = (oldPassword, newPassword, callback) => {
+export default (oldPassword, newPassword, callback) => {
     validate.password(oldPassword)
     validate.password(newPassword)
     validate.callback(callback)
@@ -29,5 +29,3 @@ const updatePassword = (oldPassword, newPassword, callback) => {
 
     xhr.send(JSON.stringify({ oldPassword, newPassword }))
 }
-
-export default updatePassword

@@ -2,59 +2,52 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const getAllPosts = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('User not found'))
-
-            return
-        }
-
-        data.findPosts(() => true, (error, posts) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('User not found'))
 
                 return
             }
 
-            if (posts.length) {
-                let count = 0
+            data.posts.find().sort({ date: -1 }).toArray()
+                .then(posts => {
+                    if (posts.length) {
+                        let count = 0
 
-                posts.forEach(post => {
-                    post.fav = user.favs.includes(post.id)
-                    post.like = post.likes.includes(username)
+                        posts.forEach(post => {
+                            post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
+                            post.like = post.likes.includes(username)
 
-                    data.findUser(user => user.username === post.author, (error, author) => {
-                        if (error) {
-                            callback(new Error(error.message))
+                            data.users.findOne({ username: post.author })
+                                .then(author => {
+                                    post.author = {
+                                        username: author.username,
+                                        avatar: author.avatar,
+                                        following: user.following.includes(author.username)
+                                    }
 
-                            return
-                        }
+                                    count++
 
-                        post.author = {
-                            username: author.username,
-                            avatar: author.avatar,
-                            following: user.following.includes(author.username)
-                        }
+                                    if (count === posts.length) {
+                                        posts.forEach(post => {
+                                            post.id = post._id.toString()
 
-                        count++
+                                            delete post._id
+                                        })
 
-                        if (count === posts.length)
-                            callback(null, posts.reverse())
-                    })
+                                        callback(null, posts)
+                                    }
+                                })
+                                .catch(error => callback(new Error(error.message)))
+                        })
+                    } else callback(null, [])
                 })
-            } else callback(null, [])
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default getAllPosts

@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const createPost = (image, caption, callback) => {
+export default (image, caption, callback) => {
     validate.image(image)
     validate.string(caption, 'Caption')
     validate.callback(callback)
@@ -29,5 +29,3 @@ const createPost = (image, caption, callback) => {
 
     xhr.send(JSON.stringify({ image, caption }))
 }
-
-export default createPost

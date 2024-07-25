@@ -2,55 +2,41 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const toggleFollowUser = (username, targetUsername, callback) => {
+export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (!user) {
-            callback(new Error('User not found'))
-
-            return
-        }
-
-        data.findUser(user => user.username === targetUsername, (error, targetUser) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('User not found'))
 
                 return
             }
 
-            if (!targetUser) {
-                callback(new Error('Following user not found'))
+            data.users.findOne({ username: targetUsername })
+                .then(targetUser => {
+                    if (!targetUser) {
+                        callback(new Error('TargetUser not found'))
 
-                return
-            }
+                        return
+                    }
 
-            const index = user.following.indexOf(targetUsername)
+                    const { following } = user
 
-            if (index < 0)
-                user.following.push(targetUsername)
-            else
-                user.following.splice(index, 1)
+                    const index = following.indexOf(targetUsername)
 
-            data.updateUser(user => user.username === username, user, error => {
-                if (error) {
-                    callback(new Error(error.message))
+                    if (index < 0)
+                        following.push(targetUsername)
+                    else
+                        following.splice(index, 1)
 
-                    return
-                }
-
-                callback(null)
-            })
+                    data.users.updateOne({ username }, { $set: { following } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleFollowUser

@@ -93,6 +93,7 @@
     margin-left: 0;
     display: flex;
     justify-content: flex-end;
+    gap: 1rem;
 }
 
 .post__actions>button {
@@ -139,7 +140,7 @@
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     background-color: #ff4cad;
     box-shadow: 0px -1px 1px #ff4cad;
 }
@@ -190,6 +191,12 @@ body {
 #edit-caption-input {
     border-color: white;
     border-radius: 20px;
+}
+
+.form-edit-caption {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .form-edit-caption>button {

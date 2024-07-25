@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const updatePostCaption = (postId, caption, callback) => {
+export default (postId, caption, callback) => {
     validate.postId(postId)
     validate.string(caption, 'Caption')
     validate.callback(callback)
@@ -29,5 +29,3 @@ const updatePostCaption = (postId, caption, callback) => {
 
     xhr.send(JSON.stringify({ caption }))
 }
-
-export default updatePostCaption

@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const toggleFavPost = (postId, callback) => {
+export default (postId, callback) => {
     validate.postId(postId)
     validate.callback(callback)
 
@@ -27,5 +27,3 @@ const toggleFavPost = (postId, callback) => {
 
     xhr.send()
 }
-
-export default toggleFavPost

@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const loginUser = (username, password, callback) => {
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
     validate.callback(callback)
@@ -30,5 +30,3 @@ const loginUser = (username, password, callback) => {
 
     xhr.send(JSON.stringify({ username, password }))
 }
-
-export default loginUser

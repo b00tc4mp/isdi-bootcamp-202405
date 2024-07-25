@@ -2,43 +2,29 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const updatePassword = (username, oldPassword, newPassword, callback) => {
+export default (username, oldPassword, newPassword, callback) => {
     validate.username(username)
     validate.password(oldPassword)
     validate.password(newPassword)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('User not found'))
-
-            return
-        }
-
-        if (oldPassword !== user.password) {
-            callback(new Error('Invalid password'))
-
-            return
-        }
-
-        user.password = newPassword
-
-        data.updateUser(user => user.username === username, user, error => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('User not found'))
 
                 return
             }
 
-            callback(null)
-        })
-    })
-}
+            if (oldPassword !== user.password) {
+                callback(new Error('Invalid password'))
 
-export default updatePassword
+                return
+            }
+
+            data.users.updateOne({ username }, { $set: { password: newPassword } })
+                .then(() => callback(null))
+                .catch(error => callback(new Error(error.message)))
+        })
+        .catch(error => callback(new Error(error.message)))
+}

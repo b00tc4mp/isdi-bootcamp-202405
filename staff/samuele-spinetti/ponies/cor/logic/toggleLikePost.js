@@ -1,56 +1,43 @@
+import { ObjectId } from 'mongodb'
 import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const toggleLikePost = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.postId(postId)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (!user) {
-            callback(new Error('User not found'))
-
-            return
-        }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('User not found'))
 
                 return
             }
 
-            if (!post) {
-                callback(new Error('Post not found'))
+            data.posts.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('Post not found'))
 
-                return
-            }
+                        return
+                    }
 
-            const index = post.likes.indexOf(username)
+                    const { likes } = post
 
-            if (index < 0)
-                post.likes.push(username)
-            else
-                post.likes.splice(index, 1)
+                    const index = likes.indexOf(username)
 
-            data.updatePost(post => post.id === postId, post, error => {
-                if (error) {
-                    callback(new Error(error.message))
+                    if (index < 0)
+                        likes.push(username)
+                    else
+                        likes.splice(index, 1)
 
-                    return
-                }
-
-                callback(null)
-            })
+                    data.posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleLikePost

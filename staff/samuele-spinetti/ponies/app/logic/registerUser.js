@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -31,5 +31,3 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
 
     xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
-
-export default registerUser

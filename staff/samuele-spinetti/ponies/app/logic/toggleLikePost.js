@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const toggleLikePost = (postId, callback) => {
+export default (postId, callback) => {
     validate.postId(postId)
     validate.callback(callback)
 
@@ -27,5 +27,3 @@ const toggleLikePost = (postId, callback) => {
 
     xhr.send()
 }
-
-export default toggleLikePost

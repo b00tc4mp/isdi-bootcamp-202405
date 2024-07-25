@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const getUserName = callback => {
+export default callback => {
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -27,5 +27,3 @@ const getUserName = callback => {
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getUserName

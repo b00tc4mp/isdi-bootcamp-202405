@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const toggleFollowUser = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -27,5 +27,3 @@ const toggleFollowUser = (username, callback) => {
 
     xhr.send()
 }
-
-export default toggleFollowUser

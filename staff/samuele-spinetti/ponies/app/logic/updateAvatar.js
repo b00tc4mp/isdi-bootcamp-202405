@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const updateAvatar = (newAvatar, callback) => {
+export default (newAvatar, callback) => {
     validate.image(newAvatar, 'avatar')
     validate.callback(callback)
 
@@ -28,5 +28,3 @@ const updateAvatar = (newAvatar, callback) => {
 
     xhr.send(JSON.stringify({ avatar: newAvatar }))
 }
-
-export default updateAvatar

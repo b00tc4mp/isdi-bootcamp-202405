@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const getAllFollowingUserPosts = callabck => {
+export default callabck => {
     validate.callback(callabck)
 
     const xhr = new XMLHttpRequest
@@ -27,5 +27,3 @@ const getAllFollowingUserPosts = callabck => {
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getAllFollowingUserPosts

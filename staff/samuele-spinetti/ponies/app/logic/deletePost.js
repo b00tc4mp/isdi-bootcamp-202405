@@ -1,6 +1,6 @@
 import validate from '../validate.js'
 
-const deletePost = (postId, callabck) => {
+export default (postId, callabck) => {
     validate.postId(postId)
     validate.callback(callabck)
 
@@ -27,5 +27,3 @@ const deletePost = (postId, callabck) => {
 
     xhr.send()
 }
-
-export default deletePost

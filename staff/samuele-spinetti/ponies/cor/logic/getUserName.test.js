@@ -1,11 +1,32 @@
+import 'dotenv/config'
+
 import getUserName from './getUserName.js'
+import data from '../data/index.js'
 
-const user = getUserName('marti', 'marti', (error, name) => {
-    if (error) {
-        console.error(error)
+import { MongoClient } from 'mongodb'
 
-        return
-    }
+const client = new MongoClient(process.env.MONGODB_URI)
 
-    console.log(name)
-})
+client.connect()
+    .then(() => {
+        console.log('Connected')
+
+        const test = client.db('test')
+        const users = test.collection('users')
+
+        data.users = users
+
+        getUserName('samu', 'samu', (error, name) => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log(name)
+
+            client.close()
+        })
+    })
+    .catch(error => console.error(error))
+
