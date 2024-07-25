@@ -1,7 +1,5 @@
 import data from '../data/index.js'
 
-import generateId from '../util/generateId.js'
-
 import validate from '../../app/validate.js'
 
 const createPost = (username, image, caption, callback) => {
@@ -10,38 +8,28 @@ const createPost = (username, image, caption, callback) => {
     validate.string(caption, 'caption')
     validate.callback(callback)
 
-    data.findUser(user => user.username == username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        const post = {
-            id: generateId(),
-            image,
-            caption,
-            author: username,
-            date: new Date().toISOString(),
-            likes: []
-        }
-
-        data.insertPost(post, error => {
-            if (error) {
-                callback(new Error(error.message))
+    data.users.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            callback(null)
+            const post = {
+                image,
+                caption,
+                author: username,
+                date: new Date().toISOString(),
+                likes: []
+            }
+
+            data.posts.insertOne(post)
+                .then(() => callback(null))
+                .catch(error => callback(new Error(error.message)))
+
         })
-    })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default createPost

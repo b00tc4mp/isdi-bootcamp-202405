@@ -1,11 +1,32 @@
 import createPost from './createPost.js'
+import data from '../data/index.js'
 
-createPost("abtg", "https://i.etsystatic.com/17622040/r/il/d20873/4246951701/il_570xN.4246951701_8sqv.jpg", "jinx", error => {
-    if (error) {
-        console.error(error)
+import { MongoClient } from 'mongodb'
 
-        return
-    }
+const client = new MongoClient('mongodb://127.0.0.1:27017')
 
-    console.log('post created')
-})
+client.connect()
+    .then(() => {
+        console.log('connected')
+
+        const test = client.db('test')
+        const users = test.collection('users')
+        const posts = test.collection('posts')
+
+        data.users = users
+        data.posts = posts
+
+        createPost('lili', 'https://imagenes.muyinteresante.com/files/image_414_276/uploads/2023/06/07/6480712e4d70d.jpeg', 'koalas', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('post created')
+
+            client.close()
+        })
+
+    })
+    .catch(error => console.error(error))

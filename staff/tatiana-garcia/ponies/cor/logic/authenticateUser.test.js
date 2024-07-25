@@ -1,11 +1,29 @@
 import authenticateUser from './authenticateUser.js'
+import data from '../data/index.js'
 
-authenticateUser("tatig", "123123123", error => {
-    if (error) {
-        console.log(error)
+import { MongoClient } from 'mongodb'
 
-        return
-    }
+const client = new MongoClient('mongodb://127.0.0.1:27017')
 
-    console.log('user authenticated')
-})
+client.connect()
+    .then(() => {
+        console.log('conected')
+
+        const test = client.db('test')
+        const users = test.collection('users')
+
+        data.users = users
+
+        authenticateUser('lili', '123123123', error => {
+            if (error) {
+                console.log(error)
+
+                return
+            }
+
+            console.log('user authenticated')
+
+            client.close()
+        })
+    })
+    .catch(error => console.error(error))

@@ -1,11 +1,32 @@
-import updatePostCaption from './updatePostCaption.js';
+import updatePostCaption from './updatePostCaption.js'
+import data from '../data/index.js'
 
-updatePostCaption("abtg", "3shiejh93rw", "jinx", error => {
-    if (error) {
-        console.error(error)
+import { MongoClient } from 'mongodb'
 
-        return
-    }
+const client = new MongoClient('mongodb://127.0.0.1:27017')
 
-    console.log('post caption update')
-})
+client.connect()
+    .then(() => {
+        console.log('connected')
+
+        const test = client.db('test')
+        const users = test.collection('users')
+        const posts = test.collection('posts')
+
+        data.users = users
+        data.posts = posts
+
+        updatePostCaption('fabito', '66a1ed4d15e1b19d77264647', 'pajarito', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('post caption update')
+
+            client.close()
+        })
+
+    })
+    .catch(error => console.error(error))
