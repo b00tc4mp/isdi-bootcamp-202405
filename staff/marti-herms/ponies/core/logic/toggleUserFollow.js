@@ -1,4 +1,4 @@
-import data from '../data/index.js'
+import { User } from '../data/models.js'
 
 import { validate } from 'com'
 
@@ -7,7 +7,7 @@ export default (username, targetUsername, callback) => {
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username })
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -21,11 +21,11 @@ export default (username, targetUsername, callback) => {
                 return
             }
 
-            data.users.findOne({ username: targetUsername })
+            User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
-                    const followingIndex = user.following.findIndex(username => username === targetUsername)
+                    const followingIndex = user.following.findIndex(userObjectId => userObjectId === targetUser._id)
 
-                    const followerIndex = targetUser.followers.findIndex(username => username === user.username)
+                    const followerIndex = targetUser.followers.findIndex(userObjectId => userObjectId === user._id)
 
                     if ((followingIndex === -1 && followerIndex !== -1) || (followerIndex === -1 && followingIndex !== -1)) {
                         callback(new Error('something is wrong'))
@@ -36,13 +36,13 @@ export default (username, targetUsername, callback) => {
                     if (followingIndex !== -1) {
                         user.following.splice(followingIndex, 1)
                     } else {
-                        user.following.push(targetUsername)
+                        user.following.push(targetUser._id)
                     }
 
                     if (followerIndex !== -1) {
                         targetUser.followers.splice(followerIndex, 1)
                     } else {
-                        targetUser.followers.push(user.username)
+                        targetUser.followers.push(user._id)
                     }
 
                     data.users.updateOne({ username }, { $set: { following: user.following } })

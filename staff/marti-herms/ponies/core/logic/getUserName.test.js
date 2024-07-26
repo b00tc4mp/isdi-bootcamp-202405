@@ -1,23 +1,11 @@
+import 'dotenv/config'
 import getUserName from './getUserName.js'
 
-import data from '../data/index.js'
+import mongoose from 'mongoose'
 
-import { MongoClient } from 'mongodb'
-
-const client = new MongoClient('mongodb://127.0.0.1:27017')
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
-
-        const test = client.db('test')
-
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
-
         getUserName("eden", 'val', (error, name) => {
             if (error) {
                 console.error(error)
@@ -27,7 +15,7 @@ client.connect()
 
             console.log(name)
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))

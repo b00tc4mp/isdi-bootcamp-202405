@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb'
-import data from '../data/index.js'
+import { ObjectId } from 'mongoose'
+import { User, Post } from '../data/models.js'
 
 import { validate } from 'com'
 
@@ -8,7 +8,7 @@ export default (username, postId, callback) => {
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -16,16 +16,26 @@ export default (username, postId, callback) => {
                 return
             }
 
-            const postIndex = user.savedPosts.findIndex(id => id === postId)
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-            if (postIndex !== -1) {
-                user.savedPosts.splice(postIndex, 1)
-            } else {
-                user.savedPosts.push(new ObjectId(postId))
-            }
+                        return
+                    }
 
-            data.users.updateOne({ username }, { $set: { savedPosts: user.savedPosts } })
-                .then(() => callback(null))
+                    const postIndex = user.favs.findIndex(id => id.toString() === postId)
+
+                    if (postIndex !== -1) {
+                        user.favs.splice(postIndex, 1)
+                    } else {
+                        user.favs.push(post._id)
+                    }
+
+                    User.updateOne({ username }, { $set: { favs: user.favs } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
                 .catch(error => callback(new Error(error.message)))
         })
         .catch(error => callback(new Error(error.message)))

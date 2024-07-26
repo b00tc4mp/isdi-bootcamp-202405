@@ -1,4 +1,4 @@
-import data from '../data/index.js'
+import { User } from '../data/models.js'
 
 import { validate } from 'com'
 
@@ -6,17 +6,13 @@ export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
-            if (user === null) {
+            if (!user) {
                 callback(new Error('user not found'))
             }
 
-            if (user === null) {
-                callback(new Error('user not found'))
-            }
-
-            data.users.find().toArray()
+            User.find().lean()
                 .then(users => {
                     const usernames = users.map(user => user.username)
 

@@ -1,26 +1,11 @@
 import 'dotenv/config'
 import express from 'express'
 
-import { mongodb, data, logic } from 'core'
+import { mongoose, data, logic } from 'core'
 
-const { MongoClient } = mongodb
-
-const client = new MongoClient(process.env.MONGODB_URI)
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log(`API connected to ${process.env.MONGODB_URI}`)
-
-        const ponies = client.db('ponies')
-
-        const users = ponies.collection('users')
-        const posts = ponies.collection('posts')
-        const chats = ponies.collection('chats')
-
-        data.users = users
-        data.posts = posts
-        data.chats = chats
-
 
         const api = express()
 

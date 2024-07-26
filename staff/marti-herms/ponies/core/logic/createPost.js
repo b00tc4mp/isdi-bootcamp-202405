@@ -1,4 +1,4 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
 import { validate } from 'com'
 
@@ -8,7 +8,7 @@ export default (username, img, caption, callback) => {
     validate.string(caption, 'caption')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -16,25 +16,15 @@ export default (username, img, caption, callback) => {
                 return
             }
 
-            if (!img.startsWith('http')) {
-                callback(new Error('invalid image'))
-
-                return
-            }
-
-            const post = {
+            Post.create({
                 img,
                 caption,
-                author: user.username,
-                date: new Date().toISOString(),
-                likes: []
-            }
-
-            data.posts.insertOne(post)
+                author: user._id
+            })
                 .then(result => {
-                    user.yourPosts.push(result.insertedId.toString())
+                    user.posts.push(result.insertedId)
 
-                    data.users.updateOne({ username }, { $set: { yourPosts: user.yourPosts } })
+                    User.updateOne({ username }, { $set: { posts: user.yourPosts } })
                         .then(() => callback(null))
                         .catch(error => new Error(error.message))
                 })

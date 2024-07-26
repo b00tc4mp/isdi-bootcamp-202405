@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb'
-import data from '../data/index.js'
+import { ObjectId } from 'mongoose'
+import { User, Post } from '../data/models.js'
 
 import { validate } from 'com'
 
@@ -8,7 +8,7 @@ export default (username, postId, callback) => {
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -16,7 +16,7 @@ export default (username, postId, callback) => {
                 return
             }
 
-            data.posts.findOne({ _id: new ObjectId(postId) })
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
@@ -24,25 +24,25 @@ export default (username, postId, callback) => {
                         return
                     }
 
-                    const index = post.likes.indexOf(username)
+                    const index = post.likes.findIndex(userObjectId => userObjectId.toString() === user._id.toString())
 
                     if (index < 0) {
-                        post.likes.push(username)
+                        post.likes.push(user._id)
                     } else {
                         post.likes.splice(index, 1)
                     }
 
-                    data.posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes: post.likes } })
+                    Post.updateOne({ _id: postId }, { $set: { likes: post.likes } })
                         .then(() => {
-                            const postIndex = user.likedPosts.findIndex(id => id === postId)
+                            const postIndex = user.likes.findIndex(id => id.toString() === postId)
 
                             if (postIndex !== -1) {
-                                user.likedPosts.splice(postIndex, 1)
+                                user.likes.splice(postIndex, 1)
                             } else {
-                                user.likedPosts.push(new ObjectId(postId))
+                                user.likes.push(post._id)
                             }
 
-                            data.users.updateOne({ username }, { $set: { likedPosts: user.likedPosts } })
+                            User.updateOne({ username }, { $set: { likes: user.likes } })
                                 .then(() => callback(null))
                                 .catch(error => callback(new Error(error.message)))
                         })

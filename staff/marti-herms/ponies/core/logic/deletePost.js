@@ -1,39 +1,44 @@
-import { ObjectId } from 'mongodb'
+import { User, Post } from '../data/models.js'
 
-import data from '../data/index.js'
+import { ObjectId } from 'mongoose'
 
 import { validate } from 'com'
 
-export default (username, id, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
-    validate.string(id, 'id')
-    validate.callback(callback, 'id')
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
-            if (user === null) {
+            if (!user) {
                 callback(new Error('user not found'))
 
                 return
             }
 
-            if (!user.yourPosts.includes(id)) {
-                callback(new Error('post is not from user'))
+            Post.findById(postId)
+                .then(post => {
+                    if (post.author.toString() !== user._id.toString()) {
+                        callback(new Error('user is not author'))
 
-                return
-            }
+                        return
+                    }
 
-            const index = user.yourPosts.indexOf(id)
+                    const index = user.posts.findIndex(postId => postId.toString() === postId)
 
-            user.yourPosts.splice(index, 1)
+                    if (index > -1) user.posts.splice(index, 1)
 
-            data.users.updateOne({ username }, { $set: { yourPosts: user.yourPosts } })
-                .then(() => {
-                    data.posts.deleteOne({ _id: new ObjectId(id) })
-                        .then(() => callback(null))
+                    User.updateOne({ username }, { $set: { posts: user.yourPosts } })
+                        .then(() => {
+                            Post.deleteOne({ _id: postId })
+                                .then(() => callback(null))
+                                .catch(error => callback(new Error(error.message)))
+                        })
                         .catch(error => callback(new Error(error.message)))
                 })
                 .catch(error => callback(new Error(error.message)))
+
         })
         .catch(error => callback(new Error(error.message)))
 }

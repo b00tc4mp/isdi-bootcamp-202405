@@ -1,4 +1,4 @@
-import addPost from './addPost.js'
+import createPost from './createPost.js'
 import deletePost from './deletePost.js'
 import editPost from './editPost.js'
 import editUserAvatar from './editUserAvatar.js'
@@ -17,7 +17,7 @@ import togglePostLike from './togglePostLike.js'
 import toggleSavedPost from './toggleSavedPost.js'
 
 const logic = {
-    addPost,
+    createPost,
     deletePost,
     editPost,
     editUserAvatar,

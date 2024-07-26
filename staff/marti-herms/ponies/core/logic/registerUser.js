@@ -1,4 +1,4 @@
-import data from '../data/index.js'
+import { User } from '../data/models.js'
 
 import { validate } from 'com'
 
@@ -10,7 +10,7 @@ export default (name, surname, email, username, password, callback) => {
     validate.password(password)
     validate.callback(callback)
 
-    data.users.findOne({ email })
+    User.findOne({ email }).lean()
         .then((user => {
             if (user) {
                 callback(new Error('email already exists'))
@@ -18,7 +18,7 @@ export default (name, surname, email, username, password, callback) => {
                 return
             }
 
-            data.users.findOne({ username })
+            User.findOne({ username }).lean()
                 .then(user => {
                     if (user) {
                         callback(new Error('username already exists'))
@@ -26,25 +26,18 @@ export default (name, surname, email, username, password, callback) => {
                         return
                     }
 
-                    user = {
+                    User.create({
                         name,
                         surname,
                         email,
                         username,
-                        password,
-                        yourPosts: [],
-                        likedPosts: [],
-                        savedPosts: [],
-                        followers: [],
-                        following: [],
-                        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
-                    }
-
-                    data.users.insertOne(user)
+                        password
+                    })
                         .then(() => callback(null))
-                        .catch(error => new Error(error.message))
+                        .catch(error => callback(new Error(error.message)))
+
                 })
-                .catch(error => new Error(error.message))
+                .catch(error => callback(new Error(error.message)))
         }))
-        .catch(error => new Error(error.message))
+        .catch(error => callback(new Error(error.message)))
 }

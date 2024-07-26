@@ -1,13 +1,22 @@
-import editUserUsername from './editUserInfo'
+import 'dotenv/config'
+import editUserUsername from './editUserUsername.js'
 
-const oldUsername = 'Eden'
-const newUsername = 'Eden2'
-const password = '11111111'
+import mongoose from 'mongoose'
 
-editUserUsername(oldUsername, newUsername, password, (error) => {
-    if (error) {
-        callback(new Error(error.message))
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-        return
-    }
-})
+        editUserUsername('Eden', 'eden', '11111111', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('post created')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))
