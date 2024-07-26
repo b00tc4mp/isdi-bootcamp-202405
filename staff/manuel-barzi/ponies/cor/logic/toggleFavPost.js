@@ -1,15 +1,13 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
 import { validate } from 'com'
-
-import { ObjectId } from 'mongodb'
 
 export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -17,7 +15,7 @@ export default (username, postId, callback) => {
                 return
             }
 
-            data.posts.findOne({ _id: new ObjectId(postId) })
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
@@ -30,11 +28,11 @@ export default (username, postId, callback) => {
                     const index = favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
                     if (index < 0)
-                        favs.push(new ObjectId(postId))
+                        favs.push(postId)
                     else
                         favs.splice(index, 1)
 
-                    data.users.updateOne({ username }, { $set: { favs } })
+                    User.updateOne({ username }, { $set: { favs } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })
