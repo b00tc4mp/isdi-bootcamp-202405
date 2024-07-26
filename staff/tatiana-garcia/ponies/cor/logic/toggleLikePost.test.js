@@ -1,21 +1,12 @@
+import 'dotenv/config'
 import toggleLikePost from './toggleLikePost.js'
-import data from '../data/index.js'
-import { MongoClient } from 'mongodb'
+import mongoose, { mongo } from 'mongoose'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
-
-        toggleLikePost('samuelespinetti', '66a1edcbde8972c385c7e600', error => {
+        toggleLikePost('samuelespinetti', '66a2639ccaa8b9f476fb2d97', error => {
             if (error) {
                 console.error(error)
 
@@ -23,7 +14,7 @@ client.connect()
             }
             console.log('like post toggled')
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))

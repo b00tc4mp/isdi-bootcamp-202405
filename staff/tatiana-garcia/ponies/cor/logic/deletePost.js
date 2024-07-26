@@ -1,14 +1,13 @@
-import { ObjectId } from 'mongodb'
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
-import validate from '../../app/validate.js'
+import { validate } from 'com'
 
-const deletePost = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.postId(postId)
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -16,7 +15,7 @@ const deletePost = (username, postId, callback) => {
                 return
             }
 
-            data.posts.findOne({ _id: new ObjectId(postId) })
+            Post.findById({ _id: postId }).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
@@ -24,7 +23,13 @@ const deletePost = (username, postId, callback) => {
                         return
                     }
 
-                    data.posts.deleteOne({ _id: new ObjectId(postId) })
+                    if (post.author !== username) {
+                        callback(new Error('post does not belong to user'))
+
+                        return
+                    }
+
+                    Post.deleteOne({ _id: postId })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })
@@ -32,5 +37,3 @@ const deletePost = (username, postId, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default deletePost

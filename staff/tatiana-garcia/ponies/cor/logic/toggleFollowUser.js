@@ -1,14 +1,12 @@
-import data from '../data/index.js'
-import validate from '../../app/validate.js'
+import { User } from '../data/models.js'
+import { validate } from 'com'
 
-import { ObjectId } from 'mongodb'
-
-function toggleFollowUser(username, targetUsername, callback) {
+export default (username, targetUsername, callback) => {
     validate.username(username, 'username')
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback, 'callback')
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -16,7 +14,7 @@ function toggleFollowUser(username, targetUsername, callback) {
                 return
             }
 
-            data.users.findOne({ username: targetUsername })
+            User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
                     if (!targetUser) {
                         callback(new Error('targetUser not found'))
@@ -33,7 +31,7 @@ function toggleFollowUser(username, targetUsername, callback) {
                     else
                         following.splice(index, 1)
 
-                    data.users.updateOne({ username }, { $set: { following } })
+                    User.updateOne({ username }, { $set: { following } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })
@@ -41,5 +39,3 @@ function toggleFollowUser(username, targetUsername, callback) {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleFollowUser

@@ -1,5 +1,1 @@
-function isUserLoggedIn() {
-    return !!sessionStorage.username
-}
-
-export default isUserLoggedIn
+export default () => !!sessionStorage.username

@@ -1,22 +1,12 @@
+import 'dotenv/config'
 import updatePostCaption from './updatePostCaption.js'
-import data from '../data/index.js'
+import mongoose from 'mongoose'
 
-import { MongoClient } from 'mongodb'
-
-const client = new MongoClient('mongodb://127.0.0.1:27017')
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
-
-        updatePostCaption('fabito', '66a1ed4d15e1b19d77264647', 'pajarito', error => {
+        updatePostCaption('fabito', '66a1ed4d15e1b19d77264647', 'weeeee', error => {
             if (error) {
                 console.error(error)
 
@@ -25,7 +15,7 @@ client.connect()
 
             console.log('post caption update')
 
-            client.close()
+            mongoose.disconnect()
         })
 
     })

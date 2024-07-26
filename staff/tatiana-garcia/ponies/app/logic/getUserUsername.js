@@ -1,3 +1,1 @@
-const getUserUsername = () => sessionStorage.username
-
-export default getUserUsername
+export default () => sessionStorage.username

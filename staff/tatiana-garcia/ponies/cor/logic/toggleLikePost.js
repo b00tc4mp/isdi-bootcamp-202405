@@ -1,13 +1,12 @@
-import { ObjectId } from 'mongodb'
-import data from '../data/index.js'
-import validate from '../../app/validate.js'
+import { User, Post } from '../data/models.js'
+import { validate } from 'com'
 
-function toggleLikePost(username, postId, callback) {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.postId(postId, 'postId')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -15,7 +14,7 @@ function toggleLikePost(username, postId, callback) {
                 return
             }
 
-            data.posts.findOne({ _id: new ObjectId(postId) })
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
@@ -32,7 +31,7 @@ function toggleLikePost(username, postId, callback) {
                     else
                         likes.splice(index, 1)
 
-                    data.posts.updateOne({ _id: new ObjectId(postId) }, { $set: { likes } })
+                    Post.updateOne({ _id: postId }, { $set: { likes } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })
@@ -40,5 +39,3 @@ function toggleLikePost(username, postId, callback) {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleLikePost

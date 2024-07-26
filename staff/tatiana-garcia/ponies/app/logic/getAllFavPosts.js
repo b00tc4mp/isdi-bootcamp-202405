@@ -1,7 +1,7 @@
-import validate from '../validate.js'
+import { validate } from 'com'
 
-const getAllFavPosts = callback => {
-    validate.callback(callback, 'callback')
+export default callback => {
+    validate.callback(callback)
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
@@ -22,9 +22,7 @@ const getAllFavPosts = callback => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts/favs')
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/favs`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getAllFavPosts

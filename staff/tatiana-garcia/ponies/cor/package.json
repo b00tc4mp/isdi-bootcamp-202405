@@ -5,12 +5,18 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.7.0"
+  },
   "dependencies": {
-    "mongodb": "^6.8.0"
+    "com": "file:../com",
+    "mongoose": "^8.5.1"
   }
 }

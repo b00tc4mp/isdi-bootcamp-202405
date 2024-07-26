@@ -1,14 +1,13 @@
-import data from '../data/index.js'
-import validate from '../../app/validate.js'
-
+import { User, Post } from '../data/models.js'
+import { validate } from 'com'
 import { ObjectId } from 'mongodb'
 
-function toggleFavPost(username, postId, callback) {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.postId(postId, 'postId')
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -16,7 +15,7 @@ function toggleFavPost(username, postId, callback) {
                 return
             }
 
-            data.posts.findOne({ _id: new ObjectId(postId) })
+            Post.findById({ _id: postId }).lean()
                 .then(posts => {
                     if (!posts) {
                         callback(new Error('post not found'))
@@ -33,7 +32,7 @@ function toggleFavPost(username, postId, callback) {
                     else
                         favs.splice(index, 1)
 
-                    data.users.updateOne({ username }, { $set: { favs } })
+                    User.updateOne({ username }, { $set: { favs } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
 
@@ -43,5 +42,3 @@ function toggleFavPost(username, postId, callback) {
         .catch(error => console.log(new Error(error.message)))
 
 }
-
-export default toggleFavPost

@@ -1,22 +1,13 @@
+import 'dotenv/config'
 import createPost from './createPost.js'
-import data from '../data/index.js'
 
-import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
-
-        createPost('lili', 'https://imagenes.muyinteresante.com/files/image_414_276/uploads/2023/06/07/6480712e4d70d.jpeg', 'koalas', error => {
+        createPost('lili', 'https://www.grupoxcaret.com/es/wp-content/uploads/2021/03/aves-boris.jpg', 'pajaro azul', error => {
             if (error) {
                 console.error(error)
 
@@ -25,7 +16,7 @@ client.connect()
 
             console.log('post created')
 
-            client.close()
+            mongoose.disconnect()
         })
 
     })

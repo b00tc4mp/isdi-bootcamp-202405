@@ -1,13 +1,13 @@
-import data from '../data/index.js'
+import { User } from '../data/models.js'
 
-import validate from '../../app/validate.js'
+import { validate } from 'com'
 
-const authenticateUser = (username, password, callback) => {
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
     validate.callback(callback)
 
-    data.users.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -25,5 +25,3 @@ const authenticateUser = (username, password, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default authenticateUser

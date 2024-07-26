@@ -21,10 +21,10 @@ function validateUsername(username, explain = 'username') {
     if (!username.trim().length) throw new SyntaxError(`invalid ${explain}`)
 }
 
-function validatePassword(password) {
+function validatePassword(password, explain = 'password') {
     validateString(password, 'password')
-    if (password.trim().length < 8) throw new RangeError('password length is lower than 8 characters')
-    if (password.includes(' ')) throw new SyntaxError('passord has empty spaces')
+    if (password.trim().length < 8) throw new RangeError(`${explain} length is lower than 8 characters`)
+    if (password.includes(' ')) throw new SyntaxError(`${explain} has empty spaces`)
 }
 
 function validateName(name, explain = 'name') {
@@ -42,8 +42,8 @@ function validateSurname(surname) {
     if (!NAME_REGEX.test(surname)) throw new SyntaxError('invalid surname')
 }
 
-function validateimage(image, explain = 'url') {
-    validateString(image, explain)
+function validateUrl(url, explain = 'url') {
+    validateString(url, explain)
     if (!url.startsWith('http')) throw new SyntaxError(`invalid ${explain}`)
 }
 
@@ -61,7 +61,7 @@ const validate = {
     name: validateName,
     surname: validateSurname,
     email: validateEmail,
-    image: validateimage,
+    url: validateUrl,
     postId: validatePostId
 
 }

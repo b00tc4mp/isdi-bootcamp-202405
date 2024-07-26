@@ -1,19 +1,10 @@
+import 'dotenv/config'
 import getAllPosts from './getAllPosts.js'
-import data from '../data/index.js'
-import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
-
-client.connect()
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
-
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
 
         getAllPosts('fabito', (error, posts) => {
             if (error) {
@@ -24,7 +15,7 @@ client.connect()
 
             console.log(posts)
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))
