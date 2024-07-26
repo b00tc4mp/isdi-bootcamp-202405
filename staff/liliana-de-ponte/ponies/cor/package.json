@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx mocha logic/*.spec.js",
+    "test-inspect": "npx mocha --inspect-brk logic/*.spec.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,8 @@
     "mongoose": "^8.5.1"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5"
+    "chai": "^4.5.0",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.7.0"
   }
 }

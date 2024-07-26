@@ -15,7 +15,7 @@ export default (username, postId, caption, callback) => {
                 return
             }
 
-            Post.findOne({ _id: postId }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))

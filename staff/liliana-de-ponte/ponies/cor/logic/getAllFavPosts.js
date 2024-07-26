@@ -22,7 +22,7 @@ export default (username, callback) => {
                             post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
                             post.like = post.likes.includes(username)
 
-                            User.findOne({ username: post.author })
+                            User.findOne({ username: post.author }).lean()
                                 .then(author => {
                                     post.author = {
                                         username: author.username,

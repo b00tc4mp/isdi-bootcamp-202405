@@ -15,12 +15,19 @@ export default (username, postId, callback) => {
                 return
             }
 
-            Post.findOne({ _id: postId }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
 
                         return
+                    }
+
+                    if (post.author !== username) {
+                        callback(new Error('post not belong to user'))
+
+                        return
+
                     }
 
                     Post.deleteOne({ _id: postId })

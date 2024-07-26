@@ -10,7 +10,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
     validate.callback(callback)
 
     if (password !== passwordRepeat)
-        callback(new Error('passwords do not match'))
+        throw new Error('passwords do not match')
 
     User.findOne({ email }).lean()
         .then(user => {

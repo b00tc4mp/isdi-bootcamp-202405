@@ -7,7 +7,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        deletePost('samuelespinetti', '66a25873c3a03e81aa2a21ac', error => {
+        deletePost('samuelespinetti', '66a12a0562aa6b753ba394f8', error => {
             if (error) {
                 console.error(error)
 
