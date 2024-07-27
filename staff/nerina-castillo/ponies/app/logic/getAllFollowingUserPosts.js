@@ -1,4 +1,8 @@
-const getAllFollowingUserPosts = callback => {
+import { validate } from 'com'
+
+export default callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
@@ -17,10 +21,9 @@ const getAllFollowingUserPosts = callback => {
         callback(new constructor(message))
     }
 
+    xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts/following')
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/following`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
-};
-
-export default getAllFollowingUserPosts;
+}

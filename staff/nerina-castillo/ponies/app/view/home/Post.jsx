@@ -2,7 +2,7 @@ import logic from '../../logic'
 
 import formatTime from '../../util/formatTime'
 
-import { Component } from 'react'
+import { useState } from 'react'
 
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -18,19 +18,15 @@ import Avatar from './Avatar'
 
 import './Post.css'
 
-class Post extends Component {
-    constructor() {
-        console.debug('Post -> constructor')
+const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
+    console.debug('Post -> call')
 
-        super()
+    const [editPostVisible, setEditPostVisible] = useState(false)
 
-        this.state = { editPostVisible: false }
-    }
-
-    handleDeletePostClick() {
+    const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(this.props.post.id, error => {
+                logic.deletePost(post.id, error => {
                     if (error) {
                         console.error(error)
 
@@ -39,7 +35,7 @@ class Post extends Component {
                         return
                     }
 
-                    this.props.onPostDeleted()
+                    onPostDeleted()
                 })
             } catch (error) {
                 console.error(error)
@@ -48,23 +44,19 @@ class Post extends Component {
             }
     }
 
-    componentWillUnmount() {
-        console.debug('Post -> componentWillUnmount')
-    }
-
-    handleEditPostClick() {
+    const handleEditPostClick = () => {
         console.debug('Post -> handleEditPost')
 
-        this.setState({ editPostVisible: true })
+        setEditPostVisible(true)
     }
 
-    handleCancelEditPostClick() {
+    const handleCancelEditPostClick = () => {
         console.debug('Post -> handleCancelEditPostClick')
 
-        this.setState({ editPostVisible: false })
+        setEditPostVisible(false)
     }
 
-    handleEditPostSubmit(event) {
+    const handleEditPostSubmit = event => {
         console.debug('Post -> handleEditPostSubmit')
 
         event.preventDefault()
@@ -76,7 +68,7 @@ class Post extends Component {
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(this.props.post.id, newCaption, error => {
+            logic.updatePostCaption(post.id, newCaption, error => {
                 if (error) {
                     console.error(error)
 
@@ -85,9 +77,9 @@ class Post extends Component {
                     return
                 }
 
-                this.setState({ editPostVisible: false })
+                setEditPostVisible(false)
 
-                this.props.onPostEdited()
+                onPostEdited()
             })
         } catch (error) {
             console.error(error)
@@ -96,11 +88,11 @@ class Post extends Component {
         }
     }
 
-    handleLikePostClick() {
+    const handleLikePostClick = () => {
         console.debug('Post -> handleLikePostClick')
 
         try {
-            logic.toggleLikePost(this.props.post.id, error => {
+            logic.toggleLikePost(post.id, error => {
                 if (error) {
                     console.error(error)
 
@@ -109,7 +101,7 @@ class Post extends Component {
                     return
                 }
 
-                this.props.onPostLikeToggled()
+                onPostLikeToggled()
             })
         } catch (error) {
             console.error(error)
@@ -118,11 +110,11 @@ class Post extends Component {
         }
     }
 
-    handleFavPostClick() {
+    const handleFavPostClick = () => {
         console.debug('Post -> handleFavPostClick')
 
         try {
-            logic.toggleFavPost(this.props.post.id, error => {
+            logic.toggleFavPost(post.id, error => {
                 if (error) {
                     console.error(error)
 
@@ -131,7 +123,7 @@ class Post extends Component {
                     return
                 }
 
-                this.props.onPostFavToggled()
+                onPostFavToggled()
             })
         } catch (error) {
             console.error(error)
@@ -140,12 +132,11 @@ class Post extends Component {
         }
     }
 
-    handleFollowUserClick() {
+    const handleFollowUserClick = () => {
         console.debug('Post -> handleFollowUserClick')
 
         try {
-            logic.toggleFollowUser(this.props.post.author.username, error => {
-
+            logic.toggleFollowUser(post.author.username, error => {
                 if (error) {
                     console.error(error)
 
@@ -154,7 +145,7 @@ class Post extends Component {
                     return
                 }
 
-                this.props.onUserFollowToggled()
+                onUserFollowToggled()
             })
         } catch (error) {
             console.error(error)
@@ -163,47 +154,42 @@ class Post extends Component {
         }
     }
 
-    render() {
-        console.debug('Post -> render')
+    return <article className="Post">
+        <Container className='Container--top'>
+            <Avatar url={post.author.avatar} />
 
-        const { post } = this.props
+            <Heading level={3} >{post.author.username}</Heading>
 
-        return <article className="Post">
-            <Container className='Container--top'>
-                <Avatar url={post.author.avatar} />
+            <Button onClick={handleFollowUserClick} >{post.author.following ? 'Unfollow' : 'Follow'}</Button>
+        </Container>
 
-                <Heading level={3} >{post.author.username}</Heading>
+        <Image src={post.image} title={post.title} alt={post.alt} />
 
-                <Button onClick={this.handleFollowUserClick.bind(this)} >{post.author.following ? 'Unfollow' : 'Follow'}</Button>
-            </Container>
+        <Paragraph>{post.caption}</Paragraph>
 
-            <Image src={post.image} title={post.title} alt={post.alt} />
+        <Container>
+            <Button onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button onClick={handleFavPostClick} >{post.fav ? '💫' : '⭐'}</Button>
 
-            <Paragraph>{post.caption}</Paragraph>
+            {post.author.username === logic.getUserUsername() && <>
+                <Button onClick={handleDeletePostClick}  >Delete</Button>
+                <Button onClick={handleEditPostClick}  >Edit</Button>
+            </>}
+        </Container>
 
-            <Container>
-                <Button onClick={this.handleLikePostClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-                <Button onClick={this.handleFavPostClick.bind(this)} >{post.fav ? '💫' : '⭐'}</Button>
+        <Time>{formatTime(new Date(post.date))}</Time>
 
-                {post.author.username === logic.getUserUsername() && <>
-                    <Button onClick={this.handleDeletePostClick.bind(this)}  >Delete</Button>
-                    <Button onClick={this.handleEditPostClick.bind(this)}  >Edit</Button>
-                </>}
-            </Container>
+        {editPostVisible && <Form className='Form--edit' onSubmit={handleEditPostSubmit}>
+            <Label htmlFor={"edit-caption-input"}>Caption</Label>
+            <Input className={"Input--caption "} id={"edit-caption-input"} defaultValue={post.caption} />
 
-            <Time>{formatTime(new Date(post.date))}</Time>
+            <Button className={"Button--section"} type={"submit"}  >Save</Button>
+            <Button className={"Button--section"} type={"button"} onClick={handleCancelEditPostClick} >Cancel</Button>
+        </Form>}
 
-            {this.state.editPostVisible && <Form className='Form--edit' onSubmit={this.handleEditPostSubmit.bind(this)}>
-                <Label htmlFor={"edit-caption-input"}>Caption</Label>
-                <Input className={"Input--caption "} id={"edit-caption-input"} defaultValue={post.caption} />
+    </article>
 
-                <Button className={"Button--section"} type={"submit"}  >Save</Button>
-                <Button className={"Button--section"} type={"button"} onClick={this.handleCancelEditPostClick.bind(this)} >Cancel</Button>
-            </Form>}
-
-        </article>
-
-    }
 }
+
 
 export default Post

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 
 import CreatePost from './CreatePost'
 
@@ -6,51 +6,42 @@ import Button from '../components/Button'
 
 import './Footer.css'
 
-class Footer extends Component {
-    constructor() {
-        console.debug('Footer -> constructor')
+const Footer = ({ onPostCreated }) => {
+    console.debug('Footer -> call')
 
-        super()
+    const [createPostVisible, setCreatePostVisible] = useState(false)
 
-        this.state = { createPostVisible: false }
-    }
-
-    handleCreatePostClick() {
+    const handleCreatePostClick = () => {
         console.debug('Footer -> handleCreatePostClick')
 
-        this.setState({ createPostVisible: true })
+        setCreatePostVisible(true)
     }
 
-    handleCancelCreatePostClick() {
+    const handleCancelCreatePostClick = () => {
         console.debug('Footer -> handleCancelCreatePostClick')
 
-        this.setState({ createPostVisible: false })
-    }
-
-    handlePostCreated() {
-        this.setState({ createPostVisible: false })
-
-        this.props.onPostCreated()
+        setCreatePostVisible(false)
     }
 
 
+    const handlePostCreated = () => {
+        setCreatePostVisible(false)
 
-
-
-    render() {
-        console.debug('Footer -> render')
-
-        return <footer className="Footer">
-            <Button className="Button--add" onClick={this.handleCreatePostClick.bind(this)}>+</Button>
-
-            {this.state.createPostVisible && <CreatePost
-                onPostCreated={this.handlePostCreated.bind(this)}
-                onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)} />}
-
-        </footer>
-
+        onPostCreated()
     }
+
+
+    return <footer className="Footer">
+        <Button className="Button--add" onClick={handleCreatePostClick}>+</Button>
+
+        {createPostVisible && <CreatePost
+            onPostCreated={handlePostCreated}
+            onCancelCreatePost={handleCancelCreatePostClick} />}
+
+    </footer>
+
 }
+
 
 
 export default Footer

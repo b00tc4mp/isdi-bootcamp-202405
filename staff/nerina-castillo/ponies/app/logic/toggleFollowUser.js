@@ -1,32 +1,29 @@
-import validate from "../../cor/validate.js"
+import { validate } from "com"
 
-function toggleFollowUser(username, callback) {
+export default (username, callback) => {
   validate.username(username)
-  console.debug('toggleFollowUser called with username:', username)
+  validate.callback(callback)
 
   const xhr = new XMLHttpRequest
 
-    xhr.onload = () => {
-      console.debug('toggleFollowUser onload called with status:', xhr.status)
-        if (xhr.status === 204) {
-            callback(null)
+  xhr.onload = () => {
+    if (xhr.status === 204) {
+      callback(null)
 
-            return
-        }
-
-        const { error, message } = JSON.parse(xhr.response)
-
-        const constructor = window[error]
-
-        callback(new constructor(message))
+      return
     }
 
-    xhr.onerror = () => callback(new Error('network error'))
+    const { error, message } = JSON.parse(xhr.response)
 
-    xhr.open('PATCH', `http://localhost:8080/users/${username}/follows`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    const constructor = window[error]
 
-    xhr.send()
- }
+    callback(new constructor(message))
+  }
 
-export default toggleFollowUser;
+  xhr.onerror = () => callback(new Error('network error'))
+
+  xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/follows`)
+  xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+
+  xhr.send()
+}

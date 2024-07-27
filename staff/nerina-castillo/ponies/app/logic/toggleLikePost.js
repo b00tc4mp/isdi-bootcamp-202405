@@ -1,10 +1,10 @@
-import validate from "../../cor/validate.js"
+import { validate } from 'com'
 
-function toggleLikePost(postId, callback) {
-  console.log(validate)
-  validate.string(postId)
- 
-  const xhr = new XMLHttpRequest
+const toggleLikePost = (postId, callback) => {
+    validate.string(postId, 'postId')
+    validate.callback(callback)
+
+    const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         if (xhr.status === 204) {
@@ -22,10 +22,10 @@ function toggleLikePost(postId, callback) {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/likes`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
 
     xhr.send()
 }
 
-export default toggleLikePost;
+export default toggleLikePost

@@ -1,11 +1,11 @@
-import validate from "../../cor/validate.js"
+import { validate } from 'com'
 
-const loginUser = (username, password, callback) => {
-  validate.username(username)
-  validate.password(password)
- 
-  
-  const xhr = new XMLHttpRequest
+export default (username, password, callback) => {
+    validate.username(username)
+    validate.password(password)
+    validate.callback(callback)
+
+    const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
         if (xhr.status === 200) {
@@ -25,12 +25,8 @@ const loginUser = (username, password, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/users/auth')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ username, password }))
 }
-
-
-export default loginUser;
-
