@@ -1,6 +1,5 @@
 import { User, Post } from '../data/models.js'
 import { validate } from 'com'
-import { ObjectId } from 'mongodb'
 
 export default (username, postId, callback) => {
     validate.username(username)
@@ -15,7 +14,7 @@ export default (username, postId, callback) => {
                 return
             }
 
-            Post.findById({ _id: postId }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('Post not found'))
@@ -28,7 +27,7 @@ export default (username, postId, callback) => {
                     const index = favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
                     if (index < 0)
-                        favs.push(new ObjectId(postId))
+                        favs.push(postId)
                     else
                         favs.splice(index, 1)
 

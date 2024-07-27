@@ -1,6 +1,5 @@
 import { User, Post } from '../data/models.js'
 import { validate } from 'com'
-import { ObjectId } from 'mongodb'
 
 export default (username, postId, caption, callback) => {
     validate.username(username)
@@ -16,7 +15,7 @@ export default (username, postId, caption, callback) => {
                 return
             }
 
-            Post.findOne({ _id: postId }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('Post not found'))
@@ -24,7 +23,7 @@ export default (username, postId, caption, callback) => {
                         return
                     }
 
-                    Post.updateOne({ _id: new ObjectId(postId) }, { $set: { caption } })
+                    Post.updateOne({ _id: postId }, { $set: { caption } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })
