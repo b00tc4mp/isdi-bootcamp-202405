@@ -1,34 +1,27 @@
-import data from "../data/index.js"
+import { User } from '../data/models.js'
 
-import validate from "../validate.js"
+import { validate } from '../../com/index.js'
 
-
-const authenticateUser = (username, password, callback) => {
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
-            return
-        }
+                return
+            }
 
-        if (user === null) {
-            callback(new Error('user not found'))
+            if (user.password !== password) {
+                callback(new Error('wrong password'))
 
-            return
-        }
+                return
+            }
 
-        if (user.password !== password) {
-            callback(new Error('wrong password'))
-
-            return
-        }
-
-        callback(null)
-    })
+            callback(null)
+        })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default authenticateUser

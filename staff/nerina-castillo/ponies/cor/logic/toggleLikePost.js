@@ -1,61 +1,41 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
+import { validate } from '../../com/index.js'
 
-import validate from '../validate.js'
-
-function toggleLikePost(username, postId, callback) {
+export default (username, postId, callback) => {
     validate.username(username)
-    validate.string(postId)
+    validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if(error) {
-            callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
-            return
-        }
+                return
+            }
 
-        if (!user) {
-            callback(new Error('User not found'))
-
-            return
-        }
-
-            data.findPost(post => post.id === postId, (error, post) => {
-                if(error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                
-                if (post === null) {
-                    callback(new Error('post not found'))
-                
-                     return
-            
-                }
-        
-                const index = post.likes.indexOf(username)
-            
-                if (index < 0)
-                    post.likes.push(username)
-                else
-                    post.likes.splice(index, 1)
-            
-                data.updatePost(post => post.id === postId, post, error => {
-                    if(error) {
-                        callback(new Error(error.message))
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
                         return
                     }
 
-                    callback(null)
+                    const { likes } = post
+
+                    const index = likes.indexOf(username)
+
+                    if (index < 0)
+                        likes.push(username)
+                    else
+                        likes.splice(index, 1)
+
+                    Post.updateOne({ _id: postId }, { $set: { likes } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
                 })
-            })
-        
-    })
-
-   
+                .catch(error => callback(new Error(error.message)))
+        })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleLikePost

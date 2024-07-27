@@ -1,11 +1,24 @@
-import authenticateUser from "./authenticateUser.js";
+import 'dotenv/config.js'
 
-authenticateUser('maxPower', 'maxpower1', error => {
-    if(error) {
-        console.error(error)
+import authenticateUser from './authenticateUser.js'
 
-        return
-    }
+import mongoose from 'mongoose'
 
-    console.log('user authenticated')
-})
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
+
+        authenticateUser('julitoCamelas', 'julito123', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('user authenticated')
+
+            mongoose.disconnect()
+
+        })
+    })
+    .catch(error => console.error(error))

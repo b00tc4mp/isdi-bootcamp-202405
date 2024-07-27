@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import getUserName from "./getUserName.js";
+import mongoose from 'mongoose';
 
-getUserName('julitoCamelas', 'cauliFlower',  (error, user) => {
-    if(error) {
-        console.error(error)
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-        return
-    }
-console.log(user)
+        getUserName('julitoCamelas', 'maxPower', (error, user) => {
+            if (error) {
+                console.error(error)
 
-})
+                return
+            }
+            console.log(user)
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))
+
+

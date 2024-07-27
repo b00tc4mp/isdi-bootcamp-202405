@@ -1,11 +1,24 @@
-import getAllPosts from "./getAllPosts.js";
+import 'dotenv/config'
 
-getAllPosts('cauliFlower', (error, posts) => {
-    if (error) {
-        console.error(error)
+import getAllPosts from './getAllPosts.js'
 
-        return
-    }
+import mongoose, { mongo } from 'mongoose'
 
-    console.log(posts)
-})
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
+
+        getAllPosts('julitoCamelas', (error, posts) => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log(posts)
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))
+

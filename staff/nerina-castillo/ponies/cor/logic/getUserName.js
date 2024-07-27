@@ -1,28 +1,30 @@
-import data from "../data/index.js";
-import validate from "../validate.js";
+import { User } from '../data/models.js';
+import { validate } from '../../com/index.js'
 
-const getUserName = (username, targetUsername, callback) => {
-  validate.username(username);
+export default (username, targetUsername, callback) => {
+  validate.username(username)
+  validate.username(targetUsername, 'targetUsername')
   validate.callback(callback)
 
-  data.findUser((user) => user.username === targetUsername, (error, user) => {
-    if(error) {
-      callback(new Error(error.message))
+  User.findOne({ username }).lean()
+    .then(user => {
+      if (!user) {
+        callback(new Error('user not found'))
 
-      return
-    }
+        return
+      }
 
-    if (!user) {
-      callback(new Error("user not found"))
-    
-      return
-    };
+      User.findOne({ username: targetUsername }).lean()
+        .then(targetUser => {
+          if (!targetUser) {
+            callback(new Error('target user not found'))
 
-  callback(null, user.name);
+            return
+          }
 
-  });
-
-  
-};
-
-export default getUserName;
+          callback(null, targetUser.name)
+        })
+        .catch(error => callback(new Error(error.message)))
+    })
+    .catch(error => callback(new Error(error.message)))
+}

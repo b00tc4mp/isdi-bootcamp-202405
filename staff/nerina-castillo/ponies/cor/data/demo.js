@@ -1,81 +1,43 @@
-import fs from 'fs'
+import 'dotenv/config'
+import mongoose from 'mongoose'
 
-const users= []
+import { User, Post } from './models.js'
 
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        // const user = new User({ name: 'Muele', surname: 'Netti', email: 'muele@netti.com', username: 'muelenetti', password: '123123123' })
 
-const julito ={
-    name:'Julito',
-    surname:'Camelas',
-    email: 'julito@camelas.com',
-    username:'julitoCamelas',
-    password: 'julito123',
-    post: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDB6czQ0bjk4dXF5ZXZxY2Y3ODEzdjJ5MWJ5MG1tazNtZWpldTZtdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/2bJWG8k0HAktq/giphy.gif'
-}
+        // user.save()
+        //     .then(() => console.log('user saved'))
+        //     .catch(error => console.error(error))
 
-const cauliflower ={
-    name:'Cauli',
-    surname:'Flower',
-    email: 'cauli@flower.com',
-    username:'cauliFlower',
-    password: 'cauliflower4',
-    post: 'https://media.giphy.com/media/mLZ6kvGkH31z0BAKUX/giphy.gif?cid=790b7611t0zs44n98uqyevqcf7813v2y1by0mmk3mejeu6mw&ep=v1_gifs_trending&rid=giphy.gif&ct=g'
-}
+        // User.create({ name: 'Suma', surname: 'Speni', email: 'suma@speni.com', username: 'sumaspeni', password: '123123123' })
+        //     .then(() => console.log('user saved'))
+        //     .catch(error => console.error(error))
 
-const maxpower ={
-    name:'Max',
-    surname:'Power',
-    email: 'max@power.com',
-    username:'maxPower',
-    password: 'maxpower1',
-    post: 'https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif?cid=790b7611t0zs44n98uqyevqcf7813v2y1by0mmk3mejeu6mw&ep=v1_gifs_trending&rid=giphy.gif&ct=g'
-}
+        // User.findOne({ username: 'sumaspeni' })
+        //     .then(user => {
+        //         user.name = 'Samu'
+        //         user.surname = 'Spine'
+        //         user.email = 'samu@spine.com'
+        //         user.username = 'samuspine'
 
+        //         user.save()
+        //             .then(() => console.log('user updated'))
+        //             .catch(error => console.error(error))
+        //     })
+        //     .catch(error => console.error(error))
 
+        // User.updateOne({ username: 'samu' }, { $set: { name: 'Samuelet' } })
+        //     .then(() => console.log('user updated'))
+        //     .catch(error => console.error(error))
 
-users.push(julito)
-users.push(cauliflower)
-users.push(maxpower)
+        // User.deleteOne({ username: 'samuspine' })
+        //     .then(() => console.log('user deleted'))
+        //     .catch(error => console.error(error))
 
-const usersJSON = JSON.stringify(users)
-
-console.log('userJSON', usersJSON)
-
-fs.writeFileSync('./users.json', usersJSON)
-
-const usersJSON2 = fs.readFileSync('./users.json', 'utf-8')
-
-console.log('usersJSON2', usersJSON2)
-
-
-const posts =[]
-
-const post1 = {
-    image: 'https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif?cid=790b7611t0zs44n98uqyevqcf7813v2y1by0mmk3mejeu6mw&ep=v1_gifs_trending&rid=giphy.gif&ct=g',
-    author: 'maxPower',
-    id: "onlstpoafkw",
-  };
-  const post2 = {
-    image: 'https://media.giphy.com/media/mLZ6kvGkH31z0BAKUX/giphy.gif?cid=790b7611t0zs44n98uqyevqcf7813v2y1by0mmk3mejeu6mw&ep=v1_gifs_trending&rid=giphy.gif&ct=g',
-    author: 'cauliFlower',
-    id: "2cxgeu12zsw0",
-  };
-
-  const post3 = {
-    image: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDB6czQ0bjk4dXF5ZXZxY2Y3ODEzdjJ5MWJ5MG1tazNtZWpldTZtdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/2bJWG8k0HAktq/giphy.gif',
-    author: 'julitoCamelas',
-    id: "3fswobxum9q0",
-  };
-
-  posts.push(post1)
-posts.push(post2)
-posts.push(post3)
-
-const postsJSON = JSON.stringify(posts)
-
-console.log('postsJSON', postsJSON)
-
-fs.writeFileSync('./data/posts.json', postsJSON)
-
-const postsJSON2 = fs.readFileSync('./data/users.json', 'utf-8')
-
-console.log('postsJSON2', postsJSON2)
+        User.find()
+            .then(users => console.log(users))
+            .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))

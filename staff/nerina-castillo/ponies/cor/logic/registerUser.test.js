@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import registerUser from "./registerUser.js";
 
-registerUser('janfry', 'topera', 'janfry@topera.com', 'janfryTopera', 'janfrytopera1', 'janfrytopera1', error => {
-    if(error) {
-        console.error(error)
+import mongoose from 'mongoose';
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log('user registered')
-})
+        registerUser('nery', 'cgomez', 'nery@cgomez.com', 'nerina', 'nerina123', 'nerina123', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('user registered')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

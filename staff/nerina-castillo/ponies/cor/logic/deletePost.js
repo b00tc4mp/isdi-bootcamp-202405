@@ -1,49 +1,38 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
+import { validate } from '../../com/index.js'
 
-import validate from '../validate.js'
-
-const deletePost = (username, postId, callback) => {
+export default (username, postId, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            if (post === null) {
-                callback(new Error('post not found'))
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-                return
-            }
+                        return
+                    }
 
-            data.deletePost(post => post.id === postId, error => {
-                if (error) {
-                    callback(new Error(error.message))
+                    if (post.author !== username) {
+                        callback(new Error('post does not belong to user'))
 
-                    return
-                }
+                        return
+                    }
 
-                callback(null)
-            })
+                    Post.deleteOne({ _id: postId })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
         })
-
-    })
+        .catch(error => callback(new Error(error.message)))
 }
-export default deletePost

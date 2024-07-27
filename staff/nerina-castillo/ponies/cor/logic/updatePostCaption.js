@@ -1,54 +1,34 @@
-import data from '../data/index.js'
+import { User, Post } from "../data/models.js"
+import { validate } from '../../com/index.js'
 
-import validate from '../validate.js'
-
-const updatePostCaption = (username, postId, newCaption, callback) => {
+export default (username, postId, caption, callback) => {
     validate.username(username)
-    validate.string(postId)
-    validate.string(newCaption)
+    validate.string(postId, 'postId')
+    validate.string(caption, 'caption')
     validate.callback(callback)
 
-   data.findUser(user => user.username === username, (error, user) => {
-    if(error){
-        callback(new Error(error.message))
-
-        return
-    }
-
-    if (user === null) {
-        callback(new Error('User not found'))
-
-        return
-    
-    }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if(error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
                 return
             }
 
-            if (post === undefined) throw new Error('post not found')
-    
-                post.caption = newCaption
-            
-                data.updatePost(post => post.id === postId, post, error => {
-                    if(error) {
-                        callback(new Error(error.message))
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
                         return
                     }
 
-                    callback(null)
+                    Post.updateOne({ _id: postId }, { $set: { caption } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+
                 })
+                .catch(error => callback(new Error(error.message)))
         })
-    
-        
-    
-   })
-
-    
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default updatePostCaption
