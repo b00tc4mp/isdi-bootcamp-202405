@@ -9,11 +9,15 @@ La aplicación ofrece una plataforma para que los distintos perfiles de usuario 
 
 ### Use Cases
 
-Users
+Users / Bands / Venues / Promoters / Labels
 - create post
 - create event
 - list following users
 - list events
+- list bands
+- list venues
+- list promoters
+- list labels
 - toggle like post
 - toggle fav post
 - toggle follow user
@@ -22,67 +26,7 @@ Users
 - search event
 - update event
 - delete event
-- send message
-
-Bands
-- create post
-- create event
-- list following users
-- toggle like post
-- toggle fav post
-- toggle follow user
-- update post
-- delete post
-- search event
-- list events
-- update event
-- delete event
-- send message
-
-Venues
-- create post
-- create event
-- list following users
-- toggle like post
-- toggle fav post
-- toggle follow user
-- update post
-- delete post
-- search event
-- list events
-- update event
-- delete event
-- send message
-
-Promoters
-- create post
-- create event
-- list following users
-- toggle like post
-- toggle fav post
-- toggle follow user
-- update post
-- delete post
-- search event
-- list events
-- update event
-- delete event
-- send message
-
-Labels
-- create post
-- create event
-- list following users
-- toggle like post
-- toggle fav post
-- toggle follow user
-- update post
-- delete post
-- search event
-- list events
-- update event
-- delete event
-- send message
+- send messages
 
 ### UIUX Design
 [Figma](https://www.figma.com/design/ENeHGUGHQy8gNxY00fCLsa/Untitled?node-id=1-710&t=TEnsDeO22H759zz5-0)
@@ -113,7 +57,7 @@ Labels
 
 ### Data Model
 
-User
+User / Promoter / Label / Venue
 - username (string)
 - user profile (string)
 - email (string)
@@ -129,42 +73,6 @@ Band
 - username (string)
 - user profile (string)
 - music genre (string)
-- email (string)
-- location (string)
-- password (string)
-- avatar (string)
-- messages ([User.message])
-- favs ([Post.id])
-- following ([User.username])
-- event ([Event.id])
-
-Venue
-- username (string)
-- user profile (string)
-- email (string)
-- location (string)
-- password (string)
-- avatar (string)
-- messages ([User.message])
-- favs ([Post.id])
-- following ([User.username])
-- event ([Event.id])
-
-Promoter
-- username (string)
-- user profile (string)
-- email (string)
-- location (string)
-- password (string)
-- avatar (string)
-- messages ([User.message])
-- favs ([Post.id])
-- following ([User.username])
-- event ([Event.id])
-
-Label
-- username (string)
-- user profile (string)
 - email (string)
 - location (string)
 - password (string)
