@@ -1,13 +1,11 @@
 import 'dotenv/config'
-import deletePost from './deletePost.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
+import getAllPoniesPost from './getAllPoniesPosts.js'
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
-describe('deletePost', () => {
+describe('getAllPoniesPost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
@@ -24,21 +22,21 @@ describe('deletePost', () => {
             .catch(error => done(error))
     })
 
-    it('succeeds on delete post', done => {
+    if ('succeeds on existing user', done => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() => {
+            .then(user => {
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
-                    .then(post => {
-                        deletePost('samuspine', post.id, error => {
+                    .then(() => {
+                        getAllPoniesPost('samuspine', error => {
                             if (error) {
                                 console.error(error)
 
                                 return
                             }
 
-                            Post.findById(post.id)
-                                .then(post => {
-                                    expect(post).to.be.null
+                            User.findOne({ username: 'samuspine' })
+                                .then((user, post) => {
+                                    expect(user.following).to.include(post.author)
 
                                     done()
                                 })
@@ -50,11 +48,35 @@ describe('deletePost', () => {
             .catch(error => done(error))
     })
 
+
+        it('fails on non-existing user', done => {
+            getAllPoniesPost('lilideponte', error => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal('user not found')
+
+                done()
+            })
+        })
+
+
+    it('fails on non-string username', () => {
+        let error
+
+        try {
+            getAllPoniesPost(123, error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(TypeError)
+            expect(error.message).to.equal('username is not a string')
+        }
+    })
+
     it('fails on invalid username', () => {
         let error
 
         try {
-            deletePost('', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', error => { })
+            getAllPoniesPost('', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -63,36 +85,11 @@ describe('deletePost', () => {
         }
     })
 
-    it('fails on non-string postId', () => {
-        let error
-        try {
-            deletePost('samuspine', 123, error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(TypeError)
-            expect(error.message).to.equal('postId is not a string')
-        }
-    })
-
-    // it('fails on invalid postId', () => {
-    //     let error
-
-    //     try {
-    //         deletePost('samuspine', '', error => { })
-    //     } catch (_error) {
-    //         error = _error
-    //     } finally {
-    //         expect(error).to.be.instanceOf(SyntaxError)
-    //         expect(error.message).to.equal('invalid postId')
-    //     }
-    // })
-
     it('fails on non-function callback', () => {
         let error
 
         try {
-            deletePost('samuspine', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning', 123)
+            getAllPoniesPost('samuspine', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -100,12 +97,22 @@ describe('deletePost', () => {
             expect(error.message).to.equal('callback is not a function')
         }
     })
+
+    afterEach(done => {
+        User.deleteMany()
+            .then(() => {
+                Post.deleteMany()
+                    .then(() => done())
+                    .catch(error => done(error))
+            })
+            .catch(error => done(error))
+    })
+
     after(done => {
         mongoose.disconnect()
             .then(() => done())
             .catch(error => done(error))
     })
 })
-
 
 

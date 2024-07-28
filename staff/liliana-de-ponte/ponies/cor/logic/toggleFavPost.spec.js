@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import toggleFavPost from './toggleLikePost.js'
+import toggleFavPost from './toggleFavPost.js'
 import mongoose, { Types } from 'mongoose'
 
 const { ObjectId } = Types
@@ -7,7 +7,7 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
-describe('toggleLikePost', () => {
+describe('toggleFavPost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
@@ -24,21 +24,21 @@ describe('toggleLikePost', () => {
             .catch(error => done(error))
     })
 
-    it('succeeds on existing user and post has no favs', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789', favs: [] })
-            .then(() => {
+    it('succeeds on existing user and post with no favs', done => {
+        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(user => {
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
                     .then(post => {
-                        toggleFavPost('samuspine', post.id, error => {
+                        toggleFavPost(user.username, post.id, error => {
                             if (error) {
                                 console.error(error)
 
                                 return
                             }
 
-                            Post.findById(post.id)
+                            User.findOne({ username: 'samuspine' })
                                 .then(user => {
-                                    expect(user.favs).to.include('samuspine')
+                                    expect(user.favs).to.include(post.id)
 
                                     done()
                                 })
@@ -50,20 +50,20 @@ describe('toggleLikePost', () => {
             .catch(error => done(error))
     })
 
-    it('succeeds on existing user and post has favs', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() => {
-                Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning', likes: ['samuspine'] })
-                    .then(post => {
+    it('succeeds on existing user and post with favs', done => {
+        Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning', likes: ['samuspine'] })
+            .then(post => {
+                User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789', favs: [post.id] })
+                    .then(() => {
                         toggleFavPost('samuspine', post.id, error => {
                             if (error) {
                                 console.error(error)
 
                                 return
                             }
-                            Post.findById(post.id).lean()
-                                .then(post => {
-                                    expect(post.likes).to.not.include('samuspine')
+                            User.findOne({ username: 'samuspine' }).lean()
+                                .then(user => {
+                                    expect(user.favs).to.not.include(post.id)
 
                                     done()
                                 })
@@ -100,6 +100,70 @@ describe('toggleLikePost', () => {
             })
             .catch(error => done(error))
     })
+
+    it('fails on non-string username', () => {
+        let error
+
+        try {
+            toggleFavPost(123, 'dckbjks648748', error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(TypeError)
+            expect(error.message).to.equal('username is not a string')
+        }
+    })
+    it('fails on invalid username', () => {
+        let error
+
+        try {
+            toggleFavPost('', 'dbhhjde788', error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error.message).to.equal('invalid username')
+        }
+    })
+
+    it('fails on non-string postId', () => {
+        let error
+        try {
+            toggleFavPost('samuspine', 123, error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(TypeError)
+            expect(error.message).to.equal('postId is not a string')
+        }
+    })
+
+    // it('fails on invalid postId', () => {
+    //     let error
+
+    //     try {
+    //         toggleFavPost('samuspine', '', error => { })
+    //     } catch (_error) {
+    //         error = _error
+    //     } finally {
+    //         expect(error).to.be.instanceOf(Error)
+    //         expect(error.message).to.equal('Invalid postId')
+    //     }
+    // })
+
+    it('fails on non-function callback', () => {
+        let error
+
+        try {
+            toggleFavPost('samuspine', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning', 123)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(TypeError)
+            expect(error.message).to.equal('callback is not a function')
+        }
+    })
+
     afterEach(done => {
         User.deleteMany()
             .then(() => {

@@ -1,13 +1,11 @@
 import 'dotenv/config'
-import deletePost from './deletePost.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
-
+import mongoose from 'mongoose'
 import { expect } from 'chai'
+
+import updatePostCaption from './updatePostCaption.js'
 import { User, Post } from '../data/models.js'
 
-describe('deletePost', () => {
+describe('updatePostCaption', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
@@ -15,30 +13,26 @@ describe('deletePost', () => {
     })
 
     beforeEach(done => {
-        User.deleteMany({})
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(Error))
-            })
+        Post.deleteMany({})
+            .then(() => done())
             .catch(error => done(error))
     })
 
-    it('succeeds on delete post', done => {
+    it('succeeds on existing user and post', done => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(() => {
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
                     .then(post => {
-                        deletePost('samuspine', post.id, error => {
+                        updatePostCaption('samuspine', post.id, 'nigth', error => {
                             if (error) {
                                 console.error(error)
 
                                 return
                             }
 
-                            Post.findById(post.id)
+                            Post.findById(post.id).lean()
                                 .then(post => {
-                                    expect(post).to.be.null
+                                    expect(post.caption).to.equal('nigth')
 
                                     done()
                                 })
@@ -54,7 +48,7 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost('', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', error => { })
+            updatePostCaption('', 'hdkshsj55868', 'morning', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -66,7 +60,7 @@ describe('deletePost', () => {
     it('fails on non-string postId', () => {
         let error
         try {
-            deletePost('samuspine', 123, error => { })
+            updatePostCaption('samuspine', 123, 'morning', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -79,7 +73,7 @@ describe('deletePost', () => {
     //     let error
 
     //     try {
-    //         deletePost('samuspine', '', error => { })
+    //         updatePostCaption('samuspine', '', 'morning', error => { })
     //     } catch (_error) {
     //         error = _error
     //     } finally {
@@ -88,11 +82,25 @@ describe('deletePost', () => {
     //     }
     // })
 
+    it('fails on non-string caption', () => {
+        let error
+
+        try {
+            updatePostCaption('samuspine', 'sfhbjfsbs7585', 123, error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(TypeError)
+            expect(error.message).to.equal('caption is not a string')
+        }
+    })
+
+
     it('fails on non-function callback', () => {
         let error
 
         try {
-            deletePost('samuspine', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning', 123)
+            updatePostCaption('samuspine', 'ksdhkcfs6778', 'morning', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -100,6 +108,17 @@ describe('deletePost', () => {
             expect(error.message).to.equal('callback is not a function')
         }
     })
+
+    afterEach(done => {
+        User.deleteMany()
+            .then(() => {
+                Post.deleteMany()
+                    .then(() => done())
+                    .catch(error => done(error))
+            })
+            .catch(error => done(error))
+    })
+
     after(done => {
         mongoose.disconnect()
             .then(() => done())
