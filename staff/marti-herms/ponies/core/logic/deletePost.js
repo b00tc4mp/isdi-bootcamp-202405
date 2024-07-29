@@ -1,8 +1,8 @@
 import { User, Post } from '../data/models.js'
 
-import { ObjectId } from 'mongoose'
+import { validate, errors } from 'com'
 
-import { validate } from 'com'
+const { NotFoundError, OwnershipError, SystemError } = errors
 
 export default (username, postId, callback) => {
     validate.username(username)
@@ -12,7 +12,7 @@ export default (username, postId, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -20,7 +20,7 @@ export default (username, postId, callback) => {
             Post.findById(postId)
                 .then(post => {
                     if (post.author.toString() !== user._id.toString()) {
-                        callback(new Error('user is not author'))
+                        callback(new OwnershipError('user is not author'))
 
                         return
                     }
@@ -33,12 +33,12 @@ export default (username, postId, callback) => {
                         .then(() => {
                             Post.deleteOne({ _id: postId })
                                 .then(() => callback(null))
-                                .catch(error => callback(new Error(error.message)))
+                                .catch(error => callback(new SystemError(error.message)))
                         })
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
 
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

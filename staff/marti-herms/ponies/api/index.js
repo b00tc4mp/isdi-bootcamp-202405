@@ -3,6 +3,10 @@ import express from 'express'
 
 import { mongoose, data, logic } from 'core'
 
+import { errors } from 'com'
+
+const { DuplicityError, ValidationError, NotFoundError, CredentialsError, OwnershipError, CorruptedInfoError, OutOfBoundsError } = errors
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log(`API connected to ${process.env.MONGODB_URI}`)
@@ -26,7 +30,12 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.registerUser(name, surname, email, username, password, (error) => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof DuplicityError)
+                                status = 409
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -34,7 +43,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(201).send()
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -48,7 +62,15 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.authenticateUser(username, password, (error) => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            if (error instanceof CredentialsError)
+                                status = 409
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -56,7 +78,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.send()
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -71,7 +98,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getUserName(username, targetUsername, (error, name) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -79,7 +111,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(name)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -91,7 +128,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getAllPosts(username, (error, posts) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -99,7 +141,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(posts)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -111,7 +158,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getFollowedUserPosts(username, (error, posts) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -119,7 +171,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(posts)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -131,7 +188,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getUserSavedPosts(username, (error, posts) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -139,7 +201,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(posts)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -153,7 +220,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getUserPosts(username, targetUsername, (error, posts) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -161,7 +233,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(posts)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -173,7 +250,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getUserList(username, (error, userList) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -181,7 +263,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(userList)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -195,7 +282,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getUser(username, targetUsername, (error, user) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -203,7 +295,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(user)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -218,9 +315,14 @@ mongoose.connect(process.env.MONGODB_URI)
                 const { img, caption } = JSON.parse(json)
 
                 try {
-                    logic.addPost(username, img, caption, (error) => {
+                    logic.createPost(username, img, caption, (error) => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -228,7 +330,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(201).send()
                     })
                 } catch (error) {
-                    res.send(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -243,7 +350,15 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.deletePost(username, postId, (error) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        if (error instanceof OwnershipError)
+                            status = 403
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -251,7 +366,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.status(204).send()
                 })
             } catch (error) {
-                res.send(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -265,7 +385,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.togglePostLike(username, postId, (error) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -273,7 +398,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.status(204).send()
                 })
             } catch (error) {
-                res.send(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -287,7 +417,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.toggleSavedPost(username, postId, (error) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -295,7 +430,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.status(204).send()
                 })
             } catch (error) {
-                res.send(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
         api.patch('/posts/:targetUsername/follow', (req, res) => {
@@ -308,7 +448,15 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.toggleUserFollow(username, targetUsername, (error) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        if (error instanceof OutOfBoundsError)
+                            status = 403
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -316,7 +464,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.status(204).send()
                 })
             } catch (error) {
-                res.send(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -333,7 +486,15 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.editPost(username, postId, newCaption, (error) => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            if (error instanceof OwnershipError)
+                                status = 403
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -341,38 +502,59 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(204).send()
                     })
                 } catch (error) {
-                    res.send(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
 
-        // api.patch('/users/:targetUsername/username', (req, res) => {
-        //     const { authorization } = req.headers
+        api.patch('/users/:targetUsername/username', (req, res) => {
+            const { authorization } = req.headers
 
-        //     const username = authorization.slice(6)
+            const username = authorization.slice(6)
 
-        //     const { targetUsername } = req.params
+            const { targetUsername } = req.params
 
-        //     req.on('data', json => {
-        //         const { newUsername, password } = JSON.parse(json)
+            req.on('data', json => {
+                const { newUsername, password } = JSON.parse(json)
 
-        //         try {
-        //             if (username !== targetUsername) throw new Error('user not authorized')
+                try {
+                    if (username !== targetUsername) throw new Error('user not authorized')
 
-        //             logic.editUserUsername(username, newUsername, password, (error) => {
-        //                 if (error) {
-        //                     res.status(500).json({ error: error.constructor.name, message: error.message })
+                    logic.editUserUsername(username, newUsername, password, (error) => {
+                        if (error) {
+                            let status = 500
 
-        //                     return
-        //                 }
+                            if (error instanceof NotFoundError)
+                                status = 404
 
-        //                 res.status(204).send()
-        //             })
-        //         } catch (error) {
-        //             res.send(500).json({ error: error.constructor.name, message: error.message })
-        //         }
-        //     })
-        // })
+                            if (error instanceof CredentialsError)
+                                status = 409
+
+                            if (error instanceof DuplicityError)
+                                status = 409
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
+        })
 
         api.patch('/users/:targetUsername/avatar', (req, res) => {
             const { authorization } = req.headers
@@ -389,7 +571,12 @@ mongoose.connect(process.env.MONGODB_URI)
 
                     logic.editUserAvatar(username, avatar, (error) => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -397,7 +584,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(204).send()
                     })
                 } catch (error) {
-                    res.send(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })

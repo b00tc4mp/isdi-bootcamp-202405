@@ -2,7 +2,7 @@ import createPost from './createPost.js'
 import deletePost from './deletePost.js'
 import editPost from './editPost.js'
 import editUserAvatar from './editUserAvatar.js'
-// import editUserUsername from './editUserUsername.js'
+import editUserUsername from './editUserUsername.js'
 import getAllPosts from './getAllPosts.js'
 import getFollowedUserPosts from './getFollowedUserPosts.js'
 import getUser from './getUser.js'
@@ -21,7 +21,7 @@ const logic = {
     deletePost,
     editPost,
     editUserAvatar,
-    // editUserUsername,
+    editUserUsername,
     getAllPosts,
     getFollowedUserPosts,
     getUser,

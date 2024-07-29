@@ -1,17 +1,18 @@
 import { User, Post } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundError, SystemError } = errors
 
 export default (username, img, caption, callback) => {
     validate.username(username)
     validate.string(img, 'img')
-    validate.string(caption, 'caption')
     validate.callback(callback)
 
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -21,15 +22,14 @@ export default (username, img, caption, callback) => {
                 caption,
                 author: user._id
             })
-                .then(result => {
-                    user.posts.push(result.insertedId)
+                .then(post => {
+                    user.posts.push(post._id)
 
-                    User.updateOne({ username }, { $set: { posts: user.yourPosts } })
+                    User.updateOne({ username }, { $set: { posts: user.posts } })
                         .then(() => callback(null))
-                        .catch(error => new Error(error.message))
+                        .catch(error => new SystemError(error.message))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
-
+        .catch(error => callback(new SystemError(error.message)))
 }

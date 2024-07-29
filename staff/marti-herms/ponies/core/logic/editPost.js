@@ -1,6 +1,8 @@
 import { User, Post } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundError, OwnershipError, SystemError } = errors
 
 export default (username, id, newCaption, callback) => {
     validate.username(username)
@@ -10,14 +12,8 @@ export default (username, id, newCaption, callback) => {
 
     User.findOne({ username }).lean()
         .then(user => {
-            if (user === null) {
-                callback(new Error('user not found'))
-
-                return
-            }
-
-            if (!user.yourPosts.includes(id)) {
-                callback(new Error('post is not from user'))
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -25,7 +21,13 @@ export default (username, id, newCaption, callback) => {
             Post.findOne({ _id: id }).lean()
                 .then(post => {
                     if (!post) {
-                        callback(new Error('post not found'))
+                        callback(new NotFoundError('post not found'))
+
+                        return
+                    }
+
+                    if (post.author.toString() !== user._id.toString()) {
+                        callback(new OwnershipError('post is not from user'))
 
                         return
                     }
@@ -33,9 +35,10 @@ export default (username, id, newCaption, callback) => {
                     if (post.caption !== newCaption) {
                         Post.updateOne({ _id: id }, { $set: { caption: newCaption } })
                             .then(() => callback(null))
-                            .catch(error => callback(new Error(error.message)))
+                            .catch(error => callback(new SystemError(error.message)))
                     } else callback(null)
                 })
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

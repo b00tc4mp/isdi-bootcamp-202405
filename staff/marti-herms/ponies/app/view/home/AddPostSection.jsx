@@ -1,26 +1,26 @@
-import logic from '../../logic';
+import logic from '../../logic'
 
-import Container from '../components/Container';
-import Heading from '../components/Heading';
-import Form from '../components/Form';
-import Button from '../components/Button';
+import Container from '../components/Container'
+import Heading from '../components/Heading'
+import Form from '../components/Form'
+import Button from '../components/Button'
 
-import './AddPostSection.css';
+import './AddPostSection.css'
 
 const AddPostSection = ({ onPostCreated, onCancel }) => {
     const handleAddPost = (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
         const form = event.target
 
-        const postImageInput = form['post-image-input'];
-        const postCaptionInput = form['post-caption-input'];
+        const postImageInput = form['post-image-input']
+        const postCaptionInput = form['post-caption-input']
 
-        const postImage = postImageInput.value;
-        const postCaption = postCaptionInput.value;
+        const postImage = postImageInput.value
+        const postCaption = postCaptionInput.value
 
         try {
-            logic.addPost(postImage, postCaption, (error) => {
+            logic.createPost(postImage, postCaption, (error) => {
                 if (error) {
                     console.error(error)
 
@@ -29,24 +29,24 @@ const AddPostSection = ({ onPostCreated, onCancel }) => {
                     return
                 }
 
-                onPostCreated();
-            });
+                onPostCreated()
+            })
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     const handleCancel = (event) => {
-        event.stopPropagation();
+        event.stopPropagation()
 
         if (event.target.className === 'Container--fader')
-            onCancel();
+            onCancel()
     }
 
     const handleCancelButton = () => {
-        onCancel();
+        onCancel()
     }
 
     return <Container className="Container--fader" onClick={handleCancel}>
@@ -70,4 +70,4 @@ const AddPostSection = ({ onPostCreated, onCancel }) => {
     </Container>
 }
 
-export default AddPostSection;
+export default AddPostSection

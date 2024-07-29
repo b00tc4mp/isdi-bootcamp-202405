@@ -1,6 +1,8 @@
 import { User } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { DuplicityError, SystemError } = errors
 
 export default (name, surname, email, username, password, callback) => {
     validate.name(name)
@@ -13,7 +15,7 @@ export default (name, surname, email, username, password, callback) => {
     User.findOne({ email }).lean()
         .then((user => {
             if (user) {
-                callback(new Error('email already exists'))
+                callback(new DuplicityError('email already exists'))
 
                 return
             }
@@ -21,7 +23,7 @@ export default (name, surname, email, username, password, callback) => {
             User.findOne({ username }).lean()
                 .then(user => {
                     if (user) {
-                        callback(new Error('username already exists'))
+                        callback(new DuplicityError('username already exists'))
 
                         return
                     }
@@ -34,10 +36,10 @@ export default (name, surname, email, username, password, callback) => {
                         password
                     })
                         .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
 
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         }))
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

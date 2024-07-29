@@ -1,6 +1,8 @@
 import { User } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundError, OutOfBoundsError, SystemError, CorruptedInfoError } = errors
 
 export default (username, targetUsername, callback) => {
     validate.username(username)
@@ -10,25 +12,30 @@ export default (username, targetUsername, callback) => {
     User.findOne({ username })
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
             if (user.username === targetUsername) {
-                callback(new Error('you can\'t follow yourself'))
+                callback(new OutOfBoundsError('tried following yourself'))
 
                 return
             }
 
             User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
-                    const followingIndex = user.following.findIndex(userObjectId => userObjectId === targetUser._id)
+                    if (!targetUser) {
+                        callback(new NotFoundError('targetUser not found'))
 
-                    const followerIndex = targetUser.followers.findIndex(userObjectId => userObjectId === user._id)
+                        return
+                    }
+                    const followingIndex = user.following.findIndex(userObjectId => userObjectId.toString() === targetUser._id.toString())
+
+                    const followerIndex = targetUser.followers.findIndex(userObjectId => userObjectId.toString() === user._id.toString())
 
                     if ((followingIndex === -1 && followerIndex !== -1) || (followerIndex === -1 && followingIndex !== -1)) {
-                        callback(new Error('something is wrong'))
+                        callback(new CorruptedInfoError('wrong saved information'))
 
                         return
                     }
@@ -45,16 +52,16 @@ export default (username, targetUsername, callback) => {
                         targetUser.followers.push(user._id)
                     }
 
-                    data.users.updateOne({ username }, { $set: { following: user.following } })
+                    User.updateOne({ username }, { $set: { following: user.following } })
                         .then(() => {
-                            data.users.updateOne({ username: targetUsername }, { $set: { followers: targetUser.followers } })
+                            User.updateOne({ username: targetUsername }, { $set: { followers: targetUser.followers } })
                                 .then(() => callback(null))
-                                .catch(error => callback(new Error(error.message)))
+                                .catch(error => callback(new SystemError(error.message)))
                         })
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
 
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

@@ -1,6 +1,8 @@
 import { User, Post } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { DuplicityError, NotFoundError, CredentialsError, SystemError } = errors
 
 export default (oldUsername, newUsername, password, callback) => {
     validate.username(oldUsername, 'oldUsername')
@@ -11,7 +13,7 @@ export default (oldUsername, newUsername, password, callback) => {
     User.findOne({ username: newUsername }).lean()
         .then(user => {
             if (user) {
-                callback(new Error('username already exists'))
+                callback(new DuplicityError('username already in use'))
 
                 return
             }
@@ -19,24 +21,22 @@ export default (oldUsername, newUsername, password, callback) => {
             User.findOne({ username: oldUsername }).lean()
                 .then(user => {
                     if (!user) {
-                        callback(new Error('user not found'))
+                        callback(new NotFoundError('user not found'))
 
                         return
                     }
 
                     if (password !== user.password) {
-                        callback(new Error('wrong password'))
+                        callback(new CredentialsError('wrong password'))
 
                         return
                     }
 
-                    if (user.username !== newUsername) {
-                        User.updateOne({ username: oldUsername }, { $set: { username: newUsername } })
-                            .then(() => callback(null))
-                            .catch(error => callback(new Error(error.message)))
-                    } else callback(null)
+                    User.updateOne({ username: oldUsername }, { $set: { username: newUsername } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

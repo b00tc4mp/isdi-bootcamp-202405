@@ -89,7 +89,7 @@ const Profile = ({ user, onChange }) => {
             <Heading level="3">{user.username}</Heading>
         </Container>
         <Container className="Container--profile">
-            <Paragraph className="Paragraph--center">{user.yourPosts.length + ' posts'}</Paragraph>
+            <Paragraph className="Paragraph--center">{user.posts.length + ' posts'}</Paragraph>
             <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
             <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
         </Container>

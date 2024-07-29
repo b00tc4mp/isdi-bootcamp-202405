@@ -1,6 +1,8 @@
 import { User, Post } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundUser, SystemError } = errors
 
 export default (username, targetUsername, callback) => {
     validate.username(username)
@@ -10,20 +12,26 @@ export default (username, targetUsername, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundUser('user not found'))
 
                 return
             }
 
             User.findOne({ username: targetUsername }).lean()
-                .then(user => {
-                    Post.find({ author: user._id }).sort({ date: -1 }).lean()
+                .then(author => {
+                    if (!author) {
+                        callback(new NotFoundUser('user not found'))
+
+                        return
+                    }
+
+                    Post.find({ author: author._id }).sort({ date: -1 }).lean()
                         .then(posts => {
                             if (posts.length) {
                                 let count = 0
 
                                 posts.forEach(post => {
-                                    post.fav = user.favs.some(postObjectId => postObjectId._id.toString() === post._id.toString())
+                                    post.fav = author.favs.some(postObjectId => postObjectId._id.toString() === post._id.toString())
                                     post.like = post.likes.some(userObjectId => userObjectId._id.toString() === user._id.toString())
 
                                     post.id = post._id.toString()
@@ -32,7 +40,7 @@ export default (username, targetUsername, callback) => {
                                     post.author = {
                                         username: author.username,
                                         avatar: author.avatar,
-                                        following: user.following.includes(author.username)
+                                        following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
                                     }
 
                                     count++
@@ -43,9 +51,9 @@ export default (username, targetUsername, callback) => {
                                 })
                             } else callback(null, [])
                         })
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

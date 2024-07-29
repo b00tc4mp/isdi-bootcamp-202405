@@ -1,6 +1,8 @@
 import { User, Post } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundError, SystemError } = errors
 
 export default (username, callback) => {
     validate.username(username)
@@ -9,7 +11,7 @@ export default (username, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (user === null) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -31,7 +33,7 @@ export default (username, callback) => {
                                     post.author = {
                                         username: author.username,
                                         avatar: author.avatar,
-                                        following: user.following.includes(author.username)
+                                        following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
                                     }
 
                                     count++
@@ -40,11 +42,11 @@ export default (username, callback) => {
                                         callback(null, posts)
                                     }
                                 })
-                                .catch(error => callback(new Error(error.message)))
+                                .catch(error => callback(new SystemError(error.message)))
                         })
                     } else callback(null, [])
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }
