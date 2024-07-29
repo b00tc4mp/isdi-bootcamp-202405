@@ -1,4 +1,4 @@
-import { validate } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
 
 export default (postId, callback) => {
     validate.postId(postId)
@@ -15,7 +15,7 @@ export default (postId, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }

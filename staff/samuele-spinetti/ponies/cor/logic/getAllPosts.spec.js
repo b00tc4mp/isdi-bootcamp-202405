@@ -1,9 +1,12 @@
 import 'dotenv/config'
 import getAllPosts from './getAllPosts.js'
-import mongoose, { Types } from 'mongoose'
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
+
+import errors from '../../com/errors.js'
+const { NotFoundError, ValidationError } = errors
 
 describe('getAllPosts', () => {
     before(done => {
@@ -58,7 +61,7 @@ describe('getAllPosts', () => {
 
     it('fails on non-existing user', done => {
         getAllPosts('samuspine', (error, posts) => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('User not found')
 
             done()
@@ -75,7 +78,7 @@ describe('getAllPosts', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -88,7 +91,7 @@ describe('getAllPosts', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -101,7 +104,7 @@ describe('getAllPosts', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })

@@ -1,4 +1,4 @@
-import { validate } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
 
 export default (newAvatar, callback) => {
     validate.image(newAvatar, 'avatar')
@@ -15,7 +15,7 @@ export default (newAvatar, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }

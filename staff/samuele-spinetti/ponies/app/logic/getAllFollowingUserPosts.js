@@ -1,4 +1,4 @@
-import { validate } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
 
 export default callabck => {
     validate.callback(callabck)
@@ -16,7 +16,7 @@ export default callabck => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callabck(new constructor(message))
     }

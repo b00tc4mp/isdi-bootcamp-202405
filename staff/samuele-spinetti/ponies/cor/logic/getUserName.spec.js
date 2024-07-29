@@ -5,6 +5,9 @@ import { expect } from 'chai'
 import getUserName from './getUserName.js'
 import { User } from '../data/models.js'
 
+import errors from '../../com/errors.js'
+const { NotFoundError, ValidationError } = errors
+
 describe('getUserName', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -33,7 +36,7 @@ describe('getUserName', () => {
 
     it('fails on non-existing user', done => {
         getUserName('monoloco', 'monoloco', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('User not found')
 
             done()
@@ -45,7 +48,7 @@ describe('getUserName', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
                 getUserName(user.username, 'samuspine', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('Target user not found')
 
                     done()
@@ -62,7 +65,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -75,7 +78,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -88,7 +91,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -101,7 +104,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -114,7 +117,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })

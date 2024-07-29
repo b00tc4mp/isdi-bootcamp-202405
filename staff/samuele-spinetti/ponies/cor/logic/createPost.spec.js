@@ -5,6 +5,9 @@ import { expect } from 'chai'
 import createPost from './createPost.js'
 import { User, Post } from '../data/models.js'
 
+import errors from '../../com/errors.js'
+const { ValidationError, NotFoundError } = errors
+
 describe('createPost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -44,7 +47,7 @@ describe('createPost', () => {
 
     it('fails on non-existing user', done => {
         createPost('monoloco', 'http://text', 'Hello', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('User not found')
 
             done()
@@ -59,7 +62,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -72,7 +75,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -85,7 +88,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('image is not a string')
         }
     })
@@ -98,7 +101,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid image')
         }
     })
@@ -111,7 +114,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Caption is not a string')
         }
     })
@@ -125,7 +128,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })

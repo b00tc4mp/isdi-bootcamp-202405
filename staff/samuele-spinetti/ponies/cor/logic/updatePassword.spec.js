@@ -5,6 +5,9 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 import { User } from '../data/models.js'
 
+import errors from '../../com/errors.js'
+const { NotFoundError, CredentialsError, ValidationError } = errors
+
 describe('updatePassword', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -43,7 +46,7 @@ describe('updatePassword', () => {
 
     it('fails on non-existing user', () => {
         updatePassword('monoloco', '123123123', '123456789', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('User not found')
         })
     })
@@ -52,7 +55,7 @@ describe('updatePassword', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
                 updatePassword(user.username, '123123124', '123456789', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(CredentialsError)
                     expect(error.message).to.equal('Invalid password')
                 })
             })
@@ -67,7 +70,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -80,7 +83,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -93,7 +96,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is not a string')
         }
     })
@@ -106,7 +109,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(RangeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Password length is lower than 8 character')
         }
     })
@@ -119,7 +122,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Password has empty spaces')
         }
     })
@@ -132,7 +135,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is not a string')
         }
     })
@@ -145,7 +148,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(RangeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Password length is lower than 8 character')
         }
     })
@@ -158,7 +161,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Password has empty spaces')
         }
     })
@@ -171,7 +174,7 @@ describe('updatePassword', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })

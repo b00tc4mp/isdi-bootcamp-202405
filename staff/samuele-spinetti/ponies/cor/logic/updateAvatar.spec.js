@@ -5,6 +5,9 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 import { User } from '../data/models.js'
 
+import errors from '../../com/errors.js'
+const { NotFoundError, ValidationError } = errors
+
 describe('updateAvatar', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -43,7 +46,7 @@ describe('updateAvatar', () => {
 
     it('fails on non-existing user', done => {
         updateAvatar('monoloco', 'http://text', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('User not found')
 
             done()
@@ -58,7 +61,7 @@ describe('updateAvatar', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -71,7 +74,7 @@ describe('updateAvatar', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -84,7 +87,7 @@ describe('updateAvatar', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('image is not a string')
         }
     })
@@ -97,7 +100,7 @@ describe('updateAvatar', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid avatar')
         }
     })
@@ -110,7 +113,7 @@ describe('updateAvatar', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })

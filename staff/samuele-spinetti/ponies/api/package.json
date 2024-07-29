@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "com": "file:../com",
     "cor": "file:../cor",
     "express": "^4.19.2"
   },

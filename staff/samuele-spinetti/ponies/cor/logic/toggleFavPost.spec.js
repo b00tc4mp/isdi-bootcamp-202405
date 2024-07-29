@@ -7,6 +7,9 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
+import errors from '../../com/errors.js'
+const { NotFoundError, ValidationError } = errors
+
 describe('toggleFavPost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -80,7 +83,7 @@ describe('toggleFavPost', () => {
         Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
             .then(post => {
                 toggleFavPost('monoloco', post.id, error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('User not found')
 
                     done()
@@ -93,7 +96,7 @@ describe('toggleFavPost', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 toggleFavPost('monoloco', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('Post not found')
 
                     done()
@@ -110,7 +113,7 @@ describe('toggleFavPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -123,7 +126,7 @@ describe('toggleFavPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -136,7 +139,7 @@ describe('toggleFavPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('PostId is not a string')
         }
     })
@@ -149,7 +152,7 @@ describe('toggleFavPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid postId')
         }
     })
@@ -162,7 +165,7 @@ describe('toggleFavPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })

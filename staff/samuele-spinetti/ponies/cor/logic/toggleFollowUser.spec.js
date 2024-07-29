@@ -1,11 +1,12 @@
 import 'dotenv/config'
 import toggleFollowUser from './toggleFollowUser.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import { User } from '../data/models.js'
+
+import errors from '../../com/errors.js'
+const { NotFoundError, ValidationError } = errors
 
 describe('toggleFollowUser', () => {
     before(done => {
@@ -76,7 +77,7 @@ describe('toggleFollowUser', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123123123' })
             .then(user => {
                 toggleFollowUser('monoloco', user.username, error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('User not found')
 
                     done()
@@ -89,7 +90,7 @@ describe('toggleFollowUser', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 toggleFollowUser('monoloco', 'samuspine', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('TargetUser not found')
 
                     done()
@@ -106,7 +107,7 @@ describe('toggleFollowUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -119,7 +120,7 @@ describe('toggleFollowUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -132,7 +133,7 @@ describe('toggleFollowUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -145,7 +146,7 @@ describe('toggleFollowUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Invalid username')
         }
     })
@@ -158,7 +159,7 @@ describe('toggleFollowUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('Callback is not a function')
         }
     })
