@@ -6,6 +6,9 @@ const { ObjectId } = Types
 
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
+import { errors } from 'com'
+
+const { NotFoundError, CredentialsError, ValidationError } = errors
 
 describe('authenticateUser', () => {
     before(done => {
@@ -38,7 +41,7 @@ describe('authenticateUser', () => {
 
     it('fails on non-existing user', done => {
         authenticateUser('monoloco', '123123123', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('user not found')
 
             done()
@@ -49,7 +52,7 @@ describe('authenticateUser', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 authenticateUser('monoloco', '111111111', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(CredentialsError)
                     expect(error.message).to.equal('wrong password')
 
                     done()
@@ -66,7 +69,7 @@ describe('authenticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -79,7 +82,7 @@ describe('authenticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -92,7 +95,7 @@ describe('authenticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is not a string')
         }
     })
@@ -105,7 +108,7 @@ describe('authenticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid password')
         }
     })
@@ -118,7 +121,7 @@ describe('authenticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

@@ -7,6 +7,10 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
+import { errors } from 'com'
+
+const { DuplicityError, NotFoundError, CredentialsError, ValidationError } = errors
+
 describe('editUserUsername', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -52,7 +56,7 @@ describe('editUserUsername', () => {
                 User.create({ name: 'Marti', surname: 'Herms', email: 'marti@herms.com', username: 'eden', password: '123123123' })
                     .then(_user => {
                         editUserUsername('monoloco', 'eden', '123123123', error => {
-                            expect(error).to.be.instanceOf(Error)
+                            expect(error).to.be.instanceOf(DuplicityError)
                             expect(error.message).to.equal('username already in use')
 
                             done()
@@ -65,7 +69,7 @@ describe('editUserUsername', () => {
 
     it('fails on non-existing user', done => {
         editUserUsername('monoloco', 'eden', '123123123', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('user not found')
 
             done()
@@ -76,7 +80,7 @@ describe('editUserUsername', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 editUserUsername('monoloco', 'eden', '11111111', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(CredentialsError)
                     expect(error.message).to.equal('wrong password')
 
                     done()
@@ -93,7 +97,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('oldUsername is not a string')
         }
     })
@@ -106,7 +110,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid oldUsername')
         }
     })
@@ -119,7 +123,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('newUsername is not a string')
         }
     })
@@ -132,7 +136,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid newUsername')
         }
     })
@@ -145,7 +149,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is not a string')
         }
     })
@@ -158,7 +162,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(RangeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is shorter tan 8 characters')
         }
     })
@@ -171,7 +175,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password has empty spaces')
         }
     })
@@ -184,7 +188,7 @@ describe('editUserUsername', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

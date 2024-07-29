@@ -2,7 +2,7 @@ import { User } from '../data/models.js'
 
 import { validate, errors } from 'com'
 
-const { NotFoundUser, SystemError } = errors
+const { NotFoundError, SystemError } = errors
 
 export default (username, callback) => {
     validate.username(username)
@@ -11,7 +11,7 @@ export default (username, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new NotFoundUser('user not found'))
+                callback(new NotFoundError('user not found'))
             }
 
             User.find().lean()

@@ -7,6 +7,10 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
+import { errors } from 'com'
+
+const { NotFoundError, OwnershipError, ValidationError } = errors
+
 describe('editPost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -81,7 +85,7 @@ describe('editPost', () => {
         Post.create({ author: new ObjectId(), img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
             .then(post => {
                 editPost('monoloco', post.id, 'it works', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('user not found')
 
                     done()
@@ -94,7 +98,7 @@ describe('editPost', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 editPost('monoloco', new ObjectId().toString(), 'it works', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('post not found')
 
                     done()
@@ -111,7 +115,7 @@ describe('editPost', () => {
                         Post.create({ author: _user.id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
                             .then(post => {
                                 editPost('monoloco', post.id, 'it works', error => {
-                                    expect(error).to.be.instanceOf(Error)
+                                    expect(error).to.be.instanceOf(OwnershipError)
                                     expect(error.message).to.equal('post is not from user')
 
                                     done()
@@ -132,7 +136,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -145,7 +149,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -158,7 +162,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('id is not a string')
         }
     })
@@ -171,7 +175,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid id')
         }
     })
@@ -184,7 +188,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('newCaption is not a string')
         }
     })
@@ -197,7 +201,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid newCaption')
         }
     })
@@ -210,7 +214,7 @@ describe('editPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

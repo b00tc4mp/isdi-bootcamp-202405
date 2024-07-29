@@ -10,6 +10,10 @@ import logic from '../logic';
 
 import './Login.css';
 
+import { errors } from 'com'
+
+const { NotFoundError, CredentialsError } = errors
+
 const Login = ({ onLogin, onRegisterClick }) => {
     const handleLoginSubmit = (event) => {
         event.preventDefault();
@@ -27,7 +31,12 @@ const Login = ({ onLogin, onRegisterClick }) => {
                 if (error) {
                     console.error(error)
 
-                    alert(error.message)
+                    let message = error.message
+
+                    if (error instanceof NotFoundError || error instanceof CredentialsError)
+                        message = 'incorrect username and/or password'
+
+                    alert(message)
 
                     return
                 }

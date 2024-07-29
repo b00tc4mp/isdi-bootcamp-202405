@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import getUser from './getUser.js'
+import getUserName from './getUserName.js'
 import mongoose, { Types } from 'mongoose'
 
 const { ObjectId } = Types
@@ -11,7 +11,7 @@ import { errors } from 'com'
 
 const { NotFoundError, ValidationError } = errors
 
-describe('getUser', () => {
+describe('getUserName', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
@@ -28,17 +28,17 @@ describe('getUser', () => {
             .catch(error => done(error))
     })
 
-    it('succeeds on existing user returning user', done => {
+    it('succeeds on existing user returning user name', done => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
-                getUser('monoloco', 'monoloco', (error, user) => {
+                getUserName('monoloco', 'monoloco', (error, name) => {
                     if (error) {
                         console.error(error)
 
                         return
                     }
-                    expect(user).to.be.an('object')
-                    expect(user.username).to.equal('monoloco')
+                    expect(name).to.be.an('string')
+                    expect(name).to.include(user.name)
 
                     done()
                 })
@@ -47,7 +47,7 @@ describe('getUser', () => {
     })
 
     it('fails on non-existing user', done => {
-        getUser('monoloco', 'monoloco', (error, user) => {
+        getUserName('monoloco', 'monoloco', (error, user) => {
             expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('user not found')
 
@@ -58,7 +58,7 @@ describe('getUser', () => {
     it('fails on non-existing targetUser', done => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
-                getUser('monoloco', 'eden', (error, user) => {
+                getUserName('monoloco', 'eden', (error, user) => {
                     expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('target user not found')
 
@@ -72,7 +72,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser(123, 'eden', error => { })
+            getUserName(123, 'eden', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -85,7 +85,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('', 'eden', error => { })
+            getUserName('', 'eden', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -98,7 +98,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('eden', 123, error => { })
+            getUserName('eden', 123, error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -111,7 +111,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('eden', '', error => { })
+            getUserName('eden', '', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -124,7 +124,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('monoloco', 'eden', 123)
+            getUserName('monoloco', 'monoloco', 123)
         } catch (_error) {
             error = _error
         } finally {

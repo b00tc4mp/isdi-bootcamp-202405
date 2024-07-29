@@ -62,7 +62,7 @@ class CorruptedInfoError extends Error {
     }
 }
 
-const error = {
+const errors = {
     ValidationError,
     NotFoundError,
     DuplicityError,

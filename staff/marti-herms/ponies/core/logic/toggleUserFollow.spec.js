@@ -7,6 +7,10 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
+import { errors } from 'com'
+
+const { NotFoundError, OutOfBoundsError, ValidationError, CorruptedInfoError } = errors
+
 describe('toggleUserFollow', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -95,7 +99,7 @@ describe('toggleUserFollow', () => {
         User.create({ name: 'Marti', surname: 'Herms', email: 'marti@herms.com', username: 'eden', password: '123123123' })
             .then(post => {
                 toggleUserFollow('monoloco', 'eden', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('user not found')
 
                     done()
@@ -108,7 +112,7 @@ describe('toggleUserFollow', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 toggleUserFollow('monoloco', 'monoloco', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(OutOfBoundsError)
                     expect(error.message).to.equal('tried following yourself')
 
                     done()
@@ -121,7 +125,7 @@ describe('toggleUserFollow', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
                 toggleUserFollow('monoloco', 'eden', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('targetUser not found')
 
                     done()
@@ -136,7 +140,7 @@ describe('toggleUserFollow', () => {
                 User.create({ name: 'Marti', surname: 'Herms', email: 'marti@herms.com', username: 'eden', password: '123123123', followers: [user._id] })
                     .then(_user => {
                         toggleUserFollow('monoloco', 'eden', error => {
-                            expect(error).to.be.instanceOf(Error)
+                            expect(error).to.be.instanceOf(CorruptedInfoError)
                             expect(error.message).to.equal('wrong saved information')
 
                             done()
@@ -156,7 +160,7 @@ describe('toggleUserFollow', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -169,7 +173,7 @@ describe('toggleUserFollow', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -182,7 +186,7 @@ describe('toggleUserFollow', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('targetUsername is not a string')
         }
     })
@@ -195,7 +199,7 @@ describe('toggleUserFollow', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid targetUsername')
         }
     })
@@ -208,7 +212,7 @@ describe('toggleUserFollow', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

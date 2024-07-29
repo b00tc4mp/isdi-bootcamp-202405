@@ -1,4 +1,4 @@
-import { errors } from './index.js'
+import errors from './error.js'
 
 const { ValidationError } = errors
 
