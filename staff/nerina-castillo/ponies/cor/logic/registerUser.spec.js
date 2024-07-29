@@ -3,6 +3,9 @@ import registerUser from "./registerUser.js";
 import { expect } from 'chai'
 import { User } from '../data/models.js';
 import mongoose from 'mongoose';
+import { errors } from '../../com/index.js'
+
+const { ValidationError, DuplicityError } = errors
 
 describe('registerUser', () => {
     before(done => {
@@ -44,7 +47,7 @@ describe('registerUser', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(() => {
                 registerUser('gon', 'zalo', 'gon@zalo.com', 'gonzalo2', 'gonzalo123', 'gonzalo123', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(DuplicityError)
                     expect(error.message).to.equal('user already exists')
 
                     done()
@@ -58,7 +61,7 @@ describe('registerUser', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(() => {
                 registerUser('gon', 'zalo', 'gon@zalo2.com', 'gonzalo', 'gonzalo123', 'gonzalo123', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(DuplicityError)
                     expect(error.message).to.equal('user already exists')
 
                     done()
@@ -76,7 +79,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('name is not a string')
         }
     })
@@ -90,7 +93,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid name')
         }
     })
@@ -103,7 +106,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid surname')
         }
     })
@@ -117,7 +120,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('email is not a string')
         }
     })
@@ -131,7 +134,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid email')
         }
     })
@@ -145,7 +148,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -159,7 +162,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -173,7 +176,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is not a string')
         }
     })
@@ -187,7 +190,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(RangeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password length is lower than 8 characters')
         }
     })
@@ -200,7 +203,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password has empty spaces')
         }
     })
@@ -213,7 +216,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('passwords do not match')
         }
     })
@@ -227,7 +230,7 @@ describe('registerUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

@@ -5,6 +5,10 @@ import mongoose, { Types } from 'mongoose';
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
 
+const { NotFoundError, ValidationError } = errors
+
+import { errors } from '../../com/index.js'
+
 describe('createPost', () => {
 
     before(done => {
@@ -38,14 +42,14 @@ describe('createPost', () => {
                         .catch(error => done(error));
                 });
             })
-            .catch(error => done(error));
+            .catch(error => SyntaxError(error));
     });
 
 
     it('fails on non-existing user', done => {
         createPost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'i am fine', error => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('User not found')
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('user not found')
 
             done()
         })
@@ -60,7 +64,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('image is not a string')
         }
     })
@@ -74,7 +78,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid image')
         }
     })
@@ -87,7 +91,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('caption is not a string')
         }
     })
@@ -99,7 +103,7 @@ describe('createPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

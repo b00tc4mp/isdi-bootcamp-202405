@@ -5,6 +5,9 @@ import mongoose, { Types } from 'mongoose';
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
 
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, ValidationError } = errors
 
 describe('getAllFavPosts', () => {
     before(done => {
@@ -47,7 +50,7 @@ describe('getAllFavPosts', () => {
     })
     it('fails on non-existing user', done => {
         getAllFavPosts('gonza', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('user not found')
 
             done()
@@ -62,7 +65,7 @@ describe('getAllFavPosts', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -75,7 +78,7 @@ describe('getAllFavPosts', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -94,7 +97,7 @@ describe('getAllFavPosts', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

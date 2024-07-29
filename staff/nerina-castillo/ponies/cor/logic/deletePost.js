@@ -1,5 +1,7 @@
 import { User, Post } from '../data/models.js'
-import { validate } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
+
+const { NotFoundError, OwnershipError, SystemError } = errors
 
 export default (username, postId, callback) => {
     validate.username(username)
@@ -9,7 +11,7 @@ export default (username, postId, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -17,22 +19,23 @@ export default (username, postId, callback) => {
             Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
-                        callback(new Error('post not found'))
+                        callback(new NotFoundError('post not found'))
 
                         return
                     }
 
                     if (post.author !== username) {
-                        callback(new Error('post does not belong to user'))
+                        callback(new OwnershipError('post does not belong to user'))
 
                         return
                     }
 
                     Post.deleteOne({ _id: postId })
                         .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
+
 }

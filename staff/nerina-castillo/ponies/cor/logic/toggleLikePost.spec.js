@@ -7,6 +7,10 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js';
 
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, ValidationError } = errors
+
 describe('toggleLikePost', () => {
     let post;
     before(done => {
@@ -70,7 +74,7 @@ describe('toggleLikePost', () => {
         Post.create({ author: 'gon', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
             .then(post => {
                 toggleLikePost('gonzalo', post.id, error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('user not found')
 
                     done()
@@ -83,7 +87,7 @@ describe('toggleLikePost', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(() => {
                 toggleLikePost('gonzalo', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('post not found')
 
                     done()
@@ -105,7 +109,7 @@ describe('toggleLikePost', () => {
                 } catch (_error) {
                     error = _error;
                 } finally {
-                    expect(error).to.be.instanceOf(TypeError);
+                    expect(error).to.be.instanceOf(ValidationError);
                     expect(error.message).to.equal('callback is not a function');
                     done();
                 }

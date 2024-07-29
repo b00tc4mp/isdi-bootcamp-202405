@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/julitoCamelas/name -H "Authorization: Basic julitoCamelas"
+curl -v http://localhost:8080/users/janfryTopera/name -H "Authorization: Basic janfryTopera"

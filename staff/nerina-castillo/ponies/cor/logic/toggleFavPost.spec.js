@@ -6,6 +6,9 @@ const { ObjectId } = Types;
 
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, ValidationError } = errors
 
 describe('toggleFavPost', () => {
     let post;
@@ -79,7 +82,7 @@ describe('toggleFavPost', () => {
             .then(createdPost => {
                 post = createdPost;
                 toggleFavPost('gonzalo', post.id, error => {
-                    expect(error).to.be.instanceOf(Error);
+                    expect(error).to.be.instanceOf(NotFoundError);
                     expect(error.message).to.equal('user not found');
                     done();
                 });
@@ -91,7 +94,7 @@ describe('toggleFavPost', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(() => {
                 toggleFavPost('gonzalo', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(Error);
+                    expect(error).to.be.instanceOf(NotFoundError);
                     expect(error.message).to.equal('post not found');
                     done();
                 });
@@ -112,7 +115,7 @@ describe('toggleFavPost', () => {
                 } catch (_error) {
                     error = _error;
                 } finally {
-                    expect(error).to.be.instanceOf(TypeError);
+                    expect(error).to.be.instanceOf(ValidationError);
                     expect(error.message).to.equal('callback is not a function');
                     done();
                 }

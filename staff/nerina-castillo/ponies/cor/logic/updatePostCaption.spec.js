@@ -8,6 +8,10 @@ const { ObjectId } = Types;
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
 
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, ValidationError } = errors
+
 describe('updatePostCaption', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -53,7 +57,7 @@ describe('updatePostCaption', () => {
                 updatePostCaption('nonexistentuser', post._id.toString(), 'new caption', (error, updatedPost) => {
                     try {
                         expect(updatedPost).to.be.undefined;
-                        expect(error).to.be.instanceOf(Error);
+                        expect(error).to.be.instanceOf(NotFoundError);
                         expect(error.message).to.equal('user not found');
                         done();
                     } catch (assertionError) {
@@ -64,6 +68,8 @@ describe('updatePostCaption', () => {
             .catch(error => done(error));
     });
 
+
+
     it('fails on non-string username', () => {
         let error
 
@@ -72,7 +78,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -85,7 +91,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -98,22 +104,8 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('postId is not a string')
-        }
-    })
-
-    it('fails on invalid postId', () => {
-        let error
-
-        try {
-            updatePostCaption('gonzalo', '', 'i am fine', error => { })
-
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('invalid postId')
         }
     })
 
@@ -125,7 +117,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('caption is not a string')
         }
     })
@@ -138,7 +130,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

@@ -1,6 +1,9 @@
 import { User } from '../data/models.js'
 
-import { validate } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
+
+const { NotFoundError, SystemError, ValidationError } = errors
+
 
 export default (username, password, callback) => {
     validate.username(username)
@@ -10,18 +13,18 @@ export default (username, password, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
             if (user.password !== password) {
-                callback(new Error('wrong password'))
+                callback(new ValidationError('wrong password'))
 
                 return
             }
 
             callback(null)
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

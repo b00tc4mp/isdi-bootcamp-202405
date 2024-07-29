@@ -1,7 +1,7 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (image, caption, callback) => {
-  validate.image(image, 'image')
+  validate.url(image, 'image')
   validate.string(caption, 'caption')
   validate.callback(callback)
 
@@ -16,7 +16,7 @@ export default (image, caption, callback) => {
 
     const { error, message } = JSON.parse(xhr.response)
 
-    const constructor = window[error]
+    const constructor = errors[error]
 
     callback(new constructor(message))
   }

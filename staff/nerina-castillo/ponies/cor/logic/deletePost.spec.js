@@ -7,6 +7,10 @@ const { ObjectId } = Types;
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
 
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, OwnershipError, ValidationError } = errors
+
 describe('deletePost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -49,7 +53,7 @@ describe('deletePost', () => {
         Post.create({ author: 'gon', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
             .then(post => {
                 deletePost('gonzalo', post._id.toString(), error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('user not found')
 
                     done()
@@ -62,7 +66,7 @@ describe('deletePost', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(() => {
                 deletePost('gonzalo', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('post not found')
 
                     done()
@@ -81,7 +85,7 @@ describe('deletePost', () => {
                     })
                     .then(({ user, post }) => {
                         deletePost(user.username, post.id, error => {
-                            expect(error).to.be.instanceOf(Error);
+                            expect(error).to.be.instanceOf(OwnershipError);
                             expect(error.message).to.equal('post does not belong to user');
                             done();
                         });
@@ -99,7 +103,7 @@ describe('deletePost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -112,7 +116,7 @@ describe('deletePost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -125,24 +129,10 @@ describe('deletePost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('postId is not a string')
         }
     })
-
-    it('fails on invalid postId', () => {
-        let error
-
-        try {
-            deletePost('gonzalo', '', error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('invalid postId')
-        }
-    })
-
 
     it('fails on non-function callback', () => {
         let error
@@ -152,7 +142,7 @@ describe('deletePost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

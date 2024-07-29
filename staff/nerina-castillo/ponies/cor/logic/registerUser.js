@@ -1,5 +1,7 @@
 import { User } from '../data/models.js'
-import { validate } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
+
+const { ValidationError, DuplicityError, SystemError } = errors
 
 export default (
     name,
@@ -20,12 +22,12 @@ export default (
 
 
     if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
+        throw new ValidationError('passwords do not match')
 
     User.findOne({ email }).lean()
         .then(user => {
             if (user) {
-                callback(new Error('user already exists'))
+                callback(new DuplicityError('user already exists'))
 
                 return
             }
@@ -33,7 +35,7 @@ export default (
             User.findOne({ username }).lean()
                 .then(user => {
                     if (user) {
-                        callback(new Error('user already exists'))
+                        callback(new DuplicityError('user already exists'))
 
                         return
                     }
@@ -49,12 +51,12 @@ export default (
                         avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
                     })
                         .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
 
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 
 }
 

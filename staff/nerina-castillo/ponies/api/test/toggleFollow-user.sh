@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/maxPower/follows -X PATCH -H "Authorization: Basic julitoCamelas"
+curl -v http://localhost:8080/users/janfryTopera/follows -X PATCH -H "Authorization: Basic julitoCamelas"

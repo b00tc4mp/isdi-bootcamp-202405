@@ -5,6 +5,10 @@ import mongoose, { Types } from 'mongoose';
 import { expect } from 'chai'
 import { User } from '../data/models.js';
 
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, ValidationError } = errors
+
 
 describe('toggleFollowUser', () => {
     before(done => {
@@ -73,24 +77,28 @@ describe('toggleFollowUser', () => {
 
     it('fails on non-existing user', done => {
         toggleFollowUser('gonza', 'julitocamelas', error => {
-            expect(error).to.be.instanceOf(Error);
+            expect(error).to.be.instanceOf(NotFoundError);
             expect(error.message).to.equal('user not found');
             done();
         });
     });
 
-    it('fails on non-existing target user', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(user => {
-                toggleFollowUser(user.username, 'juls', error => {
-                    expect(error).to.be.instanceOf(Error)
-                    expect(error.message).to.equal('target user not found')
 
-                    done()
-                })
+    it('fails on existing user but non-existing targetUser', done => {
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
+            .then(() => {
+                toggleFollowUser('gonzalo', 'nonexistent', error => {
+                    try {
+                        expect(error).to.be.instanceOf(NotFoundError);
+                        expect(error.message).to.equal('targetUser not found');
+                        done();
+                    } catch (Error) {
+                        done(Error);
+                    }
+                });
             })
-            .catch(error => done(error))
-    })
+            .catch(error => done(error));
+    });
 
     it('fails on non-function callback', done => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
@@ -103,7 +111,7 @@ describe('toggleFollowUser', () => {
                     error = _error;
                 }
 
-                expect(error).to.be.instanceOf(TypeError);
+                expect(error).to.be.instanceOf(ValidationError);
                 expect(error.message).to.equal('callback is not a function');
                 done();
             })
