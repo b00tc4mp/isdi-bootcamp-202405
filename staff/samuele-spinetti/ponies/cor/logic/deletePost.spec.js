@@ -83,24 +83,14 @@ describe('deletePost', () => {
     it('fails on existing user and post but post does not belog to user', done => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
-                User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123123123' })
-                    .then(() => {
-                        Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
-                            .then(post => {
-                                deletePost(user.username, post.id, error => {
-                                    if (error) {
-                                        console.error(error)
+                Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
+                    .then(post => {
+                        deletePost(user.username, post.id, error => {
+                            expect(error).to.be.instanceOf(Error)
+                            expect(error.message).to.equal('Post does not belong to user')
 
-                                        return
-                                    }
-
-                                    //TODO
-
-                                    expect(error).to.be.instanceOf(Error)
-                                    expect(error.message).to.equal('Post does not belong to user')
-                                })
-                            })
-                            .catch(error => done(error))
+                            done()
+                        })
                     })
                     .catch(error => done(error))
             })

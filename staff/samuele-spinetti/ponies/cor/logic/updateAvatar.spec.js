@@ -1,11 +1,11 @@
 import 'dotenv/config'
+import updateAvatar from './updateAvatar.js'
 import mongoose from 'mongoose'
-import { expect } from 'chai'
 
-import getUserName from './getUserName.js'
+import { expect } from 'chai'
 import { User } from '../data/models.js'
 
-describe('getUserName', () => {
+describe('updateAvatar', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
@@ -18,21 +18,31 @@ describe('getUserName', () => {
             .catch(error => done(error))
     })
 
-    it('succeeds on existing user and target user', done => {
+    it('succeeds on existing user', done => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
-                getUserName(user.username, user.username, error => {
-                    expect(user.name).to.equal('Mono')
+                updateAvatar(user.username, 'http://text', error => {
+                    if (error) {
+                        console.error(error)
 
-                    done()
+                        return
+                    }
+
+                    User.findOne({ username: 'monoloco' }).lean()
+                        .then(user => {
+                            expect(user.username).to.equal('monoloco')
+                            expect(user.avatar).to.equal('http://text')
+
+                            done()
+                        })
+                        .catch(error => done(error))
                 })
             })
             .catch(error => done(error))
     })
 
-
     it('fails on non-existing user', done => {
-        getUserName('monoloco', 'monoloco', error => {
+        updateAvatar('monoloco', 'http://text', error => {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('User not found')
 
@@ -40,25 +50,11 @@ describe('getUserName', () => {
         })
     })
 
-
-    it('fails on non-existing targetUser', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                getUserName(user.username, 'samuspine', error => {
-                    expect(error).to.be.instanceOf(Error)
-                    expect(error.message).to.equal('Target user not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
-
     it('fails on non-string username', () => {
         let error
 
         try {
-            getUserName(123, 'monoloco', error => { })
+            updateAvatar(123, 'http://text', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -71,7 +67,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('', 'monoloco', error => { })
+            updateAvatar('', 'http://', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -80,29 +76,29 @@ describe('getUserName', () => {
         }
     })
 
-    it('fails on non-string targetUsername', () => {
+    it('fails on non-string avatar', () => {
         let error
 
         try {
-            getUserName('monoloco', 123, error => { })
+            updateAvatar('monoloco', 123, error => { })
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(TypeError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('image is not a string')
         }
     })
 
-    it('fails on invalid tagretUsername', () => {
+    it('fails on invalid avatar', () => {
         let error
 
         try {
-            getUserName('monoloco', '', error => { })
+            updateAvatar('monoloco', '', error => { })
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
-            expect(error.message).to.equal('Invalid username')
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('Invalid avatar')
         }
     })
 
@@ -110,7 +106,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('monoloco', 'monoloco', 123)
+            updateAvatar('monoloco', 'http://text', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -118,6 +114,7 @@ describe('getUserName', () => {
             expect(error.message).to.equal('Callback is not a function')
         }
     })
+
 
     afterEach(done => {
         User.deleteMany({})
@@ -130,5 +127,4 @@ describe('getUserName', () => {
             .then(() => done())
             .catch(error => done(error))
     })
-
 })
