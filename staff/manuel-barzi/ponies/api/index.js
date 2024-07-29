@@ -1,7 +1,11 @@
 import 'dotenv/config'
 import express from 'express'
 
-import { mongoose, data, logic } from 'cor'
+import { mongoose, logic } from 'cor'
+
+import { errors } from 'com'
+
+const { ValidationError, DuplicityError, NotFoundError, CredentialsError } = errors
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -30,7 +34,12 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof DuplicityError)
+                                status = 409
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -38,7 +47,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(201).send()
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -52,7 +66,14 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.authenticateUser(username, password, error => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+                            else if (error instanceof CredentialsError)
+                                status = 401
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -60,7 +81,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.send()
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -75,7 +101,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getUserName(username, targetUsername, (error, name) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -83,7 +114,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(name)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -95,7 +131,12 @@ mongoose.connect(process.env.MONGODB_URI)
             try {
                 logic.getAllPosts(username, (error, posts) => {
                     if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
                         return
                     }
@@ -103,7 +144,12 @@ mongoose.connect(process.env.MONGODB_URI)
                     res.json(posts)
                 })
             } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 

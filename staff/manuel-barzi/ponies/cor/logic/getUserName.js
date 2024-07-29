@@ -1,6 +1,8 @@
 import { User } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { NotFoundError, SystemError } = errors
 
 export default (username, targetUsername, callback) => {
     validate.username(username)
@@ -10,7 +12,7 @@ export default (username, targetUsername, callback) => {
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -18,14 +20,14 @@ export default (username, targetUsername, callback) => {
             User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
                     if (!targetUser) {
-                        callback(new Error('target user not found'))
+                        callback(new NotFoundError('target user not found'))
 
                         return
                     }
 
                     callback(null, targetUser.name)
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

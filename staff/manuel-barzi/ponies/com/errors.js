@@ -22,6 +22,22 @@ class DuplicityError extends Error {
     }
 }
 
+class CredentialsError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+class OwnershipError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 class SystemError extends Error {
     constructor(message) {
         super(message)
@@ -34,6 +50,8 @@ const errors = {
     ValidationError,
     NotFoundError,
     DuplicityError,
+    CredentialsError,
+    OwnershipError,
     SystemError
 }
 
