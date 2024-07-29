@@ -8,6 +8,10 @@ import Container from './components/Container'
 import Link from './components/Link'
 import Button from './components/Button'
 
+import { errors } from 'com'
+
+const { NotFoundError, CredentialsError } = errors
+
 function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
 
@@ -29,7 +33,12 @@ function Login({ onLogin, onRegisterClick }) {
                 if (error) {
                     console.error(error)
 
-                    alert(error.message)
+                    let message = error.message
+
+                    if (error instanceof NotFoundError || error instanceof CredentialsError)
+                        message = 'incorrect username and/or password'
+
+                    alert(message)
 
                     return
                 }

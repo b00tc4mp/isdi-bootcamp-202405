@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 const toggleLikePost = (postId, callback) => {
     validate.string(postId, 'postId')
@@ -15,7 +15,7 @@ const toggleLikePost = (postId, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
