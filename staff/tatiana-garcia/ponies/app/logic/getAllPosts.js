@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { errors, validate } from 'com'
 
 export default callback => {
     validate.callback(callback)
@@ -16,7 +16,7 @@ export default callback => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }

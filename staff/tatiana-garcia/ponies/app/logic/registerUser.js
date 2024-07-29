@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { errors, validate } from 'com'
 
 export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name, 'name')
@@ -20,14 +20,14 @@ export default (name, surname, email, username, password, passwordRepeat, callba
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', `${import.meta.VITE_API_URL}/users`)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))

@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import toggleLikePost from './toggleLikePost.js'
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
