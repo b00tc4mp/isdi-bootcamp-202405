@@ -5,6 +5,10 @@ import { expect } from 'chai'
 import updatePostCaption from './updatePostCaption.js'
 import { User, Post } from '../data/models.js'
 
+import { errors } from '../../com/index.js'
+
+const { NotFoundError, ValidationError } = errors
+
 describe('updatePostCaption', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -52,7 +56,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -64,7 +68,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('postId is not a string')
         }
     })
@@ -90,7 +94,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('caption is not a string')
         }
     })
@@ -104,7 +108,7 @@ describe('updatePostCaption', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

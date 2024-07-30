@@ -1,16 +1,18 @@
 import { User } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from '../../com/index.js'
+
+const { ValidationError, DuplicityError, NotFoundError, SystemError } = errors
 
 export default (username, targetUsername, callback) => {
     validate.username(username)
-    validate.username(targetUsername, 'targetUserName')
+    validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
 
     User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
-                callback(new Error('user not found'))
+                callback(new NotFoundError('user not found'))
 
                 return
             }
@@ -18,7 +20,7 @@ export default (username, targetUsername, callback) => {
             User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
                     if (!targetUser) {
-                        callback(new Error('targeUser not found'))
+                        callback(new NotFoundError('targeUser not found'))
 
                         return
                     }
@@ -34,11 +36,11 @@ export default (username, targetUsername, callback) => {
 
                     User.updateOne({ username }, { $set: { following } })
                         .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
 
         })
-        .catch(error => callback(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }
 

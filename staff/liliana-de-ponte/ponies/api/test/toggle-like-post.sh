@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/2cxgeu12zjkh8/likes -X PATCH -H "Authorization: Basic samuelespinetti"
+curl -v http://localhost:8080/posts/2cxgeu12zjkh8/likes -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaWxpZGVwb250ZSIsImlhdCI6MTcyMjMzMDQxNn0.RH-v5u0kXZcMCmbzDxvOIzlAnEHCLFlrTusyj2gCKfY"

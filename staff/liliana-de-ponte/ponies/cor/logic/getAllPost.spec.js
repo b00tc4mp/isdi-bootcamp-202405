@@ -5,6 +5,10 @@ import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
+import { errors } from '../../com/index.js'
+
+const { ValidationError, NotFoundError, DuplicityError } = errors
+
 describe('getAllPost', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -51,7 +55,7 @@ describe('getAllPost', () => {
 
         it('fails on non-existing user', done => {
             getAllPost('lilideponte', error => {
-                expect(error).to.be.instanceOf(Error)
+                expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('user not found')
 
                 done()
@@ -66,7 +70,7 @@ describe('getAllPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -79,7 +83,7 @@ describe('getAllPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -92,7 +96,7 @@ describe('getAllPost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

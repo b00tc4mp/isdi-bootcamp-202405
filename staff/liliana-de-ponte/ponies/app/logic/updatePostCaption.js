@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (postId, caption, callback) => {
     validate.string(postId, 'postId')
@@ -16,7 +16,7 @@ export default (postId, caption, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
@@ -24,7 +24,7 @@ export default (postId, caption, callback) => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/caption`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ caption }))

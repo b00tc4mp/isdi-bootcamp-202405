@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (username, password, callback) => {
     validate.username(username)
@@ -9,7 +9,8 @@ export default (username, password, callback) => {
 
     xhr.onload = () => {
         if (xhr.status === 200) {
-            sessionStorage.username = username
+            const token = JSON.parse(xhr.response)
+            sessionStorage.token = token
 
             callback(null)
 
@@ -18,7 +19,7 @@ export default (username, password, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }

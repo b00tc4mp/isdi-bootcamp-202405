@@ -1,11 +1,13 @@
 import 'dotenv/config'
 import deletePost from './deletePost.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
+
+import { errors } from 'com/index.js'
+
+const { ValidationError, DuplicityError } = errors
 
 describe('deletePost', () => {
     before(done => {
@@ -58,7 +60,7 @@ describe('deletePost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -70,33 +72,20 @@ describe('deletePost', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('postId is not a string')
         }
     })
-
-    // it('fails on invalid postId', () => {
-    //     let error
-
-    //     try {
-    //         deletePost('samuspine', '', error => { })
-    //     } catch (_error) {
-    //         error = _error
-    //     } finally {
-    //         expect(error).to.be.instanceOf(SyntaxError)
-    //         expect(error.message).to.equal('invalid postId')
-    //     }
-    // })
 
     it('fails on non-function callback', () => {
         let error
 
         try {
-            deletePost('samuspine', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning', 123)
+            deletePost('samuspine', 'dhjshjd678', 123)
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

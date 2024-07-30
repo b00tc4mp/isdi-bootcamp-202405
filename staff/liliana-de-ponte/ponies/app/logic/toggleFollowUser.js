@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (username, callback) => {
     validate.username(username)
@@ -15,7 +15,7 @@ export default (username, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
@@ -23,6 +23,6 @@ export default (username, callback) => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/follows`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

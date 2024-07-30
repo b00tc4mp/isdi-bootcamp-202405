@@ -5,6 +5,10 @@ import { expect } from 'chai'
 import authenticateUser from './authenticateUser.js'
 import { User } from '../data/models.js'
 
+import { errors } from '../../com/index.js'
+
+const { ValidationError, NotFoundError, CredentialsError } = errors
+
 describe('autheticateUser', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -20,10 +24,9 @@ describe('autheticateUser', () => {
 
     it('succeds on existing user', done => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user => {
+            .then(() => {
                 authenticateUser('samuspine', '123456789', error => {
-                    expect(user.username).to.equal('samuspine')
-                    expect(user.password).to.equal('123456789')
+                    expect(error).to.equal(null)
 
                     done()
                 })
@@ -35,7 +38,7 @@ describe('autheticateUser', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(() => {
                 authenticateUser('samupine', '123456789', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('user not found')
 
                     done()
@@ -48,7 +51,7 @@ describe('autheticateUser', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(() => {
                 authenticateUser('samuspine', '12345679', error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(CredentialsError)
                     expect(error.message).to.equal('wrong password')
 
                     done()
@@ -65,8 +68,10 @@ describe('autheticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
+
+
         }
     })
 
@@ -78,7 +83,7 @@ describe('autheticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password is not a string')
         }
     })
@@ -91,7 +96,7 @@ describe('autheticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(RangeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password length is lower than 8 characters')
         }
     })
@@ -104,7 +109,7 @@ describe('autheticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('password has empty spaces')
         }
     })
@@ -117,7 +122,7 @@ describe('autheticateUser', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

@@ -5,6 +5,10 @@ import { expect } from 'chai'
 import getUserName from './getUserName.js'
 import { User } from '../data/models.js'
 
+import { errors } from '../../com/index.js'
+
+const { ValidationError, NotFoundError, DuplicityError } = errors
+
 describe('getUserName', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -18,16 +22,52 @@ describe('getUserName', () => {
             .catch(error => done(error))
     })
 
+    it('succeeds on existing user and target user', done => {
+        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(user => {
+                getUserName('samuspine', 'samuspine', error => {
+                    expect(user.name).to.equal('Samu')
+
+                    done()
+                })
+            })
+            .catch(error => done(error));
+    })
+
+    it('succeeds on existing target user', done => {
+        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(() => {
+                getUserName('samuspine', 'lilideponte', error => {
+                    expect(error).to.be.instanceOf(NotFoundError)
+                    expect(error.message).to.equal('target user not found')
+
+                    done()
+                })
+            })
+            .catch(error => done(error))
+    })
+
     it('fails on non-existing user ', done => {
         getUserName('samuspine', 'lilideponte', error => {
-            expect(error).to.be.instanceOf(Error)
+            expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.equal('user not found')
 
             done()
         })
     })
 
-    it('fails on non-existing target user')
+    it('fails on non-existing target user', done => {
+        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then((user) => {
+                getUserName(user.username, 'lilideponte', error => {
+                    expect(error).to.be.instanceOf(NotFoundError)
+                    expect(error.message).to.equal('target user not found')
+
+                    done()
+                })
+            })
+            .catch(error => done(error))
+    })
 
 
     it('fails on non-string username', () => {
@@ -38,7 +78,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
         }
     })
@@ -51,7 +91,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
         }
     })
@@ -64,7 +104,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('targetUsername is not a string')
         }
     })
@@ -77,7 +117,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid targetUsername')
         }
     })
@@ -90,7 +130,7 @@ describe('getUserName', () => {
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(TypeError)
+            expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('callback is not a function')
         }
     })

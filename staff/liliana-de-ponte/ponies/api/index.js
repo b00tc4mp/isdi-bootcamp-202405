@@ -1,7 +1,11 @@
 import 'dotenv/config'
 import express from 'express'
+import jwt from 'jsonwebtoken'
 
-import { mongoose, data, logic } from '../cor/index.js'
+import { mongoose, logic } from '../cor/index.js'
+
+import errors from '../com/errors.js'
+const { NotFoundError, CredentialsError, ValidationError, DuplicityError, OwnerShipError, SessionError } = errors
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -30,7 +34,12 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof DuplicityError)
+                                status = 409
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -38,7 +47,12 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(201).send()
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -52,123 +66,243 @@ mongoose.connect(process.env.MONGODB_URI)
                 try {
                     logic.authenticateUser(username, password, error => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+                            else if (error instanceof CredentialsError)
+                                status = 401
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
 
-                        res.send()
+                        jwt.sign({ sub: username }, process.env.JWT_SECRET, (error, token) => {
+                            if (error) {
+                                res.status(498).json({ error: SessionError.name, message: error.message })
+
+                                return
+                            }
+
+                            res.json(token)
+                        })
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
+            })
+        })
+
+        api.post('/posts', (req, res) => {
+            const { authorization } = req.headers
+
+            const token = authorization.slice(7)
+
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
+
+                    return
+                }
+
+                const { sub: username } = payload
+
+                req.setEncoding('utf-8')
+
+                req.on('data', json => {
+                    const { image, caption } = JSON.parse(json)
+
+                    try {
+                        logic.createPost(username, image, caption, error => {
+                            if (error) {
+                                let status = 500
+
+                                if (error instanceof NotFoundError)
+                                    status = 404
+
+                                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                                return
+                            }
+
+                            res.status(201).send()
+                        })
+                    } catch (error) {
+                        let status = 500
+
+                        if (error instanceof ValidationError)
+                            status = 400
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    }
+                })
             })
         })
 
         api.get('/users/:targetUsername/name', (req, res) => {
             const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+            const token = authorization.slice(7)
 
-            const { targetUsername } = req.params
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
 
-            try {
-                logic.getUserName(username, targetUsername, (error, name) => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                    return
+                }
 
-                        return
-                    }
+                const { sub: username } = payload
 
-                    res.json(name)
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
+                const { targetUsername } = req.params
+
+                try {
+                    logic.getUserName(username, targetUsername, (error, name) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(name)
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
         })
 
         api.get('/posts', (req, res) => {
             const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+            const token = authorization.slice(7)
 
-            try {
-                logic.getAllPosts(username, (error, posts) => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.json(posts)
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
+                const { sub: username } = payload
+
+                try {
+                    logic.getAllPosts(username, (error, posts) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(posts)
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
         })
 
         api.get('/posts/ponies', (req, res) => {
             const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+            const token = authorization.slice(7)
 
-            try {
-                logic.getAllPoniesPosts(username, (error, posts) => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.json(posts)
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
+                const { sub: username } = payload
+
+                try {
+                    logic.getAllPoniesPosts(username, (error, posts) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(posts)
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
         })
 
         api.get('/posts/favs', (req, res) => {
             const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+            const token = authorization.slice(7)
 
-            try {
-                logic.getAllFavPosts(username, (error, posts) => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
 
-                        return
-                    }
+                    return
+                }
 
-                    res.json(posts)
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.post('/posts', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            req.setEncoding('utf-8')
-
-            req.on('data', json => {
-                const { image, caption } = JSON.parse(json)
+                const { sub: username } = payload
 
                 try {
-                    logic.createPost(username, image, caption, error => {
+                    logic.getAllFavPosts(username, (error, posts) => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
 
-                        res.status(201).send()
+                        res.json(posts)
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
             })
         })
@@ -176,107 +310,30 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/posts/:postId', (req, res) => {
             const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+            const token = authorization.slice(7)
 
-            const { postId } = req.params
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
 
-            try {
-                logic.deletePost(username, postId, error => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                    return
+                }
 
-                        return
-                    }
+                const { sub: username } = payload
 
-                    res.status(204).send()
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/posts/:postId/likes', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
-            try {
-                logic.toggleLikePost(username, postId, error => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
-
-                        return
-                    }
-
-                    res.status(204).send()
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/posts/:postId/favs', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
-            try {
-                logic.toggleFavPost(username, postId, error => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
-
-                        return
-                    }
-
-                    res.status(204).send()
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/users/:targetUsername/follows', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { targetUsername } = req.params
-
-            try {
-                logic.toggleFollowUser(username, targetUsername, error => {
-                    if (error) {
-                        res.status(500).json({ error: error.constructor.name, message: error.message })
-
-                        return
-                    }
-
-                    res.status(204).send()
-                })
-            } catch (error) {
-                res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/posts/:postId/caption', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
-            req.setEncoding('utf-8')
-
-            req.on('data', json => {
-                const { caption } = JSON.parse(json)
+                const { postId } = req.params
 
                 try {
-                    logic.updatePostCaption(username, postId, caption, error => {
+                    logic.deletePost(username, postId, error => {
                         if (error) {
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+                            else if (error instanceof OwnerShipError)
+                                status = 403
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
 
                             return
                         }
@@ -284,8 +341,187 @@ mongoose.connect(process.env.MONGODB_URI)
                         res.status(204).send()
                     })
                 } catch (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
                 }
+            })
+        })
+
+        api.patch('/posts/:postId/likes', (req, res) => {
+            const { authorization } = req.headers
+
+            const token = authorization.slice(7)
+
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
+
+                    return
+                }
+
+                const { sub: username } = payload
+
+                const { postId } = req.params
+
+                try {
+                    logic.toggleLikePost(username, postId, error => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
+        })
+
+        api.patch('/posts/:postId/favs', (req, res) => {
+            const { authorization } = req.headers
+
+            const token = authorization.slice(7)
+
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
+
+                    return
+                }
+
+                const { sub: username } = payload
+
+                const { postId } = req.params
+
+                try {
+                    logic.toggleFavPost(username, postId, error => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
+        })
+
+        api.patch('/users/:targetUsername/follows', (req, res) => {
+            const { authorization } = req.headers
+
+            const token = authorization.slice(7)
+
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
+
+                    return
+                }
+
+                const { sub: username } = payload
+
+                const { targetUsername } = req.params
+
+                try {
+                    logic.toggleFollowUser(username, targetUsername, error => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                } catch (error) {
+                    let status = 500
+
+                    if (error instanceof ValidationError)
+                        status = 400
+
+                    res.status(status).json({ error: error.constructor.name, message: error.message })
+                }
+            })
+        })
+
+        api.patch('/posts/:postId/caption', (req, res) => {
+            const { authorization } = req.headers
+
+            const token = authorization.slice(7)
+
+            jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                if (error) {
+                    res.status(498).json({ error: SessionError.name, message: error.message })
+
+                    return
+                }
+
+                const { sub: username } = payload
+
+                const { postId } = req.params
+
+                req.setEncoding('utf-8')
+
+                req.on('data', json => {
+                    const { caption } = JSON.parse(json)
+
+                    try {
+                        logic.updatePostCaption(username, postId, caption, error => {
+                            if (error) {
+                                let status = 500
+
+                                if (error instanceof NotFoundError)
+                                    status = 404
+
+                                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                                return
+                            }
+
+                            res.status(204).send()
+                        })
+                    } catch (error) {
+                        let status = 500
+
+                        if (error instanceof ValidationError)
+                            status = 400
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    }
+                })
             })
         })
 
