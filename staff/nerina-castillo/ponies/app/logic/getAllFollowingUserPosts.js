@@ -24,6 +24,6 @@ export default callback => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/following`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

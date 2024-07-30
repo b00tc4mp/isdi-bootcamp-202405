@@ -1,5 +1,6 @@
 import { User } from '../data/models.js'
 import { validate, errors } from '../../com/index.js'
+import bcrypt from 'bcryptjs'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
@@ -40,24 +41,27 @@ export default (
                         return
                     }
 
-                    User.create({
-                        name,
-                        surname,
-                        email,
-                        username,
-                        password,
-                        favs: [],
-                        following: [],
-                        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
-                    })
-                        .then(() => callback(null))
+                    bcrypt.hash(password, 8)
+                        .then(hash => {
+                            User.create({
+                                name,
+                                surname,
+                                email,
+                                username,
+                                password: hash,
+                                favs: [],
+                                following: [],
+                                avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
+                            })
+                                .then(() => callback(null))
+                                .catch(error => callback(new SystemError(error.message)))
+                        })
                         .catch(error => callback(new SystemError(error.message)))
+
                 })
                 .catch(error => callback(new SystemError(error.message)))
-
         })
         .catch(error => callback(new SystemError(error.message)))
-
 }
 
 

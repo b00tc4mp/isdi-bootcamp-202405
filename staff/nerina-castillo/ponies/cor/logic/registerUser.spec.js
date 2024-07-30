@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import registerUser from "./registerUser.js";
 import { expect } from 'chai'
+import bcrypt from 'bcryptjs'
+
 import { User } from '../data/models.js';
 import mongoose from 'mongoose';
 import { errors } from '../../com/index.js'
@@ -34,9 +36,15 @@ describe('registerUser', () => {
                     expect(user.name).to.equal('gon')
                     expect(user.surname).to.equal('zalo')
                     expect(user.email).to.equal('gon@zalo.com')
-                    expect(user.password).to.equal('gonzalo123')
 
-                    done()
+                    bcrypt.compare('gonzalo123', user.password)
+                        .then(match => {
+                            expect(match).to.be.true
+
+                            done()
+
+                        })
+
                 })
                 .catch(error => done(error))
 

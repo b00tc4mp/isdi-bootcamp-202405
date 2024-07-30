@@ -7,7 +7,7 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { NotFoundError, ValidationError } = errors
+const { NotFoundError, ValidationError, CredentialsError } = errors
 
 describe('authenticateUser', () => {
     before(done => {
@@ -46,9 +46,9 @@ describe('authenticateUser', () => {
 
     it('fails on wrong password', done => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                authenticateUser('gonzalo', 'gonzalo128', error => {
-                    expect(error).to.be.instanceOf(ValidationError)
+            .then(user => {
+                authenticateUser(user.username, 'gonzalo123', error => {
+                    expect(error).to.be.instanceOf(CredentialsError)
                     expect(error.message).to.equal('wrong password')
 
                     done()

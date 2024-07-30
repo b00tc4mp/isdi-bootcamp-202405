@@ -1,9 +1,9 @@
 import { User } from '../data/models.js'
+import bcrypt from 'bcryptjs'
 
 import { validate, errors } from '../../com/index.js'
 
-const { NotFoundError, SystemError, ValidationError } = errors
-
+const { NotFoundError, CredentialsError, SystemError } = errors
 
 export default (username, password, callback) => {
     validate.username(username)
@@ -18,13 +18,17 @@ export default (username, password, callback) => {
                 return
             }
 
-            if (user.password !== password) {
-                callback(new ValidationError('wrong password'))
+            bcrypt.compare(password, user.password)
+                .then(match => {
+                    if (!match) {
+                        callback(new CredentialsError('wrong password'))
 
-                return
-            }
+                        return
+                    }
 
-            callback(null)
+                    callback(null)
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
         .catch(error => callback(new SystemError(error.message)))
 }

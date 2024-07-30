@@ -1,1 +1,1 @@
-curl -v -X DELETE http://localhost:8080/posts/3bi1ryn98p00 -H "Authorization: Basic julitoCamelas"
+curl -v -X DELETE http://localhost:8080/posts/3bi1ryn98p00 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5mcnlUb3BlcmEiLCJpYXQiOjE3MjIzMzAzNzl9.psSpv8cj_SrZSNGn2alTkkJ8-Aq7FTTkCGDsl9VEI-I"

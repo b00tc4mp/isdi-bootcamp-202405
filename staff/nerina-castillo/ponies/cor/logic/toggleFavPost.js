@@ -1,7 +1,7 @@
 import { User, Post } from '../data/models.js'
 import { errors, validate } from '../../com/index.js'
 
-const { NotFoundError, SyntaxError } = errors
+const { NotFoundError, SystemError } = errors
 
 export default (username, postId, callback) => {
     validate.username(username)
@@ -16,7 +16,7 @@ export default (username, postId, callback) => {
                 return
             }
 
-            Post.findById({ _id: postId }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new NotFoundError('post not found'))
@@ -35,9 +35,9 @@ export default (username, postId, callback) => {
 
                     User.updateOne({ username }, { $set: { favs } })
                         .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => SyntaxError(new Error(error.message)))
+                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => SyntaxError(new Error(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }

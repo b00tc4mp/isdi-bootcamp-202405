@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/lfhkbfbgers/caption -X PATCH -d '{"caption":"ta bien"}' -H "Authorization: Basic janfryTopera" -H "Content-Type: application/json"
+curl -v http://localhost:8080/posts/lfhkbfbgers/caption -X PATCH -d '{"caption":"ta bien"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5mcnlUb3BlcmEiLCJpYXQiOjE3MjIzMzAzNzl9.psSpv8cj_SrZSNGn2alTkkJ8-Aq7FTTkCGDsl9VEI-I" -H "Content-Type: application/json"
