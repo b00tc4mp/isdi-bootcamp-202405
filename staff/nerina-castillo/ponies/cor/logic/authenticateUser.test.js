@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        authenticateUser('julitoCamelas', 'julito123', error => {
+        authenticateUser('nerina', 'nerina123', error => {
             if (error) {
                 console.error(error)
 
