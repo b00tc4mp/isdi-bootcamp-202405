@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import authenticateUser from './authenticateUser.js'
+import getAllPosts from './getAllPosts.js'
 
 import mongoose from 'mongoose'
 
@@ -7,14 +7,14 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        authenticateUser('musa', '123123123', error => {
+        getAllPosts('marti', (error, posts) => {
             if (error) {
                 console.error(error)
 
                 return
             }
 
-            console.log('user authenticated')
+            console.log(posts)
 
             mongoose.disconnect()
         })

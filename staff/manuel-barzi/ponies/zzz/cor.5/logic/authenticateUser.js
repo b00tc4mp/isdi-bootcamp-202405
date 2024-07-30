@@ -1,5 +1,3 @@
-import bcrypt from 'bcryptjs'
-
 import { User } from '../data/models.js'
 
 import { validate, errors } from 'com'
@@ -19,17 +17,13 @@ export default (username, password, callback) => {
                 return
             }
 
-            bcrypt.compare(password, user.password)
-                .then(match => {
-                    if (!match) {
-                        callback(new CredentialsError('wrong password'))
+            if (user.password !== password) {
+                callback(new CredentialsError('wrong password'))
 
-                        return
-                    }
+                return
+            }
 
-                    callback(null)
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            callback(null)
         })
         .catch(error => callback(new SystemError(error.message)))
 }

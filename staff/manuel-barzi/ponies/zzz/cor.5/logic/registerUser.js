@@ -1,5 +1,3 @@
-import bcrypt from 'bcryptjs'
-
 import { User } from '../data/models.js'
 import { validate, errors } from 'com'
 
@@ -32,18 +30,14 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                         return
                     }
 
-                    bcrypt.hash(password, 8)
-                        .then(hash => {
-                            User.create({
-                                name,
-                                surname,
-                                email,
-                                username,
-                                password: hash
-                            })
-                                .then(() => callback(null))
-                                .catch(error => callback(new SystemError(error.message)))
-                        })
+                    User.create({
+                        name,
+                        surname,
+                        email,
+                        username,
+                        password
+                    })
+                        .then(() => callback(null))
                         .catch(error => callback(new SystemError(error.message)))
                 })
                 .catch(error => callback(new SystemError(error.message)))

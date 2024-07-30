@@ -1,22 +1,22 @@
 import 'dotenv/config'
-import authenticateUser from './authenticateUser.js'
-
+import toggleFavPost from './toggleFavPost.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        authenticateUser('musa', '123123123', error => {
+        toggleFavPost('musa', '66a22c1463a6739a553cf049', error => {
             if (error) {
                 console.error(error)
 
                 return
             }
 
-            console.log('user authenticated')
+            console.log('like post toggled')
 
             mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))
+

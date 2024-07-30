@@ -1,22 +1,22 @@
 import 'dotenv/config'
-import authenticateUser from './authenticateUser.js'
-
+import updatePostCaption from './updatePostCaption.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('connected')
 
-        authenticateUser('musa', '123123123', error => {
+        updatePostCaption('samu', '66a22c2d256603d7c5014e9c', 'manu, mi super heroe!', error => {
             if (error) {
                 console.error(error)
 
                 return
             }
 
-            console.log('user authenticated')
+            console.log('post caption updated')
 
             mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))
+
