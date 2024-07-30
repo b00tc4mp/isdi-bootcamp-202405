@@ -17,15 +17,23 @@ export default (username, oldPassword, newPassword, callback) => {
                 return
             }
 
-            if (oldPassword !== user.password) {
-                callback(new CredentialsError('Invalid password'))
+            bcrypt.compare(oldPassword, user.password)
+                .then(match => {
+                    if (!match) {
+                        callback(new CredentialsError('Wrong password'))
 
-                return
-            }
-
-            User.updateOne({ username }, { $set: { password: newPassword } })
-                .then(() => callback(null))
+                        return
+                    }
+                })
                 .catch(error => callback(new SystemError(error.message)))
+
+            bcrypt.hash(newPassword, 8)
+                .then(hash => {
+                    User.updateOne({ username }, { $set: { password: hash } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
+                })
+                .catch(error => done(error))
         })
         .catch(error => callback(new SystemError(error.message)))
 }

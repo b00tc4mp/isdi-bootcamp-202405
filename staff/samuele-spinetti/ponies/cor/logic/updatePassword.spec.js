@@ -34,9 +34,14 @@ describe('updatePassword', () => {
                     User.findOne({ username: 'monoloco' }).lean()
                         .then(user => {
                             expect(user.username).to.equal('monoloco')
-                            expect(user.password).to.equal('123456789')
 
-                            done()
+                            bcrypt.compare('123123123', user.password)
+                                .then(match => {
+                                    expect(match).to.be.true
+
+                                    done()
+                                })
+                                .catch(error => done(error))
                         })
                         .catch(error => done(error))
                 })

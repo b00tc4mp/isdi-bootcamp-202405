@@ -26,11 +26,16 @@ describe('authenticateUser', () => {
             .then(user => {
                 authenticateUser('monoloco', '123123123', error => {
                     expect(user.username).to.equal('monoloco')
-                    expect(user.password).to.equal('123123123')
 
-                    done()
+                    bcrypt.compare('123123123', user.password)
+                        .then(match => {
+                            expect(match).to.be.true
 
+                            done()
+                        })
                     console.log('User authenticated')
+
+                        .catch(error => done(error))
                 })
             })
             .catch(error => done(error))
