@@ -24,7 +24,7 @@ export default (postId, caption, callback) => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/caption`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ caption }))

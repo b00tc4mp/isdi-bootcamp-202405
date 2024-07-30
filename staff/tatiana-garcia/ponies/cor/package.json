@@ -17,6 +17,7 @@
     "mocha": "^10.7.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "com": "file:../com",
     "mongoose": "^8.5.1"
   }

@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/bc1i0skfa5k -X DELETE -H "Authorization: Basic tatig"
+curl -v http://localhost:8080/posts/bc1i0skfa5k -X DELETE -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYnRnIiwiaWF0IjoxNzIyMzMwNDk4fQ.N_EE45DQcQr4eZzKd0zodgfynxwtIkSf6VBzmoIHx8Y"

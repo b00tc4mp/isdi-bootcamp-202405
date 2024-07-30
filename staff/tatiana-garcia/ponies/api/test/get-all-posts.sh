@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts -H "Authorization: Basic abtg"
+curl -v http://localhost:8080/posts -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGFtYnJpdG8iLCJpYXQiOjE3MjIzNDY1NjJ9.Aggyg3dw6p4JskIc2ORAqJ4frznl45Lr9NbaI35VvIw"
