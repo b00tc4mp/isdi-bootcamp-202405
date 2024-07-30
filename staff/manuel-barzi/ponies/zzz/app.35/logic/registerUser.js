@@ -1,8 +1,12 @@
 import { validate, errors } from 'com'
 
-export default (image, caption, callback) => {
-    validate.url(image, 'image')
-    validate.string(caption, 'caption')
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
+    validate.name(name)
+    validate.name(surname, 'surname')
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
+    validate.password(passwordRepeat, 'passwordRepeat')
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -23,9 +27,8 @@ export default (image, caption, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
-    xhr.send(JSON.stringify({ image, caption }))
+    xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }

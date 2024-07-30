@@ -1,1 +1,1 @@
-export default () => !!sessionStorage.username
+export default () => !!sessionStorage.token

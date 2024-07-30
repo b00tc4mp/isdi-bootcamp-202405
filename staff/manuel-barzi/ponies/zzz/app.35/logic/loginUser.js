@@ -1,13 +1,16 @@
-import { validate } from "com"
+import { validate, errors } from 'com'
 
-export default (username, callback) => {
+export default (username, password, callback) => {
     validate.username(username)
+    validate.password(password)
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
-        if (xhr.status === 204) {
+        if (xhr.status === 200) {
+            sessionStorage.username = username
+
             callback(null)
 
             return
@@ -22,8 +25,8 @@ export default (username, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/follows`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users/auth`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
-    xhr.send()
+    xhr.send(JSON.stringify({ username, password }))
 }

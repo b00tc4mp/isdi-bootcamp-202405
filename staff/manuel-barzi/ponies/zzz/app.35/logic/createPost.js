@@ -1,14 +1,14 @@
 import { validate, errors } from 'com'
 
-export default (postId, caption, callback) => {
-    validate.string(postId, 'postId')
+export default (image, caption, callback) => {
+    validate.url(image, 'image')
     validate.string(caption, 'caption')
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
-        if (xhr.status === 204) {
+        if (xhr.status === 201) {
             callback(null)
 
             return
@@ -23,9 +23,9 @@ export default (postId, caption, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/caption`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
-    xhr.send(JSON.stringify({ caption }))
+    xhr.send(JSON.stringify({ image, caption }))
 }

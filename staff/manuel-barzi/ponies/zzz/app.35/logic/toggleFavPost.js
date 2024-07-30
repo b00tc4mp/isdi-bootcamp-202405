@@ -1,7 +1,7 @@
-import { validate } from "com"
+import { validate, errors } from 'com'
 
-export default (username, callback) => {
-    validate.username(username)
+export default (postId, callback) => {
+    validate.string(postId, 'postId')
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -22,8 +22,8 @@ export default (username, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/follows`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/favs`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
 
     xhr.send()
 }
