@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/abcdefghl/caption -X PATCH -d '{"caption":"funciona"}' -H "Authorization: Basic lilideponte" -H "Content-Type: application/json"
