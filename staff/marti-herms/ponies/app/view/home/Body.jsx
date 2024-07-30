@@ -12,7 +12,7 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
     useEffect(() => {
         try {
             if (!user) {
-                logic.getUser(sessionStorage.username, (error, user) => {
+                logic.getUser(logic.getUserUsername(), (error, user) => {
                     if (error) {
                         console.error(error)
 
@@ -24,7 +24,7 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
                     setUser(user)
                 })
             } else if (user.username !== feed) {
-                logic.getUser((feed === 'home' || feed === 'saved' || feed === 'followed') ? sessionStorage.username : feed, (error, user) => {
+                logic.getUser((feed === 'home' || feed === 'saved' || feed === 'followed') ? logic.getUserUsername() : feed, (error, user) => {
                     if (error) {
                         console.error(error)
 

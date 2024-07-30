@@ -31,9 +31,9 @@ const Profile = ({ user, onChange }) => {
             const form = event.target
 
             const usernameInput = form["new-username"]
-            const actualPasswordInput = form["actual-password"]
+            const passwordInput = form["password"]
 
-            logic.editUserUsername(usernameInput.value, actualPasswordInput.value, (error) => {
+            logic.editUserUsername(usernameInput.value, passwordInput.value, (error) => {
                 if (error) {
                     console.error(error)
 
@@ -67,6 +67,8 @@ const Profile = ({ user, onChange }) => {
 
                     return
                 }
+                user.avatar = avatarInput.value
+
                 onChange(user.username)
 
                 setEditAvatarVisibility(false)
@@ -93,26 +95,26 @@ const Profile = ({ user, onChange }) => {
             <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
             <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
         </Container>
-        {user.username === sessionStorage.username && <Container className='Container--options'>
-            {/* <Button onClick={handleEditUsernameClick}>Edit Username</Button> */}
+        {user.username === logic.getUserUsername() && <Container className='Container--options'>
+            <Button onClick={handleEditUsernameClick}>Edit Username</Button>
             <Button onClick={handleEditAvatarClick}>Edit Avatar</Button>
         </Container>}
-        {/* {editUsernameVisibility && <Container className="Container--center-column">
-                <Form className="Form--column" onSubmit={handleEditUsername}>
-                    <Container>
-                        <Label htmlFor="new-username">Username</Label>
-                        <Input id="new-username" defaultValue={user.username} />
-                    </Container>
-                    <Container>
-                        <Label htmlFor="actual-password">Password</Label>
-                        <Input id="actual-password" type="password" required={true} />
-                    </Container>
-                    <Container className="Container--actions Container--space-around">
-                        <Button type="submit">Submit</Button>
-                        <Button onClick={handleEditUserCancel}>Cancel</Button>
-                    </Container>
-                </Form>
-            </Container>} */}
+        {editUsernameVisibility && <Container className="Container--center-column">
+            <Form className="Form--column" onSubmit={handleEditUsername}>
+                <Container>
+                    <Label htmlFor="new-username">Username</Label>
+                    <Input id="new-username" defaultValue={user.username} />
+                </Container>
+                <Container>
+                    <Label htmlFor="password">Password</Label>
+                    <Input id="password" type="password" required={true} />
+                </Container>
+                <Container className="Container--actions Container--space-around">
+                    <Button type="submit">Submit</Button>
+                    <Button onClick={handleEditUserCancel}>Cancel</Button>
+                </Container>
+            </Form>
+        </Container>}
         {editAvatarVisibility && <Container className="Container--center-column">
             <Form className="Form--column" onSubmit={handleEditAvatar}>
                 <Container>

@@ -62,6 +62,14 @@ class CorruptedInfoError extends Error {
     }
 }
 
+class SessionError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 const errors = {
     ValidationError,
     NotFoundError,
@@ -70,7 +78,8 @@ const errors = {
     OwnershipError,
     CredentialsError,
     OutOfBoundsError,
-    CorruptedInfoError
+    CorruptedInfoError,
+    SessionError
 }
 
 export default errors

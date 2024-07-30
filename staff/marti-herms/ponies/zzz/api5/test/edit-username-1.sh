@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/Eden/username -X PATCH -H "Authorization: Basic Eden" -d '{"newUsername":"Eden2","password":"11111111"}'

@@ -24,7 +24,7 @@ export default (img, caption, callback) => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     const data = { img, caption }

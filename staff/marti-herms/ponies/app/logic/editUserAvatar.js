@@ -1,5 +1,7 @@
 import { validate, errors } from 'com'
 
+import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
+
 export default (avatar, callback) => {
     validate.string(avatar, 'avatar')
     validate.callback(callback)
@@ -22,7 +24,9 @@ export default (avatar, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${sessionStorage.username}/avatar`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
-    xhr.send(JSON.stringify({ avatar, password }))
+    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/avatar`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    xhr.send(JSON.stringify({ avatar }))
 }

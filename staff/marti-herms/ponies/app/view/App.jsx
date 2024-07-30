@@ -1,26 +1,28 @@
-import Register from './Register';
-import Login from './Login';
-import Home from './Home';
+import Register from './Register'
+import Login from './Login'
+import Home from './Home'
 
-import { useState } from 'react';
+import logic from '../logic'
+
+import { useState } from 'react'
 
 const App = () => {
-    const [view, setView] = useState(sessionStorage.username ? 'home' : 'login')
+    const [view, setView] = useState(logic.isLoggedIn() ? 'home' : 'login')
 
     const handleLogin = () => {
-        setView('home');
+        setView('home')
     }
 
     const handleRegister = () => {
-        setView('login');
+        setView('login')
     }
 
     const handleRegisterClick = () => {
-        setView('register');
+        setView('register')
     }
 
     const handleLogout = () => {
-        setView('login');
+        setView('login')
     }
 
     return <>

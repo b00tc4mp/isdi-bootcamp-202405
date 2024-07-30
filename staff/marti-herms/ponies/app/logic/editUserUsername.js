@@ -1,5 +1,7 @@
 import { validate, errors } from 'com'
 
+import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
+
 export default (newUsername, password, callback) => {
     validate.username(newUsername)
     validate.password(password)
@@ -9,7 +11,9 @@ export default (newUsername, password, callback) => {
 
     xhr.onload = () => {
         if (xhr.status === 204) {
-            sessionStorage.username = newUsername
+            const token = JSON.parse(xhr.response)
+
+            sessionStorage.token = token
 
             callback(null)
 
@@ -25,7 +29,9 @@ export default (newUsername, password, callback) => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${sessionStorage.username}/username`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
+
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/username`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send(JSON.stringify({ newUsername, password }))
 }

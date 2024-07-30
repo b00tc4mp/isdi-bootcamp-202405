@@ -1,11 +1,12 @@
 import 'dotenv/config'
 import express from 'express'
+import jwt from 'jsonwebtoken'
 
-import { mongoose, data, logic } from 'core'
+import { mongoose, logic } from 'core'
 
 import { errors } from 'com'
 
-const { DuplicityError, ValidationError, NotFoundError, CredentialsError, OwnershipError, CorruptedInfoError, OutOfBoundsError } = errors
+const { DuplicityError, ValidationError, NotFoundError, CredentialsError, OwnershipError, OutOfBoundsError, SessionError } = errors
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -75,7 +76,13 @@ mongoose.connect(process.env.MONGODB_URI)
                             return
                         }
 
-                        res.send()
+                        jwt.sign({ sub: username }, process.env.JWT_SECRET, (error, token) => {
+                            if (error) {
+                                res.status(498).json({ error: SessionError.name, message: error.message })
+                            }
+
+                            res.json(token)
+                        })
                     })
                 } catch (error) {
                     let status = 500
@@ -89,26 +96,34 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/users/:targetUsername/name', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { targetUsername } = req.params
-
             try {
-                logic.getUserName(username, targetUsername, (error, name) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(name)
+                    const { sub: username } = payload
+
+                    const { targetUsername } = req.params
+
+                    logic.getUserName(username, targetUsername, (error, name) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(name)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -121,24 +136,32 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/posts', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
             try {
-                logic.getAllPosts(username, (error, posts) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(posts)
+                    const { sub: username } = payload
+
+                    logic.getAllPosts(username, (error, posts) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(posts)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -151,24 +174,32 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/posts/followed', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
             try {
-                logic.getFollowedUserPosts(username, (error, posts) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(posts)
+                    const { sub: username } = payload
+
+                    logic.getFollowedUserPosts(username, (error, posts) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(posts)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -181,24 +212,32 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/posts/saved', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
             try {
-                logic.getUserSavedPosts(username, (error, posts) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(posts)
+                    const { sub: username } = payload
+
+                    logic.getUserSavedPosts(username, (error, posts) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(posts)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -211,26 +250,34 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/users/:targetUsername/posts', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { targetUsername } = req.params
-
             try {
-                logic.getUserPosts(username, targetUsername, (error, posts) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(posts)
+                    const { sub: username } = payload
+
+                    const { targetUsername } = req.params
+
+                    logic.getUserPosts(username, targetUsername, (error, posts) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(posts)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -243,24 +290,32 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/users/list', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
             try {
-                logic.getUserList(username, (error, userList) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(userList)
+                    const { sub: username } = payload
+
+                    logic.getUserList(username, (error, userList) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(userList)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -273,26 +328,34 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.get('/users/:targetUsername', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { targetUsername } = req.params
-
             try {
-                logic.getUser(username, targetUsername, (error, user) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.json(user)
+                    const { sub: username } = payload
+
+                    const { targetUsername } = req.params
+
+                    logic.getUser(username, targetUsername, (error, user) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.json(user)
+                    })
                 })
             } catch (error) {
                 let status = 500
@@ -305,186 +368,66 @@ mongoose.connect(process.env.MONGODB_URI)
         })
 
         api.post('/posts', (req, res) => {
-            const { authorization } = req.headers
+            try {
+                const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+                const token = authorization.slice(7)
 
-            req.setEncoding('utf-8')
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
 
-            req.on('data', json => {
-                const { img, caption } = JSON.parse(json)
+                    const { sub: username } = payload
 
-                try {
-                    logic.createPost(username, img, caption, (error) => {
-                        if (error) {
-                            let status = 500
+                    req.setEncoding('utf-8')
 
-                            if (error instanceof NotFoundError)
-                                status = 404
+                    req.on('data', json => {
+                        const { img, caption } = JSON.parse(json)
 
-                            res.status(status).json({ error: error.constructor.name, message: error.message })
+                        logic.createPost(username, img, caption, (error) => {
+                            if (error) {
+                                let status = 500
 
-                            return
-                        }
+                                if (error instanceof NotFoundError)
+                                    status = 404
 
-                        res.status(201).send()
+                                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                                return
+                            }
+
+                            res.status(201).send()
+                        })
                     })
-                } catch (error) {
-                    let status = 500
+                })
+            } catch (error) {
+                let status = 500
 
-                    if (error instanceof ValidationError)
-                        status = 400
+                if (error instanceof ValidationError)
+                    status = 400
 
-                    res.status(status).json({ error: error.constructor.name, message: error.message })
-                }
-            })
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
         })
+
 
         api.delete('/posts/:postId', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
             try {
-                logic.deletePost(username, postId, (error) => {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
                     if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        if (error instanceof OwnershipError)
-                            status = 403
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
+                        res.status(498).json({ error: SessionError.name, message: error.message })
                     }
 
-                    res.status(204).send()
-                })
-            } catch (error) {
-                let status = 500
+                    const { sub: username } = payload
 
-                if (error instanceof ValidationError)
-                    status = 400
+                    const { postId } = req.params
 
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/posts/:postId/likes', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
-            try {
-                logic.togglePostLike(username, postId, (error) => {
-                    if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
-                    }
-
-                    res.status(204).send()
-                })
-            } catch (error) {
-                let status = 500
-
-                if (error instanceof ValidationError)
-                    status = 400
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/posts/:postId/saved', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
-            try {
-                logic.toggleSavedPost(username, postId, (error) => {
-                    if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
-                    }
-
-                    res.status(204).send()
-                })
-            } catch (error) {
-                let status = 500
-
-                if (error instanceof ValidationError)
-                    status = 400
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-        api.patch('/posts/:targetUsername/follow', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { targetUsername } = req.params
-
-            try {
-                logic.toggleUserFollow(username, targetUsername, (error) => {
-                    if (error) {
-                        let status = 500
-
-                        if (error instanceof NotFoundError)
-                            status = 404
-
-                        if (error instanceof OutOfBoundsError)
-                            status = 403
-
-                        res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                        return
-                    }
-
-                    res.status(204).send()
-                })
-            } catch (error) {
-                let status = 500
-
-                if (error instanceof ValidationError)
-                    status = 400
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.patch('/posts/:postId/caption', (req, res) => {
-            const { authorization } = req.headers
-
-            const username = authorization.slice(6)
-
-            const { postId } = req.params
-
-            req.on('data', json => {
-                const { newCaption } = JSON.parse(json)
-
-                try {
-                    logic.editPost(username, postId, newCaption, (error) => {
+                    logic.deletePost(username, postId, (error) => {
                         if (error) {
                             let status = 500
 
@@ -501,97 +444,289 @@ mongoose.connect(process.env.MONGODB_URI)
 
                         res.status(204).send()
                     })
-                } catch (error) {
-                    let status = 500
+                })
+            } catch (error) {
+                let status = 500
 
-                    if (error instanceof ValidationError)
-                        status = 400
+                if (error instanceof ValidationError)
+                    status = 400
 
-                    res.status(status).json({ error: error.constructor.name, message: error.message })
-                }
-            })
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.patch('/posts/:postId/likes', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
+
+                    const { sub: username } = payload
+
+                    const { postId } = req.params
+
+                    logic.togglePostLike(username, postId, (error) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.patch('/posts/:postId/saved', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
+
+                    const { sub: username } = payload
+
+                    const { postId } = req.params
+
+                    logic.toggleSavedPost(username, postId, (error) => {
+                        if (error) {
+                            let status = 500
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+        api.patch('/posts/:targetUsername/follow', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
+
+                    const { sub: username } = payload
+
+                    const { targetUsername } = req.params
+
+                    logic.toggleUserFollow(username, targetUsername, (error) => {
+                        if (error) {
+                            let status = 500 // CorruptedInfoError
+
+                            if (error instanceof NotFoundError)
+                                status = 404
+
+                            if (error instanceof OutOfBoundsError)
+                                status = 403
+
+                            res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                            return
+                        }
+
+                        res.status(204).send()
+                    })
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.patch('/posts/:postId/caption', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
+
+                    const { sub: username } = payload
+
+                    const { postId } = req.params
+
+                    req.on('data', json => {
+                        const { newCaption } = JSON.parse(json)
+
+                        logic.editPost(username, postId, newCaption, (error) => {
+                            if (error) {
+                                let status = 500
+
+                                if (error instanceof NotFoundError)
+                                    status = 404
+
+                                if (error instanceof OwnershipError)
+                                    status = 403
+
+                                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                                return
+                            }
+
+                            res.status(204).send()
+                        })
+                    })
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ValidationError)
+                    status = 400
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+
         })
 
         api.patch('/users/:targetUsername/username', (req, res) => {
-            const { authorization } = req.headers
+            try {
+                const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+                const token = authorization.slice(7)
 
-            const { targetUsername } = req.params
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
 
-            req.on('data', json => {
-                const { newUsername, password } = JSON.parse(json)
+                    const { sub: username } = payload
 
-                try {
-                    if (username !== targetUsername) throw new Error('user not authorized')
+                    const { targetUsername } = req.params
 
-                    logic.editUserUsername(username, newUsername, password, (error) => {
-                        if (error) {
-                            let status = 500
+                    req.on('data', json => {
+                        const { newUsername, password } = JSON.parse(json)
 
-                            if (error instanceof NotFoundError)
-                                status = 404
+                        if (username !== targetUsername) throw new Error('user not authorized')
 
-                            if (error instanceof CredentialsError)
-                                status = 409
+                        logic.editUserUsername(username, newUsername, password, (error) => {
+                            if (error) {
+                                let status = 500
 
-                            if (error instanceof DuplicityError)
-                                status = 409
+                                if (error instanceof NotFoundError)
+                                    status = 404
 
-                            res.status(status).json({ error: error.constructor.name, message: error.message })
+                                if (error instanceof CredentialsError)
+                                    status = 409
 
-                            return
-                        }
+                                if (error instanceof DuplicityError)
+                                    status = 409
 
-                        res.status(204).send()
+                                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                                return
+                            }
+
+                            jwt.sign({ sub: newUsername }, process.env.JWT_SECRET, (error, token) => {
+                                if (error) {
+                                    res.status(498).json({ error: SessionError.name, message: error.message })
+                                }
+
+                                res.status(204).json(token)
+                            })
+                        })
                     })
-                } catch (error) {
-                    let status = 500
+                })
+            } catch (error) {
+                let status = 500
 
-                    if (error instanceof ValidationError)
-                        status = 400
+                if (error instanceof ValidationError)
+                    status = 400
 
-                    res.status(status).json({ error: error.constructor.name, message: error.message })
-                }
-            })
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
         })
 
         api.patch('/users/:targetUsername/avatar', (req, res) => {
-            const { authorization } = req.headers
+            try {
+                const { authorization } = req.headers
 
-            const username = authorization.slice(6)
+                const token = authorization.slice(7)
 
-            const { targetUsername } = req.params
+                jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+                    if (error) {
+                        res.status(498).json({ error: SessionError.name, message: error.message })
+                    }
 
-            req.on('data', json => {
-                const { avatar } = JSON.parse(json)
+                    const { sub: username } = payload
 
-                try {
-                    if (username !== targetUsername) throw new Error('user not authorized')
+                    const { targetUsername } = req.params
 
-                    logic.editUserAvatar(username, avatar, (error) => {
-                        if (error) {
-                            let status = 500
+                    req.on('data', json => {
+                        const { avatar } = JSON.parse(json)
 
-                            if (error instanceof NotFoundError)
-                                status = 404
+                        if (username !== targetUsername) throw new Error('user not authorized')
 
-                            res.status(status).json({ error: error.constructor.name, message: error.message })
+                        logic.editUserAvatar(username, avatar, (error) => {
+                            if (error) {
+                                let status = 500
 
-                            return
-                        }
+                                if (error instanceof NotFoundError)
+                                    status = 404
 
-                        res.status(204).send()
+                                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                                return
+                            }
+
+                            res.status(204).send()
+                        })
                     })
-                } catch (error) {
-                    let status = 500
+                })
+            } catch (error) {
+                let status = 500
 
-                    if (error instanceof ValidationError)
-                        status = 400
+                if (error instanceof ValidationError)
+                    status = 400
 
-                    res.status(status).json({ error: error.constructor.name, message: error.message })
-                }
-            })
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
         })
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))

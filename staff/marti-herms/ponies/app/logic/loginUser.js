@@ -9,7 +9,9 @@ export default (username, password, callback) => {
 
     xhr.onload = () => {
         if (xhr.status === 200) {
-            sessionStorage.username = username
+            const token = JSON.parse(xhr.response)
+
+            sessionStorage.token = token
 
             callback(null)
 

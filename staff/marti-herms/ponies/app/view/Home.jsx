@@ -15,6 +15,7 @@ const Home = ({ onLogout }) => {
     }
 
     const handleSearchUser = (username) => {
+        setRefreshStamp(Date.now())
         setFeed(username)
     }
 
