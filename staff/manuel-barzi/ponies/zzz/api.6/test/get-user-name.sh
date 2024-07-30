@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/peterpan/name -H "Authorization: Basic peterpan"
