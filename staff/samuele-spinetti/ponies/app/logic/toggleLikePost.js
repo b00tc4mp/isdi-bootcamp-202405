@@ -23,7 +23,7 @@ export default (postId, callback) => {
     xhr.onerror = () => callback(new Error('Network error'))
 
     xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
 
     xhr.send()
 }

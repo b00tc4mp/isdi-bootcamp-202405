@@ -1,5 +1,7 @@
 import { validate, errors } from '../../com/index.js'
 
+import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
+
 export default callback => {
     validate.callback(callback)
 
@@ -23,7 +25,9 @@ export default callback => {
 
     xhr.onerror = () => callback(new Error('Network error'))
 
-    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.username}/name`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
+
+    xhr.open('GET', `http://localhost:8080/users/${username}/name`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

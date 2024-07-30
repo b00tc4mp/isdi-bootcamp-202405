@@ -24,6 +24,6 @@ export default callback => {
     xhr.onerror = () => callback(new Error('Network error'))
 
     xhr.open('GET', 'http://localhost:8080/posts')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

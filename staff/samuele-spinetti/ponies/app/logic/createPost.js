@@ -24,7 +24,7 @@ export default (image, caption, callback) => {
     xhr.onerror = () => callback(new Error('Network error'))
 
     xhr.open('POST', 'http://localhost:8080/posts')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ image, caption }))

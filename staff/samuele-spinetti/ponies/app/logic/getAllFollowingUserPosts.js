@@ -24,6 +24,6 @@ export default callabck => {
     xhr.onerror = () => callabck(new Error('Network error'))
 
     xhr.open('GET', 'http://localhost:8080/posts/ponies')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }

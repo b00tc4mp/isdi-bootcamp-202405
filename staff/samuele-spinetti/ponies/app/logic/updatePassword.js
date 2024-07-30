@@ -24,7 +24,7 @@ export default (oldPassword, newPassword, callback) => {
     xhr.onerror = () => callback(new Error('Network error'))
 
     xhr.open('PATCH', 'http://localhost:8080/users/password')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ oldPassword, newPassword }))
