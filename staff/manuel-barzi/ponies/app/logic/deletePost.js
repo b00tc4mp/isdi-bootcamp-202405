@@ -1,4 +1,4 @@
-import { validate } from "com"
+import { validate, errors } from "com"
 
 export default (postId, callback) => {
     validate.string(postId, 'postId')
