@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/user/password -X PATCH -d '{"oldPassword":"123456789", "newPassword":"123123123"}' -H "Content-Type: application/json" -H "Authorization: Basic marti"
+curl -v http://localhost:8080/user/password -X PATCH -d '{"oldPassword":"123456789", "newPassword":"123123123"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYW11IiwiaWF0IjoxNzIyMzMwNjYxfQ.je_vhtDP7p1SqOxTjPSZjIRLGkO-07VKzo8SNRAtEYA"

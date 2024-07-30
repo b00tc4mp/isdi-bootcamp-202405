@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/marti/settings -H "Authorization: Basic marti"
+curl -v http://localhost:8080/users/marti/settings -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYW11IiwiaWF0IjoxNzIyMzMwNjYxfQ.je_vhtDP7p1SqOxTjPSZjIRLGkO-07VKzo8SNRAtEYA"

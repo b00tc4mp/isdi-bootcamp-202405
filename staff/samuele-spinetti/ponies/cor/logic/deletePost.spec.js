@@ -8,7 +8,7 @@ import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
 import errors from '../../com/errors.js'
-const { NotFoundError, ValidationError, OwnershipError } = errors
+const { NotFoundError, ValidationError, OwnerShipError } = errors
 
 describe('deletePost', () => {
     before(done => {
@@ -89,7 +89,7 @@ describe('deletePost', () => {
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
                     .then(post => {
                         deletePost(user.username, post.id, error => {
-                            expect(error).to.be.instanceOf(OwnershipError)
+                            expect(error).to.be.instanceOf(OwnerShipError)
                             expect(error.message).to.equal('Post does not belong to user')
 
                             done()

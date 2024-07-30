@@ -46,13 +46,22 @@ class OwnerShipError extends Error {
     }
 }
 
+class SessionError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 const errors = {
     ValidationError,
     NotFoundError,
     DuplicityError,
     SystemError,
     CredentialsError,
-    OwnerShipError
+    OwnerShipError,
+    SessionError
 }
 
 export default errors

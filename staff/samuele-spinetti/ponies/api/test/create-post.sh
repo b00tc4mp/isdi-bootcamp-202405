@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts -X POST -H "Authorization: Basic samu" -d '{"image":"http://miperro","caption":"mi perro"}' -H "Content-Type: application/json"
+curl -v http://localhost:8080/posts -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYW11IiwiaWF0IjoxNzIyMzMwNjYxfQ.je_vhtDP7p1SqOxTjPSZjIRLGkO-07VKzo8SNRAtEYA" -d '{"image":"http://miperro","caption":"mi perro"}' -H "Content-Type: application/json"
