@@ -1,34 +1,20 @@
-const xhr = new XMLHttpRequest
+function fun() { throw new Error('hola error') }
 
-xhr.onload = () => {
-    if (xhr.status === 200) {
-        const posts = JSON.parse(xhr.response)
+//fun()
 
-        console.log(posts)
-
-        return
-    }
-
-    const { error, message } = JSON.parse(xhr.response)
-
-    console.error(error, message)
+/**/
+try {
+    //fun()
+    setTimeout(() => fun(), 0)
+} catch (error) {
+    console.error(error.message)
+} finally {
+    console.log('try-catch passed')
 }
+/**/
 
-xhr.onerror = () => console.error('network error')
-
-xhr.open('GET', 'http://localhost:8080/posts')
-xhr.setRequestHeader('Authorization', 'Basic samu')
-xhr.send()
-
-console.log('continue...')
-
-console.log('block')
-let before = Date.now()
-while (Date.now() - before < 5000);
-console.log('unblocked')
-
-// VM637:23 continue...
-// VM637:25 block
-// VM637:28 unblocked
-// undefined
-// VM637:7 (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+// VM377: 12 try-catch passed
+// 43
+// VM377:1 Uncaught Error: hola error
+//     at fun (<anonymous>:1:24)
+//     at <anonymous>:8:22
