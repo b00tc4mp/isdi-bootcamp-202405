@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken'
 
-export default (req, res) => {
+import { errors } from '../../com/index.js'
+
+const { SessionError } = errors
+
+export default (req, res, next) => {
     const { authorization } = req.headers
 
     const token = authorization.slice(7)

@@ -1,4 +1,4 @@
-import { logic } from '../../cor'
+import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
     const { name, surname, email, username, password, passwordRepeat } = req.body

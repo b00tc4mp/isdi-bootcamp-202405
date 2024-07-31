@@ -1,6 +1,6 @@
-import { errors } from '../../com'
+import { errors } from '../../com/index.js'
 
-const { DuplicityError, ValidationError, NotFoundError, SessionError, OwnerShipError } = errors
+const { DuplicityError, ValidationError, NotFoundError, SessionError, OwnerShipError, CredentialsError } = errors
 
 export default (error, req, res, next) => {
     let status = 500
