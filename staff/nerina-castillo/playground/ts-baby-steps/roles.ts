@@ -1,5 +1,9 @@
-enum Roles { Admin = 1, User }
-let user: Roles = Roles.Admin
+//enum type
 
-// enum Roles { Admin = 1, User, Guest }
-// let user: Roles = string = Roles[1]
+enum Roles { Admin = 1, User, Guest }
+
+let user: Roles = Roles.Admin;
+console.log(user);
+
+let userRoleName: string = Roles[user];
+console.log(userRoleName); 

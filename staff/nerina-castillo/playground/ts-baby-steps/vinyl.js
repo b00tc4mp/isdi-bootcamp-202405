@@ -15,21 +15,31 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Car = void 0;
-var classes_js_1 = require("./classes.js");
-var Car = /** @class */ (function (_super) {
-    __extends(Car, _super);
-    function Car(brand, model, numberOfDoors) {
-        var _this = _super.call(this, brand, model) || this; // Llama al constructor de la clase base
-        _this.numberOfDoors = numberOfDoors;
+exports.Vinyl = exports.Record = void 0;
+var Record = /** @class */ (function () {
+    function Record(name, year) {
+        this.name = name;
+        this.year = year;
+    }
+    Record.prototype.produce = function () {
+        console.log("The album".concat(this.name, " was released in ").concat(this.year, " "));
+    };
+    return Record;
+}());
+exports.Record = Record;
+var Vinyl = /** @class */ (function (_super) {
+    __extends(Vinyl, _super);
+    function Vinyl(name, year, rpm) {
+        var _this = _super.call(this, name, year) || this;
+        _this.rpm = rpm;
         return _this;
     }
-    Car.prototype.openTrunk = function () {
-        console.log("Opening trunk of ".concat(this.brand, " ").concat(this.model, "."));
+    Vinyl.prototype.play = function () {
+        console.log("".concat(this.name, " plays at ").concat(this.rpm, " RPM."));
     };
-    return Car;
-}(classes_js_1.Vehicle));
-exports.Car = Car;
-var myCar = new Car('Toyota', 'Corolla', 4);
-myCar.start();
-myCar.stop();
+    return Vinyl;
+}(Record));
+exports.Vinyl = Vinyl;
+var myVinyl = new Vinyl('The Stooges', 1969, 45);
+myVinyl.produce();
+myVinyl.play();

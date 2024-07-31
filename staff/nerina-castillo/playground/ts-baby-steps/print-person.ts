@@ -1,3 +1,5 @@
+//objects
+
 function printPerson(person: { name: string, surname: string, age: number }) {
     console.log('name', person.name)
     console.log('surname', person.surname)

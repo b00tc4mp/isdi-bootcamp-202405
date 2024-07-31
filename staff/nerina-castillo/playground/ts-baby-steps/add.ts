@@ -1,3 +1,5 @@
+//function with parameters
+
 const m = 1
 const n = 2
 
