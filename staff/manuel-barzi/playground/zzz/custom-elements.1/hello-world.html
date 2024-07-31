@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=ç, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class HelloWorld extends HTMLElement {
+            constructor() {
+                super()
+            }
+
+            connectedCallback() {
+                const h1 = document.createElement('h1')
+
+                h1.innerText = 'Hello, World!'
+
+                this.appendChild(h1)
+
+                h1.style.backgroundColor = 'red'
+            }
+        }
+
+        window.customElements.define('hello-world', HelloWorld)
+    </script>
+
+    <!-- internally: new HelloWorld  -->
+    <hello-world></hello-world>
+    <hello-world></hello-world>
+    <hello-world></hello-world>
+</body>
+
+</html>
