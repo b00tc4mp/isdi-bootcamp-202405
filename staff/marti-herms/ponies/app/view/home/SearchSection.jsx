@@ -1,38 +1,38 @@
-import Heading from '../components/Heading';
-import Container from '../components/Container';
-import Form from '../components/Form';
-import Button from '../components/Button';
+import Heading from '../components/Heading'
+import Container from '../components/Container'
+import Form from '../components/Form'
+import Button from '../components/Button'
 
-import './SearchSection.css';
+import './SearchSection.css'
 
 const SearchSection = ({ onSearch, onCancel }) => {
     const handleSearchUser = (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
         const form = event.target
 
         const searchUserInput = form['post-caption-input']
 
-        const username = searchUserInput.value;
+        const username = searchUserInput.value
 
         try {
-            onSearch(username);
+            onSearch(username)
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
     const handleCancel = (event) => {
-        event.stopPropagation();
+        event.stopPropagation()
 
         if (event.target.className === 'Container--fader')
-            onCancel();
+            onCancel()
     }
 
     const handleCancelButton = () => {
-        onCancel();
+        onCancel()
     }
 
     return <Container className="Container--fader" onClick={handleCancel}>
@@ -52,4 +52,4 @@ const SearchSection = ({ onSearch, onCancel }) => {
     </Container>
 }
 
-export default SearchSection;
+export default SearchSection

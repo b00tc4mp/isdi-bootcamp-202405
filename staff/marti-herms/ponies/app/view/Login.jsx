@@ -1,14 +1,14 @@
-import Link from './components/Link';
-import Heading from './components/Heading';
-import Form from './components/Form';
-import Container from './components/Container';
-import Label from './components/Label';
-import Input from './components/Input';
-import Button from './components/Button';
+import Link from './components/Link'
+import Heading from './components/Heading'
+import Form from './components/Form'
+import Container from './components/Container'
+import Label from './components/Label'
+import Input from './components/Input'
+import Button from './components/Button'
 
-import logic from '../logic';
+import logic from '../logic'
 
-import './Login.css';
+import './Login.css'
 
 import { errors } from 'com'
 
@@ -16,15 +16,15 @@ const { NotFoundError, CredentialsError } = errors
 
 const Login = ({ onLogin, onRegisterClick }) => {
     const handleLoginSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const form = event.target;
+        const form = event.target
 
-        const usernameInput = form['username-input'];
-        const passwordInput = form['password-input'];
+        const usernameInput = form['username-input']
+        const passwordInput = form['password-input']
 
-        const username = usernameInput.value;
-        const password = passwordInput.value;
+        const username = usernameInput.value
+        const password = passwordInput.value
 
         try {
             logic.loginUser(username, password, (error) => {
@@ -41,12 +41,12 @@ const Login = ({ onLogin, onRegisterClick }) => {
                     return
                 }
 
-                onLogin();
-            });
+                onLogin()
+            })
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 

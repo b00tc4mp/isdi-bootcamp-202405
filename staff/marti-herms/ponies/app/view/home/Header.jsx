@@ -1,11 +1,11 @@
-import logic from '../../logic';
+import logic from '../../logic'
 
-import Paragraph from '../components/Paragraph';
-import Button from '../components/Button';
+import Paragraph from '../components/Paragraph'
+import Button from '../components/Button'
 
-import './Header.css';
+import './Header.css'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 const Header = ({ onLogout }) => {
     const [name, setName] = useState(null)
@@ -24,22 +24,22 @@ const Header = ({ onLogout }) => {
                 setName(name)
             })
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     })
 
 
     const handleLogoutClick = () => {
         try {
-            logic.logoutUser();
+            logic.logoutUser()
 
-            onLogout();
+            onLogout()
         } catch (error) {
-            console.error(error);
+            console.error(error)
 
-            alert(error.message);
+            alert(error.message)
         }
     }
 
@@ -49,4 +49,4 @@ const Header = ({ onLogout }) => {
     </header>
 }
 
-export default Header;
+export default Header

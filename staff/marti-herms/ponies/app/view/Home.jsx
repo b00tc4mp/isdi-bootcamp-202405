@@ -1,17 +1,17 @@
-import Header from './home/Header';
-import Body from './home/Body';
-import Footer from './home/Footer';
+import Header from './home/Header'
+import Body from './home/Body'
+import Footer from './home/Footer'
 
-import './Home.css';
+import './Home.css'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
 const Home = ({ onLogout }) => {
     const [refreshStamp, setRefreshStamp] = useState(null)
     const [feed, setFeed] = useState('home')
 
     const handleHomeFeed = () => {
-        setFeed('home');
+        setFeed('home')
     }
 
     const handleSearchUser = (username) => {
@@ -20,7 +20,7 @@ const Home = ({ onLogout }) => {
     }
 
     const handlePostCreatedOrCanceled = () => {
-        setRefreshStamp(Date.now());
+        setRefreshStamp(Date.now())
         setFeed('home')
     }
 
@@ -29,11 +29,11 @@ const Home = ({ onLogout }) => {
     }
 
     const handleFollowedFeed = () => {
-        setFeed('followed');
+        setFeed('followed')
     }
 
     const handleSavedPostsFeed = () => {
-        setFeed('saved');
+        setFeed('saved')
     }
 
     return <>
