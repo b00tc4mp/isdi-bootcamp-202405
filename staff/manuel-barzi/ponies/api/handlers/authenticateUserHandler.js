@@ -1,29 +1,24 @@
-import { errors } from 'com'
+import jwt from 'jsonwebtoken'
+
 import { logic } from 'cor'
+import { errors } from 'com'
 
-const { NotFoundError, CredentialsError, ValidationError } = errors
+const { SessionError } = errors
 
-export default (req, res) => {
+export default (req, res, next) => {
     const { username, password } = req.body
 
     try {
         logic.authenticateUser(username, password, error => {
             if (error) {
-                let status = 500
-
-                if (error instanceof NotFoundError)
-                    status = 404
-                else if (error instanceof CredentialsError)
-                    status = 401
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
+                next(error)
 
                 return
             }
 
             jwt.sign({ sub: username }, process.env.JWT_SECRET, (error, token) => {
                 if (error) {
-                    res.status(498).json({ error: SessionError.name, message: error.message })
+                    next(new SessionError(error.message))
 
                     return
                 }
@@ -32,11 +27,6 @@ export default (req, res) => {
             })
         })
     } catch (error) {
-        let status = 500
-
-        if (error instanceof ValidationError)
-            status = 400
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 }

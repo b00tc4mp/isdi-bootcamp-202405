@@ -3,7 +3,7 @@ import express from 'express'
 
 import { mongoose } from 'cor'
 
-import { cors, jsonBodyParser } from './middlewares/index.js'
+import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 import {
     registerUserHandler,
     authenticateUserHandler,
@@ -35,25 +35,27 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-        api.get('/users/:targetUsername/name', getUserNameHandler)
+        api.get('/users/:targetUsername/name', jwtVerifier, getUserNameHandler)
 
-        api.get('/posts', getAllPostsHandler)
+        api.get('/posts', jwtVerifier, getAllPostsHandler)
 
-        api.get('/posts/ponies', getAllPoniesPostsHandler)
+        api.get('/posts/ponies', jwtVerifier, getAllPoniesPostsHandler)
 
-        api.get('/posts/favs', getAllFavPostsHandler)
+        api.get('/posts/favs', jwtVerifier, getAllFavPostsHandler)
 
-        api.post('/posts', jsonBodyParser, createPostHandler)
+        api.post('/posts', jwtVerifier, jsonBodyParser, createPostHandler)
 
-        api.delete('/posts/:postId', deletePostHandler)
+        api.delete('/posts/:postId', jwtVerifier, deletePostHandler)
 
-        api.patch('/posts/:postId/likes', toggleLikePostHandler)
+        api.patch('/posts/:postId/likes', jwtVerifier, toggleLikePostHandler)
 
-        api.patch('/posts/:postId/favs', toggleFavPostHandler)
+        api.patch('/posts/:postId/favs', jwtVerifier, toggleFavPostHandler)
 
-        api.patch('/users/:targetUsername/follows', toggleFollowUserHandler)
+        api.patch('/users/:targetUsername/follows', jwtVerifier, toggleFollowUserHandler)
 
-        api.patch('/posts/:postId/caption', jsonBodyParser, updatePostCaptionHandler)
+        api.patch('/posts/:postId/caption', jwtVerifier, jsonBodyParser, updatePostCaptionHandler)
+
+        api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
     })
