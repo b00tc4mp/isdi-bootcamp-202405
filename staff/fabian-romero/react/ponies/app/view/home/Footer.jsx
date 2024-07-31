@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import CreatePost from './CreatePost'
 
@@ -34,5 +34,3 @@ const Footer = ({ onPostCreated }) => {
 }
 
 export default Footer
-
-// aqui puedo hacer cambios por que no tengo mi Button... 

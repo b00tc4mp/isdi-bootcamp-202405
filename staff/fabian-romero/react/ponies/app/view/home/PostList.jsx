@@ -33,7 +33,6 @@ const PostList = ({ refreshStamp }) => {
         }
     }, [refreshStamp])
 
-
     const handlePostDeleted = () => {
         console.debug('PostList -> handlePostDeleted')
 
@@ -158,6 +157,3 @@ const PostList = ({ refreshStamp }) => {
 }
 
 export default PostList
-
-
-//KEY OBLIOGATORIA PARA IDENTICAR EN ALGUN OTRO OBJETO IDENTIFICADOR DEL DATO CUANDO HAGO UN MAP, EN ALGUNO QUE SE REPITE LOS COMPONENTES TENGO QUE BUSCAR ALGO QUE LO IDENTIFIQUE Y LO PONGO ENTRE LAS LLAVES EN MODO DE IDENTIFICADOR

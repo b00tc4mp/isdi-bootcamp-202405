@@ -1,4 +1,10 @@
-const getUserName = callback => {
+import { validate, errors } from '../../com/index.js'
+
+import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
+
+export default callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
@@ -12,16 +18,17 @@ const getUserName = callback => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', `http://localhost:8080/users/${sessionStorage.username}/name`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
+
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${username}/name`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+
     xhr.send()
 }
-
-export default getUserName

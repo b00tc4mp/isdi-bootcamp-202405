@@ -1,7 +1,9 @@
-import validate from '../../cor/validate.js'
+import { validate, errors } from '../../com/index.js'
+
+
 
 const toggleLikePost = (postId, callback) => {
-    validate.string(postId)
+    validate.string(postId, 'postId')
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -15,15 +17,16 @@ const toggleLikePost = (postId, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/likes`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/likes`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+
 
     xhr.send()
 }

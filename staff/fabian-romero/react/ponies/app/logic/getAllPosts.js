@@ -1,4 +1,8 @@
-const getAllPosts = callback => {
+import { validate, errors } from '../../com/index.js'
+
+export default callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
@@ -12,16 +16,14 @@ const getAllPosts = callback => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }
-
-export default getAllPosts

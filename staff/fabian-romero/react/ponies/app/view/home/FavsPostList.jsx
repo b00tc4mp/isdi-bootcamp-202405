@@ -7,11 +7,11 @@ import Post from './Post'
 import './PostList.css'
 
 const FavsPostList = () => {
-    console.debug('FavsPostList -> constructor')
+    console.debug('FavsPostList -> call')
 
     const [posts, setPosts] = useState([])
 
-    useEffect(() => { // metodo que utiliza react para trabajar el modo asincro
+    useEffect(() => {
         console.debug('FavsPostList -> useEffect')
 
         try {
@@ -32,7 +32,6 @@ const FavsPostList = () => {
             alert(error.message)
         }
     }, [])
-
 
     const handlePostDeleted = () => {
         console.debug('FavsPostList -> handlePostDeleted')
@@ -91,7 +90,7 @@ const FavsPostList = () => {
                     return
                 }
 
-                setPosts
+                setPosts(posts)
             })
         } catch (error) {
             console.error(error)

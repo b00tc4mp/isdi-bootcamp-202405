@@ -7,13 +7,13 @@ import Paragraph from '../components/Paragraph'
 
 import './Header.css'
 
-const Header = ({ onHomeClick, onFavsClick, onPoniesClick, onLogout }) => {
+const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
 
     useEffect(() => {
-        console.debug('Header -> userEffect')
+        console.debug('Header -> useEffect')
 
         try {
             logic.getUserName((error, name) => {
@@ -65,8 +65,10 @@ const Header = ({ onHomeClick, onFavsClick, onPoniesClick, onLogout }) => {
             alert(error.message)
         }
     }
+
+
     return <header className="Header">
-        <Paragraph>Hello, {name}!</Paragraph>
+        <Paragraph>Hello, {name}!🌟</Paragraph>
         <Button onClick={handleHomeClick}>🏚️</Button>
         <Button onClick={handlePoniesClick}>🦄</Button>
         <Button onClick={handleFavsClick}>🏳️‍🌈</Button>

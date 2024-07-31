@@ -1,47 +1,30 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
-import generateId from '../util/generateId.js'
+import { validate, errors } from '../../com/index.js'
 
-import validate from '../validate.js'
+const { NotFoundError, SystemError } = errors
 
-const createPost = (username, image, caption, callback) => {
+export default (username, image, caption, callback) => {
     validate.username(username)
     validate.url(image, 'image')
     validate.string(caption, 'caption')
     validate.callback(callback)
 
-    data.findUser(user => user.username == username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        const post = {
-            id: generateId(),
-            image,
-            caption,
-            author: username,
-            date: new Date().toISOString(),
-            likes: []
-        }
-
-        data.insertPost(post, error => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            callback(null)
+            Post.create({
+                image,
+                caption,
+                author: username
+            })
+                .then(() => callback(null))
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
-
-export default createPost

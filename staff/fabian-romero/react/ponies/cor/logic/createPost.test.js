@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import createPost from './createPost.js'
 
-createPost('Valito', 'https://media.tenor.com/fi5OFMCehkMAAAAM/frenchie-yawn.gif', 'zZzZ...', error => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log('post created')
-})
+        createPost('Fabito', 'https://media.tenor.com/SNxgkBQqHbIAAAAM/okay-ok.gif', 'yeep!', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('post created')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

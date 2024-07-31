@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts -X POST -d '{"image":"http//image","caption":"nones"}' -H "Authorization: Basic Fabito"
+curl -v http://localhost:8080/posts -X POST -d '{"image":"https://media.tenor.com/dWwQ83SlokAAAAAM/good-night-whisky.gif","caption":"cabraloca"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWJyYWxvY2EiLCJpYXQiOjE3MjIzNDQ5Mzl9.-ON0wxqAPR6GxEOmzEDYas0dg_TxOtdZodYzeNStFyw"

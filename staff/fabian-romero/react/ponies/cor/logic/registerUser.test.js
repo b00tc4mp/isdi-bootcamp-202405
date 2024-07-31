@@ -1,15 +1,30 @@
+import 'dotenv/config'
 import registerUser from './registerUser.js'
+import data from '../data/index.js'
 
-registerUser("Fabian", "Romero", "fabian@romero.com", "Fabito", "fabi1234", "fabi1234", (error, user) => {
-    if (error) {
-        console.error(error)
+import { MongoClient } from 'mongodb'
 
+const client = new MongoClient(process.env.MONGODB_URI)
 
-        return
-    }
+client.connect()
+    .then(() => {
+        console.log('connected')
 
-    console.log('Register user')
-})
+        const test = client.db('test')
+        const users = test.collection('users')
 
+        data.users = users
 
-//email ya existe!
+        registerUser('Samu', 'Spinetti', 'samu@spinetti.com', 'samu', '123123123', '123123123', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('user registered')
+
+            client.close()
+        })
+    })
+    .catch(error => console.error(error))

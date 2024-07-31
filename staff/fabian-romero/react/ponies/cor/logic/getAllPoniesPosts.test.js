@@ -1,18 +1,22 @@
+import 'dotenv/config'
 import getAllPoniesPosts from './getAllPoniesPosts.js'
+import mongoose from 'mongoose'
 
-getAllPoniesPosts("Fabito", (error, posts) => {
-    if (error) {
-        console.error(error)
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log(posts)
-})
+        getAllPoniesPosts("Fabito", (error, posts) => {
+            if (error) {
+                console.error(error)
 
+                return
+            }
 
-getAllPoniesPosts("Valito", (error, posts) => {
-    if (error) {
-        console.error(error)
-    }
+            console.log(posts)
 
-    console.log(posts)
-})
+            mongoose.disconnect()
+        })
+
+    })
+    .catch(error => console.error(error))

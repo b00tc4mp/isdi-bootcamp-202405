@@ -1,52 +1,43 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
-import validate from '../validate.js'
+import { validate, errors } from 'com'
 
-const updatePostCaption = (username, postId, caption, callback) => {
+const { NotFoundError, OwnershipError, SystemError } = errors
+
+export default (username, postId, caption, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            if (!post) {
-                callback(new Error('post not found'))
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new NotFoundError('post not found'))
 
-                return
-            }
+                        return
+                    }
 
-            post.caption = caption
+                    if (post.author !== username) {
+                        callback(new OwnershipError('post does not belong to user'))
 
-            data.updatePost(post => post.id === postId, post, error => {
-                if (error) {
-                    callback(new Error(error.message))
+                        return
+                    }
 
-                    return
-                }
+                    Post.updateOne({ _id: postId }, { $set: { caption } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
 
-                callback(null)
-            })
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
-
-export default updatePostCaption

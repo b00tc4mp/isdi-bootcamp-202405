@@ -1,64 +1,57 @@
-import data from '../data/index.js'
+import { User, Post } from '../data/models.js'
 
-import validate from '../validate.js'
+import { validate, errors } from '../../com/index.js'
 
-const getAllPoniesPosts = (username, callback) => {
+const { NotFoundError, SystemError } = errors
+
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
-
-    data.findUser(user => user.username ===
-        username, (error, user) => {
-            if (error) {
-                callback(new Error(error.message))
-
-                return
-            }
-
-            if (user === null) {
-                callback(new Error('user not found'))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            data.findPosts(post => user.following.includes(post.author), (error, posts) => {
-                if (error) {
-                    callback(new Error(error.message))
+            Post.find({ author: { $in: user.following } }).sort({ date: -1 }).lean()
+                .then(posts => {
+                    if (posts.length) {
+                        let count = 0
 
-                    return
-                }
+                        posts.forEach(post => {
+                            post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
+                            post.like = post.likes.includes(username)
 
-                if (posts.length) {
-                    let count = 0
+                            User.findOne({ username: post.author }).lean()
+                                .then(author => {
+                                    post.author = {
+                                        username: author.username,
+                                        avatar: author.avatar,
+                                        following: user.following.includes(author.username)
+                                    }
 
-                    posts.forEach(post => {
-                        post.fav = user.favs.includes(post.id)
-                        post.like = post.likes.includes(username)
+                                    count++
 
-                        data.findUser(user => user.username === post.author, (error, author) => {
-                            if (error) {
-                                callback(new Error(erro.message))
+                                    if (count === posts.length) {
+                                        posts.forEach(post => {
+                                            post.id = post._id.toString()
 
-                                return
-                            }
+                                            delete post._id
+                                        })
 
-                            post.author = {
-                                username: author.username,
-                                avatar: author.avatar,
-                                following: user.following.includes(author.username)
-                            }
+                                        callback(null, posts)
+                                    }
 
-                            count++
-
-                            if (count === posts.length)
-                                callback(null, posts.reverse())
+                                })
+                                .catch(error => callback(new SystemError(error.message)))
                         })
-                    })
-
-                } else callback(null, [])
-            })
+                    } else callback(null, [])
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-
+        .catch(error => callback(new SystemError(error.message)))
 }
 
-export default getAllPoniesPosts

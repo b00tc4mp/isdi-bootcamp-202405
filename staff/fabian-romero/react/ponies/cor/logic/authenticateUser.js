@@ -1,33 +1,35 @@
-import data from '../data/index.js'
+import bcrypt from 'bcryptjs'
 
-import validate from '../validate.js'
+import { User } from '../data/models.js'
 
-const authenticateUser = (username, password, callback) => {
+import { validate, errors } from '../../com/index.js'
+
+const { NotFoundError, CredentialsError, SystemError } = errors
+
+export default (username, password, callback) => {
     validate.username(username)
     validate.password(password)
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
-            return
-        }
+                return
+            }
 
-        if (user === null) {
-            callback(new Error('user not found'))
+            bcrypt.compare(password, user.password)
+                .then(match => {
+                    if (!match) {
+                        callback(new CredentialsError('wrong password'))
 
-            return
-        }
+                        return
+                    }
 
-        if (user.password !== password) {
-            callback(new Error('wrong password'))
-
-            return
-        }
-
-        callback(null)
-    })
+                    callback(null)
+                })
+                .catch(error => callback(new SystemError(error.message)))
+        })
+        .catch(error => callback(new SystemError(error.message)))
 }
-
-export default authenticateUser
