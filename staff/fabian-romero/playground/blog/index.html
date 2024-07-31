@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Señora del Carmel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<head>
+  <a href="#" target="_blank" rel="noopener noreferrer">
+    <img src="cruellaBlog/coche1.jpg" alt="coche antiguo de los años 50" width="360px"> </a>
+  <h1 style="color: rgb(54, 6, 49); background-color: rgb(226, 226, 226);">La Señora del Carmel...</h1>
+</head>
+
+<body>
+  <main>
+    <h3 style="color: rgb(99, 5, 5);"> <em>Bienvenidos a mi rincón.</em></h3>
+
+    <p> <a href="https://i.pinimg.com/originals/76/15/5e/76155ef9825bdb696cca1d69f785334f.gif" target="_blank"
+        rel="noopener noreferrer"> Soy María Ángeles Ruiz de Alarcón.</a> Una señora de <em>familia</em> acomodada que
+      ahora vive en un barrio... popular...</p>
+
+    <img src="cruellaBlog/cruella3.jpeg" alt="coche antiguo de los años 50" width="360px"> </a>
+
+    <hr>
+
+    <s><a href="#parrafo-1">Vida</a></s>
+    <s><a href="#parrafo-2">Lolo</a></s>
+    <s><a href="#parrafo-3">Vicios</a></s>
+
+    <hr>
+
+
+    <h3 id="parrafo-1">Mi Vida</h3>
+    <p>La vida me ha llevado a este lugar, lleno de simplicidad y riqueza cotidiana. Aquí compartiré mis experiencias y
+      reflexiones sobre este nuevo capítulo. Acompáñenme en este viaje de descubrimientos.</p>
+
+    <h3 id="parrafo-2">Lolo</h3>
+    <p>Su <strong> <em> UNICO Y FIEL</em></strong> compañero era un galgo de pelo largo llamado <a
+        href="https://img.freepik.com/foto-gratis/perro-lindo-arte-digital_23-2151289931.jpg?w=1060&t=st=1716995088~exp=1716995688~hmac=9e985e8e12d77432797cf0ab517b24670fb374dcaa38957fa3394e62158260fc"
+        target="_blank" rel="noopener noreferrer"> Lolo o Lolito</a> (como yo le llamo). Este elegante perro, con su
+      pelaje suave y ojos comprensivos, era su confidente y protector. Cada mañana, paseaban juntos por el parque, donde
+      Lolo corría con gracia mientras María Ángeles lo observaba con orgullo y nostalgia, encontrando en él la verdadera
+      riqueza de su nueva vida sencilla..</p>
+
+    <h3 id="parrafo-3">Vicios</h3>
+    <p>Alejada de los lujos de su juventud. Su único vicio era su colección de abrigos de piel, que conservaba como un
+      vestigio de su pasado opulento. Aunque su nuevo entorno no ofrecía la misma majestuosidad, envolverse en uno de
+      esos abrigos le recordaba los tiempos dorados. Paseaba por el barrio impecablemente vestida, encontrando en sus
+      abrigos de piel un reconfortante eco de la elegancia que una vez conoció.</p>
+
+    <img src="cruellaBlog/cruella1.jpg" alt="imagen de señora mayor fumando vectorizada" width="360px">
+
+    <hr>
+
+    <!-- agregamos VALUE para que en las etiquetas o casillas hay que enviar una informacion, estoy pidiendo que seleccionen una y necesita saber cual es, entonces necesito darle valor para que el servidor me diga cual han seleccionado-->
+
+    <h4>MIS ACTIVIDADES FAVORITAS</h4>
+    <p>Mis días comienzan temprano con una caminata por las calles empedradas, donde saludo a mis vecinos y disfruto del
+      bullicio del mercado local. A pesar de mi situación, prefiero hacer mis compras diarias en las tiendas del barrio,
+      conversando con los tenderos y seleccionando personalmente los ingredientes frescos para mis comidas. Por las
+      tardes, me dedico al voluntariado, ofreciendo mi tiempo y recursos para mejorar la vida de los residentes. </p>
+
+    <h5>·Selecciona TU actividad favorita</h5>
+    <!--Quito la lista desordenada que tiene comando ul - y solo dejo la lista ordenada abajo para agregar "br" para ordenarlas como "lista"-->
+    <!-- LEBEL es para agregar casillas, botones o checkbox-->
+    <form action="/enviar respuesta">
+      <!--label es una etiqueta que sirve para que se "seleccione" desde el casilla y desde el texto-->
+      <!-- input tipo radio es circulos de seleccion // Id es donde quiero que se seleccione-->
+      <!-- name abarca un GRUPO de opciones en la cual solo uno se puede seleccionar.-->
+
+
+      <label for="Pasear con Lolito" <p>Pasear con Lolito</p> <input type="radio"
+          name="Pasear-con-Lolito-Fumar-y-Beber-Comprar-pieles-por-internet-Voluntariado" id="Pasear con Lolito">
+      </label>
+      <!-- Me deja los circulos sobre las frases y quiero al lado de cada una-->
+      <label>
+        <p>Fumar y Beber</p> <input type="radio"
+          name="Pasear-con-Lolito-Fumar-y-Beber-Comprar-pieles-por-internet-Voluntariado" id="Fumar y Beber">
+      </label>
+      <label>
+        <p>Comprar pieles por internet</p> <input type="radio"
+          name="Pasear-con-Lolito-Fumar-y-Beber-Comprar-pieles-por-internet-Voluntariado"
+          id="Comprar pieles por internet">
+      </label>
+      <label>
+        <p>"<em>Voluntariado</em>"</p> <input type="radio"
+          name="Pasear-con-Lolito-Fumar-y-Beber-Comprar-pieles-por-internet-Voluntariado" id="Voluntariado">
+      </label>
+    </form>
+
+    <h5>Enviadme TUS actividades favoritas
+      <em>(solo por cotillear)</em>
+    </h5>
+
+    <form action="enviar respuesta">
+      <input type="text" placeholder="🔥Tu mejor chisme🔥" required>
+      <br>
+      <button type="submit"> <em>Coti-Cotilleo!🍷</em> </button>
+    </form>
+
+
+    <hr>
+    <hr>
+
+    <h4><em>¿Que días del Podcastes, te agendas cada semana?</em></h4>
+    <h5>
+      <p>Agenda semanal de mi <em><strong>Podcast!</strong></em></p>
+    </h5>
+    <form action="seleccionar respuesta">
+      <ol>
+        <h4>
+          <label><input type="checkbox" name="" id="">
+            <li>Lunes de Criticar </li>
+          </label>
+          <label><input type="checkbox" name="" id="">
+            <li>Miercoles de Compras</li>
+          </label>
+          <label><input type="checkbox" name="" id="">
+            <li>Viernes de Criticar</li>
+          </label>
+        </h4>
+      </ol>
+    </form>
+
+    <img src="cruellaBlog/cruella2.jpg" alt="personaje de señora mayor con abrigo de piel"
+      alt="personaje de señora mayor con abrigo de piel" width="360px">
+  </main>
+</body>
+
+</html>

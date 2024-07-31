@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(255, 0, 251);
+}
+
+#box-1 {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(226, 251, 0);
+    position: absolute;
+}
+
+#box-2 {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 234, 255);
+    position: absolute;
+}

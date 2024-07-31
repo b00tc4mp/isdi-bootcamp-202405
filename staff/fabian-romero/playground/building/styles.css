@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    height: 69vh;
+    background-color: #000000;
+    margin: 0px;
+}
+
+.building {
+    width: 450px;
+    background-color: #480909;
+    border: 5px solid #343131;
+    padding: 13px;
+    box-sizing: border-box;
+}
+
+.floor {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 45px;
+}
+
+.window {
+    width: 159px;
+    height: 219px;
+    background-color: #480909;
+    border: 5px solid #000;
+}
+
+.door {
+    width: 192px;
+    height: 361px;
+    background-color: #ffffff;
+    border: 11px solid #d48282;
+}
