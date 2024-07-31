@@ -37,6 +37,13 @@ class OwnershipError extends Error {
         this.name = this.constructor.name
     }
 }
+class SessionError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
 
 class SystemError extends Error {
     constructor(message) {
@@ -52,6 +59,7 @@ const errors = {
     DuplicityError,
     CredentialsError,
     OwnershipError,
+    SessionError,
     SystemError
 }
 
