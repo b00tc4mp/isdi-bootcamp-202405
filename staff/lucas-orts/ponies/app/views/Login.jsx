@@ -8,6 +8,10 @@ import Link from './components/Link'
 import Button from './components/Button'
 import Container from "./components/Container"
 
+import { errors } from 'com'
+
+const { NotFoundError, CredentialsError } = errors
+
 function Login({ onLogin, onRegisterClick }) {
 
 
@@ -26,6 +30,11 @@ function Login({ onLogin, onRegisterClick }) {
             logic.loginUser(username, password, error => {
                 if (error) {
                     console.error(error)
+
+                    let message = error.message
+
+                    if (error instanceof NotFoundError || error instanceof CredentialsError)
+                        message = 'incorrect username and/or password'
 
                     alert(error.message)
 

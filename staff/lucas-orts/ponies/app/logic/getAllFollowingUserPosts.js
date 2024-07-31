@@ -1,6 +1,6 @@
-import validate from "../../cor/validate.js"
+import { validate, errors } from 'com'
 
-const getAllFollowingUserPosts = callabck => {
+export default callabck => {
     validate.callback(callabck)
 
     const xhr = new XMLHttpRequest
@@ -16,16 +16,14 @@ const getAllFollowingUserPosts = callabck => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callabck(new constructor(message))
     }
 
     xhr.onerror = () => callabck(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts/follows')
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/follows`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.send()
 }
-
-export default getAllFollowingUserPosts

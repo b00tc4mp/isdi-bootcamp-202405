@@ -1,6 +1,6 @@
-import validate from '../../cor/validate.js'
+import { validate, errors } from 'com'
 
-const updatePostCaption = (postId, caption, callback) => {
+export default (postId, caption, callback) => {
     validate.postId(postId)
     validate.string(caption, 'caption')
     validate.callback(callback)
@@ -16,18 +16,16 @@ const updatePostCaption = (postId, caption, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/posts/${postId}/caption`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${postId}/caption`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ caption }))
 }
-
-export default updatePostCaption

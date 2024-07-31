@@ -1,11 +1,21 @@
+import 'dotenv/config'
 import getAllFavPosts from './getAllFavPosts.js'
 
-getAllFavPosts("Taguapo", (error, posts) => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-        return
-    }
+        getAllFavPosts("Cacatua", (error, posts) => {
+            if (error) {
+                console.error(error)
 
-    console.log(posts)
-})
+                return
+            }
+
+            console.log(posts)
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

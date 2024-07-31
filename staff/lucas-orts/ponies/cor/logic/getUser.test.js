@@ -1,11 +1,23 @@
+import 'dotenv/config'
+
 import getUser from './getUser.js'
 
-getUser('Cacatua', 'Cacatua', (error, user) => {
-    if (error) {
-        console.error(error.message)
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log(user)
-})
+        getUser('Cacatua', 'Cacatua', (error, user) => {
+            if (error) {
+                console.error(error.message)
+
+                return
+            }
+
+            console.log(user)
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

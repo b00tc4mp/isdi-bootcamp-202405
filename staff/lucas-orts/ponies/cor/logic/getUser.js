@@ -1,43 +1,34 @@
-import data from '../data/index.js'
+import { User } from '../data/models.js'
 
-import validate from '../validate.js'
+import { validate, errors } from 'com'
 
-const getUser = (username, targetUsername, callback) => {
+const { NotFoundError, SystemError } = errors
+
+export default (username, targetUsername, callback) => {
     validate.username(username)
-    validate.targetUsername(targetUsername)
+    validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
 
-    data.findUser(user => user.username === username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findUser(user => user.username === targetUsername, (error, targetUser) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            if (!targetUser) {
-                callback(new Error('target user not found'))
+            User.findOne({ username: targetUsername }).lean()
+                .then(targetUser => {
+                    if (!targetUser) {
+                        callback(new NotFoundError('target user not found'))
 
-                return
-            }
+                        return
+                    }
+                    delete targetUser.password
 
-            delete targetUser.password
-
-            callback(null, targetUser)
+                    callback(null, targetUser)
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
-
-export default getUser

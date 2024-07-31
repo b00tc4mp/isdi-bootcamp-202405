@@ -1,7 +1,11 @@
-import data from '../data/index.js'
-import validate from '../validate.js'
+import bcrypt from 'bcryptjs'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+import { User } from '../data/models.js'
+import { validate, errors } from 'com'
+
+const { DuplicityError, SystemError, ValidationError } = errors
+
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -9,60 +13,39 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
     validate.password(password)
     validate.callback(callback)
 
-    if (password !== passwordRepeat) {
-        callback(new Error('passwords do not match'))
+    if (password !== passwordRepeat)
+        throw new ValidationError('passwords do not match')
 
-        return
-    }
 
-    data.findUser(user => user.email === email, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user !== null) {
-            callback(new Error('email already exists'))
-
-            return
-        }
-
-        data.findUser(user => user.username === username, (error, user) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ email }).lean()
+        .then(user => {
+            if (user) {
+                callback(new DuplicityError('email already exists'))
 
                 return
             }
+            User.findOne({ username }).lean()
+                .then(user => {
+                    if (user) {
+                        callback(new DuplicityError('user already exists'))
 
-            if (user !== null) {
-                callback(new Error('username already exists'))
-
-                return
-            }
-
-            const newUser = {
-                name,
-                surname,
-                email,
-                username,
-                password,
-                favs: [],
-                following: [],
-                avatar: 'https://svgsilh.com/svg/145535-707070.svg'
-            }
-
-            data.insertUser(newUser, error => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
+                        return
+                    }
+                    bcrypt.hash(password, 8)
+                        .then(hash => {
+                            User.create({
+                                name,
+                                surname,
+                                email,
+                                username,
+                                password: hash,
+                            })
+                                .then(() => callback(null))
+                                .catch(error => callback(new SystemError(error.message)))
+                        })
+                        .catch(error => callback(new SystemError(error.message)))
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
-
-export default registerUser

@@ -1,6 +1,6 @@
-import validate from '../../cor/validate.js'
+import { validate, errors } from 'com'
 
-const deletePost = (postId, callabck) => {
+export default (postId, callabck) => {
     validate.postId(postId)
     validate.callback(callabck)
 
@@ -15,17 +15,15 @@ const deletePost = (postId, callabck) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callabck(new constructor(message))
     }
 
     xhr.onerror = () => callabck(new Error('network error'))
 
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
 
     xhr.send()
 }
-
-export default deletePost

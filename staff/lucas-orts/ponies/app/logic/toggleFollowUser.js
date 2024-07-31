@@ -1,6 +1,6 @@
-import validate from '../../cor/validate.js'
+import { validate, errors } from 'com'
 
-const toggleFollowUser = (username, callback) => {
+export default (username, callback) => {
     validate.username(username)
     validate.callback(callback)
 
@@ -15,17 +15,15 @@ const toggleFollowUser = (username, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('PATCH', `http://localhost:8080/users/${username}/follows`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/follows`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
 
     xhr.send()
 }
-
-export default toggleFollowUser

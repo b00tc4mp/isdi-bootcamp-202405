@@ -1,9 +1,21 @@
+import 'dotenv/config'
 import updatePostCaption from './updatePostCaption.js'
 
-updatePostCaption('Petazeta', '2gouhl5uylg', 'ponita marica', error => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
 
-        return
-    }
-})
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
+
+        updatePostCaption('Petazeta', '66a2145ceaa27d4bacad182a', 'ponita marica', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+            console.log('post caption updated')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

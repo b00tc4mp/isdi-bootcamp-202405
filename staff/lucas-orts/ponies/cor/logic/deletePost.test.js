@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import deletePost from './deletePost.js'
 
-deletePost("Petazeta", "2gouhl5uylg0", error => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-        return
-    }
+        deletePost('Cacatua', '66a3907d93b0b4f3739d6ece', error => {
+            if (error) {
+                console.error(error)
 
-    console.log('post deleted')
-})
+                return
+            }
+
+            console.log('post deleted')
+
+            mongoose.disconnect()
+        })
+
+    })
+    .catch(error => console.error(error))

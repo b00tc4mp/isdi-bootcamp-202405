@@ -1,55 +1,42 @@
-import data from '../data/index.js'
-import validate from '../validate.js'
+import { User, Post } from '../data/models.js'
+import { validate, errors } from 'com'
 
-const toggleFavPost = (username, postId, callback) => {
+const { NotFoundError, SystemError } = errors
+
+export default (username, postId, callback) => {
     validate.username(username)
     validate.postId(postId)
     validate.callback(callback)
 
-    data.findUser(user => user.username == username, (error, user) => {
-        if (error) {
-            callback(new Error(error.message))
-
-            return
-        }
-
-        if (user === null) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        data.findPost(post => post.id === postId, (error, post) => {
-            if (error) {
-                callback(new Error(error.message))
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new NotFoundError('post not found'))
 
-            if (post === null) {
-                callback(new Error('post not found'))
+                        return
+                    }
 
-                return
-            }
+                    const { favs } = user
+                    const index = favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
-            const index = user.favs.indexOf(postId)
 
-            if (index < 0)
-                user.favs.push(postId)
-            else
-                user.favs.splice(index, 1)
+                    if (index < 0)
+                        favs.push(postId)
+                    else
+                        favs.splice(index, 1)
 
-            data.updateUser(user => user.username === username, user, error => {
-                if (error) {
-                    callback(new Error(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
+                    User.updateOne({ username }, { $set: { favs } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
-
-export default toggleFavPost

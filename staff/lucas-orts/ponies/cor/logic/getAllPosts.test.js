@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import getAllPosts from './getAllPosts.js'
 
-getAllPosts("Cacatua", (error, posts) => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log(posts)
-})
+        getAllPosts("Cacatua", (error, posts) => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log(posts)
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

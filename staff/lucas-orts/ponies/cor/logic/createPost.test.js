@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import createPost from './createPost.js'
 
-createPost("Cacatua", "https//nlknvliver", "Soy yo", error => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log('post created')
-})
+        createPost('Cacatua', 'https://media.giphy.com/media/l0IybQ6l8nfKjxQv6/giphy.gif?cid=82a1493bal4s8pqx9wahx4spwzaqj7fohoyfahtrmh0yvry4&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'caca tuya', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('post created')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

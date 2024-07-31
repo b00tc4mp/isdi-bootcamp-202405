@@ -1,11 +1,22 @@
+import 'dotenv/config'
 import getAllFollowingUserPosts from './getAllFollowingUserPosts.js'
 
-getAllFollowingUserPosts("Taguapo", (error, posts) => {
-    if (error) {
-        console.error(error)
+import mongoose from 'mongoose'
 
-        return
-    }
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
 
-    console.log(posts)
-})
+        getAllFollowingUserPosts('Petazeta', (error, posts) => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log(posts)
+            mongoose.disconnect()
+
+        })
+    })
+    .catch(error => console.error(error))

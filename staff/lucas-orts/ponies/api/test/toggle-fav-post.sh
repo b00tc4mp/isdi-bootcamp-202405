@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/4zcpc42md1w/favs -X PATCH -H "Authorization: Basic Tomasturbao"
+curl -v http://localhost:8080/posts/66a212db45efecc54ca44e1f/favs -X PATCH -H "Authorization: Basic Estercolero"

@@ -1,6 +1,6 @@
-import validate from '../../cor/validate.js'
+import { validate, errors } from 'com'
 
-const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -19,16 +19,15 @@ const registerUser = (name, surname, email, username, password, passwordRepeat, 
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/users`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
-export default registerUser
