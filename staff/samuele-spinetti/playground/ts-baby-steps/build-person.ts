@@ -1,5 +1,11 @@
 //https://www.typescriptlang.org/docs/handbook/2/objects.html
 
+// type User = {
+//     name: string,
+//     age: number,
+//     isAdmin: boolean
+// }
+
 interface User {
     name: string,
     age: number,
