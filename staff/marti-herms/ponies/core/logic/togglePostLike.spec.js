@@ -12,106 +12,58 @@ import { errors } from 'com'
 const { NotFoundError, ValidationError } = errors
 
 describe('togglePostLike', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds on existing user and post has no likes', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                Post.create({ author: user.id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
-                    .then(post => {
-                        togglePostLike('monoloco', post.id, error => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-
-                            Post.findById(post.id)
-                                .then(post => {
-                                    expect(post.likes).to.include(user._id)
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    it('succeeds on existing user and post has likes', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                Post.create({ author: user._id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing', likes: [user._id] })
-                    .then(post => {
-                        togglePostLike('monoloco', post.id, error => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-
-                            Post.findById(post.id)
-                                .then(post => {
-                                    expect(post.likes).to.not.include(user._id)
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-
-    })
-
-    it('fails on non-existing user', done => {
-        Post.create({ author: new ObjectId(), img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
+    it('succeeds on existing user and post has no likes', () => {
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => Post.create({ author: user.id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' }))
             .then(post => {
-                togglePostLike('monoloco', post.id, error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-
-                    done()
-                })
+                return togglePostLike('monoloco', post.id)
+                    .then(() => Post.findById(post.id))
             })
-            .catch(error => done(error))
+            .then(post => expect(post.likes).to.include(post.author))
     })
 
-    it('fails on non-existing post', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(() => {
-                togglePostLike('monoloco', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('post not found')
 
-                    done()
-                })
+    it('succeeds on existing user and post has likes', () => {
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => Post.create({ author: user._id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing', likes: [user._id] }))
+            .then(post => {
+                return togglePostLike('monoloco', post.id)
+                    .then(() => Post.findById(post.id))
             })
-            .catch(error => done(error))
+            .then(post => expect(post.likes).to.not.include(post.author))
+    })
+
+    it('fails on non-existing user', () => {
+        let _error
+
+        return Post.create({ author: new ObjectId(), img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
+            .then(post => togglePostLike('monoloco', post.id))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
+            })
+    })
+
+    it('fails on non-existing post', () => {
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(() => togglePostLike('monoloco', new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('post not found')
+            })
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            togglePostLike(123, 'ieufgwcerugcgwuwugn', error => { })
+            togglePostLike(123, 'ieufgwcerugcgwuwugn')
         } catch (_error) {
             error = _error
         } finally {
@@ -124,7 +76,7 @@ describe('togglePostLike', () => {
         let error
 
         try {
-            togglePostLike('', 'ieufgwcerugcgwuwugn', error => { })
+            togglePostLike('', 'ieufgwcerugcgwuwugn')
         } catch (_error) {
             error = _error
         } finally {
@@ -137,7 +89,7 @@ describe('togglePostLike', () => {
         let error
 
         try {
-            togglePostLike('monoloco', 123, error => { })
+            togglePostLike('monoloco', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -150,7 +102,7 @@ describe('togglePostLike', () => {
         let error
 
         try {
-            togglePostLike('monoloco', '', error => { })
+            togglePostLike('monoloco', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -159,32 +111,7 @@ describe('togglePostLike', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-        try {
-            togglePostLike('monoloco', 'ieufgwcerugcgwuwugn', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

@@ -12,23 +12,19 @@ export default (req, res, next) => {
     const { newUsername, password } = req.body
 
     try {
-        logic.editUserUsername(username, newUsername, password, (error) => {
-            if (error) {
-                next(error)
+        logic.editUserUsername(username, newUsername, password)
+            .then(() => {
+                jwt.sign({ sub: newUsername }, process.env.JWT_SECRET, (error, token) => {
+                    if (error) {
+                        next(new SessionError(error.message))
 
-                return
-            }
+                        return
+                    }
 
-            jwt.sign({ sub: newUsername }, process.env.JWT_SECRET, (error, token) => {
-                if (error) {
-                    next(new SessionError(error.message))
-
-                    return
-                }
-
-                res.json(token)
+                    res.json(token)
+                })
             })
-        })
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

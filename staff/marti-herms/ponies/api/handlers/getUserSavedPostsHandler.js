@@ -4,15 +4,9 @@ export default (req, res, next) => {
     const { username } = req
 
     try {
-        logic.getUserSavedPosts(username, (error, posts) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.json(posts)
-        })
+        logic.getUserSavedPosts(username)
+            .then(posts => res.json(posts))
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

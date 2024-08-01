@@ -6,15 +6,9 @@ export default (req, res, next) => {
     const { targetUsername } = req.params
 
     try {
-        logic.toggleUserFollow(username, targetUsername, (error) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        logic.toggleUserFollow(username, targetUsername)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

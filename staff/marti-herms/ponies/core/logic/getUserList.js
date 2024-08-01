@@ -4,23 +4,21 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, callback) => {
+export default (username) => {
     validate.username(username)
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
-            }
+            if (!user)
+                throw new NotFoundError('user not found')
 
-            User.find().lean()
-                .then(users => {
-                    const usernames = users.map(user => user.username)
-
-                    callback(null, usernames)
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            return User.find().lean()
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(users => {
+            const usernames = users.map(user => user.username)
+
+            return usernames
+        })
 }

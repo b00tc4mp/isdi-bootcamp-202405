@@ -4,41 +4,32 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, OutOfBoundsError, SystemError, CorruptedInfoError } = errors
 
-export default (username, targetUsername, callback) => {
+export default (username, targetUsername) => {
     validate.username(username)
     validate.username(targetUsername, 'targetUsername')
-    validate.callback(callback)
 
-    User.findOne({ username })
+    return User.findOne({ username })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user)
+                throw new NotFoundError('user not found')
 
-                return
-            }
+            if (user.username === targetUsername)
+                throw new OutOfBoundsError('tried following yourself')
 
-            if (user.username === targetUsername) {
-                callback(new OutOfBoundsError('tried following yourself'))
-
-                return
-            }
-
-            User.findOne({ username: targetUsername }).lean()
+            return User.findOne({ username: targetUsername }).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(targetUser => {
-                    if (!targetUser) {
-                        callback(new NotFoundError('targetUser not found'))
+                    if (!targetUser)
+                        throw new NotFoundError('targetUser not found')
 
-                        return
-                    }
                     const followingIndex = user.following.findIndex(userObjectId => userObjectId.toString() === targetUser._id.toString())
 
                     const followerIndex = targetUser.followers.findIndex(userObjectId => userObjectId.toString() === user._id.toString())
 
-                    if ((followingIndex === -1 && followerIndex !== -1) || (followerIndex === -1 && followingIndex !== -1)) {
-                        callback(new CorruptedInfoError('wrong saved information'))
+                    if ((followingIndex === -1 && followerIndex !== -1) || (followerIndex === -1 && followingIndex !== -1))
+                        throw new CorruptedInfoError('wrong saved information')
 
-                        return
-                    }
 
                     if (followingIndex !== -1) {
                         user.following.splice(followingIndex, 1)
@@ -52,16 +43,13 @@ export default (username, targetUsername, callback) => {
                         targetUser.followers.push(user._id)
                     }
 
-                    User.updateOne({ username }, { $set: { following: user.following } })
+                    return User.updateOne({ username }, { $set: { following: user.following } })
+                        .catch(error => { throw new SystemError(error.message) })
                         .then(() => {
-                            User.updateOne({ username: targetUsername }, { $set: { followers: targetUser.followers } })
-                                .then(() => callback(null))
-                                .catch(error => callback(new SystemError(error.message)))
+                            return User.updateOne({ username: targetUsername }, { $set: { followers: targetUser.followers } })
+                                .catch(error => { throw new SystemError(error.message) })
                         })
-                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new SystemError(error.message)))
-
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(() => { })
 }

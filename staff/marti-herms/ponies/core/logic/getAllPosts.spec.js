@@ -12,81 +12,49 @@ import { errors } from 'com'
 const { NotFoundError, ValidationError } = errors
 
 describe('getAllPosts', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds on existing user returning all posts', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+    it('succeeds on existing user returning all posts', () => {
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
-                Post.create({ author: user.id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
-                    .then(post => {
-                        getAllPosts('monoloco', (error, posts) => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-                            expect(posts).to.be.an('array')
-                            expect(posts[0].id).to.equal(post.id)
-
-                            done()
-                        })
-                    })
-                    .catch(error => done(error))
+                return Post.create({ author: user.id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
+                    .then(() => Post.create({ author: user.id, img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' }))
             })
-            .catch(error => done(error))
+            .then(() => getAllPosts('monoloco'))
+            .then(posts => {
+                expect(posts).to.be.an('array')
+                expect(posts.length).to.equal(2)
+            })
     })
 
-    it('succeeds on existing user and no posts returning empty array ', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                getAllPosts('monoloco', (error, posts) => {
-                    if (error) {
-                        console.error(error)
-
-                        return
-                    }
-
-                    expect(posts).to.be.an('array')
-                    expect(posts.length).to.equal(0)
-
-                    done()
-                })
+    it('succeeds on existing user and no posts returning empty array ', () => {
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => getAllPosts('monoloco'))
+            .then(posts => {
+                expect(posts).to.be.an('array')
+                expect(posts.length).to.equal(0)
             })
-            .catch(error => done(error))
     })
 
-    it('fails on non-existing user', done => {
-        Post.create({ author: new ObjectId(), img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
-            .then(post => {
-                getAllPosts('monoloco', (error, posts) => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
+    it('fails on non-existing user', () => {
+        let _error
 
-                    done()
-                })
+        return Post.create({ author: new ObjectId(), img: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
+            .then(post => getAllPosts('monoloco'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            getAllPosts(123, error => { })
+            getAllPosts(123)
         } catch (_error) {
             error = _error
         } finally {
@@ -99,7 +67,7 @@ describe('getAllPosts', () => {
         let error
 
         try {
-            getAllPosts('', error => { })
+            getAllPosts('')
         } catch (_error) {
             error = _error
         } finally {
@@ -108,32 +76,7 @@ describe('getAllPosts', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-        try {
-            getAllPosts('monoloco', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

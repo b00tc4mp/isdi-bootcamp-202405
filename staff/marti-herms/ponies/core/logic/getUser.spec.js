@@ -1,78 +1,56 @@
 import 'dotenv/config'
 import getUser from './getUser.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
-import { User, Post } from '../data/models.js'
+import { User } from '../data/models.js'
 
 import { errors } from 'com'
 
 const { NotFoundError, ValidationError } = errors
 
 describe('getUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user returning user', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+    it('succeeds on existing user returning user', () => {
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => getUser('monoloco', 'monoloco'))
             .then(user => {
-                getUser('monoloco', 'monoloco', (error, user) => {
-                    if (error) {
-                        console.error(error)
-
-                        return
-                    }
-                    expect(user).to.be.an('object')
-                    expect(user.username).to.equal('monoloco')
-
-                    done()
-                })
+                expect(user).to.be.an('object')
+                expect(user.username).to.equal('monoloco')
             })
-            .catch(error => done(error))
     })
 
-    it('fails on non-existing user', done => {
-        getUser('monoloco', 'monoloco', (error, user) => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('user not found')
+    it('fails on non-existing user', () => {
+        let _error
 
-            done()
-        })
+        return getUser('monoloco', 'monoloco')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
+            })
     })
 
-    it('fails on non-existing targetUser', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                getUser('monoloco', 'eden', (error, user) => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('target user not found')
+    it('fails on non-existing targetUser', () => {
+        let _error
 
-                    done()
-                })
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => getUser('monoloco', 'eden'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('target user not found')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            getUser(123, 'eden', error => { })
+            getUser(123, 'eden')
         } catch (_error) {
             error = _error
         } finally {
@@ -85,7 +63,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('', 'eden', error => { })
+            getUser('', 'eden')
         } catch (_error) {
             error = _error
         } finally {
@@ -98,7 +76,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('eden', 123, error => { })
+            getUser('eden', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -111,7 +89,7 @@ describe('getUser', () => {
         let error
 
         try {
-            getUser('eden', '', error => { })
+            getUser('eden', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -120,32 +98,7 @@ describe('getUser', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            getUser('monoloco', 'eden', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

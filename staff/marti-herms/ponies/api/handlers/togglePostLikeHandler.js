@@ -6,15 +6,9 @@ export default (req, res, next) => {
     const { postId } = req.params
 
     try {
-        logic.togglePostLike(username, postId, (error) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        logic.togglePostLike(username, postId)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

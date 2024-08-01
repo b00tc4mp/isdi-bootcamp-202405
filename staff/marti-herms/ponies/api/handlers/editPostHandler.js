@@ -6,15 +6,9 @@ export default (req, res, next) => {
     const { newCaption } = req.body
 
     try {
-        logic.editPost(username, postId, newCaption, (error) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        logic.editPost(username, postId, newCaption)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

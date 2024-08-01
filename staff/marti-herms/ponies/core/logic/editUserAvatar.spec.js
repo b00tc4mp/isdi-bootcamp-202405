@@ -12,58 +12,34 @@ import { errors } from 'com'
 const { NotFoundError, ValidationError } = errors
 
 describe('editUserAvatar', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
+    before(() => mongoose.connect(process.env.MONGODB_URI))
+
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+
+    it('succeeds on existing user and avatar changed', () => {
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => editUserAvatar('monoloco', 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw'))
+            .then(() => User.findOne({ username: 'monoloco' }))
+            .then(user => expect(user.avatar).to.equal('https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw'))
+
     })
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
+    it('fails on non-existing user', () => {
+        let _error
+
+        return editUserAvatar('monoloco', 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .catch(error => done(error))
-    })
-
-    it('succeeds on existing user and avatar changed', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                editUserAvatar('monoloco', 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw', error => {
-                    if (error) {
-                        console.error(error)
-
-                        return
-                    }
-
-                    User.findOne({ username: 'monoloco' })
-                        .then(user => {
-                            expect(user.avatar).to.equal('https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw')
-
-                            done()
-                        })
-                        .catch(error => done(error))
-                })
-            })
-            .catch(error => done(error))
-    })
-
-    it('fails on non-existing user', done => {
-        editUserAvatar('monoloco', 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('user not found')
-
-            done()
-        })
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            editUserAvatar(123, 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw', error => { })
+            editUserAvatar(123, 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw')
         } catch (_error) {
             error = _error
         } finally {
@@ -76,7 +52,7 @@ describe('editUserAvatar', () => {
         let error
 
         try {
-            editUserAvatar('', 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw', error => { })
+            editUserAvatar('', 'https://imgs.search.brave.com/YfyNSZIduSszrOd2DIfVpcEZXVPxARydF3-FOuI_1pA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dzNzY2hvb2xzLmNv/bS9ob3d0by9pbWdf/YXZhdGFyLnBuZw')
         } catch (_error) {
             error = _error
         } finally {
@@ -89,7 +65,7 @@ describe('editUserAvatar', () => {
         let error
 
         try {
-            editUserAvatar('monoloco', 123, error => { })
+            editUserAvatar('monoloco', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -102,7 +78,7 @@ describe('editUserAvatar', () => {
         let error
 
         try {
-            editUserAvatar('monoloco', '', error => { })
+            editUserAvatar('monoloco', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -111,32 +87,7 @@ describe('editUserAvatar', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-        try {
-            editUserAvatar('monoloco', 'ieufgwcerugcgwuwugn', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

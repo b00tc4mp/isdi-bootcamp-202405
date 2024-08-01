@@ -4,15 +4,9 @@ export default (req, res, next) => {
     const { username } = req
 
     try {
-        logic.getUserList(username, (error, userList) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.json(userList)
-        })
+        logic.getUserList(username)
+            .then(userList => res.json(userList))
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

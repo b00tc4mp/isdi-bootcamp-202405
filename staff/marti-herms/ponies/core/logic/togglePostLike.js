@@ -1,30 +1,25 @@
-import { ObjectId } from 'mongoose'
 import { User, Post } from '../data/models.js'
 
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, postId, callback) => {
+export default (username, postId) => {
     validate.username(username)
     validate.string(postId, 'postId')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user)
+                throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.findById(postId).lean()
+            return Post.findById(postId).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
+                    if (!post)
+                        throw new NotFoundError('post not found')
 
-                        return
-                    }
 
                     const index = post.likes.findIndex(userObjectId => userObjectId.toString() === user._id.toString())
 
@@ -34,7 +29,8 @@ export default (username, postId, callback) => {
                         post.likes.splice(index, 1)
                     }
 
-                    Post.updateOne({ _id: postId }, { $set: { likes: post.likes } })
+                    return Post.updateOne({ _id: postId }, { $set: { likes: post.likes } })
+                        .catch(error => { throw new SystemError(error.message) })
                         .then(() => {
                             const postIndex = user.likes.findIndex(id => id.toString() === postId)
 
@@ -44,13 +40,10 @@ export default (username, postId, callback) => {
                                 user.likes.push(post._id)
                             }
 
-                            User.updateOne({ username }, { $set: { likes: user.likes } })
-                                .then(() => callback(null))
-                                .catch(error => callback(new SystemError(error.message)))
+                            return User.updateOne({ username }, { $set: { likes: user.likes } })
+                                .catch(error => { throw new SystemError(error.message) })
                         })
-                        .catch(error => callback(new SystemError(error.message)))
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(() => { })
 }
