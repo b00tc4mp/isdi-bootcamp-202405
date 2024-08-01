@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ifee</title>
+</head>
+
+<body>
+    <script>
+        // var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+
+        // function validateEmail(email) {
+        //     if (!EMAIL_REGEX.test(email)) throw new Error('invalid email')
+        // }
+
+        var validateEmail = (function () {
+            var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+
+            return function (email) {
+                if (!EMAIL_REGEX.test(email)) throw new Error('invalid email')
+            }
+        })()
+    </script>
+</body>
+
+</html>

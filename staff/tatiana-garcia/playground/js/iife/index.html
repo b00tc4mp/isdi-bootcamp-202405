@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var otherTab = window.open("content.html", "_blank");
+
+        if (otherTab) otherTab.name = "other-tab";
+    </script>
+
+    <a href="content.html#content-2" target="other-tab">This link will be opened in the other tab.</a>
+</body>
+
+</html>
