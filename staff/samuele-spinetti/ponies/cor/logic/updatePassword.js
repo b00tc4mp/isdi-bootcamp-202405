@@ -4,37 +4,28 @@ import bcrypt from 'bcryptjs'
 import { validate, errors } from '../../com/index.js'
 const { NotFoundError, CredentialsError, SystemError } = errors
 
-export default (username, oldPassword, newPassword, callback) => {
+export default (username, oldPassword, newPassword) => {
     validate.username(username)
     validate.password(oldPassword)
     validate.password(newPassword)
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('User not found'))
-
-                return
-            }
+            if (!user) throw new NotFoundError('User not found')
 
             bcrypt.compare(oldPassword, user.password)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(match => {
-                    if (!match) {
-                        callback(new CredentialsError('Wrong password'))
-
-                        return
-                    }
+                    if (!match) throw new CredentialsError('Wrong password')
                 })
-                .catch(error => callback(new SystemError(error.message)))
 
             bcrypt.hash(newPassword, 8)
+                .catch(error => { throw new Error(error.message) })
                 .then(hash => {
                     User.updateOne({ username }, { $set: { password: hash } })
-                        .then(() => callback(null))
-                        .catch(error => callback(new SystemError(error.message)))
+                        .catch(error => { throw new SystemError(error.message) })
                 })
-                .catch(error => done(error))
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(() => { })
 }

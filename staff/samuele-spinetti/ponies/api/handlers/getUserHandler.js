@@ -6,15 +6,9 @@ export default (req, res, next) => {
     const { targetUsername } = req.params
 
     try {
-        logic.getUser(username, targetUsername, (error, user) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.send(user)
-        })
+        logic.getUser(username, targetUsername)
+            .then(user => res.send(user))
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

@@ -9,69 +9,54 @@ import errors from '../../com/errors.js'
 const { NotFoundError, CredentialsError, ValidationError } = errors
 
 describe('updatePassword', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', done => {
+    it('succeeds on existing user', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => updatePassword(user.username, '123123123', '123456789'))
+
+        User.findOne({ username: 'monoloco' }).lean()
             .then(user => {
-                updatePassword(user.username, '123123123', '123456789', error => {
-                    if (error) {
-                        console.error(error)
+                expect(user.username).to.equal('monoloco')
 
-                        return
-                    }
-
-                    User.findOne({ username: 'monoloco' }).lean()
-                        .then(user => {
-                            expect(user.username).to.equal('monoloco')
-
-                            bcrypt.compare('123123123', user.password)
-                                .then(match => {
-                                    expect(match).to.be.true
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                        .catch(error => done(error))
-                })
+                bcrypt.compare('123123123', user.password)
+                    .then(match => {
+                        expect(match).to.be.true
+                    })
             })
-            .catch(error => done(error))
     })
+
 
     it('fails on non-existing user', () => {
-        updatePassword('monoloco', '123123123', '123456789', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('User not found')
-        })
+        let _error
+
+        return updatePassword('monoloco', '123123123', '123456789')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('User not found')
+            })
     })
 
     it('fails on non matching passwords', () => {
+        let _error
+
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                updatePassword(user.username, '123123124', '123456789', error => {
-                    expect(error).to.be.instanceOf(CredentialsError)
-                    expect(error.message).to.equal('Invalid password')
-                })
+            .then(user => updatePassword(user.username, '123123124', '123456789'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(CredentialsError)
+                expect(_error.message).to.equal('Invalid password')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            updatePassword(123, '123123123', '123456789', error => { })
+            updatePassword(123, '123123123', '123456789')
         } catch (_error) {
             error = _error
         } finally {
@@ -84,7 +69,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('', '123123123', '123456789', error => { })
+            updatePassword('', '123123123', '123456789')
         } catch (_error) {
             error = _error
         } finally {
@@ -97,7 +82,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('monoloco', 123123123, '123456789', error => { })
+            updatePassword('monoloco', 123123123, '123456789')
         } catch (_error) {
             error = _error
         } finally {
@@ -110,7 +95,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('monoloco', '123123', '123456789', error => { })
+            updatePassword('monoloco', '123123', '123456789')
         } catch (_error) {
             error = _error
         } finally {
@@ -123,7 +108,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('monoloco', '123123 123', '123456789', error => { })
+            updatePassword('monoloco', '123123 123', '123456789')
         } catch (_error) {
             error = _error
         } finally {
@@ -136,7 +121,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('monoloco', '123123123', 123456789, error => { })
+            updatePassword('monoloco', '123123123', 123456789)
         } catch (_error) {
             error = _error
         } finally {
@@ -149,7 +134,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('monoloco', '123123123', '1234', error => { })
+            updatePassword('monoloco', '123123123', '1234')
         } catch (_error) {
             error = _error
         } finally {
@@ -162,7 +147,7 @@ describe('updatePassword', () => {
         let error
 
         try {
-            updatePassword('monoloco', '123123123', '1234 56789', error => { })
+            updatePassword('monoloco', '123123123', '1234 56789')
         } catch (_error) {
             error = _error
         } finally {
@@ -171,29 +156,7 @@ describe('updatePassword', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            updatePassword('monoloco', '123123123', '123123123', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Callback is not a function')
-        }
-    })
-
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

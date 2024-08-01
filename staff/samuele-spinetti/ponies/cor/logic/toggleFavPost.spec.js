@@ -11,105 +11,66 @@ import errors from '../../com/errors.js'
 const { NotFoundError, ValidationError } = errors
 
 describe('toggleFavPost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds on existing user and post with no favs', done => {
+    it('succeeds on existing user and post with no favs', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user => {
                 Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
-                    .then(post => {
-                        toggleFavPost(user.username, post.id, error => {
-                            if (error) {
-                                console.error(error)
+                    .then(post => toggleFavPost(user.username, post.id))
 
-                                return
-                            }
+                User.findOne({ username: 'monoloco' })
+                    .then(user => {
+                        expect(user.favs).to.include(post.id)
 
-                            User.findOne({ username: 'monoloco' })
-                                .then(user => {
-                                    expect(user.favs).to.include(post.id)
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
                     })
-                    .catch(error => done(error))
             })
-            .catch(error => done(error))
     })
 
-    it('succeeds on existing post and user with favs', done => {
+    it('succeeds on existing post and user with favs', () => {
         Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf', likes: ['monoloco'] })
             .then(post => {
                 User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123', favs: [post.id] })
-                    .then(() => {
-                        toggleFavPost('monoloco', post.id, error => {
-                            if (error) {
-                                console.error(error)
+                    .then(() => toggleFavPost('monoloco', post.id))
 
-                                return
-                            }
-
-                            User.findOne({ username: 'monoloco' }).lean()
-                                .then(user => {
-                                    expect(user.favs).to.not.include(post.id)
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
+                User.findOne({ username: 'monoloco' }).lean()
+                    .then(user => {
+                        expect(user.favs).to.not.include(post.id)
                     })
-                    .catch(error => done(error))
             })
-            .catch(error => done(error))
     })
 
-    it('fails on non-existing user', done => {
-        Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
-            .then(post => {
-                toggleFavPost('monoloco', post.id, error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('User not found')
+    it('fails on non-existing user', () => {
+        let _error
 
-                    done()
-                })
+        return Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
+            .then(post => toggleFavPost('monoloco', post.id))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('User not found')
             })
-            .catch(error => done(error))
     })
 
-    it('fails on existing user but non-existing post', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(() => {
-                toggleFavPost('monoloco', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('Post not found')
+    it('fails on existing user but non-existing post', () => {
+        let _error
 
-                    done()
-                })
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(() => toggleFavPost('monoloco', new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('Post not found')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            toggleFavPost(123, new ObjectId().toString(), error => { })
+            toggleFavPost(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
@@ -122,7 +83,7 @@ describe('toggleFavPost', () => {
         let error
 
         try {
-            toggleFavPost('', new ObjectId().toString(), error => { })
+            toggleFavPost('', new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
@@ -135,7 +96,7 @@ describe('toggleFavPost', () => {
         let error
 
         try {
-            toggleFavPost('Mono', 123, error => { })
+            toggleFavPost('Mono', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -148,7 +109,7 @@ describe('toggleFavPost', () => {
         let error
 
         try {
-            toggleFavPost('Mono', '', error => { })
+            toggleFavPost('Mono', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -157,33 +118,7 @@ describe('toggleFavPost', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-        try {
-            toggleFavPost('Mono', new ObjectId().toString(), 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Callback is not a function')
-        }
-    })
-
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

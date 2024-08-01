@@ -3,23 +3,17 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, newAvatar, callback) => {
+export default (username, newAvatar) => {
     validate.username(username)
     validate.image(newAvatar, 'avatar')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('User not found'))
+            if (!user) throw new NotFoundError('User not found')
 
-                return
-            }
-
-            User.updateOne({ username }, { $set: { avatar: newAvatar } })
-                .then(() => callback(null))
-                .catch(error => callback(new SystemError(error.message)))
-
+            return User.updateOne({ username }, { $set: { avatar: newAvatar } })
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(() => { })
 }

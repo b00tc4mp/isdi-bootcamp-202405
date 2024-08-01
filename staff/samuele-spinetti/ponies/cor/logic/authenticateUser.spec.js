@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
+import bcrypt from 'bcryptjs'
 
 import authenticateUser from './authenticateUser.js'
 import { User } from '../data/models.js'
@@ -9,65 +10,46 @@ import errors from '../../com/errors.js'
 const { ValidationError, NotFoundError, CredentialsError } = errors
 
 describe('authenticateUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on authenticate user', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                authenticateUser('monoloco', '123123123', error => {
-                    expect(user.username).to.equal('monoloco')
+    it('succeeds on authenticate user', () =>
+        bcrypt.hash('123123123', 8)
+            .then(hash => User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: hash })
+            )
+            .then(() => authenticateUser('monoloco', '123123123'))
+            .then(value => expect(value).to.be.undefined)
+    )
 
-                    bcrypt.compare('123123123', user.password)
-                        .then(match => {
-                            expect(match).to.be.true
+    it('fails on non-existing user', () => {
+        let _error
 
-                            done()
-                        })
-                    console.log('User authenticated')
-
-                        .catch(error => done(error))
-                })
+        authenticateUser('monoloco', '123123123')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('User not found')
             })
-            .catch(error => done(error))
     })
 
-    it('fails on non-existing user', done => {
-        authenticateUser('monoloco', '123123123', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('User not found')
+    it('fails on passwords do not match', () => {
+        let _error
 
-            done()
-        })
-    })
-
-    it('fails on passwords do not match', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                authenticateUser(user.username, '123123124', error => {
-                    expect(error).to.be.instanceOf(CredentialsError)
-                    expect(error.message).to.equal('Wrong password')
-
-                    done()
-                })
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => authenticateUser(user.username, '123123124'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(CredentialsError)
+                expect(_error.message).to.equal('Wrong password')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            authenticateUser(123, '123123123', error => { })
+            authenticateUser(123, '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -80,7 +62,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('', '123123123', error => { })
+            authenticateUser('', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -93,7 +75,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('monoloco', 123123123, error => { })
+            authenticateUser('monoloco', 123123123)
         } catch (_error) {
             error = _error
         } finally {
@@ -106,7 +88,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('monoloco', '123123', error => { })
+            authenticateUser('monoloco', '123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -119,7 +101,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('monoloco', '123123 123', error => { })
+            authenticateUser('monoloco', '123123 123')
         } catch (_error) {
             error = _error
         } finally {
@@ -128,28 +110,7 @@ describe('authenticateUser', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            authenticateUser('monoloco', '123123123', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

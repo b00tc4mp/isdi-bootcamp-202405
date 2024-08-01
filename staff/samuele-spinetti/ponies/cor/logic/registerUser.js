@@ -5,48 +5,41 @@ import { validate, errors } from '../../com/index.js'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
-export default (name, surname, email, username, password, passwordRepeat, callback) => {
+export default (name, surname, email, username, password, passwordRepeat) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    validate.callback(callback)
 
     if (password !== passwordRepeat)
         throw new ValidationError('Passwords do not match')
 
-    User.findOne({ email }).lean()
+    return User.findOne({ email }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (user) {
-                callback(new DuplicityError('Email already exists'))
+            if (user)
+                throw new DuplicityError('Email already exists')
 
-                return
-            }
-
-            User.findOne({ username }).lean()
-                .then(user => {
-                    if (user) {
-                        callback(new DuplicityError('Username already exists'))
-
-                        return
-                    }
-
-                    bcrypt.hash(password, 8)
-                        .then(hash => {
-                            User.create({
-                                name,
-                                surname,
-                                email,
-                                username,
-                                password: hash
-                            })
-                                .then(() => callback(null))
-                                .catch(error => callback(new SystemError(error.message)))
-                        })
-                        .catch(error => callback(new SystemError(error.message)))
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            return User.findOne({ username }).lean()
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(user => {
+            if (user)
+                throw new DuplicityError('Username already exists')
+
+            return bcrypt.hash(password, 8)
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(hash =>
+            User.create({
+                name,
+                surname,
+                email,
+                username,
+                password: hash
+            })
+                .catch(error => { throw new SystemError(error.message) })
+        )
+        .then(() => { })
 }

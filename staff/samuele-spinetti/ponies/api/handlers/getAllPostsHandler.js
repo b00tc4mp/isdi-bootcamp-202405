@@ -4,15 +4,9 @@ export default (req, res) => {
     const { username } = req
 
     try {
-        const posts = logic.getAllPosts(username, (error, posts) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.json(posts)
-        })
+        logic.getAllPosts(username)
+            .then(posts => res.json(posts))
+            .catch(error => next(error))
     } catch (error) {
         nexct(error)
     }

@@ -11,75 +11,52 @@ import errors from '../../com/errors.js'
 const { ValidationError, DuplicityError } = errors
 
 describe('registerUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on new user', done => {
-        registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco', '123123123', '123123123', error => {
-            if (error) {
-                done(error)
+    it('succeeds on new user', () =>
+        registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco', '123123123', '123123123')
+            .then(() => User.findOne({ username: 'monoloco' }).lean())
+            .then(user => {
+                expect(user.name).to.equal('Mono')
+                expect(user.surname).to.equal('Loco')
+                expect(user.email).to.equal('mono@loco.com')
 
-                return
-            }
-
-            User.findOne({ username: 'monoloco' }).lean()
-                .then(user => {
-                    expect(user.name).to.equal('Mono')
-                    expect(user.surname).to.equal('Loco')
-                    expect(user.email).to.equal('mono@loco.com')
-
-                    bcrypt.compare('123123123', user.password)
-                        .then(match => {
-                            expect(match).to.be.true
-
-                            done()
-                        })
-                        .catch(error => done(error))
-                })
-                .catch(error => done(error))
-        })
-    })
-
-    it('fails on existing user with same email', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(() => {
-                registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco2', '123123123', '123123123', error => {
-                    expect(error).to.be.instanceOf(DuplicityError)
-                    expect(error.message).to.equal('Email already exists')
-
-                    done()
-                })
+                return bcrypt.compare('123123123', user.password)
             })
-            .catch(error => done(error))
+            .then(match => expect(match).to.be.true)
+    )
+
+    it('fails on existing user with same email', () => {
+        let _error
+
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(() => registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco2', '123123123', '123123123'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('Email already exists')
+            })
     })
 
-    it('fails on existing user with same username', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(() => {
-                registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => {
-                    expect(error).to.be.instanceOf(DuplicityError)
-                    expect(error.message).to.equal('Username already exists')
+    it('fails on existing user with same username', () => {
+        let _error
 
-                    done()
-                })
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(() => registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('Username already exists')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string name', () => {
         let error
 
         try {
-            registerUser(123, 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser(123, 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -92,7 +69,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -105,7 +82,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 123, 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Mono', 123, 'mono@loco2.com', 'monoloco', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -118,7 +95,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', '', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Mono', '', 'mono@loco2.com', 'monoloco', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -131,7 +108,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 123, 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 123, 'monoloco', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -144,7 +121,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', '', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', '', 'monoloco', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -157,7 +134,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 123, '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 123, '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -170,7 +147,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', '', '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', '', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -183,7 +160,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', 123123123, '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', 123123123, '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -196,7 +173,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -209,7 +186,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123 123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123 123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -222,7 +199,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '1231231234', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '1231231234')
         } catch (_error) {
             error = _error
         } finally {
@@ -231,28 +208,7 @@ describe('registerUser', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

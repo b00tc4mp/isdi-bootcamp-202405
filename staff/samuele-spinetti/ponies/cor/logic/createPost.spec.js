@@ -9,56 +9,40 @@ import errors from '../../com/errors.js'
 const { ValidationError, NotFoundError } = errors
 
 describe('createPost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on new post', done => {
+    it('succeeds on new post', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => {
-                createPost(user.username, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'wtf', error => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    Post.findOne({ author: user.username })
-                        .then(post => {
-                            expect(post.author).to.equal('monoloco')
-                            expect(post.image).to.equal('https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
-                            expect(post.caption).to.equal('wtf')
-
-                            done()
-                        })
-                        .catch(error => done(error))
-                })
-            })
-            .catch(error => done(error))
+            .then(user =>
+                createPost(user.username, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'wtf')
+                    .then(() => Post.findOne({ author: user.username }))
+                    .then(post => {
+                        expect(post.author).to.equal('monoloco')
+                        expect(post.image).to.equal('https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                        expect(post.caption).to.equal('wtf')
+                    })
+            )
     })
 
-    it('fails on non-existing user', done => {
-        createPost('monoloco', 'http://text', 'Hello', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('User not found')
 
-            done()
-        })
+    it('fails on non-existing user', () => {
+        let _error
+
+        return createPost('monoloco', 'http://text', 'Hello')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('User not found')
+            })
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            createPost(123, 'http://text', 'Hello', error => { })
+            createPost(123, 'http://text', 'Hello')
         } catch (_error) {
             error = _error
         } finally {
@@ -71,7 +55,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('', 'http://text', 'Hello', error => { })
+            createPost('', 'http://text', 'Hello')
         } catch (_error) {
             error = _error
         } finally {
@@ -84,7 +68,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('monoloco', 123, 'Hello', error => { })
+            createPost('monoloco', 123, 'Hello')
         } catch (_error) {
             error = _error
         } finally {
@@ -97,7 +81,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('monoloco', 'htpp://text', 'Hello', error => { })
+            createPost('monoloco', 'htpp://text', 'Hello')
         } catch (_error) {
             error = _error
         } finally {
@@ -110,7 +94,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('monoloco', 'http://', 123, error => { })
+            createPost('monoloco', 'http://', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -119,29 +103,7 @@ describe('createPost', () => {
         }
     })
 
+    afterEach(() => User.deleteMany())
 
-    it('fails on non-function callback', () => {
-        let error
-
-        try {
-            createPost('monoloco', 'http://text', 'Hello', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

@@ -3,20 +3,8 @@ import getUser from './getUser.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('Connected')
-
-        getUser('samu', 'samu', (error, user) => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log(user)
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => getUser('samu', 'samu'))
+    .then(user => console.log(user))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
 
