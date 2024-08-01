@@ -1,0 +1,19 @@
+body{
+    background: black;
+}
+
+#box-1{
+    width: 100px;
+    height: 100px;
+    background: greenyellow;
+    position: absolute;
+   
+}
+
+#box-2{
+    width: 100px;
+    height: 100px;
+    background: greenyellow;
+    position: absolute;
+    
+}
