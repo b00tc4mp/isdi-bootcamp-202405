@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        console.info('PURE FUNCTION')
+        console.info('A pure function is a function that always produces the same output for the same input and has no side effects. In other words, pure functions do not modify state outside their scope, such as modifying global variables, changing the state of objects passed as arguments, or performing I/O operations. Pure functions are deterministic, meaning they rely solely on their input parameters to compute their output and do not depend on any external state.')
+
+        Math.max(1, 2, 3)
+
+        Math.floor(1.23)
+
+        function multiply(a, b) {
+            return a * b
+        }
+
+        function sumOfArray(array) {
+            return array.reduce((sum, item) => sum + item)
+        }
+
+        function answer() {
+            return 42
+        }
+
+        function noop() {
+            // nothing
+        }
+
+    </script>
+
+</body>
+
+</html>

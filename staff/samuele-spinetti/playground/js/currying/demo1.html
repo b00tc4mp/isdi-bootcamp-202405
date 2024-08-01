@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        console.info('CURRYING')
+        console.info('Currying in JavaScript transforms a function with multiple arguments into a nested series of functions, each taking a single argument. Currying helps you avoid passing the same variable multiple times, and it helps you create a higher order function.')
+
+        function crearElemento(elemento) {
+            var element = document.createElement(elemento)
+            return function (contenido) {
+                return element.textNode = contenido
+            }
+        }
+
+        var negrita = crearElemento('b')
+        var contenido = 'Mi contenido'
+        var miElemento = negrita(italica(contenido)) // <b>Mi contenido</b>
+
+    </script>
+
+</body>
+
+</html>

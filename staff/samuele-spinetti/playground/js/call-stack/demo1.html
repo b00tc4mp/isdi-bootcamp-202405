@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <img src="https://www.freecodecamp.org/news/content/images/2021/09/second-flow.gif">
+
+    <script>
+        console.info('CALL_STACK')
+        console.info('The call stack works on the Last In, First Out (LIFO) principle. This means that the most recently called function will be the first to be completed.')
+
+        function greet(name) {
+            console.log("Hello, " + name);
+        }
+
+        function welcome() {
+            console.log("Welcome to ISDI!");
+        }
+
+        function main() {
+            var userName = "Samu";
+            greet(userName);
+            welcome();
+        }
+
+        main();
+
+    </script>
+
+</body>
+
+</html>
