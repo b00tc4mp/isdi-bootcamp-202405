@@ -12,15 +12,13 @@ export default (username, postId) => {
     return User.findOne({ username }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user)
-                throw new NotFoundError('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             return Post.findById(postId).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(post => {
-            if (!post)
-                throw new NotFoundError('post not found')
+            if (!post) throw new NotFoundError('post not found')
 
             const { likes } = post
 

@@ -4,27 +4,22 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, image, caption, callback) => {
+export default (username, image, caption) => {
     validate.username(username)
     validate.url(image, 'image')
     validate.string(caption, 'caption')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.create({
+            return Post.create({
                 image,
                 caption,
                 author: username
             })
-                .then(() => callback(null))
-                .catch(error => callback(new SystemError(error.message)))
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(() => { })
 }

@@ -4,19 +4,7 @@ import getUserName from './getUserName.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        getUserName('samu', 'marti', (error, name) => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log(name)
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => getUserName('samu', 'musa'))
+    .then(name => console.log(name))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

@@ -3,20 +3,8 @@ import toggleFavPost from './toggleFavPost.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        toggleFavPost('musa', '66a22c1463a6739a553cf049', error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log('like post toggled')
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => toggleFavPost('musa', '66ab5ff1f91a0b35f51a16eb'))
+    .then(() => console.log('like post toggled'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
 

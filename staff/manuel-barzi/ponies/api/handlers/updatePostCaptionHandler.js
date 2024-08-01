@@ -8,15 +8,9 @@ export default (req, res, next) => {
     const { caption } = req.body
 
     try {
-        logic.updatePostCaption(username, postId, caption, error => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        logic.updatePostCaption(username, postId, caption)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }
