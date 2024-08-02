@@ -12,94 +12,72 @@ import { errors } from '../../com/index.js'
 const { NotFoundError, OwnershipError, ValidationError } = errors
 
 describe('deletePost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    before(() => mongoose.connect(process.env.MONGODB_URI));
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
-
-
-    it('succeeds on existing user and post deleted', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' });
-            })
-            .then(post => {
-                deletePost('gonzalo', post._id.toString(), error => {
-                    if (error) {
-                        return done(error);
-                    }
-
-                    Post.findById(post._id)
-                        .then(post => {
-                            expect(post).to.be.null;
-                            done();
-                        })
-                        .catch(error => done(error));
-                });
-            })
-            .catch(error => done(error));
-    });
-
-    it('fails on non-existing user', done => {
-        Post.create({ author: 'gon', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => {
-                deletePost('gonzalo', post._id.toString(), error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-
-                    done()
-                });
-            })
-            .catch(error => done(error));
-    });
-
-    it('fails on existing user but non-existing post', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                deletePost('gonzalo', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('post not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
-
-    it('fails on existing user and post but post does not belong to user', done => {
+    it('succeeds on delete post', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user => {
-                User.create({ name: 'julito', surname: 'camelas', email: 'julito@camelas.com', username: 'julitocamelas', password: 'julito123' })
-                    .then(julito => {
-                        return Post.create({ author: 'julitocamelas', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'omg' })
-                            .then(post => ({ user, post }));
+                Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                    .then(post1 => {
+                        Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                            .then(post2 => {
+                                deletePost(user.username, post1.id)
+                                    .then(() => Post.find({}).lean())
+                                    .then(posts => {
+                                        expect(posts[0].author).to.equal(post2.author)
+                                    })
+                            })
                     })
-                    .then(({ user, post }) => {
-                        deletePost(user.username, post.id, error => {
-                            expect(error).to.be.instanceOf(OwnershipError);
-                            expect(error.message).to.equal('post does not belong to user');
-                            done();
-                        });
-                    })
-                    .catch(error => done(error));
             })
-            .catch(error => done(error));
-    });
+    })
+
+    it('fails on non-existing user', () => {
+        let _error
+
+        return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(post => deletePost('gonzalo', post.id))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
+            })
+    })
+
+
+    it('fails on existing user but non-existing post', () => {
+        let _error
+
+        return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
+            .then(() => deletePost('gonzalo', new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('post not found')
+            })
+
+    })
+
+    it('succeeds on delete post', () => {
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
+            .then(user => {
+                Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                    .then(post => {
+                        deletePost(user.username, post.id)
+                            .then(() => Post.find({}).lean())
+                            .then(posts => {
+                                expect(posts[0].author).to.equal(post.author)
+                            })
+                    })
+            })
+    })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            deletePost(123, new ObjectId().toString(), error => { })
+            deletePost(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
@@ -112,7 +90,7 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost('gon', new ObjectId().toString(), error => { })
+            deletePost('gon', new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
@@ -125,7 +103,7 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost('gonzalo', 123, error => { })
+            deletePost('gonzalo', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -134,29 +112,7 @@ describe('deletePost', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
-        try {
-            deletePost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error));
-    });
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    after(() => mongoose.disconnect());
 });

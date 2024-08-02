@@ -3,39 +3,26 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, OwnershipError, SystemError } = errors
 
-export default (username, postId, callback) => {
+export default (username, postId) => {
     validate.username(username)
     validate.string(postId, 'postId')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.findById(postId).lean()
-                .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
-                    }
-
-                    if (post.author !== username) {
-                        callback(new OwnershipError('post does not belong to user'))
-
-                        return
-                    }
-
-                    Post.deleteOne({ _id: postId })
-                        .then(() => callback(null))
-                        .catch(error => callback(new SystemError(error.message)))
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            return Post.findById(postId).lean()
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(post => {
+            if (!post) throw new NotFoundError('post not found')
+
+            if (post.author !== username) throw new OwnershipError('post does not belong to user')
+
+            return Post.deleteOne({ _id: postId })
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(() => { })
 
 }

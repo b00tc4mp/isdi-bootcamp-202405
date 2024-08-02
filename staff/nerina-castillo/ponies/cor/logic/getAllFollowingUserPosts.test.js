@@ -4,21 +4,11 @@ import mongoose from 'mongoose';
 
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        getAllFollowingUserPosts('julitoCamelas', (error, posts) => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log(posts)
-
-            mongoose.disconnect()
-
-        })
-    })
+    .then(() => getAllFollowingUserPosts('juanfran'))
+    .then(posts => console.log(posts))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
+
+
+
 

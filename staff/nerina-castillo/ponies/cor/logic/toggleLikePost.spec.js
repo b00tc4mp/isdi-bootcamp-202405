@@ -12,123 +12,102 @@ import { errors } from '../../com/index.js'
 const { NotFoundError, ValidationError } = errors
 
 describe('toggleLikePost', () => {
-    let post;
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    before(() => mongoose.connect(process.env.MONGODB_URI));
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
-    it('succeeds on existing user and post has no likes', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine ' });
+    it('succeeds on existing user and post has no likes', () =>
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonalo123' })
+            .then(user =>
+                Post.create({ author: user.username, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                    .then(post =>
+                        toggleLikePost(user.username, post.id)
+                            .then(() => Post.findById(post.id).lean())
+                            .then(post => expect(post.likes).to.include(user.username))
+                    )
+            )
+    )
+
+
+    it('succeeds on existing user and post has likes', () =>
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonalo', password: '123123123' })
+            .then(user =>
+                Post.create({ author: user.username, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine', likes: [user.username] })
+                    .then(post =>
+                        toggleLikePost(user.username, post.id)
+                            .then(() => Post.findById(post.id).lean())
+                            .then(post => expect(post.likes).to.not.include(user.username))
+                    )
+            )
+    )
+
+
+
+    it('fails on non-existing user', () => {
+        let _error
+
+        return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(post => toggleLikePost('gonzalo', post.id))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .then(post => {
-                toggleLikePost('gonzalo', post.id, error => {
-                    if (error) {
-                        return done(error);
-                    }
-
-                    Post.findById(post.id).lean()
-                        .then(post => {
-                            expect(post.likes).to.include('gonzalo');
-                            done();
-                        })
-                        .catch(error => done(error));
-                });
-            })
-            .catch(error => done(error));
-    });
-
-    it('succeeds on existing user and post has likes', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine ', likes: ['gonzalo'] });
-            })
-            .then(post => {
-                toggleLikePost('gonzalo', post.id, error => {
-                    if (error) {
-                        return done(error);
-                    }
-
-                    Post.findById(post.id).lean()
-                        .then(post => {
-                            expect(post.likes).to.not.include('gonzalo');
-                            done();
-                        })
-                        .catch(error => done(error));
-                });
-            })
-            .catch(error => done(error));
-    });
-
-    it('fails on non-existing user', done => {
-        Post.create({ author: 'gon', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => {
-                toggleLikePost('gonzalo', post.id, error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-
-                    done()
-                });
-            })
-            .catch(error => done(error));
-    });
-
-    it('fails on existing user but non-existing post', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                toggleLikePost('gonzalo', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('post not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
     })
 
-    it('fails on non-function callback', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine ' });
+    it('fails on existing user but non-existing post', () => {
+        let _error
+
+        return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
+            .then(() => toggleLikePost('gonzalo', new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('post not found')
             })
-            .then(createdPost => {
-                post = createdPost;
-                let error;
-                try {
-                    toggleLikePost('gonzalo', post.id.toString(), 123);
-                } catch (_error) {
-                    error = _error;
-                } finally {
-                    expect(error).to.be.instanceOf(ValidationError);
-                    expect(error.message).to.equal('callback is not a function');
-                    done();
-                }
-            })
-            .catch(error => done(error));
-    });
 
+    })
 
+    it('fails on non-string username', () => {
+        let error
 
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error));
-    });
+        try {
+            toggleLikePost(123, new ObjectId().toString())
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('username is not a string')
+        }
+    })
 
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    it('fails on invalid username', () => {
+        let error
+
+        try {
+            toggleLikePost('gon', new ObjectId().toString())
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid username')
+        }
+    })
+
+    it('fails on non-string postId', () => {
+        let error
+
+        try {
+            toggleLikePost('gonzalo', 123)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('postId is not a string')
+        }
+    })
+
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
+
+    after(() => mongoose.disconnect());
 });

@@ -3,20 +3,10 @@ import getUserName from "./getUserName.js";
 import mongoose from 'mongoose';
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        getUserName('julitoCamelas', 'maxPower', (error, user) => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-            console.log(user)
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => getUserName('juanfran', 'juanfran'))
+    .then(name => console.log(name))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
+
 
 

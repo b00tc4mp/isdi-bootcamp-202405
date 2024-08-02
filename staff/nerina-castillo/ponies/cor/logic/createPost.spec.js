@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import createPost from "./createPost.js";
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
@@ -11,48 +11,31 @@ import { errors } from '../../com/index.js'
 
 describe('createPost', () => {
 
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error));
+    before(() => mongoose.connect(process.env.MONGODB_URI))
+
+    beforeEach(() => User.deleteMany())
+
+    it('succeeds on create post', () => {
+        return User.create({ name: 'Gonzalo', surname: 'Zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'hashedpassword' })
+            .then(() => createPost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'i am fine'))
+            .then(() => Post.findOne({ author: 'gonzalo' }))
+            .then(post => {
+                expect(post).to.not.be.null;
+                expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g');
+                expect(post.caption).to.equal('i am fine');
+            });
     });
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error));
-    });
+    it('fails on non-existing user', () => {
+        let _error
 
-    it('succeeds on create post', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                createPost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'i am fine', (error) => {
-                    if (error) {
-                        return done(error);
-                    }
+        createPost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'i am fine')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
 
-                    Post.findOne({ author: 'gonzalo' }).lean()
-                        .then(post => {
-                            expect(post).to.not.be.null;
-                            expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g');
-                            expect(post.caption).to.equal('i am fine');
-                            done();
-                        })
-                        .catch(error => done(error));
-                });
             })
-            .catch(error => SyntaxError(error));
-    });
-
-
-    it('fails on non-existing user', done => {
-        createPost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'i am fine', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('user not found')
-
-            done()
-        })
     })
 
 
@@ -93,18 +76,6 @@ describe('createPost', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('caption is not a string')
-        }
-    })
-    it('fails on non-function callback', () => {
-        let error
-
-        try {
-            createPost('gonzalo', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'i am fine', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
         }
     })
 
