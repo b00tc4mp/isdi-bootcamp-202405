@@ -1,12 +1,12 @@
 import { logic } from "core"
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
-    const { targetUsername } = req.params
+    const { targetUserId } = req.params
 
     try {
-        logic.toggleUserFollow(username, targetUsername)
+        logic.toggleUserFollow(userId, targetUserId)
             .then(() => res.status(204).send())
             .catch(error => next(error))
     } catch (error) {

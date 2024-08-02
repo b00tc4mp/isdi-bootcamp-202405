@@ -4,11 +4,11 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, postId) => {
-    validate.username(username)
+export default (userId, postId) => {
+    validate.string(userId)
     validate.string(postId, 'postId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
@@ -29,7 +29,7 @@ export default (username, postId) => {
                         post.likes.splice(index, 1)
                     }
 
-                    return Post.updateOne({ _id: postId }, { $set: { likes: post.likes } })
+                    return Post.findByIdAndUpdate(postId, { likes: post.likes })
                         .catch(error => { throw new SystemError(error.message) })
                         .then(() => {
                             const postIndex = user.likes.findIndex(id => id.toString() === postId)
@@ -40,7 +40,7 @@ export default (username, postId) => {
                                 user.likes.push(post._id)
                             }
 
-                            return User.updateOne({ username }, { $set: { likes: user.likes } })
+                            return User.findByIdAndUpdate(userId, { likes: user.likes })
                                 .catch(error => { throw new SystemError(error.message) })
                         })
                 })

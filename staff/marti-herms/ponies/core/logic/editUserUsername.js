@@ -6,8 +6,8 @@ import { validate, errors } from 'com'
 
 const { DuplicityError, NotFoundError, CredentialsError, SystemError } = errors
 
-export default (oldUsername, newUsername, password) => {
-    validate.username(oldUsername, 'oldUsername')
+export default (userId, newUsername, password) => {
+    validate.string(userId, 'userId')
     validate.username(newUsername, 'newUsername')
     validate.password(password)
 
@@ -17,7 +17,7 @@ export default (oldUsername, newUsername, password) => {
             if (user)
                 throw new DuplicityError('username already in use')
 
-            return User.findOne({ username: oldUsername }).lean()
+            return User.findById(userId).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(user => {
@@ -31,7 +31,7 @@ export default (oldUsername, newUsername, password) => {
             if (!match)
                 throw new CredentialsError('wrong password')
 
-            return User.updateOne({ username: oldUsername }, { $set: { username: newUsername } })
+            return User.findByIdAndUpdate(userId, { username: newUsername })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(() => { })

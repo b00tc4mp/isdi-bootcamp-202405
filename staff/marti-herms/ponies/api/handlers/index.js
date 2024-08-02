@@ -5,7 +5,6 @@ import getAllPostsHandler from './getAllPostsHandler.js'
 import getFollowedUserPostsHandler from './getFollowedUserPostsHandler.js'
 import getUserSavedPostsHandler from './getUserSavedPostsHandler.js'
 import getUserPostsHandler from './getUserPostsHandler.js'
-import getUserListHandler from './getUserListHandler.js'
 import getUserHandler from './getUserHandler.js'
 import createPostHandler from './createPostHandler.js'
 import deletePostHandler from './deletePostHandler.js'
@@ -24,7 +23,6 @@ export default {
     getFollowedUserPosts: getFollowedUserPostsHandler,
     getUserSavedPosts: getUserSavedPostsHandler,
     getUserPosts: getUserPostsHandler,
-    getUserList: getUserListHandler,
     getUser: getUserHandler,
     createPost: createPostHandler,
     deletePost: deletePostHandler,

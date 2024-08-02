@@ -1,30 +1,29 @@
 import { validate, errors } from 'com'
 
-export default (username, callback) => {
-    validate.username(username)
-    validate.callback(callback)
+const { SystemError } = errors
 
-    const xhr = new XMLHttpRequest
+export default (targetUserId) => {
+    validate.string(targetUserId)
 
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            const user = JSON.parse(xhr.response)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}`, {
+        headers: { Authorization: `Bearer ${sessionStorage.token}` }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-            callback(null, user)
+            if (status === 200) {
+                return response.json()
+                    .then(user => user)
+            }
 
-            return
-        }
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        const { error, message } = JSON.parse(xhr.response)
+                    const constructor = errors[error]
 
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('network error'))
-
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${username}`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send()
+                    throw new constructor(message)
+                })
+        })
 }

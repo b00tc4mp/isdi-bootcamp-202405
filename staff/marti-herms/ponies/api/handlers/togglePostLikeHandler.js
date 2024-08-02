@@ -1,12 +1,12 @@
 import { logic } from "core"
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
     const { postId } = req.params
 
     try {
-        logic.togglePostLike(username, postId)
+        logic.togglePostLike(userId, postId)
             .then(() => res.status(204).send())
             .catch(error => next(error))
     } catch (error) {

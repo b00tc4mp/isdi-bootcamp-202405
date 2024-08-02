@@ -1,12 +1,14 @@
 import { logic } from "core"
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
     const { newCaption } = req.body
 
+    const { postId } = req.params
+
     try {
-        logic.editPost(username, postId, newCaption)
+        logic.editPost(userId, postId, newCaption)
             .then(() => res.status(204).send())
             .catch(error => next(error))
     } catch (error) {

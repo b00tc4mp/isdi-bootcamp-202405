@@ -1,37 +1,33 @@
 import { validate, errors } from 'com'
 
+const { SystemError } = errors
+
 import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
 
-export default (newUsername, password, callback) => {
+export default (newUsername, password) => {
     validate.username(newUsername)
     validate.password(password)
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
+    const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
 
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            const token = JSON.parse(xhr.response)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/username`, {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${sessionStorage.token}` },
+        body: JSON.stringify({ newUsername, password })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-            sessionStorage.token = token
+            if (status === 204) return
 
-            callback(null)
+            return response.json()
+                .then(body => {
+                    const { error, message } = JSON.parse(body)
 
-            return
-        }
+                    const constructor = errors[error]
 
-        const { error, message } = JSON.parse(xhr.response)
-
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('network error'))
-
-    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/${username}/username`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send(JSON.stringify({ newUsername, password }))
+                    throw new constructor(message)
+                })
+        })
 }

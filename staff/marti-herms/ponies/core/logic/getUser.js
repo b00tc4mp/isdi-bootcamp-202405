@@ -4,18 +4,18 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, targetUsername) => {
-    validate.username(username)
-    validate.username(targetUsername, 'targetUsername')
+export default (userId, targetUserId) => {
+    validate.string(userId, 'userId')
+    validate.string(targetUserId, 'targetUserId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
                 throw new NotFoundError('user not found')
 
 
-            return User.findOne({ username: targetUsername }).lean()
+            return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(user => {

@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, handle.authenticateUser)
 
-        api.get('/users/:targetUsername/name', jwtVerifier, handle.getUserName)
+        api.get('/users/:targetUserId/name', jwtVerifier, handle.getUserName)
 
         api.get('/posts', jwtVerifier, handle.getAllPosts)
 
@@ -27,11 +27,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/posts/saved', jwtVerifier, handle.getUserSavedPosts)
 
-        api.get('/users/:targetUsername/posts', jwtVerifier, handle.getUserPosts)
+        api.get('/users/:targetUserId/posts', jwtVerifier, handle.getUserPosts)
 
-        api.get('/users/list', jwtVerifier, handle.getUserList)
-
-        api.get('/users/:targetUsername', jwtVerifier, handle.getUser)
+        api.get('/users/:targetUserId', jwtVerifier, handle.getUser)
 
         api.post('/posts', jsonBodyParser, jwtVerifier, handle.createPost)
 
@@ -41,13 +39,13 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/posts/:postId/saved', jwtVerifier, handle.toggleSavedPost)
 
-        api.patch('/posts/:targetUsername/follow', jwtVerifier, handle.toggleUserFollow)
+        api.patch('/posts/:targetUserId/follow', jwtVerifier, handle.toggleUserFollow)
 
         api.patch('/posts/:postId/caption', jwtVerifier, jsonBodyParser, handle.editPost)
 
-        api.patch('/users/:targetUsername/username', jwtVerifier, jsonBodyParser, handle.editUserUsername)
+        api.patch('/users/:targetUserId/username', jwtVerifier, jsonBodyParser, handle.editUserUsername)
 
-        api.patch('/users/:targetUsername/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
+        api.patch('/users/:targetUserId/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
 
         api.use(errorHandler)
 

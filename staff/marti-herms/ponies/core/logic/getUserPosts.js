@@ -4,17 +4,17 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, targetUsername) => {
-    validate.username(username)
-    validate.username(targetUsername, 'targetUsername')
+export default (userId, targetUserId) => {
+    validate.string(userId, 'userId')
+    validate.string(targetUserId, 'targetUserId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
                 throw new NotFoundError('user not found')
 
-            return User.findOne({ username: targetUsername }).lean()
+            return User.findById(targetUserId, { __v: 0 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(author => {
                     if (!author)
@@ -25,12 +25,13 @@ export default (username, targetUsername) => {
                         .then(posts => {
                             const promises = posts.map(post => {
                                 post.fav = author.favs.some(postObjectId => postObjectId._id.toString() === post._id.toString())
-                                post.like = post.likes.some(userObjectId => userObjectId._id.toString() === user._id.toString())
+                                post.like = post.likes.some(userObjectId => userObjectId._id.toString() === userId)
 
                                 post.id = post._id.toString()
                                 delete post._id
 
                                 post.author = {
+                                    id: author.id,
                                     username: author.username,
                                     avatar: author.avatar,
                                     following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())

@@ -7,23 +7,17 @@ import { errors } from 'com'
 const { SessionError } = errors
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
     const { newUsername, password } = req.body
 
+    const { targetUserId } = req.params
+
     try {
-        logic.editUserUsername(username, newUsername, password)
-            .then(() => {
-                jwt.sign({ sub: newUsername }, process.env.JWT_SECRET, (error, token) => {
-                    if (error) {
-                        next(new SessionError(error.message))
+        if (userId !== targetUserId) throw new Error('not authorized')
 
-                        return
-                    }
-
-                    res.json(token)
-                })
-            })
+        logic.editUserUsername(userId, newUsername, password)
+            .then(() => res.status(204).send())
             .catch(error => next(error))
     } catch (error) {
         next(error)

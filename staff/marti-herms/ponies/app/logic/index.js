@@ -4,11 +4,10 @@ import editPost from './editPost.js'
 import getAllPosts from './getAllPosts.js'
 import getFollowedUserPosts from './getFollowedUserPosts.js'
 import getUser from './getUser.js'
-import getUserList from './getUserList.js'
 import getUserName from './getUserName.js'
 import getUserSavedPosts from './getUserSavedPosts.js'
 import getUserPosts from './getUserPosts.js'
-import getUserUsername from './getUserUsername.js'
+import getUserId from './getUserId.js'
 import loginUser from './loginUser.js'
 import logoutUser from './logoutUser.js'
 import registerUser from './registerUser.js'
@@ -28,11 +27,10 @@ const logic = {
     getAllPosts,
     getFollowedUserPosts,
     getUser,
-    getUserList,
     getUserName,
     getUserSavedPosts,
     getUserPosts,
-    getUserUsername,
+    getUserId,
     loginUser,
     logoutUser,
     registerUser,

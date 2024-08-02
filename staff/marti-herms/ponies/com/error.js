@@ -46,22 +46,6 @@ class CredentialsError extends Error {
     }
 }
 
-class OutOfBoundsError extends Error {
-    constructor(message) {
-        super(message)
-
-        this.name = this.constructor.name
-    }
-}
-
-class CorruptedInfoError extends Error {
-    constructor(message) {
-        super(message)
-
-        this.name = this.constructor.name
-    }
-}
-
 class SessionError extends Error {
     constructor(message) {
         super(message)
@@ -77,8 +61,6 @@ const errors = {
     SystemError,
     OwnershipError,
     CredentialsError,
-    OutOfBoundsError,
-    CorruptedInfoError,
     SessionError
 }
 

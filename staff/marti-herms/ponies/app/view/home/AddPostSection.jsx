@@ -20,17 +20,13 @@ const AddPostSection = ({ onPostCreated, onCancel }) => {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption, (error) => {
-                if (error) {
+            logic.createPost(postImage, postCaption)
+                .then(() => onPostCreated())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostCreated()
-            })
+                })
         } catch (error) {
             console.error(error)
 

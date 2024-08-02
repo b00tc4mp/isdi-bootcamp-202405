@@ -10,18 +10,17 @@ const SaveButton = ({ post, onSaveClicked }) => {
 
     const handleSave = () => {
         try {
-            logic.toggleSavedPost(post.id, (error) => {
-                if (error) {
+            logic.toggleSavedPost(post.id)
+                .then(() => {
+                    setSaved(!saved)
+
+                    onSaveClicked()
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-                setSaved(!saved)
-
-                onSaveClicked()
-            })
+                })
         } catch (error) {
             console.error(error)
 

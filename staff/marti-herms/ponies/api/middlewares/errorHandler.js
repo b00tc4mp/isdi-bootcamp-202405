@@ -1,6 +1,6 @@
 import { errors } from "com"
 
-const { NotFoundError, CredentialsError, OwnershipError, OutOfBoundsError, DuplicityError, SessionError, ValidationError } = errors
+const { NotFoundError, CredentialsError, OwnershipError, DuplicityError, SessionError, ValidationError } = errors
 
 export default (error, req, res, next) => {
     let status = 500
@@ -11,7 +11,7 @@ export default (error, req, res, next) => {
     else if (error instanceof CredentialsError || error instanceof DuplicityError)
         status = 409
 
-    else if (error instanceof OwnershipError || error instanceof OutOfBoundsError)
+    else if (error instanceof OwnershipError)
         status = 403
 
     else if (error instanceof ValidationError)
@@ -21,6 +21,4 @@ export default (error, req, res, next) => {
         status = 498
 
     res.status(status).json({ error: error.constructor.name, message: error.message })
-
-    return
 }

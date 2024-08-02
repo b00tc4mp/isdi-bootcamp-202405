@@ -4,18 +4,18 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, newAvatar) => {
-    validate.username(username)
+export default (userId, newAvatar) => {
+    validate.string(userId, 'userId')
     validate.string(newAvatar, 'avatar')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
                 throw new NotFoundError('user not found')
 
 
-            return User.updateOne({ username }, { $set: { avatar: newAvatar } })
+            return User.findByIdAndUpdate(userId, { avatar: newAvatar })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(() => { })

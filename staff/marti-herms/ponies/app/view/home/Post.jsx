@@ -24,22 +24,18 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
     const [editMode, setEditMode] = useState(false)
 
     const handleUserProfile = () => {
-        onUserClick(post.author.username)
+        onUserClick(post.author.id)
     }
 
     const handleFollowButton = () => {
         try {
-            logic.toggleUserFollow(post.author.username, (error) => {
-                if (error) {
+            logic.toggleUserFollow(post.author.username)
+                .then(() => onFollow())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onFollow()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -50,17 +46,13 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
     const handleDeleteButton = () => {
         if (confirm('Delete Post?')) {
             try {
-                logic.deletePosts(post.id, (error) => {
-                    if (error) {
+                logic.deletePosts(post.id)
+                    .then(() => onPostDeleted())
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    onPostDeleted()
-                })
+                    })
             } catch (error) {
                 console.error(error)
 
@@ -90,18 +82,17 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
         const captionEditInput = form['caption-edit-input']
 
         try {
-            logic.editPost(post.id, captionEditInput.value, (error) => {
-                if (error) {
+            logic.editPost(post.id, captionEditInput.value)
+                .then(() => {
+                    setEditMode(false)
+
+                    onPostEdited()
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-                setEditMode(false)
-
-                onPostEdited()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -130,7 +121,7 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
                 <Avatar url={post.author.avatar} />
                 <Heading level="4">{post.author.username}</Heading>
             </Button>
-            {post.author.username !== logic.getUserUsername() && <Button onClick={handleFollowButton}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>}
+            {post.author.id !== logic.getUserId() && <Button onClick={handleFollowButton}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>}
         </Container>
         <Image src={post.img} alt={post.caption} title={post.caption} />
         <Container className="Container--actions">
@@ -141,7 +132,7 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
         <Paragraph className="Paragraph--likes">{post.likes.length + ' like' + (post.likes.length !== 1 ? 's' : '')}</Paragraph>
         <Paragraph>{post.caption}</Paragraph>
         {
-            post.author.username === logic.getUserUsername() && <Container className='Container--options'>
+            post.author.id === logic.getUserId() && <Container className='Container--options'>
                 <Container className='Container--row Container--start'>
                     <Button onClick={handleDeleteButton}>Delete</Button>
                     <Button onClick={handleEditButton}>Edit</Button>

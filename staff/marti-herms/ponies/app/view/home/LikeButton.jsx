@@ -7,17 +7,13 @@ import './LikeButton.css'
 const LikeButton = ({ post, onLikeClicked }) => {
     const handleLike = () => {
         try {
-            logic.togglePostLike(post.id, (error) => {
-                if (error) {
+            logic.togglePostLike(post.id)
+                .then(() => onLikeClicked())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onLikeClicked()
-            })
+                })
         } catch (error) {
             console.error(error)
 

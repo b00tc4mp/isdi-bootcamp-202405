@@ -33,18 +33,17 @@ const Profile = ({ user, onChange }) => {
             const usernameInput = form["new-username"]
             const passwordInput = form["password"]
 
-            logic.editUserUsername(usernameInput.value, passwordInput.value, (error) => {
-                if (error) {
+            logic.editUserUsername(usernameInput.value, passwordInput.value)
+                .then(() => {
+                    onChange(user.id)
+
+                    setEditUsernameVisibility(false)
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-                onChange(usernameInput.value)
-
-                setEditUsernameVisibility(false)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -59,20 +58,19 @@ const Profile = ({ user, onChange }) => {
 
             const avatarInput = form["new-avatar"]
 
-            logic.editUserAvatar(avatarInput.value, (error) => {
-                if (error) {
+            logic.editUserAvatar(avatarInput.value)
+                .then(() => {
+                    user.avatar = avatarInput.value
+
+                    onChange(user.id)
+
+                    setEditAvatarVisibility(false)
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-                user.avatar = avatarInput.value
-
-                onChange(user.username)
-
-                setEditAvatarVisibility(false)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -95,7 +93,7 @@ const Profile = ({ user, onChange }) => {
             <Paragraph className="Paragraph--center">{user.followers.length + ' followers'}</Paragraph>
             <Paragraph className="Paragraph--center">{user.following.length + ' followed'}</Paragraph>
         </Container>
-        {user.username === logic.getUserUsername() && <Container className='Container--options'>
+        {user.id === logic.getUserId() && <Container className='Container--options'>
             <Button onClick={handleEditUsernameClick}>Edit Username</Button>
             <Button onClick={handleEditAvatarClick}>Edit Avatar</Button>
         </Container>}

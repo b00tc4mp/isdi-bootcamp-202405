@@ -2,34 +2,27 @@ import { User } from '../data/models.js'
 
 import { validate, errors } from 'com'
 
-const { NotFoundError, OutOfBoundsError, SystemError, CorruptedInfoError } = errors
+const { NotFoundError, SystemError, CorruptedInfoError } = errors
 
-export default (username, targetUsername) => {
-    validate.username(username)
-    validate.username(targetUsername, 'targetUsername')
+export default (userId, targetUserId) => {
+    validate.string(userId, 'userId')
+    validate.string(targetUserId, 'targetUserId')
 
-    return User.findOne({ username })
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
                 throw new NotFoundError('user not found')
 
-            if (user.username === targetUsername)
-                throw new OutOfBoundsError('tried following yourself')
-
-            return User.findOne({ username: targetUsername }).lean()
+            return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(targetUser => {
                     if (!targetUser)
                         throw new NotFoundError('targetUser not found')
 
-                    const followingIndex = user.following.findIndex(userObjectId => userObjectId.toString() === targetUser._id.toString())
+                    const followingIndex = user.following.findIndex(userObjectId => userObjectId.toString() === targetUserId)
 
-                    const followerIndex = targetUser.followers.findIndex(userObjectId => userObjectId.toString() === user._id.toString())
-
-                    if ((followingIndex === -1 && followerIndex !== -1) || (followerIndex === -1 && followingIndex !== -1))
-                        throw new CorruptedInfoError('wrong saved information')
-
+                    const followerIndex = targetUser.followers.findIndex(userObjectId => userObjectId.toString() === userId)
 
                     if (followingIndex !== -1) {
                         user.following.splice(followingIndex, 1)
@@ -43,10 +36,10 @@ export default (username, targetUsername) => {
                         targetUser.followers.push(user._id)
                     }
 
-                    return User.updateOne({ username }, { $set: { following: user.following } })
+                    return User.findByIdAndUpdate(userId, { following: user.following })
                         .catch(error => { throw new SystemError(error.message) })
                         .then(() => {
-                            return User.updateOne({ username: targetUsername }, { $set: { followers: targetUser.followers } })
+                            return User.findByIdAndUpdate(targetUserId, { followers: targetUser.followers })
                                 .catch(error => { throw new SystemError(error.message) })
                         })
                 })

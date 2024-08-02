@@ -59,32 +59,6 @@
     background-color: white;
 }
 
-
-/** search button **/
-.Button--search {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 0;
-    background-repeat: no-repeat;
-    background-color: inherit;
-    background-image: radial-gradient(circle at center, transparent 0 30%, white 30% 50%, transparent 50% 100%),
-        linear-gradient(145deg, #321cfe 0 70%, transparent 70% 85%, #1d10fe 85% 100%),
-        linear-gradient(55deg, transparent 0 45%, white 45% 55%, transparent 55% 100%);
-}
-
-.Button--search--active {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 0;
-    background-repeat: no-repeat;
-    background-color: inherit;
-    background-image: radial-gradient(circle at center, transparent 0 30%, rgb(59 59 59) 30% 50%, transparent 50% 100%),
-        linear-gradient(145deg, #321cfe 0 70%, transparent 70% 85%, #1d10fe 85% 100%),
-        linear-gradient(55deg, transparent 0 45%, rgb(59 59 59) 45% 55%, transparent 55% 100%);
-}
-
 /** add-post button **/
 .Button--add--post {
     margin: 5px;

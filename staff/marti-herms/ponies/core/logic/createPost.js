@@ -4,11 +4,11 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, img, caption) => {
-    validate.username(username)
+export default (userId, img, caption) => {
+    validate.string(userId, 'userId')
     validate.string(img, 'img')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
@@ -17,13 +17,13 @@ export default (username, img, caption) => {
             return Post.create({
                 img,
                 caption,
-                author: user._id
+                author: userId
             })
                 .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
                     user.posts.push(post._id)
 
-                    return User.updateOne({ username }, { $set: { posts: user.posts } })
+                    return User.findByIdAndUpdate(userId, { posts: user.posts })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

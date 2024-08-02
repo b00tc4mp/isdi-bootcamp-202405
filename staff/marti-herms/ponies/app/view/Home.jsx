@@ -14,9 +14,9 @@ const Home = ({ onLogout }) => {
         setFeed('home')
     }
 
-    const handleSearchUser = (username) => {
+    const handleSearchUser = (userId) => {
         setRefreshStamp(Date.now())
-        setFeed(username)
+        setFeed(userId)
     }
 
     const handlePostCreatedOrCanceled = () => {
@@ -42,7 +42,6 @@ const Home = ({ onLogout }) => {
         <Body refreshStamp={refreshStamp} feed={feed} onProfile={handleSearchUser} onFollow={handleUserFollow} />
 
         <Footer onHomeButtonClick={handleHomeFeed}
-            onSearch={handleSearchUser}
             onPostCreated={handlePostCreatedOrCanceled}
             onFollowedButtonClick={handleFollowedFeed}
             onSavedPostsButtonClick={handleSavedPostsFeed} />

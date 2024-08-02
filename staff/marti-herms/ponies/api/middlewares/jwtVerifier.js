@@ -10,9 +10,9 @@ export default (req, res, next) => {
             res.status(498).json({ error: SessionError.name, message: error.message })
         }
 
-        const { sub: username } = payload
+        const { sub: userId } = payload
 
-        req.username = username
+        req.userId = userId
 
         next()
     })

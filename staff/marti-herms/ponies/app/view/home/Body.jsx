@@ -11,80 +11,58 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
 
     useEffect(() => {
         try {
+            const userId = logic.getUserId()
+
             if (!user) {
-                logic.getUser(logic.getUserUsername(), (error, user) => {
-                    if (error) {
+                logic.getUser(userId)
+                    .then(user => setUser(user))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setUser(user)
-                })
-            } else if (user.username !== feed) {
-                logic.getUser((feed === 'home' || feed === 'saved' || feed === 'followed') ? logic.getUserUsername() : feed, (error, user) => {
-                    if (error) {
+                    })
+            } else if (user.id !== feed) {
+                logic.getUser((feed === 'home' || feed === 'saved' || feed === 'followed') ? userId : feed)
+                    .then(user => setUser(user))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setUser(user)
-                })
+                    })
             }
 
             if (feed === 'home') {
-                logic.getAllPosts((error, posts) => {
-                    if (error) {
+                logic.getAllPosts()
+                    .then(posts => setPosts(posts))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
+                    })
             } else if (feed === 'saved') {
-                logic.getUserSavedPosts((error, posts) => {
-                    if (error) {
+                logic.getUserSavedPosts()
+                    .then(posts => setPosts(posts))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
+                    })
             } else if (feed === 'followed') {
-                logic.getFollowedUserPosts((error, posts) => {
-                    if (error) {
+                logic.getFollowedUserPosts()
+                    .then(posts => setPosts(posts))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
+                    })
             } else {
-                logic.getUserPosts(feed, (error, posts) => {
-                    if (error) {
+                logic.getUserPosts(feed)
+                    .then(posts => setPosts(posts))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
+                    })
             }
         } catch (error) {
             console.error(error)
@@ -93,9 +71,9 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
         }
     }, [refreshStamp, feed])
 
-    const handleUserProfile = (username) => {
+    const handleUserProfile = (userId) => {
         try {
-            onProfile(username)
+            onProfile(userId)
         } catch (error) {
             console.error(error)
 
@@ -104,60 +82,23 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
     }
 
     const handleDeletedPost = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        refreshPosts()
     }
 
     const handlePostLiked = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        refreshPosts()
     }
 
     const handlePostSaved = () => {
         if (feed === 'saved') {
             try {
-                logic.getUserSavedPosts((error, posts) => {
-                    if (error) {
+                logic.getUserSavedPosts()
+                    .then(posts => setPosts(posts))
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    setPosts(posts)
-                })
-
+                    })
             } catch (error) {
                 console.error(error)
 
@@ -167,23 +108,7 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
     }
 
     const handlePostEdited = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        refreshPosts()
     }
 
     const handleUserFollowed = () => {
@@ -196,8 +121,24 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
         }
     }
 
+    const refreshPosts = () => {
+        try {
+            logic.getAllPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     return <main className="View--home">
-        {user && user.username === feed && <Profile user={user} onChange={handleUserProfile} />}
+        {user && user.id === feed && <Profile user={user} onChange={handleUserProfile} />}
         <section className="Post-list">
             {posts.map(post => <Post key={post.id} post={post}
                 onUserClick={handleUserProfile}

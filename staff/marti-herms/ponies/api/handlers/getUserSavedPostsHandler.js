@@ -1,10 +1,10 @@
 import { logic } from "core"
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
     try {
-        logic.getUserSavedPosts(username)
+        logic.getUserSavedPosts(userId)
             .then(posts => res.json(posts))
             .catch(error => next(error))
     } catch (error) {

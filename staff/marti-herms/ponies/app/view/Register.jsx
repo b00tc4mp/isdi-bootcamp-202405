@@ -31,18 +31,17 @@ const Register = ({ onRegister, onLoginClick }) => {
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat, (error) => {
-                if (error) {
+            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+                .then(() => {
+                    alert('user succesfully registered')
+
+                    onRegister()
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-                alert('user succesfully registered')
-
-                onRegister()
-            })
+                })
         } catch (error) {
             console.error(error)
 

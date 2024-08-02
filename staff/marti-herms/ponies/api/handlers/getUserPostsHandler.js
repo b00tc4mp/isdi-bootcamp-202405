@@ -1,12 +1,12 @@
 import { logic } from "core"
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
-    const { targetUsername } = req.params
+    const { targetUserId } = req.params
 
     try {
-        logic.getUserPosts(username, targetUsername)
+        logic.getUserPosts(userId, targetUserId)
             .then(posts => res.json(posts))
             .catch(error => next(error))
     } catch (error) {

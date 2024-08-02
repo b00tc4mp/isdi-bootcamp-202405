@@ -4,10 +4,10 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username) => {
-    validate.username(username)
+export default (userId) => {
+    validate.string(userId)
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
@@ -23,10 +23,11 @@ export default (username) => {
                         post.id = post._id.toString()
                         delete post._id
 
-                        return User.findOne({ _id: post.author })
+                        return User.findById(post.author)
                             .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
                                 post.author = {
+                                    id: author.id,
                                     username: author.username,
                                     avatar: author.avatar,
                                     following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())

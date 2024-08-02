@@ -10,8 +10,8 @@ export default (req, res, next) => {
 
     try {
         logic.authenticateUser(username, password)
-            .then(() => {
-                jwt.sign({ sub: username }, process.env.JWT_SECRET, (error, token) => {
+            .then(userId => {
+                jwt.sign({ sub: userId }, process.env.JWT_SECRET, (error, token) => {
                     if (error) {
                         next(new SessionError(error.message))
 

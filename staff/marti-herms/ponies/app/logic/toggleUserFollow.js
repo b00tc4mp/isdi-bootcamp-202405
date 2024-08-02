@@ -1,28 +1,27 @@
 import { validate, errors } from 'com'
 
-export default (author, callback) => {
-    validate.username(author, 'author')
-    validate.callback(callback)
+const { SystemError } = errors
 
-    const xhr = new XMLHttpRequest
+export default (userId) => {
+    validate.string(userId, 'userId')
 
-    xhr.onload = () => {
-        if (xhr.status === 204) {
-            callback(null)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${userId}/follow`, {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${sessionStorage.token}` }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-            return
-        }
+            if (status === 204) return
 
-        const { error, message } = JSON.parse(xhr.response)
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        const constructor = errors[error]
+                    const constructor = errors[error]
 
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('network error'))
-
-    xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/posts/${author}/follow`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send()
+                    throw new constructor(message)
+                })
+        })
 }

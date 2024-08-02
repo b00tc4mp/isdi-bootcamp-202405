@@ -5,11 +5,11 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, postId) => {
-    validate.username(username)
+export default (userId, postId) => {
+    validate.string(userId)
     validate.string(postId, 'postId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
@@ -29,7 +29,7 @@ export default (username, postId) => {
                         user.favs.push(post._id)
                     }
 
-                    return User.updateOne({ username }, { $set: { favs: user.favs } })
+                    return User.findByIdAndUpdate(userId, { favs: user.favs })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

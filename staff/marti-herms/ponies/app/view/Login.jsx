@@ -27,22 +27,16 @@ const Login = ({ onLogin, onRegisterClick }) => {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password, (error) => {
-                if (error) {
-                    console.error(error)
-
+            logic.loginUser(username, password)
+                .then(() => onLogin())
+                .catch(error => {
                     let message = error.message
 
                     if (error instanceof NotFoundError || error instanceof CredentialsError)
                         message = 'incorrect username and/or password'
 
                     alert(message)
-
-                    return
-                }
-
-                onLogin()
-            })
+                })
         } catch (error) {
             console.error(error)
 

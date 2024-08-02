@@ -1,4 +1,6 @@
-import { Schema, model, ObjectId } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
+
+const { ObjectId } = Types
 
 const user = new Schema({
     name: {
@@ -30,23 +32,28 @@ const user = new Schema({
     },
     posts: {
         type: [ObjectId],
-        default: []
+        default: [],
+        ref: 'Post'
     },
     likes: {
         type: [ObjectId],
-        default: []
+        default: [],
+        ref: 'Post'
     },
     favs: {
         type: [ObjectId],
-        default: []
+        default: [],
+        ref: 'Post'
     },
     followers: {
         type: [ObjectId],
-        default: []
+        default: [],
+        ref: 'User'
     },
     following: {
         type: [ObjectId],
-        default: []
+        default: [],
+        ref: 'User'
     }
 })
 
@@ -61,7 +68,8 @@ const post = new Schema({
     },
     author: {
         type: ObjectId,
-        required: true
+        required: true,
+        ref: 'User'
     },
     date: {
         type: Date,
@@ -70,7 +78,8 @@ const post = new Schema({
     },
     likes: {
         type: [ObjectId],
-        default: []
+        default: [],
+        ref: 'User'
     }
 })
 
