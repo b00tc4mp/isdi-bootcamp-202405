@@ -2,10 +2,10 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default username => {
-    validate.username(username)
+export default targetUserId => {
+    validate.string(targetUserId, 'targetUserId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${username}/follows`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}/follows`, {
         method: 'PATCH',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
