@@ -1,6 +1,4 @@
-import { Schema, model, Types } from 'mongoose'
-
-const { ObjectId } = Types
+import { Schema, model, ObjectId } from 'mongoose'
 
 const user = new Schema({
     name: {
@@ -31,20 +29,17 @@ const user = new Schema({
         default: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
     },
     following: {
-        type: [ObjectId],
-        ref: 'User'
+        type: [String]
     },
     favs: {
-        type: [ObjectId],
-        ref: 'Post'
+        type: [ObjectId]
     }
 })
 
 const post = new Schema({
     author: {
-        type: ObjectId,
-        required: true,
-        ref: 'User'
+        type: String,
+        required: true
     },
     image: {
         type: String,
@@ -59,8 +54,7 @@ const post = new Schema({
         default: Date.now
     },
     likes: {
-        type: [ObjectId],
-        ref: 'User'
+        type: [String]
     }
 })
 

@@ -4,12 +4,12 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId, image, caption) => {
-    validate.string(userId, 'userId')
+export default (username, image, caption) => {
+    validate.username(username)
     validate.url(image, 'image')
     validate.string(caption, 'caption')
 
-    return User.findById(userId).lean()
+    return User.findOne({ username }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
@@ -17,7 +17,7 @@ export default (userId, image, caption) => {
             return Post.create({
                 image,
                 caption,
-                author: userId
+                author: username
             })
                 .catch(error => { throw new SystemError(error.message) })
         })

@@ -1,10 +1,10 @@
 import 'dotenv/config'
-import authenticateUser from './authenticateUser.js'
-
+import toggleLikePost from './toggleLikePost.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => authenticateUser('musa', '123123123'))
-    .then(userId => console.log('user authenticated', userId))
+    .then(() => toggleLikePost('musa', '66a22c2d256603d7c5014e9c'))
+    .then(() => console.log('post like toggled'))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())
+

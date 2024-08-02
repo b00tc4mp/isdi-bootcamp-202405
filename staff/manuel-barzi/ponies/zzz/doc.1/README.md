@@ -58,12 +58,12 @@ User
 - password (string)
 - avatar (string)
 - favs ([Post.id])
-- following ([User.id])
+- following ([User.username])
 
 Post
 - id (string)
-- author (User.id)
+- author (User.username)
 - image (string)
 - caption (string)
 - date (Date)
-- likes ([User.id])
+- likes ([User.username])

@@ -1,10 +1,10 @@
 import 'dotenv/config'
-import authenticateUser from './authenticateUser.js'
-
+import toggleFollowUser from './toggleFollowUser.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => authenticateUser('musa', '123123123'))
-    .then(userId => console.log('user authenticated', userId))
+    .then(() => toggleFollowUser('musa', 'samu'))
+    .then(() => console.log('user follow toggled'))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())
+

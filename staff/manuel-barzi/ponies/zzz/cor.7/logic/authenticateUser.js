@@ -21,8 +21,6 @@ export default (username, password) => {
                 .then(match => {
                     if (!match)
                         throw new CredentialsError('wrong password')
-
-                    return user._id.toString()
                 })
         })
 }
