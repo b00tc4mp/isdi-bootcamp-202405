@@ -2,7 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-const toggleLikePost = postId => {
+export default postId => {
     validate.string(postId, 'postId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, {
@@ -27,5 +27,3 @@ const toggleLikePost = postId => {
                 })
         })
 }
-
-export default toggleLikePost
