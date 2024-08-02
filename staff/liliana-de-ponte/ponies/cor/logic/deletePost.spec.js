@@ -7,56 +7,33 @@ import { User, Post } from '../data/models.js'
 
 import { errors } from 'com/index.js'
 
-const { ValidationError, DuplicityError } = errors
+const { ValidationError } = errors
 
 describe('deletePost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(Error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() =>
+        Promise.all([User.deleteMany(), Post.deleteMany()])
+    )
 
-    it('succeeds on delete post', done => {
+    it('succeeds on delete post', () =>
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() => {
+            .then(() =>
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
-                    .then(post => {
-                        deletePost('samuspine', post.id, error => {
-                            if (error) {
-                                console.error(error)
+                    .then(post =>
+                        deletePost('samuspine', post.id)
+                            .then(post => Post.findById(post.id))
+                            .then(post => expect(post).to.be.null)
 
-                                return
-                            }
-
-                            Post.findById(post.id)
-                                .then(post => {
-                                    expect(post).to.be.null
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+                    )
+            )
+    )
 
     it('fails on invalid username', () => {
         let error
 
         try {
-            deletePost('', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', error => { })
+            deletePost('', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
         } catch (_error) {
             error = _error
         } finally {
@@ -68,7 +45,7 @@ describe('deletePost', () => {
     it('fails on non-string postId', () => {
         let error
         try {
-            deletePost('samuspine', 123, error => { })
+            deletePost('samuspine', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -77,24 +54,10 @@ describe('deletePost', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    after(() => mongoose.disconnect())
 
-        try {
-            deletePost('samuspine', 'dhjshjd678', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
 })
+
 
 
 

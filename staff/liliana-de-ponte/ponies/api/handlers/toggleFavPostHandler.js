@@ -6,15 +6,10 @@ export default (req, res, next) => {
     const { postId } = req.params
 
     try {
-        logic.toggleFavPost(username, postId, error => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        debugger
+        logic.toggleFavPost(username, postId)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

@@ -8,77 +8,59 @@ import { User } from '../data/models.js'
 import { errors } from '../../com/index.js'
 
 
-const { ValidationError, NotFoundError, DuplicityError } = errors
+const { ValidationError } = errors
 
 describe('toggleFollowUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() =>
+        Promise.all([User.deleteMany(), Post.deleteMany()])
+    )
 
-    it('succeeds on existing user and targetUser with no follow', done => {
+    it('succeeds on existing user and targetUser with no follow', () =>
         User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
-            .then(() => {
+            .then(() =>
                 User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-                    .then(() => {
-                        toggleFollowUser('lilideponte', 'samuspine', error => {
-                            if (error) {
-                                console.error(error)
+                    .then(() =>
+                        toggleFollowUser('lilideponte', 'samuspine')
+                            .then(() => User.findOne({ username: 'lilideponte' }).lean())
+                            .then(user => expect(user.following).to.include('samuspine'))
 
-                                return
-                            }
+                    )
+            )
+    )
 
-                            User.findOne({ username: 'lilideponte' }).lean()
-                                .then(user => {
-                                    expect(user.following).to.include('samuspine')
+    it('fails on non-existing user', () => {
+        let _error
 
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
+        return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(() => toggleFollowUser('lilideponte', 'samuspine')
+                .catch(error => _error = error)
+                .finally(() => {
+                    expect(error).to.be.instanceOf(NotFoundError)
+                    expect(error.message).to.equal('User not found')
+
+                })
+            )
     })
 
-    // it('fails on non-existing user', () => {
-    //     User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-    //         .then(() => {
-    //             toggleFollowUser('lilideponte', 'samuspine', error => {
-    //                 expect(error).to.be.instanceOf(NotFoundError)
-    //                 expect(error.message).to.equal('User not found')
+    it('fails on non-existing targetUser', () => {
+        let _error
 
-    //             })
-    //         })
-    //         .catch(error => done(error))
-    // })
-
-    // it('fails on non-existing targetUser', done => {
-    //     User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
-    //         .then(() => {
-    //             toggleFollowUser('lilideponte', 'samuspine', error => {
-    //                 expect(error).to.be.instanceOf(NotFoundError)
-    //                 expect(error.message).to.equal('TargetUser not found')
-
-    //                 done()
-    //             })
-    //         })
-    //         .catch(error => done(error))
-    // })
+        return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
+            .then(() => toggleFollowUser('lilideponte', 'samuspine'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('TargetUser not found')
+            })
+    })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            toggleFollowUser(123, 'lilideponte', error => { })
+            toggleFollowUser(123, 'lilideponte')
         } catch (_error) {
             error = _error
         } finally {
@@ -91,7 +73,7 @@ describe('toggleFollowUser', () => {
         let error
 
         try {
-            toggleFollowUser('', 'lilideponte', error => { })
+            toggleFollowUser('', 'lilideponte')
         } catch (_error) {
             error = _error
         } finally {
@@ -104,7 +86,7 @@ describe('toggleFollowUser', () => {
         let error
 
         try {
-            toggleFollowUser('samuspine', 123, error => { })
+            toggleFollowUser('samuspine', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -117,7 +99,7 @@ describe('toggleFollowUser', () => {
         let error
 
         try {
-            toggleFollowUser('samuspine', '', error => { })
+            toggleFollowUser('samuspine', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -126,29 +108,9 @@ describe('toggleFollowUser', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            toggleFollowUser('samuspine', 'lilideponte', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 
 })
+

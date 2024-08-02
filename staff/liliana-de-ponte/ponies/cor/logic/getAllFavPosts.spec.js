@@ -7,67 +7,44 @@ import { User, Post } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { ValidationError, NotFoundError, DuplicityError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('getAllFavPost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(Error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() =>
+        Promise.all([User.deleteMany(), Post.deleteMany()])
+    )
 
-    if ('succeeds on existing user', done => {
+    if ('succeeds on existing user', () =>
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user => {
-                Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
-                    .then(() => {
-                        getAllFavPost('samuspine', error => {
-                            if (error) {
-                                console.error(error)
+            .then(() =>
+                Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' }))
+            .then(() =>
+                getAllFavPost('samuspine')
+                    .then(() => User.findOne({ username: 'samuspine' }))
+                    .then(user => expect(user.favs).to.include(post.id)
+                    )
+            )
+    )
 
-                                return
-                            }
+        it('fails on non-existing user', () => {
+            let _error
 
-                            User.findOne({ username: 'samuspine' })
-                                .then(user => {
-                                    expect(user.favs).to.include(post.id)
+            return getAllFavPost('lilideponte')
+                .catch(error => _error = error)
+                .finally(() => {
+                    expect(_error).to.be.instanceOf(NotFoundError)
+                    expect(_error.message).to.equal('user not found')
 
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-
-        it('fails on non-existing user', done => {
-            getAllFavPost('lilideponte', error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
-
-                done()
-            })
+                })
         })
-
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            getAllFavPost(123, error => { })
+            getAllFavPost(123)
         } catch (_error) {
             error = _error
         } finally {
@@ -80,7 +57,7 @@ describe('getAllFavPost', () => {
         let error
 
         try {
-            getAllFavPost('', error => { })
+            getAllFavPost('')
         } catch (_error) {
             error = _error
         } finally {
@@ -89,34 +66,10 @@ describe('getAllFavPost', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            getAllFavPost('samuspine', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })
+
 
 

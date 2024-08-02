@@ -11,7 +11,6 @@ import Container from './components/Container'
 function Register({ onRegister, onLoginClick }) {
     console.debug('Register -> call')
 
-
     const handleRegisterSubmit = event => {
         console.debug('Register -> handleRegisterSubmit')
 
@@ -34,20 +33,14 @@ function Register({ onRegister, onLoginClick }) {
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
-                if (error) {
+            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+                .then(() => onRegister())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
 
-                    return
-                }
-
-                alert('user successfully registered')
-
-                onRegister()
-
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -62,6 +55,7 @@ function Register({ onRegister, onLoginClick }) {
 
         onLoginClick()
     }
+
     return <main className="view">
         <Heading>Register</Heading>
 

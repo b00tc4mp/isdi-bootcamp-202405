@@ -10,64 +10,43 @@ import { errors } from '../../com/index.js'
 const { ValidationError, NotFoundError } = errors
 
 describe('getAllPoniesPost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(Error))
-            })
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    if ('succeeds on existing user', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user => {
+    beforeEach(() =>
+        Promise.all([User.deleteMany(), Post.deleteMany()])
+    )
+
+    it('succeeds on existing user', () =>
+        User.create({ name: 'Samu', surname: 'Spine∫', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(user =>
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
-                    .then(() => {
-                        getAllPoniesPost('samuspine', error => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-
-                            User.findOne({ username: 'samuspine' })
-                                .then((user, post) => {
-                                    expect(user.following).to.include(post.author)
-
-                                    done()
-                                })
-                                .catch(error => done(error))
+                    .then(() => getAllPoniesPost('samuspine')
+                        .then(posts => {
+                            return User.findOne({ username: 'samuspine' })
+                                .then(() => expect(posts).to.be.an('array'))
                         })
-                    })
-                    .catch(error => done(error))
+                    )
+            )
+    )
+
+    it('fails on non-existing user', () => {
+        let _error
+
+        return getAllPoniesPost('lilideponte')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .catch(error => done(error))
     })
-
-
-        it('fails on non-existing user', done => {
-            getAllPoniesPost('lilideponte', error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
-
-                done()
-            })
-        })
 
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            getAllPoniesPost(123, error => { })
+            getAllPoniesPost(123)
         } catch (_error) {
             error = _error
         } finally {
@@ -80,7 +59,7 @@ describe('getAllPoniesPost', () => {
         let error
 
         try {
-            getAllPoniesPost('', error => { })
+            getAllPoniesPost('')
         } catch (_error) {
             error = _error
         } finally {
@@ -89,34 +68,9 @@ describe('getAllPoniesPost', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
 
-        try {
-            getAllPoniesPost('samuspine', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
+    afterEach(() => User.deleteMany())
 
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })
-
 

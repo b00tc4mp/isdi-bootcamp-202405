@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/posts/:postId', jwtVerifier, deletePostHandler)
 
         api.patch('/posts/:postId/likes', jwtVerifier, toggleLikePostHandler)
-
+        debugger
         api.patch('/posts/:postId/favs', jwtVerifier, toggleFavPostHandler)
 
         api.patch('/users/:targetUsername/follows', jwtVerifier, toggleFollowUserHandler)

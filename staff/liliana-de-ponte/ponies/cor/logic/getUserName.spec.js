@@ -7,74 +7,46 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { ValidationError, NotFoundError, DuplicityError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('getUserName', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user and target user', done => {
+    it('succeeds on existing user and target user', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user => {
-                getUserName('samuspine', 'samuspine', error => {
-                    expect(user.name).to.equal('Samu')
+            .then(user => getUserName(user.username, user.username))
+            .then(() => expect(user.name).to.equal('Samu'))
 
-                    done()
-                })
+    })
+
+    it('fails on non-existing user ', () => {
+        let _error
+
+        return getUserName('samuspine', 'samuspine')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .catch(error => done(error));
     })
 
-    it('succeeds on existing target user', done => {
+    it('fails on non-existing target user', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then((user) => getUserName(user.username, 'lilideponte'))
             .then(() => {
-                getUserName('samuspine', 'lilideponte', error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('target user not found')
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('target user not found')
 
-                    done()
-                })
             })
-            .catch(error => done(error))
     })
-
-    it('fails on non-existing user ', done => {
-        getUserName('samuspine', 'lilideponte', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('user not found')
-
-            done()
-        })
-    })
-
-    it('fails on non-existing target user', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then((user) => {
-                getUserName(user.username, 'lilideponte', error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('target user not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
-
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            getUserName(123, 'lilideponte', error => { })
+            getUserName(123, 'lilideponte')
         } catch (_error) {
             error = _error
         } finally {
@@ -87,7 +59,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('', 'lilideponte', error => { })
+            getUserName('', 'lilideponte')
         } catch (_error) {
             error = _error
         } finally {
@@ -100,7 +72,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('samuspine', 123, error => { })
+            getUserName('samuspine', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -113,7 +85,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('samuspine', '', error => { })
+            getUserName('samuspine', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -122,29 +94,7 @@ describe('getUserName', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            getUserName('samuspine', 'lilideponte', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
+    after(() => mongoose.disconnect())
 })

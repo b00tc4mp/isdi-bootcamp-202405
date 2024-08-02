@@ -9,7 +9,6 @@ import { useState } from 'react'
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')
 
-
     const [refreshStamp, setRefreshStamp] = useState(null)
     const [view, setView] = useState('home')
 

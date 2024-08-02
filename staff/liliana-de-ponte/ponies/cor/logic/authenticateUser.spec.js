@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
+import bcrypt from 'bcryptjs'
 
 import authenticateUser from './authenticateUser.js'
 import { User } from '../data/models.js'
@@ -10,68 +11,52 @@ import { errors } from '../../com/index.js'
 const { ValidationError, NotFoundError, CredentialsError } = errors
 
 describe('autheticateUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeds on existing user', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() => {
-                authenticateUser('samuspine', '123456789', error => {
-                    expect(error).to.equal(null)
+    it('succeds on existing user and correct password', () =>
+        bcrypt.hash('123456789', 8)
+            .then(hash => User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: hash }))
+            .then(() => authenticateUser('samuspine', '123456789'))
+            .then(value => expect(value).to.be.undefined)
+    )
 
-                    done()
-                })
-                    .catch(error => done(error))
+    it('fails on non-existing user', () => {
+        let _error
+
+        return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(() => authenticateUser('lilideponte', '123456789'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
+
             })
     })
 
-    it('fails on non-existing user', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() => {
-                authenticateUser('samupine', '123456789', error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
+    it('fails on wrong password', () => {
+        let _error
 
-                    done()
-                })
+        return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+            .then(user => authenticateUser(user.username, '123489062'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(CredentialsError)
+                expect(_error.message).to.equal('wrong password')
             })
-            .catch(error => done(error))
-    })
-
-    it('fails on wrong password', done => {
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() => {
-                authenticateUser('samuspine', '12345679', error => {
-                    expect(error).to.be.instanceOf(CredentialsError)
-                    expect(error.message).to.equal('wrong password')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            authenticateUser(123, '123456789', error => { })
+            authenticateUser(123, '123456789')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('username is not a string')
-
-
         }
     })
 
@@ -79,7 +64,7 @@ describe('autheticateUser', () => {
         let error
 
         try {
-            authenticateUser('Samu', 123, error => { })
+            authenticateUser('Samu', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -92,7 +77,7 @@ describe('autheticateUser', () => {
         let error
 
         try {
-            authenticateUser('Samu', '1234', error => { })
+            authenticateUser('Samu', '1234')
         } catch (_error) {
             error = _error
         } finally {
@@ -105,7 +90,7 @@ describe('autheticateUser', () => {
         let error
 
         try {
-            authenticateUser('Samu', '1234 4567', error => { })
+            authenticateUser('Samu', '1234 4567')
         } catch (_error) {
             error = _error
         } finally {
@@ -114,29 +99,8 @@ describe('autheticateUser', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            authenticateUser('Samu', '123456789', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 
 })

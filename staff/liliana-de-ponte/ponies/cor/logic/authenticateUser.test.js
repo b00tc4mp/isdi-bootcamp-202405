@@ -1,23 +1,10 @@
-
 import 'dotenv/config'
 import authenticateUser from './authenticateUser.js'
 
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        authenticateUser("samuspine", "123456789", error => {
-            if (error) {
-                console.log(error)
-
-                return
-            }
-
-            console.log('user authenticated')
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => authenticateUser("samuspine", "123456789"))
+    .then(() => console.log('user authenticated'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
