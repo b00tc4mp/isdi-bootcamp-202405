@@ -64,19 +64,17 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(post.id, newCaption, error => {
-                if (error) {
+            logic.updatePostCaption(post.id, newCaption)
+                .then(() => {
+                    setEditPostVisible(false)
+
+                    onPostEdited()
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setEditPostVisible(false)
-
-                onPostEdited()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -106,17 +104,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         console.debug('Post -> handleFavPostClick')
 
         try {
-            logic.toggleFavPost(post.id, error => {
-                if (error) {
+            logic.toggleFavPost(post.id)
+                .then(() => onPostFavToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostFavToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
