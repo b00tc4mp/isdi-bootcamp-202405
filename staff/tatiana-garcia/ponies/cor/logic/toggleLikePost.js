@@ -4,41 +4,34 @@ import { validate } from 'com'
 import { errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
-export default (username, postId, callback) => {
+export default (username, postId) => {
     validate.username(username)
     validate.postId(postId, 'postId')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user)
+                throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.findById(postId).lean()
-                .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
-                    }
-
-                    const { likes } = post
-
-                    const index = likes.indexOf(username)
-
-                    if (index < 0)
-                        likes.push(username)
-                    else
-                        likes.splice(index, 1)
-
-                    Post.updateOne({ _id: postId }, { $set: { likes } })
-                        .then(() => callback(null))
-                        .catch(error => callback(new SystemError(error.message)))
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            return Post.findById(postId).lean()
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(post => {
+            if (!post)
+                throw new NotFoundError('post not found')
+
+            const { likes } = post
+
+            const index = likes.indexOf(username)
+
+            if (index < 0)
+                likes.push(username)
+            else
+                likes.splice(index, 1)
+
+            return Post.updateOne({ _id: postId }, { $set: { likes } })
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(() => { })
 }

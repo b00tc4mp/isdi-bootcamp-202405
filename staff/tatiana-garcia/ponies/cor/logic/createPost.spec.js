@@ -10,61 +10,39 @@ import { errors } from '../../com/index.js'
 const { NotFoundError, ValidationError } = errors
 
 describe('createPost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch((error) => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(() => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeds on new post created', done => {
+    it('succeds on new post created', () => {
         User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
             .then(user => {
-                createPost(user.username, 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla', error => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    Post.findOne({ author: user.username })
-                        .then(post => {
-                            expect(post.author).to.equal('tatig')
-                            expect(post.image).to.equal('https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg')
-                            expect(post.caption).to.equal('ardilla')
-
-                            done()
-                        })
-                        .catch(error => done(error))
-                })
+                createPost(user.username, 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla')
+                    .then(() => Post.findOne({ author: user.username }))
+                    .then(post => {
+                        expect(post.author).to.equal('tatig')
+                        expect(post.image).to.equal('https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg')
+                        expect(post.caption).to.equal('ardilla')
+                    })
             })
-            .catch(error => done(error))
-
     })
 
-    it('fails on non-existing user', done => {
-        createPost('abtg', 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla', error => {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('user not found')
+    it('fails on non-existing user', () => {
+        let _error
 
-            done()
-        })
+        return createPost('abtg', 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
+            })
     })
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            createPost(123, 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla', error => { })
+            createPost(123, 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla')
         } catch (_error) {
             error = _error
         } finally {
@@ -77,7 +55,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('', 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla', error => { })
+            createPost('', 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla')
         } catch (_error) {
             error = _error
         } finally {
@@ -90,7 +68,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('tatig', '', 'ardilla', error => { })
+            createPost('tatig', '', 'ardilla')
         } catch (_error) {
             error = _error
         } finally {
@@ -99,34 +77,9 @@ describe('createPost', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-        try {
-            createPost('tatig', 'https://content.nationalgeographic.com.es/medio/2022/12/12/ardilla-2_d0a43045_221212154055_310x310.jpg', 'ardilla', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 
 
 

@@ -8,50 +8,39 @@ import { User } from '../data/models.js'
 import errors from '../../com/errors.js'
 const { NotFoundError, ValidationError } = errors
 
+// OJOOOOOO ME FALTA ACTUALIZARLO
+
 describe('getUserName', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user and target user', done => {
+    it('succeeds on existing user and target user', () => {
         User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
-            .then(user => {
-                getUserName('tatig', 'abtg', error => {
-                    expect(user.name).to.equal('Tati')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
+            .then(user => getUserName(user.username, user.username))
+            .then(() => expect(user.name).to.equal('Tati'))
     })
 
 
-    it('fails on non-existing user', done => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123', following: ['tatig'] })
-            .then(() => {
-                getUserName('pepe', 'tatig', error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
+    it('fails on non-existing user', () => {
+        let _error
 
-                    done()
-                })
+        return User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123', following: ['tatig'] })
+            .then(() => getUserName('pepe', 'tatig'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .catch(error => done(error))
     })
+
+
 
     it('fails on non-string username', () => {
         let error
 
         try {
-            getUserName(123, 'tatig', error => { })
+            getUserName(123, 'tatig')
         } catch (_error) {
             error = _error
         } finally {
@@ -64,7 +53,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('', 'tatig', error => { })
+            getUserName('', 'tatig')
         } catch (_error) {
             error = _error
         } finally {
@@ -77,7 +66,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('tatig', 123, error => { })
+            getUserName('tatig', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -90,7 +79,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName('tatig', '', error => { })
+            getUserName('tatig', '')
         } catch (_error) {
             error = _error
         } finally {
@@ -99,29 +88,8 @@ describe('getUserName', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => User.deleteMany())
 
-        try {
-            getUserName('tatig', 'tatig', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 
 })

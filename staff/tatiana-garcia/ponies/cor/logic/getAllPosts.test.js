@@ -3,19 +3,7 @@ import getAllPosts from './getAllPosts.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        getAllPosts('fabito', (error, posts) => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log(posts)
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => getAllPosts('abtg'))
+    .then(posts => console.log(posts))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

@@ -4,53 +4,43 @@ import { errors, validate } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, callback) => {
+export default (username) => {
     validate.username(username)
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.find({ author: { $in: user.following } }).sort({ date: -1 }).lean()
+            return Post.find({ author: { $in: user.following } }).sort({ date: -1 }).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(posts => {
-                    if (posts.length) {
-                        let count = 0
+                    const promises = posts.map(post => {
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
+                        post.like = post.likes.includes(username)
 
-                        posts.forEach(post => {
-                            post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
-                            post.like = post.likes.includes(username)
+                        return User.findOne({ username: post.author }).lean()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(author => {
+                                if (!author) throw new NotFoundError('author not found')
 
-                            User.findOne({ username: post.author }).lean()
-                                .then(author => {
-                                    post.author = {
-                                        username: author.username,
-                                        avatar: author.avatar,
-                                        following: user.following.includes(author.username)
-                                    }
+                                post.author = {
+                                    username: author.username,
+                                    avatar: author.avatar,
+                                    following: user.following.includes(author.username)
+                                }
 
-                                    count++
+                                posts.forEach(post => {
+                                    post.id = post._id.toString()
 
-                                    if (count === posts.length) {
-                                        posts.forEach(post => {
-                                            post.id = post._id.toString()
-
-                                            delete post._id
-                                        })
-
-                                        callback(null, posts)
-                                    }
-
+                                    delete post._id
                                 })
-                                .catch(error => callback(new SystemError(error.message)))
-                        })
-                    } else callback(null, [])
+
+                                return post
+                            })
+                    })
+
+                    return Promise.all(promises)
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }

@@ -4,15 +4,9 @@ export default (req, res, next) => {
     const { username } = req
 
     try {
-        logic.getAllPoniesPosts(username, (error, posts) => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.json(posts)
-        })
+        logic.getAllPoniesPosts(username)
+            .then(posts => res.json(posts))
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

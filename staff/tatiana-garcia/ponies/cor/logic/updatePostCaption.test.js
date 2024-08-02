@@ -3,20 +3,7 @@ import updatePostCaption from './updatePostCaption.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        updatePostCaption('fabito', '66a1ed4d15e1b19d77264647', 'weeeee', error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log('post caption update')
-
-            mongoose.disconnect()
-        })
-
-    })
+    .then(() => updatePostCaption('abtg', '66a94d82e31ef34d4feabf1a', 'weeeee',))
+    .then(() => console.log('post caption update'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

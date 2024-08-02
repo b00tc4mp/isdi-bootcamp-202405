@@ -11,6 +11,8 @@ import { errors } from '../../com/index.js'
 
 const { NotFoundError, ValidationError } = errors
 
+// OJOOOOOO ME FALTA ACTUALIZARLO
+
 describe('getAllPoniesPosts', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
@@ -92,25 +94,12 @@ describe('getAllPoniesPosts', () => {
         let error
 
         try {
-            getAllPoniesPosts('', error => { })
+            getAllPoniesPosts('')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('invalid username')
-        }
-    })
-
-    it('fails on callback is not a function', () => {
-        let error
-
-        try {
-            getAllPoniesPosts('tatig', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
         }
     })
 

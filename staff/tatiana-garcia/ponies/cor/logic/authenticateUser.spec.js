@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import authenticateUser from './authenticateUser.js'
+import bcrypt from 'bcryptjs'
 
 import { expect } from 'chai'
 import { User } from '../data/models.js'
@@ -9,74 +10,48 @@ import { errors } from '../../com/index.js'
 const { NotFoundError, CredentialsError, ValidationError } = errors
 
 describe('authenticateUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeds on username and password is correct ', done => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
-            .then(() => {
-                authenticateUser('tatig', '123123123', error => {
-                    expect(error).to.be.null
-                    done()
+    it('succeds on username and password is correct ', () =>
+        bcrypt.hash('123123123', 8)
+            .then(hash => User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: hash }))
+            .then(() => authenticateUser('tatig', '123123123'))
+            .then(value => expect(value).to.be.undefined)
+    )
 
-                })
+    it('fails when username is correct but password is incorrect', () => {
+        let _error
+
+        return bcrypt.hash('123123123', 8)
+            .then(hash => User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: hash }))
+            .then(() => authenticateUser('tatig', '174583223'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(CredentialsError)
+                expect(_error.message).to.equal('wrong password')
             })
-            .catch(error => done(error))
     })
 
-    it('fails when username is correct but password is incorrect', done => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
-            .then(() => {
-                authenticateUser('tatig', '174583223', error => {
-                    expect(error).to.be.instanceOf(CredentialsError)
-                    expect(error.message).to.equal('wrong password')
+    it('fails when password is correct but username is incorrect', () => {
+        let _error
 
-                    done()
-                })
+        return bcrypt.hash('123123123', 8)
+            .then(hash => User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: hash }))
+            .then(() => authenticateUser('abtg', '123123123'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
-            .catch(error => done(error))
-    })
-
-    it('fails when password is correct but username is incorrect', done => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
-            .then(() => {
-                authenticateUser('abtg', '123123123', error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
-
-    it('fails when callback is not a function', () => {
-        let error
-
-        try {
-            authenticateUser('tatig', '123123123', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
     })
 
     it('fails when password is not a string', () => {
         let error
 
         try {
-            authenticateUser('tatig', 123123123, error => { })
+            authenticateUser('tatig', 123123123)
         } catch (_error) {
             error = _error
         } finally {
@@ -89,7 +64,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser(125, '123123123', error => { })
+            authenticateUser(125, '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -102,7 +77,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('tatig', '123123', error => { })
+            authenticateUser('tatig', '123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -111,15 +86,7 @@ describe('authenticateUser', () => {
         }
     })
 
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    afterEach(() => User.deleteMany())
 
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

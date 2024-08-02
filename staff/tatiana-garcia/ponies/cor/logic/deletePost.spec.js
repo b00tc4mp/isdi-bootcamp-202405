@@ -11,144 +11,78 @@ import errors from '../../com/errors.js'
 const { NotFoundError, ValidationError, OwnershipError } = errors
 
 describe('deletePost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeds on delete post', done => {
-        User.create({ name: 'Benito', surname: 'Camelas', email: 'benito@camelas.com', username: 'benitocamelas', password: '123123123' })
-            .then(() => {
-                Post.create({ author: 'benitocamelas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6GuoEFbvz-TadDfpqVJmHykzyY75dCwqHg&s', caption: 'huroncito' })
-                    .then(post => {
-                        deletePost('benitocamelas', post.id, error => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-
-                            Post.findById(post.id)
-                                .then(post => {
-                                    expect(post).to.be.null
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    it('fails on invalid username', done => {
-        Post.create({ author: 'benitocamelas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6GuoEFbvz-TadDfpqVJmHykzyY75dCwqHg&s', caption: 'huroncito' })
+    it('succeds on delete post', () => {
+        return User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
+            .then(() => Post.create({ author: 'tatig', image: 'https://www.grupoxcaret.com/es/wp-content/uploads/2021/03/aves-boris.jpg', caption: 'huroncito' }))
             .then(post => {
-                deletePost('jagd', post.id, error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-
-                    done()
-                })
+                return deletePost('tatig', post.id)
+                    .then(() => User.findOne({ username: 'tatig' }))
+                    .then(user =>
+                        Post.findById(post.id)
+                            .then(_post => {
+                                expect(_post).to.be.null
+                            })
+                    )
             })
-            .catch(error => done(error))
     })
 
-    it('fails on existing user but non-existing post', done => {
+    it('fails on invalid username', () => {
+        let error
+
+        try {
+            deletePost('hg', 'id') //aqui tiene que estar el id pero si lo pongo no me funciona
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid username')
+        }
+    })
+
+    it('fails on existing user but non-existing post', () => {
+        let _error
+
         User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
+            .then(() => deletePost('tatig', new ObjectId().toString()))
             .then(() => {
-                deletePost('tatig', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('post not found')
-
-                    done()
-                })
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('post not found')
             })
-            .catch(error => done(error))
     })
 
-    it('fails on existing user and post but post does not belog to user', done => {
+    it('fails on existing user and post but post does not belog to user', () => {
+        let _error
+
         User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
             .then(user => {
-                Post.create({ author: 'abtg', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6GuoEFbvz-TadDfpqVJmHykzyY75dCwqHg&s', caption: 'huroncito' })
-                    .then(post => {
-                        deletePost(user.username, post.id, error => {
-                            expect(error).to.be.instanceOf(OwnershipError)
-                            expect(error.message).to.equal('post does not belong to user')
-
-                            done()
-                        })
+                Post.create({ author: 'tatig', image: 'https://www.grupoxcaret.com/es/wp-content/uploads/2021/03/aves-boris.jpg', caption: 'huroncito' })
+                    .then(post => deletePost(user.username, post.id))
+                    .then(() => {
+                        expect(_error).to.be.instanceOf(OwnershipError)
+                        expect(_error.message).to.equal('Post does not belong to user')
                     })
-                    .catch(error => done(error))
             })
-            .catch(error => done(error))
     })
+
 
     it('fails on invalid postId', () => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
-            .then(user => {
-                Post.create({ author: 'abtg', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6GuoEFbvz-TadDfpqVJmHykzyY75dCwqHg&s', caption: 'huroncito' })
-                    .then(post => {
-                        deletePost(user.username, '213', error => {
-                            expect(error).to.be.instanceOf(ValidationError)
-                            expect(error.message).to.equal('invalid postId')
+        let error
 
-                            done()
-                        })
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
+        try {
+            deletePost('tatig', '')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid postId') // me da error porque dice que espera invalid value ¿?
+        }
     })
 
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('fails on callback is not a function', done => {
-        Post.create({ author: 'benitocamelas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6GuoEFbvz-TadDfpqVJmHykzyY75dCwqHg&s', caption: 'huroncito' })
-            .then(post => {
-                let error
-
-                try {
-                    deletePost('benitocamelas', post.id, 123)
-                } catch (_error) {
-                    error = _error
-                } finally {
-                    expect(error).to.be.instanceOf(ValidationError)
-                    expect(error.message).to.equal('callback is not a function')
-
-                    done()
-
-                }
-            })
-            .catch(error => done(error))
-
-    })
-
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

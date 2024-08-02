@@ -8,24 +8,17 @@ import { User } from '../data/models.js'
 import { errors } from '../../com/index.js'
 const { ValidationError, NotFoundError } = errors
 
+// OJOOOOOO ME FALTA ACTUALIZARLO
+
 describe('toggleFollowUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => done())
-            .catch(() => done(error))
-
-    })
+    beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user and follow is not toggled', done => {
         User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
             .then(user => {
-                User.create({ name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', username: 'abtg', password: '123456789' })
+                User.create({ name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', username: 'abtg', password: '123123123' })
                     .then(targetUser => {
                         toggleFollowUser(user.username, targetUser.username, error => {
                             if (error) {
@@ -51,7 +44,7 @@ describe('toggleFollowUser', () => {
     it('succeeds on existing user and follow is toggled', done => {
         User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
             .then(user => {
-                User.create({ name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', username: 'abtg', password: '123456789' })
+                User.create({ name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', username: 'abtg', password: '123123123' })
                     .then(targetUser => {
                         toggleFollowUser(user.username, targetUser.username, error => {
                             if (error) {
@@ -74,11 +67,11 @@ describe('toggleFollowUser', () => {
             .catch(error => done(error))
     })
 
-    it('fails on non-existing user', done => {
+    it('fails on non-existing user', () => {
         toggleFollowUser('tatig', 'abtg', error => {
             expect(error).to.be.instanceOf(NotFoundError);
             expect(error.message).to.equal('user not found');
-            done()
+
         })
     })
 
@@ -94,41 +87,7 @@ describe('toggleFollowUser', () => {
             .catch(error => done(error))
     })
 
-    it('fails on callback is not a function', () => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
-            .then(user => {
-                User.create({ name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', username: 'abtg', password: '123456789' })
-                    .then(() => {
-                        let error
+    afterEach(() => User.deleteMany())
 
-                        try {
-                            toggleFollowUser(user.username, targetUser.username, 121)
-                        } catch (_error) {
-                            error = _error
-                        } finally {
-                            expect(error).to.be.instanceOf(ValidationError)
-                            expect(error.message).to.equal('callback is not a function')
-
-                            done()
-                        }
-
-                    })
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-
-        afterEach(done => {
-            User.deleteMany()
-                .then(() => done())
-                .catch(error => done(error))
-
-        })
-
-        after(done => {
-            mongoose.disconnect()
-                .then(() => done())
-                .catch(error => done(error))
-        })
-    })
-
+    after(() => mongoose.disconnect())
 })

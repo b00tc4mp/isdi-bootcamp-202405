@@ -6,17 +6,10 @@ export default (req, res, next) => {
     const { image, caption } = req.body
 
     try {
-        logic.createPost(username, image, caption, error => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(201).send()
-        })
+        logic.createPost(username, image, caption)
+            .then(() => res.status(201).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
-
     }
 }

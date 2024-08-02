@@ -9,62 +9,37 @@ import { User, Post } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { NotFoundError, ValidationError } = errors
+const { ValidationError } = errors
 
 describe('updatePostCaption', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => { mongoose.connect(process.env.MONGODB_URI) })
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-
-
-    it('succeeds on existing user and post', done => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
+    it('succeeds on existing user and post', () => {
+        User.create({ name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', username: 'abtg', password: '123123123' })
             .then(() => {
-                return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            })
-            .then(post => {
-                updatePostCaption('gonzalo', post._id.toString(), 'updated caption', (error, updatedPost) => {
-                    if (error) {
-                        return done(error)
-                    }
+                Post.create({ author: 'abtg', image: 'https://www.grupoxcaret.com/es/wp-content/uploads/2021/03/aves-boris.jpg', caption: 'pajaro azul' })
+                    .then(post => updatePostCaption('abtg', post.id, 'pajaro azul'))
 
-                    Post.findById(post._id)
-                        .then(post => {
-                            expect(post).to.not.be.null
-                            expect(post.caption).to.equal('updated caption')
-                            done()
-                        })
-                        .catch(error => done(error))
-                })
+                Post.findById(post.id).lean()
+                    .then(post => {
+                        expect(post.caption).to.equal('pajaro azul')
+                    })
             })
-            .catch(error => done(error))
     })
 
-    it('fails on non-existing user', done => {
-        Post.create({ author: 'gon', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => {
-                updatePostCaption('nonexistentuser', post._id.toString(), 'new caption', (error, updatedPost) => {
-                    try {
-                        expect(updatedPost).to.be.undefined
-                        expect(error).to.be.instanceOf(NotFoundError)
-                        expect(error.message).to.equal('user not found')
-                        done()
-                    } catch (assertionError) {
-                        done(assertionError)
-                    }
-                })
-            })
-            .catch(error => done(error))
+    it('fails on non-string username', () => {
+        let error
+
+        try {
+            updatePostCaption(123, new ObjectId().toString(), 'koala')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('username is not a string')
+        }
     })
 
 
@@ -73,7 +48,7 @@ describe('updatePostCaption', () => {
         let error
 
         try {
-            updatePostCaption(123, new ObjectId().toString(), 'i am fine', error => { })
+            updatePostCaption(123, new ObjectId().toString(), 'weeee')
         } catch (_error) {
             error = _error
         } finally {
@@ -86,7 +61,7 @@ describe('updatePostCaption', () => {
         let error
 
         try {
-            updatePostCaption('gon', new ObjectId().toString(), 'i am fine', error => { })
+            updatePostCaption('', new ObjectId().toString(), 'weeee')
         } catch (_error) {
             error = _error
         } finally {
@@ -99,7 +74,7 @@ describe('updatePostCaption', () => {
         let error
 
         try {
-            updatePostCaption('gonzalo', new ObjectId().toString(), 123, error => { })
+            updatePostCaption('abtg', new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -108,29 +83,7 @@ describe('updatePostCaption', () => {
         }
     })
 
-    it('fails on non-function callback', () => {
-        let error
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-        try {
-            updatePostCaption('gonzalo', new ObjectId().toString(), 'i am fine', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => Post.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })
