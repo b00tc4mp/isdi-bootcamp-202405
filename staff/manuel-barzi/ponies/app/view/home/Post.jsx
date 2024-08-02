@@ -128,17 +128,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         console.debug('Post -> handleFollowUserClick')
 
         try {
-            logic.toggleFollowUser(post.author.username, error => {
-                if (error) {
+            logic.toggleFollowUser(post.author.username)
+                .then(() => onUserFollowToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onUserFollowToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
