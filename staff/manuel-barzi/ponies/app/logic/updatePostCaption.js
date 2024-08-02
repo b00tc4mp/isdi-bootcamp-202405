@@ -1,5 +1,7 @@
 import { validate, errors } from 'com'
 
+const { SystemError } = errors
+
 export default (postId, caption) => {
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
