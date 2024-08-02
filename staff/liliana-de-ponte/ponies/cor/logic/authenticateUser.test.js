@@ -5,6 +5,6 @@ import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => authenticateUser("samuspine", "123456789"))
-    .then(() => console.log('user authenticated'))
+    .then(userId => console.log('user authenticated', userId))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

@@ -4,12 +4,12 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError, OwnerShipError } = errors
 
-export default (username, postId, caption) => {
-    validate.username(username)
+export default (userId, postId, caption) => {
+    validate.string(userId, 'userId')
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
@@ -19,7 +19,7 @@ export default (username, postId, caption) => {
                 .then(post => {
                     if (!post) throw new NotFoundError('post not found')
 
-                    if (post.author !== username) throw new OwnerShipError('post not belong to user')
+                    if (post.author.toString() !== userId) throw new OwnerShipError('post not belong to user')
 
                     return Post.updateOne({ _id: postId }, { $set: { caption } })
                         .catch(error => { throw new SystemError(error.message) })

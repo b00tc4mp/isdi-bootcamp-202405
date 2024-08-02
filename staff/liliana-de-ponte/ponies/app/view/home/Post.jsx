@@ -122,7 +122,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         console.debug('Post -> handleFollowUserClick')
 
         try {
-            logic.toggleFollowUser(post.author.username)
+            logic.toggleFollowUser(post.author.id)
                 .then(() => onUserFollowToggled())
                 .catch(error => {
                     console.error(error)
@@ -153,7 +153,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
             <Button className="Button--post" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
             <Button className="Button--post" onClick={handleFavPostClick}>{post.fav ? '🏳️‍🌈' : '🏳️'} </ Button>
 
-            {post.author.username === logic.getUserUsername() && <>
+            {post.author.id === logic.getUserId() && <>
                 <Button className="Button--post" onClick={handleDeletePostClick}>🗑️</Button>
                 <Button className="Button--post" onClick={handleEditPostClick}> 📝</Button>
             </>}

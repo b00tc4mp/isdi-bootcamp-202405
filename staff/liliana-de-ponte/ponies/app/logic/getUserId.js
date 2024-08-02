@@ -1,7 +1,7 @@
 import extractPayloadFromToken from '../utils/extractPayloadFromToken.js'
 
 export default () => {
-    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
+    const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
 
-    return username
+    return userId
 }
