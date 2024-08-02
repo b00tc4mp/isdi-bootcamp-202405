@@ -26,17 +26,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
     const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(post.id, error => {
-                    if (error) {
+                logic.deletePost(post.id)
+                    .then(() => onPostDeleted())
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    onPostDeleted()
-                })
+                    })
             } catch (error) {
                 console.error(error)
 
