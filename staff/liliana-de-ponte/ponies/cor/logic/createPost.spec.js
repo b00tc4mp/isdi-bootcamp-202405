@@ -1,6 +1,8 @@
 import 'dotenv/config'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
+
+const { ObjectId } = Types
 
 import createPost from './createPost.js'
 import { User, Post } from '../data/models.js'
@@ -12,24 +14,26 @@ const { ValidationError, NotFoundError } = errors
 describe('createPost', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() => User.deleteMany())
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     it('succeds on new post', () =>
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(() =>
-                createPost('samuspine', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning'))
-            .then(() => Post.findOne({ author: 'samuspine' }))
-            .then(post => {
-                expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
-                expect(post.caption).to.equal('morning')
-
-            })
+            .then(user =>
+                createPost(user.id, 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning')
+                    .then(() => Post.findOne({ author: user.id })
+                        .then(post => {
+                            expect(post.author.toString().to.equal(user.id))
+                            expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                            expect(post.caption).to.equal('morning')
+                        })
+                    )
+            )
     )
 
     it('fails on non-existing user', () => {
         let _error
 
-        return createPost('samuspi', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning')
+        return createPost(new ObjectId().toString(), 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -38,7 +42,7 @@ describe('createPost', () => {
             })
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -47,28 +51,16 @@ describe('createPost', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
+
+    it('fails on non-string image', () => {
         let error
 
         try {
-            createPost('', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
-        }
-    })
-
-    it('fails on non-string email', () => {
-        let error
-
-        try {
-            createPost('samuspine', 1234, 'morning')
+            createPost(new ObjectId().toString(), 1234, 'morning')
         } catch (_error) {
             error = _error
         } finally {
@@ -81,7 +73,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('samuspine', '//media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning',)
+            createPost(new ObjectId().toString(), '//media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning',)
         } catch (_error) {
             error = _error
         } finally {
@@ -94,7 +86,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('samuspine', 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 123)
+            createPost(new ObjectId().toString(), 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 123)
         } catch (_error) {
             error = _error
         } finally {

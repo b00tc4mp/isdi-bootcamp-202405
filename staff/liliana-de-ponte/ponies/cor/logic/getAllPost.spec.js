@@ -2,6 +2,8 @@ import 'dotenv/config'
 import getAllPost from './getAllPosts.js'
 import mongoose, { Types } from 'mongoose'
 
+const { ObjectId } = Types
+
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
@@ -12,18 +14,17 @@ const { ValidationError, NotFoundError } = errors
 describe('getAllPost', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() =>
-        Promise.all([User.deleteMany(), Post.deleteMany()])
-    )
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     if ('succeeds on existing user', () =>
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(user =>
-                Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' }))
-            .then(post =>
-                getAllPost('samuspine')
-                    .then(() => Post.find({}).lean())
-                    .then(posts => expect(user.username).to.equal('samuspine')
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
+                    .then(() =>
+                        getAllPost(user.id)
+                            .then(() => Post.find({}).lean())
+                            .then(posts => expect(user.id).to.equal('samuspine')
+                            )
                     )
             )
     )
@@ -31,7 +32,7 @@ describe('getAllPost', () => {
         it('fails on non-existing user', () => {
             let _error
 
-            return getAllPost('lilideponte')
+            return getAllPost(new ObjectId().toString())
                 .catch(error => _error = error)
                 .finally(() => {
                     expect(_error).to.be.instanceOf(NotFoundError)
@@ -40,7 +41,7 @@ describe('getAllPost', () => {
                 })
         })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -49,20 +50,7 @@ describe('getAllPost', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
-        }
-    })
-
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            getAllPost('')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 

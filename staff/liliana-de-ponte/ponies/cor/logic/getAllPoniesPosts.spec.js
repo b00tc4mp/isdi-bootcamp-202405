@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import getAllPoniesPost from './getAllPoniesPosts.js'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
+
+const { ObjectId } = Types
 
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
@@ -21,7 +23,7 @@ describe('getAllPoniesPost', () => {
         User.create({ name: 'Samu', surname: 'Spine∫', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(user =>
                 Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
-                    .then(() => getAllPoniesPost('samuspine')
+                    .then(() => getAllPoniesPost(user.id)
                         .then(posts => {
                             return User.findOne({ username: 'samuspine' })
                                 .then(() => expect(posts).to.be.an('array'))
@@ -33,7 +35,7 @@ describe('getAllPoniesPost', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return getAllPoniesPost('lilideponte')
+        return getAllPoniesPost(new ObjectId().toString())
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -42,7 +44,7 @@ describe('getAllPoniesPost', () => {
     })
 
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -51,23 +53,9 @@ describe('getAllPoniesPost', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
-
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            getAllPoniesPost('')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
-        }
-    })
-
 
     afterEach(() => User.deleteMany())
 

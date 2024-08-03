@@ -1,6 +1,8 @@
 import 'dotenv/config'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
+
+const { ObjectId } = Types
 
 import getUserName from './getUserName.js'
 import { User } from '../data/models.js'
@@ -16,7 +18,7 @@ describe('getUserName', () => {
 
     it('succeeds on existing user and target user', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user => getUserName(user.username, user.username))
+            .then(user => getUserName(user.id, user.id))
             .then(() => expect(user.name).to.equal('Samu'))
 
     })
@@ -24,7 +26,7 @@ describe('getUserName', () => {
     it('fails on non-existing user ', () => {
         let _error
 
-        return getUserName('samuspine', 'samuspine')
+        return getUserName(new ObjectId().toString(), new ObjectId().toString())
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -34,7 +36,7 @@ describe('getUserName', () => {
 
     it('fails on non-existing target user', () => {
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then((user) => getUserName(user.username, 'lilideponte'))
+            .then((user) => getUserName(user.id, new ObjectId().toString()))
             .then(() => {
                 expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('target user not found')
@@ -42,7 +44,7 @@ describe('getUserName', () => {
             })
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -51,46 +53,20 @@ describe('getUserName', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
+    it('fails on non-string targetUseId', () => {
         let error
 
         try {
-            getUserName('', 'lilideponte')
+            getUserName(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
-        }
-    })
-
-    it('fails on non-string targetUsername', () => {
-        let error
-
-        try {
-            getUserName('samuspine', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('targetUsername is not a string')
-        }
-    })
-
-    it('fails on invalid targetUsername', () => {
-        let error
-
-        try {
-            getUserName('samuspine', '')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid targetUsername')
+            expect(error.message).to.equal('targetUserId is not a string')
         }
     })
 
