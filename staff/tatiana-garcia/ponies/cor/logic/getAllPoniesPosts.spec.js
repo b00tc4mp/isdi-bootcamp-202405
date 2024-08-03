@@ -7,7 +7,7 @@ const { ObjectId } = Types
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 
-import { errors } from '../../com/index.js'
+import { errors } from 'com'
 
 const { NotFoundError, ValidationError } = errors
 

@@ -27,17 +27,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
     const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(post.id, error => {
-                    if (error) {
+                logic.deletePost(post.id)
+                    .then(() => onPostDeleted())
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    onPostDeleted()
-                })
+                    })
             } catch (error) {
                 console.error(error)
 
@@ -70,19 +66,17 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(post.id, newCaption, error => {
-                if (error) {
+            logic.updatePostCaption(post.id, newCaption)
+                .then(() => {
+                    setEditPostVisible(false)
+
+                    onPostEdited()
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setEditPostVisible(false)
-
-                onPostEdited()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -94,17 +88,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         console.debug('Post -> handleLikePostClick')
 
         try {
-            logic.toggleLikePost(post.id, error => {
-                if (error) {
+            logic.toggleLikePost(post.id)
+                .then(() => onPostLikeToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostLikeToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -116,17 +106,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         console.debug('Post -> handleFavPostClick')
 
         try {
-            logic.toggleFavPost(post.id, error => {
-                if (error) {
+            logic.toggleFavPost(post.id)
+                .then(() => onPostFavToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostFavToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -138,17 +124,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         console.debug('Post -> handleFollowUserClick')
 
         try {
-            logic.toggleFollowUser(post.author.username, error => {
-                if (error) {
+            logic.toggleFollowUser(post.author.id)
+                .then(() => onUserFollowToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onUserFollowToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -173,7 +155,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
             <Button className='post-action-button' onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
             <Button className='post-action-button' onClick={handleFavPostClick}>{post.fav ? '🤩' : '😔'}</Button>
 
-            {post.author.username === logic.getUserUsername() && <>
+            {post.author.id === logic.getUserId() && <>
                 <Button className='post-action-button' onClick={handleDeletePostClick}>🗑️</Button>
                 <Button className='post-action-button' onClick={handleEditPostClick}>📝</Button>
 

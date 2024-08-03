@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/abtg/name -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYnRnIiwiaWF0IjoxNzIyMzMwNDk4fQ.N_EE45DQcQr4eZzKd0zodgfynxwtIkSf6VBzmoIHx8Y"
+curl -v http://localhost:8080/users/66ad02b022b9e45d6690baa9/name -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFkMDJiMDIyYjllNDVkNjY5MGJhYTkiLCJpYXQiOjE3MjI3MDE2NTN9.G3qynt6KJMpGlCjZaVIRi8m8xkapyAiwqWDkL66HtDY"

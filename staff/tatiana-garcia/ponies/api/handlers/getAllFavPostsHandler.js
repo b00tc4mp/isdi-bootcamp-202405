@@ -1,10 +1,10 @@
 import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
     try {
-        logic.getAllFavPosts(username)
+        logic.getAllFavPosts(userId)
             .then(posts => res.json(posts))
             .catch(error => next(error))
     } catch (error) {

@@ -7,135 +7,55 @@ import './PostList.css'
 import Post from './Post.jsx'
 
 const PoniesPostList = () => {
-    console.debug('PoniesPostList -> constructor')
+    console.debug('PoniesPostList -> call')
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.debug('PoniesPostList -> componentDidMount')
+        console.debug('PoniesPostList -> useEffect')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [])
 
     const handlePostDeleted = () => {
         console.debug('PoniesPostList -> handlePostDeleted')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
         console.debug('PoniesPostList -> handlePostEdited')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
         console.debug('PoniesPostList -> handlePostLikeToggled')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
         console.debug('PoniesPostList -> handlePostFavToggled')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
         console.debug('PoniesPostList -> handleUserFollowToggled')
 
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
+            logic.getAllPoniesPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -143,7 +63,7 @@ const PoniesPostList = () => {
         }
     }
 
-    return <section className="post-list">
+    return <section className="PostList">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -154,7 +74,6 @@ const PoniesPostList = () => {
             onUserFollowToggled={handleUserFollowToggled}
         />)}
     </section>
-
 }
 
 export default PoniesPostList

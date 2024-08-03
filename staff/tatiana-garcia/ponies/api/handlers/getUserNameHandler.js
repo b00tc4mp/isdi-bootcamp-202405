@@ -1,12 +1,12 @@
 import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
-    const { targetUsername } = req.params
+    const { targetUserId } = req.params
 
     try {
-        logic.getUserName(username, targetUsername)
+        logic.getUserName(userId, targetUserId)
             .then(name => res.json(name))
             .catch(error => next(error))
     } catch (error) {

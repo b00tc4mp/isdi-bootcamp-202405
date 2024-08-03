@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/abtg/follows -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYnRnIiwiaWF0IjoxNzIyMzMwNDk4fQ.N_EE45DQcQr4eZzKd0zodgfynxwtIkSf6VBzmoIHx8Y"
+curl -v http://localhost:8080/users/66ad027c22b9e45d6690baa5/follows -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFkMDI3YzIyYjllNDVkNjY5MGJhYTUiLCJpYXQiOjE3MjI2MTQ1MDJ9.jQA_kux9aNbB4ZdGNDj78c27yOKe6uM_cJZI0IxbHOs"
