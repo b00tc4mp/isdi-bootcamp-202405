@@ -37,7 +37,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/posts', jwtVerifier, jsonBodyParser, createPostHandler)
 
-        api.get('/users/:targetUsername/name', jwtVerifier, getUserNameHandler)
+        api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
 
         api.get('/posts', jwtVerifier, getAllPostsHandler)
 
@@ -51,7 +51,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/posts/:postId/favs', jwtVerifier, toggleFavPostHandler)
 
-        api.patch('/users/:targetUsername/follows', jwtVerifier, toggleFollowUserHandler)
+        api.patch('/users/:targetUserId/follows', jwtVerifier, toggleFollowUserHandler)
 
         api.patch('/posts/:postId/caption', jwtVerifier, jsonBodyParser, updatePostCaptionHandler)
 
@@ -59,7 +59,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
 
-        api.get('/users/:targetUsername/settings', jwtVerifier, getUserHandler)
+        api.get('/users/:targetUserId/settings', jwtVerifier, getUserHandler)
 
         api.use(errorHandler)
 

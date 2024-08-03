@@ -3,11 +3,11 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, OwnerShipError, SystemError } = errors
 
-export default (username, postId) => {
-    validate.username(username)
+export default (userId, postId) => {
+    validate.string(userId, 'UserId')
     validate.postId(postId)
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
@@ -18,7 +18,7 @@ export default (username, postId) => {
         .then(post => {
             if (!post) throw new NotFoundError('Post not found')
 
-            if (post.author !== username) throw new OwnerShipError('Post does not belong to user')
+            if (post.author.toString() !== userId) throw new OwnerShipError('Post does not belong to user')
 
             return Post.deleteOne({ _id: postId })
                 .catch(error => { throw new SystemError(error.message) })

@@ -1,31 +1,32 @@
 import { validate, errors } from '../../com/index.js'
 
-export default (oldPassword, newPassword, callback) => {
+const { SystemError } = errors
+
+export default (oldPassword, newPassword) => {
     validate.password(oldPassword)
     validate.password(newPassword)
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
+    return fetch('http://localhost:8080/users/password', {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ oldPassword, newPassword })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    xhr.onload = () => {
-        if (xhr.status === 204) {
-            callback(null)
+            if (status === 204) return
 
-            return
-        }
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        const { error, message } = JSON.parse(xhr.response)
+                    const constructor = errors[error]
 
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('Network error'))
-
-    xhr.open('PATCH', 'http://localhost:8080/users/password')
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
-    xhr.send(JSON.stringify({ oldPassword, newPassword }))
+                    throw new constructor(message)
+                })
+        })
 }

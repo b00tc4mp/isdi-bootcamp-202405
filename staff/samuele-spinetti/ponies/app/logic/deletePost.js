@@ -1,29 +1,29 @@
 import { validate, errors } from '../../com/index.js'
 
-export default (postId, callabck) => {
+const { SystemError } = errors
+
+export default postId => {
     validate.postId(postId)
-    validate.callback(callabck)
 
-    const xhr = new XMLHttpRequest
+    return fetch(`http://localhost:8080/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        },
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    xhr.onload = () => {
-        if (xhr.status === 204) {
-            callabck(null)
+            if (status === 204) return
 
-            return
-        }
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        const { error, message } = JSON.parse(xhr.response)
+                    const constructor = errors[error]
 
-        const constructor = errors[error]
-
-        callabck(new constructor(message))
-    }
-
-    xhr.onerror = () => callabck(new Error('Network error'))
-
-    xhr.open('DELETE', `http://localhost:8080/posts/${postId}`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-
-    xhr.send()
+                    throw new constructor(message)
+                })
+        })
 }

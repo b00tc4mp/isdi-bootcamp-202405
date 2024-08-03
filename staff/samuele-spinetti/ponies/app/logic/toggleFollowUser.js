@@ -1,29 +1,29 @@
 import { validate, errors } from '../../com/index.js'
 
-export default (username, callback) => {
-    validate.username(username)
-    validate.callback(callback)
+const { SystemError } = errors
 
-    const xhr = new XMLHttpRequest
+export default targetUserId => {
+    validate.string(targetUserId, 'TargetUserId')
 
-    xhr.onload = () => {
-        if (xhr.status === 204) {
-            callback(null)
-
-            return
+    return fetch(`http://localhost:8080/users/${targetUserId}/follows`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
         }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-        const { error, message } = JSON.parse(xhr.response)
+            if (status = 204) return
 
-        const constructor = errors[error]
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        callback(new constructor(message))
-    }
+                    const constructor = errors[error]
 
-    xhr.onerror = () => callback(new Error('Network error'))
-
-    xhr.open('PATCH', `http://localhost:8080/users/${username}/follows`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-
-    xhr.send()
+                    throw new constructor(message)
+                })
+        })
 }

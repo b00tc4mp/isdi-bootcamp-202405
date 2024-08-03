@@ -2,12 +2,12 @@ import { User, Post } from '../data/models.js'
 import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
-export default (username, postId, caption) => {
-    validate.username(username)
+export default (userId, postId, caption) => {
+    validate.string(userId, 'UserId')
     validate.postId(postId)
     validate.string(caption)
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')

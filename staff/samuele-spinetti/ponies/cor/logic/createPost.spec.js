@@ -1,6 +1,8 @@
 import 'dotenv/config'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
+
+const { ObjectId } = Types
 
 import createPost from './createPost.js'
 import { User, Post } from '../data/models.js'
@@ -11,26 +13,27 @@ const { ValidationError, NotFoundError } = errors
 describe('createPost', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() => User.deleteMany())
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds on new post', () => {
+    it('succeeds on new post', () =>
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user =>
-                createPost(user.username, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'wtf')
-                    .then(() => Post.findOne({ author: user.username }))
-                    .then(post => {
-                        expect(post.author).to.equal('monoloco')
-                        expect(post.image).to.equal('https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
-                        expect(post.caption).to.equal('wtf')
-                    })
+                createPost(user.id, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'wtf')
+                    .then(() => Post.findOne({ author: user.id })
+                        .then(post => {
+                            expect(post.author.toString()).to.equal(user.id)
+                            expect(post.image).to.equal('https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                            expect(post.caption).to.equal('wtf')
+                        })
+                    )
             )
-    })
+    )
 
 
     it('fails on non-existing user', () => {
         let _error
 
-        return createPost('monoloco', 'http://text', 'Hello')
+        return createPost(new ObjectId().toString(), 'http://text', 'Hello')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -38,7 +41,7 @@ describe('createPost', () => {
             })
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -47,20 +50,7 @@ describe('createPost', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
-        }
-    })
-
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            createPost('', 'http://text', 'Hello')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Invalid username')
+            expect(error.message).to.equal('UserId is not a string')
         }
     })
 
@@ -68,7 +58,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('monoloco', 123, 'Hello')
+            createPost(new ObjectId().toString(), 123, 'Hello')
         } catch (_error) {
             error = _error
         } finally {
@@ -81,7 +71,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('monoloco', 'htpp://text', 'Hello')
+            createPost(new ObjectId().toString(), 'htpp://text', 'Hello')
         } catch (_error) {
             error = _error
         } finally {
@@ -94,7 +84,7 @@ describe('createPost', () => {
         let error
 
         try {
-            createPost('monoloco', 'http://', 123)
+            createPost(new ObjectId().toString(), 'http://', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -103,7 +93,7 @@ describe('createPost', () => {
         }
     })
 
-    afterEach(() => User.deleteMany())
+    afterEach(() => Promise.all([User.deleteMany, Post.deleteMany()]))
 
     after(() => mongoose.disconnect())
 })

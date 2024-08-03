@@ -17,17 +17,13 @@ const ProfileSettings = () => {
 
     useEffect(() => {
         try {
-            logic.getUser((error, user) => {
-                if (error) {
+            logic.getUser()
+                .then(user => setUser(user))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setUser(user)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -53,29 +49,21 @@ const ProfileSettings = () => {
         const newAvatar = editAvatarInput.value
 
         try {
-            logic.updateAvatar(newAvatar, error => {
-                if (error) {
+            logic.updateAvatar(newAvatar)
+                .then(() => setEditAvatarVisible(false))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setEditAvatarVisible(false)
-
-                logic.getUser((error, user) => {
-                    if (error) {
-                        console.error(error)
-
-                        alert(error.message)
-
-                        return
-                    }
-
-                    setUser(user)
                 })
-            })
+
+            logic.getUser()
+                .then(user => setUser(user))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -103,17 +91,13 @@ const ProfileSettings = () => {
         const newPassword = editNewPasswordInput.value
 
         try {
-            logic.updatePassword(oldPassword, newPassword, error => {
-                if (error) {
+            logic.updatePassword(oldPassword, newPassword)
+                .then(() => setEditPasswordVisible(false))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setEditPasswordVisible(false)
-            })
+                })
         } catch (error) {
             console.error(error)
 

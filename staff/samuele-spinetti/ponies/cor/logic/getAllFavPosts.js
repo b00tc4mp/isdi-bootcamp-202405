@@ -3,10 +3,10 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username) => {
-    validate.username(username)
+export default userId => {
+    validate.string(userId, 'UserId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
@@ -16,15 +16,16 @@ export default (username) => {
                 .then(posts => {
                     const promises = posts.map(post => {
                         post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
-                        post.like = post.likes.includes(username)
+                        post.like = post.likes.some(userObjectId => userObjectId.toString() === userId)
 
-                        return User.findOne({ username: post.author }).lean()
+                        return User.findById(post.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
                                 post.author = {
+                                    id: author._id.toString(),
                                     username: author.username,
                                     avatar: author.avatar,
-                                    following: user.following.includes(author.username)
+                                    following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
                                 }
 
                                 post.id = post._id.toString()
@@ -35,6 +36,7 @@ export default (username) => {
                     })
 
                     return Promise.all(promises)
+                        .then(posts => posts)
                 })
         })
 }

@@ -22,17 +22,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
     const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(post.id, error => {
-                    if (error) {
+                logic.deletePost(post.id)
+                    .then(() => onPostDeleted())
+                    .catch(error => {
                         console.error(error)
 
                         alert(error.message)
-
-                        return
-                    }
-
-                    onPostDeleted()
-                })
+                    })
             } catch (error) {
                 console.error(error)
 
@@ -58,19 +54,17 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(post.id, newCaption, error => {
-                if (error) {
+            logic.updatePostCaption(post.id, newCaption)
+                .then(() => {
+                    setEditPostVisible(false)
+
+                    onPostEdited()
+                })
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setEditPostVisible(false)
-
-                onPostEdited()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -80,17 +74,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
 
     const handleLikePostClick = () => {
         try {
-            logic.toggleLikePost(post.id, error => {
-                if (error) {
+            logic.toggleLikePost(post.id)
+                .then(() => onPostLikeToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostLikeToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -100,17 +90,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
 
     const handleSavePostClick = () => {
         try {
-            logic.toggleFavPost(post.id, error => {
-                if (error) {
+            logic.toggleFavPost(post.id)
+                .then(() => onPostFavToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostFavToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -120,17 +106,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
 
     const handleFollowUserClick = () => {
         try {
-            logic.toggleFollowUser(post.author.username, error => {
-                if (error) {
+            logic.toggleFollowUser(post.author.id)
+                .then(() => onFollowUserToggled())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onFollowUserToggled()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -147,7 +129,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
                 <Heading level="4" className={"post__author"}>{post.author.username}</Heading>
             </Container>
 
-            {post.author.username !== logic.getUserUsername() && <>
+            {post.author.id !== logic.getUserId() && <>
                 <Button className={"post__button"} onClick={handleFollowUserClick}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
             </>}
         </Container>
@@ -171,7 +153,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
 
         <Paragraph className={"post__caption"}>{post.caption}</Paragraph>
 
-        {post.author.username === logic.getUserUsername() && <>
+        {post.author.id === logic.getUserId() && <>
             <Container className={"post__actions"}>
                 <Button onClick={handleDeletePostClick}>Delete</Button>
                 <Button onClick={handleEditPostClick}>Edit</Button>

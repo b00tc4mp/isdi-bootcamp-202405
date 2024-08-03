@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import updateAvatar from './updateAvatar.js'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
+
+const { ObjectId } = Types
 
 import { expect } from 'chai'
 import { User } from '../data/models.js'
@@ -13,22 +15,23 @@ describe('updateAvatar', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () => {
+    it('succeeds on existing user', () =>
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => updateAvatar(user.username, 'http://text'))
-
-        User.findOne({ username: 'monoloco' }).lean()
-            .then(user => {
-                expect(user.username).to.equal('monoloco')
-                expect(user.avatar).to.equal('http://text')
-            })
-    })
+            .then(user => updateAvatar(user.id, 'http://text')
+                .then(() => User.findOne({ username: 'monoloco' }).lean()
+                    .then(user => {
+                        expect(user.username).to.equal('monoloco')
+                        expect(user.avatar).to.equal('http://text')
+                    })
+                )
+            )
+    )
 
 
     it('fails on non-existing user', () => {
         let _error
 
-        return updateAvatar('monoloco', 'http://text')
+        return updateAvatar(new ObjectId().toString(), 'http://text')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -37,7 +40,7 @@ describe('updateAvatar', () => {
     })
 
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -46,20 +49,7 @@ describe('updateAvatar', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
-        }
-    })
-
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            updateAvatar('', 'http://')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Invalid username')
+            expect(error.message).to.equal('UserId is not a string')
         }
     })
 
@@ -67,7 +57,7 @@ describe('updateAvatar', () => {
         let error
 
         try {
-            updateAvatar('monoloco', 123)
+            updateAvatar(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -80,7 +70,7 @@ describe('updateAvatar', () => {
         let error
 
         try {
-            updateAvatar('monoloco', '')
+            updateAvatar(new ObjectId().toString(), '')
         } catch (_error) {
             error = _error
         } finally {

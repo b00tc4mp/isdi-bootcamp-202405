@@ -3,32 +3,32 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, targetUsername) => {
-    validate.username(username)
-    validate.username(targetUsername)
+export default (userId, targetUserId) => {
+    validate.string(userId, 'UserId')
+    validate.string(targetUserId, 'TargetUserId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
-            return User.findOne({ username: targetUsername }).lean()
+            return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(targetUser => {
                     if (!targetUser) throw new NotFoundError('TargetUser not found')
 
                     const { following } = user
 
-                    const index = following.indexOf(targetUsername)
+                    const index = following.findIndex(userObjectId => userObjectId.toString() === targetUserId)
 
                     if (index < 0)
-                        following.push(targetUsername)
+                        following.push(targetUserId)
                     else
                         following.splice(index, 1)
 
-                    return User.updateOne({ username }, { $set: { following } })
+                    return User.updateOne({ _id: userId }, { $set: { following } })
                         .catch(error => { throw new SystemError(error.message) })
                 })
-                .then(() => { })
         })
+        .then(() => { })
 }

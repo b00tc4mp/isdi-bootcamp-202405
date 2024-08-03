@@ -1,33 +1,34 @@
 import { validate, errors } from '../../com/index.js'
 
-export default (name, surname, email, username, password, passwordRepeat, callback) => {
+const { SystemError } = errors
+
+export default (name, surname, email, username, password, passwordRepeat) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
+    return fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, surname, email, username, password, passwordRepeat })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    xhr.onload = () => {
-        if (xhr.status === 201) {
-            callback(null)
+            if (status === 201) return
 
-            return
-        }
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        const { error, message } = JSON.parse(xhr.response)
+                    const constructor = errors[error]
 
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('Network error'))
-
-    xhr.open('POST', 'http://localhost:8080/users')
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
-    xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
+                    throw new constructor(message)
+                })
+        })
 }

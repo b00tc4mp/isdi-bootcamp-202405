@@ -1,31 +1,32 @@
 import { validate, errors } from '../../com/index.js'
 
-export default (image, caption, callback) => {
+const { SystemError } = errors
+
+export default (image, caption) => {
     validate.image(image)
     validate.string(caption, 'Caption')
-    validate.callback(callback)
 
-    const xhr = new XMLHttpRequest
+    return fetch('http://localhost:8080/posts', {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image, caption })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    xhr.onload = () => {
-        if (xhr.status === 201) {
-            callback(null)
+            if (status === 201) return
 
-            return
-        }
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        const { error, message } = JSON.parse(xhr.response)
+                    const constructor = errors[error]
 
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('Network error'))
-
-    xhr.open('POST', 'http://localhost:8080/posts')
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-
-    xhr.send(JSON.stringify({ image, caption }))
+                    throw new constructor(message)
+                })
+        })
 }
