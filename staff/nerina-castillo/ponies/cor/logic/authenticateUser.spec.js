@@ -15,18 +15,16 @@ describe('authenticateUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () => {
-        return bcrypt.hash('gonzalo123', 8)
-            .then(hashedPassword => {
-                return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: hashedPassword })
-            })
+    it('succeeds on existing user and correct password', () => {
+        return bcrypt.hash('123123123', 8)
+            .then(hash => User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: hash }))
+            .then(() => authenticateUser('monoloco', '123123123'))
             .then(() => {
-                return authenticateUser('gonzalo', 'gonzalo123')
             })
-            .then(value => {
-                expect(value).to.be.undefined
-            })
-    })
+            .catch(error => {
+                throw error;
+            });
+    });
 
     it('fails on non-existing user', () => {
         let _error

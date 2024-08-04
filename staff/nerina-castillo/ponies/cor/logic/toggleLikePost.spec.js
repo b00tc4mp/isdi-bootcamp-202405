@@ -17,58 +17,56 @@ describe('toggleLikePost', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
     it('succeeds on existing user and post has no likes', () =>
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonalo123' })
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user =>
-                Post.create({ author: user.username, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
                     .then(post =>
-                        toggleLikePost(user.username, post.id)
+                        toggleLikePost(user.id, post.id)
                             .then(() => Post.findById(post.id).lean())
-                            .then(post => expect(post.likes).to.include(user.username))
+                            .then(post => expect(post.likes.map(userObjectId => userObjectId.toString())).to.include(user.id))
                     )
             )
     )
-
 
     it('succeeds on existing user and post has likes', () =>
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonalo', password: '123123123' })
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user =>
-                Post.create({ author: user.username, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine', likes: [user.username] })
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine', likes: [user.id] })
                     .then(post =>
-                        toggleLikePost(user.username, post.id)
+                        toggleLikePost(user.id, post.id)
                             .then(() => Post.findById(post.id).lean())
-                            .then(post => expect(post.likes).to.not.include(user.username))
+                            .then(post => expect(post.likes.map(userObjectId => userObjectId.toString())).to.not.include(user.id))
+
                     )
             )
     )
-
-
 
     it('fails on non-existing user', () => {
         let _error
 
-        return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => toggleLikePost('gonzalo', post.id))
+        const userObjectId = new ObjectId
+
+        return Post.create({ author: userObjectId, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(post => toggleLikePost(userObjectId.toString(), post.id))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('user not found')
             })
     })
-
     it('fails on existing user but non-existing post', () => {
         let _error
 
         return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => toggleLikePost('gonzalo', new ObjectId().toString()))
+            .then(user => toggleLikePost(user.id, new ObjectId().toString()))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('post not found')
             })
-
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -77,20 +75,20 @@ describe('toggleLikePost', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
-            toggleLikePost('gon', new ObjectId().toString())
+            toggleLikePost(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
@@ -98,7 +96,7 @@ describe('toggleLikePost', () => {
         let error
 
         try {
-            toggleLikePost('gonzalo', 123)
+            toggleLikePost(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {

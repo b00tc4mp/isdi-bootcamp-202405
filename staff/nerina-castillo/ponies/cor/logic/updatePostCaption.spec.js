@@ -19,8 +19,8 @@ describe('updatePostCaption', () => {
 
     it('succeeds on existing user and post', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => {
-                Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(user => {
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
                     .then(post => updatePostCaption('gonzalo', post.id, 'okay...'))
 
                 Post.findById(post.id).lean()
@@ -33,8 +33,8 @@ describe('updatePostCaption', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return Post.create({ author: 'gon', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => updatePostCaption('julitoCamelas', post._id.toString(), 'i am fine'))
+        return Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(post => updatePostCaption(new ObjectId().toString(), post._id.toString(), 'i am fine'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -46,7 +46,7 @@ describe('updatePostCaption', () => {
         let _error
 
         return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: '123123123' })
-            .then(() => updatePostCaption('gonzalo', new ObjectId().toString(), 'yoyoyo'))
+            .then(user => updatePostCaption(user.id, new ObjectId().toString(), 'yoyoyo'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -54,7 +54,7 @@ describe('updatePostCaption', () => {
             })
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -63,20 +63,7 @@ describe('updatePostCaption', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
-        }
-    })
-
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            updatePostCaption('gon', new ObjectId().toString(), 'i am fine')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
@@ -84,7 +71,7 @@ describe('updatePostCaption', () => {
         let error
 
         try {
-            updatePostCaption('gonzalo', 123, 'i am fine')
+            updatePostCaption(new ObjectId().toString(), 123, 'i am fine')
         } catch (_error) {
             error = _error
         } finally {
@@ -97,7 +84,7 @@ describe('updatePostCaption', () => {
         let error
 
         try {
-            updatePostCaption('gonzalo', new ObjectId().toString(), 123)
+            updatePostCaption(new ObjectId().toString(), new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {

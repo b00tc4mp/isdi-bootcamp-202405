@@ -19,11 +19,11 @@ describe('deletePost', () => {
     it('succeeds on delete post', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user => {
-                Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
                     .then(post1 => {
-                        Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                        Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
                             .then(post2 => {
-                                deletePost(user.username, post1.id)
+                                deletePost(user.id, post1.id)
                                     .then(() => Post.find({}).lean())
                                     .then(posts => {
                                         expect(posts[0].author).to.equal(post2.author)
@@ -34,23 +34,19 @@ describe('deletePost', () => {
     })
 
     it('fails on non-existing user', () => {
-        let _error
-
-        return Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => deletePost('gonzalo', post.id))
-            .catch(error => _error = error)
-            .finally(() => {
-                expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('user not found')
+        Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(post => deletePost(new ObjectId().toString(), post.id))
+            .then(() => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
             })
     })
 
 
-    it('fails on existing user but non-existing post', () => {
-        let _error
 
-        return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => deletePost('gonzalo', new ObjectId().toString()))
+    it('fails on existing user but non-existing post', () => {
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
+            .then(() => deletePost(user.id, new ObjectId().toString()))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -59,21 +55,19 @@ describe('deletePost', () => {
 
     })
 
-    it('succeeds on delete post', () => {
+    it('fails on existing user and post but post does not belog to user', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user => {
-                Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-                    .then(post => {
-                        deletePost(user.username, post.id)
-                            .then(() => Post.find({}).lean())
-                            .then(posts => {
-                                expect(posts[0].author).to.equal(post.author)
-                            })
+                Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
+                    .then(post => deletePost(user.id, post.id))
+                    .then(() => {
+                        expect(error).to.be.instanceOf(OwnerShipError)
+                        expect(error.message).to.equal('post does not belong to user')
                     })
             })
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -82,24 +76,11 @@ describe('deletePost', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            deletePost('gon', new ObjectId().toString())
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
-        }
-    })
-
-    it('fails on non-string post id', () => {
+    it('fails on non-string postId', () => {
         let error
 
         try {

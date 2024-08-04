@@ -3,11 +3,11 @@ import { errors, validate } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, postId) => {
-    validate.username(username)
+export default (userId, postId) => {
+    validate.string(userId, 'userId')
     validate.string(postId, 'postId')
 
-    return User.findOne({ username }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
@@ -26,7 +26,7 @@ export default (username, postId) => {
                     else
                         favs.splice(index, 1)
 
-                    return User.updateOne({ username }, { $set: { favs } })
+                    return User.updateOne({ _id: userId }, { $set: { favs } })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

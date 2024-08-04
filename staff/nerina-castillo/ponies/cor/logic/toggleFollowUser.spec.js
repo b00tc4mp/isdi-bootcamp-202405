@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import toggleFollowUser from "./toggleFollowUser.js";
 import mongoose, { Types } from 'mongoose';
+const { ObjectId } = Types;
 
 import { expect } from 'chai'
 import { User } from '../data/models.js';
@@ -15,41 +16,35 @@ describe('toggleFollowUser', () => {
 
     beforeEach(() => Promise.all([User.deleteMany()]));
 
-    it('succeeds on existing user and follow is not toggled', () =>
+    it('succeeds on existing user and targetUser with no following', () =>
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user =>
-                User.create({ name: 'julito', surname: 'camelas', email: 'julito@camelas.com', username: 'julitocamelas', password: 'julito123' })
+                User.create({ name: 'julito', surname: 'camelas', email: 'julito@camelas.com', username: 'julitoCamelas', password: 'julito123' })
                     .then(targetUser =>
-                        toggleFollowUser(user.username, targetUser.username)
+                        toggleFollowUser(user.id, targetUser.id)
                             .then(() => User.findOne({ username: 'gonzalo' }).lean())
-                            .then(user => {
-                                expect(user.following).to.be.an('array');
-                                expect(user.following).to.include('julitocamelas');
-                            })
+                            .then(user => expect(user.following.map(userObjectId => userObjectId.toString())).to.include(targetUser.id))
                     )
             )
-    );
+    )
 
     it('succeeds on existing user and follow is toggled', () =>
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user =>
                 User.create({ name: 'julito', surname: 'camelas', email: 'julito@camelas.com', username: 'julitocamelas', password: 'julito123' })
                     .then(targetUser =>
-                        toggleFollowUser(user.username, targetUser.username)
-                            .then(() => toggleFollowUser(user.username, targetUser.username)) // Toggle again
+                        toggleFollowUser(user.id, targetUser.id)
+                            .then(() => toggleFollowUser(user.id, targetUser.id))
                             .then(() => User.findOne({ username: 'gonzalo' }).lean())
-                            .then(user => {
-                                expect(user.following).to.be.an('array');
-                                expect(user.following).to.not.include('julitocamelas');
-                            })
+                            .then(user => expect(user.following.map(userObjectId => userObjectId.toString())).to.not.include(user.id))
                     )
             )
-    );
+    )
 
     it('fails on non-existing user', () => {
         let _error;
 
-        return toggleFollowUser('nonexistent', 'julitocamelas')
+        return toggleFollowUser(new ObjectId().toString(), new ObjectId().toString())
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError);
@@ -57,11 +52,11 @@ describe('toggleFollowUser', () => {
             });
     });
 
-    it('fails on existing user but non-existing targetUser', () => {
+    it('fails on non-existing targetUser', () => {
         let _error;
 
         return User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => toggleFollowUser('gonzalo', 'nonexistent'))
+            .then(user => toggleFollowUser(user.id, new ObjectId().toString()))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError);
@@ -69,30 +64,30 @@ describe('toggleFollowUser', () => {
             });
     });
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error;
 
         try {
-            toggleFollowUser(123, 'julitocamelas');
+            toggleFollowUser(123, new ObjectId().toString());
         } catch (_error) {
             error = _error;
         } finally {
             expect(error).to.be.instanceOf(ValidationError);
-            expect(error.message).to.equal('username is not a string');
+            expect(error.message).to.equal('userId is not a string');
         }
     });
 
 
-    it('fails on non-string targetUsername', () => {
+    it('fails on non-string targetUserId', () => {
         let error;
 
         try {
-            toggleFollowUser('gonzalo', 123);
+            toggleFollowUser(new ObjectId().toString(), 123);
         } catch (_error) {
             error = _error;
         } finally {
             expect(error).to.be.instanceOf(ValidationError);
-            expect(error.message).to.equal('targetUsername is not a string');
+            expect(error.message).to.equal('targetUserId is not a string');
         }
     });
 

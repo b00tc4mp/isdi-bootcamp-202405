@@ -16,9 +16,9 @@ export default (req, res, next) => {
             return
         }
 
-        const { sub: username } = payload
+        const { sub: userId } = payload
 
-        req.username = username
+        req.userId = userId
 
         next()
     })

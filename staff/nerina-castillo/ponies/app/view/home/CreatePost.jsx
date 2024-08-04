@@ -26,17 +26,13 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption, error => {
-                if (error) {
+            logic.createPost(postImage, postCaption)
+                .then(() => onPostCreated())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostCreated()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -49,9 +45,6 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
 
         onCancelCreatePost()
     }
-
-
-
 
     return <section className="CreatePost">
         <Heading level="2">Create Post</Heading>

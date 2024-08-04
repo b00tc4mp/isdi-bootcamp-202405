@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/janfryTopera/follows -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5mcnlUb3BlcmEiLCJpYXQiOjE3MjIzMzAzNzl9.psSpv8cj_SrZSNGn2alTkkJ8-Aq7FTTkCGDsl9VEI-I"
+curl -v http://localhost:8080/users/66adf6279f45573c51492c75/follows -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFkZjYyNzlmNDU1NzNjNTE0OTJjNzUiLCJpYXQiOjE3MjI2NzY5MDh9.WuRv_S4DJVszuQtqdijMaN4kj0L7fg_p6Gpp0_DrFwU"

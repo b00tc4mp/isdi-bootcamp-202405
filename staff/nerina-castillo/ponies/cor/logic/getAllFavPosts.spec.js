@@ -2,6 +2,8 @@ import 'dotenv/config';
 import getAllFavPosts from "./getAllFavPosts.js";
 import mongoose, { Types } from 'mongoose';
 
+const { ObjectId } = Types
+
 import { expect } from 'chai';
 import { User, Post } from '../data/models.js';
 
@@ -15,30 +17,30 @@ describe('getAllFavPosts', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
 
-    ('succeeds on existing user listing all fav posts', () => {
-        Post.create({ author: 'gonzalo', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-            .then(post => {
+    it('succeeds on existing user listing all fav posts', () =>
+        Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+            .then(post =>
                 User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123', favs: [post.id] })
-                    .then(user => getAllFavPosts(user.username))
-                User.findOne({ username: 'gonzalo' })
-                    .then(user => expect(user.favs).to.include(post.id))
-            })
-    })
+                    .then(user => {
+                        getAllFavPosts(user.id)
+                        User.findOne({ username: 'gonzalo' })
+                            .then(user => expect(user.favs).to.include(post.id))
+                    })
+            )
+    )
 
     it('fails on non-existing user', () => {
         let _error
 
-        getAllFavPosts('gonzalo', 'gonzalo123')
+        return getAllFavPosts(new ObjectId().toString())
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('user not found')
             })
-
-
     })
 
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
@@ -47,22 +49,10 @@ describe('getAllFavPosts', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
-        let error
-
-        try {
-            getAllFavPosts('gon')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
-        }
-    })
 
     afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]));
 
