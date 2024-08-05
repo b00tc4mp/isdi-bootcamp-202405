@@ -10,7 +10,6 @@ const PASSWORD_REGEX = /^\w{8,}$/
 
 function validateString(value, explain = 'value') {
     if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
-    if (value.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
 }
 
 function validateCallback(callback, explain = 'callback') {

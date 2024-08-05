@@ -14,6 +14,7 @@ import toggleUserFollowHandler from './toggleUserFollowHandler.js'
 import editPostHandler from './editPostHandler.js'
 import editUserUsernameHandler from './editUserUsernameHandler.js'
 import editUserAvatarHandler from './editUserAvatarHandler.js'
+import searchPostsHandler from './searchPostsHandler.js'
 
 export default {
     registerUser: registerUserHandler,
@@ -31,5 +32,6 @@ export default {
     toggleUserFollow: toggleUserFollowHandler,
     editPost: editPostHandler,
     editUserUsername: editUserUsernameHandler,
-    editUserAvatar: editUserAvatarHandler
+    editUserAvatar: editUserAvatarHandler,
+    searchPosts: searchPostsHandler
 }

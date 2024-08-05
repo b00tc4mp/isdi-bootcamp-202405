@@ -26,6 +26,7 @@
 
 .Container--center-column {
     display: flex;
+    left: auto;
     flex-direction: column;
     justify-content: center;
     gap: .5rem;

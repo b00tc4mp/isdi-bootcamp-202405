@@ -47,6 +47,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/users/:targetUserId/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
 
+        api.get('/posts/search', jwtVerifier, handle.searchPosts)
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))

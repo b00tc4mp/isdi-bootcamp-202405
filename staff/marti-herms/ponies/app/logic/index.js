@@ -17,6 +17,7 @@ import toggleSavedPost from './toggleSavedPost.js'
 import editUserAvatar from './editUserAvatar.js'
 import editUserUsername from './editUserUsername.js'
 import isLoggedIn from './isLoggedIn.js'
+import searchPosts from './searchPosts.js'
 
 const logic = {
     createPost,
@@ -37,7 +38,8 @@ const logic = {
     toggleUserFollow,
     togglePostLike,
     toggleSavedPost,
-    isLoggedIn
+    isLoggedIn,
+    searchPosts
 }
 
 export default logic

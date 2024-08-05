@@ -16,9 +16,11 @@ describe('authenticateUser', () => {
 
     it('succeeds on existing user and correct password', () =>
         bcrypt.hash('123123123', 8)
-            .then(hash => User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: hash }))
-            .then(() => authenticateUser('monoloco', '123123123'))
-            .then(value => expect(value).to.be.undefined)
+            .then(hash => {
+                User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: hash })
+                    .then(() => authenticateUser('monoloco', '123123123'))
+                    .then(id => expect(id).to.equal(user.id))
+            })
     )
 
     it('fails on non-existing user', () => {

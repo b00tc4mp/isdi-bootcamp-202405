@@ -23,7 +23,7 @@ export default (userId) => {
                         post.id = post._id.toString()
                         delete post._id
 
-                        return User.findById(post.author).lean()
+                        return User.findById(post.author)
                             .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
                                 post.author = {

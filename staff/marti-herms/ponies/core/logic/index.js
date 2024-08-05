@@ -14,6 +14,7 @@ import registerUser from './registerUser.js'
 import toggleUserFollow from './toggleUserFollow.js'
 import togglePostLike from './togglePostLike.js'
 import toggleSavedPost from './toggleSavedPost.js'
+import searchPosts from './searchPosts.js'
 
 const logic = {
     createPost,
@@ -31,7 +32,8 @@ const logic = {
     registerUser,
     toggleUserFollow,
     togglePostLike,
-    toggleSavedPost
+    toggleSavedPost,
+    searchPosts
 }
 
 export default logic

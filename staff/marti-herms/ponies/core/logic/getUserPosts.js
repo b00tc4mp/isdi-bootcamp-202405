@@ -14,13 +14,13 @@ export default (userId, targetUserId) => {
             if (!user)
                 throw new NotFoundError('user not found')
 
-            return User.findById(targetUserId, { __v: 0 }).lean()
+            return User.findById(targetUserId)
                 .catch(error => { throw new SystemError(error.message) })
                 .then(author => {
                     if (!author)
                         throw new NotFoundError('author not found')
 
-                    return Post.find({ author: author._id }).sort({ date: -1 }).lean()
+                    return Post.find({ author: targetUserId }, { __v: 0 }).sort({ date: -1 }).lean()
                         .catch(error => { throw new SystemError(error.message) })
                         .then(posts => {
                             const promises = posts.map(post => {

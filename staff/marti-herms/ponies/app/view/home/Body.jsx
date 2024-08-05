@@ -1,36 +1,20 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+
 import logic from '../../logic'
 
 import Post from './Post'
 import Profile from './Profile'
+import SearchResults from '../components/SearchResults'
 
-import { useEffect, useState } from 'react'
 
 const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
     const [posts, setPosts] = useState([])
-    const [user, setUser] = useState(null)
+
+    const { userId } = useParams()
 
     useEffect(() => {
         try {
-            const userId = logic.getUserId()
-
-            if (!user) {
-                logic.getUser(userId)
-                    .then(user => setUser(user))
-                    .catch(error => {
-                        console.error(error)
-
-                        alert(error.message)
-                    })
-            } else if (user.id !== feed) {
-                logic.getUser((feed === 'home' || feed === 'saved' || feed === 'followed') ? userId : feed)
-                    .then(user => setUser(user))
-                    .catch(error => {
-                        console.error(error)
-
-                        alert(error.message)
-                    })
-            }
-
             if (feed === 'home') {
                 logic.getAllPosts()
                     .then(posts => setPosts(posts))
@@ -39,7 +23,7 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
 
                         alert(error.message)
                     })
-            } else if (feed === 'saved') {
+            } else if (feed === 'favs') {
                 logic.getUserSavedPosts()
                     .then(posts => setPosts(posts))
                     .catch(error => {
@@ -55,8 +39,8 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
 
                         alert(error.message)
                     })
-            } else {
-                logic.getUserPosts(feed)
+            } else if (feed === 'profile') {
+                logic.getUserPosts(userId)
                     .then(posts => setPosts(posts))
                     .catch(error => {
                         console.error(error)
@@ -90,7 +74,7 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
     }
 
     const handlePostSaved = () => {
-        if (feed === 'saved') {
+        if (feed === 'favs') {
             try {
                 logic.getUserSavedPosts()
                     .then(posts => setPosts(posts))
@@ -137,8 +121,13 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
         }
     }
 
+    const handleResults = (results) => {
+        setPosts(results)
+    }
+
     return <main className="View--home">
-        {user && user.id === feed && <Profile user={user} onChange={handleUserProfile} />}
+        {feed === 'profile' && <Profile userId={userId} postQuantity={posts.length} refreshStamp={refreshStamp} onChange={handleUserProfile} />}
+        {feed === 'search' && <SearchResults onResult={handleResults} />}
         <section className="Post-list">
             {posts.map(post => <Post key={post.id} post={post}
                 onUserClick={handleUserProfile}

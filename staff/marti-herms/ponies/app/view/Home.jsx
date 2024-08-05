@@ -1,27 +1,31 @@
+import { useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+
 import Header from './home/Header'
 import Body from './home/Body'
 import Footer from './home/Footer'
+import SearchResults from './components/SearchResults'
 
 import './Home.css'
 
-import { useState } from 'react'
 
 const Home = ({ onLogout }) => {
+    const navigate = useNavigate()
+
     const [refreshStamp, setRefreshStamp] = useState(null)
-    const [feed, setFeed] = useState('home')
 
     const handleHomeFeed = () => {
-        setFeed('home')
+        navigate('/')
     }
 
     const handleSearchUser = (userId) => {
         setRefreshStamp(Date.now())
-        setFeed(userId)
+        navigate(`/profile/${userId}`)
     }
 
     const handlePostCreatedOrCanceled = () => {
         setRefreshStamp(Date.now())
-        setFeed('home')
+        navigate('/')
     }
 
     const handleUserFollow = () => {
@@ -29,22 +33,34 @@ const Home = ({ onLogout }) => {
     }
 
     const handleFollowedFeed = () => {
-        setFeed('followed')
+        navigate('/followed')
     }
 
-    const handleSavedPostsFeed = () => {
-        setFeed('saved')
+    const handleFavsFeed = () => {
+        navigate('/favs')
+    }
+
+    const handlePostSearch = () => {
+        navigate('/search')
     }
 
     return <>
         <Header onLogout={onLogout} />
 
-        <Body refreshStamp={refreshStamp} feed={feed} onProfile={handleSearchUser} onFollow={handleUserFollow} />
+        <Routes>
+            <Route path='/' element={<Body refreshStamp={refreshStamp} feed='home' onProfile={handleSearchUser} onFollow={handleUserFollow} />} />
+            <Route path='/followed' element={<Body refreshStamp={refreshStamp} feed='followed' onProfile={handleSearchUser} onFollow={handleUserFollow} />} />
+            <Route path='/favs' element={<Body refreshStamp={refreshStamp} feed='favs' onProfile={handleSearchUser} onFollow={handleUserFollow} />} />
+            <Route path='/profile/:userId' element={<Body refreshStamp={refreshStamp} feed='profile' onProfile={handleSearchUser} onFollow={handleUserFollow} />} />
+            <Route path='/search' element={<Body refreshStamp={refreshStamp} feed='search' onProfile={handleSearchUser} onFollow={handleUserFollow} />} />
+        </Routes>
+
 
         <Footer onHomeButtonClick={handleHomeFeed}
+            onPostSearch={handlePostSearch}
             onPostCreated={handlePostCreatedOrCanceled}
             onFollowedButtonClick={handleFollowedFeed}
-            onSavedPostsButtonClick={handleSavedPostsFeed} />
+            onSavedPostsButtonClick={handleFavsFeed} />
     </>
 
 }

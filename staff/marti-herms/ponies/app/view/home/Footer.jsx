@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import './Footer.css'
 
-const Footer = ({ onHomeButtonClick, onPostCreated, onFollowedButtonClick, onSavedPostsButtonClick }) => {
+const Footer = ({ onHomeButtonClick, onPostSearch, onPostCreated, onFollowedButtonClick, onSavedPostsButtonClick }) => {
     const [addPostVisibility, setAddPostVisibility] = useState(null)
     const [activeButton, setActiveButton] = useState('home')
 
@@ -27,9 +27,10 @@ const Footer = ({ onHomeButtonClick, onPostCreated, onFollowedButtonClick, onSav
         onSavedPostsButtonClick()
     }
 
-    const handleSearchUserButton = () => {
-        setAddPostVisibility('searchUser')
+    const handlePostSearchButton = () => {
         setActiveButton('search')
+
+        onPostSearch()
     }
 
     const handleAddPostButton = () => {
@@ -51,16 +52,16 @@ const Footer = ({ onHomeButtonClick, onPostCreated, onFollowedButtonClick, onSav
 
     const handleCancel = () => {
         setAddPostVisibility(null)
-        setActiveButton(
-            'home')
+        setActiveButton('home')
+
         onPostCreated()
     }
 
-    return <footer className="Footer">
+    return <footer className='Footer'>
         {addPostVisibility === 'addPost' && <AddPostSection onPostCreated={handlePostCreated} onCancel={handleCancel} />}
-        {addPostVisibility === 'searchUser' && <SearchSection onSearch={handleUserSearched} onCancel={handleCancel} />}
         <Button className={activeButton === 'home' ? 'Button--home active' : 'Button--home'} onClick={handleHomeButton}></Button>
-        <Button className="Button--add--post" onClick={handleAddPostButton}>+</Button>
+        <Button className={activeButton === 'search' ? 'Button--search active' : 'Button--search'} onClick={handlePostSearchButton}></Button>
+        <Button className='Button--add--post' onClick={handleAddPostButton}>+</Button>
         <Button className={activeButton === 'followed' ? 'Button--followed active' : 'Button--followed'} onClick={handleFollowedPostsButton}></Button>
         <Button className={activeButton === 'saved' ? 'Button--saved active' : 'Button--saved'} onClick={handleSavedPostsButton}></Button>
     </footer>
