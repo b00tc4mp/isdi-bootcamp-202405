@@ -1,16 +1,19 @@
+import { useState } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+
 import Header from './home/Header'
 import PostList from './home/PostList'
 import Footer from './home/Footer'
 import PoniesPostList from './home/PoniesPostList'
 import FavPostList from './home/FavPostList'
 
-import { useState } from 'react'
 
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')
 
+    const navigate = useNavigate()
+
     const [refreshStamp, setRefreshStamp] = useState(null)
-    const [view, setView] = useState('home')
 
     const handlePostCreated = () => {
         console.debug('Home -> handlePostCreated')
@@ -21,19 +24,19 @@ const Home = ({ onLogout }) => {
     const handlePoniesClick = () => {
         console.debug('Header -> handlePoniesClick')
 
-        setView('ponies')
+        navigate('/ponies')
     }
 
     const handleHomeClick = () => {
         console.debug('Home -> handleHomeClick')
 
-        setView('home')
+        navigate('/')
     }
 
     const handleFavsClick = () => {
         console.debug('Home -> handleFavsClick')
 
-        setView('favs')
+        navigate('/favs')
     }
 
     return <>
@@ -45,11 +48,13 @@ const Home = ({ onLogout }) => {
         />
 
         <main className="view main">
-            {view === 'home' && <PostList refreshStamp={refreshStamp} />}
+            <Routes>
+                <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
 
-            {view === 'ponies' && <PoniesPostList />}
+                <Route path="/ponies" element={<PoniesPostList />} />
 
-            {view === 'favs' && <FavPostList />}
+                <Route path="/favs" element={<FavPostList />} />
+            </Routes>
         </main>
 
         <Footer onPostCreated={handlePostCreated} />

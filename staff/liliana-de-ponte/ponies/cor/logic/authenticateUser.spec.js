@@ -24,7 +24,6 @@ describe('autheticateUser', () => {
             .then(value => expect(value).to.be.undefined)
     })
 
-
     it('fails on non-existing user', () => {
         let _error
 
