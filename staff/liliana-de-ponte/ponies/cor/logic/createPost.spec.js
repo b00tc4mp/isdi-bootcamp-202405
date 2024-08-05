@@ -22,7 +22,7 @@ describe('createPost', () => {
                 createPost(user.id, 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'morning')
                     .then(() => Post.findOne({ author: user.id })
                         .then(post => {
-                            expect(post.author.toString().to.equal(user.id))
+                            expect(post.author.toString()).to.equal(user.id)
                             expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
                             expect(post.caption).to.equal('morning')
                         })

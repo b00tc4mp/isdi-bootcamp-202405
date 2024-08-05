@@ -22,10 +22,10 @@ describe('getAllPoniesPost', () => {
     it('succeeds on existing user', () =>
         User.create({ name: 'Samu', surname: 'Spine∫', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(user =>
-                Post.create({ author: 'samuspine', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
+                Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
                     .then(() => getAllPoniesPost(user.id)
                         .then(posts => {
-                            return User.findOne({ username: 'samuspine' })
+                            return User.findById(user.id)
                                 .then(() => expect(posts).to.be.an('array'))
                         })
                     )

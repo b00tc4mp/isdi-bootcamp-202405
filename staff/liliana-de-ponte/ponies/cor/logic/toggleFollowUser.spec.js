@@ -1,6 +1,8 @@
 import 'dotenv/config'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
+
+const { ObjectId } = Types
 
 import toggleFollowUser from './toggleFollowUser.js'
 import { User } from '../data/models.js'
@@ -8,14 +10,12 @@ import { User } from '../data/models.js'
 import { errors } from '../../com/index.js'
 
 
-const { ValidationError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('toggleFollowUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() =>
-        Promise.all([User.deleteMany(), Post.deleteMany()])
-    )
+    beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user and targetUser with no follow', () =>
         User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
@@ -23,8 +23,8 @@ describe('toggleFollowUser', () => {
                 User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
                     .then(targetUser =>
                         toggleFollowUser(user.id, targetUser.id)
-                            .then(() => User.findOne({ username: 'lilideponte' }).lean())
-                            .then(user => expect(user.following).to.include('samuspine'))
+                            .then(() => User.findById(user.id).lean())
+                            .then(user => expect(user.following.map(userObjectId => userObjectId.toString())).to.include(targetUser.id))
 
                     )
             )
@@ -37,8 +37,8 @@ describe('toggleFollowUser', () => {
             .then(user => toggleFollowUser(new ObjectId().toString(), user.id)
                 .catch(error => _error = error)
                 .finally(() => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('User not found')
+                    expect(_error).to.be.instanceOf(NotFoundError)
+                    expect(_error.message).to.equal('user not found')
 
                 })
             )
@@ -48,12 +48,13 @@ describe('toggleFollowUser', () => {
         let _error
 
         return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
-            .then(user => toggleFollowUser(user.id, new ObjectId().toString()))
-            .catch(error => _error = error)
-            .finally(() => {
-                expect(__filenameerror).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('TargetUser not found')
-            })
+            .then(user => toggleFollowUser(user.id, new ObjectId().toString())
+                .catch(error => _error = error)
+                .finally(() => {
+                    expect(_error).to.be.instanceOf(NotFoundError)
+                    expect(_error.message).to.equal('targeUser not found')
+                })
+            )
     })
 
     it('fails on non-string userId', () => {

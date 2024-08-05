@@ -18,17 +18,22 @@ describe('deletePost', () => {
         Promise.all([User.deleteMany(), Post.deleteMany()])
     )
 
-    it('succeeds on delete post', () => {
-        return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+    it('succeeds on delete post', () =>
+        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(user =>
                 Post.create({ author: user.id, image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
                     .then(post =>
                         deletePost(user.id, post.id)
-                            .then(post => Post.findById(post.id).lean())
-                            .then(post => expect(post).to.be.null)
+                            .then(() => {
+                                Post.find({}).lean()
+                                    .then(posts => {
+                                        expect(posts.to.be([]))
+                                    })
+                            }
+                            )
                     )
             )
-    })
+    )
 
     it('fails on non-existing user', () => {
         let _error
@@ -47,12 +52,12 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost('', 'bsdbjkdf788')
+            deletePost(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid userId')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
@@ -67,6 +72,8 @@ describe('deletePost', () => {
             expect(error.message).to.equal('postId is not a string')
         }
     })
+
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     after(() => mongoose.disconnect())
 

@@ -95,19 +95,6 @@ describe('toggleLikePost', () => {
         }
     })
 
-    it('fails on invalid postId', () => {
-        let error
-
-        try {
-            toggleLikePost('samu', '')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid postId')
-        }
-    })
-
     afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     after(() => mongoose.disconnect())

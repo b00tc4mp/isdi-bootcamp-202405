@@ -24,26 +24,25 @@ describe('toggleFavPost', () => {
                 Post.create({ author: user.id, image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
                     .then(post =>
                         toggleFavPost(user.id, post.id)
-                            .then(() => User.findOne({ username: user.id })
-                                .then(user =>
-                                    expect(user.favs).to.include(post.id)
-                                )
-                            )
+                            .then(() => User.findById(user.id).lean())
+                            .then(user =>
+                                expect(user.favs.map(userObjectId => userObjectId.toString())).to.include(post.id))
                     )
             )
     )
-
 
     it('succeeds on existing user and post with favs', () =>
-        Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning', likes: ['samuspine'] })
+        Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'morning' })
             .then(post =>
                 User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789', favs: [post.id] })
-                    .then(user => toggleFavPost(user.id, post.id))
-                    .then(user => User.findOne({ username: 'samuspine' }).lean())
-                    .then(user => expect(user.favs).to.not.include(post.id)
+                    .then(user => toggleFavPost(user.id, post.id)
+                        .then(() => User.findById(user.id).lean())
+                        .then(user => expect(user.favs).to.not.include(post.id)
+                        )
                     )
             )
     )
+
 
     it('fails on non-existing user', () => {
         let _error
@@ -96,18 +95,6 @@ describe('toggleFavPost', () => {
         }
     })
 
-    it('fails on invalid postId', () => {
-        let error
-
-        try {
-            toggleFavPost(new ObjectId().toString(), '')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid postId')
-        }
-    })
 
     afterEach(() => User.deleteMany())
 

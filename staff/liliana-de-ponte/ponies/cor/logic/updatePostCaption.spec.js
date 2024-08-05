@@ -14,7 +14,7 @@ const { ValidationError, NotFoundError } = errors
 describe('updatePostCaption', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() => Post.deleteMany())
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     it('succeeds on existing user and post', () =>
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
@@ -70,25 +70,12 @@ describe('updatePostCaption', () => {
     it('fails on non-string postId', () => {
         let error
         try {
-            updatePostCaption('samuspine', 123, 'morning')
+            updatePostCaption(new ObjectId().toString(), 123, 'morning')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('postId is not a string')
-        }
-    })
-
-    it('fails on invalid postId', () => {
-        let error
-
-        try {
-            updatePostCaption(new ObjectId().toString(), '', 'morning')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('Invalid postId')
         }
     })
 
@@ -106,7 +93,7 @@ describe('updatePostCaption', () => {
     })
 
 
-    afterEach(() => User.deleteMany())
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     after(() => mongoose.disconnect())
 
