@@ -2,13 +2,24 @@
 
 A game to build pokemon teams and fight with them
 
-![Pokemon image](./images/)
+![Pokemon image](https://media.giphy.com/media/Ml9qdzetfukLi7kCai/giphy.gif?cid=790b76112j9m649d1ezvbunwxado0yph46f46wyqdajfn0kr&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
 
 ### Use Cases
 
-[?]
+V.01
+- create Pokemon team
+- edit Pokemon team
+- add pokemon to team
+- remove pokemon from team
+- edit pokemon from team
+
+V.02
+- find battle
+- select move
+- cancel move
+- exit battle
 
 ### UIUX Design
 
