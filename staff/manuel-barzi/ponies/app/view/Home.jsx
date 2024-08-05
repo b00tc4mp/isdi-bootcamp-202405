@@ -7,6 +7,9 @@ import Footer from './home/Footer'
 import PoniesPostList from './home/PoniesPostList'
 import FavsPostList from './home/FavsPostList'
 
+import Hello from './components/Hello'
+import SearchResults from './components/SearchResults'
+
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')
 
@@ -53,6 +56,10 @@ const Home = ({ onLogout }) => {
                 <Route path="/ponies" element={<PoniesPostList />} />
 
                 <Route path="/favs" element={<FavsPostList />} />
+
+                <Route path="/hello/:to" element={<Hello />} />
+
+                <Route path="/search" element={<SearchResults />} />
             </Routes>
         </main>
 
