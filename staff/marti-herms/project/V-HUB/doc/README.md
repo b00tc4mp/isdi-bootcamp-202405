@@ -8,7 +8,13 @@ A hub for gamers and developers to play or upload videogames
 
 ### Use Cases
 
-[?]
+User
+- add game to library/favourites
+- search game
+- select/play game
+
+Dev User
+- post game to site
 
 ### UIUX Design
 
