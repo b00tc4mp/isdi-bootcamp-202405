@@ -46,7 +46,7 @@ describe('deletePost', () => {
 
     it('fails on existing user but non-existing post', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
-            .then(() => deletePost(user.id, new ObjectId().toString()))
+            .then(user => deletePost(user.id, new ObjectId().toString()))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -84,7 +84,7 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost('gonzalo', 123)
+            deletePost(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {

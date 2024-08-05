@@ -21,7 +21,7 @@ describe('updatePostCaption', () => {
         User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'gonzalo123' })
             .then(user => {
                 Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
-                    .then(post => updatePostCaption('gonzalo', post.id, 'okay...'))
+                    .then(post => updatePostCaption(user.id, post.id, 'okay...'))
 
                 Post.findById(post.id).lean()
                     .then(post => {

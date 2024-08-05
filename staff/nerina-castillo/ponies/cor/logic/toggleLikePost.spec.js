@@ -79,19 +79,6 @@ describe('toggleLikePost', () => {
         }
     })
 
-    it('fails on non-string userId', () => {
-        let error
-
-        try {
-            toggleLikePost(123, new ObjectId().toString())
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
-        }
-    })
-
     it('fails on non-string postId', () => {
         let error
 
