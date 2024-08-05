@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //callstack: javascript guarda en algun lugar las funciones que necesitas ejecutar, se ejecutan funciones en orden 
+        // a medida que van terminando de continua con la siguiente
+
+        function buyFlyTicket() {
+            searchAirline()
+        }
+        function searchAirline() {
+            //return "Selected airline"
+            destiny()
+        }
+        function destiny() {
+            //return "Selected destiny"
+            dayTrip()
+
+        }
+        function dayTrip() {
+            //return "Selected day"
+            return "Vuelo seleccionado con exito"
+        }
+
+        buyFlyTicket()
+
+    </script>
+</body>
+
+</html>

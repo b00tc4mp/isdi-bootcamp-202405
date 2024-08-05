@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //El mundo exterior no puede acceder a las variables declaradas dentro del IIFE y de esta manera se puede evitar que el alcance global se contamine
+
+        function myData() {
+            var name = "Liliana"
+            //name = "Isabel"
+            return `Mi name is : ${name}`
+        }
+
+        myData()
+
+
+        //En este caso si intento acceder a la variable name no me indica el valor
+
+        //
+        var name = "Liliana"
+        function myData() {
+            name = "Isabel"
+            return `Mi name is : ${name}`
+        }
+
+        myData()
+
+
+
+    </script>
+</body>
+
+</html>

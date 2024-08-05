@@ -1,0 +1,28 @@
+.building {
+    display: flex; 
+    background-color: aquamarine;
+    width: 300px;
+    height: 500px;
+    border: black solid; 
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.planta { 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: black;
+    width: 97%;
+    height: 15%;
+    border: 5px solid aquamarine;
+    justify-content: space-around;
+}
+
+.hijo {
+    background-color: white;
+    width: 50%;
+    height: 75%;
+    border: 10px solid;
+}

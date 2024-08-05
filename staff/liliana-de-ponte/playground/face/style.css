@@ -1,0 +1,64 @@
+h1 {
+    color: aliceblue;
+}
+
+.face {
+    display: flex;
+    background-color: rgb(245, 212, 162);
+    width: 250px;
+    height: 320px;
+    border-radius: 100% 100% / 70% 70% 120% 120%;
+    top: 35%;
+}
+
+.upper {
+    display: flex;
+    width: 150px;
+    height: 220px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.eye1 {
+    display: flex;
+    background-color: rgb(247, 241, 241);
+    width: 45px;
+    height: 25px;
+    border-radius: 60%;
+    top: 25%;
+    right: 7%;
+    border: black solid;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.eye2 {
+    display: flex;
+    background-color: rgb(247, 241, 241);
+    width: 45px;
+    height: 25px;
+    border-radius: 60%;
+    border: black solid;
+    justify-content: center;
+    align-items: center;
+}
+
+.pupila1 {
+    background-color: black;
+    width: 13px;
+    height: 10px;
+    border-radius: 70%;
+    top: 50%;
+    border: brown;
+}
+
+.pupila2 {
+    background-color: black;
+    width: 13px;
+    height: 10px;
+    border-radius: 50%;
+    top: 50%;
+    border: brown;
+}
