@@ -1,24 +1,29 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-function toggleFollowUser(username) {
-    if (!username.trim().length) throw new Error('invalid username')
+const { SystemError } = errors
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+export default targetUserId => {
+    validate.string(targetUserId, 'targetUserId')
 
-    if (!user) throw new Error('user not found')
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}/follows`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    const following = data.findUser(user => user.username === username)
+            if (status === 204) return
 
-    if (!following) throw new Error('following user not found')
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-    const index = user.following.indexOf(username)
+                    const constructor = errors[error]
 
-    if (index < 0)
-        user.following.push(username)
-    else
-        user.following.splice(index, 1)
-
-    data.updateUser(user => user.username === sessionStorage.username, user)
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default toggleFollowUser

@@ -1,106 +1,61 @@
-import logic from '../../logic/index.js'
+import logic from '../../logic'
 
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 
-import Post from './Post.jsx'
+import Post from './Post'
 
 import './PostList.css'
 
-class PostList extends Component {
-    constructor() {
-        console.debug('PostList -> constructor')
+const PostList = ({ refreshStamp }) => {
+    console.debug('PostList -> call')
 
-        super()
+    const [posts, setPosts] = useState([])
 
-        try {
-            const posts = logic.getAllPosts()
+    useEffect(() => {
+        console.debug('PostList -> useEffect')
 
-            this.state = { posts }
-        } catch (error) {
-            console.error(error)
+        loadPosts()
+    }, [refreshStamp])
 
-            alert(error.message)
-        }
-    }
-
-    componentWillReceiveProps(newProps) {
-        console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
-
-        if (newProps.refreshStamp !== this.props.refreshStamp)
-            try {
-                const posts = logic.getAllPosts()
-
-                this.setState({ posts })
-            } catch (error) {
-                console.error(error)
-
-                alert(error.message)
-            }
-    }
-
-    handlePostDeleted() {
+    const handlePostDeleted = () => {
         console.debug('PostList -> handlePostDeleted')
 
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
-    handlePostEdited() {
+    const handlePostEdited = () => {
         console.debug('PostList -> handlePostEdited')
 
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
-    handlePostLikeToggled() {
+    const handlePostLikeToggled = () => {
         console.debug('PostList -> handlePostLikeToggled')
 
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
-    handlePostFavToggled() {
+    const handlePostFavToggled = () => {
         console.debug('PostList -> handlePostFavToggled')
 
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
-    handleUserFollowToggled() {
+    const handleUserFollowToggled = () => {
         console.debug('PostList -> handleUserFollowToggled')
 
-        try {
-            const posts = logic.getAllPosts()
+        loadPosts()
+    }
 
-            this.setState({ posts })
+    const loadPosts = () => {
+        try {
+            logic.getAllPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -108,21 +63,17 @@ class PostList extends Component {
         }
     }
 
-    render() {
-        console.debug('PostList -> render')
-
-        return <section className="PostList">
-            {this.state.posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={this.handlePostDeleted.bind(this)}
-                onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
-                onPostFavToggled={this.handlePostFavToggled.bind(this)}
-                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
-            />)}
-        </section>
-    }
+    return <section className="PostList">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited}
+            onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onUserFollowToggled={handleUserFollowToggled}
+        />)}
+    </section>
 }
 
 export default PostList

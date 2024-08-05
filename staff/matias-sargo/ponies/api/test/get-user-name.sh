@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/maif/name -H "Authorization: Basic matif"

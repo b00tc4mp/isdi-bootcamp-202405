@@ -1,21 +1,33 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-const loginUser = (username, password) => {
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
+const { SystemError } = errors
 
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+export default (username, password) => {
+    validate.username(username)
+    validate.password(password)
 
-    const user = data.findUser(user => user.username === username)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    if (user === null)
-        throw new Error('username does not exist')
+            if (status === 200)
+                return response.json()
+                    .then(token => sessionStorage.token = token)
 
-    if (user.password !== password)
-        throw new Error('wrong password')
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-    sessionStorage.username = username
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default loginUser

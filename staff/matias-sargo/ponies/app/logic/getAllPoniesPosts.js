@@ -1,27 +1,28 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-const getAllPoniesPosts = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+const { SystemError } = errors
 
-    if (user === null)
-        throw new Error('user not found')
-
-    const posts = data.findPosts(post => user.following.includes(post.author))
-
-    posts.forEach(post => {
-        post.fav = user.favs.includes(post.id)
-        post.like = post.likes.includes(sessionStorage.username)
-
-        const author = data.findUser(user => user.username === post.author)
-
-        post.author = {
-            username: author.username,
-            avatar: author.avatar,
-            following: user.following.includes(author.username)
+export default () => {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/ponies`, {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
         }
     })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    return posts.reverse()
+            if (status === 200)
+                return response.json()
+                    .then(posts => posts)
+
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
+
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default getAllPoniesPosts

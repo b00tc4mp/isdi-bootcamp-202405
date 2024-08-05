@@ -1,26 +1,29 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-function toggleFavPost(postId) {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const { SystemError } = errors
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+export default postId => {
+    validate.string(postId, 'postId')
 
-    if (user === null)
-        throw new Error('user not found')
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favs`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    const post = data.findPost(post => post.id === postId)
+            if (status === 204) return
 
-    if (post === null)
-        throw new Error('post not found')
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-    const index = user.favs.indexOf(postId)
+                    const constructor = errors[error]
 
-    if (index < 0)
-        user.favs.push(postId)
-    else
-        user.favs.splice(index, 1)
-
-    data.updateUser(user => user.username === sessionStorage.username, user)
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default toggleFavPost

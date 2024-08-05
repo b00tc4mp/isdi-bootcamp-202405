@@ -1,53 +1,60 @@
-import { Component } from 'react'
-import './Header.css'
 import logic from '../../logic'
 
+import { useState, useEffect } from 'react'
 
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
 
-class Header extends Component {
-    constructor() {
-        console.debug('Header -> constructor')
+import './Header.css'
 
-        super()
+const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
+    console.debug('Header -> call')
+
+    const [name, setName] = useState(null)
+
+    useEffect(() => {
+        console.debug('Header -> useEffect')
 
         try {
-            const name = logic.getUserName()
+            logic.getUserName()
+                .then(name => setName(name))
+                .catch(error => {
+                    console.error(error)
 
-            this.state = { name }
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
-    }
+    }, [])
 
-    handleHomeClick() {
+    const handleHomeClick = () => {
         console.debug('Header -> handleHomeClick')
 
-        this.props.onHomeClick()
+        onHomeClick()
     }
 
-    handlePoniesClick() {
+    const handlePoniesClick = () => {
         console.debug('Header -> handlePoniesClick')
 
-        this.props.onPoniesClick()
+        onPoniesClick()
     }
 
-    handleFavsClick() {
+    const handleFavsClick = () => {
         console.debug('Header -> handleFavsClick')
 
-        this.props.onFavsClick()
+        onFavsClick()
     }
 
-    handleLogout() {
+    const handleLogout = () => {
         console.debug('Header -> handleLogout')
 
         try {
             logic.logoutUser()
 
-            this.props.onLogout()
+            onLogout()
         } catch (error) {
             console.error(error)
 
@@ -55,17 +62,14 @@ class Header extends Component {
         }
     }
 
-    render() {
-        console.debug('Header -> render')
 
-        return <header className="Header">
-            <Paragraph>Hello, {this.state.name}!</Paragraph>
-            <Button onClick={this.handleHomeClick.bind(this)}>🏚️</Button>
-            <Button onClick={this.handlePoniesClick.bind(this)}>🦄</Button>
-            <Button onClick={this.handleFavsClick.bind(this)}>🏳️‍🌈</Button>
-            <Button onClick={this.handleLogout.bind(this)}>🚪</Button>
-        </header>
-    }
+    return <header className="Header">
+        <Paragraph>Hello, {name}!</Paragraph>
+        <Button onClick={handleHomeClick}>🏚️</Button>
+        <Button onClick={handlePoniesClick}>🦄</Button>
+        <Button onClick={handleFavsClick}>🏳️‍🌈</Button>
+        <Button onClick={handleLogout}>🚪</Button>
+    </header>
 }
 
 export default Header

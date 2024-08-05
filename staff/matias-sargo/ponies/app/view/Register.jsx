@@ -1,4 +1,4 @@
-import logic from '../logic/index.js'
+import logic from '../logic'
 
 import Heading from './components/Heading'
 import Form from './components/Form'
@@ -34,10 +34,12 @@ function Register({ onRegister, onLoginClick }) {
 
         try {
             logic.registerUser(name, surname, email, username, password, passwordRepeat)
+                .then(() => onRegister())
+                .catch(error => {
+                    console.error(error)
 
-            alert('user successfully registered')
-
-            onRegister()
+                    alert(message)
+                })
         } catch (error) {
             console.error(error)
 

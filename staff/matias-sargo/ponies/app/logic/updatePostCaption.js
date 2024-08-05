@@ -1,15 +1,32 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-const updatePostCaption = (postId, newCaption) => {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const { SystemError } = errors
 
-    const post = data.findPost(post => post.id === postId)
+export default (postId, caption) => {
+    validate.string(postId, 'postId')
+    validate.string(caption, 'caption')
 
-    if (post === null) throw new Error('post not found')
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/caption`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ caption })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    post.caption = newCaption
+            if (status === 204) return
 
-    data.updatePost(post => post.id === postId, post)
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
+
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default updatePostCaption

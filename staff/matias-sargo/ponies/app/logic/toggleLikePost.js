@@ -1,21 +1,29 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-function toggleLikePost(postId) {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const { SystemError } = errors
 
-    const post = data.findPost(post => post.id === postId)
+export default postId => {
+    validate.string(postId, 'postId')
 
-    if (post === null)
-        throw new Error('post not found')
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    const index = post.likes.indexOf(sessionStorage.username)
+            if (status === 204) return
 
-    if (index < 0)
-        post.likes.push(sessionStorage.username)
-    else
-        post.likes.splice(index, 1)
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-    data.updatePost(post => post.id === postId, post)
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default toggleLikePost

@@ -1,13 +1,29 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-const deletePost = postId => {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+const { SystemError } = errors
 
-    const post = data.findPost(post => post.id === postId)
+export default postId => {
+    validate.string(postId, 'postId')
 
-    if (post === null) throw new Error('post not found')
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    data.deletePost(post => post.id === postId)
+            if (status === 204) return
+
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
+
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default deletePost

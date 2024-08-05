@@ -1,48 +1,35 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+const { SystemError } = errors
 
-const registerUser = (name, surname, email, username, password, passwordRepeat) => {
-    if (name.trim() === '')
-        throw new Error('invalid name')
+export default (name, surname, email, username, password, passwordRepeat) => {
+    validate.name(name)
+    validate.name(surname, 'surname')
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
+    validate.password(passwordRepeat, 'passwordRepeat')
 
-    if (surname.trim().length < 2)
-        throw new Error('invalid surname')
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, surname, email, username, password, passwordRepeat })
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    if (!EMAIL_REGEX.test(email))
-        throw new Error('invalid email')
+            if (status === 201) return
 
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+                    const constructor = errors[error]
 
-    if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
-
-    let user = data.findUser(user => user.email === email)
-
-    if (user !== null)
-        throw new Error('email already exists')
-
-    user = data.findUser(user => user.username === username)
-
-    if (user !== null)
-        throw new Error('username already exists')
-
-    user = {
-        name: name,
-        surname: surname,
-        email: email,
-        username: username,
-        password: password,
-        favs: [],
-        following: [],
-        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
-    }
-
-    data.insertUser(user)
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default registerUser

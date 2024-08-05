@@ -27,8 +27,12 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
 
         try {
             logic.createPost(postImage, postCaption)
+                .then(() => onPostCreated())
+                .catch(error => {
+                    console.error(error)
 
-            onPostCreated()
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 

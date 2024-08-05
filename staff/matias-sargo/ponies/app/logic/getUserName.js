@@ -1,12 +1,32 @@
-import data from '../data/index.js'
+import { validate, errors } from "../../com";
 
-const getUserName = () => {
-    const user = data.findUser(user => user.username === sessionStorage.username)
+const { SystemError } = errors
 
-    if (user === null)
-        throw new Error('user not found')
+import extractPayloadFromToken from '../util/extractPayloadFromToken'
 
-    return user.name
+export default () => {
+    const { sub: username } = extractPayloadFromToken(sessionStorage.token)
+
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${username}/name`, {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
+
+            if (status === 200)
+                return response.json()
+                    .then(name => name)
+
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
+
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }
-
-export default getUserName
