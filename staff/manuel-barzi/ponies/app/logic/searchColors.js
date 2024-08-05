@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default query => {
     validate.string(query, 'query')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/search?q=${query}`)
+    return fetch(`${import.meta.env.VITE_API_URL}/colors/search?q=${query}`)
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
