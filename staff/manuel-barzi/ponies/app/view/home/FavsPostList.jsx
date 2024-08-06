@@ -6,7 +6,7 @@ import Post from './Post'
 
 import './PostList.css'
 
-const FavsPostList = () => {
+export default function FavsPostList() {
     console.debug('FavsPostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -75,5 +75,3 @@ const FavsPostList = () => {
         />)}
     </section>
 }
-
-export default FavsPostList

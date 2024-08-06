@@ -8,7 +8,7 @@ import PoniesPostList from './home/PoniesPostList'
 import FavsPostList from './home/FavsPostList'
 
 import Hello from './components/Hello'
-import SearchResults from './components/SearchResults'
+import ResultsPostList from './home/ResultsPostList'
 
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')
@@ -59,7 +59,7 @@ const Home = ({ onLogout }) => {
 
                 <Route path="/hello/:to" element={<Hello />} />
 
-                <Route path="/search" element={<SearchResults />} />
+                <Route path="/search" element={<ResultsPostList />} />
             </Routes>
         </main>
 

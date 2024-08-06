@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
+import Container from '../components/Container'
+
+import Search from './Search'
 
 import './Header.css'
 
@@ -64,11 +67,15 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
 
 
     return <header className="Header">
-        <Paragraph>Hello, {name}!</Paragraph>
-        <Button onClick={handleHomeClick}>🏚️</Button>
-        <Button onClick={handlePoniesClick}>🦄</Button>
-        <Button onClick={handleFavsClick}>🏳️‍🌈</Button>
-        <Button onClick={handleLogout}>🚪</Button>
+        <Search />
+
+        <Container>
+            <Paragraph>{name}</Paragraph>
+            <Button onClick={handleHomeClick}>🏚️</Button>
+            <Button onClick={handlePoniesClick}>🦄</Button>
+            <Button onClick={handleFavsClick}>🏳️‍🌈</Button>
+            <Button onClick={handleLogout}>🚪</Button>
+        </Container>
     </header>
 }
 
