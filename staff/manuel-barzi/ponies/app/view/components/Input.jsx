@@ -1,9 +1,7 @@
-import './Input.css'
-
 function Input({ className = '', ...nextProps }) {
     console.debug('Input -> call')
 
-    return <input className={`Input ${className}`} {...nextProps} />
+    return <input className={`border-[lightgray] border-[1px] rounded-[.25rem] text-[inherit] w-full px-[.5rem] ${className}`} {...nextProps} />
 }
 
 export default Input

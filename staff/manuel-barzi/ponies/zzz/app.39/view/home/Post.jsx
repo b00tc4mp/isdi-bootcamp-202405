@@ -145,7 +145,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
             <Button onClick={handleFollowUserClick}>{post.author.following ? '🦄' : '🐴'}</Button>
         </Container>
 
-        <Image src={post.image} alt={post.caption} title={post.caption} className="w-full" />
+        <Image src={post.image} alt={post.caption} title={post.caption} />
 
         <Paragraph>{post.caption}</Paragraph>
 
