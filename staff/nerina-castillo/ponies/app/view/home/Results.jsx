@@ -11,7 +11,7 @@ export default () => {
 
     useEffect(() => {
         try {
-            logic.searchColors(q)
+            logic.searchPosts(q)
                 .then(results => setResults(results))
                 .catch(error => {
                     console.error(error)

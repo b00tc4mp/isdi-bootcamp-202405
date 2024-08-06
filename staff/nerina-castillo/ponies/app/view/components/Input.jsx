@@ -1,14 +1,6 @@
-import './Input.css'
-
-function Input({ id, defaultValue, type, name, placeholder, className = '' }) {
-    return <input className={`Input ${className}`}
-        id={id}
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        defaultValue={defaultValue} />
+function Input({ className = '', ...nextProps }) {
+    return <input className={`text-[inherit] rounded-[5px] border-[none] px-[.5rem] shadow-[0_4px_8px_rgba(0,0,0,0.2)] ${className}`} {...nextProps} />
 
 }
-
 
 export default Input

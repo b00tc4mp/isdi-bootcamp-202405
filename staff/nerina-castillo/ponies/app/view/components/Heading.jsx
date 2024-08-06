@@ -1,11 +1,8 @@
-import './Heading.css'
+export default function Heading({ level = 1, children }) {
+    const Tag = `h${level}`
 
-function Heading({ level = 1, children, className = '' }) {
-    const Tag = `h${level}` // 'h' + {this.props.level}
-
-    return <Tag className={`Heading ${className}`}>
+    return <Tag className="m-0 px-0 font-bold text-lg" >
         {children}
     </Tag>
 }
 
-export default Heading

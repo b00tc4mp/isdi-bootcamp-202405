@@ -7,7 +7,6 @@ import Label from '../components/Label'
 import Button from '../components/Button'
 import Container from '../components/Container'
 
-import './CreatePost.css'
 
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
@@ -46,22 +45,22 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         onCancelCreatePost()
     }
 
-    return <section className="CreatePost">
-        <Heading level="2">Create Post</Heading>
+    return <section className="fixed bottom-0 start-0 w-full bg-[white] px-[.5rem] box-border">
+        <Heading level="4">Create Post</Heading>
 
         <Form className={"Form"} onSubmit={handleCreatePostSubmit}>
-            <Container className="Container--field">
+            <Container className="flex flex-col gap-2">
                 <Label htmlFor={"post-image-input"}>Image</Label>
                 <Input id={"post-image-input"} />
             </Container>
-            <Container className="Container--field">
-                <Label htmlFor={"post-caption-input"} >Caption</Label>
-                <Input className={"Input--caption"} id={"post-caption-input"} />
+            <Container className="flex flex-col gap-2">
+                <Label htmlFor={"flex flex-col gap-2"} >Caption</Label>
+                <Input className={"text-[inherit] rounded-[5px] border-[none] px-[.5rem] h-[50px] shadow-[0_4px_8px_rgba(0,0,0,0.2)]"} id={"post-caption-input"} />
             </Container>
 
-            <Container className="Container--field">
-                <Button className="Button--section" type={"submit"} >Create</Button>
-                <Button className="Button--section" type={"reset"} onClick={handleCancelCreatePostClick}>Cancel</Button>
+            <Container className="flex flex-col gap-2">
+                <Button className="bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[10px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] px-[.2rem] mt-[1rem] " type={"submit"} >Create</Button>
+                <Button className="bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[10px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] px-[.2rem] mt-[1rem] " type={"reset"} onClick={handleCancelCreatePostClick}>Cancel</Button>
             </Container>
         </Form>
     </section>

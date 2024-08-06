@@ -16,8 +16,6 @@ import Container from '../components/Container'
 
 import Avatar from './Avatar'
 
-import './Post.css'
-
 const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
     console.debug('Post -> call')
 
@@ -136,11 +134,11 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         }
     }
 
-    return <article className="Post">
-        <Container className='Container--top'>
+    return <article className="shadow-[1px_1px_10px_1px_rgba(0,0,0,0.2)]">
+        <Container className='flex px-0 justify-between m-[.5rem] items-center '>
             <Avatar url={post.author.avatar} />
 
-            <Heading level={3} >{post.author.username}</Heading>
+            <Heading level="4" >{post.author.username}</Heading>
 
             <Button onClick={handleFollowUserClick} >{post.author.following ? 'Unfollow' : 'Follow'}</Button>
         </Container>
@@ -161,12 +159,12 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        {editPostVisible && <Form className='Form--edit' onSubmit={handleEditPostSubmit}>
+        {editPostVisible && <Form className='flex flex-col min-widht-full px-0 m-[.5rem] text-[16px]' onSubmit={handleEditPostSubmit}>
             <Label htmlFor={"edit-caption-input"}>Caption</Label>
-            <Input className={"Input--caption "} id={"edit-caption-input"} defaultValue={post.caption} />
+            <Input className={"text-[inherit] rounded-[5px] border-[none] px-[.5rem] h-[50px] shadow-[0_4px_8px_rgba(0,0,0,0.2)]"} id={"edit-caption-input"} defaultValue={post.caption} />
 
-            <Button className={"Button--section"} type={"submit"}  >Save</Button>
-            <Button className={"Button--section"} type={"button"} onClick={handleCancelEditPostClick} >Cancel</Button>
+            <Button className={"bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[10px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] px-[.2rem] mt-[1rem] "} type={"submit"}  >Save</Button>
+            <Button className={"bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[10px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] px-[.2rem] mt-[1rem] "} type={"button"} onClick={handleCancelEditPostClick} >Cancel</Button>
         </Form>}
 
     </article>

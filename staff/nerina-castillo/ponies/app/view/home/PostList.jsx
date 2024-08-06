@@ -9,16 +9,14 @@ import Label from '../components/Label'
 import Input from '../components/Input'
 import Button from '../components/Button'
 
-
-import './PostList.css'
-
 const PostList = ({ refreshStamp }) => {
     console.debug('PostList -> call')
 
     const [posts, setPosts] = useState([])
-    const [searchParams, setSeachParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [query, setQuery] = useState('')
 
-    const q = searchParams.get('q')
+    const q = searchParams.get('q') || ''
 
     useEffect(() => {
         console.debug('PostList -> useEffect')
@@ -26,16 +24,21 @@ const PostList = ({ refreshStamp }) => {
         loadPosts()
     }, [refreshStamp])
 
-    const handleSearchSubmit = event => {
+    useEffect(() => {
+        setQuery(q)
+    }, [q])
+
+    const handleSearchPostsSubmit = event => {
         event.preventDefault()
 
-        console.debug('PostList -> handleSearchSubmit')
+        console.debug('PostList -> handleSearchPostsSubmit')
 
         const form = event.target
 
         const q = form.q.value
 
-        setSeachParams({ q })
+        setSearchParams({ q })
+        // setQuery(q)
 
         try {
             logic.searchPosts(q)
@@ -98,10 +101,14 @@ const PostList = ({ refreshStamp }) => {
         }
     }
 
-    return <section className="PostList">
-        <Form onSubmit={handleSearchSubmit}>
+    const handleInputChange = (event) => {
+        const { value } = event.target
+        setQuery(value)
+    }
+    return <section className="mt-[5px] mb-[5px] flex flex-col gap-4">
+        <Form onSubmit={handleSearchPostsSubmit}>
             <Label>Search</Label>
-            <Input name="q" placeholder="query" defaultValue={q} />
+            <Input name="q" value={query} onChange={handleInputChange} />
             <Button type="submit">Search</Button>
         </Form>
 

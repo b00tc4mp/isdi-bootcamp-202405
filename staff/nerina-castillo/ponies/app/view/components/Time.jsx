@@ -1,9 +1,5 @@
-import './Time.css'
-
-function Time({ children }) {
-    return <time className="Time">
+export default function Time({ children }) {
+    return <time className="block px-[.5rem] text-[silver] text-sm ">
         {children}
     </time>
 }
-
-export default Time

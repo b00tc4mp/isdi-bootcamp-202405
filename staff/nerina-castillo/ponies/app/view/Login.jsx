@@ -59,22 +59,22 @@ function Login({ onLogin, onRegisterClick }) {
     }
 
     return <main className="view--login">
-        <Container className="Container--login">Ponies</Container>
+        <Container className="fixed start-0 top-0 w-full flex justify-end items-center bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] text-[30px] pt-[7px] pb-[7px]">Ponies</Container>
 
-        <Heading className="Heading--login" level={1}>Login</Heading>
+        <Heading className="Heading" level={1}>Login</Heading>
 
         <Form className={"Form"} onSubmit={handleLoginSubmit}>
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"username-input"}>Username</Label>
                 <Input type={"text"} id={"username-input"} name={"username"} placeholder={"username"} />
             </Container>
 
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"password-input"}>Password</Label>
                 <Input type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
             </Container>
 
-            <Button className={"Button--section"} type={"submit"}>Login</Button>
+            <Button className={"bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[10px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] px-[.2rem] mt-[1rem]"} type={"submit"}>Login</Button>
         </Form>
 
         <Link onClick={handleRegisterClick}>Register</Link>

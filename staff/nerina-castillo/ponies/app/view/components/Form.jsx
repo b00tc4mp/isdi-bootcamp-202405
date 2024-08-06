@@ -1,13 +1,9 @@
-import './Form.css'
-
-function Form({ onSubmit, children, className = '' }) {
-    return <form className={`Form ${className}`}
-        onSubmit={onSubmit}>
+export default function Form({ children, className = '', ...nextProps }) {
+    return <form className={`flex flex-col min-widht-full px-0 text-[16px] gap-px-[1px] ${className}`} {...nextProps}
+    >
         {children}
 
     </form>
 
 }
 
-
-export default Form

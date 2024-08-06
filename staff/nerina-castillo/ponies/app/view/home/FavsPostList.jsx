@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
 
 const FavsPostList = () => {
     console.debug('FavsPostList -> call')
@@ -63,7 +62,7 @@ const FavsPostList = () => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="mt-[5px] mb-[5px] flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}

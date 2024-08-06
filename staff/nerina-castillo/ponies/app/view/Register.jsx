@@ -58,43 +58,43 @@ function Register({ onRegister, onLoginClick }) {
 
 
     return <main className="view--login">
-        <Container className="Container--login">Ponies</Container>
+        <Container className="fixed start-0 top-0 w-full flex justify-end items-center bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] text-[30px] pt-[7px] pb-[7px]">Ponies</Container>
 
-        <Heading className='Heading--login' level={1}>Register </Heading>
+        <Heading className='fixed start-0 top-[50px] text-purple-600' level={1}>Register </Heading>
 
         <Form className={"Form"} onSubmit={handleRegisterSubmit}>
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"name-input"}>Name</Label>
                 <Input type={"text"} id={"name-input"} name={"name"} placeholder={"name"} />
             </Container>
 
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"surname-input"}>Surname</Label>
                 <Input type={"text"} id={"surname-input"} name={"surname"} placeholder={"surname"} />
             </Container>
 
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"email-input"}>Email</Label>
                 <Input type={"email"} id={"email-input"} name={"email"} placeholder={"email"} />
             </Container>
 
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"username-input"}>Username</Label>
                 <Input type={"text"} id={"username-input"} name={"username"} placeholder={"userame"} />
             </Container>
 
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"password-input"} >Password</Label>
                 <Input type={"password"} id={"password-input"} name={"password"} placeholder={"password"} />
             </Container>
 
-            <Container className="Container--field">
+            <Container className="flex flex-col ">
                 <Label htmlFor={"password2-input"} >Repeat Password</Label>
                 <Input type={"password"} id={"password-repeat-input"} name={"password2"}
                     placeholder="repeat password" />
             </Container>
 
-            <Button className={"Button--section"} type={"submit"} >Register </Button>
+            <Button className={"bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[10px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] px-[.2rem] mt-[1rem]"} type={"submit"} >Register </Button>
         </Form>
 
         <Link onClick={handleLoginClick}>Login</Link>

@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
 
-import Form from './Form'
-import Label from './Label'
-import Input from './Input'
-import Button from './Button'
+import Form from '../components/Form'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Button from '../components/Button'
 
 export default () => {
     const [searchParams, setSeachParams] = useSearchParams()

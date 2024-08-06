@@ -1,9 +1,5 @@
-import './Image.css'
-
-function Image({ src, alt, title, className = 'Image' }) {
+export default function Image(props) {
     console.debug('Image -> call')
 
-    return <img className={className} src={src} alt={alt} title={title} />
+    return <img {...props} />
 }
-
-export default Image

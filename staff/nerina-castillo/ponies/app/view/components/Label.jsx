@@ -1,12 +1,8 @@
-import './Label.css'
-
-function Label({ htmlFor, children }) {
-    return <label className="Label"
+export default function Label({ htmlFor, children }) {
+    return <label className="text-[dimgray]"
         htmlFor={htmlFor}>
         {children}
     </label>
 
 }
 
-
-export default Label

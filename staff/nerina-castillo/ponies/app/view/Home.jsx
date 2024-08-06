@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Hello from './components/Hello'
-import SearchResults from './components/SearchResults'
+import SearchResults from './home/SearchResults'
 
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')

@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
 
-import './Header.css'
 
 const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
     console.debug('Header -> call')
@@ -63,12 +62,12 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
     }
 
 
-    return <header className="Header">
+    return <header className="fixed start-0 top-0 w-full flex justify-around items-center  bg-[white] box-border shadow-[0_4px_8px_rgba(0,0,0,0.2)] py-2 px-0 z-10">
         <Paragraph>Hello, {name}!</Paragraph>
         <Button onClick={handleHomeClick} >🏚️</Button>
         <Button onClick={handlePoniesClick} >Following</Button>
         <Button onClick={handleFavsClick} >💫</Button>
-        <Button className={"Button--logout"} onClick={handleLogout} >Logout</Button>
+        <Button className={"bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] rounded-[5px] border-[none] shadow-[0_4px_8px_rgba(0,0,0,0.2)] mr-px-[.5rem]"} onClick={handleLogout} >Logout</Button>
     </header>
 }
 
