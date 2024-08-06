@@ -1,9 +1,9 @@
 import './Form.css'
 
-function Form({ onSubmit, children, className = '' }) {
+function Form({ children, className = '', ...nextProps }) {
     console.debug('Form -> call')
 
-    return <form className={`Form ${className}`} onSubmit={onSubmit}>{children}</form>
+    return <form className={`Form ${className}`} {...nextProps}>{children}</form>
 }
 
 export default Form

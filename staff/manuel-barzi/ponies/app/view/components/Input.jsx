@@ -1,9 +1,9 @@
 import './Input.css'
 
-function Input({ id, defaultValue, value, type, name, placeholder, className = '', onChange }) {
+function Input({ className = '', ...nextProps }) {
     console.debug('Input -> call')
 
-    return <input className={`Input ${className}`} id={id} defaultValue={defaultValue} value={value} type={type} name={name} placeholder={placeholder} onChange={onChange} />
+    return <input className={`Input ${className}`} {...nextProps} />
 }
 
 export default Input

@@ -12,7 +12,7 @@ export default function ResultsPostList({ refreshStamp }) {
 
     const [searchParams] = useSearchParams()
 
-    const q = searchParams.get('q')
+    const q = searchParams.get('q') || ''
 
     const [posts, setPosts] = useState([])
 

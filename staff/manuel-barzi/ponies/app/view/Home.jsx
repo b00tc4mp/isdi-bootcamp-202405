@@ -6,9 +6,9 @@ import PostList from './home/PostList'
 import Footer from './home/Footer'
 import PoniesPostList from './home/PoniesPostList'
 import FavsPostList from './home/FavsPostList'
-
-import Hello from './components/Hello'
+import Hello from './home/Hello'
 import ResultsPostList from './home/ResultsPostList'
+
 
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')

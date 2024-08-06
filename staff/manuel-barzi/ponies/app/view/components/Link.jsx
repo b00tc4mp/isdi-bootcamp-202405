@@ -1,7 +1,7 @@
-function Link({ onClick, children }) {
+function Link({ children, ...nextProps }) {
     console.debug('Link -> call')
 
-    return <a href="#" onClick={onClick}>{children}</a>
+    return <a href="#" {...nextProps}>{children}</a>
 }
 
 export default Link

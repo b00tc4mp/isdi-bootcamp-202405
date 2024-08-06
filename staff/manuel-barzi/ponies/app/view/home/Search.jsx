@@ -11,9 +11,9 @@ export default function Search() {
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSeachParams] = useSearchParams()
-    const [query, setQuery] = useState()
+    const [query, setQuery] = useState('')
 
-    const q = searchParams.get('q')
+    const q = searchParams.get('q') || ''
 
     useEffect(() => {
         setQuery(q)
@@ -26,7 +26,9 @@ export default function Search() {
 
         const { value: query } = form.q
 
-        if (location.pathname !== '/search')
+        if (!query.trim())
+            navigate('/search')
+        else if (location.pathname !== '/search')
             navigate(`/search?q=${query}`)
         else
             setSeachParams({ q: query })
@@ -42,7 +44,7 @@ export default function Search() {
 
 
     return <Form onSubmit={handleSubmit} className="Search">
-        <Input name="q" placeholder="search" defaultValue={query} value={query} onChange={handleInputChange} />
+        <Input name="q" placeholder="search" value={query} onChange={handleInputChange} />
         <Button type="submit">🔍</Button>
     </Form>
 }
