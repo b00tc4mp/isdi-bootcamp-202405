@@ -49,19 +49,19 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
     return <section className="CreatePost">
         <Heading className="Heading--create-post" level="2">Create Post</Heading>
 
-        <Form className="Form--column" onSubmit={handleCreatePostSubmit}>
-            <Container className="Container--column">
-                <Container className="Container--column Container--column-left">
+        <Form className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]" onSubmit={handleCreatePostSubmit}>
+            <Container className="flex-col">
+                <Container className="flex-col items-start">
                     <Label htmlFor="post-image-input">Image</Label>
-                    <Input className="Input--full-width" id="post-image-input" />
+                    <Input className="w-11/12" id="post-image-input" />
                 </Container>
 
-                <Container className="Container--column Container--column-left">
+                <Container className="flex-col items-start">
                     <Label htmlFor="post-caption-input">Caption</Label>
-                    <Input className="Input--full-width" id="post-caption-input" />
+                    <Input className="w-11/12" id="post-caption-input" />
                 </Container>
 
-                <Container className="Container--center Container--section-buttons">
+                <Container className="justify-center gap-1rem">
                     <Button type="submit">Create</Button>
                     <Button type="reset" onClick={handleCancelCreatePostClick}>Cancel</Button>
                 </Container>

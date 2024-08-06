@@ -1,7 +1,8 @@
-import './Image.css'
-
-function Image({ src, alt, title, className = 'Image' }) {
-    return <img className={className} src={src} alt={alt} title={title} />
+export default function Image(props) {
+    return <img {...props} />
 }
 
-export default Image
+
+// .Image {
+//     width: 100%;
+// }

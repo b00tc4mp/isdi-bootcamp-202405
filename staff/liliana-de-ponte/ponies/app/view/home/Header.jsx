@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
+import Container from '../components/Container'
+
+import Search from './Search'
 
 import './Header.css'
 
@@ -47,6 +50,7 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
         onFavsClick()
     }
 
+
     const handleLogout = () => {
         console.debug('Header -> handleLogout')
 
@@ -62,13 +66,16 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
     }
 
     return <header className="Header">
-        <Paragraph className="Paragraph--user-name">Hello, {name}!</Paragraph>
+        <Search />
 
-        <Button className="Button--header" onClick={handleHomeClick}>🏠</Button>
-        <Button className="Button--header" onClick={handlePoniesClick}>🪅</Button>
-        <Button className="Button--header" onClick={handleFavsClick}>🏳️‍🌈</Button>
-        <Button className="Button--header" onClick={handleLogout}>Logout</Button>
+        <Container>
+            <Paragraph className="m-0 font-serif font-bold decoration-black">{name}!</Paragraph>
 
+            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleHomeClick}>🏠</Button>
+            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handlePoniesClick}>🪅</Button>
+            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleFavsClick}>🏳️‍🌈</Button>
+            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleLogout}>Logout</Button>
+        </Container>
     </header>
 
 }

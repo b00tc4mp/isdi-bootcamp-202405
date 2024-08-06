@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Header from './home/Header'
 import PostList from './home/PostList'
 import Footer from './home/Footer'
 import PoniesPostList from './home/PoniesPostList'
 import FavPostList from './home/FavPostList'
-
+import Hello from './home/Hello'
+import ResultsPostList from './home/ResultsPostList'
 
 const Home = ({ onLogout }) => {
     console.debug('Home -> call')
@@ -47,13 +48,18 @@ const Home = ({ onLogout }) => {
             onLogout={onLogout}
         />
 
-        <main className="view main">
+        <main className="flex flex-col items-center gap-[1rem] text-[1.1rem] font-serif mt-[3.5rem] mb-[3rem]">
             <Routes>
                 <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
 
                 <Route path="/ponies" element={<PoniesPostList />} />
 
                 <Route path="/favs" element={<FavPostList />} />
+
+                <Route path="/hello/:to" element={<Hello />} />
+
+                <Route path="/search" element={<ResultsPostList />} />
+
             </Routes>
         </main>
 

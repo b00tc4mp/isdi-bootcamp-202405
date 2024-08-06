@@ -32,7 +32,7 @@ const App = () => {
     const handleLoginClick = () => {
         console.debug('App -> handleLoginClick')
 
-        navigate('/ogin')
+        navigate('/login')
     }
 
     const handleLogout = () => {

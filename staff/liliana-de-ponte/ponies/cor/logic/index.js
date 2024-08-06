@@ -10,6 +10,7 @@ import getAllFavPosts from './getAllFavPosts.js'
 import toggleFollowUser from './toggleFollowUser.js'
 import getAllPoniesPosts from './getAllPoniesPosts.js'
 import authenticateUser from './authenticateUser.js'
+import searchPosts from './searchPosts.js'
 
 
 const logic = {
@@ -25,7 +26,7 @@ const logic = {
     toggleFollowUser,
     getAllPoniesPosts,
     authenticateUser,
-
+    searchPosts
 }
 
 export default logic

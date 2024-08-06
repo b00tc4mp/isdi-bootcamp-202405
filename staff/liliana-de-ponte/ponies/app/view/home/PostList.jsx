@@ -6,7 +6,7 @@ import Post from './Post'
 
 import './PostList.css'
 
-const PostList = ({ refreshStamp }) => {
+export default function PostList({ refreshStamp }) {
     console.debug('PostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -72,9 +72,9 @@ const PostList = ({ refreshStamp }) => {
             onPostLikeToggled={handlePostLikeToggled}
             onPostFavToggled={handlePostFavToggled}
             onUserFollowToggled={handleUserFollowToggled}
+
         />)}
     </section>
 
 }
 
-export default PostList

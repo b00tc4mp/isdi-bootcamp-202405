@@ -56,18 +56,18 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view">
+    return <main className="flex-col items-center gap-[1rem] text-[1.1rem] font-serif">
         <Heading level="1">Login</Heading>
 
-        <Form onSubmit={handleLoginSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left" >
-                <Label htmFor="username-input">Username</Label>
-                <Input className="Input--full-width" type="text" id="username-input" name="username" placeholder="username" />
+        <Form onSubmit={handleLoginSubmit} className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]">
+            <Container className="flex-col items-start" >
+                <Label htmlFor="username-input">Username</Label>
+                <Input className="w-11/12" type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-input">Password</Label>
-                <Input className="Input--full-width" type="password" id="password-input" name="password" placeholder="password" />
+                <Input className="w-11/12" type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
             <Button className="Button--form" type="submit">Login</Button>

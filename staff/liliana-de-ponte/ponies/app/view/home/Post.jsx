@@ -137,37 +137,37 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
     }
 
     return <article className="Post">
-        <Container className="Container--column-center">
+        <Container className="items-center">
             <Avatar url={post.author.avatar} />
 
             <Heading level="3" className="Heading--post" >{post.author.username}</Heading>
 
-            <Button className="Button--post" onClick={handleFollowUserClick}>{post.author.following ? '🪅' : '🎠'} </Button>
+            <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFollowUserClick}>{post.author.following ? '🪅' : '🎠'} </Button>
         </Container>
 
-        <Image src={post.image} alt={post.caption} title={post.caption} />
+        <Image src={post.image} alt={post.caption} title={post.caption} className="w-full" />
 
         <Paragraph >{post.caption}</Paragraph>
 
         <Container>
-            <Button className="Button--post" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-            <Button className="Button--post" onClick={handleFavPostClick}>{post.fav ? '🏳️‍🌈' : '🏳️'} </ Button>
+            <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFavPostClick}>{post.fav ? '🏳️‍🌈' : '🏳️'} </ Button>
 
             {post.author.id === logic.getUserId() && <>
-                <Button className="Button--post" onClick={handleDeletePostClick}>🗑️</Button>
-                <Button className="Button--post" onClick={handleEditPostClick}> 📝</Button>
+                <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleDeletePostClick}>🗑️</Button>
+                <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleEditPostClick}> 📝</Button>
             </>}
         </Container>
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="Form--column">
-            <Container className="Container--column">
+        {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]">
+            <Container className="flex-col">
                 <Label htmlFor={"edit-caption-input"} />
                 <Input id={"edit-caption-input"} defaultValue={post.caption} />
             </Container>
 
-            <Container className="Container--center">
+            <Container className="justify-center">
                 <Button type={"submit"}>Save</Button>
                 <Button type={"button"} onClick={handleCancelEditPostClick}>Cancel</Button>
             </Container >

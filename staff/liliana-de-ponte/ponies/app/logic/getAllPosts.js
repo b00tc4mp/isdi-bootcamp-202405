@@ -16,7 +16,7 @@ export default () => {
                 return response.json()
                     .then(posts => posts)
 
-            return response.jason()
+            return response.json()
                 .then(body => {
                     const { error, message } = body
 
