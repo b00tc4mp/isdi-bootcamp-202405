@@ -1,5 +1,5 @@
-function Button({ className, type, onClick, children }) {
-    return <button className={className} type={type} onClick={onClick}>{children}</button>
+function Button({ children, ...nextPorps }) {
+    return <button {...nextPorps}>{children}</button>
 }
 
 export default Button

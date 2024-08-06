@@ -1,5 +1,5 @@
-function Label({ htmlFor, children }) {
-    return <label className="Label" htmlFor={htmlFor}>{children}</label>
+function Label({ children, ...nextProps }) {
+    return <label {...nextProps}> {children}</label >
 }
 
 export default Label

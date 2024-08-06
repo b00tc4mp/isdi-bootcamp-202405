@@ -55,41 +55,41 @@ function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="view">
+    return <main className="flex flex-col items-center gap-4 text-[1rem]">
         <Heading>Register</Heading>
 
-        <Form className="form" onSubmit={handleRegisterSubmit}>
-            <Container className={"form__field"}>
+        <Form className={"flex flex-col gap-1 min-w-[80%]"} onSubmit={handleRegisterSubmit}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"name-input"}>Name</Label>
-                <Input className={"form__input"} type={"text"} id={"name-input"} name={"name"} placeholder={"Name"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} type={"text"} id={"name-input"} name={"name"} placeholder={"Name"} />
             </Container>
 
-            <Container className={"form__field"}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"surname-input"}>Surname</Label>
-                <Input className={"form__input"} type={"text"} id={"surname-input"} name={"surname"} placeholder={"Surname"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} type={"text"} id={"surname-input"} name={"surname"} placeholder={"Surname"} />
             </Container>
 
-            <Container className={"form__field"}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"email-input"}>Email</Label>
-                <Input className={"form__input"} type={"email"} id={"email-input"} name={"email"} placeholder={"Email"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} type={"email"} id={"email-input"} name={"email"} placeholder={"Email"} />
             </Container>
 
-            <Container className={"form__field"}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"username-input"}>Username</Label>
-                <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} placeholder={"Username"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} type={"text"} id={"username-input"} name={"username"} placeholder={"Username"} />
             </Container>
 
-            <Container className={"form__field"}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"password-input"}>Password</Label>
-                <Input className={"form__input"} type={"password"} id={"password-input"} name={"password"} placeholder={"Password"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} type={"password"} id={"password-input"} name={"password"} placeholder={"Password"} />
             </Container>
 
-            <Container className={"form__field"}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"password2-input"}>Repeat Password</Label>
-                <Input className={"form__input"} type={"password"} id={"password2-input"} name={"password-repeat"} placeholder={"Repeat Password"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} type={"password"} id={"password2-input"} name={"password-repeat"} placeholder={"Repeat Password"} />
             </Container>
 
-            <Button className={"form__button"} type={"submit"}>Register</Button>
+            <Button className={"text-inherit rounded-[20px]"} type={"submit"}>Register</Button>
         </Form>
 
         <Link onClick={handleLoginClick}>Login</Link>

@@ -49,19 +49,19 @@ export default function Search({ onCancelSearchPost, onPostSearched }) {
     const handleCancelSearchPostClick = () => onCancelSearchPost()
 
     return <>
-        <section className="search-post-section">
+        <section className="fixed bottom-0 left-0 w-full bg-[#ff4cad] p-2 box-border rounded-[25px_25px_0_0]">
 
-            <Heading level="2" className={"search-post-section__title"}>Search Post</Heading>
+            <Heading level="2" className={"m-[0.5rem_0] text-center"}>Search Post</Heading>
 
-            <Form className={"form"} onSubmit={handleSearchPostSubmit}>
-                <Container className={"form__field"}>
+            <Form className={"flex flex-col gap-1 min-w-[80%]"} onSubmit={handleSearchPostSubmit}>
+                <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                     <Label htmlFor={"search-input"}></Label>
-                    <Input name={"q"} className={"form__input"} id={"search-input"} type={"text"} placeholder={"Search"} defaultValue={query} value={query} onChange={handleInputChange} />
+                    <Input name={"q"} className={"text-inherit rounded-[20px] border-white"} id={"search-input"} type={"text"} placeholder={"Search"} defaultValue={query} value={query} onChange={handleInputChange} />
                 </Container>
 
-                <Container className={"search-section__buttons"}>
-                    <Button className={"form__button"} type={"submit"}>Search</Button>
-                    <Button className={"form__button"} type={"reset"} onClick={handleCancelSearchPostClick}>Cancel</Button>
+                <Container className={"flex justify-around"}>
+                    <Button className={"text-inherit rounded-[20px] bg-[#ffd4ff] border-white"} type={"submit"}>Search</Button>
+                    <Button className={"text-inherit rounded-[20px] bg-[#ffd4ff] border-white"} type={"reset"} onClick={handleCancelSearchPostClick}>Cancel</Button>
                 </Container>
 
             </Form>

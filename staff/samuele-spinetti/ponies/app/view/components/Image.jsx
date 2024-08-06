@@ -1,5 +1,5 @@
-function Image({ className, src, alt, title }) {
-    return <img className={className} src={src} alt={alt} title={title} />
+function Image(props) {
+    return <img {...props} />
 }
 
 export default Image

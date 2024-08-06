@@ -50,23 +50,23 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view">
+    return <main className="flex flex-col items-center gap-4 text-[1rem]">
         <Heading>Login</Heading>
 
         <Container className={"box"}>
 
-            <Form className={"form"} onSubmit={handleLoginSubmit}>
-                <Container className={"form__field"}>
+            <Form className={"flex flex-col gap-1 min-w-[80%]"} onSubmit={handleLoginSubmit}>
+                <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                     <Label htmlFor={"username-input"}>Username</Label>
-                    <Input className={"form__input"} type={"text"} id={"username-input"} name={"username"} />
+                    <Input className={"text-inherit rounded-[20px] border-white"} type={"text"} id={"username-input"} name={"username"} />
                 </Container>
 
-                <Container className={"form__field"}>
+                <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                     <Label htmlFor={"password-input"}>Password</Label>
-                    <Input className={"form__input"} type={"password"} id={"password-input"} name={"password"} />
+                    <Input className={"text-inherit rounded-[20px] border-white"} type={"password"} id={"password-input"} name={"password"} />
                 </Container>
 
-                <Button className={"form__button"} type={"submit"}>Login</Button>
+                <Button className={"text-inherit rounded-[20px]"} type={"submit"}>Login</Button>
             </Form>
         </Container>
 

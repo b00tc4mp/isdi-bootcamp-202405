@@ -106,37 +106,37 @@ const ProfileSettings = () => {
     }
 
     return <section>
-        < Container className={"container-edit-avatar"} >
-            <Heading className={"edit-avatar-heading"}>Hello {user?.username}!</Heading>
-            <Avatar url={user?.avatar} className={"container-edit-avatar__avatar"} />
-            <Button className={"edit-avatar-button"} onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
-            <Button className={"edit-password-button"} onClick={handleEditPasswordClick}>Edit Password</Button>
+        < Container className={"flex flex-col items-center gap-2"} >
+            <Heading className={"m-0 mt-8"}>Hello {user?.username}!</Heading>
+            <Avatar url={user?.avatar} className={"w-[10rem] h-[10rem] [clip-path:circle(50%)] bg-[#bebebe]"} />
+            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
+            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} onClick={handleEditPasswordClick}>Edit Password</Button>
 
             {editAvatarVisible &&
-                <Container className={"container-form-avatar"}>
+                <Container className={"flex flex-col content-center items-center"}>
                     <Form className={"form-edit-avatar"} onSubmit={handleEditAvatarSubmit}>
                         <Label htmlFor={"edit-avatar-input"}></Label>
-                        <Input id={"edit-avatar-input"} type={"text"} />
+                        <Input className={"border-white rounded-[20px]"} id={"edit-avatar-input"} type={"text"} />
 
-                        <Container className={"container-form-button"}>
-                            <Button type={"submit"}>Save</Button>
-                            <Button type={"button"} onClick={handleCancelEditAvatarClick}>Cancel</Button>
+                        <Container className={"flex content-center gap-2"}>
+                            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"submit"}>Save</Button>
+                            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"button"} onClick={handleCancelEditAvatarClick}>Cancel</Button>
                         </Container>
                     </Form>
                 </Container>
             }
 
             {editPasswordVisible &&
-                <Container className={"container-form-password"}>
-                    <Form className={"form-edit-password"} onSubmit={handleEditPasswordSubmit}>
+                <Container className={"flex flex-col content-center items-center"}>
+                    <Form className={"flex flex-col items-center gap-[0.3rem]"} onSubmit={handleEditPasswordSubmit}>
                         <Label htmlFor={"edit-oldPassword-input"}></Label>
-                        <Input id={"edit-oldPassword-input"} type={"password"} placeholder={"Old password"} />
+                        <Input className={"border-white rounded-[20px]"} id={"edit-oldPassword-input"} type={"password"} placeholder={"Old password"} />
                         <Label htmlFor={"edit-newPassword-input"}></Label>
-                        <Input id={"edit-newPassword-input"} type={"password"} placeholder={"New Password"} />
+                        <Input className={"border-white rounded-[20px]"} id={"edit-newPassword-input"} type={"password"} placeholder={"New Password"} />
 
-                        <Container className={"container-password-button"}>
-                            <Button type={"submit"}>Save</Button>
-                            <Button type={"button"} onClick={handleCancelEditPasswordClick}>Cancel</Button>
+                        <Container className={"flex content-center gap-4"}>
+                            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"submit"}>Save</Button>
+                            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"button"} onClick={handleCancelEditPasswordClick}>Cancel</Button>
                         </Container>
                     </Form>
                 </Container>

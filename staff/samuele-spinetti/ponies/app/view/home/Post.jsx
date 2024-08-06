@@ -120,54 +120,54 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
         }
     }
 
-    return <article className="post">
+    return <article className="shadow-[1px_1px_10px_1px] shadow-[#ff4cad] p-[12px]">
 
-        <Container className={"post__top"}>
-            <Container className={"post__top-author"}>
-                <Avatar url={post.author.avatar} className={"avatar"} />
+        <Container className={"flex justify-between"}>
+            <Container className={"flex items-center"}>
+                <Avatar url={post.author.avatar} className={"w-8 h-8 rounded-[50%] [clip-path:circle(50%)] bg-[#bebebe]"} />
 
-                <Heading level="4" className={"post__author"}>{post.author.username}</Heading>
+                <Heading level="4" className={"m-2"}>{post.author.username}</Heading>
             </Container>
 
             {post.author.id !== logic.getUserId() && <>
-                <Button className={"post__button"} onClick={handleFollowUserClick}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
+                <Button className={"bg-transparent border-none"} onClick={handleFollowUserClick}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
             </>}
         </Container>
 
-        <Image className={"post__image"} src={post.image} alt={post.caption} title={post.caption} />
+        <Image className={"w-full"} src={post.image} alt={post.caption} title={post.caption} />
 
-        <section className="like-save-field">
+        <section className="flex justify-between items-center">
 
-            <Container className={"like__actions"}>
-                <Button className={"heart-button"} onClick={handleLikePostClick}>
-                    <Image className={"heart"} src={post.like ? 'https://svgsilh.com/svg/304420-e91e63.svg' : 'https://svgsilh.com/svg/1179072.svg'} />
+            <Container className={"flex items-center gap-1"}>
+                <Button className={"bg-transparent border-none px-0"} onClick={handleLikePostClick}>
+                    <Image className={"h-[20px] w-[20px]"} src={post.like ? 'https://svgsilh.com/svg/304420-e91e63.svg' : 'https://svgsilh.com/svg/1179072.svg'} />
                 </Button>
-                <Paragraph className={"hearts__likes"}>{post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Paragraph>
+                <Paragraph className={"text-[#c0c0c0] text-[0.9rem]"}>{post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Paragraph>
             </Container>
 
-            <Button className={"save-post-button"} onClick={handleSavePostClick}>
-                <Image className={"save-icon"} src={post.fav ? 'https://svgsilh.com/svg/1202757-ff0088.svg' : 'https://svgsilh.com/svg/1202757-c7d5dc.svg'} />
+            <Button className={"bg-transparent border-none"} onClick={handleSavePostClick}>
+                <Image className={"h-[30px] w-[30px]"} src={post.fav ? 'https://svgsilh.com/svg/1202757-ff0088.svg' : 'https://svgsilh.com/svg/1202757-c7d5dc.svg'} />
             </Button>
 
         </section>
 
-        <Paragraph className={"post__caption"}>{post.caption}</Paragraph>
+        <Paragraph className={"m-2 ml-0"}>{post.caption}</Paragraph>
 
         {post.author.id === logic.getUserId() && <>
-            <Container className={"post__actions"}>
-                <Button onClick={handleDeletePostClick}>Delete</Button>
-                <Button onClick={handleEditPostClick}>Edit</Button>
+            <Container className={"m-2 ml-0 flex justify-end gap-4"}>
+                <Button className={"rounded-[20px] bg-[#ffd4ff] border-white"} onClick={handleDeletePostClick}>Delete</Button>
+                <Button className={"rounded-[20px] bg-[#ffd4ff] border-white"} onClick={handleEditPostClick}>Edit</Button>
             </Container>
         </>}
 
-        <Time className={"post__time"}>{formatTime(new Date(post.date))}</Time>
+        <Time className={"block m-2 ml-0 text-[#c0c0c0] text-[0.9rem]"}>{formatTime(new Date(post.date))}</Time>
 
-        {editPostVisible && <Form className={"form-edit-caption"} onSubmit={handleEditPostSubmit}>
+        {editPostVisible && <Form className={"flex justify-center gap-4"} onSubmit={handleEditPostSubmit}>
             <Label htmlFor={"edit-caption-input"}></Label>
-            <Input id={"edit-caption-input"} defaultValue={post.caption} type={"text"} />
+            <Input className={"border-white rounded-[20px]"} id={"edit-caption-input"} defaultValue={post.caption} type={"text"} />
 
-            <Button type={"submit"}>Save</Button>
-            <Button type={"button"} onClick={handleCancelEditPostClick}>Cancel</Button>
+            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"submit"}>Save</Button>
+            <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"button"} onClick={handleCancelEditPostClick}>Cancel</Button>
         </Form>}
     </article>
 }

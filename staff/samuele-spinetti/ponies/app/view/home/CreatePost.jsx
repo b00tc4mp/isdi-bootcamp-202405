@@ -36,24 +36,24 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
 
     const handleCancelCreatePostClick = () => onCancelCreatePost()
 
-    return <section className="create-post-section">
+    return <section className="fixed bottom-0 left-0 w-full bg-[#ff4cad] p-2 box-border rounded-[25px_25px_0_0]">
 
-        <Heading level="2" className={"create-post-section__title"}>Create Post</Heading>
+        <Heading level="2" className={"m-[0.5rem_0] text-center"}>Create Post</Heading>
 
-        <Form className={"form"} onSubmit={handleCreatePostSubmit}>
-            <Container className={"form__field"}>
+        <Form className={"flex flex-col gap-1 min-w-[80%]"} onSubmit={handleCreatePostSubmit}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"post-image-input"}>Image</Label>
-                <Input className={"form__input"} id={"post-image-input"} type={"text"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} id={"post-image-input"} type={"text"} />
             </Container>
 
-            <Container className={"form__field"}>
+            <Container className={"flex flex-col gap-[0.5rem] min-w-[80%]"}>
                 <Label htmlFor={"post-caption-input"}>Caption</Label>
-                <Input className={"form__input"} id={"post-caption-input"} type={"text"} />
+                <Input className={"text-inherit rounded-[20px] border-white"} id={"post-caption-input"} type={"text"} />
             </Container>
 
-            <Container className={"create-post-section__buttons"}>
-                <Button className={"form__button"} type={"submit"}>Create</Button>
-                <Button className={"form__button"} type={"reset"} onClick={handleCancelCreatePostClick}>Cancel</Button>
+            <Container className={"flex justify-center gap-4"}>
+                <Button className={"text-inherit rounded-[20px] bg-[#ffd4ff] border-white"} type={"submit"}>Create</Button>
+                <Button className={"text-inherit rounded-[20px] bg-[#ffd4ff] border-white"} type={"reset"} onClick={handleCancelCreatePostClick}>Cancel</Button>
             </Container>
 
         </Form>

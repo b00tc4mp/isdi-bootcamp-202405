@@ -35,14 +35,14 @@ const Footer = ({ onPostCreated }) => {
         setSearchPostVisible(false)
     }
 
-    return <footer className="footer">
+    return <footer className="fixed bottom-0 left-0 w-full flex justify-around bg-[#ff4cad] shadow-[0_-1px_1px] shadow-[#ff4cad]">
 
-        <Button className={"add-post-button"} onClick={handleCreatePostClick}>
-            <Image className={"add-post-button__icon"} src={"https://svgsilh.com/svg/1721865.svg"} />
+        <Button className={"rounded-[10px] h-[40px] w-[40px] bg-transparent border-none"} onClick={handleCreatePostClick}>
+            <Image className={"h-[30px] w-[30px]"} src={"https://svgsilh.com/svg/1721865.svg"} />
         </Button>
 
-        <Button className={"search-button"} onClick={handleSearchPostClick} >
-            <Image className={"search-button__icon"} src={"https://svgsilh.com/svg/1976105.svg"} />
+        <Button className={"rounded-[10px] h-[40px] w-[40px] bg-transparent border-none"} onClick={handleSearchPostClick} >
+            <Image className={"h-[30px] w-[30px]"} src={"https://svgsilh.com/svg/1976105.svg"} />
         </Button>
 
         {

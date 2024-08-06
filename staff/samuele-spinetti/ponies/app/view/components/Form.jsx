@@ -1,5 +1,5 @@
-function Form({ onSubmit, children, className }) {
-    return <form className={className} onSubmit={onSubmit}>{children}</form>
+function Form({ children, ...nextProps }) {
+    return <form {...nextProps}>{children}</form>
 }
 
 export default Form

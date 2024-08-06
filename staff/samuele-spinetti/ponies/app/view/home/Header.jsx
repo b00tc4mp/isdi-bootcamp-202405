@@ -34,38 +34,38 @@ const Header = ({ onProfileSettingsClicked, onHomeClicked, onFavsPostsClicked, o
         onFollowingUsersPostsClicked()
     }
 
-    return <header className="header">
+    return <header className="fixed w-full flex justify-around gap-4 bg-[#ff4cad] p-2 items-center box-border shadow-[0_1px_1px] shadow-[#ff4cad] top-0 left-0">
 
-        <Container className={"profile-action"}>
-            <Button className={"profile-button"} onClick={handleProfileSettingsClick}>
-                <Image className={"profile__icon"} src={"https://svgsilh.com/svg/1299805.svg"} />
+        <Container className={"flex flex-col items-center"}>
+            <Button className={"bg-transparent border-none"} onClick={handleProfileSettingsClick}>
+                <Image className={"h-[20px] w-[25px]"} src={"https://svgsilh.com/svg/1299805.svg"} />
             </Button>
 
         </Container>
 
         <Container className={"home-action"}>
-            <Button className={"home__button"} onClick={handleHomeClick}>
-                <Image className={"home__icon"} src={"https://svgsilh.com/svg/309113.svg"} />
+            <Button className={"bg-transparent border-none"} onClick={handleHomeClick}>
+                <Image className={"h-[20px] w-[20px]"} src={"https://svgsilh.com/svg/309113.svg"} />
             </Button>
         </Container>
 
         <Container className={"follow-action"}>
-            <Button className={"follows__button"} onClick={handleFollowingUsersPostsClick}>
-                <Image className={"follows__icon"} src={"https://svgsilh.com/svg/3392560-ffffff.svg"} />
+            <Button className={"bg-transparent border-none"} onClick={handleFollowingUsersPostsClick}>
+                <Image className={"h-[20px] w-[20px]"} src={"https://svgsilh.com/svg/3392560-ffffff.svg"} />
             </Button>
         </Container>
 
         <Container className={"favs-action"}>
-            <Button className={"favs__button"} onClick={handleFavPostsClick}>
-                <Image className={"favs__icon"} src={"https://svgsilh.com/svg/297837-ffc107.svg"} />
+            <Button className={"bg-transparent border-none"} onClick={handleFavPostsClick}>
+                <Image className={"h-[20px] w-[20px]"} src={"https://svgsilh.com/svg/297837-ffc107.svg"} />
             </Button>
         </Container>
 
-        <Button className={"logout-button"} onClick={handleLogoutClick}>
-            <Image className={"logout__icon"} src={"https://svgsilh.com/svg/1699614.svg"} />
+        <Button className={"bg-transparent border-none"} onClick={handleLogoutClick}>
+            < Image className={"h-[25px] w-[25px]"} src={"https://svgsilh.com/svg/1699614.svg"} />
         </Button>
 
-    </header>
+    </header >
 }
 
 export default Header
