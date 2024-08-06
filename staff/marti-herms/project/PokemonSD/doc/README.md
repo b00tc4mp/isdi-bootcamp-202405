@@ -14,6 +14,8 @@ V.01
 - add pokemon to team
 - remove pokemon from team
 - edit pokemon from team
+- import pokemon from text
+- export pokemon from text
 
 V.02
 - find battle
