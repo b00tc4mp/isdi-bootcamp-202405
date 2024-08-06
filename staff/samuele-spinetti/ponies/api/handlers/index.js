@@ -13,6 +13,7 @@ import toggleLikePostHandler from './toggleLikePostHandler.js'
 import updateAvatarHandler from './updateAvatarHandler.js'
 import updatePasswordHandler from './updatePasswordHandler.js'
 import updatePostCaptionHandler from './updatePostCaptionHandler.js'
+import searchPostsHandler from './searchPostsHandler.js'
 
 export {
     authenticateUserHandler,
@@ -29,5 +30,6 @@ export {
     toggleLikePostHandler,
     updateAvatarHandler,
     updatePasswordHandler,
-    updatePostCaptionHandler
+    updatePostCaptionHandler,
+    searchPostsHandler
 }

@@ -20,7 +20,8 @@ import {
     toggleLikePostHandler,
     updateAvatarHandler,
     updatePasswordHandler,
-    updatePostCaptionHandler
+    updatePostCaptionHandler,
+    searchPostsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -60,6 +61,18 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
 
         api.get('/users/:targetUserId/settings', jwtVerifier, getUserHandler)
+
+        api.get('/posts/search', jwtVerifier, searchPostsHandler)
+
+        // api.get('/colors/search', (req, res, next) => {
+        //     const colors = ['red', 'green', 'blue', 'violette', 'brown', 'yellow']
+
+        //     const { q } = req.query
+
+        //     const filtered = colors.filter(color => color.includes(q))
+
+        //     res.json(filtered)
+        // })
 
         api.use(errorHandler)
 

@@ -44,7 +44,7 @@
     width: 30px;
 }
 
-.chat-button {
+.search-button {
     border-radius: 10px;
     height: 40px;
     width: 40px;
@@ -52,7 +52,7 @@
     border: none;
 }
 
-.chat-button__icon {
+.search-button__icon {
     height: 30px;
     width: 30px;
 }
@@ -168,6 +168,38 @@
 }
 
 .create-post-section__buttons>button {
+    background-color: #ffd4ff;
+    border-color: white;
+}
+
+.search-post-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ff4cad;
+    padding: .5rem;
+    box-sizing: border-box;
+    border-radius: 25px 25px 0 0;
+}
+
+.search-post-section__title {
+    margin: .5rem 0;
+    text-align: center;
+}
+
+.search-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.search-section__buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.search-section__buttons>button {
     background-color: #ffd4ff;
     border-color: white;
 }
@@ -408,4 +440,8 @@ body {
 
 .form-edit-password>input:active {
     box-shadow: 2px 2px 5px #616161;
+}
+
+.search-post-list {
+    background-color: white;
 }

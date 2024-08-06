@@ -16,6 +16,7 @@ import getUser from './getUser.js'
 import updatePassword from './updatePassword.js'
 import isUserLoggedIn from './isUserLoggedIn.js'
 import getUserId from './getUserId.js'
+import searchPosts from './searchPosts.js'
 
 const logic = {
     getAllPosts,
@@ -35,7 +36,8 @@ const logic = {
     updateAvatar,
     getUser,
     updatePassword,
-    isUserLoggedIn
+    isUserLoggedIn,
+    searchPosts
 }
 
 export default logic

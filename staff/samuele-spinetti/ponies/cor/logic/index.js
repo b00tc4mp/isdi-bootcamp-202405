@@ -13,6 +13,7 @@ import updateAvatar from './updateAvatar.js'
 import getUser from './getUser.js'
 import updatePassword from './updatePassword.js'
 import authenticateUser from './authenticateUser.js'
+import searchPosts from './searchPosts.js'
 
 const logic = {
     authenticateUser,
@@ -29,7 +30,8 @@ const logic = {
     toggleLikePost,
     updateAvatar,
     updatePassword,
-    updatePostCaption
+    updatePostCaption,
+    searchPosts
 }
 
 export default logic

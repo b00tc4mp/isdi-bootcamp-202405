@@ -2,6 +2,8 @@ import 'dotenv/config'
 import updatePassword from './updatePassword.js'
 import mongoose, { Types } from 'mongoose'
 
+import bcrypt from 'bcryptjs'
+
 const { ObjectId } = Types
 
 import { expect } from 'chai'
@@ -15,19 +17,21 @@ describe('updatePassword', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () =>
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+    it('succeeds on existing user', () => {
+        debugger
+        return bcrypt.hash('123123123', 8)
+            .then(hash => User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: hash }))
             .then(user => updatePassword(user.id, '123123123', '123456789')
                 .then(() => User.findOne({ username: 'monoloco' }).lean()
                     .then(user => {
                         expect(user.username).to.equal('monoloco')
 
-                        bcrypt.compare('123123123', user.password)
-                            .then(match => expect(match).to.be.true)
+                        return bcrypt.compare('123456789', user.password)
                     })
+                    .then(match => expect(match).to.be.true)
                 )
             )
-    )
+    })
 
     it('fails on non-existing user', () => {
         let _error

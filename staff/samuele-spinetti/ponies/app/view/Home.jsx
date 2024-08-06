@@ -1,15 +1,18 @@
+import { useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+
 import Header from './home/Header'
 import PostList from './home/PostList'
 import Footer from './home/Footer'
 import PoniesPostList from './home/PoniesPostList'
 import FavPostList from './home/FavPostList'
 import ProfileSettings from './home/ProfileSettings'
+import ResultsPostList from './home/ResultsPostList'
 
-import { useState } from 'react'
 
 const Home = ({ onLogout }) => {
     const [refreshStamp, setRefreshStamp] = useState(null)
-    const [view, setView] = useState('home')
+    const navigate = useNavigate()
 
     const handlePostCreated = () => {
 
@@ -17,19 +20,19 @@ const Home = ({ onLogout }) => {
     }
 
     const handleProfileSettings = () => {
-        setView('profile')
+        navigate('/settings')
     }
 
     const handleHome = () => {
-        setView('home')
+        navigate('/')
     }
 
     const handleFavsPosts = () => {
-        setView('favorites')
+        navigate('/favs')
     }
 
     const handleFollowingUsersPosts = () => {
-        setView('following')
+        navigate('/ponies')
     }
 
     return <>
@@ -41,14 +44,14 @@ const Home = ({ onLogout }) => {
             onLogout={onLogout} />
 
         <main className='view main'>
-            {view === 'home' && <PostList refreshStamp={refreshStamp} />}
-
-            {view === 'following' && <PoniesPostList />}
-
-            {view === 'favorites' && <FavPostList />}
-
-            {view === 'profile' && <ProfileSettings />}
-        </main>
+            <Routes>
+                <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
+                <Route path="/ponies" element={<PoniesPostList />} />
+                <Route path="/favs" element={<FavPostList />} />
+                <Route path="/settings" element={<ProfileSettings />} />
+                <Route path="/search" element={<ResultsPostList />} />
+            </Routes>
+        </main >
 
         <Footer
             onPostCreated={handlePostCreated} />

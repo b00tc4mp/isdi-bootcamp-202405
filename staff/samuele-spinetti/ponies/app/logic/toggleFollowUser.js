@@ -15,7 +15,7 @@ export default targetUserId => {
         .then(response => {
             const { status } = response
 
-            if (status = 204) return
+            if (status === 204) return
 
             return response.json()
                 .then(body => {
