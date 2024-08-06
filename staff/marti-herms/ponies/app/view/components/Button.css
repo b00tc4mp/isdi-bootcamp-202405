@@ -1,17 +1,3 @@
-.Button {
-    border-radius: 3px;
-    border: .5px solid slategray;
-    padding: .2rem;
-    min-width: 60px;
-    height: 24px;
-    color: black;
-    padding: 0;
-}
-
-.Button--logout {
-    margin-right: 10px;
-}
-
 .Container--top .Button {
     background-color: transparent;
     padding: 0 6px;

@@ -7,7 +7,7 @@ import Button from '../components/Button'
 
 import './AddPostSection.css'
 
-const AddPostSection = ({ onPostCreated, onCancel }) => {
+export default function AddPostSection({ onPostCreated, onCancel }) {
     const handleAddPost = (event) => {
         event.preventDefault()
 
@@ -65,5 +65,3 @@ const AddPostSection = ({ onPostCreated, onCancel }) => {
         </section>
     </Container>
 }
-
-export default AddPostSection

@@ -1,12 +1,12 @@
 import { useSearchParams } from 'react-router-dom'
 
-import Form from './Form'
-import Label from './Label'
-import Input from './Input'
-import Button from './Button'
-import Container from './Container'
+import Form from '../components/Form'
+import Label from '../components/Label'
+import Input from '../components/Input'
+import Button from '../components/Button'
+import Container from '../components/Container'
 
-export default () => {
+export default function Search() {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const q = searchParams.get('q') || ''

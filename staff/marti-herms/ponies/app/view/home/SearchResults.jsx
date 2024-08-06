@@ -1,7 +1,7 @@
 import Search from './Search'
 import Results from './Results'
 
-export default ({ onResult }) => {
+export default function SearchResults({ onResult }) {
     const handleResults = (results) => {
         onResult(results)
     }

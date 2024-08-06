@@ -4,7 +4,7 @@ import Button from '../components/Button'
 
 import './LikeButton.css'
 
-const LikeButton = ({ post, onLikeClicked }) => {
+export default function LikeButton({ post, onLikeClicked }) {
     const handleLike = () => {
         try {
             logic.togglePostLike(post.id)
@@ -27,5 +27,3 @@ const LikeButton = ({ post, onLikeClicked }) => {
         <div className={like}></div>
     </Button>
 }
-
-export default LikeButton

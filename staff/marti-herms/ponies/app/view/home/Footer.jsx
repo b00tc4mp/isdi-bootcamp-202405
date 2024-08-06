@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import './Footer.css'
 
-const Footer = ({ onHomeButtonClick, onPostSearch, onPostCreated, onFollowedButtonClick, onSavedPostsButtonClick }) => {
+export default function Footer({ onHomeButtonClick, onPostSearch, onPostCreated, onFollowedButtonClick, onSavedPostsButtonClick }) {
     const [addPostVisibility, setAddPostVisibility] = useState(null)
     const [activeButton, setActiveButton] = useState('home')
 
@@ -66,5 +66,3 @@ const Footer = ({ onHomeButtonClick, onPostSearch, onPostCreated, onFollowedButt
         <Button className={activeButton === 'saved' ? 'Button--saved active' : 'Button--saved'} onClick={handleSavedPostsButton}></Button>
     </footer>
 }
-
-export default Footer

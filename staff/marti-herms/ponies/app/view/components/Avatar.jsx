@@ -1,9 +1,5 @@
-import Image from './Image';
+import Image from './Image'
 
-import './Avatar.css';
-
-const Avatar = ({ url }) => {
-    return <Image src={url} className="Avatar" />
+export default function Avatar({ url, className }) {
+    return <Image src={url} className={className} />
 }
-
-export default Avatar

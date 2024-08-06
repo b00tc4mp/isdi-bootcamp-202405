@@ -7,7 +7,7 @@ import './Header.css'
 
 import { useEffect, useState } from 'react'
 
-const Header = ({ onLogout }) => {
+export default function Header({ onLogout }) {
     const [name, setName] = useState(null)
 
     useEffect(() => {
@@ -39,10 +39,8 @@ const Header = ({ onLogout }) => {
         }
     }
 
-    return <header className="Header">
+    return <header className='Header'>
         <Paragraph>{name}</Paragraph>
-        <Button className="Button--logout" onClick={handleLogoutClick}>Logout</Button>
+        <Button className='rounded-sm bg-slate-200 px-1 min-w-16 h-6 text-black mr-2.5' onClick={handleLogoutClick}>Logout</Button>
     </header>
 }
-
-export default Header

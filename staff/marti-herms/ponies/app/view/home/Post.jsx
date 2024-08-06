@@ -20,7 +20,7 @@ import { useState } from 'react'
 
 import './Post.css'
 
-const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onPostSaved, onFollow }) => {
+export default function Post({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onPostSaved, onFollow }) {
     const [editMode, setEditMode] = useState(false)
 
     const handleUserProfile = () => {
@@ -104,32 +104,32 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
         setEditMode(false)
     }
 
-    const editCaptionForm = <Form className="Form--column" onSubmit={handleCaptionEdit}>
+    const editCaptionForm = <Form className='Form--column' onSubmit={handleCaptionEdit}>
         <Container>
-            <Label htmlFor="caption-edit-input">Caption:</Label>
-            <Input id="caption-edit-input" name="edit" defaultValue={post.caption} />
+            <Label htmlFor='caption-edit-input'>Caption:</Label>
+            <Input id='caption-edit-input' name='edit' defaultValue={post.caption} />
         </Container>
-        <Container className="Container--row">
-            <Button type="submit">Edit</Button>
-            <Button type="button" onClick={handleEditCancel}>Cancel</Button>
+        <Container className='Container--row'>
+            <Button type='submit'>Edit</Button>
+            <Button type='button' onClick={handleEditCancel}>Cancel</Button>
         </Container>
     </Form>
 
-    return <article className="Post">
-        <Container className="Container--top">
-            <Button className="Button--author" onClick={handleUserProfile}>
-                <Avatar url={post.author.avatar} />
-                <Heading level="4">{post.author.username}</Heading>
+    return <article className='Post'>
+        <Container className='Container--top'>
+            <Button className='rounded-sm bg-transparent px-1.5 min-w-16 h-6 text-white mt-1.5 mb-1.5 mr-5 ml-5' onClick={handleUserProfile}>
+                <Avatar url={post.author.avatar} className='w-8 h-8 rounded-full ' />
+                <Heading level='4'>{post.author.username}</Heading>
             </Button>
             {post.author.id !== logic.getUserId() && <Button onClick={handleFollowButton}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>}
         </Container>
-        <Image src={post.img} alt={post.caption} title={post.caption} />
-        <Container className="Container--actions">
+        <Image src={post.img} alt={post.caption} title={post.caption} className='block w-full max-h-fit m-0 box-border' />
+        <Container className='Container--actions'>
             <LikeButton post={post} onLikeClicked={handleLikeClick} />
             <SaveButton post={post} onSaveClicked={handleSaveClick} />
         </Container>
         <hr />
-        <Paragraph className="Paragraph--likes">{post.likes.length + ' like' + (post.likes.length !== 1 ? 's' : '')}</Paragraph>
+        <Paragraph className='Paragraph--likes'>{post.likes.length + ' like' + (post.likes.length !== 1 ? 's' : '')}</Paragraph>
         <Paragraph>{post.caption}</Paragraph>
         {
             post.author.id === logic.getUserId() && <Container className='Container--options'>
@@ -137,7 +137,7 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
                     <Button onClick={handleDeleteButton}>Delete</Button>
                     <Button onClick={handleEditButton}>Edit</Button>
                 </Container>
-                <Container className="Container--edit">
+                <Container className='Container--edit'>
                     {editMode && editCaptionForm}
                 </Container>
             </Container>
@@ -145,5 +145,3 @@ const Post = ({ post, onUserClick, onPostDeleted, onPostEdited, onPostLiked, onP
         <Time>{formatTime(new Date(post.date))}</Time>
     </article >
 }
-
-export default Post

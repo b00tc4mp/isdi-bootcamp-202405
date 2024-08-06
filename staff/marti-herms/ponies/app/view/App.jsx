@@ -6,7 +6,7 @@ import Home from './Home'
 
 import logic from '../logic'
 
-const App = () => {
+export default function App() {
     const navigate = useNavigate()
 
     const handleLogin = () => {
@@ -31,5 +31,3 @@ const App = () => {
         <Route path='/*' element={logic.isLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to='/login' />} />
     </Routes>
 }
-
-export default App

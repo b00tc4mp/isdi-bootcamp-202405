@@ -12,7 +12,7 @@ import Label from '../components/Label'
 import Input from '../components/Input'
 
 
-const Profile = ({ userId, postQuantity, refreshStamp, onChange }) => {
+export default function Profile({ userId, postQuantity, refreshStamp, onChange }) {
     const [editUsernameVisibility, setEditUsernameVisibility] = useState(false)
     const [editAvatarVisibility, setEditAvatarVisibility] = useState(false)
     const [user, setUser] = useState(null)
@@ -103,7 +103,7 @@ const Profile = ({ userId, postQuantity, refreshStamp, onChange }) => {
 
     return <>
         <Container className='Container--profile'>
-            <Avatar url={user && user.avatar} />
+            <Avatar url={user && user.avatar} className='w-20 h-20 rounded-full' />
             <Heading level='3'>{user && user.username}</Heading>
         </Container>
         <Container className='Container--profile'>
@@ -145,5 +145,3 @@ const Profile = ({ userId, postQuantity, refreshStamp, onChange }) => {
         </Container>}
     </>
 }
-
-export default Profile

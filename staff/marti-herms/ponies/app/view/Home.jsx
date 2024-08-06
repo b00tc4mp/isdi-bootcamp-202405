@@ -4,12 +4,11 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Header from './home/Header'
 import Body from './home/Body'
 import Footer from './home/Footer'
-import SearchResults from './components/SearchResults'
 
 import './Home.css'
 
 
-const Home = ({ onLogout }) => {
+export default function Home({ onLogout }) {
     const navigate = useNavigate()
 
     const [refreshStamp, setRefreshStamp] = useState(null)
@@ -64,5 +63,3 @@ const Home = ({ onLogout }) => {
     </>
 
 }
-
-export default Home

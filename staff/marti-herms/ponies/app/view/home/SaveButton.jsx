@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import './SaveButton.css'
 
-const SaveButton = ({ post, onSaveClicked }) => {
+export default function SaveButton({ post, onSaveClicked }) {
     const [saved, setSaved] = useState(post.fav)
 
     const handleSave = () => {
@@ -32,5 +32,3 @@ const SaveButton = ({ post, onSaveClicked }) => {
         <div className={saved ? "Save--active" : "Save--inactive"}></div>
     </Button>
 }
-
-export default SaveButton

@@ -1,4 +1,4 @@
-const Link = ({ onClick, text }) => {
+export default function Link({ onClick, text }) {
     const handleClick = (event) => {
         event.preventDefault();
 
@@ -14,5 +14,3 @@ const Link = ({ onClick, text }) => {
 
     return <a href='' onClick={handleClick} >{text}</a>
 }
-
-export default Link

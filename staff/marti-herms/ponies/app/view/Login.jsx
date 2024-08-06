@@ -14,7 +14,7 @@ import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
 
-const Login = ({ onLogin, onRegisterClick }) => {
+export default function Login({ onLogin, onRegisterClick }) {
     const handleLoginSubmit = (event) => {
         event.preventDefault()
 
@@ -64,5 +64,3 @@ const Login = ({ onLogin, onRegisterClick }) => {
         <Link onClick={onRegisterClick} text="Register" />
     </main>
 }
-
-export default Login

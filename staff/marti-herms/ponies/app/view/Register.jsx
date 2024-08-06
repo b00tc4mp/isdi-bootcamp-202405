@@ -10,7 +10,7 @@ import logic from '../logic'
 
 import './Register.css'
 
-const Register = ({ onRegister, onLoginClick }) => {
+export default function Register({ onRegister, onLoginClick }) {
     const handleRegisterSubmit = (event) => {
         event.preventDefault()
 
@@ -90,5 +90,3 @@ const Register = ({ onRegister, onLoginClick }) => {
         <Link onClick={onLoginClick} text="Login" />
     </main>
 }
-
-export default Register

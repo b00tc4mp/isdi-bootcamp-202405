@@ -5,10 +5,10 @@ import logic from '../../logic'
 
 import Post from './Post'
 import Profile from './Profile'
-import SearchResults from '../components/SearchResults'
+import SearchResults from './SearchResults'
 
 
-const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
+export default function Body({ refreshStamp, feed, onProfile, onFollow }) {
     const [posts, setPosts] = useState([])
 
     const { userId } = useParams()
@@ -139,5 +139,3 @@ const Body = ({ refreshStamp, feed, onProfile, onFollow }) => {
         </section>
     </main>
 }
-
-export default Body
