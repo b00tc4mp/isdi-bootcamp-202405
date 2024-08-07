@@ -8,9 +8,7 @@ import Container from '../components/Container'
 
 import Search from './Search'
 
-import './Header.css'
-
-const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
+export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
@@ -66,7 +64,7 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
     }
 
 
-    return <header className="Header">
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray]">
         <Search />
 
         <Container>
@@ -78,5 +76,3 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
         </Container>
     </header>
 }
-
-export default Header

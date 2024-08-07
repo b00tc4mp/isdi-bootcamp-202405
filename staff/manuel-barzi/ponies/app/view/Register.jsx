@@ -8,7 +8,7 @@ import Container from './components/Container'
 import Link from './components/Link'
 import Button from './components/Button'
 
-function Register({ onRegister, onLoginClick }) {
+export default function Register({ onRegister, onLoginClick }) {
     console.debug('Register -> call')
 
     const handleRegisterSubmit = event => {
@@ -55,7 +55,7 @@ function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="view">
+    return <main className="flex flex-col items-center gap-4">
         <Heading>Register</Heading>
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col">
@@ -95,5 +95,3 @@ function Register({ onRegister, onLoginClick }) {
         <Link onClick={handleLoginClick}>Login</Link>
     </main>
 }
-
-export default Register

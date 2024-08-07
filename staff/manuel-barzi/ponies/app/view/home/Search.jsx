@@ -5,8 +5,6 @@ import Form from '../components/Form'
 import Input from '../components/Input'
 import Button from '../components/Button'
 
-import './Search.css'
-
 export default function Search() {
     const navigate = useNavigate()
     const location = useLocation()
@@ -43,7 +41,7 @@ export default function Search() {
     }
 
 
-    return <Form onSubmit={handleSubmit} className="Search">
+    return <Form onSubmit={handleSubmit} className="flex justify-center items-center">
         <Input name="q" placeholder="search" value={query} onChange={handleInputChange} />
         <Button type="submit">🔍</Button>
     </Form>

@@ -16,9 +16,7 @@ import Container from '../components/Container'
 
 import Avatar from './Avatar'
 
-import './Post.css'
-
-const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
+export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) {
     console.debug('Post -> call')
 
     const [editPostVisible, setEditPostVisible] = useState(false)
@@ -136,7 +134,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         }
     }
 
-    return <article className="Post">
+    return <article className="shadow-[1px_1px_10px_1px_lightgray]">
         <Container className="items-center">
             <Avatar url={post.author.avatar} />
 
@@ -174,5 +172,3 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         </Form>}
     </article>
 }
-
-export default Post

@@ -12,7 +12,7 @@ import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
 
-function Login({ onLogin, onRegisterClick }) {
+export default function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
 
     const handleLoginSubmit = event => {
@@ -56,7 +56,7 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view">
+    return <main className="flex flex-col items-center gap-4">
         <Heading level="1">Login</Heading>
 
         <Form onSubmit={handleLoginSubmit} className="flex-col">
@@ -76,5 +76,3 @@ function Login({ onLogin, onRegisterClick }) {
         <Link onClick={handleRegisterClick}>Register</Link>
     </main>
 }
-
-export default Login

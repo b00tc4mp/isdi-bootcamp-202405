@@ -5,8 +5,6 @@ import logic from '../../logic'
 
 import Post from './Post'
 
-import './PostList.css'
-
 export default function ResultsPostList({ refreshStamp }) {
     console.debug('ResultsPostList -> call')
 
@@ -68,7 +66,7 @@ export default function ResultsPostList({ refreshStamp }) {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
