@@ -1,32 +1,45 @@
 # Scene
 
-Scene es una aplicación diseñada para conectar músicos, bandas, salas de conciertos, promotoras y sellos discográficos del ámbito underground. El objetivo principal es la creación y promoción de conciertos, así como la facilitación y creación de redes entre los distintos participantes de la escena musical.
-La aplicación ofrece una plataforma para que los distintos perfiles de usuario interactúen, colaboren y se mantengan informados sobre los eventos musicales, gracias al buscador que permite al usuario buscar eventos ya sea por localización, por género musical, por banda o por fecha.
+Scene is an application designed to connect musicians, bands, concert venues, promoters, and record labels within the underground scene. The primary objective is to create and promote concerts, as well as to facilitate networking and connections among the various participants in the music scene.
+
 
 ![Scene Image](https://media.giphy.com/media/39DV0pT9v42Fq/giphy.gif?cid=ecf05e47m4kzmaq2wr3vcwdlfcfo7fgconr1yjonyfor0zy7&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
 
+The application offers a platform for different user profiles to interact, collaborate, and stay informed about musical events through:
+
+- An interactive calendar where events can be viewed, created, modified, and deleted.
+
+- A search tool to find events by date, geolocation, band, or music genre.
+
+- A directory for each role within the app, allowing users to connect with them or send messages.
+
 ### Use Cases
 
-Users / Bands / Venues / Promoters / Labels
-- create post
-- create event
-- list following users
-- list events
-- list bands
-- list venues
-- list promoters
-- list labels
-- toggle like post
-- toggle fav post
-- toggle follow user
-- update post
-- delete post
-- search event
-- update event
-- delete event
-- send messages
+User
+- Create post
+- List posts
+- Modify post
+- Delete post
+- Add comment in a post
+- Delete comment in a post
+- Show event calendar
+- Create event
+- List events
+- Search event
+- Update event
+- Delete event
+- Follow user
+- Search user
+- List following users
+- List bands
+- List venues
+- List promoters
+- List labels
+- Toggle like post
+- Toggle fav post
+- Send messages
 
 ### UIUX Design
 [Figma](https://www.figma.com/design/ENeHGUGHQy8gNxY00fCLsa/Untitled?node-id=1-710&t=TEnsDeO22H759zz5-0)
@@ -57,30 +70,32 @@ Users / Bands / Venues / Promoters / Labels
 
 ### Data Model
 
-User / Promoter / Label / Venue
+User 
+- id (auto)
+- name (string)
 - username (string)
-- user profile (string)
+- role (string, enum: regular | band | label | promoter | venue)
 - email (string)
-- location (string)
 - password (string)
 - avatar (string)
 - messages ([User.message])
 - favs ([Post.id])
 - following ([User.username])
-- event ([Event.id])
+- events ([Event.id])
 
 Band
+- id (auto)
+- name (string)
 - username (string)
-- user profile (string)
+- role (string)
 - music genre (string)
 - email (string)
-- location (string)
 - password (string)
 - avatar (string)
 - messages ([User.message])
 - favs ([Post.id])
 - following ([User.username])
-- event ([Event.id])
+- events ([Event.id])
 
 Post
 - id (string)
@@ -97,6 +112,12 @@ Event
 - schedule (Date)
 - description (string)
 - date (Date)
-- likes ([User.username])
+
+Comment
+- id (auto)
+- text (string)
+- author (User.id)
+- post (Post.id)
+- date (Date)
 
 
