@@ -9,6 +9,8 @@ Scene is an application designed to connect musicians, bands, concert venues, pr
 
 The application offers a platform for different user profiles to interact, collaborate, and stay informed about musical events through:
 
+- A main section where all followed users are listed and where you can create, modify, and delete your own posts, as well as react to, save, and comment on others' posts.
+
 - An interactive calendar where events can be viewed, created, modified, and deleted.
 
 - A search tool to find events by date, geolocation, band, or music genre.
