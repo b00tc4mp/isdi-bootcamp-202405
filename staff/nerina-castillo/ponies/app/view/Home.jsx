@@ -48,7 +48,7 @@ const Home = ({ onLogout }) => {
             onLogout={onLogout}
         />
 
-        <main className="view main">
+        <main className="flex flex-col items-center gap-4 text-base mt-14 mb-12">
             <Routes>
                 <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
 

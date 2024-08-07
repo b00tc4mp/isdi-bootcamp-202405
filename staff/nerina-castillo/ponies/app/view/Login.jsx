@@ -58,10 +58,10 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view--login">
-        <Container className="fixed start-0 top-0 w-full flex justify-end items-center bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] text-[30px] pt-[7px] pb-[7px]">Ponies</Container>
+    return <main className=" flex flex-col items-center gap-4 text-base bg-gradient-to-l from-purple-100 to-indigo-300 text-purple-700 min-h-screen">
+        <Container className="fixed start-0 top-0 w-full flex justify-end items-center bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] text-[30px] pt-[7px] pb-[7px] font-over text-3xl">Ponies</Container>
 
-        <Heading className="Heading" level={1}>Login</Heading>
+        <Heading className="mt-14 font-bold text-3xl flex" level={1}>Login</Heading>
 
         <Form className={"Form"} onSubmit={handleLoginSubmit}>
             <Container className="flex flex-col ">

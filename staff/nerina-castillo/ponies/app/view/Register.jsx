@@ -57,10 +57,10 @@ function Register({ onRegister, onLoginClick }) {
     }
 
 
-    return <main className="view--login">
-        <Container className="fixed start-0 top-0 w-full flex justify-end items-center bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] text-[30px] pt-[7px] pb-[7px]">Ponies</Container>
+    return <main className="flex flex-col items-center gap-4 text-base bg-gradient-to-l from-purple-100 to-indigo-300 text-purple-700 min-h-screen">
+        <Container className="fixed start-0 top-0 w-full flex justify-end items-center bg-gradient-to-r from-purple-600 to-cyan-400  text-[white] text-[30px] pt-[7px] pb-[7px] font-over text-3xl">Ponies</Container>
 
-        <Heading className='fixed start-0 top-[50px] text-purple-600' level={1}>Register </Heading>
+        <Heading className='mt-14 font-bold text-lg flex text-3xl' level={1}>Register </Heading>
 
         <Form className={"Form"} onSubmit={handleRegisterSubmit}>
             <Container className="flex flex-col ">
