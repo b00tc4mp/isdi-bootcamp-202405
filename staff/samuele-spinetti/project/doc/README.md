@@ -3,8 +3,8 @@
 
 QueerCare is a comprehensive web application dedicated to promoting sexual health and overall wellness within the LGBTQI+ community. Our mission is to provide a supportive, inclusive, and informative platform where individuals can access a wealth of resources, manage their health proactively, and connect with a community of like-minded individuals. By addressing the unique health challenges faced by LGBTQI+ people, QueerCare aims to foster a sense of empowerment, knowledge, and solidarity.
 
-Our Mission
-At QueerCare, we understand that the LGBTQI+ community encounters distinct challenges and barriers when it comes to accessing quality health care and information. Our mission is to bridge this gap by offering a dedicated space that prioritizes the health and well-being of LGBTQI+ individuals. We believe in a holistic approach to health that encompasses physical, mental, and emotional well-being. 
+##### Our Mission
+We understand that the LGBTQI+ community encounters distinct challenges and barriers when it comes to accessing quality health care and information. Our mission is to bridge this gap by offering a dedicated space that prioritizes the health and well-being of LGBTQI+ individuals. We believe in a holistic approach to health that encompasses physical, mental, and emotional well-being. 
 
 IF YOU CAN'T LOVE YOURSELF, HOW THE HELL YOU GONNA LOVE SOMEBODY ELSE!
 
@@ -29,7 +29,15 @@ Directories and contact information for LGBTQI+-friendly healthcare providers an
 ### Use Cases
 
 User
--
+- View latest news about sexual health
+- Search for LGBTQI+ friendly healthcare provider
+- Publish a post in the QCC(QueerCareCommunity)
+- Delete a post in the QCC
+- Add comment to a post in the QCC
+- Delete your own comment from a post
+- Toggle like a post in the QCC
+- Change personal informations
+- TODO healthcare
 
 ### UIUX Design
 
@@ -53,7 +61,7 @@ User
 
 ### Technologies
 
-- HTML / CSS  / JS
+- HTML / CSS / JS
 - Node
 - Express
 - React
@@ -62,17 +70,32 @@ User
 ### Data Model
 
 User
-- id (string)
+- id (auto)
 - name (string)
 - surname (string)
 - email (string)
 - username (string)
 - password (string)
 - avatar (string)
+- role (string, enum: regular|admin)
 
 Post
-- id (string)
-- anonymous
+- id (auto)
+- author(User.id)
 - caption (string)
 - date (Date)
-- likes ()
+- likes ([User.id])
+
+Comment 
+- id (auto)
+- text (string)
+- author (User.id)
+- post (Post.id)
+- date (Date)
+
+HealthCenter
+
+-
+-
+-
+-
