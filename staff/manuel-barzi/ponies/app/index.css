@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,5 +7,20 @@
 @layer utilities {
     .clip-path-40 {
         clip-path: circle(40%);
+    }
+}
+
+@layer base {
+    @font-face {
+        font-family: 'Scatters';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(./public/fonts/Scatters-Demo.ttf);
+    }
+
+    html {
+        font-family: 'Neucha', 'Scatters', system-ui, sans-serif;
+        font-size: large;
     }
 }

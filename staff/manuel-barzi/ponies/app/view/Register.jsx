@@ -56,7 +56,7 @@ export default function Register({ onRegister, onLoginClick }) {
     }
 
     return <main className="flex flex-col items-center gap-4">
-        <Heading>Register</Heading>
+        <Heading className="font-scatters">Register</Heading>
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col">
             <Container className="flex-col items-start">
