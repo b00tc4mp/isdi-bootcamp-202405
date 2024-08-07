@@ -34,7 +34,7 @@ const Header = ({ onProfileSettingsClicked, onHomeClicked, onFavsPostsClicked, o
         onFollowingUsersPostsClicked()
     }
 
-    return <header className="fixed w-full flex justify-around gap-4 bg-[#ff4cad] p-2 items-center box-border shadow-[0_1px_1px] shadow-[#ff4cad] top-0 left-0">
+    return <header className="fixed w-full flex justify-around gap-4 bg-[#ff4cad] p-2 items-center box-border shadow-[0_1px_1px] shadow-[#ff4cad] top-0 left-0 z-40">
 
         <Container className={"flex flex-col items-center"}>
             <Button className={"bg-transparent border-none"} onClick={handleProfileSettingsClick}>
