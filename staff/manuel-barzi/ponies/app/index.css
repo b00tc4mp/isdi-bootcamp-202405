@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .clip-path-40 {
+        clip-path: circle(40%);
+    }
+}
+
 .view {
     display: flex;
     flex-direction: column;

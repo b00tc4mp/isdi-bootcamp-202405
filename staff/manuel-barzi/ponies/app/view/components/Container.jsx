@@ -1,9 +1,5 @@
-import './Container.css'
-
-function Container({ children, className = '' }) {
+export default function Container({ children, className = '' }) {
     console.debug('Container -> call')
 
-    return <div className={`Container ${className}`}>{children}</div>
+    return <div className={`flex gap-2 p-[0_.5rem] ${className}`}>{children}</div>
 }
-
-export default Container

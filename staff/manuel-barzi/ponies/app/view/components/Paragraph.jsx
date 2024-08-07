@@ -1,9 +1,5 @@
-import './Paragraph.css'
-
-function Paragraph({ children }) {
+export default function Paragraph({ children }) {
     console.debug('Paragraph -> call')
 
-    return <p className="Paragraph">{children}</p>
+    return <p className="m-2">{children}</p>
 }
-
-export default Paragraph

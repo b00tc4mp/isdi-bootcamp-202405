@@ -1,9 +1,0 @@
-.Form {
-    padding: .5rem;
-    display: flex;
-    gap: .5rem;
-}
-
-.Form--column {
-    flex-direction: column;
-}

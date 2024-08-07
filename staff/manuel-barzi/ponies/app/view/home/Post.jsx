@@ -137,7 +137,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
     }
 
     return <article className="Post">
-        <Container className="Container--column-center">
+        <Container className="items-center">
             <Avatar url={post.author.avatar} />
 
             <Heading level="4">{post.author.username}</Heading>
@@ -161,13 +161,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="Form--column">
-            <Container className="Container--column">
+        {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="flex-col">
+            <Container className="flex-col">
                 <Label htmlFor="edit-caption-input">Caption</Label>
                 <Input id="edit-caption-input" defaultValue={post.caption} />
             </Container>
 
-            <Container className="Container--center">
+            <Container className="justify-center">
                 <Button type="submit">Save</Button>
                 <Button type="button" onClick={handleCancelEditPostClick}>Cancel</Button>
             </Container>

@@ -1,9 +1,5 @@
-import './Label.css'
-
-function Label({ children, ...nextProps }) {
+export default function Label({ children, ...nextProps }) {
     console.debug('Label -> call')
 
-    return <label className="Label" {...nextProps}>{children}</label>
+    return <label className="text-[dimgray]" {...nextProps}>{children}</label>
 }
-
-export default Label

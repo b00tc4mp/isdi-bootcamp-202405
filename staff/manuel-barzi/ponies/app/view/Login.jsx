@@ -59,13 +59,13 @@ function Login({ onLogin, onRegisterClick }) {
     return <main className="view">
         <Heading level="1">Login</Heading>
 
-        <Form onSubmit={handleLoginSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left">
+        <Form onSubmit={handleLoginSubmit} className="flex-col">
+            <Container className="flex-col items-start">
                 <Label htmlFor="username-input">Username</Label>
                 <Input type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-input">Password</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>

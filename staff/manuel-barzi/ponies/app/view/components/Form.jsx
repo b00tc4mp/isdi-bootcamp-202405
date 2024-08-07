@@ -1,9 +1,5 @@
-import './Form.css'
-
-function Form({ children, className = '', ...nextProps }) {
+export default function Form({ children, className = '', ...nextProps }) {
     console.debug('Form -> call')
 
-    return <form className={`Form ${className}`} {...nextProps}>{children}</form>
+    return <form className={`flex p-2 gap-2 ${className}`} {...nextProps}>{children}</form>
 }
-
-export default Form

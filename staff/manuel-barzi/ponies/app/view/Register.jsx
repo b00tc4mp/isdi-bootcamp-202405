@@ -58,33 +58,33 @@ function Register({ onRegister, onLoginClick }) {
     return <main className="view">
         <Heading>Register</Heading>
 
-        <Form onSubmit={handleRegisterSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left">
+        <Form onSubmit={handleRegisterSubmit} className="flex-col">
+            <Container className="flex-col items-start">
                 <Label htmlFor="name-input">Name</Label>
                 <Input type="text" id="name-input" name="name" placeholder="name" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="surname-input">Surname</Label>
                 <Input type="text" id="surname-input" name="surname" placeholder="surname" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="email-input">E-mail</Label>
                 <Input type="email" id="email-input" name="email" placeholder="email" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="username-input">Username</Label>
                 <Input type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-input">Password</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-repeat-input">Repeat Password</Label>
                 <Input type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
             </Container>

@@ -1,9 +1,5 @@
-import './Button.css'
-
-function Button({ children, ...nextProps }) {
+export default function Button({ children, ...nextProps }) {
     console.debug('Button -> call')
 
-    return <button className="Button" {...nextProps}>{children}</button>
+    return <button className="bg-transparent border-transparent rounded-lg text-[dimgray] p-0" {...nextProps}>{children}</button>
 }
-
-export default Button

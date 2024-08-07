@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import CreatePost from './CreatePost'
 
-import './Footer.css'
+import Button from '../components/Button'
 
-const Footer = ({ onPostCreated }) => {
+export default function Footer({ onPostCreated }) {
     console.debug('Footer -> call')
 
     const [createPostVisible, setCreatePostVisible] = useState(false)
@@ -27,11 +27,9 @@ const Footer = ({ onPostCreated }) => {
         onPostCreated()
     }
 
-    return <footer className="Footer">
-        <button className="Button" onClick={handleCreatePostClick}>＋</button>
+    return <footer className="fixed bottom-0 left-0 w-full flex justify-center bg-white p-[.5rem_0] shadow-[0px_-1px_1px_lightgray]">
+        <Button onClick={handleCreatePostClick}>＋</Button>
 
         {createPostVisible && <CreatePost onPostCreated={handlePostCreated} onCancelCreatePost={handleCancelCreatePostClick} />}
     </footer>
 }
-
-export default Footer
