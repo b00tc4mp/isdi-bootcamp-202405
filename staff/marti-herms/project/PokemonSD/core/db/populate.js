@@ -11,13 +11,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/pokemon')
             .then(json => JSON.parse(json))
             .then(abomasnow => {
                 const id = abomasnow.id
+                const name = abomasnow
 
-                delete abomasnow.id
+
 
                 return Pokemon.create({
                     id,
                     name: abomasnow,
-                    data: abomasnow
+                    moves: abomasnow
                 })
             })
     })

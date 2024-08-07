@@ -1,10 +1,12 @@
-# Pokemon Warfare
+# Pokemon Breakdown
 
 A game to build pokemon teams and fight with them
 
 ![Pokemon image](https://media.giphy.com/media/Ml9qdzetfukLi7kCai/giphy.gif?cid=790b76112j9m649d1ezvbunwxado0yph46f46wyqdajfn0kr&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
+
+As a pokemon player, there is a lot of resources to design teams and practice without using the original games, but there isn't a unified resource. Pokemon Breakdown aims to accomplish that, starting with the basics and tacking example from Pokemon Showdown, which is the biggest resource right now.
 
 ### Use Cases
 
@@ -54,7 +56,7 @@ V.02
 ### Data Model
 
 User
-- id (string)
+- id (auto)
 - email (string)
 - username (string)
 - password (string)
@@ -63,13 +65,13 @@ User
 - library ([Game.id])
 
 Team Library
-- id (string)
+- id (auto)
 - owner (string)
 - teamList ([string])
 - privacy (boolean/string)
 
 Team
-- id (string)
+- id (auto)
 - name (string)
 - author (string)
 - pokemonList ([Pokemon])
@@ -84,7 +86,6 @@ Pokemon
 - gender (string)
 - shiny (boolean)
 - item (string)
-- ability (string)
 - move1 (Move.id)
 - move2 (Move.id)
 - move3 (Move.id)
@@ -114,7 +115,7 @@ Stat
 - individualValues (number)
 
 Move
-- id (number)
+- id (auto)
 - name (string)
 - accuracy (number)
 - pp (number)

@@ -1,18 +1,49 @@
-export default function Register() {
+import Input from './components/Input'
+import VSeparator from './components/VSeparator'
+import Container from './components/Container'
+import Form from './components/Form'
+import Button from './components/Button'
+import Link from './components/Link'
+
+export default function Register({ onLoginClick, onRegister }) {
+    const handleRegisterSubmit = (event) => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const usernameInput = form['username-input']
+        const emailInput = form['email-input']
+        const passwordInput = form['password-input']
+        const rePasswordInput = form['repassword-input']
+
+        const username = usernameInput.value
+        const email = emailInput.value
+        const password = passwordInput.value
+        const rePassword = rePasswordInput.value
+
+        try {
+            if (password !== rePassword) throw new Error('password are not the same')
+            //register logic
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return <main className='flex flex-row w-screen h-screen'>
-        <div className='flex-1 flex-col items-center justify-center bg-[#1e1e1e] text-white w-1/3 h-full'>
+        <Container type={1}>
             <img className='top-3 w-72 h-72' src='../images/logo.svg' alt='logo' />
             <h2 className='text-center text-7xl'>V-HUB</h2>
-        </div>
-        <div className='bg-[#4177FF] w-1.5 h-full'></div>
-        <div className='flex bg-[#1e1e1e] text-white w-2/3 h-full'>
-            <form action='' className='flex flex-col m-auto bg-[#616161] w-10/12 h-5/6 justify-center items-center gap-8 rounded-md shadow-md shadow-black'>
-                <input className='w-10/12 h-20 px-3 text-4xl text-black rounded-md border border-solid border-black shadow-md shadow-black' type='text' placeholder='Username' />
-                <input className='w-10/12 h-20 px-3 text-4xl text-black rounded-md border border-solid border-black shadow-md shadow-black' type='text' placeholder='Email' />
-                <input className='w-10/12 h-20 px-3 text-4xl text-black rounded-md border border-solid border-black shadow-md shadow-black' type='text' placeholder='Password' />
-                <input className='w-10/12 h-20 px-3 text-4xl text-black rounded-md border border-solid border-black shadow-md shadow-black' type='text' placeholder='Repeat Password' />
-                <button className='w-8/12 h-16 text-4xl text-black rounded-md border border-solid border-black bg-rose-500 shadow-md shadow-black' >Register</button>
-            </form>
-        </div>
+        </Container>
+        <VSeparator />
+        <Container type={2}>
+            <Form className='gap-8' onSubmit={handleRegisterSubmit}>
+                <Input id='username-input' type='text' placeholder='Username' />
+                <Input id='email-input' type='email' placeholder='Email' />
+                <Input id='password-input' type='password' placeholder='Password' />
+                <Input id='repassword-input' type='password' placeholder='Repeat Password' />
+                <Button type='submit' className='bg-rose-500 hover:bg-rose-800'>Register</Button>
+                <Link className='text-xl underline underline-offset-2 hover:text-blue-500' onClick={onLoginClick}>Login</Link>
+            </Form>
+        </Container>
     </main>
 }

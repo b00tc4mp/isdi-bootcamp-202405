@@ -29,16 +29,16 @@ const pokemon = new Schema({
             name: { type: String }
         }]
     },
-    abilities: {
-        type: [{
-            id: {
-                type: ObjectId,
-                ref: 'Ability'
-            },
-            name: { type: String }
-        }]
-    },
-    forms: { type: [String] },
+    // abilities: {
+    //     type: [{
+    //         id: {
+    //             type: ObjectId,
+    //             ref: 'Ability'
+    //         },
+    //         name: { type: String }
+    //     }]
+    // },
+    // forms: { type: [String] },
     stats: {
         type: {
             hp: {
@@ -56,12 +56,12 @@ const pokemon = new Schema({
                 evs: { type: Number },
                 ivs: { type: Number }
             },
-            spA: {
+            spa: {
                 baseStat: { type: Number },
                 evs: { type: Number },
                 ivs: { type: Number }
             },
-            spD: {
+            spd: {
                 baseStat: { type: Number },
                 evs: { type: Number },
                 ivs: { type: Number }
@@ -73,7 +73,7 @@ const pokemon = new Schema({
             },
         }
     },
-    type: {
+    types: {
         type: [{
             id: {
                 type: ObjectId,
@@ -150,22 +150,22 @@ const move = new Schema({
     type: { type: String }
 })
 
-const ability = new Schema({
-    name: { type: String },
-    effect: { type: String },
-})
+// const ability = new Schema({
+//     name: { type: String },
+//     effect: { type: String },
+// })
 
 const PokemonList = model('PokemonList', pokemonList)
 const Pokemon = model('Pokemon', pokemon)
 const Type = model('Type', type)
 const Move = model('Move', move)
-const Ability = model('Ability', ability)
+// const Ability = model('Ability', ability)
 
 export {
     PokemonList,
     Pokemon,
     Type,
     Move,
-    Ability
+    // Ability
 }
 

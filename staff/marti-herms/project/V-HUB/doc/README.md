@@ -6,6 +6,8 @@ A hub for gamers and developers to play or upload videogames
 
 ## Functional
 
+V-HUB is a game hub with easy acces to games and aimed soo that less well known game developers can used it as a way to kickstart their careers. 
+
 ### Use Cases
 
 User
@@ -47,9 +49,7 @@ Dev User
 ### Data Model
 
 User
-- id (string)
-- name (string)
-- surname (string)
+- id (auto)
 - email (string)
 - username (string)
 - password (string)
@@ -58,7 +58,7 @@ User
 - library ([Game.id])
 
 Game
-- id (string)
+- id (auto)
 - name (string)
 - image (string)
 - link (string)
