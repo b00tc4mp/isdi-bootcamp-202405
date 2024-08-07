@@ -8,7 +8,7 @@ import Heading from './components/Heading'
 import Input from './components/Input'
 import Container from './components/Container'
 
-function Register({ onRegister, onLoginClick }) {
+export default function Register({ onRegister, onLoginClick }) {
     console.debug('Register -> call')
 
     const handleRegisterSubmit = event => {
@@ -56,8 +56,8 @@ function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="flex flex-col items-center gap-[1rem] text-[1.1rem] font-serif">
-        <Heading>Register</Heading>
+    return <main className="flex flex-col items-center gap-4 text-md font-serif">
+        <Heading className="font-fredoka">Register</Heading>
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col gap-[0.9rem] min-w-[80%] mt-[40px]">
             <Container className="flex-col items-start" >
@@ -100,5 +100,3 @@ function Register({ onRegister, onLoginClick }) {
 
 }
 
-
-export default Register 

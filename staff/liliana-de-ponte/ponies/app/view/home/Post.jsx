@@ -16,8 +16,6 @@ import Container from '../components/Container'
 
 import Avatar from './Avatar.jsx'
 
-import './Post.css'
-
 const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
     console.debug('Post -> call')
 
@@ -136,11 +134,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         }
     }
 
-    return <article className="Post">
-        <Container className="items-center">
-            <Avatar url={post.author.avatar} />
+    return <article className="shadow-[1px_1px_10px_1px_#F981FB]">
+        <Container className="items-center justify-between">
+            <Container>
+                <Avatar url={post.author.avatar} />
 
-            <Heading level="3" className="Heading--post" >{post.author.username}</Heading>
+                <Heading level="3" className="font-bold font-serif text-lg" >{post.author.username}</Heading>
+            </Container>
 
             <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFollowUserClick}>{post.author.following ? '🪅' : '🎠'} </Button>
         </Container>

@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
-
 export default function FavPostList() {
     console.debug('FavsPostList -> call')
 
@@ -63,7 +61,7 @@ export default function FavPostList() {
         }
     }
 
-    return <section className="post-list">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}

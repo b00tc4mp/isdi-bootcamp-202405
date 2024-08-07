@@ -3,6 +3,3 @@ export default function Image(props) {
 }
 
 
-// .Image {
-//     width: 100%;
-// }

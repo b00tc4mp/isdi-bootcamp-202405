@@ -8,9 +8,7 @@ import Container from '../components/Container'
 
 import Search from './Search'
 
-import './Header.css'
-
-const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
+export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
@@ -65,19 +63,18 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
         }
     }
 
-    return <header className="Header">
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-[#F981FB] p-2 box-border shadow[0px_1px_1px_lightgray] z-40">
         <Search />
 
         <Container>
-            <Paragraph className="m-0 font-serif font-bold decoration-black">{name}!</Paragraph>
+            <Paragraph className="m-0 font-serif decoration-black">{name}!</Paragraph>
 
-            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleHomeClick}>🏠</Button>
-            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handlePoniesClick}>🪅</Button>
-            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleFavsClick}>🏳️‍🌈</Button>
-            <Button className="bg-white font-bold font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleLogout}>Logout</Button>
+            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleHomeClick}>🏠</Button>
+            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handlePoniesClick}>🪅</Button>
+            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleFavsClick}>🏳️‍🌈</Button>
+            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleLogout}>Logout</Button>
         </Container>
     </header>
 
 }
 
-export default Header

@@ -9,7 +9,8 @@ import FavPostList from './home/FavPostList'
 import Hello from './home/Hello'
 import ResultsPostList from './home/ResultsPostList'
 
-const Home = ({ onLogout }) => {
+
+export default function Home({ onLogout }) {
     console.debug('Home -> call')
 
     const navigate = useNavigate()
@@ -48,7 +49,7 @@ const Home = ({ onLogout }) => {
             onLogout={onLogout}
         />
 
-        <main className="flex flex-col items-center gap-[1rem] text-[1.1rem] font-serif mt-[3.5rem] mb-[3rem]">
+        <main className="flex flex-col items-center gap-4 text-md font-serif mt-16 mb-12">
             <Routes>
                 <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
 
@@ -66,5 +67,3 @@ const Home = ({ onLogout }) => {
         <Footer onPostCreated={handlePostCreated} />
     </>
 }
-
-export default Home

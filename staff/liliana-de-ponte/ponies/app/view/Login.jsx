@@ -12,7 +12,7 @@ import { errors } from '../../com/index.js'
 
 const { NotFoundError, CredentialsError } = errors
 
-function Login({ onLogin, onRegisterClick }) {
+export default function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
 
     const handleLoginSubmit = event => {
@@ -56,7 +56,7 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="flex-col items-center gap-[1rem] text-[1.1rem] font-serif">
+    return <main className=" flex flex-col items-center gap-4 text-md font-serif">
         <Heading level="1">Login</Heading>
 
         <Form onSubmit={handleLoginSubmit} className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]">
@@ -78,4 +78,3 @@ function Login({ onLogin, onRegisterClick }) {
 
 }
 
-export default Login 

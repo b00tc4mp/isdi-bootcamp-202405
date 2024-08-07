@@ -7,8 +7,6 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import Container from '../components/Container'
 
-import './CreatePost.css'
-
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 
@@ -46,7 +44,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         onCancelCreatePost()
     }
 
-    return <section className="CreatePost">
+    return <section className="fixed botton-0 left-0 w-full bg-white p-2 box-border rounded-[15px]">
         <Heading className="Heading--create-post" level="2">Create Post</Heading>
 
         <Form className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]" onSubmit={handleCreatePostSubmit}>

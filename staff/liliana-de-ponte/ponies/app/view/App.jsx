@@ -6,7 +6,7 @@ import Home from './Home'
 
 import logic from '../logic'
 
-const App = () => {
+export default function App() {
     console.debug('App -> call')
 
     const navigate = useNavigate()
@@ -48,4 +48,3 @@ const App = () => {
     </Routes>
 }
 
-export default App

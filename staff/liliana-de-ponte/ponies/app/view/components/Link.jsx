@@ -1,5 +1,4 @@
-function Link({ onClick, children }) {
+export default function Link({ onClick, children }) {
     return <a href="#" onClick={onClick}>{children}</a>
 }
 
-export default Link
