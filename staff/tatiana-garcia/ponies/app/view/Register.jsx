@@ -55,41 +55,41 @@ function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="view">
-        <Heading>Register</Heading>
+    return <main className="flex flex-col items-center gap-4 text-[1.1rem]">
+        <Heading className="m-0 italic text-purple-900 text-3xl">Register</Heading>
 
         <Form onSubmit={handleRegisterSubmit} >
-            <Container className="form__field Container--column Container--column-left">
+            <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="name-input">{'Name'}</Label>
-                <Input type="text" id="name-input" name="name" placeholder="name" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="text" id="name-input" name="name" placeholder="name" />
             </Container>
 
-            <Container className="form__field Container--column Container--column-left">
+            <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="surname-input">{'Surname'}</Label>
-                <Input type="text" id="surname-input" name="surname" placeholder="surname" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="text" id="surname-input" name="surname" placeholder="surname" />
             </Container>
 
-            <Container className="form__field Container--column Container--column-left">
+            <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="email-input">{'Email'}</Label>
-                <Input type="email" id="email-input" name="email" placeholder="email" />
+                <Input className="text-[length:inherit] rounded-[5px]  border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="email" id="email-input" name="email" placeholder="email" />
             </Container>
 
-            <Container className="form__field Container--column Container--column-left">
+            <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="username-input">{'Username'}</Label>
-                <Input type="text" id="username-input" name="username" placeholder="username" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="form__field Container--column Container--column-left">
+            <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="password-input">{'Password'}</Label>
-                <Input type="password" name="password" id="password-input" placeholder="password" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="password" name="password" id="password-input" placeholder="password" />
             </Container>
 
-            <Container className="form__field Container--column Container--column-left">
+            <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="password-repeat-input">Repeat Password</Label>
-                <Input type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
             </Container>
 
-            <Button className="form__button" type="submit">{'Register'}</Button>
+            <Button className="rounded-2xl text-[length:inherit] bg-gradient-to-r from-violet-500 to-fuchsia-500 font-bold text-rgb(88, 5, 88)" type="submit">{'Register'}</Button>
         </Form>
 
         <Link onClick={handleLoginClick}>Login</Link>

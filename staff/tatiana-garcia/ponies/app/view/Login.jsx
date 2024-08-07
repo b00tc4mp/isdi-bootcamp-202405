@@ -56,21 +56,21 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view">
-        <Heading>Login</Heading>
+    return <main className="flex flex-col items-center gap-4 text-[1.1rem]">
+        <Heading className="m-0 italic text-purple-900 text-3xl">Login</Heading>
 
-        <Form onSubmit={handleLoginSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left create-post-section__buttons" >
+        <Form onSubmit={handleLoginSubmit} className="flex-col">
+            <Container className="flex-col items-star flex justify-center gap-4" >
                 <Label htmlFor="username-input">{'Username'}</Label>
-                <Input type="text" id="username-input" name="username" placeholder="username" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-star">
                 <Label htmlFor="password-input">{'Password'}</Label>
-                <Input type="password" id="password-input" name="password" placeholder="password" />
+                <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
-            <Button className='form__button' type="submit">{'Login'}</Button>
+            <Button className='rounded-2xl text-[length:inherit] bg-gradient-to-r from-violet-500 to-fuchsia-500 font-bold text-rgb(88, 5, 88)' type="submit">{'Login'}</Button>
         </Form>
 
         <Link onClick={handleRegisterClick}>Register</Link>

@@ -1,17 +1,20 @@
 import { useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Header from './home/components/Header'
 import PostList from './home/components/PostList'
 import Footer from './home/components/Footer'
 import PoniesPostList from './home/components/PoniesPostList'
 import FavsPostList from './home/components/FavsPostList'
+import Hello from './home/components/Hello.jsx'
+import ResultsPostList from './home/components/ResultsPostList.jsx'
 
 const Home = ({ onLogout }) => {
     console.debug('Home -> constructor')
 
-    const [refreshStamp, setRefreshStamp] = useState(null)
-    const [view, setView] = useState('home')
+    const navigate = useNavigate()
 
+    const [refreshStamp, setRefreshStamp] = useState(null)
 
     const handlePostCreated = () => {
         console.debug('Home -> handlePostCreated')
@@ -22,19 +25,19 @@ const Home = ({ onLogout }) => {
     const handlePoniesClick = () => {
         console.debug('Home -> handlePoniesClick')
 
-        setView('ponies')
+        navigate('/ponies')
     }
 
     const handleHomeClick = () => {
         console.debug('Home -> handleHomeClick')
 
-        setView('home')
+        navigate('/')
     }
 
     const handleFavsClick = () => {
         console.debug('Home -> handleFavsClick')
 
-        setView('favs')
+        navigate('/favs')
     }
 
     return <>
@@ -45,12 +48,14 @@ const Home = ({ onLogout }) => {
             onLogout={onLogout}
         />
 
-        <main className="view main">
-            {view === 'home' && <PostList refreshStamp={refreshStamp} />}
-
-            {view === 'ponies' && <PoniesPostList />}
-
-            {view === 'favs' && <FavsPostList />}
+        <main className="flex flex-col items-center gap-4 mt-20 mb-12">
+            <Routes>
+                <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
+                <Route path="/ponies" element={<PoniesPostList />} />
+                <Route path="/favs" element={<FavsPostList />} />
+                <Route path="/hello/:to" element={<Hello />} />
+                <Route path="/search" element={<ResultsPostList />} />
+            </Routes>
         </main>
 
         <Footer onPostCreated={handlePostCreated} />

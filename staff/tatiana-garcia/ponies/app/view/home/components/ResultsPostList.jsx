@@ -1,53 +1,58 @@
-import logic from '../../../logic'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-import { useEffect, useState } from 'react'
+import logic from '../../../logic/index.js'
 
 import Post from './Post.jsx'
 
-const PoniesPostList = () => {
-    console.debug('PoniesPostList -> call')
+export default function ResultsPostList({ refreshStamp }) {
+    console.debug('ResultsPostList -> call')
+
+    const [searchParams] = useSearchParams()
+
+    const q = searchParams.get('q') || ''
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.debug('PoniesPostList -> useEffect')
+        console.debug('ResultsPostList -> useEffect [refreshStamp, q]')
 
         loadPosts()
-    }, [])
+    }, [refreshStamp, q])
 
     const handlePostDeleted = () => {
-        console.debug('PoniesPostList -> handlePostDeleted')
+        console.debug('ResultsPostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostEdited = () => {
-        console.debug('PoniesPostList -> handlePostEdited')
+        console.debug('ResultPostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        console.debug('PoniesPostList -> handlePostLikeToggled')
+        console.debug('ResultPostList -> handlePostLikeToggled')
 
         loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        console.debug('PoniesPostList -> handlePostFavToggled')
+        console.debug('ResultPostList -> handlePostFavToggled')
 
         loadPosts()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('PoniesPostList -> handleUserFollowToggled')
+        console.debug('ResultPostList -> handleUserFollowToggled')
 
         loadPosts()
     }
 
     const loadPosts = () => {
         try {
-            logic.getAllPoniesPosts()
+            logic.searchPosts(q)
                 .then(posts => setPosts(posts))
                 .catch(error => {
                     console.error(error)
@@ -61,7 +66,7 @@ const PoniesPostList = () => {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className="flex flex-col gap-4 p-2">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -73,5 +78,3 @@ const PoniesPostList = () => {
         />)}
     </section>
 }
-
-export default PoniesPostList

@@ -1,8 +1,6 @@
-import './Container.css'
+export default function Container({ children, className = '' }) {
+    console.debug('container -> call')
 
-function Container({ children, className = '' }) {
-    return <div className={`form__field ${className}`}>{children}</div>
+    return <div className={`${className}`}>{children}</div>
 
 }
-
-export default Container

@@ -6,6 +6,8 @@
     border-style: solid;
     color: dimgray;
     padding: 0;
+
+    /* tailwind  bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-0*/
 }
 
 .Button--add {
@@ -43,4 +45,8 @@
     border-radius: 5px;
     width: 50px;
     height: 30px;
+
+    /* font-bold bg-lightblue text-black rounded-lg w-[50px] h-[30px] */
 }
+
+/*para los botones pequeños bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-0 */

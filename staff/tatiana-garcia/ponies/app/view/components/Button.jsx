@@ -1,9 +1,5 @@
-import './Button.css'
-
-function Button({ type, onClick, children, className = '' }) {
+export default function Button({ children, className = '', ...nextProps }) {
     console.debug('Button -> call')
 
-    return <button className={`Button ${className}`} type={type} onClick={onClick} >{children}</button>
+    return <button className={` ${className}`} {...nextProps}>{children}</button>
 }
-
-export default Button

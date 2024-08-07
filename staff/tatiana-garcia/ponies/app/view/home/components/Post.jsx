@@ -18,7 +18,6 @@ import Avatar from '../components/Avatar.jsx'
 
 import './Post.css'
 
-
 const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
     console.debug('Post -> call')
 
@@ -43,7 +42,6 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
 
     const handleEditPostClick = () => {
         console.debug('Post -> handleEditPost')
-
 
         setEditPostVisible(true)
     }
@@ -138,13 +136,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         }
     }
 
-    return <article className="post">
-        <Container className="Container--column-center">
+    return <article className="shadow-[1px_1px_10px_1px_lightgray]">
+        <Container className="items-center">
             <Avatar url={post.author.avatar} />
 
-            <Heading level="4">{post.author.username}</Heading>
+            <Heading className="m-0 italic text-rgb(88, 5, 88)" level="4">{post.author.username}</Heading>
 
-            <Button onClick={handleFollowUserClick}>{post.author.following ? '🦄' : '🐴'}</Button>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleFollowUserClick}>{post.author.following ? '🦄' : '🐴'}</Button>
         </Container>
 
         <Image src={post.image} alt={post.caption} title={post.caption} />
@@ -152,27 +150,27 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         <Paragraph>{post.caption}</Paragraph>
 
         <Container>
-            <Button className='post-action-button' onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-            <Button className='post-action-button' onClick={handleFavPostClick}>{post.fav ? '🤩' : '😔'}</Button>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleFavPostClick}>{post.fav ? '🤩' : '😔'}</Button>
 
             {post.author.id === logic.getUserId() && <>
-                <Button className='post-action-button' onClick={handleDeletePostClick}>🗑️</Button>
-                <Button className='post-action-button' onClick={handleEditPostClick}>📝</Button>
+                <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleDeletePostClick}>🗑️</Button>
+                <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleEditPostClick}>📝</Button>
 
             </>}
         </Container>
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="Form--column">
-            <Container className="Container--column">
-                <Label htmlFor="edit-caption-input">{'Caption'}</Label>
-                <Input id="edit-caption-input" defaultValue={post.caption} />
+        {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="flex-col">
+            <Container className="flex-col items-start">
+                <Label htmlFor="post-caption-input">{'Caption'}</Label>
+                <Input className="w-full" id="post-caption-input" />
             </Container>
 
-            <Container className="Container--center">
-                <Button className='post-action-button' type="submit">{'Save'}</Button>
-                <Button className='post-action-button' type="button" onClick={handleCancelEditPostClick}>{'Cancel'}</Button>
+            <Container className="justify-center">
+                <Button className="h-[30px] w-[70px] font-bold text-black border-[1px] border-black bg-gradient-to-r from-cyan-500 to-blue-500 m-1 " type="submit">{'Save'}</Button>
+                <Button className="h-[30px] w-[70px] font-bold text-black border-[1px] border-black bg-gradient-to-r from-cyan-500 to-blue-500 m-1 " type="button" onClick={handleCancelEditPostClick}>{'Cancel'}</Button>
             </Container>
         </Form>}
     </article>

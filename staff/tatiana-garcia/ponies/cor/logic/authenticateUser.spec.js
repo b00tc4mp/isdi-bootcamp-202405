@@ -17,7 +17,7 @@ describe('authenticateUser', () => {
     it('succeds on username and password is correct ', () =>
         bcrypt.hash('123123123', 8)
             .then(hash => User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: hash }))
-            .then(() => authenticateUser('tatig', '123123123'))
+            .then(() => authenticateUser('tatig', '123456789'))
             .then(value => expect(value).to.be.undefined)
     )
 

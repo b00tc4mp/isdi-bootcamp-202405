@@ -2,11 +2,9 @@ import logic from '../../../logic'
 
 import { useState, useEffect } from 'react'
 
-import './PostList.css'
-
 import Post from './Post'
 
-const PostList = ({ refreshStamp }) => {
+export default function PostList({ refreshStamp }) {
     console.debug('PostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -63,7 +61,7 @@ const PostList = ({ refreshStamp }) => {
         }
     }
 
-    return <section className="post-list">
+    return <section className="flex flex-col gap-4 p-2">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -74,7 +72,4 @@ const PostList = ({ refreshStamp }) => {
             onUserFollowToggled={handleUserFollowToggled}
         />)}
     </section>
-
 }
-
-export default PostList

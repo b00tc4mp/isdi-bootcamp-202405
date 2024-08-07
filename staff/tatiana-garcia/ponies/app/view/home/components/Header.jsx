@@ -1,14 +1,14 @@
+import logic from '../../../logic'
+
 import { useState, useEffect } from 'react'
 
 import Button from '../../components/Button'
 import Paragraph from '../../components/Paragraph'
+import Container from '../../components/Container'
 
-import logic from '../../../logic'
+import Search from './Search'
 
-import './Header.css'
-
-
-const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
+export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
@@ -63,14 +63,15 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
         }
     }
 
-    return <header className="header">
-        <Paragraph>Hello, {name}!</Paragraph>
-        <Button onClick={handleHomeClick}>🏯</Button>
-        <Button onClick={handlePoniesClick}>🦄</Button>
-        <Button onClick={handleFavsClick}>🤩</Button>
-        <Button className='post-action-button' onClick={handleLogout}>Logout</Button>
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-[1px] box-border shadow-[0px_1px_1px_lightgray] bg-gradient-to-r from-violet-500 to-fuchsia-500 z-40]">
+        <Search />
+
+        <Container>
+            <Paragraph>{name}</Paragraph>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleHomeClick}>🏯</Button>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handlePoniesClick}>🦄</Button>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleFavsClick}>🤩</Button>
+            <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleLogout}>🚪</Button>
+        </Container>
     </header>
-
 }
-
-export default Header

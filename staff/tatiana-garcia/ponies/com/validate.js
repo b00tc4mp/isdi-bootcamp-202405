@@ -8,7 +8,7 @@ const USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 
 function validateString(value, explain = 'value') {
     if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
-    if (value.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
+    // if (value.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
 } // para caption
 
 function validateCallback(callback, explain = 'callback') {

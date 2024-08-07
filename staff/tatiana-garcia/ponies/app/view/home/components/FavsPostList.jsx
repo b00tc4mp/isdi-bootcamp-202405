@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
-
-const FavsPostList = () => {
+export default function FavsPostList() {
     console.debug('FavsPostList -> constructor')
 
     const [posts, setPosts] = useState([])
@@ -63,7 +61,7 @@ const FavsPostList = () => {
         }
     }
 
-    return <section className="post-list">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -75,5 +73,3 @@ const FavsPostList = () => {
         />)}
     </section>
 }
-
-export default FavsPostList

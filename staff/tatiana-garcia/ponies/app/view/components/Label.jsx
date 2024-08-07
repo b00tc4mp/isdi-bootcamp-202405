@@ -1,10 +1,5 @@
-import './Label.css'
-
-function Label({ htmlFor, children }) {
+export default function Label({ htmlFor, children }) {
     console.debug('Label -> call')
 
-    return <label className="Label" htmlFor={htmlFor} >{children}</label>
-
+    return <label className="m-0 italic" htmlFor={htmlFor} >{children}</label>
 }
-
-export default Label

@@ -1,9 +1,5 @@
-import './Avatar.css'
-
 import Image from "../../components/Image"
 
-function Avatar({ url }) {
-    return <Image src={url} className="Avatar" />
+export default function Avatar({ url }) {
+    return <Image src={url} className="w-[2rem] h-[2rem] rounded-full" />
 }
-
-export default Avatar
