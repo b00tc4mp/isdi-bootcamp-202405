@@ -37,7 +37,7 @@ User
 - Delete your own comment from a post
 - Toggle like a post in the QCC
 - Change personal informations
-- TODO healthcare
+- Search HealthCare providers 
 
 ### UIUX Design
 
@@ -79,9 +79,17 @@ User
 - avatar (string)
 - role (string, enum: regular|admin)
 
+HealthCenter
+- id (auto)
+- name (string)
+- address (string)
+- openingHours (string)
+- contactInfo (string)
+- geoLocalization (string)
+
 Post
 - id (auto)
-- author(User.id)
+- author (User.id)
 - caption (string)
 - date (Date)
 - likes ([User.id])
@@ -93,9 +101,3 @@ Comment
 - post (Post.id)
 - date (Date)
 
-HealthCenter
-
--
--
--
--
