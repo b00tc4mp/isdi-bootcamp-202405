@@ -60,6 +60,7 @@ https://static.wikia.nocookie.net/simpsonstappedout/images/1/19/Pokey1.JPG/revis
 
 **Petsitter**
  - id (auto)
+ - userId(auto)
  - name (string)
  - email (string)
  - city (string)
@@ -69,8 +70,9 @@ https://static.wikia.nocookie.net/simpsonstappedout/images/1/19/Pokey1.JPG/revis
  - rating (float)
  
  **Reviews**
-  - user id (auto)
-  - petsitter id (string)
+  - id (auto)
+  - userId (auto)
+  - petsitterId (auto)
   - ratting (interer)
   - message (string)
 
