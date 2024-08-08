@@ -1,31 +1,30 @@
 # + VIBES
 
-This app allows you to discover and participate in upcominmg personal growth events in the city. With an intuitive interface, you can search for events, save then as favorites, view details such as duration and price, and book you spot directly from the app. 
++Vibes is an application designed to help you find personal growth events based on your location. With an intuitive interface, you can explore a wide variety of events, view specific details, create your own events, book you spot directly from the app and  save your favorite events for quick and easy access.
 
 ![+Vibes Image](https://media.giphy.com/media/kI0mZhnqikAgg/giphy.gif?cid=ecf05e47rxe3uubfpsio4br6jcqh7gzt10llwhpglt3ppek3&ep=v1_gifs_search&rid=giphy.gif&ct=g)
-
-![+Vibes Image](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTQ1cmt1azNtY291N3VpNWFubGkyMTloZ29vZ29vcGRncnIyYnJqayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Ta2eHM043vhVS/giphy.gif)
-
 
 ## Functional
 
 - Explore events: Browse through an updated list of personal growth events.
-- Search Events: Use the search function to find events closest to your location.
+
+- Search Events: Use the search function to find events closest to your location or any specified location. Events are displayed pon an interactive map and in a list for easy viewing and selection
+
 - Favorites: Save your favorite events for easy access and receive notifications when there are new events from this same organizer.
+
 - Event details: Check the duration, price, and other relevant information for each event. 
+
 - Book Spot:  Reserve your spot for events directly from the app.
 
 ### Use Cases
 
 User
-- Explore and search events
-- Save favorites
+- Explore and search events by location
 - View events details
-- Book yor spot
-- Buscar meditaciones
-- Recibir afirmaciones diarias
-- Hablar con otros usuarios
-
+- Save favorite
+- View favorites list
+- Book a place
+- Create new event
 
 ### UIUX Design
 
@@ -72,3 +71,11 @@ Post
 - image (string)
 - caption (string)
 - date (Date)
+
+
+## Next Version
+
+- Search meditations
+- Receive daily affirmations
+- Talk to other users
+
