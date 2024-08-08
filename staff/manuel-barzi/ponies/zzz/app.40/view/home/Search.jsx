@@ -1,9 +1,9 @@
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Form from '../library/Form'
-import Input from '../library/Input'
-import Button from '../library/Button'
+import Form from '../components/Form'
+import Input from '../components/Input'
+import Button from '../components/Button'
 
 export default function Search() {
     const navigate = useNavigate()
@@ -41,7 +41,7 @@ export default function Search() {
     }
 
 
-    return <Form onSubmit={handleSubmit} className="flex justify-center items-center text-black">
+    return <Form onSubmit={handleSubmit} className="flex justify-center items-center">
         <Input name="q" placeholder="search" value={query} onChange={handleInputChange} />
         <Button type="submit">🔍</Button>
     </Form>

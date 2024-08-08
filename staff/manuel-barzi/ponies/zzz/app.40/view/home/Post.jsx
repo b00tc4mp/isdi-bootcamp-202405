@@ -4,16 +4,15 @@ import formatTime from '../../util/formatTime'
 
 import { useState } from 'react'
 
-import Button from '../library/Button'
-import Input from '../library/Input'
-import Label from '../library/Label'
-import Form from '../library/Form'
-import Time from '../library/Time'
-import Image from '../library/Image'
-import Paragraph from '../library/Paragraph'
-import Heading from '../library/Heading'
-import Container from '../library/Container'
-import Confirm from '../common/Confirm'
+import Button from '../components/Button'
+import Input from '../components/Input'
+import Label from '../components/Label'
+import Form from '../components/Form'
+import Time from '../components/Time'
+import Image from '../components/Image'
+import Paragraph from '../components/Paragraph'
+import Heading from '../components/Heading'
+import Container from '../components/Container'
 
 import Avatar from './Avatar'
 
@@ -21,28 +20,23 @@ export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggl
     console.debug('Post -> call')
 
     const [editPostVisible, setEditPostVisible] = useState(false)
-    const [confirmMessage, setConfirmMessage] = useState(null)
 
-    const handleDeletePostClick = () => setConfirmMessage('Delete Post?')
+    const handleDeletePostClick = () => {
+        if (confirm('Delete post?'))
+            try {
+                logic.deletePost(post.id)
+                    .then(() => onPostDeleted())
+                    .catch(error => {
+                        console.error(error)
 
-    const handleDeletePostAccept = () => {
-        try {
-            logic.deletePost(post.id)
-                .then(() => onPostDeleted())
-                .catch(error => {
-                    console.error(error)
+                        alert(error.message)
+                    })
+            } catch (error) {
+                console.error(error)
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+                alert(error.message)
+            }
     }
-
-    const handleDeletePostCancel = () => setConfirmMessage(null)
-
 
     const handleEditPostClick = () => {
         console.debug('Post -> handleEditPost')
@@ -140,18 +134,18 @@ export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggl
         }
     }
 
-    return <article className="shadow-[1px_1px_10px_1px_lightgray] dark:bg-black">
+    return <article className="shadow-[1px_1px_10px_1px_lightgray]">
         <Container className="items-center">
             <Avatar url={post.author.avatar} />
 
-            <Heading level="4" className="dark:text-white">{post.author.username}</Heading>
+            <Heading level="4">{post.author.username}</Heading>
 
             <Button onClick={handleFollowUserClick}>{post.author.following ? '🦄' : '🐴'}</Button>
         </Container>
 
         <Image src={post.image} alt={post.caption} title={post.caption} className="w-full" />
 
-        <Paragraph className="dark:text-white">{post.caption}</Paragraph>
+        <Paragraph>{post.caption}</Paragraph>
 
         <Container>
             <Button onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
@@ -176,7 +170,5 @@ export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggl
                 <Button type="button" onClick={handleCancelEditPostClick}>Cancel</Button>
             </Container>
         </Form>}
-
-        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
     </article>
 }

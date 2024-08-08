@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 import defaultTheme from 'tailwindcss/defaultTheme'
 
 export default {
@@ -15,6 +16,5 @@ export default {
     },
   },
   plugins: [],
-  darkMode: 'selector'
 }
 

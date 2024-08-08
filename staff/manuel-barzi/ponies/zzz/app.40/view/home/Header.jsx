@@ -2,20 +2,16 @@ import logic from '../../logic'
 
 import { useState, useEffect } from 'react'
 
-import Button from '../library/Button'
-import Paragraph from '../library/Paragraph'
-import Container from '../library/Container'
+import Button from '../components/Button'
+import Paragraph from '../components/Paragraph'
+import Container from '../components/Container'
 
 import Search from './Search'
-
-import useContext from '../context'
 
 export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
-
-    const { theme, setTheme } = useContext()
 
     useEffect(() => {
         console.debug('Header -> useEffect')
@@ -67,10 +63,8 @@ export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogo
         }
     }
 
-    const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
-
-    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray] dark:bg-black dark:text-white">
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray]">
         <Search />
 
         <Container>
@@ -78,7 +72,6 @@ export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogo
             <Button onClick={handleHomeClick}>🏚️</Button>
             <Button onClick={handlePoniesClick}>🦄</Button>
             <Button onClick={handleFavsClick}>🏳️‍🌈</Button>
-            <Button onClick={handleSwitchTheme}>{theme === 'dark' ? '🌞' : '🌚'}</Button>
             <Button onClick={handleLogout}>🚪</Button>
         </Container>
     </header>
