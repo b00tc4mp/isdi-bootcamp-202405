@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
