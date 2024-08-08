@@ -1,53 +1,53 @@
-import logic from '../../../logic'
+import logic from '../../logic'
 
 import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-export default function PostList({ refreshStamp }) {
-    console.debug('PostList -> call')
+export default function FavsPostList() {
+    console.debug('FavsPostList -> constructor')
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.debug('PostList -> useEffect')
+        console.debug('FavsPostList -> componentDidMount')
 
         loadPosts()
-    }, [refreshStamp])
+    }, [])
 
     const handlePostDeleted = () => {
-        console.debug('PostList -> handlePostDeleted')
+        console.debug('FavsPostList -> handlePostDeleted')
 
         loadPosts()
     }
 
     const handlePostEdited = () => {
-        console.debug('PostList -> handlePostEdited')
+        console.debug('FavsPostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        console.debug('PostList -> handlePostLikeToggled')
+        console.debug('FavsPostList -> handlePostLikeToggled')
 
         loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        console.debug('PostList -> handlePostFavToggled')
+        console.debug('FavsPostList -> handlePostFavToggled')
 
         loadPosts()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('PostList -> handleUserFollowToggled')
+        console.debug('FavsPostList -> handleUserFollowToggled')
 
         loadPosts()
     }
 
     const loadPosts = () => {
         try {
-            logic.getAllPosts()
+            logic.getAllFavPosts()
                 .then(posts => setPosts(posts))
                 .catch(error => {
                     console.error(error)
@@ -61,7 +61,7 @@ export default function PostList({ refreshStamp }) {
         }
     }
 
-    return <section className="flex flex-col gap-4 p-2">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}

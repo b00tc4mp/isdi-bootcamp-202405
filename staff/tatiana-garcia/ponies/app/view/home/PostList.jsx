@@ -1,58 +1,53 @@
+import logic from '../../logic'
+
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
 
-import logic from '../../../logic/index.js'
+import Post from './Post'
 
-import Post from './Post.jsx'
-
-export default function ResultsPostList({ refreshStamp }) {
-    console.debug('ResultsPostList -> call')
-
-    const [searchParams] = useSearchParams()
-
-    const q = searchParams.get('q') || ''
+export default function PostList({ refreshStamp }) {
+    console.debug('PostList -> call')
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.debug('ResultsPostList -> useEffect [refreshStamp, q]')
+        console.debug('PostList -> useEffect')
 
         loadPosts()
-    }, [refreshStamp, q])
+    }, [refreshStamp])
 
     const handlePostDeleted = () => {
-        console.debug('ResultsPostList -> handlePostEdited')
+        console.debug('PostList -> handlePostDeleted')
 
         loadPosts()
     }
 
     const handlePostEdited = () => {
-        console.debug('ResultPostList -> handlePostEdited')
+        console.debug('PostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        console.debug('ResultPostList -> handlePostLikeToggled')
+        console.debug('PostList -> handlePostLikeToggled')
 
         loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        console.debug('ResultPostList -> handlePostFavToggled')
+        console.debug('PostList -> handlePostFavToggled')
 
         loadPosts()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('ResultPostList -> handleUserFollowToggled')
+        console.debug('PostList -> handleUserFollowToggled')
 
         loadPosts()
     }
 
     const loadPosts = () => {
         try {
-            logic.searchPosts(q)
+            logic.getAllPosts()
                 .then(posts => setPosts(posts))
                 .catch(error => {
                     console.error(error)

@@ -1,44 +1,47 @@
-import logic from '../../../logic'
-
-import formatTime from '../../../util/formatTime'
-
 import { useState } from 'react'
 
-import Button from '../../components/Button.jsx'
-import Input from '../../components/Input.jsx'
-import Label from '../../components/Label.jsx'
-import Form from '../../components/Form.jsx'
-import Time from '../../components/Time.jsx'
-import Image from '../../components/Image.jsx'
-import Paragraph from '../../components/Paragraph.jsx'
-import Heading from '../../components/Heading.jsx'
-import Container from '../../components/Container.jsx'
+import logic from '../../logic'
 
-import Avatar from '../components/Avatar.jsx'
+import formatTime from '../../util/formatTime.mjs'
 
-import './Post.css'
+import Button from '../library/Button.jsx'
+import Input from '../library/Input.jsx'
+import Label from '../library/Label.jsx'
+import Form from '../library/Form.jsx'
+import Time from '../library/Time.jsx'
+import Image from '../library/Image.jsx'
+import Paragraph from '../library/Paragraph.jsx'
+import Heading from '../library/Heading.jsx'
+import Container from '../library/Container.jsx'
+import Confirm from '../common/confirm.jsx'
 
-const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
+import Avatar from './Avatar.jsx'
+
+export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) {
     console.debug('Post -> call')
 
     const [editPostVisible, setEditPostVisible] = useState(false)
+    const [confirmMessage, setConfirmMessage] = useState(null)
 
-    const handleDeletePostClick = () => {
-        if (confirm('Delete post?'))
-            try {
-                logic.deletePost(post.id)
-                    .then(() => onPostDeleted())
-                    .catch(error => {
-                        console.error(error)
+    const handleDeletePostClick = () => setConfirmMessage('Delete Post?')
 
-                        alert(error.message)
-                    })
-            } catch (error) {
-                console.error(error)
+    const handleDeletePostAccept = () => {
+        try {
+            logic.deletePost(post.id)
+                .then(() => onPostDeleted())
+                .catch(error => {
+                    console.error(error)
 
-                alert(error.message)
-            }
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
+
+    const handleDeletePostCancel = () => setConfirmMessage(null)
 
     const handleEditPostClick = () => {
         console.debug('Post -> handleEditPost')
@@ -136,18 +139,18 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         }
     }
 
-    return <article className="shadow-[1px_1px_10px_1px_lightgray]">
+    return <article className="shadow-[1px_1px_10px_1px_lightgray] dark:bg-black">
         <Container className="items-center">
             <Avatar url={post.author.avatar} />
 
-            <Heading className="m-0 italic text-rgb(88, 5, 88)" level="4">{post.author.username}</Heading>
+            <Heading className="m-0 italic text-rgb(88, 5, 88) dark:text-white" level="4">{post.author.username}</Heading>
 
             <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleFollowUserClick}>{post.author.following ? '🦄' : '🐴'}</Button>
         </Container>
 
-        <Image src={post.image} alt={post.caption} title={post.caption} />
+        <Image src={post.image} alt={post.caption} title={post.caption} className="w-full" />
 
-        <Paragraph>{post.caption}</Paragraph>
+        <Paragraph className="dark:text-white">{post.caption}</Paragraph>
 
         <Container>
             <Button className="bg-transparent border-transparent rounded-lg border border-solid text-dimgray p-1" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
@@ -164,8 +167,8 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
 
         {editPostVisible && <Form onSubmit={handleEditPostSubmit} className="flex-col">
             <Container className="flex-col items-start">
-                <Label htmlFor="post-caption-input">{'Caption'}</Label>
-                <Input className="w-full" id="post-caption-input" />
+                <Label htmlFor="edit-caption-input">{'Caption'}</Label>
+                <Input className="w-full" id="edit-caption-input" defaultValue={post.caption} />
             </Container>
 
             <Container className="justify-center">
@@ -173,7 +176,6 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
                 <Button className="h-[30px] w-[70px] font-bold text-black border-[1px] border-black bg-gradient-to-r from-cyan-500 to-blue-500 m-1 " type="button" onClick={handleCancelEditPostClick}>{'Cancel'}</Button>
             </Container>
         </Form>}
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
     </article>
-
 }
-export default Post

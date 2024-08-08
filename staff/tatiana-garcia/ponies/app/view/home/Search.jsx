@@ -1,9 +1,9 @@
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Form from '../../components/Form'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Form from '../library/Form'
+import Input from '../library/Input'
+import Button from '../library/Button'
 
 export default function Search() {
     const navigate = useNavigate()
@@ -40,8 +40,8 @@ export default function Search() {
         setQuery(query)
     }
 
-    return <Form onSubmit={handleSubmit} className="flex items-center justify-center">
+    return <Form onSubmit={handleSubmit} className="flex flex-row items-center justify-center">
         <Input className="border-[lightgray] border-[1px] rounded-[.25rem] text-[inherit] w-full px-[.5rem]" name="q" placeholder="search" value={query} onChange={handleInputChange} />
-        <Button className="flex float-start" type="submit">🔎</Button>
+        <Button type="submit">🔎</Button>
     </Form>
 }

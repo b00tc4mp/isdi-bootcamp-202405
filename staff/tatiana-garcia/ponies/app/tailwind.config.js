@@ -5,7 +5,10 @@ export default {
     './view/**/*.jsx'
   ],
   theme: {
-    extend: {},
+    extend: {
+
+    },
   },
   plugins: [],
+  darkMode: 'selector'
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import CreatePost from "./CreatePost"
 
-import Button from "../../components/Button"
+import Button from "../library/Button"
 
 export default function Footer({ onPostCreated }) {
     console.debug('Footer -> call')

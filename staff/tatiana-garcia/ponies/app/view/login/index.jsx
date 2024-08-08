@@ -1,19 +1,23 @@
-import logic from '../logic'
+import logic from '../../logic/index.js'
 
-import Heading from './components/Heading'
-import Form from './components/Form'
-import Label from './components/Label'
-import Input from './components/Input'
-import Container from './components/Container'
-import Link from './components/Link'
-import Button from './components/Button'
+import Heading from '../library/Heading.jsx'
+import Form from '../library/Form.jsx'
+import Label from '../library/Label.jsx'
+import Input from '../library/Input.jsx'
+import Container from '../library/Container.jsx'
+import Link from '../library/Link.jsx'
+import Button from '../library/Button.jsx'
 
-import { errors } from '../../com/index.js'
+import useContext from '../context.js'
+
+import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
 
-function Login({ onLogin, onRegisterClick }) {
+export default function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
+
+    const { alert } = useContext()
 
     const handleLoginSubmit = event => {
         console.debug('Login -> handleLoginSubmit')
@@ -76,5 +80,3 @@ function Login({ onLogin, onRegisterClick }) {
         <Link onClick={handleRegisterClick}>Register</Link>
     </main>
 }
-
-export default Login

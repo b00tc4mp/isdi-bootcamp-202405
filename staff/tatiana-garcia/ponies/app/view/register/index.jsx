@@ -1,15 +1,19 @@
-import logic from '../logic'
+import logic from '../../logic'
 
-import Heading from './components/Heading'
-import Container from './components/Container'
-import Form from './components/Form'
-import Label from './components/Label'
-import Input from './components/Input'
-import Button from './components/Button'
-import Link from './components/Link'
+import Heading from '../library/Heading'
+import Container from '../library/Container'
+import Form from '../library/Form'
+import Label from '../library/Label'
+import Input from '../library/Input'
+import Button from '../library/Button'
+import Link from '../library/Link'
 
-function Register({ onRegister, onLoginClick }) {
+import useContext from '../context'
+
+export default function Register({ onRegister, onLoginClick }) {
     console.debug('Register -> call')
+
+    const { alert } = useContext()
 
     const handleRegisterSubmit = event => {
         console.debug('Register -> handleRegisterSubmit')
@@ -58,7 +62,7 @@ function Register({ onRegister, onLoginClick }) {
     return <main className="flex flex-col items-center gap-4 text-[1.1rem]">
         <Heading className="m-0 italic text-purple-900 text-3xl">Register</Heading>
 
-        <Form onSubmit={handleRegisterSubmit} >
+        <Form className="flex flex-col" onSubmit={handleRegisterSubmit} >
             <Container className="flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) flex-col justify-start">
                 <Label htmlFor="name-input">{'Name'}</Label>
                 <Input className="text-[length:inherit] rounded-[5px] border-[1px] border-indigo-600 text-black p-[.2rem] shadow-black w-full" type="text" id="name-input" name="name" placeholder="name" />
@@ -96,5 +100,3 @@ function Register({ onRegister, onLoginClick }) {
     </main>
 
 }
-
-export default Register

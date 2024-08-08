@@ -1,53 +1,58 @@
-import logic from '../../../logic'
-
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-import Post from './Post'
+import logic from '../../logic'
 
-export default function FavsPostList() {
-    console.debug('FavsPostList -> constructor')
+import Post from './Post.jsx'
+
+export default function ResultsPostList({ refreshStamp }) {
+    console.debug('ResultsPostList -> call')
+
+    const [searchParams] = useSearchParams()
+
+    const q = searchParams.get('q') || ''
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.debug('FavsPostList -> componentDidMount')
+        console.debug('ResultsPostList -> useEffect [refreshStamp, q]')
 
         loadPosts()
-    }, [])
+    }, [refreshStamp, q])
 
     const handlePostDeleted = () => {
-        console.debug('FavsPostList -> handlePostDeleted')
+        console.debug('ResultsPostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostEdited = () => {
-        console.debug('FavsPostList -> handlePostEdited')
+        console.debug('ResultPostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        console.debug('FavsPostList -> handlePostLikeToggled')
+        console.debug('ResultPostList -> handlePostLikeToggled')
 
         loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        console.debug('FavsPostList -> handlePostFavToggled')
+        console.debug('ResultPostList -> handlePostFavToggled')
 
         loadPosts()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('FavsPostList -> handleUserFollowToggled')
+        console.debug('ResultPostList -> handleUserFollowToggled')
 
         loadPosts()
     }
 
     const loadPosts = () => {
         try {
-            logic.getAllFavPosts()
+            logic.searchPosts(q)
                 .then(posts => setPosts(posts))
                 .catch(error => {
                     console.error(error)
@@ -61,7 +66,7 @@ export default function FavsPostList() {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className="flex flex-col gap-4 p-2">
         {posts.map(post => <Post
             key={post.id}
             post={post}

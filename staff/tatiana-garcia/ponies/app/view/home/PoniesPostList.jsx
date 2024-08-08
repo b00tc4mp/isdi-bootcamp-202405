@@ -1,10 +1,10 @@
-import logic from '../../../logic'
+import logic from '../../logic'
 
 import { useEffect, useState } from 'react'
 
 import Post from './Post.jsx'
 
-const PoniesPostList = () => {
+export default function PoniesPostList() {
     console.debug('PoniesPostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -73,5 +73,3 @@ const PoniesPostList = () => {
         />)}
     </section>
 }
-
-export default PoniesPostList

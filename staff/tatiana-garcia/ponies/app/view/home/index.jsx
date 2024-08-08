@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import Header from './home/components/Header'
-import PostList from './home/components/PostList'
-import Footer from './home/components/Footer'
-import PoniesPostList from './home/components/PoniesPostList'
-import FavsPostList from './home/components/FavsPostList'
-import Hello from './home/components/Hello.jsx'
-import ResultsPostList from './home/components/ResultsPostList.jsx'
+import Header from './Header.jsx'
+import PostList from './PostList.jsx'
+import Footer from './Footer.jsx'
+import PoniesPostList from './PoniesPostList.jsx'
+import FavsPostList from './FavsPostList.jsx'
+import Hello from './Hello.jsx'
+import ResultsPostList from './ResultsPostList.jsx'
 
-const Home = ({ onLogout }) => {
+export default function Home({ onLogout }) {
     console.debug('Home -> constructor')
 
     const navigate = useNavigate()
@@ -62,5 +62,3 @@ const Home = ({ onLogout }) => {
     </>
 
 }
-
-export default Home

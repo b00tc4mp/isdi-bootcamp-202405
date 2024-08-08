@@ -1,11 +1,11 @@
-import logic from '../../../logic'
+import logic from '../../logic'
 
-import Heading from '../../components/Heading'
-import Form from '../../components/Form'
-import Input from '../../components/Input'
-import Label from '../../components/Label'
-import Button from '../../components/Button'
-import Container from '../../components/Container'
+import Heading from '../library/Heading'
+import Form from '../library/Form'
+import Input from '../library/Input'
+import Label from '../library/Label'
+import Button from '../library/Button'
+import Container from '../library/Container'
 
 export default function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
