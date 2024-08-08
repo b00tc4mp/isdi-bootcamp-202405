@@ -2,9 +2,7 @@
 
 Exoticus is an application where you can contact the nearest exotic pet daycare centers to take care of your pets when you need it.
 
-https://static.wikia.nocookie.net/simpsonstappedout/images/1/19/Pokey1.JPG/revision/latest?cb=20140331223842
-
-
+![EXOTICUS](https://media.giphy.com/media/ONuQzM11fjvoY/giphy.gif?cid=ecf05e475j7clctrmssxibvl9fej7hl9ga50ln8j2z1f89w9&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
 
@@ -27,7 +25,6 @@ https://static.wikia.nocookie.net/simpsonstappedout/images/1/19/Pokey1.JPG/revis
  - list petsitters
  - show petsitter's detaill
  - show contact page
- - send message
  - settings page
 
 ### UIUX Design
