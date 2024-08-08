@@ -1,10 +1,15 @@
+import { useContext } from 'react'
+import Context from '../../Context'
 import logic from '../../logic'
 
 import Button from '../components/Button'
 import Container from '../components/Container'
 import Image from '../components/Image'
+import SunIcon from '../icons/SunIcon'
 
 const Header = ({ onProfileSettingsClicked, onHomeClicked, onFavsPostsClicked, onFollowingUsersPostsClicked, onLogout }) => {
+
+    const { theme, setTheme } = useContext(Context)
 
     const handleLogoutClick = () => {
         try {
@@ -34,7 +39,11 @@ const Header = ({ onProfileSettingsClicked, onHomeClicked, onFavsPostsClicked, o
         onFollowingUsersPostsClicked()
     }
 
-    return <header className="fixed w-full flex justify-around gap-4 bg-[#ff4cad] p-2 items-center box-border shadow-[0_1px_1px] shadow-[#ff4cad] top-0 left-0 z-40">
+    const handleThemeSwitchClick = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light')
+    }
+
+    return <header className="fixed w-full flex justify-around gap-4 bg-[#ff4cad] dark:bg-green-400 p-2 items-center box-border shadow-[0_1px_1px] shadow-[#ff4cad] top-0 left-0 z-40">
 
         <Container className={"flex flex-col items-center"}>
             <Button className={"bg-transparent border-none"} onClick={handleProfileSettingsClick}>
@@ -59,6 +68,13 @@ const Header = ({ onProfileSettingsClicked, onHomeClicked, onFavsPostsClicked, o
             <Button className={"bg-transparent border-none"} onClick={handleFavPostsClick}>
                 <Image className={"h-[20px] w-[20px]"} src={"https://svgsilh.com/svg/297837-ffc107.svg"} />
             </Button>
+        </Container>
+
+        <Container className={"flex flex-col items-center"}>
+            <Button className={"bg-transparent border-none"} onClick={handleThemeSwitchClick}>
+                <SunIcon theme={theme} />
+            </Button>
+
         </Container>
 
         <Button className={"bg-transparent border-none"} onClick={handleLogoutClick}>

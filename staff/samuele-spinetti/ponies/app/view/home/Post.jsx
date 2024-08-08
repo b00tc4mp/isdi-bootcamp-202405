@@ -120,7 +120,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
         }
     }
 
-    return <article className="shadow-[1px_1px_10px_1px] shadow-[#ff4cad] p-[12px]">
+    return <article className="shadow-[1px_1px_10px_1px] shadow-[#ff4cad] p-[12px] bg-white dark:bg-black">
 
         <Container className={"flex justify-between"}>
             <Container className={"flex items-center"}>
