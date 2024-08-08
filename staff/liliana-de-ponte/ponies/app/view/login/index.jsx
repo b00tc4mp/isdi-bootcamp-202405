@@ -1,19 +1,23 @@
-import logic from '../logic'
+import logic from '../../logic/index.js'
 
-import Heading from './components/Heading'
-import Form from './components/Form'
-import Label from './components/Label'
-import Input from './components/Input'
-import Button from './components/Button'
-import Link from './components/Link'
-import Container from './components/Container'
+import Heading from '../library/Heading.jsx'
+import Form from '../library/Form.jsx'
+import Label from '../library/Label.jsx'
+import Input from '../library/Input.jsx'
+import Button from '../library/Button.jsx'
+import Link from '../library/Link.jsx'
+import Container from '../library/Container.jsx'
 
-import { errors } from '../../com/index.js'
+import useContext from '../context'
+
+import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
+
+    const { alert } = useContext()
 
     const handleLoginSubmit = event => {
         console.debug('Login -> handleLoginSubmit')
@@ -56,7 +60,7 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className=" flex flex-col items-center gap-4 text-md font-serif">
+    return <main className=" flex flex-col items-center gap-4 text-md font-serif bg-white dark:bg-pink-900 h-screen dark:text-white">
         <Heading level="1">Login</Heading>
 
         <Form onSubmit={handleLoginSubmit} className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]">
@@ -70,11 +74,11 @@ export default function Login({ onLogin, onRegisterClick }) {
                 <Input className="w-11/12" type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
-            <Button className="Button--form" type="submit">Login</Button>
+            <Button className="dark:bg-pink-900" type="submit">Login</Button>
         </Form>
 
         <Link onClick={handleRegisterClick}>Register</Link>
-    </main>
+    </main >
 
 }
 

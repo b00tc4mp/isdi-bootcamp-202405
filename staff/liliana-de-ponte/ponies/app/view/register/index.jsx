@@ -1,15 +1,19 @@
-import logic from '../logic'
+import logic from '../../logic'
 
-import Form from './components/Form'
-import Label from './components/Label'
-import Button from './components/Button'
-import Link from './components/Link'
-import Heading from './components/Heading'
-import Input from './components/Input'
-import Container from './components/Container'
+import Form from '../library/Form'
+import Label from '../library/Label'
+import Button from '../library/Button'
+import Link from '../library/Link'
+import Heading from '../library/Heading'
+import Input from '../library/Input'
+import Container from '../library/Container'
+
+import useContext from '../context'
 
 export default function Register({ onRegister, onLoginClick }) {
     console.debug('Register -> call')
+
+    const { alert } = useContext()
 
     const handleRegisterSubmit = event => {
         console.debug('Register -> handleRegisterSubmit')
@@ -56,7 +60,7 @@ export default function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="flex flex-col items-center gap-4 text-md font-serif">
+    return <main className="flex flex-col items-center gap-4 text-md font-serif dark:bg-pink-900 h-screen dark:text-white">
         <Heading className="font-fredoka">Register</Heading>
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col gap-[0.9rem] min-w-[80%] mt-[40px]">

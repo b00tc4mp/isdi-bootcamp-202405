@@ -2,16 +2,21 @@ import logic from '../../logic'
 
 import { useState, useEffect } from 'react'
 
-import Button from '../components/Button'
-import Paragraph from '../components/Paragraph'
-import Container from '../components/Container'
+import Button from '../library/Button'
+import Paragraph from '../library/Paragraph'
+import Container from '../library/Container'
+import SunIcon from '../icons/SunIcon'
 
 import Search from './Search'
+
+import useContext from '../context'
 
 export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
+
+    const { theme, setTheme } = useContext()
 
     useEffect(() => {
         console.debug('Header -> useEffect')
@@ -63,16 +68,22 @@ export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogo
         }
     }
 
-    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-[#F981FB] p-2 box-border shadow[0px_1px_1px_lightgray] z-40">
+    const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-[#F981FB] dark:bg-pink-950 dark:text-white p-2 box-border shadow[0px_1px_1px_lightgray] z-40">
         <Search />
 
         <Container>
             <Paragraph className="m-0 font-serif decoration-black">{name}!</Paragraph>
 
-            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleHomeClick}>🏠</Button>
-            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handlePoniesClick}>🪅</Button>
-            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleFavsClick}>🏳️‍🌈</Button>
-            <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleLogout}>Logout</Button>
+            <Button className="bg-[#F981FB]  dark:bg-pink-950 font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleHomeClick}>🏠</Button>
+            <Button className="bg-[#F981FB]  dark:bg-pink-950 font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handlePoniesClick}>🪅</Button>
+            <Button className="bg-[#F981FB]  dark:bg-pink-950 font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleFavsClick}>🏳️‍🌈</Button>
+            <Button className="bg-[#F981FB]  dark:bg-pink-950 font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleSwitchTheme}><SunIcon theme={theme} /></Button>
+
+            {/* <Button className="bg-white font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleThemeSwitchClick}>{theme === 'dark' ? 'emoticono' : 'emoticono2'} /></Button> */}
+
+            <Button className="bg-[#F981FB] dark:bg-pink-950 font-serif h-[30px] rounded-[8px] border-[f7bff8]" onClick={handleLogout}>Logout</Button>
         </Container>
     </header>
 

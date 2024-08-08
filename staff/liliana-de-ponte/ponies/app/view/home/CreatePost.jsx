@@ -1,13 +1,13 @@
 import logic from '../../logic/index.js'
 
-import Heading from '../components/Heading'
-import Form from '../components/Form'
-import Label from '../components/Label'
-import Input from '../components/Input'
-import Button from '../components/Button'
-import Container from '../components/Container'
+import Heading from '../library/Heading.jsx'
+import Form from '../library/Form.jsx'
+import Label from '../library/Label.jsx'
+import Input from '../library/Input.jsx'
+import Button from '../library/Button.jsx'
+import Container from '../library/Container.jsx'
 
-function CreatePost({ onPostCreated, onCancelCreatePost }) {
+export default function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 
     const handleCreatePostSubmit = event => {
@@ -44,8 +44,8 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         onCancelCreatePost()
     }
 
-    return <section className="fixed botton-0 left-0 w-full bg-white p-2 box-border rounded-[15px]">
-        <Heading className="Heading--create-post" level="2">Create Post</Heading>
+    return <section className=" left-0 w-full bg-white dark:bg-pink-900 p-2 box-border rounded-[15px]">
+        <Heading className="flex justify-center m-2 dark:text-white" level="2">Create Post</Heading>
 
         <Form className="flex-col gap-[0.9rem] min-w-[80%] mt-[40]" onSubmit={handleCreatePostSubmit}>
             <Container className="flex-col">
@@ -60,12 +60,11 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
                 </Container>
 
                 <Container className="justify-center gap-1rem">
-                    <Button type="submit">Create</Button>
-                    <Button type="reset" onClick={handleCancelCreatePostClick}>Cancel</Button>
+                    <Button className="bg-[#F981FB]  dark:bg-pink-900 font-serif h-[30px] rounded-[8px] border-[f7bff8]" type="submit">Create</Button>
+                    <Button className="bg-[#F981FB]  dark:bg-pink-900 font-serif h-[30px] rounded-[8px] border-[f7bff8]" type="reset" onClick={handleCancelCreatePostClick}>Cancel</Button>
                 </Container>
             </Container>
         </Form>
     </section>
 }
 
-export default CreatePost

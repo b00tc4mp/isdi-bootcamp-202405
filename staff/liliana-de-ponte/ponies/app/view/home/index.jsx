@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import Header from './home/Header'
-import PostList from './home/PostList'
-import Footer from './home/Footer'
-import PoniesPostList from './home/PoniesPostList'
-import FavPostList from './home/FavPostList'
-import Hello from './home/Hello'
-import ResultsPostList from './home/ResultsPostList'
-
+import Header from './Header'
+import PostList from './PostList'
+import Footer from './Footer'
+import PoniesPostList from './PoniesPostList'
+import FavPostList from './FavPostList'
+import Hello from './Hello'
+import ResultsPostList from './ResultsPostList'
 
 export default function Home({ onLogout }) {
     console.debug('Home -> call')
@@ -21,6 +20,7 @@ export default function Home({ onLogout }) {
         console.debug('Home -> handlePostCreated')
 
         setRefreshStamp(Date.now())
+        navigate('/')
     }
 
     const handlePoniesClick = () => {
@@ -49,7 +49,7 @@ export default function Home({ onLogout }) {
             onLogout={onLogout}
         />
 
-        <main className="flex flex-col items-center gap-4 text-md font-serif mt-16 mb-12">
+        <main className="flex flex-col items-center gap-4 text-md font-serif mt-16 mb-12 dark:bg-pink-900">
             <Routes>
                 <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
 

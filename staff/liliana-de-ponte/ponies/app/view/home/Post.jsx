@@ -4,39 +4,44 @@ import formatTime from '../../utils/formatTime'
 
 import { useState } from 'react'
 
-import Button from '../components/Button'
-import Label from '../components/Label'
-import Input from '../components/Input'
-import Form from '../components/Form'
-import Image from '../components/Image'
-import Paragraph from '../components/Paragraph'
-import Heading from '../components/Heading'
-import Time from '../components/Time'
-import Container from '../components/Container'
+import Button from '../library/Button.jsx'
+import Label from '../library/Label.jsx'
+import Input from '../library/Input.jsx'
+import Form from '../library/Form.jsx'
+import Image from '../library/Image.jsx'
+import Paragraph from '../library/Paragraph.jsx'
+import Heading from '../library/Heading.jsx'
+import Time from '../library/Time.jsx'
+import Container from '../library/Container.jsx'
+import Confirm from '../common/Confirm.jsx'
 
 import Avatar from './Avatar.jsx'
 
-const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
+export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) {
     console.debug('Post -> call')
 
     const [editPostVisible, setEditPostVisible] = useState(false)
+    const [confirmMessage, setConfirmMessage] = useState(null)
 
-    const handleDeletePostClick = () => {
-        if (confirm('Delete post?'))
-            try {
-                logic.deletePost(post.id)
-                    .then(() => onPostDeleted())
-                    .catch(error => {
-                        console.error(error)
+    const handleDeletePostClick = () => setConfirmMessage('Delete Post?')
 
-                        alert(error.message)
-                    })
-            } catch (error) {
-                console.error(error)
+    const handleDeletePostAccept = () => {
+        try {
+            logic.deletePost(post.id)
+                .then(() => onPostDeleted())
+                .catch(error => {
+                    console.error(error)
 
-                alert(error.message)
-            }
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
+
+    const handleDeletePostCancel = () => setConfirmMessage(null)
 
     const handleEditPostClick = () => {
         console.debug('Post -> handleEditPostClick')
@@ -44,11 +49,13 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         setEditPostVisible(true)
     }
 
+
     const handleCancelEditPostClick = () => {
         console.debug('Post -> handleCancelPostClick')
 
         setEditPostVisible(false)
     }
+
 
     const handleEditPostSubmit = event => {
         console.debug('Post -> handleEditPostSubmit')
@@ -134,28 +141,29 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
         }
     }
 
-    return <article className="shadow-[1px_1px_10px_1px_#F981FB]">
+    return <article className="shadow-[1px_1px_10px_1px_#F981FB] p-[12px] dark:bg-pink-900">
+
         <Container className="items-center justify-between">
             <Container>
                 <Avatar url={post.author.avatar} />
 
-                <Heading level="3" className="font-bold font-serif text-lg" >{post.author.username}</Heading>
+                <Heading level="3" className="font-bold font-serif text-lg dark:text-white" >{post.author.username}</Heading>
             </Container>
 
-            <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFollowUserClick}>{post.author.following ? '🪅' : '🎠'} </Button>
+            <Button className="bg-white  dark:bg-pink-900 rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFollowUserClick}>{post.author.following ? '🪅' : '🎠'} </Button>
         </Container>
 
         <Image src={post.image} alt={post.caption} title={post.caption} className="w-full" />
 
-        <Paragraph >{post.caption}</Paragraph>
+        <Paragraph className="dark:text-white" >{post.caption}</Paragraph>
 
         <Container>
-            <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-            <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFavPostClick}>{post.fav ? '🏳️‍🌈' : '🏳️'} </ Button>
+            <Button className="bg-white  dark:bg-pink-900 rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleLikePostClick}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button className="bg-white  dark:bg-pink-900 rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleFavPostClick}>{post.fav ? '🏳️‍🌈' : '🏳️'} </ Button>
 
             {post.author.id === logic.getUserId() && <>
-                <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleDeletePostClick}>🗑️</Button>
-                <Button className="bg-white rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleEditPostClick}> 📝</Button>
+                <Button className="bg-white  dark:bg-pink-900 rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleDeletePostClick}>🗑️</Button>
+                <Button className="bg-white  dark:bg-pink-900 rounded-[8px] h-[30px] border-[F981FB] font-bold font-serif" onClick={handleEditPostClick}> 📝</Button>
             </>}
         </Container>
 
@@ -172,8 +180,10 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
                 <Button type={"button"} onClick={handleCancelEditPostClick}>Cancel</Button>
             </Container >
         </Form>}
+
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
+
     </article>
 
 }
 
-export default Post

@@ -1,9 +1,9 @@
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Form from '../components/Form'
-import Input from '../components/Input'
-import Button from '../components/Button'
+import Form from '../library/Form'
+import Input from '../library/Input'
+import Button from '../library/Button'
 
 export default function Search() {
     const navigate = useNavigate()
@@ -25,7 +25,9 @@ export default function Search() {
 
         const { value: query } = form.q
 
-        if (location.pathname !== '/search')
+        if (!query.trim())
+            navigate('/search')
+        else if (location.pathname !== '/search')
             navigate(`/search?q=${query}`)
         else
             setSearchParams({ q: query })
@@ -39,8 +41,8 @@ export default function Search() {
         setQuery(query)
     }
 
-    return <Form onSubmit={handleSubmit} className="flex justify-center items-center">
+    return <Form onSubmit={handleSubmit} className="flex justify-center items-center text-pink-950">
         <Input name="q" placeholder="query" value={query} onChange={handleInputChange} />
-        <Button type="submit">Search</Button>
+        <Button className="bg-[#F981FB]  dark:bg-pink-950 font-serif h-[30px] rounded-[8px] border-[f7bff8]" type="submit">🔍</Button>
     </Form>
 }
