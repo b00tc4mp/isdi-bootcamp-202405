@@ -1,6 +1,6 @@
-import Container from './Container'
-import Paragraph from './Paragraph'
-import Button from './Button'
+import Container from '../library/Container'
+import Paragraph from '../library/Paragraph'
+import Button from '../library/Button'
 
 export default function Alert({ message, onAccept }) {
 

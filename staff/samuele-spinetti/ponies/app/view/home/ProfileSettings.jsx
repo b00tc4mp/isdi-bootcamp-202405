@@ -1,12 +1,12 @@
 import logic from '../../logic'
 
-import Heading from '../components/Heading'
-import Container from '../components/Container'
-import Label from '../components/Label'
-import Input from '../components/Input'
-import Button from '../components/Button'
+import Heading from '../library/Heading'
+import Container from '../library/Container'
+import Label from '../library/Label'
+import Input from '../library/Input'
+import Button from '../library/Button'
 import Avatar from './Avatar'
-import Form from '../components/Form'
+import Form from '../library/Form'
 
 import { useState, useEffect } from 'react'
 

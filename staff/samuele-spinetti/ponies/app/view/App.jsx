@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 
 import Context from '../Context'
 
-import Login from './Login'
-import Register from './Register'
-import Home from './Home'
-import Alert from './components/Alert'
+import Login from './login'
+import Register from './register'
+import Home from './home'
+import Alert from './common/Alert'
 
 import logic from '../logic'
 

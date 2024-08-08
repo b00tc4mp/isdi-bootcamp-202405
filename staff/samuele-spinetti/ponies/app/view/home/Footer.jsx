@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import CreatePost from './CreatePost'
-import Button from '../components/Button'
-import Image from '../components/Image'
+import Button from '../library/Button'
+import Image from '../library/Image'
 import Search from './Search'
 
 const Footer = ({ onPostCreated }) => {

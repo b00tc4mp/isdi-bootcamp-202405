@@ -2,9 +2,9 @@ import { useContext } from 'react'
 import Context from '../../Context'
 import logic from '../../logic'
 
-import Button from '../components/Button'
-import Container from '../components/Container'
-import Image from '../components/Image'
+import Button from '../library/Button'
+import Container from '../library/Container'
+import Image from '../library/Image'
 import SunIcon from '../icons/SunIcon'
 
 const Header = ({ onProfileSettingsClicked, onHomeClicked, onFavsPostsClicked, onFollowingUsersPostsClicked, onLogout }) => {

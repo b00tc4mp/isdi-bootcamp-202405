@@ -1,17 +1,17 @@
 import { useContext } from 'react'
-import Context from '../Context.js'
+import Context from '../../Context'
 
-import logic from '../logic'
+import logic from '../../logic/index'
 
-import Link from './components/Link'
-import Heading from './components/Heading'
-import Input from './components/Input'
-import Form from './components/Form'
-import Container from './components/Container'
-import Label from './components/Label'
-import Button from './components/Button'
+import Link from '../library/Link'
+import Heading from '../library/Heading'
+import Input from '../library/Input'
+import Form from '../library/Form'
+import Container from '../library/Container'
+import Label from '../library/Label'
+import Button from '../library/Button'
 
-import { errors } from '../../com/index.js'
+import { errors } from '../../../com/index.js'
 
 const { NotFoundError, CredentialsError } = errors
 

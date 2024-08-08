@@ -1,14 +1,20 @@
-import logic from '../logic'
+import { useContext } from 'react'
+import Context from '../../Context'
 
-import Link from './components/Link'
-import Heading from './components/Heading'
-import Input from './components/Input'
-import Label from './components/Label'
-import Button from './components/Button'
-import Container from './components/Container'
-import Form from './components/Form'
+import logic from '../../logic'
+
+import Link from '../library/Link'
+import Heading from '../library/Heading'
+import Input from '../library/Input'
+import Label from '../library/Label'
+import Button from '../library/Button'
+import Container from '../library/Container'
+import Form from '../library/Form'
+
 
 function Register({ onRegister, onLoginClick }) {
+
+    const { alert } = useContext(Context)
 
     const handleRegisterSubmit = event => {
         event.preventDefault()

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import Header from './home/Header'
-import PostList from './home/PostList'
-import Footer from './home/Footer'
-import PoniesPostList from './home/PoniesPostList'
-import FavPostList from './home/FavPostList'
-import ProfileSettings from './home/ProfileSettings'
-import ResultsPostList from './home/ResultsPostList'
+import Header from './Header'
+import PostList from './PostList'
+import Footer from './Footer'
+import PoniesPostList from './PoniesPostList'
+import FavPostList from './FavPostList'
+import ProfileSettings from './ProfileSettings'
+import ResultsPostList from './ResultsPostList'
 
 
 const Home = ({ onLogout }) => {
@@ -17,6 +17,7 @@ const Home = ({ onLogout }) => {
     const handlePostCreated = () => {
 
         setRefreshStamp(Date.now())
+        navigate('/')
     }
 
     const handleProfileSettings = () => {

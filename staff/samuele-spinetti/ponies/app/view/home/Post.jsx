@@ -4,37 +4,42 @@ import formatTime from '../../util/formatTime.js'
 
 import { useState } from 'react'
 
-import Button from '../components/Button'
-import Container from '../components/Container'
-import Form from '../components/Form'
-import Heading from '../components/Heading'
-import Image from '../components/Image'
-import Input from '../components/Input'
-import Label from '../components/Label'
-import Paragraph from '../components/Paragraph'
-import Time from '../components/Time'
+import Button from '../library/Button.jsx'
+import Container from '../library/Container.jsx'
+import Form from '../library/Form.jsx'
+import Heading from '../library/Heading.jsx'
+import Image from '../library/Image.jsx'
+import Input from '../library/Input.jsx'
+import Label from '../library/Label.jsx'
+import Paragraph from '../library/Paragraph.jsx'
+import Time from '../library/Time.jsx'
+import Confirm from '../common/Confirm.jsx'
 
 import Avatar from './Avatar'
 
 const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavToggled, onFollowUserToggled }) => {
     const [editPostVisible, setEditPostVisible] = useState(false)
+    const [confirmMessage, setConfirmMessage] = useState(null)
 
-    const handleDeletePostClick = () => {
-        if (confirm('Delete post?'))
-            try {
-                logic.deletePost(post.id)
-                    .then(() => onPostDeleted())
-                    .catch(error => {
-                        console.error(error)
+    const handleDeletePostClick = () => setConfirmMessage('Delete Post?')
 
-                        alert(error.message)
-                    })
-            } catch (error) {
-                console.error(error)
+    const handleDeletePostAccept = () => {
+        try {
+            logic.deletePost(post.id)
+                .then(() => onPostDeleted())
+                .catch(error => {
+                    console.error(error)
 
-                alert(error.message)
-            }
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
+
+    const handleDeletePostCancel = () => setConfirmMessage(null)
 
     const handleEditPostClick = () => {
         setEditPostVisible(true)
@@ -169,6 +174,8 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostLikeToggled, onPostFavT
             <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"submit"}>Save</Button>
             <Button className={"bg-[#ffd4ff] border-white rounded-[10px]"} type={"button"} onClick={handleCancelEditPostClick}>Cancel</Button>
         </Form>}
+
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
     </article>
 }
 

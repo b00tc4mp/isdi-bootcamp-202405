@@ -1,12 +1,12 @@
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Form from '../components/Form'
-import Label from '../components/Label'
-import Input from '../components/Input'
-import Button from '../components/Button'
-import Heading from '../components/Heading'
-import Container from '../components/Container'
+import Form from '../library/Form'
+import Label from '../library/Label'
+import Input from '../library/Input'
+import Button from '../library/Button'
+import Heading from '../library/Heading'
+import Container from '../library/Container'
 
 export default function Search({ onCancelSearchPost, onPostSearched }) {
     const navigate = useNavigate()
