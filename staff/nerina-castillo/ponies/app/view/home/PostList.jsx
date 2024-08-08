@@ -4,10 +4,10 @@ import { useSearchParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import Post from './Post'
-import Form from '../components/Form'
-import Label from '../components/Label'
-import Input from '../components/Input'
-import Button from '../components/Button'
+import Form from '../library/Form'
+import Label from '../library/Label'
+import Input from '../library/Input'
+import Button from '../library/Button'
 
 const PostList = ({ refreshStamp }) => {
     console.debug('PostList -> call')
