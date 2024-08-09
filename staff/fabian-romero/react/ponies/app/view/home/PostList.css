@@ -1,0 +1,46 @@
+.Post-list {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    max-width: 400px;
+    gap: 1rem;
+    box-sizing: border-box;
+}
+
+.Post {
+    border: 1px solid #ffff00;
+    box-shadow: 3px 1px 9px 0px #ff00005b;
+    margin-top: 0.6rem;
+}
+
+.Post__top {
+    display: flex;
+    margin: 0 .5rem;
+    align-items: center;
+    gap: .5rem;
+}
+
+.Post__author {
+    /*height: .5rem;*/
+}
+
+.Post__image {
+    width: 100%;
+}
+
+.Post__caption {
+    margin: .5rem;
+}
+
+.Post__actions {
+    margin: .5rem;
+    display: flex;
+    gap: .5rem;
+}
+
+.Post__time {
+    display: block;
+    margin: .5rem;
+    color: silver;
+    font-size: .9rem;
+}

@@ -1,0 +1,29 @@
+.create-post-section {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    bottom: 0;
+    left: 0;
+    width: 80%;
+    background-color: white;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border: 1px solid black;
+    box-shadow: 23px 1px 10px 1px lightgray;
+}
+
+.create-post-section__title {
+    margin: .5rem 0;
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.bottom {
+    width: 22px;
+}

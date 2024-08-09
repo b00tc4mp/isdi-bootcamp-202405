@@ -1,0 +1,2 @@
+
+curl -v http://localhost:8080/posts/search?q=a -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFjYjJiMTczMGIwZjA5ZGEyNTk1ODkiLCJpYXQiOjE3MjI1OTYyOTF9.6DQTzgNVc5s9jhZHIF_B9Os7gCcz0yWovIO8QiiUdrw"
