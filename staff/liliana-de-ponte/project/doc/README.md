@@ -19,12 +19,16 @@
 ### Use Cases
 
 User
-- Explore and search events by location
-- View events details
-- Save favorite
-- View favorites list
-- Book a place
-- Create new event
+- search events by location
+- view event details
+- toggle like event
+- view likes events 
+- create new event
+- update event
+- delete event
+- toggle assist event
+- view attending events
+
 
 ### UIUX Design
 
@@ -57,7 +61,7 @@ User
 ### Data Model
 
 User
-- id (string)
+- id (auto)
 - name (string)
 - surname (string)
 - email (string)
@@ -65,17 +69,22 @@ User
 - password (string)
 
 
-Post
-- id (string)
-- author (User.username)
-- image (string)
-- caption (string)
+Event
+- id (auto)
+- author (User.id)
+- title (string)
 - date (Date)
-
+- duration (string)
+- description (string)
+- image (string)
+- location ([number, number])
+- attendees ([User.id])
+- likes ([User.id])
 
 ## Next Version
 
-- Search meditations
-- Receive daily affirmations
-- Talk to other users
+- search meditations
+- receive daily affirmations
+- talk to other users
+- book a place
 

@@ -25,7 +25,7 @@ function validateUsername(username, explain = 'username') {
 
 function validatePassword(password) {
     validateString(password, 'password')
-    if (password.trim().length < 8) throw new ValidationError('password legth is lower than 8 characters')
+    if (password.trim().length < 8) throw new ValidationError('password length is lower than 8 characters')
     if (password.includes(' ')) throw new ValidationError('password has empty spaces')
 }
 

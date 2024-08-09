@@ -2,24 +2,26 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (username, password) => {
+export default (name, surname, email, username, password, passwordRepeat) => {
+    validate.name(name)
+    validate.name(surname, 'surname')
+    validate.email(email)
     validate.username(username)
     validate.password(password)
+    validate.password(passwordRepeat, 'passwordRepeat')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ name, surname, email, username, password, passwordRepeat })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 200)
-                return response.json()
-                    .then(token => sessionStorage.token = token)
+            if (status === 201) return
 
             return response.json()
                 .then(body => {

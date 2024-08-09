@@ -1,12 +1,20 @@
+// import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import Login from '../login'
+import Login from './login'
+import Register from './register'
+import Home from './home'
+//TODO Alert y Context
 
-
+import logic from '../logic/index.js'
 
 export default function App() {
 
     const navigate = useNavigate()
+
+    // const [theme, setTheme] = useState(localStorage.theme)
+
+    //alert
 
     const handleLogin = () => {
         console.debug('App -> handleLogin')
@@ -43,5 +51,7 @@ export default function App() {
         <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
         <Route path="/*" element={logic.isUserLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
     </Routes>
+
+    //alert
 
 }
