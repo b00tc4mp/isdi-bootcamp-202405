@@ -2,6 +2,8 @@ import 'dotenv/config'
 import deletePost from './deletePost.js'
 import mongoose, { Types } from 'mongoose'
 
+const { ObjectId } = Types
+
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 import { errors } from '../../com/index.js'
@@ -9,140 +11,90 @@ import { errors } from '../../com/index.js'
 const { ValidationError, NotFoundError } = errors
 
 describe('deletePost', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() =>
+        Promise.all([User.deleteMany(), Post.deleteMany()])
+    )
 
-    it('succeeds on new delete post', done => {
+    it('succeeds on new delete post', () => {
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user =>
+                Post.create({ author: user.id, image: 'https://media.tenor.com/DHgp-RbUFL0AAAAM/rosalia-beso.gif', caption: 'cabritaloca' })
+                    .then(post =>
+                        deletePost(user.id, post.id)
+                            .then(user => User.findById(user.id))
+                            .then(post => Post.findById(post.id).lean())
+                            .then(() =>
+                                expect(post.author.toString()).to.equal(user.id))
+                    )
+            )
+    })
+
+
+    it('fails on non-existing user', () => {
+        Post.create({ author: user.id, image: 'https://media.tenor.com/DHgp-RbUFL0AAAAM/rosalia-beso.gif', caption: 'wtf w testing' })
+            .then(post => deletePost(user.id, post.id))
+        expect(error).to.be.instanceOf(NotFoundError)
+        expect(error.message).to.equal('user not found')
+
+    })
+
+
+    it('fails on existing user but non-existing post', () => {
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(() => deletePost(user.id, new ObjectId().toString()))
             .then(() => {
-                Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
-                    .then(post => {
-                        deletePost('monoloco', post.id, error => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-
-                            Post.findById(post.id).lean()
-                                .then(() => {
-                                    expect(error).to.equal(null)
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-                        })
-                    })
-                    .catch(error => done(error))
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('Post not found')
             })
-            .catch(error => done(error))
     })
 
 
-
-
-
-
-    it('fails on non-existing user', done => {
-        Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf w testing' })
-            .then(post => {
-                deletePost('cabraloca', post.id, error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
-
-    it('fails on existing user but non-existing post', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(post => {
-                deletePost('monoloco', post.id, error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('post not found')
-
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
-
-
-
-    it('fails on non-string username', () => {
+    it('fails on non-string userId', () => {
         let error
 
         try {
-            deletePost(123, '123123123', error => { })
+            deletePost(123, new ObjectId().toString())
+
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
+    it('fails on invalid userId', () => {
         let error
 
         try {
-            deletePost(' ', '123123123', error => { })
+            deletePost(' ', new ObjectId().toString())
+
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
+            expect(error.message).to.equal('invalid userId')
         }
     })
-
 
     it('fails on non-string postId', () => {
         let error
 
         try {
-            deletePost('monoloco', 123, error => { })
+            deletePost(new ObjectId().toString(), 123)
+
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('postId is not a string')
         }
+
     })
 
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('fails on non-function callback', () => {
-        let error
-
-        try {
-            deletePost('monoloco', 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

@@ -6,7 +6,7 @@ import Post from './Post'
 
 import './PostList.css'
 
-const FavsPostList = () => {
+export default function FavsPostList() {
     console.debug('FavsPostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -14,128 +14,48 @@ const FavsPostList = () => {
     useEffect(() => {
         console.debug('FavsPostList -> useEffect')
 
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [])
 
     const handlePostDeleted = () => {
         console.debug('FavsPostList -> handlePostDeleted')
 
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
         console.debug('FavsPostList -> handlePostEdited')
 
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
         console.debug('FavsPostList -> handlePostLikeToggled')
 
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
         console.debug('FavsPostList -> handlePostFavToggled')
 
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
         console.debug('FavsPostList -> handleUserFollowToggled')
 
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
+            logic.getAllFavPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -143,7 +63,7 @@ const FavsPostList = () => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -155,5 +75,3 @@ const FavsPostList = () => {
         />)}
     </section>
 }
-
-export default FavsPostList

@@ -1,4 +1,5 @@
-import { Schema, model, ObjectId } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
+const { ObjectId } = Types
 
 const user = new Schema({
     name: {
@@ -29,17 +30,20 @@ const user = new Schema({
         default: 'https://icons.iconarchive.com/icons/iconarchive/cute-animal/512/Cute-Horse-icon.png'
     },
     following: {
-        type: [String]
+        type: [ObjectId],
+        ref: 'User'
     },
     favs: {
-        type: [ObjectId]
+        type: [ObjectId],
+        ref: 'Post'
     },
 })
 
 const post = new Schema({
     author: {
         type: String,
-        required: true
+        required: true,
+        ref: 'User'
     },
     image: {
         type: String,
@@ -54,7 +58,8 @@ const post = new Schema({
         default: Date.now
     },
     likes: {
-        type: [String]
+        type: [ObjectId],
+        ref: 'User'
     }
 })
 

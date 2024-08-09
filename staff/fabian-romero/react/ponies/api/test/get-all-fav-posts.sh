@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/favs -H "Authorization: Basic Fabito"
+curl -v http://localhost:8080/posts/favs -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFlMDA4OGYwMmVlZWFmZTg0ZGI0NjEiLCJpYXQiOjE3MjI2Nzk0NDF9.XMwiSVT08DSKdkzJEH7qhSlwlQ0216D-659878QRvKE"

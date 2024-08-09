@@ -1,30 +1,9 @@
 import 'dotenv/config'
 import registerUser from './registerUser.js'
-import data from '../data/index.js'
+import mongoose from 'mongoose'
 
-import { MongoClient } from 'mongodb'
-
-const client = new MongoClient(process.env.MONGODB_URI)
-
-client.connect()
-    .then(() => {
-        console.log('connected')
-
-        const test = client.db('test')
-        const users = test.collection('users')
-
-        data.users = users
-
-        registerUser('Samu', 'Spinetti', 'samu@spinetti.com', 'samu', '123123123', '123123123', error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log('user registered')
-
-            client.close()
-        })
-    })
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => registerUser('cabra', 'Loca', 'cabra@loca.con', 'cabraloca', '123123123', '123123123'))
+    .then(() => console.log('user registered'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect()) 

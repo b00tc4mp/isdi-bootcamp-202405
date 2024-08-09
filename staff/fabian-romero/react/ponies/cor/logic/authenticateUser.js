@@ -6,30 +6,23 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, CredentialsError, SystemError } = errors
 
-export default (username, password, callback) => {
+export default (username, password) => {
     validate.username(username)
     validate.password(password)
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user)
+                throw new NotFoundError('user not found')
 
-                return
-            }
-
-            bcrypt.compare(password, user.password)
+            return bcrypt.compare(password, user.password)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(match => {
-                    if (!match) {
-                        callback(new CredentialsError('wrong password'))
+                    if (!match)
+                        throw new CredentialsError('wrong password')
 
-                        return
-                    }
-
-                    callback(null)
+                    return user._id.toString()
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }

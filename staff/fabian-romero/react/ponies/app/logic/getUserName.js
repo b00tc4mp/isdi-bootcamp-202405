@@ -1,34 +1,32 @@
-import { validate, errors } from '../../com/index.js'
+import { errors } from '../../com/index.js'
 
-import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
+const { SystemError } = errors
 
-export default callback => {
-    validate.callback(callback)
+import extractPayloadFromToken from '../util/extractPayloadFromToken'
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            const name = JSON.parse(xhr.response)
-
-            callback(null, name)
-
-            return
-        }
-
-        const { error, message } = JSON.parse(xhr.response)
-
-        const constructor = errors[error]
-
-        callback(new constructor(message))
-    }
-
-    xhr.onerror = () => callback(new Error('network error'))
-
+export default () => {
     const { sub: username } = extractPayloadFromToken(sessionStorage.token)
 
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/users/${username}/name`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${username}/name`, {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-    xhr.send()
+            if (status === 200)
+                return response.json()
+                    .then(name => name)
+
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
+
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
+                })
+        })
 }

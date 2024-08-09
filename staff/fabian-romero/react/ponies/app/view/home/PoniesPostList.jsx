@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
-
-const PoniesPostList = () => {
+export default function PoniesPostList() {
     console.debug('PoniesPostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -14,128 +12,48 @@ const PoniesPostList = () => {
     useEffect(() => {
         console.debug('PoniesPostList -> useEffect')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [])
 
     const handlePostDeleted = () => {
         console.debug('PoniesPostList -> handlePostDeleted')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
         console.debug('PoniesPostList -> handlePostEdited')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
         console.debug('PoniesPostList -> handlePostLikeToggled')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
         console.debug('PoniesPostList -> handlePostFavToggled')
 
-        try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
         console.debug('PoniesPostList -> handleUserFollowToggled')
 
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllPoniesPosts((error, posts) => {
-                if (error) {
+            logic.getAllPoniesPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -143,7 +61,7 @@ const PoniesPostList = () => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -155,5 +73,3 @@ const PoniesPostList = () => {
         />)}
     </section>
 }
-
-export default PoniesPostList

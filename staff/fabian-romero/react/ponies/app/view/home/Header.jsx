@@ -2,31 +2,33 @@ import logic from '../../logic'
 
 import { useState, useEffect } from 'react'
 
-import Button from '../components/Button'
-import Paragraph from '../components/Paragraph'
+import Button from '../library/Button'
+import Paragraph from '../library/Paragraph'
+import Container from '../library/Container'
 
-import './Header.css'
+import Search from './Search'
 
-const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
+import useContext from '../../context'
+// import './Header.css'
+
+export default function Header({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
+
+    const { theme, setTheme } = useContext()
 
     useEffect(() => {
         console.debug('Header -> useEffect')
 
         try {
-            logic.getUserName((error, name) => {
-                if (error) {
+            logic.getUserName()
+                .then(name => setName(name))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setName(name)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -66,14 +68,19 @@ const Header = ({ onHomeClick, onPoniesClick, onFavsClick, onLogout }) => {
         }
     }
 
+    const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
-    return <header className="Header">
-        <Paragraph>Hello, {name}!🌟</Paragraph>
-        <Button onClick={handleHomeClick}>🏚️</Button>
-        <Button onClick={handlePoniesClick}>🦄</Button>
-        <Button onClick={handleFavsClick}>🏳️‍🌈</Button>
-        <Button onClick={handleLogout}>🚪</Button>
+
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray] dark:bg-black dark:text-white">
+        <Search />
+
+        <Container>
+            <Paragraph>{name}</Paragraph>
+            <Button onClick={handleHomeClick}>🏚️</Button>
+            <Button onClick={handlePoniesClick}>🦄</Button>
+            <Button onClick={handleFavsClick}>🏳️‍🌈</Button>
+            <Button onClick={handleSwitchTheme}>{theme === 'dark' ? '🌞' : '🌚'}</Button>
+            <Button onClick={handleLogout}>🚪</Button>
+        </Container>
     </header>
 }
-
-export default Header

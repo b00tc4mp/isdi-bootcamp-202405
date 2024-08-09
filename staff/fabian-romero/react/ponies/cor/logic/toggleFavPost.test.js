@@ -1,32 +1,11 @@
+import 'dotenv/config'
+
 import toggleFavPost from './toggleFavPost.js'
-import data from '../data/index.js'
 
-import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose'
 
-const client = new MongoClient('mongodb://127.0.0.1:27017')
-
-client.connect()
-    .then(() => {
-        console.log('connected')
-
-        const test = client.db('test')
-        const users = test.collection('users')
-        const posts = test.collection('posts')
-
-        data.users = users
-        data.posts = posts
-
-        toggleFavPost('Fabito', '66a120f9f77e1ffd65355dc5', error => {
-            if (error) {
-                console.error(error)
-
-                return
-
-            }
-
-            console.log('post favorited')
-
-            client.close()
-        })
-    })
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => toggleFavPost('66acd7e6f28f138bd0f0752d', '66ace09051e8d761f308aeaf'))
+    .then(console.log('post favorited'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

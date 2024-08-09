@@ -3,4 +3,4 @@
 # aquí el userId se tiene que pasar el parametro ID para encontrar al usuario
 
 
-curl -v http://localhost:8080/users/Valito/name -X GET -H "Authorization: Basic Valito"
+curl -v http://localhost:8080/users/66ae0088f02eeeafe84db461/name -X GET -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFlMDA4OGYwMmVlZWFmZTg0ZGI0NjEiLCJpYXQiOjE3MjI2Nzk0NDF9.XMwiSVT08DSKdkzJEH7qhSlwlQ0216D-659878QRvKE"

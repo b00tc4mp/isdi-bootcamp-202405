@@ -6,7 +6,7 @@ import Post from './Post'
 
 import './PostList.css'
 
-const PostList = ({ refreshStamp }) => {
+export default function PostList({ refreshStamp }) {
     console.debug('PostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -14,128 +14,48 @@ const PostList = ({ refreshStamp }) => {
     useEffect(() => {
         console.debug('PostList -> useEffect')
 
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [refreshStamp])
 
     const handlePostDeleted = () => {
         console.debug('PostList -> handlePostDeleted')
 
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
         console.debug('PostList -> handlePostEdited')
 
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
         console.debug('PostList -> handlePostLikeToggled')
 
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
         console.debug('PostList -> handlePostFavToggled')
 
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
         console.debug('PostList -> handleUserFollowToggled')
 
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
+            logic.getAllPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -143,7 +63,7 @@ const PostList = ({ refreshStamp }) => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-3">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -155,5 +75,3 @@ const PostList = ({ refreshStamp }) => {
         />)}
     </section>
 }
-
-export default PostList

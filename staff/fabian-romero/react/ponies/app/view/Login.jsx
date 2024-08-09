@@ -1,19 +1,24 @@
 import logic from '../logic'
 
-import Heading from './components/Heading'
-import Form from './components/Form'
-import Label from './components/Label'
-import Input from './components/Input'
-import Container from './components/Container'
-import Link from './components/Link'
-import Button from './components/Button'
+import Heading from './library/Heading'
+import Form from './library/Form'
+import Label from './library/Label'
+import Input from './library/Input'
+import Container from './library/Container'
+import Link from './library/Link'
+import Button from './library/Button'
+
+import useContext from '../context.js'
 
 import { errors } from '../../com/index.js'
 
+
 const { NotFoundError, CredentialsError } = errors
 
-function Login({ onLogin, onRegisterClick }) {
+export default function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
+
+    const { alert } = useContext()
 
     const handleLoginSubmit = event => {
         console.debug('Login -> handleLoginSubmit')
@@ -29,8 +34,9 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password, error => {
-                if (error) {
+            logic.loginUser(username, password)
+                .then(() => onLogin())
+                .catch(error => {
                     console.error(error)
 
                     let message = error.message
@@ -39,12 +45,7 @@ function Login({ onLogin, onRegisterClick }) {
                         message = 'incorrect username and/or password'
 
                     alert(message)
-
-                    return
-                }
-
-                onLogin()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -60,16 +61,16 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view">
+    return <main className="flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white">
         <Heading level="1">Login</Heading>
 
-        <Form onSubmit={handleLoginSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left">
+        <Form onSubmit={handleLoginSubmit} className="flex-col">
+            <Container className="flex-col items-start">
                 <Label htmlFor="username-input">Username</Label>
                 <Input type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-input">Password</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
@@ -80,5 +81,3 @@ function Login({ onLogin, onRegisterClick }) {
         <Link onClick={handleRegisterClick}>Register</Link>
     </main>
 }
-
-export default Login

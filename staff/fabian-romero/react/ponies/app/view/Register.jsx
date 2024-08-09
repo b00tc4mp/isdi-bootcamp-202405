@@ -1,20 +1,23 @@
 import logic from '../logic'
 
-import Heading from './components/Heading'
-import Form from './components/Form'
-import Label from './components/Label'
-import Input from './components/Input'
-import Container from './components/Container'
-import Link from './components/Link'
-import Button from './components/Button'
+import Heading from './library/Heading'
+import Form from './library/Form'
+import Label from './library/Label'
+import Input from './library/Input'
+import Container from './library/Container'
+import Link from './library/Link'
+import Button from './library/Button'
+import useContext from '../context'
 
-function Register({ onRegister, onLoginClick }) {
+export default function Register({ onRegister, onLoginClick }) {
     console.debug('Register -> call')
+
+    const { alert } = useContext()
 
     const handleRegisterSubmit = event => {
         console.debug('Register -> handleRegisterSubmit')
 
-        event.preventDefault() // evita que la pagina se recargue y envie informacion a internet.
+        event.preventDefault()
 
         const form = event.target
 
@@ -33,19 +36,13 @@ function Register({ onRegister, onLoginClick }) {
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
-                if (error) {
+            logic.registerUser(name, surname, email, username, password, passwordRepeat)
+                .then(() => onRegister())
+                .catch(error => {
                     console.error(error)
 
-                    alert(error.message)
-
-                    return
-                }
-
-                alert('user successfully registered')
-
-                onRegister()
-            })
+                    alert(message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -61,36 +58,36 @@ function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="view">
-        <Heading>Register</Heading>
+    return <main className="flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white">
+        <Heading className="font-scatters">Register</Heading>
 
-        <Form onSubmit={handleRegisterSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left">
+        <Form onSubmit={handleRegisterSubmit} className="flex-col">
+            <Container className="flex-col items-start">
                 <Label htmlFor="name-input">Name</Label>
                 <Input type="text" id="name-input" name="name" placeholder="name" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="surname-input">Surname</Label>
                 <Input type="text" id="surname-input" name="surname" placeholder="surname" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="email-input">E-mail</Label>
                 <Input type="email" id="email-input" name="email" placeholder="email" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="username-input">Username</Label>
                 <Input type="text" id="username-input" name="username" placeholder="username" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-input">Password</Label>
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
-            <Container className="Container--column Container--column-left">
+            <Container className="flex-col items-start">
                 <Label htmlFor="password-repeat-input">Repeat Password</Label>
                 <Input type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
             </Container>
@@ -101,5 +98,3 @@ function Register({ onRegister, onLoginClick }) {
         <Link onClick={handleLoginClick}>Login</Link>
     </main>
 }
-
-export default Register

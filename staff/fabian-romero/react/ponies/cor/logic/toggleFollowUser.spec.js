@@ -6,131 +6,110 @@ import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
 import { errors } from 'com'
 
-const { ValidationError, DuplicityError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('toggleFollowUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
+    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds on existing user and targetUser has no following-back', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123', following: ['cabraloca'] })
-            .then(user => {
-                User.create({ name: 'Cabra', surname: 'Loca', email: 'cabra@loca.com', username: 'cabraloca', password: '123123123', following: ['monoloco'] })
-                    .then(targetUser => {
-                        toggleFollowUser(user.username, targetUser.username, error => {
-                            if (error) {
-                                console.error(error)
+    it('succeeds on existing user and post with no favs', () =>
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user =>
+                User.create({ name: 'Cabra', surname: 'Loca', email: 'cabra@loca.com', username: 'cabraloca', password: '123123123' })
+                    .then(targetUserId =>
+                        toggleFollowUser(user.id, targetUserId)
+                            .then(user => User.findById(user.id))
+                            // .the(targetUser => User.findById(user.id))
+                            .then(user => expect(user.following.map(userObjectId => userObjectId.toString())).to.include(targetUserId))
+                    )
+            )
 
-                                return
-                            }
+    )
 
-                            User.findOne({ username: 'monoloco' }).lean()
-                                .then(user => {
-                                    expect(user.following).to.not.include(['cabraloca'])
+    it('succeeds on existing user and post has likes', () =>
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user =>
+                Post.create({ author: user.id, image: 'https://media.tenor.com/DHgp-RbUFL0AAAAM/rosalia-beso.gif', caption: 'lalala', likes: [user.id] })
+                    .then(post =>
+                        toggleFollowUser(user.id, post.id)
+                            .then(() => Post.findById(post.id).lean())
+                            .then(post => expect(post.favs).to.not.include(user.id))
+                    )
+            )
+    )
 
-                                    done()
-                                })
-                                .catch(error => done(error))
+    it('fails on non-existing user', () => {
+        let _error
 
-                        })
-                            .catch(error => done(error))
-                    })
-            })
-    })
+        const userObjectId = new ObjectId
 
-    it('succeeds on existing user and targetUser has following-back', done => {
-        User.create({ name: 'Mono', surname: 'Pajillero', email: 'mono@loco.com', username: 'monoloco', password: '123123123', following: ['cabraloca'] })
-            .then(user => {
-                User.create({ name: 'Cabra', surname: 'Loca', email: 'cabra@loca.com', username: 'cabraloca', password: '123123123', following: ['monoloco'] })
-                    .then(targetUser => {
-                        toggleFollowUser(user.username, targetUser.username, error => {
-                            if (error) {
-                                console.error(error)
-
-                                return
-                            }
-
-                            User.findOne({ username: 'cabraloca' }).lean()
-                                .then(user => {
-                                    expect(user.following).to.include('monoloco')
-
-                                    done()
-                                })
-                                .catch(error => done(error))
-
-                        })
-                            .catch(error => done(error))
-                    })
+        return Post.create({
+            author: userObjectId, image: 'https://media.tenor.com/DHgp-RbUFL0AAAAM/rosalia-beso.gif'
+            , caption: 'lalala'
+        })
+            .then(post => toggleFollowUser(userObjectId.toString(), post.id))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
     })
 
-    it('fails on non-string username', () => {
+    it('fails on existing user but non-existing post', () => {
+        let _error
+
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => toggleFollowUser(user.id, new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('post not found')
+            })
+    })
+
+    it('fails on non-string userId', () => {
         let error
 
         try {
-            toggleFollowUser(123, 'cabraloca', error => { })
+            toggleFollowUser(123, targetUserId)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on invalid username', () => {
+    it('fails on non-string postId', () => {
         let error
 
         try {
-            toggleFollowUser(' ', 'cabraloca', error => { })
+            toggleFollowUser(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
+            expect(error.message).to.equal('postId is not a string')
         }
     })
 
-    it('fails on non-function callback', () => {
+    it('fails on invalid postId', () => {
         let error
 
         try {
-            toggleFollowUser('monoloco', 'cabraloca', 123)
+            toggleFollowUser(new ObjectId().toString(), ' ')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
+            expect(error.message).to.equal('invalid postId')
         }
     })
 
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+
+    after(() => mongoose.disconnect())
 
 
-    afterEach(done => {
-        User.deleteMany()
-            .then(() => {
-                Post.deleteMany()
-                    .then(() => done())
-                    .catch(error => done(error))
-            })
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
 })
