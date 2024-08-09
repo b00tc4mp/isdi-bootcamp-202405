@@ -16,19 +16,24 @@ describe('getAllPosts', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     it('succeeds on existing user listing all posts', () => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123', following: ['monoloco'] })
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user =>
                 Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
                     .then(post1 =>
-                        Post.create({ author: userId, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
+                        Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
                             .then(post2 =>
-                                getAllPosts(user.username)
-                                    .then(() => Post.find({}).lean()
-                                        .then(posts => {
-                                            expect(posts[0].author).to.equal(user.id)
-                                            expect(posts[1].author).to.equal(user.id)
-                                        })
-                                    )
+                                getAllPosts(user.id)
+                                    .then(posts => {
+                                        debugger
+                                        expect(posts[0].author.id).to.equal(user.id)
+                                        expect(posts[1].author.id).to.equal(user.id)
+                                        expect(posts[0].author.username).to.equal(user.username)
+                                        expect(posts[1].author.username).to.equal(user.username)
+                                        expect(posts[0].author.avatar).to.equal(user.avatar)
+                                        expect(posts[1].author.avatar).to.equal(user.avatar)
+                                        expect(posts[0].author.following).to.be.false
+                                        expect(posts[1].author.following).to.be.false
+                                    })
                             )
                     )
             )

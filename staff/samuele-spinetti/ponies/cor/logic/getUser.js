@@ -13,12 +13,12 @@ export default (userId, targetUserId) => {
 
             return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(targetUser => {
-            if (!targetUser) throw new NotFoundError('Target user not found')
+                .then(targetUser => {
+                    if (!targetUser) throw new NotFoundError('Target user not found')
 
-            delete targetUser.password
+                    delete targetUser.password
 
-            return targetUser
+                    return targetUser
+                })
         })
 }

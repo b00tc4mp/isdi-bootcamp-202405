@@ -15,16 +15,21 @@ describe('getUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () => {
+    it('succeeds on existing user', () =>
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => getUser(user.id, user.id))
-            .then(() => {
-                expect(targetUser.name).to.equal('Mono')
-                expect(targetUser.surname).to.equal('Loco')
-                expect(targetUser.email).to.equal('mono@loco.com')
-                expect(targetUser.username).to.equal('monoloco')
-            })
-    })
+            .then(user =>
+                User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123123123' })
+                    .then(targetUser =>
+                        getUser(user.id, targetUser.id)
+                            .then(() => {
+                                expect(targetUser.name).to.equal('Samu')
+                                expect(targetUser.surname).to.equal('Spine')
+                                expect(targetUser.email).to.equal('samu@spine.com')
+                                expect(targetUser.username).to.equal('samuspine')
+                            })
+                    )
+            )
+    )
 
     it('fails on non-existing user', () => {
         let _error
@@ -34,6 +39,18 @@ describe('getUser', () => {
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('User not found')
+            })
+    })
+
+    it('fails on non-existing targetUser', () => {
+        let _error
+
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => getUser(user.id, new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('Target user not found')
             })
     })
 

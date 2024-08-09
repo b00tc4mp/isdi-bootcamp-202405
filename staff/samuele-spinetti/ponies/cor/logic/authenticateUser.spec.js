@@ -19,7 +19,7 @@ describe('authenticateUser', () => {
             .then(hash => User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: hash })
             )
             .then(() => authenticateUser('monoloco', '123123123'))
-            .then(value => expect(value).to.be.undefined)
+            .then(value => expect(value).to.be.string)
     )
 
     it('fails on non-existing user', () => {

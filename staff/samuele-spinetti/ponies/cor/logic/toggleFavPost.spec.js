@@ -18,8 +18,8 @@ describe('toggleFavPost', () => {
     it('succeeds on existing user and post with no favs', () =>
         User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(user =>
-                Post.create({ author: 'monoloco', image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
-                    .then(post => toggleFavPost(user.username, post.id)
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf' })
+                    .then(post => toggleFavPost(user.id, post.id)
                         .then(() => User.findOne({ username: 'monoloco' })
                             .then(user => expect(user.favs).to.include(post.id)
                             )
@@ -28,22 +28,19 @@ describe('toggleFavPost', () => {
             )
     )
 
-    it('succeeds on existing post and user with favs', () => {
-        const postId = new ObjectId().toString()
-
-        Post.create({ author: postId, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf', likes: ['monoloco'] })
-            .then(post =>
-                User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123', favs: [post.id] })
-                    .then(user =>
-                        toggleFavPost(user.id, post.id)
-                            .then(() => User.findOne({ username: 'monoloco' }).lean()
-                                .then(user =>
-                                    expect(user.favs).to.not.include(post.id)
-                                )
-                            )
-                    )
+    it('succeeds on existing post and user with favs', () =>
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user =>
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'wtf', likes: [user.id] })
+                    .then(post => {
+                        user.favs.push(post.id)
+                        return user.save()
+                            .then(() => toggleFavPost(user.id, post.id))
+                            .then(() => User.findOne({ username: 'monoloco' }).lean())
+                            .then(user => expect(user.favs).to.not.include(post.id))
+                    })
             )
-    })
+    )
 
 
     it('fails on non-existing user', () => {
