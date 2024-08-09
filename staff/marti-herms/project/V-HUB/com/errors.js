@@ -38,12 +38,21 @@ class CredentialsError extends Error {
     }
 }
 
+class SessionError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 const errors = {
     ValidationError,
     SystemError,
     DuplicityError,
     NotFoundError,
-    CredentialsError
+    CredentialsError,
+    SessionError
 }
 
 export default errors

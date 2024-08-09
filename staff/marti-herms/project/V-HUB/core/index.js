@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import logic from './logic'
 import data from './data'
 
-export default {
+export {
     mongoose,
     logic,
     data
