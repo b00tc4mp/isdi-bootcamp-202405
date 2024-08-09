@@ -76,7 +76,7 @@ User
 - id (auto)
 - name (string)
 - username (string)
-- role (string, enum: regular | band | label | promoter | venue)
+- role (string, enum: regular user | band | label | promoter | venue)
 - email (string)
 - password (string)
 - avatar (string)
@@ -97,7 +97,6 @@ Band
 - messages ([User.message])
 - favs ([Post.id])
 - following ([User.username])
-- events ([Event.id])
 
 Post
 - id (string)
@@ -110,6 +109,7 @@ Post
 Event
 - id (string)
 - author (User.username)
+- image (string)
 - location (string)
 - schedule (Date)
 - description (string)
