@@ -1,6 +1,6 @@
 # + VIBES
 
-+Vibes is an application designed to help you find personal growth events based on your location. With an intuitive interface, you can explore a wide variety of events, view specific details, create your own events, book you spot directly from the app and  save your favorite events for quick and easy access.
++Vibes is an application designed to help you find personal growth events based on your location. With an intuitive interface, you can explore a wide variety of events, view specific details, create your own events, book your spot directly from the app and  save your favorite events for quick and easy access.
 
 ![+Vibes Image](https://media.giphy.com/media/kI0mZhnqikAgg/giphy.gif?cid=ecf05e47rxe3uubfpsio4br6jcqh7gzt10llwhpglt3ppek3&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
