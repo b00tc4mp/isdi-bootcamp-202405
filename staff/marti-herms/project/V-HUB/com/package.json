@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "com",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -9,8 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "mongoose": "^8.5.2"
-  }
+  "description": ""
 }

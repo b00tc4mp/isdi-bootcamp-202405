@@ -6,11 +6,10 @@ A game to build pokemon teams and fight with them
 
 ## Functional
 
-As a pokemon player, there is a lot of resources to design teams and practice without using the original games, but there isn't a unified resource. Pokemon Breakdown aims to accomplish that, starting with the basics and tacking example from Pokemon Showdown, which is the biggest resource right now.
-
 ### Use Cases
 
-V.01
+**User**
+*V.01*
 - create Pokemon team
 - edit Pokemon team
 - add pokemon to team
@@ -19,7 +18,8 @@ V.01
 - import pokemon from text
 - export pokemon from text
 
-V.02
+**User**
+*V.02*
 - find battle
 - select move
 - cancel move
@@ -55,7 +55,7 @@ V.02
 
 ### Data Model
 
-User
+**User**
 - id (auto)
 - email (string)
 - username (string)
@@ -64,68 +64,62 @@ User
 - role (string)
 - library ([Game.id])
 
-Team Library
+**Team Library**
 - id (auto)
-- owner (string)
-- teamList ([string])
+- owner (User.id)
+- teamList ([Team.id])
 - privacy (boolean/string)
 
-Team
+**Team**
 - id (auto)
 - name (string)
 - author (string)
 - pokemonList ([Pokemon])
+- date (Date)
 
-
-Pokemon
+**Pokemon**
+- _id (auto)
 - id (number)
 - name (string)
-- level (number)
-- type1 (string)
-- type2 (string)
-- gender (string)
-- shiny (boolean)
+- level (number, enum: 1-100)
+- type ([{Type.id}])
 - item (string)
-- move1 (Move.id)
-- move2 (Move.id)
-- move3 (Move.id)
-- move4 (Move.id)
+- moves ([Move])
 - possibleMoveset ([Move.id])
-- stats (Stats)
+- stats (object)
 - nature (string)
 - statusCondition (string)
 
-Stats
-- hp (Stat)
-- finalHp (number)
-- attack (Stat)
-- finalAttack (number)
-- defense (Stat)
-- finalDefense (number)
-- spAttack (Stat)
-- finalSpAttack (number)
-- spDefense (Stat)
-- finalSpDefense (number)
-- speed (Stat)
-- finalSpeed (number)
-
-Stat
-- base (number)
-- efforValues (number)
-- individualValues (number)
-
-Move
+**Move**
 - id (auto)
 - name (string)
 - accuracy (number)
-- pp (number)
+- damageClass (string)  
+- effectChance (number)
+- effect (string)
+- meta ({
+            - ailment (string, optional)
+            - ailment_chance (number, optional)
+            - category (string, optional)
+            - crit_rate (number, optional)
+            - drain (number, optional)
+            - flinch_chance (number, optional)
+            - healing (number, optional)
+            - max_hits (number, optional)
+            - max_turns (number, optional)
+            - min_hits (number, optional)
+            - min_turns (number, optional)
+            - stat_chance (number, optional)})
 - power (number)
+- powerPoints (number)
 - priority (number)
-- type (number)
-- damageType (string)
-- ailment (string)
+- statChanges ([{
+            - change (number)
+            - stat (string)    }])
+- target (string)
+- type (string)
 
-StatusCondition
+**Status Condition**
 - actualCondition ()
 - burn (Burn)
 - freeze (Freeze)
@@ -133,5 +127,3 @@ StatusCondition
 - paralysis (Paralysis)
 - poison (Poison)
 - badlyPosioned (BadlyPosioned)
-
-Burn

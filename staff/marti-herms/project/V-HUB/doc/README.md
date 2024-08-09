@@ -1,22 +1,29 @@
-# The V-HUB
+# The V-HUB (provisional)
 
 A hub for gamers and developers to play or upload videogames
 
-![V-Hub image](./images/preview.webp)
+![V-HUB image](./images/preview.webp)
 
 ## Functional
 
-V-HUB is a game hub with easy acces to games and aimed soo that less well known game developers can used it as a way to kickstart their careers. 
-
 ### Use Cases
 
-User
-- add game to library/favourites
-- search game
-- select/play game
+**Regular/Dev User**
+- list library
+- list favourites
+- add game to library
+- add game to favourites
+- search games (by name, date, genre...)
+- view game detail
+- play game
+- add review
+- delete review
+- change role
 
-Dev User
+**Dev User**
 - post game to site
+- update own game
+- change role
 
 ### UIUX Design
 
@@ -48,18 +55,34 @@ Dev User
 
 ### Data Model
 
-User
+**User**
 - id (auto)
 - email (string)
 - username (string)
 - password (string)
 - avatar (string)
-- role (string)
+- role (string, enum: regular or dev)
 - library ([Game.id])
+- favs ([Game.id])
+- games ([Game.id], optional)
 
-Game
+**Game**
 - id (auto)
+- enabled (boolean)
+- author (User.id)
 - name (string)
 - image (string)
+- description (string)
 - link (string)
 - downloads (number)
+- rating (number)
+- date (Date)
+
+**Review**
+- id (auto)
+- author (User.id)
+- game (Game.id)
+- rate (number, optional)
+- comment (string)
+- date (Date)
+
