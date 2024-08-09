@@ -17,7 +17,7 @@ describe('getAllPosts', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     it('succeeds on existing user listing all posts', () => {
-        User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123', following: ['tatig'] })
+        return User.create({ name: 'Tati', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123' })
             .then(user =>
                 Post.create({ author: 'tatig', image: 'https://www.grupoxcaret.com/es/wp-content/uploads/2021/03/aves-boris.jpg', caption: 'pajaro azul' })
                     .then(post1 => {

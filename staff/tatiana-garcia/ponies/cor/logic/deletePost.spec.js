@@ -34,7 +34,7 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost('hg', 'id') //aqui tiene que estar el id pero si lo pongo no me funciona
+            deletePost('hg', post.id) //aqui tiene que estar el id pero si lo pongo no me funciona
         } catch (_error) {
             error = _error
         } finally {
