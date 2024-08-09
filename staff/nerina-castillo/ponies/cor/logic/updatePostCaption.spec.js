@@ -54,6 +54,18 @@ describe('updatePostCaption', () => {
             })
     })
 
+    it('fails on existing user and post but post does not belong to user', () => {
+        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: '123123123' })
+            .then(user => {
+                Post.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', caption: 'i am fine' })
+                    .then(post => updatePostCaption(user.id, post.id))
+                    .then(() => {
+                        expect(error).to.be.instanceOf(OwnerShipError)
+                        expect(error.message).to.equal('post does not belong to user')
+                    })
+            })
+    })
+
     it('fails on non-string userId', () => {
         let error
 

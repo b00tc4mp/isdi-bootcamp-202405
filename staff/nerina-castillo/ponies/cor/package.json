@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx mocha logic/*.spec.js",
-    "test-inspect": "npx mocha --inspect-brk logic/*.spec.js"
+    "test-inspect": "npx mocha --inspect-brk logic/*.spec.js",
+    "test-coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +18,10 @@
     "mongoose": "^8.5.1"
   },
   "devDependencies": {
+    "c8": "^10.1.2",
     "chai": "^4.5.0",
     "dotenv": "^16.4.5",
-    "mocha": "^10.7.0"
+    "mocha": "^10.7.0",
+    "monocart-coverage-reports": "^2.10.2"
   }
 }
