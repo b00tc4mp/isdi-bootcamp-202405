@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/favs -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFjZDIyOWZiNGJiYzZjYjY1ODFiNTIiLCJpYXQiOjE3MjI2MDIwNTJ9.VkAHNtRaPniHxh4laXR50kGVxRlzzU3SylcgQerj8iQ"
