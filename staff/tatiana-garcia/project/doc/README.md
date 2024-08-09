@@ -18,14 +18,13 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
  - list petsitters
  - show petsitter's detaill
  - show contact page
- - settings page
 
 **User**
  - show main info
  - list petsitters
  - show petsitter's detaill
  - show contact page
- - settings page
+ - add review
 
 ### UIUX Design
 
