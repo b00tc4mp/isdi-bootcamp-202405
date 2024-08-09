@@ -22,26 +22,29 @@ The application offers a platform for different user profiles to interact, colla
 User
 - Create post
 - List posts
-- Modify post
-- Delete post
-- Add comment in a post
-- Delete comment in a post
-- Show event calendar
+- Modify own post
+- Delete own post
+- View event calendar
 - Create event
 - List events
-- Search event
-- Update event
-- Delete event
+- Search events by city, band, date or music genre
+- Modify own event
+- Delete own event
 - Follow user
-- Search user
+- Search users (by role)
+- List all users
 - List following users
 - List bands
 - List venues
 - List promoters
 - List labels
+- Add comment in a post
+- Delete own comment in a post
 - Toggle like post
 - Toggle fav post
 - Send messages
+- View own profile
+- List own posts
 
 ### UIUX Design
 [Figma](https://www.figma.com/design/ENeHGUGHQy8gNxY00fCLsa/Untitled?node-id=1-710&t=TEnsDeO22H759zz5-0)
@@ -76,42 +79,29 @@ User
 - id (auto)
 - name (string)
 - username (string)
-- role (string, enum: regular user | band | label | promoter | venue)
+- role (string, enum: regular | band | label | promoter | venue)
 - email (string)
 - password (string)
 - avatar (string)
 - messages ([User.message])
 - favs ([Post.id])
-- following ([User.username])
-- events ([Event.id])
-
-Band
-- id (auto)
-- name (string)
-- username (string)
-- role (string)
-- music genre (string)
-- email (string)
-- password (string)
-- avatar (string)
-- messages ([User.message])
-- favs ([Post.id])
-- following ([User.username])
+- following ([User.id])
 
 Post
 - id (string)
-- author (User.username)
-- image (string)
-- caption (string)
+- author (User.id)
+- image (string, optional)
+- text (string)
 - date (Date)
-- likes ([User.username])
+- likes ([User.id])
 
 Event
 - id (string)
-- author (User.username)
-- image (string)
-- location (string)
-- schedule (Date)
+- author (User.id)
+- image (string, optional)
+- location ([number, number])
+- startDate (Date)
+- endDate (Date)
 - description (string)
 - date (Date)
 
