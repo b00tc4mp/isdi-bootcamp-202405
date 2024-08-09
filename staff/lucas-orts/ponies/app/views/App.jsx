@@ -1,41 +1,56 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import Login from './Login'
-import Register from './Register'
-import Home from './Home'
+import Login from './login'
+import Register from './register'
+import Home from './home'
+import Alert from './common/Alert'
+
+import { Context } from './context'
 
 import logic from '../logic'
 
-const App = () => {
-    const [view, setView] = useState(logic.isUserLoggedIn() ? 'home' : 'login')
+export default function App() {
+    const navigate = useNavigate()
+
+    const [theme, setTheme] = useState(localStorage.theme)
+    const [alertMessage, setAlertMessage] = useState(null)
+
+    useEffect(() => {
+        document.documentElement.className = theme
+        localStorage.theme = theme
+    }, [theme])
 
     const handleLogin = () => {
-        setView('home')
+        navigate('/')
     }
 
     const handleRegisterClick = () => {
-        setView('register')
+        navigate('/register')
     }
 
     const handleRegister = () => {
-        setView('login')
+        navigate('/login')
     }
 
     const handleLoginClick = () => {
-        setView('login')
+        navigate('/login')
     }
 
     const handleLogout = () => {
-        setView('login')
+        navigate('/login')
     }
 
-    return <>
-        {view === 'login' && <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />}
+    const handleAlertAccept = () => setAlertMessage(null)
 
-        {view === 'register' && <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />}
+    return <Context.Provider value={{ theme, setTheme, alert: setAlertMessage }}>
+        <Routes>
+            <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
 
-        {view === 'home' && <Home onLogout={handleLogout} />}
-    </>
+            <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
+
+            <Route path="/*" element={logic.isUserLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        </Routes>
+        {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
+    </Context.Provider>
 }
-
-export default App

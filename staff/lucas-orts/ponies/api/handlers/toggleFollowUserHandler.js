@@ -1,20 +1,13 @@
-import { logic } from '../../cor/index.js'
+import { logic } from 'cor'
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
-    const { targetUsername } = req.params
-
+    const { targetUserId } = req.params
     try {
-        logic.toggleFollowUser(username, targetUsername, error => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        logic.toggleFollowUser(userId, targetUserId)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

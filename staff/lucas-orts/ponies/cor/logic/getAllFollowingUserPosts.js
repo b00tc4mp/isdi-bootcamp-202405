@@ -4,58 +4,42 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, callback) => {
-    validate.username(username)
-    validate.callback(callback)
+export default userId => {
+    validate.string(userId, 'userId')
 
-    User.findOne({ username }).lean()
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.find({ author: { $in: user.following } }).sort({ date: -1 }).lean()
+            return Post.find({ author: { $in: user.following } }, { __v: 0 }).sort({ date: -1 }).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(posts => {
-                    if (posts.length) {
-                        let count = 0
+                    const promises = posts.map(post => {
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
+                        post.like = post.likes.some(userObjectId => userObjectId.toString() === userId)
 
-                        posts.forEach(post => {
-                            post.fav = user.favs.some(postObjectId => postObjectId.toString() === post._id.toString())
-                            post.like = post.likes.includes(username)
+                        return User.findById(post.author).lean()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(author => {
+                                if (!author) throw new NotFoundError('author not found')
 
-                            User.findOne({ username: post.author }).lean()
-                                .then(author => {
-                                    if (!author) {
-                                        callback(new NotFoundError('author not found'))
+                                post.author = {
+                                    id: author._id.toString(),
+                                    username: author.username,
+                                    avatar: author.avatar,
+                                    following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
+                                }
 
-                                        return
-                                    }
-                                    post.author = {
-                                        username: author.username,
-                                        avatar: author.avatar,
-                                        following: user.following.includes(author.username)
-                                    }
+                                post.id = post._id.toString()
+                                delete post._id
 
-                                    count++
+                                return post
+                            })
+                    })
 
-                                    if (count === posts.length) {
-                                        posts.forEach(post => {
-                                            post.id = post._id.toString()
-
-                                            delete post._id
-                                        })
-
-                                        callback(null, posts)
-                                    }
-
-                                })
-                                .catch(error => callback(new SystemError(error.message)))
-                        })
-                    } else callback(null, [])
+                    return Promise.all(promises)
+                        .then(posts => posts)
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }

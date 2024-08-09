@@ -4,123 +4,46 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-const FavPostList = () => {
+import useContext from '../context'
+
+export default function FavPostList() {
+    const { alert } = useContext()
+
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [])
 
     const handlePostDeleted = () => {
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllFavPosts((error, posts) => {
-                if (error) {
+            logic.getAllFavPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -128,7 +51,7 @@ const FavPostList = () => {
         }
     }
 
-    return <section className="post-list">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -140,5 +63,3 @@ const FavPostList = () => {
         />)}
     </section>
 }
-
-export default FavPostList

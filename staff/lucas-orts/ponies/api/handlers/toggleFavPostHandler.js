@@ -1,20 +1,13 @@
-import { logic } from '../../cor/index.js'
+import { logic } from 'cor'
 
 export default (req, res, next) => {
-    const { username } = req
+    const { userId } = req
 
     const { postId } = req.params
-
     try {
-        logic.toggleFavPost(username, postId, error => {
-            if (error) {
-                next(error)
-
-                return
-            }
-
-            res.status(204).send()
-        })
+        logic.toggleFavPost(userId, postId)
+            .then(() => res.status(204).send())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

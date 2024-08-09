@@ -1,15 +1,17 @@
 import logic from "../../logic"
 
-import Heading from "../components/Heading"
-import Form from "../components/Form"
-import Input from "../components/Input"
-import Label from "../components/Label"
-import Button from "../components/Button"
-import Container from "../components/Container"
+import Heading from "../library/Heading"
+import Form from "../library/Form"
+import Input from "../library/Input"
+import Label from "../library/Label"
+import Button from "../library/Button"
+import Container from "../library/Container"
 
-import './CreatePost.css'
+import useContext from '../context'
 
-function CreatePost({ onPostCreated, onCancelCreatePost }) {
+export default function CreatePost({ onPostCreated, onCancelCreatePost }) {
+    const { alert } = useContext()
+
     const handleCreatePostSubmit = event => {
         event.preventDefault()
 
@@ -22,17 +24,13 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption, error => {
-                if (error) {
+            logic.createPost(postImage, postCaption)
+                .then(() => onPostCreated())
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                onPostCreated()
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -42,24 +40,25 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
 
     const handleCancelCreatePostClick = () => onCancelCreatePost()
 
-    return <section className="CreatePost">
+    return <section className="fixed bottom-0 left-0 w-full bg-white dark:bg-black dark:text-white p-2 box-border">
         <Heading level="2">Create Post</Heading>
 
-        <Form className="form--column" onSubmit={handleCreatePostSubmit}>
-            <Container className="form__field">
-                <Label htmlFor="post-image-input">Image</Label>
-                <Input id="post-image-input" />
-            </Container>
-            <Container className="form__field">
-                <Label htmlFor="post-caption-input">Caption</Label>
-                <Input id="post-caption-input" />
-            </Container>
+        <Form className="flex-col" onSubmit={handleCreatePostSubmit}>
+            <Container className="flex-col">
+                <Container className="flex-col items-start">
+                    <Label htmlFor="post-image-input">Image</Label>
+                    <Input className="text-black" id="post-image-input" />
+                </Container>
+                <Container className="flex-col items-start">
+                    <Label htmlFor="post-caption-input">Caption</Label>
+                    <Input className="text-black" id="post-caption-input" />
+                </Container>
 
-            <Container className="create-post-section__buttons">
-                <Button type="submit">Create</Button>
-                <Button type="reset" onClick={handleCancelCreatePostClick}>Cancel</Button>
+                <Container className="justify-center">
+                    <Button type="submit">Create</Button>
+                    <Button type="reset" onClick={handleCancelCreatePostClick}>Cancel</Button>
+                </Container>
             </Container>
         </Form>
     </section>
 }
-export default CreatePost

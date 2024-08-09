@@ -4,18 +4,8 @@ import authenticateUser from './authenticateUser.js'
 import mongoose from "mongoose"
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
 
-        authenticateUser("Cacatua", "123123123", error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-            console.log('user authenticated')
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => authenticateUser('Estercolero', '123123123'))
+    .then(userId => console.log('user authenticated', userId))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

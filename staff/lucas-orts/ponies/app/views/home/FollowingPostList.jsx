@@ -4,125 +4,46 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
+import useContext from '../context'
 
-const FollowingPostList = () => {
+export default function FollowingPostList() {
+    const { alert } = useContext()
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        try {
-            logic.getAllFollowingUserPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [])
 
     const handlePostDeleted = () => {
-        try {
-            logic.getAllFollowingUserPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
-        try {
-            logic.getAllFollowingUserPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        try {
-            logic.getAllFollowingUserPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        try {
-            logic.getAllFollowingUserPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllFollowingUserPosts((error, posts) => {
-                if (error) {
+            logic.getAllFollowingUserPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -130,7 +51,7 @@ const FollowingPostList = () => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -142,5 +63,3 @@ const FollowingPostList = () => {
         />)}
     </section>
 }
-
-export default FollowingPostList

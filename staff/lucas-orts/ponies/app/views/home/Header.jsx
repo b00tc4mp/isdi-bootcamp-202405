@@ -2,27 +2,27 @@ import logic from '../../logic'
 
 import { useState, useEffect } from 'react'
 
-import Button from '../components/Button'
-import Paragraph from '../components/Paragraph'
+import Button from '../library/Button'
+import Paragraph from '../library/Paragraph'
 
-import './Header.css'
+import Search from './Search'
+
+import useContext from '../context'
 
 const Header = ({ onHomeClick, onFollowClick, onFavsClick, onLogout }) => {
+    const { alert, theme, setTheme } = useContext()
+
     const [name, setName] = useState(null)
 
     useEffect(() => {
         try {
-            logic.getUserName((error, name) => {
-                if (error) {
+            logic.getUserName()
+                .then(name => setName(name))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setName(name)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -54,12 +54,16 @@ const Header = ({ onHomeClick, onFollowClick, onFavsClick, onLogout }) => {
         }
     }
 
+    const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
-    return <header className="header">
-        <Paragraph>Hello, {name}!</Paragraph>
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray] dark:bg-black dark:text-white">
+        <Search />
+
+        <Paragraph>{name}</Paragraph>
         <Button onClick={handleHomeClick}>🏠</Button>
         <Button onClick={handleFollowClick}>Following</Button>
         <Button onClick={handleFavsClick}>🏴‍☠️</Button>
+        <Button onClick={handleSwitchTheme}>{theme === 'dark' ? '🌞' : '🌚'}</Button>
         <Button onClick={handleLogout}>Logout</Button>
     </header>
 }

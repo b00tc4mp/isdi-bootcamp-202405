@@ -1,29 +1,28 @@
-import { validate, errors } from 'com'
+import { errors } from 'com'
 
-export default callabck => {
-    validate.callback(callabck)
+const { SystemError } = errors
 
-    const xhr = new XMLHttpRequest
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            const posts = JSON.parse(xhr.response)
-
-            callabck(null, posts)
-
-            return
+export default () => {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/follows`, {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
         }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-        const { error, message } = JSON.parse(xhr.response)
+            if (status === 200)
+                return response.json()
+                    .then(posts => posts)
 
-        const constructor = errors[error]
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        callabck(new constructor(message))
-    }
+                    const constructor = errors[error]
 
-    xhr.onerror = () => callabck(new Error('network error'))
-
-    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/follows`)
-    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
-    xhr.send()
+                    throw new constructor(message)
+                })
+        })
 }

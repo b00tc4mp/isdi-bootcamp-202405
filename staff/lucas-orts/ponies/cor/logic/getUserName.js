@@ -1,32 +1,24 @@
 import { User } from '../data/models.js'
+
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (username, targetUsername, callback) => {
-    validate.username(username)
-    validate.username(targetUsername, 'targetUsername')
-    validate.callback(callback)
+export default (userId, targetUserId) => {
+    validate.string(userId, 'userId')
+    validate.string(targetUserId, 'targetUserId')
 
-    User.findOne({ username }).lean()
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            User.findOne({ username: targetUsername }).lean()
-                .then(targetUser => {
-                    if (!targetUser) {
-                        callback(new NotFoundError('target user not found'))
-
-                        return
-                    }
-
-                    callback(null, targetUser.name)
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            return User.findById(targetUserId).lean()
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(targetUser => {
+            if (!targetUser) throw new NotFoundError('target user not found')
+
+            return targetUser.name
+        })
 }

@@ -4,124 +4,46 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
+import useContext from '../context'
 
-const PostList = ({ refreshStamp }) => {
+export default function PostList({ refreshStamp }) {
+    const { alert } = useContext()
+
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }, [refreshStamp])
 
     const handlePostDeleted = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostEdited = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
-                    console.error(error)
-
-                    alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadPosts()
     }
 
     const handleUserFollowToggled = () => {
+        loadPosts()
+    }
+
+    const loadPosts = () => {
         try {
-            logic.getAllPosts((error, posts) => {
-                if (error) {
+            logic.getAllPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-
-                    return
-                }
-
-                setPosts(posts)
-            })
+                })
         } catch (error) {
             console.error(error)
 
@@ -129,7 +51,7 @@ const PostList = ({ refreshStamp }) => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -141,5 +63,3 @@ const PostList = ({ refreshStamp }) => {
         />)}
     </section>
 }
-
-export default PostList

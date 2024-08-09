@@ -3,20 +3,6 @@ import deletePost from './deletePost.js'
 
 import mongoose from 'mongoose'
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        deletePost('Cacatua', '66a3907d93b0b4f3739d6ece', error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log('post deleted')
-
-            mongoose.disconnect()
-        })
-
-    })
+    .then(() => deletePost('66ae141634b7a3d8e048afe0', '66ae1594c3cf2cfb73df9f34'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())
