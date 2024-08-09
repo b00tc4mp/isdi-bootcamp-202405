@@ -1,0 +1,44 @@
+[
+    {
+        "id": "abcdefghi",
+        "author": "samu",
+        "date": "11-07-2024",
+        "caption": "Hello, soy Samu",
+        "image": "https://njebvbeviobvo",
+        "likes": []
+    },
+    {
+        "id": "abcdefghl",
+        "author": "cami",
+        "date": "11-07-2024",
+        "caption": "Hello",
+        "image": "https://njebvbeviobvb",
+        "likes": []
+    },
+    {
+        "id": "kg6nl8j0imo",
+        "image": "https//nlknvliver",
+        "caption": "Hello it s me",
+        "author": "marti",
+        "date": "2024-07-12T07:20:38.280Z",
+        "likes": [
+            "samu"
+        ]
+    },
+    {
+        "id": "abcdefghm",
+        "author": "samu",
+        "date": "10-07-2024",
+        "caption": "Hello",
+        "image": "https://njebvbeviobvb",
+        "likes": []
+    },
+    {
+        "id": "aey5mjq704g",
+        "image": "https//nlknvliver",
+        "caption": "Hello manu",
+        "author": "samu",
+        "date": "2024-07-12T07:37:11.881Z",
+        "likes": []
+    }
+]
