@@ -1,12 +1,9 @@
 import AddPostSection from './AddPostSection'
-import Button from '../components/Button'
+import Button from '../library/Button'
 
 import { useState } from 'react'
 
-import './Footer.css'
-
-export default function Footer({ onHomeButtonClick, onPostSearch, onPostCreated, onFollowedButtonClick, onSavedPostsButtonClick }) {
-    const [addPostVisibility, setAddPostVisibility] = useState(null)
+export default function Footer({ onHomeButtonClick, onPostSearch, onFollowedButtonClick, onSavedPostsButtonClick, onAddPostButton }) {
     const [activeButton, setActiveButton] = useState('home')
 
     const handleHomeButton = () => {
@@ -33,36 +30,11 @@ export default function Footer({ onHomeButtonClick, onPostSearch, onPostCreated,
         onPostSearch()
     }
 
-    const handleAddPostButton = () => {
-        setAddPostVisibility('addPost')
-    }
-
-    const handlePostCreated = () => {
-        try {
-            setAddPostVisibility(null)
-            setActiveButton('home')
-
-            onPostCreated()
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    const handleCancel = () => {
-        setAddPostVisibility(null)
-        setActiveButton('home')
-
-        onPostCreated()
-    }
-
-    return <footer className='Footer'>
-        {addPostVisibility === 'addPost' && <AddPostSection onPostCreated={handlePostCreated} onCancel={handleCancel} />}
-        <Button className={activeButton === 'home' ? 'Button--home active' : 'Button--home'} onClick={handleHomeButton}></Button>
-        <Button className={activeButton === 'search' ? 'Button--search active' : 'Button--search'} onClick={handlePostSearchButton}></Button>
-        <Button className='Button--add--post' onClick={handleAddPostButton}>+</Button>
-        <Button className={activeButton === 'followed' ? 'Button--followed active' : 'Button--followed'} onClick={handleFollowedPostsButton}></Button>
-        <Button className={activeButton === 'saved' ? 'Button--saved active' : 'Button--saved'} onClick={handleSavedPostsButton}></Button>
+    return <footer className='fixed bottom-0 left-0 w-screen flex justify-around bg-custom-1 py-2 px-0 shadow shadow-black z-10'>
+        <Button className={activeButton === 'home' ? 'home-button active' : 'home-button'} onClick={handleHomeButton}></Button>
+        <Button className={activeButton === 'search' ? 'search-button-active' : 'search-button'} onClick={handlePostSearchButton}></Button>
+        <Button className='add-post-button' onClick={onAddPostButton}>+</Button>
+        <Button className={activeButton === 'followed' ? 'followed-button active' : 'followed-button'} onClick={handleFollowedPostsButton}></Button>
+        <Button className={activeButton === 'saved' ? 'saved-button active' : 'saved-button'} onClick={handleSavedPostsButton}></Button>
     </footer>
 }

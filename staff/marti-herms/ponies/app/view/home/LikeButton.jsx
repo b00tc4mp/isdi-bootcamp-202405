@@ -1,8 +1,6 @@
 import logic from '../../logic'
 
-import Button from '../components/Button'
-
-import './LikeButton.css'
+import Button from '../library/Button'
 
 export default function LikeButton({ post, onLikeClicked }) {
     const handleLike = () => {
@@ -21,9 +19,9 @@ export default function LikeButton({ post, onLikeClicked }) {
         }
     }
 
-    const like = post.like ? 'Like--active' : 'Like--inactive'
+    const like = post.like ? 'liked' : 'not-liked'
 
-    return <Button className="Like--button" onClick={handleLike}>
+    return <Button className='border-0 p-0 w-6 h-6 bg-transparent box-content' onClick={handleLike}>
         <div className={like}></div>
     </Button>
 }

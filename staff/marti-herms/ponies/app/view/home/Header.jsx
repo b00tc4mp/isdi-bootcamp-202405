@@ -1,14 +1,16 @@
+import { useEffect, useState } from 'react'
+
 import logic from '../../logic'
 
-import Paragraph from '../components/Paragraph'
-import Button from '../components/Button'
+import Paragraph from '../library/Paragraph'
+import Button from '../library/Button'
 
-import './Header.css'
-
-import { useEffect, useState } from 'react'
+import useContext from '../Context'
 
 export default function Header({ onLogout }) {
     const [name, setName] = useState(null)
+
+    const { theme, setTheme } = useContext()
 
     useEffect(() => {
         try {
@@ -24,7 +26,7 @@ export default function Header({ onLogout }) {
 
             alert(error.message)
         }
-    })
+    }, [])
 
 
     const handleLogoutClick = () => {
@@ -39,8 +41,11 @@ export default function Header({ onLogout }) {
         }
     }
 
-    return <header className='Header'>
-        <Paragraph>{name}</Paragraph>
-        <Button className='rounded-sm bg-slate-200 px-1 min-w-16 h-6 text-black mr-2.5' onClick={handleLogoutClick}>Logout</Button>
+    const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+
+    return <header className='fixed left-0 top-0 h-11 w-screen flex items-center justify-end bg-custom-1 gap-2 shadow shadow-black z-10'>
+        <Paragraph className='text-white'>{name}</Paragraph>
+        <Button onClick={handleSwitchTheme}>{theme === 'dark' ? 'L' : 'D'}</Button>
+        <Button className='rounded-sm bg-slate-200 px-1 min-w-16 h-6 text-black mr-8' onClick={handleLogoutClick}>Logout</Button>
     </header>
 }

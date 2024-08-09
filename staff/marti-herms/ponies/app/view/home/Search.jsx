@@ -1,10 +1,10 @@
 import { useSearchParams } from 'react-router-dom'
 
-import Form from '../components/Form'
-import Label from '../components/Label'
-import Input from '../components/Input'
-import Button from '../components/Button'
-import Container from '../components/Container'
+import Form from '../library/Form'
+import Label from '../library/Label'
+import Input from '../library/Input'
+import Button from '../library/Button'
+import Container from '../library/Container'
 
 export default function Search() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -21,8 +21,8 @@ export default function Search() {
         setSearchParams({ q })
     }
 
-    return <Container className='Container--center-column'>
-        <Form className='Form--column' onSubmit={handleSubmit}>
+    return <Container className='flex-col justify-center'>
+        <Form className='flex-col' onSubmit={handleSubmit}>
             <Label htmlFor='query'>Criteria</Label>
             <Input name='q' placeholder='query' id='query' defaultValue={q} />
             <Button type='submit'>Search</Button>

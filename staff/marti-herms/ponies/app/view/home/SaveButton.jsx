@@ -1,9 +1,7 @@
 import logic from '../../logic'
-import Button from '../components/Button'
+import Button from '../library/Button'
 
 import { useState } from 'react'
-
-import './SaveButton.css'
 
 export default function SaveButton({ post, onSaveClicked }) {
     const [saved, setSaved] = useState(post.fav)
@@ -28,7 +26,7 @@ export default function SaveButton({ post, onSaveClicked }) {
         }
     }
 
-    return <Button className="Save--button" onClick={handleSave}>
-        <div className={saved ? "Save--active" : "Save--inactive"}></div>
+    return <Button className='border-0 p-0 w-6 h-6 box-content bg-transparent' onClick={handleSave}>
+        <div className={saved ? 'saved' : 'not-saved'}></div>
     </Button>
 }
