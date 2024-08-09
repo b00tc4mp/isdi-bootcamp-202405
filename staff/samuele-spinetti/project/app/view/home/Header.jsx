@@ -5,12 +5,14 @@ import Container from '../library/Container'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
+import logic from '../../logic/index.js'
+
 export default function Header({ onLogout }) {
     const { alert } = useContext(Context)
 
     const handleLogoutClick = () => {
         try {
-            handleLogoutClick.logoutUser()
+            logic.logoutUser()
 
             onLogout()
         } catch (error) {

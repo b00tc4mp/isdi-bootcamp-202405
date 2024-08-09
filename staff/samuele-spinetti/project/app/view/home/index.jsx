@@ -9,7 +9,7 @@ export default function Home({ onLogout }) {
     // }
 
     return <>
-        <Header /*onLogout={onLogout}*/></Header >
+        <Header onLogout={onLogout}></Header >
         <Footer></Footer>
     </>
 }

@@ -12,6 +12,8 @@ import Image from '../library/Image'
 import Paragraph from '../library/Paragraph'
 import Link from '../library/Link'
 
+import logic from '../../logic/index.js'
+
 export default function Register({ onRegister, onLoginClick }) {
     const { alert } = useContext(Context)
 

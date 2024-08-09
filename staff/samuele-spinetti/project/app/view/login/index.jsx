@@ -12,6 +12,8 @@ import Image from '../library/Image'
 import Paragraph from '../library/Paragraph'
 import Link from '../library/Link'
 
+import logic from '../../logic/index.js'
+
 import { errors } from '../../../com/index.js'
 const { NotFoundError, CredentialsError } = errors
 
