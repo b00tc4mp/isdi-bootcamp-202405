@@ -51,7 +51,7 @@ export default function Register({ onRegister, onLoginClick }) {
 
     return (
         <main>
-            <Heading>Register</Heading>
+            <Heading level="1">Register</Heading>
 
             <Form onSubmit={handleRegisterSubmit}>
                 <Container>
@@ -64,7 +64,13 @@ export default function Register({ onRegister, onLoginClick }) {
                     <Input type='text' id='username-input' name='username-input' placeholder='username' />
                 </Container>
 
+
                 <Container>
+                    <Label htmlFor='role-input'>role</Label>
+                    <Input type='text' id='role-input' name='role-input' placeholder='role' />
+                </Container>
+
+                {/* <Container>
                     <Label htmlFor='role-input'>role</Label>
                     <select id='role-input' name='role-input'>
                         <option value="">-- select a role --</option>
@@ -74,7 +80,7 @@ export default function Register({ onRegister, onLoginClick }) {
                         <option value="promoter">promoter</option>
                         <option value="venue">venue</option>
                     </select>
-                </Container>
+                </Container> */}
 
                 <Container>
                     <Label htmlFor='email-input'>email</Label>

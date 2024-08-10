@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 //TODO context
 
 import Register from './register'
+import Login from './login'
+import Home from './home'
 
 import logic from '../logic'
 
@@ -11,17 +13,39 @@ export default function App() {
 
     //TODO alert
 
-    const handleRegister = () => navigate('/login')
+    const handleLogin = () => {
+        console.debug('App -> handleLogin')
 
-    const handleRegisterClick = () => navigate('/register')
+        navigate('/')
+    }
 
-    const handleLogin = () => navigate('/')
+    const handleRegisterClick = () => {
+        console.debug('App -> handleRegisterClick')
 
-    const handleLoginClick = () => navigate('/login')
+        navigate('/register')
+    }
+
+    const handleRegister = () => {
+        console.debug('App -> handleRegister')
+
+        navigate('/login')
+    }
+
+    const handleLoginClick = () => {
+        console.debug('App -> handleLoginClick')
+
+        navigate('/login')
+    }
+
+    const handleLogout = () => {
+        console.debug('App -> handleLogout')
+
+        navigate('/login')
+    }
 
     return <Routes>
-        <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />}></Route>
-        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
-
+        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
+        <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
+        <Route path="/*" element={logic.isUserLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
     </Routes>
 }
