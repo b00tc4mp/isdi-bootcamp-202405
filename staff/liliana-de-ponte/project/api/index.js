@@ -5,7 +5,8 @@ import { mongoose } from '../cor/index.js'
 
 import { cors, jsonBodyParser, errorHandler } from './middlewares/index.js'
 import {
-    registerUserHandler
+    registerUserHandler,
+    authenticateUserHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -17,6 +18,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.use(cors)
 
         api.post('/users', jsonBodyParser, registerUserHandler)
+
+        api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         api.use(errorHandler)
 
