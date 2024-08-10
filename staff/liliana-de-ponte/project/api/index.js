@@ -3,10 +3,11 @@ import express from 'express'
 
 import { mongoose } from '../cor/index.js'
 
-import { cors, jsonBodyParser, errorHandler } from './middlewares/index.js'
+import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 import {
     registerUserHandler,
-    authenticateUserHandler
+    authenticateUserHandler,
+    getUserNameHandler,
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -20,6 +21,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/users', jsonBodyParser, registerUserHandler)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
 
         api.use(errorHandler)
 
