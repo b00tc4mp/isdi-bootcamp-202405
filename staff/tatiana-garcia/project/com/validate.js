@@ -1,0 +1,48 @@
+import errors from './errors.js'
+
+const { ValidationError } = errors
+
+const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
+const USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
+
+function validateString(value, explain = 'value') {
+    if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
+}
+
+function validateName(name, explain = 'name') {
+    validateString(name, explain)
+    if (!NAME_REGEX.test(name.trim())) throw new ValidationError(`invalid ${explain}`)
+}
+
+function validateSurname(surname, explain = 'surname') {
+    validateString(surname, 'surname')
+    if (!NAME_REGEX.test(surname)) throw new ValidationError('invalid surname')
+}
+function validateEmail(email) {
+    validateString(email, 'email')
+    if (!EMAIL_REGEX.test(email.trim())) throw new ValidationError('invalid email')
+}
+
+function validateUsername(username, explain = 'username') {
+    validateString(username, 'username')
+    if (!USERNAME_REGEX.test(username)) throw new ValidationError(`invalid ${explain}`)
+    if (!username.trim().length) throw new ValidationError(`${explain} has empty spaces`)
+}
+
+function validatePassword(password, explain = 'password') {
+    validateString(password, 'password')
+    if (password.trim().length < 8) throw new ValidationError(`${explain} length is lower than 8 characters`)
+    if (password.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
+}
+
+const validate = {
+    string: validateString,
+    name: validateName,
+    surname: validateSurname,
+    email: validateEmail,
+    username: validateUsername,
+    password: validatePassword
+}
+
+export default validate
