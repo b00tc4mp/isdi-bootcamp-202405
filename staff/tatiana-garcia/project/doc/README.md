@@ -8,23 +8,24 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 
 ### Use Cases
 **Anonimous Users**
- - show main info
- - list petsitters
- - show petsitter's detaill
- - show contact page
+ - list petsitters by city and animal
+ - view petsitter's detail
+ - view admin contact
  
  **Petsitter user**
-  - show main info
- - list petsitters
- - show petsitter's detaill
- - show contact page
+ - list petsitters by city and animal
+ - view petsitter's detail with contact info
+ - view admin contact 
+ - update own details
+ - unregister
 
-**User**
- - show main info
- - list petsitters
- - show petsitter's detaill
- - show contact page
- - add review
+**Regular user**
+ - list petsitters by city and animal
+ - view petsitter's detail with contact info
+ - view admin contact
+ - add review to petsitter
+ - delete review from petsitter
+ - unregister
 
 ### UIUX Design
 
@@ -54,29 +55,22 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 - 
 ### Data Model
 
-**Petsitter**
- - id (auto)
- - userId(auto)
- - name (string)
- - email (string)
- - city (string)
- - password (string)
- -  description (string)
- - image (string)
- - rating (float)
- 
- **Reviews**
-  - id (auto)
-  - userId (auto)
-  - petsitterId (auto)
-  - ratting (interer)
-  - message (string)
-
 **User**
  - id (auto)
  - name (string)
  - surname (string)
  - email (string)
+ - city ([string])
  - password (string)
- - role [petsitter or user] (string)
-
+ -  description (string, optional)
+ - image (string, optional)
+ - role ( string, enum: petsitter or regular)
+ - animals([string], optional)
+ 
+ **Review**
+  - id (auto)
+  - author (User.id)
+  - petsitter (User.id)
+  - rate (number)
+  - date (Date)
+  - message (string)
