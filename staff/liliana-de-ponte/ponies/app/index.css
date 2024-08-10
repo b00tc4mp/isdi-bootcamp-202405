@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+    .clip-path-40 {
+        clip-path: circle(40%);
+    }
+}
+
+@layer base {
+    @font-face {
+        font-family: 'Fredoka';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(./public/fonts/FredokaOne-Regular.ttf);
+
+    }
+
+    html {
+        font-family: 'Fredoka', system-ui, sans-serif;
+        font-size: large;
+    }
+}
+
+* {
+    margin: 0;
+}
+
+/* .view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* height: 100vh; 
+} */
+
+.main {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+body {
+    margin: 0;
+
+}
+
+::placeholder {
+    color: #fa49fd
+}

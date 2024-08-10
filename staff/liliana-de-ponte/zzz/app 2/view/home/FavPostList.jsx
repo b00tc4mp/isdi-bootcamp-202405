@@ -1,0 +1,158 @@
+import logic from '../../logic'
+
+import { useState, useEffect } from 'react'
+
+import Post from './Post'
+
+import './PostList.css'
+
+const FavPostList = () => {
+    console.debug('FavsPostList -> call')
+
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        console.debug('FavsPostList -> componentDidMount')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }, [])
+
+    const handlePostDeleted = () => {
+        console.debug('FavsPostList -> handlePostDeleted')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handlePostEdited = () => {
+        console.debug('FavsPostList -> handlePostEdited')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handlePostLikeToggled = () => {
+        console.debug('FavsPostList -> handlePostLikeToggled')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handlePostFavToggled = () => {
+        console.debug('FavsPostList -> handlePostFavToggled')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handleUserFollowToggled = () => {
+        console.debug('FavsPostList -> handleUserFollowToggled')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    return <section className="post-list">
+        {posts.map(post => <Post
+            key={post.id}
+            post={post}
+            onPostDeleted={handlePostDeleted}
+            onPostEdited={handlePostEdited} onPostLikeToggled={handlePostLikeToggled}
+            onPostFavToggled={handlePostFavToggled}
+            onUserFollowToggled={handleUserFollowToggled} />)}
+    </section>
+
+}
+
+export default FavPostList

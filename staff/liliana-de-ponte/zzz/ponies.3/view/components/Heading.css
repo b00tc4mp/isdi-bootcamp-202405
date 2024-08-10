@@ -1,0 +1,17 @@
+.Heading {
+    color: #fb48fe;
+    font-size: 30px;
+    margin-top: 55px;
+}
+
+.Heading--create-post {
+    display: flex;
+    margin: .5rem 0;
+    justify-content: center;
+}
+
+.Heading--post {
+    font-weight: bold;
+    font-family: solid Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px
+}

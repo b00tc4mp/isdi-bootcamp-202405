@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/66acf8dde0a54f92e394e57e/caption -X PATCH -d '{"caption":"funciona"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFjZjdjZmI0YzdkM2JjMWVjYTk3ZDEiLCJpYXQiOjE3MjI2MTE4NjN9.3MBaRIRA7_BU40uNM9qKbP54rlmBDJaKxljYNTSxYAc" -H "Content-Type: application/json"
