@@ -4,7 +4,7 @@
 Aplicación que permite ver los agricultores ecológicos cerca de tu zona así como todos los productos(frutas y verduras), que tiene cada un de los agricultores
 
 
-![Pony Image](https://ojeandolaagenda.com/wp-content/uploads/2010/07/logo.png)
+![Eco Image](https://ojeandolaagenda.com/wp-content/uploads/2010/07/logo.png)
 
 
 ## Functional
