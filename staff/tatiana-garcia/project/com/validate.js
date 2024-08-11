@@ -53,8 +53,9 @@ function validateDescription(description, explain = 'description') {
 }
 
 function validateUrl(url, explain = 'url') {
-    validateString(url, explain)
-    if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
+    // console.log(url)
+    // validateString(url, explain)
+    if (!url.startsWith('https')) throw new ValidationError(`invalid ${explain}`)
 }
 
 function validatePets(pets) {

@@ -1,6 +1,4 @@
-import { Schema, model, Types } from 'mongoose'
-
-const { ObjectId } = Types //?
+import { Schema, model } from 'mongoose'
 
 const user = new Schema({
     name: {
