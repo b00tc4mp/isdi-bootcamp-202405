@@ -43,7 +43,6 @@ export default function Header({ onLogout }) {
     }
 
     return <header>
-        <Paragraph>Hello, {name}!</Paragraph>
         <Button onClick={handleLogout}>Logout</Button>
     </header>
 }

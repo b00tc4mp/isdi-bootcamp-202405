@@ -1,6 +1,7 @@
+import bcrypt from 'bcryptjs'
+
 import { User } from '../data/models.js'
 import { validate, errors } from '../../com/index.js'
-import bcrypt from 'bcryptjs'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 

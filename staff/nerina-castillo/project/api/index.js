@@ -8,7 +8,8 @@ import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/i
 import {
     registerUserHandler,
     authenticateUserHandler,
-    getUserNameHandler
+    getUserNameHandler,
+    createPostHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -24,6 +25,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
+
+        api.post('/posts', jwtVerifier, jsonBodyParser, createPostHandler)
 
         api.use(errorHandler)
 
