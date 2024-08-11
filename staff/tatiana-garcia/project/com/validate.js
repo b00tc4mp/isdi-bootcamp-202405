@@ -48,8 +48,8 @@ function validateCity(city) {
 
 function validateDescription(description, explain = 'description') {
     validateString(description, 'description')
-    if (description < 1 && description > 200) throw new ValidationError(`the ${description} must have more than 5 characters and less than 50 characters`)
-    if (typeof description !== 'string') throw new ValidationError(`${description} is not a string`)
+    if (description < 1 && description > 200) throw new ValidationError(`the ${explain} must have more than 5 characters and less than 50 characters`)
+    if (typeof description !== 'string') throw new ValidationError(`${explain} is not a string`)
 }
 
 function validateUrl(url, explain = 'url') {
