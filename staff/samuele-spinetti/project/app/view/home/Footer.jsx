@@ -2,8 +2,7 @@ import Container from '../library/Container'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-export default function Header() {
-
+export default function Footer() {
 
     return <footer className="fixed bottom-0 w-full flex justify-around">
 

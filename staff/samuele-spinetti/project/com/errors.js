@@ -54,3 +54,5 @@ const errors = {
     CredentialsError,
     SessionError
 }
+
+export default errors

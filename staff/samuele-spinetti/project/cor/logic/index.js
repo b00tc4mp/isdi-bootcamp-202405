@@ -1,4 +1,4 @@
-import authenticateUser from './aunthenticateUser.js'
+import authenticateUser from './authenticateUser.js'
 import registerUser from './registerUser.js'
 
 const logic = {

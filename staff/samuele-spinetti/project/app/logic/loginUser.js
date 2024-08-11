@@ -1,4 +1,3 @@
-import { parseAst } from 'vite'
 import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
