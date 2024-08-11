@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-//TODO context
+import useContext from '../context.js'
 
 import logic from '../../logic/index'
 
@@ -16,7 +15,7 @@ import { errors } from '../../../com/index.js'
 const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
-    //TODO alert
+    const { alert } = useContext()
 
     const handleLoginSubmit = event => {
         event.preventDefault()

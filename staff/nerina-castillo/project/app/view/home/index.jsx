@@ -28,9 +28,6 @@ export default function Home({ onLogout }) {
 
     const handlePostCreated = () => setRefreshStamp(Date.now())
 
-    // const handleHomeClick = () => {
-    //     navigate('/')
-    // }
 
     return <>
         <Header
