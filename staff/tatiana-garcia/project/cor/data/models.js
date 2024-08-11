@@ -25,16 +25,21 @@ const user = new Schema({
         type: String,
         required: true
     },
-    avatar: {
+    image: {
         type: String,
-        // default: poner un emoji gris de momento
+        default: 'https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg'
     },
     city: {
-        type: [String],
-        required: true
+        type: String
     },
     description: {
-        type: String,
+        type: String
+    },
+    petsitterName: {
+        type: String
+    },
+    pets: {
+        type: [String]
     }
 })
 
