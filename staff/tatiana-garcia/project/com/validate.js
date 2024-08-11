@@ -15,7 +15,7 @@ function validateName(name, explain = 'name') {
     if (!NAME_REGEX.test(name.trim())) throw new ValidationError(`invalid ${explain}`)
 }
 
-function validateSurname(surname, explain = 'surname') {
+function validateSurname(surname) {
     validateString(surname, 'surname')
     if (!NAME_REGEX.test(surname)) throw new ValidationError('invalid surname')
 }
@@ -36,13 +36,45 @@ function validatePassword(password, explain = 'password') {
     if (password.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
 }
 
+function validateRole(role, explain = 'role') {
+    validateString(role, 'role')
+    if (role !== 'user' && role !== 'petsitter') throw new ValidationError(`invalid ${explain}`)
+}
+
+function validateCity(city) {
+    validateString(city, 'city')
+    if (city === '') throw new ValidationError('the field can not be empty')
+}
+
+function validateDescription(description, explain = 'description') {
+    validateString(description, 'description')
+    if (description < 1 && description > 200) throw new ValidationError(`the ${description} must have more than 5 characters and less than 50 characters`)
+    if (typeof description !== 'string') throw new ValidationError(`${description} is not a string`)
+}
+
+function validateUrl(url, explain = 'url') {
+    validateString(url, explain)
+    if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
+}
+
+function validatePets(pets) {
+    if (pets < 1) throw new ValidationError('At least one pet must be selected')
+}
+
+
 const validate = {
     string: validateString,
     name: validateName,
     surname: validateSurname,
     email: validateEmail,
     username: validateUsername,
-    password: validatePassword
+    password: validatePassword,
+    role: validateRole,
+    city: validateCity,
+    description: validateDescription,
+    url: validateUrl,
+    pets: validatePets
+
 }
 
 export default validate
