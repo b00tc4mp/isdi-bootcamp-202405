@@ -24,6 +24,7 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
  - view petsitter's detail with contact info
  - view admin contact
  - add review to petsitter
+ - update own details
  - delete review from petsitter
  - unregister
 
