@@ -3,11 +3,10 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 
 import Button from '../library/Button'
-import Paragraph from '../library/Paragraph'
 
 //TODO useContext
 
-export default function Header({ onLogout }) {
+export default function Header({ onLogout, onSearchClick }) {
     const [name, setName] = useState(null)
 
     //TODO theme
@@ -42,7 +41,12 @@ export default function Header({ onLogout }) {
         }
     }
 
+    // const handleSearchedPostClick = () => setSearchPostVisible(false)
+
+    const handleSearchClick = () => onSearchClick()
+
     return <header>
-        <Button onClick={handleLogout}>Logout</Button>
+        <Button onClick={handleSearchClick}>search</Button>
+        <Button onClick={handleLogout}>logout</Button>
     </header>
 }

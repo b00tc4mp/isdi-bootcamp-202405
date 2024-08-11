@@ -9,7 +9,8 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     getUserNameHandler,
-    createPostHandler
+    createPostHandler,
+    getAllPostsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -27,6 +28,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
 
         api.post('/posts', jwtVerifier, jsonBodyParser, createPostHandler)
+
+        api.get('/posts', jwtVerifier, getAllPostsHandler)
 
         api.use(errorHandler)
 

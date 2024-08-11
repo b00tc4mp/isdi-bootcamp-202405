@@ -5,6 +5,7 @@ import getUserName from './getUserName'
 import getUserId from './getUserId'
 import logoutUser from './logoutUser'
 import createPost from './createPost'
+import getAllPosts from './getAllPosts'
 
 const logic = {
     registerUser,
@@ -13,7 +14,8 @@ const logic = {
     getUserName,
     getUserId,
     logoutUser,
-    createPost
+    createPost,
+    getAllPosts
 }
 
 export default logic

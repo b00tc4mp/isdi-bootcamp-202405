@@ -58,7 +58,7 @@ export default function Login({ onLogin, onRegisterClick }) {
         <Heading level='1'>Login</Heading>
 
         <Form onSubmit={handleLoginSubmit}>
-            <Container>
+            <Container className='bg-green-400'>
                 <Label htmlFor='username-input'>username</Label>
                 <Input type='text' id='username-input' name='username-input'></Input>
             </Container>
