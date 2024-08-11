@@ -1,4 +1,4 @@
-class ValidationError extends error {
+class ValidationError extends Error {
     constructor(message) {
         super(message)
 
@@ -22,10 +22,28 @@ class SystemError extends Error {
     }
 }
 
+class NotFoundError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+class CredentialsError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 const errors = {
     ValidationError,
     DuplicityError,
-    SystemError
+    SystemError,
+    NotFoundError,
+    CredentialsError
 }
 
 export default errors

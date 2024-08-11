@@ -4,6 +4,8 @@ const { ValidationError } = errors
 
 const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+const PHONE_REGEX = /^(\+\d{1,3}[- ]?)?\d{9,10}$/
+const ADDRESS_REGEX = /^[a-zA-Z0-9\s,.'-]{3,}$/
 
 function validateString(value, explain = 'value') {
     if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
@@ -20,6 +22,16 @@ function validateName(name, explain = 'name') {
     if (!NAME_REGEX.test(name)) throw new ValidationError(`invalid ${explain}`)
 }
 
+function validatePhone(phone) {
+    validateString(phone, 'phone')
+    if (!PHONE_REGEX.test(phone)) throw new ValidationError(`invalid phone`)
+}
+
+function validateAddress(address) {
+    validateString(address, 'address')
+    if (!ADDRESS_REGEX.test(address)) throw new ValidationError(`invalid address`)
+}
+
 function validateEmail(email) {
     validateString(email, 'email')
     if (!EMAIL_REGEX.test(email)) throw new ValidationError(`invalid email`)
@@ -29,7 +41,9 @@ const validate = {
     string: validateString,
     password: validatePassword,
     name: validateName,
-    email: validateEmail
+    address: validateAddress,
+    email: validateEmail,
+    phone: validatePhone
 }
 
 export default validate
