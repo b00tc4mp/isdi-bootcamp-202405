@@ -19,7 +19,7 @@ const user = new Schema({
     },
     avatar: {
         type: String,
-        default: '../images/defaultAvatar.svg'
+        required: true
     },
     role: {
         type: String,

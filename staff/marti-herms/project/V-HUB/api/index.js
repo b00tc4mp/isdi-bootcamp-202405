@@ -19,6 +19,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, handle.authenticateUser)
 
+        api.get('/users/:userId/username', jsonBodyParser, handle.getUserUsername)
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
