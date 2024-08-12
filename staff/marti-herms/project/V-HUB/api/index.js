@@ -1,9 +1,10 @@
 import 'dotenv/config'
 import express from 'express'
+import cors from 'cors'
 
 import { mongoose } from 'core'
 
-import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middleware/index.js'
+import { jsonBodyParser, jwtVerifier, errorHandler } from './middleware/index.js'
 
 import handle from './handlers/index.js'
 
@@ -13,13 +14,15 @@ mongoose.connect(process.env.MONGODB_URI)
 
         const api = express()
 
-        api.use(cors)
+        api.use(cors())
 
         api.post('/users', jsonBodyParser, handle.registerUser)
 
         api.post('/users/auth', jsonBodyParser, handle.authenticateUser)
 
         api.get('/users/:targetUserId/username', jwtVerifier, handle.getUserUsername)
+
+        api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
 
         api.use(errorHandler)
 

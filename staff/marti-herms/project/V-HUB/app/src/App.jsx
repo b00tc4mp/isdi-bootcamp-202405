@@ -13,8 +13,8 @@ import logic from '../logic'
 export default function App() {
   const navigate = useNavigate()
 
-  const { theme, setTheme } = useState(localStorage.theme)
-  const { alertMessage, setAlertMessage } = useState(null)
+  const [theme, setTheme] = useState(localStorage.theme)
+  const [alertMessage, setAlertMessage] = useState(null)
 
   useEffect(() => {
     document.documentElement.className = theme

@@ -1,16 +1,11 @@
 import logic from '../../logic'
 
-export default function Footer() {
-    const handleAddGame = () => {
-
-    }
-
-    const handleRegisterGame = () => {
-
-    }
-
-    return <footer className='fixed w-screen p-2 bottom-0 left-0 flex flex-row justify-around items-center border border-solid border-t-black'>
-        <button className='border border-solid border-black' onClick={handleAddGame}>Add Game</button>
-        <button className='border border-solid border-black' onClick={handleRegisterGame}>Register Game</button>
+export default function Footer({ path, onSearchGame, onRegisterGame, onHome }) {
+    return <footer className='fixed w-screen h-10 bottom-0 left-0 flex flex-row justify-around items-center border-t border-solid border-t-black z-10 bg-slate-700'>
+        {path === '/' && <>
+            <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onSearchGame}>Search Game</button>
+            <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onRegisterGame}>Register Game</button>
+        </>}
+        {path === '/games/register' && <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>}
     </footer>
 }

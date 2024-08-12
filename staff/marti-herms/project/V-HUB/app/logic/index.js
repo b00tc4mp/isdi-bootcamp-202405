@@ -1,15 +1,17 @@
-import loginUser from './loginUser';
-import logoutUser from './logoutUser';
-import registerUser from './registerUser';
-import isUserLoggedIn from './isUserLoggedIn';
-import getUserUsername from './getUserUsername';
+import loginUser from './loginUser.js'
+import logoutUser from './logoutUser.js'
+import registerUser from './registerUser.js'
+import isUserLoggedIn from './isUserLoggedIn.js'
+import getUserUsername from './getUserUsername.js'
+import registerGame from './registerGame.js'
 
 const logic = {
     loginUser,
     logoutUser,
     registerUser,
     isUserLoggedIn,
-    getUserUsername
+    getUserUsername,
+    registerGame
 }
 
 export default logic

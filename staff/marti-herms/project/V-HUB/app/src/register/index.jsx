@@ -36,12 +36,12 @@ export default function Register({ onLoginClick, onRegister }) {
                 .catch(error => {
                     console.error(error)
 
-                    alert(error.message)
+                    alert(message)
                 })
         } catch (error) {
             console.error(error)
 
-            alert(error.message)
+            alert(message)
         }
     }
 

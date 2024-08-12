@@ -25,7 +25,7 @@ export default function Header({ onLogoutClick }) {
         }
     }, [])
 
-    return <header className='flex flex-row justify-end px-4 border border-solid border-b-black'>
+    return <header className='fixed top-0 left-0 w-screen bg-slate-700 z-10 flex flex-row justify-end px-4 border-b border-solid border-b-black'>
         <Paragraph>{username}</Paragraph>
         <button onClick={onLogoutClick}>Logout</button>
     </header>
