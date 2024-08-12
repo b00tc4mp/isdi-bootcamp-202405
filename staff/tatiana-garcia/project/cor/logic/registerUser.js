@@ -43,10 +43,13 @@ export default (image, name, surname, email, username, password, passwordRepeat,
                 username,
                 password: hash,
                 role,
-                petsitterName,
-                city,
-                description,
-                pets
+            }
+
+            if (role === 'petsitter') {
+                newUser.petsitterName = petsitterName
+                newUser.city = city
+                newUser.description = description
+                newUser.pets = pets
             }
 
             return User.create(newUser)

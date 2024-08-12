@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import logic from '../../logic'
 import Container from '../library/Container'
+import Link from '../library/Link'
 
-export default function Register({ onRegister }) {
+export default function Register({ onRegister, onLoginClick }) {
     const [role, setRole] = useState('user')
     const [selectedPets, setSelectedPets] = useState([])
 
@@ -63,6 +64,12 @@ export default function Register({ onRegister }) {
 
             alert(error.message)
         }
+    }
+
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        onLoginClick()
     }
 
     return <main>
@@ -241,5 +248,6 @@ export default function Register({ onRegister }) {
             <button type="submit">{'Register'}</button>
         </form>
 
+        <Link onClick={handleLoginClick}>Login</Link>
     </main>
 }
