@@ -41,7 +41,7 @@ const user = new Schema({
 const game = new Schema({
     enabled: {
         type: Boolean,
-        required: true
+        default: false
     },
     author: {
         type: ObjectId,
