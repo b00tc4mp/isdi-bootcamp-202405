@@ -1,10 +1,7 @@
-import './Heading.css'
-function Heading({ level = 1, children }) {
+export default function Heading({ level = 1, children }) {
     console.debug('Heading -> call')
 
     const Tag = `h${level}`
 
-    return <Tag className="Heading">{children}</Tag>
+    return <Tag className="m-0">{children}</Tag>
 }
-
-export default Heading

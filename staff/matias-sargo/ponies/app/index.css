@@ -1,19 +1,20 @@
-@import url('./view/components/Button.css');
-@import url('./view/components/Input.css');
-@import url('./view/components/Label.css');
-@import url('./view/components/Form.css');
-@import url('./view/components/Time.css');
-@import url('./view/components/Image.css');
-@import url('./view/components/Paragraph.css');
-@import url('./view/components/Container.css');
-@import url('./view/components/Heading.css');
 
-@import url('./view/home/Header.css');
-@import url('./view/home/Footer.css');
-@import url('./view/home/Post.css');
-@import url('./view/home/PostList.css');
-@import url('./view/home/CreatePost.css');
-@import url('./view/home/Avatar.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.main {
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+}
 
 .view {
     display: flex;

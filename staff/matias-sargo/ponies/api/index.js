@@ -55,6 +55,16 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/posts/:postId/caption', jwtVerifier, jsonBodyParser, updatePostCaptionHandler)
 
+        api.get('/search', (req, res, next) => {
+            const colors = ['red', 'green', 'blue', 'violette', 'brown', 'yellow']
+
+            const { q } = req.query
+
+            const filtered = colors.filter(color => color.includes(q))
+
+            res.json(filtered)
+        })
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))

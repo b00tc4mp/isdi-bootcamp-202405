@@ -1,8 +1,9 @@
-import './Container.css'
 function Container({ children, className = '' }) {
-    console.debug('Container -> call')
-
-    return <div className={`Container ${className}`}>{children}</div>
-}
-
-export default Container
+    console.debug('Container -> call');
+  
+    const containerBaseClasses = 'flex gap-2 px-2'; // Base container classes
+  
+    return <div className={`${containerBaseClasses} ${className}`}>{children}</div>;
+  }
+  
+  export default Container;
