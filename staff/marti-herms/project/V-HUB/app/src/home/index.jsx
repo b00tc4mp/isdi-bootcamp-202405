@@ -1,25 +1,24 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
 import useContext from '../context'
 
-export default function Home() {
-    const [username, setUsername] = useState(null)
+import logic from '../../logic'
+
+import Header from './Header'
+import Library from './Library'
+import Footer from './Footer'
+
+export default function Home({ onLogout }) {
 
     useEffect(() => {
-        try {
-            logic.getUserUsername()
-                .then(username => setName(username))
-                .catch(error => {
-                    console.error(error)
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
     })
 
-    return <p>Hello, {username}</p>
+    return <main>
+        <Header onLogoutClick={onLogout} ></Header>
+
+
+
+        <Footer></Footer>
+    </main>
 }

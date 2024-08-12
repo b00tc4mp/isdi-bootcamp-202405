@@ -1,7 +1,7 @@
 import logic from '../../logic'
 
 import Input from '../library/Input'
-import VSeparator from '../library/VSeparator'
+import Logo from '../library/Logo'
 import Container from '../library/Container'
 import Form from '../library/Form'
 import Button from '../library/Button'
@@ -45,20 +45,15 @@ export default function Register({ onLoginClick, onRegister }) {
         }
     }
 
-    return <main className='flex flex-row w-screen h-screen'>
-        <Container className={'flex flex-col items-center justify-center bg-[#1e1e1e] text-white w-1/3 h-full'}>
-            <img className='top-3 w-72 h-72' src='../images/logo.svg' alt='logo' />
-            <h2 className='text-center text-7xl'>V-HUB</h2>
-        </Container>
-        <VSeparator />
-        <Container className={'flex flex-col items-center justify-center bg-[#1e1e1e] text-white w-2/3 h-full'}>
-            <Form className='gap-8' onSubmit={handleRegisterSubmit}>
+    return <main className='flex flex-col w-screen h-screen dark:bg-[#1e1e1e]'>
+        <Logo />
+        <Container className={'flex flex-col items-center justify-center  text-white w-full h-screen'}>
+            <Form className='gap-4' onSubmit={handleRegisterSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='email-input' type='email' placeholder='Email' />
                 <Input id='password-input' type='password' placeholder='Password' />
                 <Input id='repassword-input' type='password' placeholder='Repeat Password' />
                 <Checkbox id='role-input' value='dev' />
-                <label htmlFor='role-input'>Game Dev</label>
                 <Button type='submit' className='bg-rose-500 hover:bg-rose-800'>Register</Button>
                 <Link className='text-xl underline underline-offset-2 hover:text-blue-500' onClick={onLoginClick}>Login</Link>
             </Form>
