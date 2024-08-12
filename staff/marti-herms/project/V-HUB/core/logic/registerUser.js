@@ -6,11 +6,11 @@ import { validate, errors } from 'com'
 
 const { SystemError, DuplicityError } = errors
 
-export default (username, email, password, dev = false) => {
+export default (username, email, password, role) => {
     validate.username(username)
     validate.email(email)
     validate.password(password)
-    validate.boolean(dev, 'dev')
+    validate.string(role, 'role')
 
     return User.findOne({ email }).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -31,7 +31,7 @@ export default (username, email, password, dev = false) => {
                 username,
                 email,
                 password: hash,
-                role: dev ? 'dev' : 'regular'
+                role
             })
                 .catch(error => { throw new SystemError(error.message) })
         )

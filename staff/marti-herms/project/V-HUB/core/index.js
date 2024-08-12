@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import logic from './logic'
-import data from './data'
+import logic from './logic/index.js'
+import data from './data/index.js'
 
 export {
     mongoose,

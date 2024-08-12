@@ -3,9 +3,9 @@ import express from 'express'
 
 import { mongoose } from 'core'
 
-import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middleware'
+import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middleware/index.js'
 
-import handle from './handlers'
+import handle from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {

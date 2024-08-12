@@ -16,7 +16,7 @@ describe('registerUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeds on new user', () =>
-        registerUser('eden', 'marti@herms.com', '123123123', false)
+        registerUser('eden', 'marti@herms.com', '123123123', 'regular')
             .then(() => User.findOne({ username: 'eden' }))
             .then(user => {
                 expect(user.username).to.equal('eden')
@@ -29,7 +29,7 @@ describe('registerUser', () => {
     )
 
     it('succeds on new dev user', () =>
-        registerUser('eden', 'marti@herms.com', '123123123', true)
+        registerUser('eden', 'marti@herms.com', '123123123', 'dev')
             .then(() => User.findOne({ username: 'eden' }))
             .then(user => {
                 expect(user.username).to.equal('eden')
@@ -46,7 +46,7 @@ describe('registerUser', () => {
 
         return bcrypt.hash('123123123', 8)
             .then(hash => User.create({ username: 'eden', email: 'marti@herms.com', password: hash }))
-            .then(() => registerUser('eden', 'marti@herms.com', '123123123', false))
+            .then(() => registerUser('eden', 'marti@herms.com', '123123123', 'regular'))
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceof(DuplicityError)
@@ -59,7 +59,7 @@ describe('registerUser', () => {
 
         return bcrypt.hash('123123123', 8)
             .then(hash => User.create({ username: 'eden', email: 'marti@herms.com', password: hash }))
-            .then(() => registerUser('eden', 'eden@herms.com', '123123123', false))
+            .then(() => registerUser('eden', 'eden@herms.com', '123123123', 'regular'))
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceof(DuplicityError)
@@ -71,7 +71,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser(123, 'eden@herms.com', '123123123', false)
+            registerUser(123, 'eden@herms.com', '123123123', 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -84,7 +84,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('', 'eden@herms.com', '123123123', false)
+            registerUser('', 'eden@herms.com', '123123123', 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -97,7 +97,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('eden', 123, '123123123', false)
+            registerUser('eden', 123, '123123123', 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -110,7 +110,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('eden', '', '123123123', false)
+            registerUser('eden', '', '123123123', 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -123,7 +123,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('eden', 'eden@herms.com', 123, false)
+            registerUser('eden', 'eden@herms.com', 123, 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -136,7 +136,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('eden', 'eden@herms.com', '123', false)
+            registerUser('eden', 'eden@herms.com', '123', 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -149,7 +149,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('eden', 'eden@herms.com', '123 123123', false)
+            registerUser('eden', 'eden@herms.com', '123 123123', 'regular')
         } catch (_error) {
             error = _error
         } finally {
@@ -158,7 +158,7 @@ describe('registerUser', () => {
         }
     })
 
-    it('fails on non-boolean dev', () => {
+    it('fails on non-string dev', () => {
         let error
 
         try {
@@ -167,7 +167,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('dev is not a boolean')
+            expect(error.message).to.equal('role is not a string')
         }
     })
 

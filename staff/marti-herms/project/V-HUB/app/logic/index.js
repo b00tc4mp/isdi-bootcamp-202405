@@ -1,7 +1,13 @@
-import loginUser from "./loginUser";
-import registerUser from "./registerUser";
+import loginUser from './loginUser';
+import logoutUser from './logoutUser';
+import registerUser from './registerUser';
+import isUserLoggedIn from './isUserLoggedIn';
 
-export default logic = {
+const logic = {
     loginUser,
-    registerUser
-} 
+    logoutUser,
+    registerUser,
+    isUserLoggedIn
+}
+
+export default logic
