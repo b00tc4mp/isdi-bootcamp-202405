@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/search?q=atomic -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmIwY2Y1ZDE0MGE0NWE5ZGI5MDI5ODkiLCJpYXQiOjE3MjI4NjM1MTV9.zr3Tpw38WhHIihC5xauMvSLzOembbDSvYF8WOXkLo7o"

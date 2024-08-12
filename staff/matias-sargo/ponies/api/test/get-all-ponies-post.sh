@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/ponies -H "Authorization: Basic matif"
