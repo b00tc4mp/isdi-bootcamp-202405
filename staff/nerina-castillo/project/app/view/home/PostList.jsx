@@ -6,6 +6,7 @@ import Form from '../library/Form'
 import Label from '../library/Label'
 import Input from '../library/Input'
 import Button from '../library/Button'
+import Search from './Search'
 
 export default function PostList({ refreshStamp }) {
     const [posts, setPosts] = useState([])
@@ -20,9 +21,7 @@ export default function PostList({ refreshStamp }) {
 
     // const handlePostLikeToggled = () => loadPosts()
 
-    // const handlePostFavToggled = () => loadPosts()
-
-    // const handleUserFollowToggled = () => loadPosts()
+    const handleUserFollowToggled = () => loadPosts()
 
     const loadPosts = () => {
         try {
@@ -41,11 +40,12 @@ export default function PostList({ refreshStamp }) {
     }
 
     return <section>
-        {/* TODO search section */}
+        <Search />
 
         {posts.map(post => <Post
             key={post.id}
             post={post}
+            onUserFollowToggled={handleUserFollowToggled}
         // TODO handels 
         />)}
     </section>

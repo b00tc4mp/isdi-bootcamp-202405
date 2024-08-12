@@ -74,10 +74,10 @@ const event = new Schema({
     image: {
         type: String
     },
-    // location: {
-    //     type: [number, number],
-    //     required: true
-    // },
+    location: {
+        type: [Number, Number],
+        required: true
+    },
     startDate: {
         type: Date,
         required: true,

@@ -6,6 +6,7 @@ import logic from '../../logic/index.js'
 import Header from './Header'
 import Footer from './Footer'
 import PostList from './PostList'
+import ResultsPostList from './ResultsPostList'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
@@ -42,7 +43,8 @@ export default function Home({ onLogout }) {
             <Heading>Hello, {name}</Heading>
             <Routes>
                 <Route path='/' refreshStamp={refreshStamp} />
-                <Route path='/search' element={<PostList />} />
+                <Route path='/search' element={<PostList refreshStamp={refreshStamp} />} />
+                <Route path='/search' element={<ResultsPostList refreshStamp={refreshStamp} />} />
             </Routes>
         </main>
 

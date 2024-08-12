@@ -14,35 +14,15 @@ export default function App() {
 
     const [alertMessage, setAlertMessage] = useState(null)
 
-    const handleLogin = () => {
-        console.debug('App -> handleLogin')
+    const handleLogin = () => navigate('/')
 
-        navigate('/')
-    }
+    const handleRegisterClick = () => navigate('/register')
 
-    const handleRegisterClick = () => {
-        console.debug('App -> handleRegisterClick')
+    const handleRegister = () => navigate('/login')
 
-        navigate('/register')
-    }
+    const handleLoginClick = () => navigate('/login')
 
-    const handleRegister = () => {
-        console.debug('App -> handleRegister')
-
-        navigate('/login')
-    }
-
-    const handleLoginClick = () => {
-        console.debug('App -> handleLoginClick')
-
-        navigate('/login')
-    }
-
-    const handleLogout = () => {
-        console.debug('App -> handleLogout')
-
-        navigate('/login')
-    }
+    const handleLogout = () => navigate('/login')
 
     const handleAlertAccept = () => setAlertMessage(null)
 

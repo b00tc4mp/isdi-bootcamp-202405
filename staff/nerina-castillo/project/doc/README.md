@@ -99,7 +99,7 @@ Event
 - id (string)
 - author (User.id)
 - image (string, optional)
-- location ([number, number])
+- location ([Number, Number])
 - startDate (Date)
 - endDate (Date)
 - description (string)

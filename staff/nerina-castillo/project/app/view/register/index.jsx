@@ -1,7 +1,6 @@
 import useContext from '../context'
 
-import logic from '../../../cor/logic'
-
+import logic from '../../logic'
 import Form from '../library/Form'
 import Heading from '../library/Heading'
 import Label from '../library/Label'
@@ -65,7 +64,6 @@ export default function Register({ onRegister, onLoginClick }) {
                 <Label htmlFor='username-input'>username</Label>
                 <Input type='text' id='username-input' name='username-input' placeholder='username' />
             </Container>
-
 
             <Container>
                 <Label htmlFor='role-input'>role</Label>

@@ -15,7 +15,7 @@ import Container from '../library/Container'
 import Avatar from './Avatar'
 import Confirm from '../common/Confirm'
 
-export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggled, onUserFollowToggled }) {
+export default function Post({ post, onPostDeleted, onPostEdited, onUserFollowToggled }) {
     const [editPostVisible, setEditPostVisible] = useState(false)
     const [confirmMessage, setConfirmMessage] = useState(null)
 
@@ -23,11 +23,29 @@ export default function Post({ post, onPostDeleted, onPostEdited, onPostFavToggl
 
     // const handleDeletePostAccept = () => {}
 
+    const handleFollowUserClick = () => {
+        try {
+            logic.toggleFollowUser(post.author.id)
+                .then(() => onUserFollowToggled())
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.confirmMessage)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     return <article>
         <Container>
             <Avatar url={post.author.avatar}></Avatar>
 
             <Heading level='4'>{post.author.username}</Heading>
+
+            <Button onClick={handleFollowUserClick}>{post.author.following ? 'unfollow' : 'follow'}</Button>
 
             {/* <Button onClick={handleFollowUserClick}></Button> */}
         </Container>

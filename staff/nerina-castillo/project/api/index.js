@@ -1,16 +1,19 @@
 import 'dotenv/config'
 import express from 'express'
+import cors from 'cors'
 
 import { mongoose } from '../cor/index.js'
 
-import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
+import { jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 
 import {
     registerUserHandler,
     authenticateUserHandler,
     getUserNameHandler,
     createPostHandler,
-    getAllPostsHandler
+    getAllPostsHandler,
+    searchItemsHandler,
+    toggleFollowUserHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -19,7 +22,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         const api = express()
 
-        api.use(cors)
+        api.use(cors())
 
         api.post('/users', jsonBodyParser, registerUserHandler)
 
@@ -30,6 +33,10 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/posts', jwtVerifier, jsonBodyParser, createPostHandler)
 
         api.get('/posts', jwtVerifier, getAllPostsHandler)
+
+        api.get('/posts/search', jwtVerifier, searchItemsHandler)
+
+        api.patch('/users/:targetUserId/follows', jwtVerifier, toggleFollowUserHandler)
 
         api.use(errorHandler)
 
