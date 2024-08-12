@@ -195,47 +195,47 @@ export default function Register({ onRegister }) {
 
             {role === 'petsitter' && (
                 <Container>
-                    <label htmlFor="pets-input">¿Qué animales cuidas?</label><br />
+                    <label htmlFor="pets-input">¿Qué animales cuidas?</label><br /><br />
 
-                    <label htmlFor="rabbit-input">Conejos</label>
                     <input
                         type="checkbox"
                         id="rabbit-input"
                         value="Rabbit"
                         onChange={handlePetChange}
-                    /><br />
+                    />
+                    <label htmlFor="rabbit-input">Conejos</label><br />
 
-                    <label htmlFor="guinea-pig-input">Cobayas</label>
                     <input
                         type="checkbox"
                         id="guinea-pig-input"
                         value="GuineaPig"
                         onChange={handlePetChange}
-                    /><br />
+                    />
+                    <label htmlFor="guinea-pig-input">Cobayas</label><br />
 
-                    <label htmlFor="hamsters-input">Hamsters</label>
                     <input
                         type="checkbox"
                         id="hamsters-input"
                         value="Hamsters"
                         onChange={handlePetChange}
-                    /><br />
+                    />
+                    <label htmlFor="hamsters-input">Hamsters</label><br />
 
-                    <label htmlFor="birds-input">Aves</label>
                     <input
                         type="checkbox"
                         id="birds-input"
                         value="Birds"
                         onChange={handlePetChange}
-                    /><br />
+                    />
+                    <label htmlFor="birds-input">Aves</label><br />
 
-                    <label htmlFor="reptiles-input">Reptiles</label>
                     <input
                         type="checkbox"
                         id="reptiles-input"
                         value="Reptiles"
                         onChange={handlePetChange}
-                    /><br />
+                    />
+                    <label htmlFor="reptiles-input">Reptiles</label><br /><br />
                 </Container>
             )}
             <button type="submit">{'Register'}</button>

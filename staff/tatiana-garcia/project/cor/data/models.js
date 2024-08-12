@@ -23,6 +23,10 @@ const user = new Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        required: true
+    },
     image: {
         type: String,
         default: 'https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg'
