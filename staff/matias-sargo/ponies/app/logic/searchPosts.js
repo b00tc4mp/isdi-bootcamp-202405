@@ -1,4 +1,4 @@
-import { validate, errors } from '../../com/index.js'
+import { validate, errors } from "../../com";
 
 const { SystemError } = errors
 
@@ -21,6 +21,7 @@ export default query => {
             return response.json()
                 .then(body => {
                     const { error, message } = body
+
                     const constructor = errors[error]
 
                     throw new constructor(message)

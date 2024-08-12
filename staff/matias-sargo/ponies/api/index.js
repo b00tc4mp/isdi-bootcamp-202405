@@ -16,7 +16,8 @@ import {
     toggleLikePostHandler,
     toggleFavPostHandler,
     toggleFollowUserHandler,
-    updatePostCaptionHandler
+    updatePostCaptionHandler,
+    searchPostsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -55,7 +56,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/posts/:postId/caption', jwtVerifier, jsonBodyParser, updatePostCaptionHandler)
 
-        api.get('/search', (req, res, next) => {
+        api.get('/posts/search', jwtVerifier, searchPostsHandler)
+
+        api.get('/colors/search', (req, res, next) => {
             const colors = ['red', 'green', 'blue', 'violette', 'brown', 'yellow']
 
             const { q } = req.query

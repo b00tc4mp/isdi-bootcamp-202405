@@ -1,53 +1,58 @@
-import logic from '../../logic'
-
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
+
+import logic from '../../logic'
 
 import Post from './Post'
 
-export default function FavsPostList() {
-    console.debug('FavsPostList -> call')
+export default function ResultsPostList({ refreshStamp }) {
+    console.debug('ResultsPostList -> call')
+
+    const [searchParams] = useSearchParams()
+
+    const q = searchParams.get('q') || ''
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.debug('FavsPostList -> useEffect')
+        console.debug('ResultsPostList -> useEffect [refreshStamp, q]')
 
         loadPosts()
-    }, [])
+    }, [refreshStamp, q])
 
     const handlePostDeleted = () => {
-        console.debug('FavsPostList -> handlePostDeleted')
+        console.debug('ResultsPostList -> handlePostDeleted')
 
         loadPosts()
     }
 
     const handlePostEdited = () => {
-        console.debug('FavsPostList -> handlePostEdited')
+        console.debug('ResultsPostList -> handlePostEdited')
 
         loadPosts()
     }
 
     const handlePostLikeToggled = () => {
-        console.debug('FavsPostList -> handlePostLikeToggled')
+        console.debug('ResultsPostList -> handlePostLikeToggled')
 
         loadPosts()
     }
 
     const handlePostFavToggled = () => {
-        console.debug('FavsPostList -> handlePostFavToggled')
+        console.debug('ResultsPostList -> handlePostFavToggled')
 
         loadPosts()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('FavsPostList -> handleUserFollowToggled')
+        console.debug('ResultsPostList -> handleUserFollowToggled')
 
         loadPosts()
     }
 
     const loadPosts = () => {
         try {
-            logic.getAllFavPosts()
+            logic.searchPosts(q)
                 .then(posts => setPosts(posts))
                 .catch(error => {
                     console.error(error)

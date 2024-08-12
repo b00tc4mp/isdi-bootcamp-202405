@@ -1,15 +1,13 @@
 import logic from '../../logic'
 
-import Heading from '../components/Heading'
-import Form from '../components/Form'
-import Input from '../components/Input'
-import Label from '../components/Label'
-import Button from '../components/Button'
-import Container from '../components/Container'
+import Heading from '../library/Heading'
+import Form from '../library/Form'
+import Input from '../library/Input'
+import Label from '../library/Label'
+import Button from '../library/Button'
+import Container from '../library/Container'
 
-import './CreatePost.css'
-
-function CreatePost({ onPostCreated, onCancelCreatePost }) {
+export default function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 
     const handleCreatePostSubmit = event => {
@@ -46,22 +44,22 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         onCancelCreatePost()
     }
 
-    return <section className="CreatePost">
+    return <section className="fixed bottom-0 left-0 w-full bg-white dark:bg-black dark:text-white p-2 box-border">
         <Heading level="2">Create Post</Heading>
 
-        <Form className="Form--column" onSubmit={handleCreatePostSubmit}>
-            <Container className="Container--column">
-                <Container className="Container--column Container--column-left">
+        <Form className="flex-col" onSubmit={handleCreatePostSubmit}>
+            <Container className="flex-col">
+                <Container className="flex-col items-start">
                     <Label htmlFor="post-image-input">Image</Label>
-                    <Input className="Input--full-width" id="post-image-input" />
+                    <Input className="text-black" id="post-image-input" />
                 </Container>
 
-                <Container className="Container--column Container--column-left">
+                <Container className="flex-col items-start">
                     <Label htmlFor="post-caption-input">Caption</Label>
-                    <Input className="Input--full-width" id="post-caption-input" />
+                    <Input className="text-black" id="post-caption-input" />
                 </Container>
 
-                <Container className="Container--center">
+                <Container className="justify-center">
                     <Button type="submit">✅</Button>
                     <Button type="reset" onClick={handleCancelCreatePostClick}>ｘ</Button>
                 </Container>
@@ -69,5 +67,3 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         </Form>
     </section>
 }
-
-export default CreatePost

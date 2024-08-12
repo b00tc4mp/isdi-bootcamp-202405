@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import Header from './home/Header'
-import PostList from './home/PostList'
-import Footer from './home/Footer'
-import PoniesPostList from './home/PoniesPostList'
-import FavsPostList from './home/FavsPostList'
+import Header from './Header'
+import PostList from './PostList'
+import Footer from './Footer'
+import PoniesPostList from './PoniesPostList'
+import FavsPostList from './FavsPostList'
+import Hello from './Hello'
+import ResultsPostList from './ResultsPostList'
 
-import Hello from './components/Hello'
-import SearchResults from './components/SearchResults'
 
-const Home = ({ onLogout }) => {
+export default function Home({ onLogout }) {
     console.debug('Home -> call')
 
     const navigate = useNavigate()
@@ -21,6 +21,7 @@ const Home = ({ onLogout }) => {
         console.debug('Home -> handlePostCreated')
 
         setRefreshStamp(Date.now())
+        navigate('/')
     }
 
     const handlePoniesClick = () => {
@@ -49,7 +50,7 @@ const Home = ({ onLogout }) => {
             onLogout={onLogout}
         />
 
-        <main className="view main">
+        <main className="flex flex-col items-center gap-4 mt-16 mb-12 dark:bg-black">
             <Routes>
                 <Route path="/" element={<PostList refreshStamp={refreshStamp} />} />
 
@@ -59,12 +60,10 @@ const Home = ({ onLogout }) => {
 
                 <Route path="/hello/:to" element={<Hello />} />
 
-                <Route path="/search" element={<SearchResults />} />
+                <Route path="/search" element={<ResultsPostList />} />
             </Routes>
         </main>
 
         <Footer onPostCreated={handlePostCreated} />
     </>
 }
-
-export default Home

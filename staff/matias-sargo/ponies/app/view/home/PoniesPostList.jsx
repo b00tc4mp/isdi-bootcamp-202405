@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import './PostList.css'
-
-const PoniesPostList = () => {
+export default function PoniesPostList() {
     console.debug('PoniesPostList -> call')
 
     const [posts, setPosts] = useState([])
@@ -63,7 +61,7 @@ const PoniesPostList = () => {
         }
     }
 
-    return <section className="PostList">
+    return <section className="flex flex-col gap-4">
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -75,5 +73,3 @@ const PoniesPostList = () => {
         />)}
     </section>
 }
-
-export default PoniesPostList
