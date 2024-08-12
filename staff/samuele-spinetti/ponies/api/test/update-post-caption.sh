@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/66acd716cdff515ab7580c5e/caption -X PATCH -d '{"caption":"Mi perro, lo amo!"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYW11IiwiaWF0IjoxNzIyNjAzMTMyfQ.6VpB47E1I1oBU64Cc0Z42c5F8C--GRM8gwlAOfEDYAE"

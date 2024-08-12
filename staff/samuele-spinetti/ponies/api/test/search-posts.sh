@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/search?q=mi -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmIwYzhiM2FiOGI3NzA5MWIxODk3MjAiLCJpYXQiOjE3MjI4NjE4MDF9.eYZrrGNrjxHJxlxnUY9Pvou7OEPPhCX-DbDko9REagY" 
