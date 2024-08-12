@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        font-family: "Cabin", system-ui, sans-serif;
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -9,16 +15,18 @@
 /* form starting stylings ------------------------------- */
 .group {
     position: relative;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
 }
 
 input {
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 5px 5px 5px 5px;
     display: block;
-    width: 300px;
+    width: 250px;
+    height: 50px;
     border: none;
-    border-bottom: 1px solid #757575;
+    border-bottom: 1px solid #ffffff;
+    background-color: transparent;
 }
 
 input:focus {
@@ -27,7 +35,7 @@ input:focus {
 
 /* LABEL ======================================= */
 label {
-    color: #999;
+    color: #ffffff;
     font-size: 18px;
     font-weight: normal;
     position: absolute;
@@ -44,10 +52,10 @@ input:focus~label,
 input:valid~label {
     top: -20px;
     font-size: 14px;
-    color: #5264AE;
+    color: #ffffff;
 }
 
-/* BOTTOM BARS ================================= */
+/* BOTTOM BARS =================================
 .bar {
     position: relative;
     display: block;
@@ -61,7 +69,7 @@ input:valid~label {
     width: 0;
     bottom: 1px;
     position: absolute;
-    background: #5264AE;
+    background: #ffffff;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
@@ -73,7 +81,7 @@ input:valid~label {
 
 .bar:after {
     right: 50%;
-}
+} */
 
 /* active state */
 input:focus~.bar:before,
@@ -102,7 +110,7 @@ input:focus~.highlight {
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
     from {
-        background: #5264AE;
+        background: #ffffff;
     }
 
     to {
@@ -113,7 +121,7 @@ input:focus~.highlight {
 
 @-moz-keyframes inputHighlighter {
     from {
-        background: #5264AE;
+        background: #ffffff;
     }
 
     to {
@@ -124,7 +132,7 @@ input:focus~.highlight {
 
 @keyframes inputHighlighter {
     from {
-        background: #5264AE;
+        background: #ffffff;
     }
 
     to {
@@ -132,3 +140,7 @@ input:focus~.highlight {
         background: transparent;
     }
 }
+
+/* .main {
+    background-color: var(--QueerCare, linear-gradient(168deg, hsl(155, 100%, 51%) 16.58%, #E700FA 79.85%));
+} */

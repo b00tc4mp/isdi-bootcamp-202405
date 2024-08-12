@@ -1,3 +1,4 @@
+import getUserName from './getUserName.js'
 import isUserLoggedIn from './isUserLoggedIn.js'
 import loginUser from './loginUser.js'
 import logoutUser from './logoutUser.js'
@@ -7,7 +8,8 @@ const logic = {
     isUserLoggedIn,
     loginUser,
     logoutUser,
-    registerUser
+    registerUser,
+    getUserName
 }
 
 export default logic

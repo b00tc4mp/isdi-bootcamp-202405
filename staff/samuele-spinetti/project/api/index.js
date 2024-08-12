@@ -5,7 +5,7 @@ import { mongoose } from '../cor/index.js'
 
 import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 
-import { authenticateUserHandler, registerUserHandler } from './handlers/index.js'
+import { authenticateUserHandler, registerUserHandler, getUserNameHandler } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -16,6 +16,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/users', jsonBodyParser, registerUserHandler)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
 
         api.use(errorHandler)
 

@@ -26,7 +26,7 @@ export default (name, surname, username, email, password, passwordRepeat) => {
         })
         .then(user => {
             if (user)
-                throw new DuplicityError('username already exist')
+                throw new DuplicityError('username already exists')
 
             return bcrypt.hash(password, 8)
                 .catch(error => { throw new SystemError(error.message) })

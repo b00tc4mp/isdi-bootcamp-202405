@@ -1,17 +1,16 @@
-import { validate, errors } from '../../com/index.js'
+import { errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (username, password) => {
-    validate.username(username)
-    validate.password(password)
+import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
 
-    return fetch('http://localhost:8080/users/auth', {
-        method: 'POST',
+export default () => {
+    const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
+
+    return fetch(`http://localhost:8080/users/${userId}/name`, {
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
@@ -19,7 +18,7 @@ export default (username, password) => {
 
             if (status === 200)
                 return response.json()
-                    .then(token => sessionStorage.token = token)
+                    .then(name => name)
 
             return response.json()
                 .then(body => {
