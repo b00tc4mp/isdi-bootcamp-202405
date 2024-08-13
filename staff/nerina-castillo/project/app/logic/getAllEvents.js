@@ -1,12 +1,9 @@
-import { errors, validate } from '../../com/index.js'
+import { errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (userId, query) => {
-    validate.string(query, 'query')
-    validate.string(userId, 'userId')
-
-    return fetch(`${import.meta.env.VITE_API_URL}/posts/search?=${query}`, {
+export default () => {
+    return fetch(`${import.meta.env.VITE_API_URL}/events`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -15,10 +12,9 @@ export default (userId, query) => {
         .then(response => {
             const { status } = response
 
-            if (status === 200) {
+            if (status === 200)
                 return response.json()
-                    .then(results => results)
-            }
+                    .then(events => events)
 
             return response.json()
                 .then(body => {

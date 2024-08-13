@@ -1,1 +1,0 @@
-curl -v "http://localhost:8080/search?q=vfsb&type=posts" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI3MmI1NTVlZTNjM2RmNGRmN2UzYzgiLCJpYXQiOjE3MjM0NTQ3Mzl9.6QGmGgqXa2UmnBcqjhQUtnf6m4kpTNnCjPZl6ECwqgg"

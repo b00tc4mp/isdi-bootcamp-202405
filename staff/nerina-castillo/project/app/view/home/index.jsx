@@ -46,10 +46,13 @@ export default function Home({ onLogout }) {
 
         <main>
             <Heading>Hello, {name}</Heading>
+
             <Routes>
                 <Route path='/' element={<FollowingPostList refreshStamp={refreshStamp} />} />
+
                 <Route path='/search' element={<PostList refreshStamp={refreshStamp} />} />
-                <Route path='/search' element={<ResultsPostList refreshStamp={refreshStamp} />} />
+
+                <Route path='/search/:to' element={<ResultsPostList refreshStamp={refreshStamp} />} />
             </Routes>
         </main>
 

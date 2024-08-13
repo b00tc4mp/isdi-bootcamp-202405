@@ -8,6 +8,7 @@ import toggleFollowUserHandler from './toggleFollowUserHandler.js'
 import getAllFollowingUserPostsHandler from './getAllFollowingUserPostsHandler.js'
 import deletePostHandler from './deletePostHandler.js'
 import createEventHandler from './createEventHandler.js'
+import getAllEventsHandler from './getAllEventsHandler.js'
 
 export {
     registerUserHandler,
@@ -19,5 +20,6 @@ export {
     toggleFollowUserHandler,
     getAllFollowingUserPostsHandler,
     deletePostHandler,
-    createEventHandler
+    createEventHandler,
+    getAllEventsHandler
 }

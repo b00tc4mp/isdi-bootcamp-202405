@@ -5,21 +5,21 @@ import logic from '../../logic'
 
 import Post from './Post'
 import Heading from '../library/Heading'
-import Search from './Search'
 
 export default function ResultsPostList({ refreshStamp }) {
     const [searchParams] = useSearchParams()
+    const [posts, setPosts] = useState([])
+    const [users, setUsers] = useState([])
+
     const q = searchParams.get('q') || ''
-    const type = searchParams.get('type') || 'posts'
-    const [items, setItems] = useState([])
 
     useEffect(() => {
+
         loadItems()
-    }, [refreshStamp, q, type])
 
-    const handleItemDeleted = () => loadItems()
+    }, [refreshStamp, q])
 
-    const handleItemEdited = () => loadItems()
+    const handlePostDeleted = () => loadItems()
 
     const handleLikeToggled = () => loadItems()
 
@@ -27,8 +27,11 @@ export default function ResultsPostList({ refreshStamp }) {
 
     const loadItems = () => {
         try {
-            logic.searchItems(q, type)
-                .then(result => setItems(result[type]))
+            logic.searchItems(q)
+                .then(({ posts, users }) => {
+                    setUsers(users)
+                    setPosts(posts)
+                })
                 .catch(error => {
                     console.error(error)
                     alert(error.message)
@@ -39,33 +42,26 @@ export default function ResultsPostList({ refreshStamp }) {
         }
     }
 
-    return (
-        <section>
+    return <section>
+        <div>
+            <Heading level='2'>Users</Heading>
+            {users.map(user => (
+                <Heading key={user.id} level='3'>{user.username}</Heading>
+            ))}
+        </div>
 
-            {type === 'posts' ? (
-                items.map(item => (
-                    <Post
-                        key={item.id}
-                        post={item}
-                        onPostDeleted={handleItemDeleted}
-                        onPostEdited={handleItemEdited}
-                        onPostLikeToggled={handleLikeToggled}
-                        onUserFollowToggled={handleUserFollowToggled}
-                    />
-                ))
-            ) : (
-                <div>
-                    {items.length > 0 ? (
-                        items.map(user => (
-                            <div key={user.id}>
-                                <Heading level='2'>{user.username}</Heading>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No users found</p>
-                    )}
-                </div>
-            )}
-        </section>
-    );
+        <div>
+            <Heading level='2'>Posts</Heading>
+            {posts.map(post => (
+                <Post
+                    key={post.id}
+                    post={post}
+                    onPostDeleted={handlePostDeleted}
+                    onPostLikeToggled={handleLikeToggled}
+                    onUserFollowToggled={handleUserFollowToggled}
+                />
+            ))}
+        </div>
+    </section>
+
 }

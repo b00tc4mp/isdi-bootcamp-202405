@@ -12,7 +12,6 @@ export default function Search() {
     const [query, setQuery] = useState('')
 
     const q = searchParams.get('q') || ''
-    const t = searchParams.get('type') || 'posts'
 
     useEffect(() => {
         setQuery(q)
@@ -22,21 +21,22 @@ export default function Search() {
         event.preventDefault()
 
         const form = event.target
+
         const { value: query } = form.q
-        const type = query.startsWith('@') ? 'users' : 'posts'
 
         if (!query.trim())
             navigate('/search')
         else if (location.pathname !== '/search')
-            navigate(`/search?q=${encodeURIComponent(query)}&type=${type}`)
+            navigate(`/search?q=${query}`)
         else
-            setSeachParams({ q: query, type })
+            setSeachParams({ q: query })
 
         setQuery(query)
     }
 
     const handleInputChange = event => {
         const { value: query } = event.target
+
         setQuery(query)
     }
 

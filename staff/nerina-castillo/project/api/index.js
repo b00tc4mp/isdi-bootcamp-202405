@@ -16,8 +16,10 @@ import {
     toggleFollowUserHandler,
     getAllFollowingUserPostsHandler,
     deletePostHandler,
-    createEventHandler
+    createEventHandler,
+    getAllEventsHandler
 } from './handlers/index.js'
+import getAllEvents from 'cor/logic/getAllEvents.js'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -46,6 +48,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/posts/:postId', jwtVerifier, deletePostHandler)
 
         api.post('/events', jwtVerifier, jsonBodyParser, createEventHandler)
+
+        api.get('/events', jwtVerifier, getAllEventsHandler)
 
         api.use(errorHandler)
 

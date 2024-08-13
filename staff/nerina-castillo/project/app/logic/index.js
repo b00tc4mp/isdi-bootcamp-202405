@@ -11,6 +11,7 @@ import toggleFollowUser from './toggleFollowUser'
 import getAllFollowingUserPosts from './getAllFollowingUserPosts'
 import deletePost from './deletePost'
 import createEvent from './createEvent'
+import getAllEvents from './getAllEvents'
 
 const logic = {
     registerUser,
@@ -25,7 +26,8 @@ const logic = {
     toggleFollowUser,
     getAllFollowingUserPosts,
     deletePost,
-    createEvent
+    createEvent,
+    getAllEvents
 }
 
 export default logic

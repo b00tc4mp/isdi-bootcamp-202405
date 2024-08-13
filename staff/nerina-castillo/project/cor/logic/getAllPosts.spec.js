@@ -41,7 +41,7 @@ describe('getAllPosts', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return getAllPosts(new ObjectId().toString())
+        return getAllPosts(new ObjectId().toString(), 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'hello')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -54,7 +54,7 @@ describe('getAllPosts', () => {
         let error
 
         try {
-            getAllPosts(123)
+            getAllPosts(123, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'hello')
         } catch (_error) {
             error = _error
         } finally {
