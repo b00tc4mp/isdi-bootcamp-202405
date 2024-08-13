@@ -1,6 +1,4 @@
-import { Schema, model, Types } from 'mongoose'
-
-// const { ObjectId } = Types
+import { Schema, model } from 'mongoose'
 
 const user = new Schema({
     name: {
@@ -26,14 +24,63 @@ const user = new Schema({
         required: true
     },
     avatar: {
+        type: String
+    }
+})
+
+const point = new Schema({
+    type: {
         type: String,
+        enum: ['Point'],
         required: true,
-        default: '../../'
+        defaul: 'Point'
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+})
+
+const healthCareProvider = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+    },
+    street: {
+        type: String,
+        required: true
+    },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
+    webURL: {
+        type: String,
+        required: true
+    },
+    openingHours: {
+        type: [String],
+        required: true
+    },
+    tags: {
+        type: [String],
+        required: true
+    },
+    location: {
+        type: point,
+        required: true
     }
 })
 
 const User = model('User', user)
+const Location = model('Location', point)
+const HealthCareProvider = model('HealthCareProvider', healthCareProvider)
 
 export {
-    User
+    User,
+    Location,
+    HealthCareProvider
 }

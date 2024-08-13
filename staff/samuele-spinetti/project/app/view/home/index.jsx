@@ -1,44 +1,31 @@
-// import { Routes, Route, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import { useContext } from 'react'
-import Context from '../../Context'
-
-
-import logic from '../../logic'
-
+import MapSection from './MapSection'
+import ProfileSettings from './ProfileSettings'
 import Header from './Header'
 import Footer from './Footer'
-
-import Paragraph from '../library/Paragraph'
+import Heading from '../library/Heading'
 
 export default function Home({ onLogout }) {
-    const [userName, setUserName] = useState(null)
-    const { alert } = useContext(Context)
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        try {
-            logic.getUserName()
-                .then(userName => setUserName(userName))
-                .catch(error => {
-                    console.error(error)
+    const handleHome = () => navigate('/')
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
+    const handleProfileSettings = () => navigate('/settings')
 
-            alert(error.message)
-        }
-    }, [userName])
+    const handleHealthCareProvidersList = () => navigate('/map')
 
-    // const handleHomeClick = () => {
-    //     navigate('/')
-    // }
+    return <>
+        <Header onProfileSettingsClicked={handleProfileSettings} onLogout={onLogout}></Header>
 
-    return <main className="flex h-screen w-screen">
-        <Header onLogout={onLogout}></Header >
-        <Paragraph className="justify-center items-center">Hello, {userName}</Paragraph>
-        <Footer></Footer>
-    </main>
+        <main className="mt-[6rem] mb-[3rem]">
+            <Heading className="flex flex-col justify-center items-center text-[#C900CD] [gradient-to-br from-green-400 to-fuchsia-500] text-[20px] font-bold">Healthy living, Pride being!</Heading>
+            <Routes>
+                <Route path="/settings" element={<ProfileSettings />} />
+                <Route path="/map" element={<MapSection />} />
+            </Routes>
+        </main>
+
+        <Footer onHomeClicked={handleHome} onHealthCareProvidersListClicked={handleHealthCareProvidersList}></Footer>
+    </>
 }

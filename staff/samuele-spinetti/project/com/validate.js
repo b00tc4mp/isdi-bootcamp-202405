@@ -29,10 +29,10 @@ function validateEmail(email) {
     if (!EMAIL_REGEX.test(email)) throw new ValidationError('invalid email')
 }
 
-function validatePassword(password) {
-    validateString(password, 'password')
-    if (password.trim().length < 8) throw new ValidationError('password length is lower than 8 characters')
-    if (password.includes(' ')) throw new ValidationError('password has empty spaces')
+function validatePassword(password, explain = 'password') {
+    validateString(password, explain)
+    if (password.trim().length < 8) throw new ValidationError(`${explain} length is lower than 8 characters`)
+    if (password.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
 }
 
 function validateId(id, explain = 'id') {

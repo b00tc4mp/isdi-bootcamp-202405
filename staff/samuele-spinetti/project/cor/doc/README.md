@@ -66,6 +66,7 @@ User
 - Express
 - React
 - Mongo
+- Tailwindcss
 
 ### Data Model
 
@@ -76,7 +77,6 @@ User
 - email (string)
 - username (string)
 - password (string)
-- avatar (string)
 - role (string, enum: regular|admin)
 
 HealthCenter

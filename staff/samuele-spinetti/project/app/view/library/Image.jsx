@@ -1,3 +1,3 @@
-export default function Image(props) {
-    return <image {...props} />
+export default function Image({ src, className, alt }) {
+    return <img src={src} className={className} alt={alt} />
 }
