@@ -17,9 +17,9 @@ import {
     getAllFollowingUserPostsHandler,
     deletePostHandler,
     createEventHandler,
-    getAllEventsHandler
+    getAllEventsHandler,
+    deleteEventHandler
 } from './handlers/index.js'
-import getAllEvents from 'cor/logic/getAllEvents.js'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
@@ -50,6 +50,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/events', jwtVerifier, jsonBodyParser, createEventHandler)
 
         api.get('/events', jwtVerifier, getAllEventsHandler)
+
+        api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
 
         api.use(errorHandler)
 

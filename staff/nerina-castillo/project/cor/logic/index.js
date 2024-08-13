@@ -9,6 +9,7 @@ import getAllFollowingUserPosts from './getAllFollowingUserPosts.js'
 import deletePost from './deletePost.js'
 import createEvent from './createEvent.js'
 import getAllEvents from './getAllEvents.js'
+import deleteEvent from './deleteEvent.js'
 
 const logic = {
     registerUser,
@@ -21,7 +22,8 @@ const logic = {
     getAllFollowingUserPosts,
     deletePost,
     createEvent,
-    getAllEvents
+    getAllEvents,
+    deleteEvent
 }
 
 export default logic

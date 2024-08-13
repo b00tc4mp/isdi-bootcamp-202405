@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import deletePost from './deletePost.js'
 
 mongoose.connect(process.env.MONGODB_URI)
