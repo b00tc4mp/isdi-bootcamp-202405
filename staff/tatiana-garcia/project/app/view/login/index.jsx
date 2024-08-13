@@ -68,7 +68,7 @@ export default function Login({ onLogin, onRegisterClick }) {
             <Button type='submit'>Login</Button>
         </Form>
 
-        <Link onClick={handleRegisterClick}>Registro</Link>
+        <Link onClick={handleRegisterClick}>¿Eres nuevo/a? Regístrate</Link>
 
     </main>
 }

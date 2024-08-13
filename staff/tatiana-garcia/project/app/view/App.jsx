@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import Register from './register'
 import Login from './login/index.jsx'
+import Home from './home/index.jsx'
 
 import logic from '../logic/index.js'
 
