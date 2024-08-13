@@ -25,8 +25,8 @@ describe('registerUser', () => {
                 expect(user.username).to.equal('samuelespinetti')
 
                 return bcrypt.compare('123456789', user.password)
-                    .then(match => expect(match).to.be.true)
             })
+            .then(match => expect(match).to.be.true)
     )
 
     it('fails on exiting user with same email', () => {

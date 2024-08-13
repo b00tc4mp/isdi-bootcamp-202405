@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
+import Image from '../library/Image'
 
 //todo
 
-export default function Header({ onHomeClick, onLikesClick, onLogout }) {
+export default function Header({ onHomeClick, onLogout }) {
 
     const [name, setName] = useState(null)
 
@@ -32,10 +33,6 @@ export default function Header({ onHomeClick, onLikesClick, onLogout }) {
         onHomeClick()
     }
 
-    const handleLikesClick = () => {
-        onLikesClick()
-    }
-
     const handleLogout = () => {
         try {
             logic.logoutUser()
@@ -48,14 +45,13 @@ export default function Header({ onHomeClick, onLikesClick, onLogout }) {
         }
     }
 
-    return <header className="header">
+    return <header className="bg-[#050968]">
 
         <Container>
             <Paragraph>{name}!</Paragraph>
 
-            <Button onClick={handleHomeClick}>Home</Button>
-            <Button onClick={handleLikesClick}>Lik</Button>
-            <Button onClick={handleLogout}>Log</Button>
+            <Button onClick={handleHomeClick}><Image src="public/home.svg"></Image></Button>
+            <Button onClick={handleLogout}><Image src="public/exit.svg"></Image></Button>
         </Container>
 
 

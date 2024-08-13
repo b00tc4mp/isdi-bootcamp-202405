@@ -41,8 +41,17 @@ function validateEmail(email) {
 
 function validateUrl(url, explain = 'url') {
     validateString(url, explain)
-    if (!url.startsWith('http')) throw new ValidationError(`invalid $¢{ explain }`)
+    if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
+
+function validateLocation(location, explain = 'location') {
+
+    const { coordinates } = location
+    if (!Array.isArray(coordinates) || coordinates.length !== 2) throw new ValidationError(`invalid ${explain}`)
+
+    if (!coordinates.every(coordinates => typeof coordinates === 'number')) throw new ValidationError(`${explain} is not a number`);
+}
+
 
 const validate = {
     string: validateString,
@@ -53,6 +62,7 @@ const validate = {
     name: validateName,
     email: validateEmail,
     url: validateUrl,
+    location: validateLocation
 
 }
 

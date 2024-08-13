@@ -53,20 +53,28 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main>
-        {/* <Image src="public/+Vibes.jpg" /> */}
+    return <main >
+        <Container className="flex-col items-center justify-center">
+            <Image className="flex align-center h-32 w-32" src="public/+Vibes.jpg" />
+        </Container>
 
-        <Form onSubmit={handleLoginSubmit} className="flex-col gap-[0.9rem]">
-            <Container className="flex-col items-start">
-                <Input className="w-11/12" type="text" id="username-input" name="username" placeholder="Username"></Input>
-                <Input className="w-11/12" type="password" id="password-input" name="password" placeholder="Password"></Input>
+        <Form onSubmit={handleLoginSubmit}>
+            <Container className="flex-col">
+                <Input className="h-9" type="text" id="username-input" name="username" placeholder="Username"></Input>
             </Container>
 
-            <Button type="submit">Login</Button>
+            <Container className="flex-col ">
+                <Input className="h-9" type="password" id="password-input" name="password" placeholder="Password"></Input>
+            </Container>
+
+            <Button className=" bg-[#050968]" type="submit">Login</Button>
         </Form>
 
-        <Paragraph>Don't have an account?</Paragraph>
-        <Link onClick={handleRegisterClick}>Sign up</Link>
+        <Container >
+            <Paragraph>Don't have an account? <Container className="text-[#9747FF] font-bold"><Link onClick={handleRegisterClick}>Sign up</Link></Container></Paragraph>
+        </Container>
+
+
     </main>
 
 }

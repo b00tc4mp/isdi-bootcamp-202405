@@ -5,6 +5,7 @@ import Container from '../library/Container'
 import Input from '../library/Input'
 import Button from '../library/Button'
 import Link from '../library/Link'
+import Image from '../library/Image'
 
 //context
 
@@ -52,22 +53,41 @@ export default function Register({ onRegister, onLoginClick }) {
 
 
     return <main>
+        <Container className="flex-col items-center justify-center">
+            <Image className="flex align-center h-32 w-32" src="public/+Vibes.jpg" />
+        </Container>
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col gap-[0.9rem">
-            <Container className="flex-col items-start">
-                <Input type="text" id="name-input" name="name" placeholder="name" />
-                <Input type="text" id="surname-input" surname="surname" placeholder="surname" />
-                <Input type="email" id="email-input" name="email" placeholder="email" />
-                <Input type="text" id="username-input" name="username" placeholder="username" />
-                <Input type="password" id="password-input" name="password" placeholder="password" />
-                <Input type="password" id="password2-input" name="password2" placeholder="repeat password" />
+            <Container className="flex-col">
+                <Input className=" h-9" type="text" id="name-input" name="name" placeholder="name" />
             </Container>
 
-            <Button type="submit">Register</Button>
+            <Container className="flex-col">
+                <Input className=" h-9" type="text" id="surname-input" surname="surname" placeholder="surname" />
+            </Container>
+
+            <Container className="flex-col ">
+                <Input className=" h-9" type="email" id="email-input" name="email" placeholder="email" />
+            </Container>
+
+            <Container className="flex-col ">
+                <Input className=" h-9" type="text" id="username-input" name="username" placeholder="username" />
+            </Container>
+
+            <Container className="flex-col ">
+                <Input className=" h-9" type="password" id="password-input" name="password" placeholder="password" />
+            </Container>
+
+            <Container className="flex-col ">
+                <Input className=" h-9" type="password" id="password2-input" name="password2" placeholder="repeat password" />
+            </Container>
+
+            <Button className="bg-[#050968]" type="submit">Register</Button>
         </Form>
 
-        <Link href="" onClick={handleLoginClick}>Login</Link>
-
+        <Container className="text-[#9747FF] font-bold">
+            <Link href="" onClick={handleLoginClick}>Login</Link>
+        </Container>
     </main>
 
 }
