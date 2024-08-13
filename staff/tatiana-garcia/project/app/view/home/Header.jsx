@@ -2,7 +2,6 @@ import logic from '../../logic/index.js'
 
 import Container from '../library/Container.jsx'
 import Button from '../library/Button.jsx'
-import Paragraph from '../library/Paragraph.jsx'
 
 export default function Header({ onLogout }) {
     const handleLogoutClick = () => {
@@ -19,7 +18,6 @@ export default function Header({ onLogout }) {
 
     return <header>
         <Container>
-            <Paragraph>hola mundo</Paragraph>
 
             <Button onClick={handleLogoutClick}>Logout</Button>
         </Container>
