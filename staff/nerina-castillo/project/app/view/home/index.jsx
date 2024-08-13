@@ -7,6 +7,7 @@ import Header from './Header'
 import Footer from './Footer'
 import PostList from './PostList'
 import ResultsPostList from './ResultsPostList'
+import FollowingPostList from './FollowingUserPostList'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
@@ -29,20 +30,24 @@ export default function Home({ onLogout }) {
         }
     }, [])
 
+    const handleFollowClick = () => navigate('/')
+
     const handlePostCreated = () => setRefreshStamp(Date.now())
 
     const handleSearchClick = () => navigate('/search')
 
     return <>
         <Header
+            onHomeClick={handleFollowClick}
             onSearchClick={handleSearchClick}
+            onFollowClick={handleFollowClick}
             onLogout={onLogout}
         />
 
         <main>
             <Heading>Hello, {name}</Heading>
             <Routes>
-                <Route path='/' refreshStamp={refreshStamp} />
+                <Route path='/' element={<FollowingPostList refreshStamp={refreshStamp} />} />
                 <Route path='/search' element={<PostList refreshStamp={refreshStamp} />} />
                 <Route path='/search' element={<ResultsPostList refreshStamp={refreshStamp} />} />
             </Routes>

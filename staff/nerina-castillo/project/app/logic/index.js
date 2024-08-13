@@ -8,6 +8,7 @@ import createPost from './createPost'
 import getAllPosts from './getAllPosts'
 import searchItems from './searchItems'
 import toggleFollowUser from './toggleFollowUser'
+import getAllFollowingUserPosts from './getAllFollowingUserPosts'
 
 const logic = {
     registerUser,
@@ -19,7 +20,8 @@ const logic = {
     createPost,
     getAllPosts,
     searchItems,
-    toggleFollowUser
+    toggleFollowUser,
+    getAllFollowingUserPosts
 }
 
 export default logic

@@ -6,7 +6,7 @@ import Button from '../library/Button'
 
 //TODO useContext
 
-export default function Header({ onLogout, onSearchClick }) {
+export default function Header({ onHomeClick, onLogout, onSearchClick }) {
     const [name, setName] = useState(null)
 
     //TODO theme
@@ -41,11 +41,12 @@ export default function Header({ onLogout, onSearchClick }) {
         }
     }
 
-    // const handleSearchedPostClick = () => setSearchPostVisible(false)
+    const handleHomeClick = () => onHomeClick()
 
     const handleSearchClick = () => onSearchClick()
 
     return <header>
+        <Button onClick={handleHomeClick}>home</Button>
         <Button onClick={handleSearchClick}>search</Button>
         <Button onClick={handleLogout}>logout</Button>
     </header>

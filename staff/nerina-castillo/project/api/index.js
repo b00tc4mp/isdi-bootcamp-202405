@@ -13,7 +13,8 @@ import {
     createPostHandler,
     getAllPostsHandler,
     searchItemsHandler,
-    toggleFollowUserHandler
+    toggleFollowUserHandler,
+    getAllFollowingUserPostsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -37,6 +38,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/posts/search', jwtVerifier, searchItemsHandler)
 
         api.patch('/users/:targetUserId/follows', jwtVerifier, toggleFollowUserHandler)
+
+        api.get('/posts/following', jwtVerifier, getAllFollowingUserPostsHandler)
 
         api.use(errorHandler)
 

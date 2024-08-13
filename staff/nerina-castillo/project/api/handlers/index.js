@@ -5,6 +5,7 @@ import createPostHandler from './createPostHandler.js'
 import getAllPostsHandler from './getAllPostsHandler.js'
 import searchItemsHandler from './searchItemsHandler.js'
 import toggleFollowUserHandler from './toggleFollowUserHandler.js'
+import getAllFollowingUserPostsHandler from './getAllFollowingUserPostsHandler.js'
 
 export {
     registerUserHandler,
@@ -13,5 +14,6 @@ export {
     createPostHandler,
     getAllPostsHandler,
     searchItemsHandler,
-    toggleFollowUserHandler
+    toggleFollowUserHandler,
+    getAllFollowingUserPostsHandler
 }
