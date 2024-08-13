@@ -15,8 +15,7 @@ import Container from '../library/Container'
 import Avatar from './Avatar'
 import Confirm from '../common/Confirm'
 
-export default function Post({ post, onPostDeleted, onPostEdited, onUserFollowToggled }) {
-    const [editPostVisible, setEditPostVisible] = useState(false)
+export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
 
     const handleDeletePostClick = () => setConfirmMessage('delete post?')
@@ -83,7 +82,6 @@ export default function Post({ post, onPostDeleted, onPostEdited, onUserFollowTo
 
             {post.author.id === logic.getUserId() && <>
                 <Button onClick={handleDeletePostClick}>delete</Button>
-                {/* <Button onClick={handleEditPostClick}>edit</Button> */}
             </>}
         </Container>
 

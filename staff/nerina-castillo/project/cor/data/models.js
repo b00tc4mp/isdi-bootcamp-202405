@@ -33,10 +33,6 @@ const user = new Schema({
     following: {
         type: [ObjectId],
         ref: 'User'
-    },
-    favs: {
-        type: [ObjectId],
-        ref: 'Post'
     }
 })
 
@@ -65,6 +61,19 @@ const post = new Schema({
     }
 })
 
+const point = new Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+        default: 'Point'
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+})
+
 const event = new Schema({
     author: {
         type: ObjectId,
@@ -74,8 +83,12 @@ const event = new Schema({
     image: {
         type: String
     },
+    description: {
+        type: String,
+        required: true
+    },
     location: {
-        type: [Number, Number],
+        type: point,
         required: true
     },
     startDate: {
@@ -86,14 +99,18 @@ const event = new Schema({
         type: Date,
         required: true,
     },
-    description: {
-        type: String,
-        required: true
-    },
     date: {
         type: Date,
         required: true,
         default: Date.now
+    }
+})
+
+const city = new Schema({
+    name: String,
+    location: {
+        type: point,
+        required: true
     }
 })
 
@@ -121,11 +138,15 @@ const comment = new Schema({
 const User = model('User', user)
 const Post = model('Post', post)
 const Event = model('Event', event)
+const Point = model('Point', point)
+const City = model('City', city)
 const Comment = model('Comment', comment)
 
 export {
     User,
     Post,
     Event,
+    Point,
+    City,
     Comment
 }

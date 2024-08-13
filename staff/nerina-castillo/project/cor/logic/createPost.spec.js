@@ -13,8 +13,7 @@ describe('createPost', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() =>
-        Promise.all([User.deleteMany(), Post.deleteMany()])
-    )
+        Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     it('succeeds on create post with only text', () => {
         User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })

@@ -11,8 +11,6 @@ export default function FollowingPostList() {
 
     const handlePostDeleted = () => loadPosts()
 
-    const handlePostEdited = () => loadPosts()
-
     const handlePostLikeToggled = () => loadPosts()
 
     const handleUserFollowToggled = () => loadPosts()
@@ -38,7 +36,6 @@ export default function FollowingPostList() {
             key={post.id}
             post={post}
             onPostDeleted={handlePostDeleted}
-            onPostEdited={handlePostEdited}
             onPostLikeToggled={handlePostLikeToggled}
             onUserFollowToggled={handleUserFollowToggled}
         />)}

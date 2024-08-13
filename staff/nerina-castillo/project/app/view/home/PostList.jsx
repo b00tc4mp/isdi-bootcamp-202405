@@ -17,8 +17,6 @@ export default function PostList({ refreshStamp }) {
 
     const handlePostDeleted = () => loadPosts()
 
-    // const handlePostEdited = () => loadPosts()
-
     // const handlePostLikeToggled = () => loadPosts()
 
     const handleUserFollowToggled = () => loadPosts()

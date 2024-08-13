@@ -50,6 +50,28 @@ function validateUrl(url, explain = 'url') {
     if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
 
+function validateLocation(location, explain = 'location') {
+    const { coordinates } = location
+    if (!Array.isArray(coordinates) || coordinates.length !== 2) throw new ValidationError(`invalid ${explain} coordinates`)
+
+    coordinates.forEach((value, index) => {
+        if (typeof value !== 'number') {
+            throw new ValidationError(`invalid ${explain} coordinate value at index ${index}`)
+        }
+    })
+}
+
+function validateDate(date, explain = 'date') {
+    if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`)
+}
+
+function validateEventDates(startDate, endDate) {
+    validateDate(startDate, 'startDate')
+    validateDate(endDate, 'ednDate')
+
+    if (startDate > endDate) throw new ValidationError('startDate cannot be later than endDate')
+}
+
 const validate = {
     callback: validateCallback,
     object: validateObject,
@@ -59,7 +81,10 @@ const validate = {
     password: validatePassword,
     name: validateName,
     url: validateUrl,
-    string: validateString
+    string: validateString,
+    location: validateLocation,
+    date: validateDate,
+    eventDates: validateEventDates
 }
 
 export default validate
