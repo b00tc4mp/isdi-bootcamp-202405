@@ -1,15 +1,18 @@
 import logic from '../../logic/index.js'
 
+import Heading from '../library/Heading.jsx'
 import Container from '../library/Container.jsx'
-
-import useContext from '../context.js'
+import Form from '../library/Form.jsx'
+import Label from '../library/Label.jsx'
+import Input from '../library/Input.jsx'
+import Button from '../library/Button.jsx'
+import Link from '../library/Link.jsx'
 
 import { errors } from '../../../com/index.js'
 
 const { NotFoundError, CredentialsError } = errors
 
-export default function Login({ onlogin, onRegisterClick }) {
-    const { alert } = useContext()
+export default function Login({ onLogin, onRegisterClick }) {
 
     const handleLoginSubmit = event => {
         event.preventDefault()
@@ -24,7 +27,7 @@ export default function Login({ onlogin, onRegisterClick }) {
 
         try {
             logic.loginUser(username, password)
-                .then(() => onlogin())
+                .then(() => onLogin())
                 .catch(error => {
                     console.error(error)
 
@@ -49,23 +52,23 @@ export default function Login({ onlogin, onRegisterClick }) {
     }
 
     return <main>
-        <header>Login</header>
+        <Heading>Login</Heading>
 
-        <form onSubmit={handleLoginSubmit}>
+        <Form onSubmit={handleLoginSubmit} className="flex-col">
             <Container>
-                <label htmlFor='username-input'>Nombre de usuario</label>
-                <input type='text' id='username-input' name='username' placeholder='nombre de usuario' />
+                <Label htmlFor='username-input'>Nombre de usuario</Label>
+                <Input type='text' id='username-input' name='username' placeholder='nombre de usuario' />
             </Container>
 
             <Container>
-                <label htmlFor='password-input'>Contraseña</label>
-                <input type='password' id='password-input' name='password' placeholder='contraseña' />
+                <Label htmlFor='password-input'>Contraseña</Label>
+                <Input type='password' id='password-input' name='password' placeholder='contraseña' />
             </Container>
 
-            <button type='submit'>Login</button>
-        </form>
+            <Button type='submit'>Login</Button>
+        </Form>
 
-        <link onClick={handleRegisterClick}>Registro</link>
+        <Link onClick={handleRegisterClick}>Registro</Link>
 
     </main>
 }
