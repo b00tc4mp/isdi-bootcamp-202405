@@ -19,9 +19,25 @@ export default function Post({ post, onPostDeleted, onPostEdited, onUserFollowTo
     const [editPostVisible, setEditPostVisible] = useState(false)
     const [confirmMessage, setConfirmMessage] = useState(null)
 
-    // const handleDeletePostClick = () => setConfirmMessage('delete post?')
+    const handleDeletePostClick = () => setConfirmMessage('delete post?')
 
-    // const handleDeletePostAccept = () => {}
+    const handleDeletePostAccept = () => {
+        try {
+            logic.deletePost(post.id)
+                .then(() => onPostDeleted())
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handleDeletePostCancel = () => setConfirmMessage(null)
 
     const handleFollowUserClick = () => {
         try {
@@ -47,7 +63,6 @@ export default function Post({ post, onPostDeleted, onPostEdited, onUserFollowTo
 
             <Button onClick={handleFollowUserClick}>{post.author.following ? 'unfollow' : 'follow'}</Button>
 
-            {/* <Button onClick={handleFollowUserClick}></Button> */}
         </Container>
 
         {post.image && (
@@ -63,7 +78,15 @@ export default function Post({ post, onPostDeleted, onPostEdited, onUserFollowTo
         <Time>{formatTime(new Date(post.date))}</Time>
 
         {/* TODO editPostVisible */}
+        <Container>
+            {/* <Button onClick={handlLikePostClick}></Button> */}
 
-        {/* {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel}></Confirm>} */}
+            {post.author.id === logic.getUserId() && <>
+                <Button onClick={handleDeletePostClick}>delete</Button>
+                {/* <Button onClick={handleEditPostClick}>edit</Button> */}
+            </>}
+        </Container>
+
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel}></Confirm>}
     </article>
 }

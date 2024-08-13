@@ -15,7 +15,7 @@ export default function PostList({ refreshStamp }) {
         loadPosts()
     }, [refreshStamp])
 
-    // const handlePostDeleted = () => loadPosts()
+    const handlePostDeleted = () => loadPosts()
 
     // const handlePostEdited = () => loadPosts()
 
@@ -45,6 +45,7 @@ export default function PostList({ refreshStamp }) {
         {posts.map(post => <Post
             key={post.id}
             post={post}
+            onPostDeleted={handlePostDeleted}
             onUserFollowToggled={handleUserFollowToggled}
         // TODO handels 
         />)}
