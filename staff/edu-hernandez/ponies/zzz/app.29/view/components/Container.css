@@ -1,0 +1,11 @@
+.Container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    padding: .7rem .5rem .7rem .5rem;
+    gap: .5rem;
+
+    font-size: 14px;
+    color: #939393;
+}

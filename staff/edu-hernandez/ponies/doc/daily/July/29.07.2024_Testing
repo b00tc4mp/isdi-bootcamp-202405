@@ -1,0 +1,55 @@
+29/07/2024 - 09:37h
+Monyay
+
+------------------------------------
+⚙️ PART 1 - errors ✅
+------------------------------------
+
+class MyError extends Error {
+    constructor(message)
+    super(message)
+}
+
+------------------------------------
+
+Desarrollar archivo de errores en:
+
+📁 ponies/com
+
+validate.js ✅
+error.js ✅
+index.js ✅
+
+------------------------------------
+
+fix testing files
+
+📁 cor/logic
+
+registerUSer.js ✅
+registerUser.spec.js ✅
+toggleLikePost.spec.js ✅
+toggleLikePost.js ✅
+toggleLikePost.test.js ✅
+
+-----------------------------------
+⚙️ PART 2 - import error
+-----------------------------------
+
+fix error part
+
+📁 cor/logic
+all functions .js 
+
+📁 ponies/api
+index.js
+
+📁 ponies/api/test
+register-user.sh
+
+📁 ponies/app/logic
+all logics
+
+📁 ponies/app/view/
+
+index

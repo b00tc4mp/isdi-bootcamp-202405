@@ -1,0 +1,16 @@
+.Form {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: stretch;
+    gap: .5rem;
+    padding: .4rem;
+    width: 100%;
+    margin: 0;
+}
+
+.Form--box {
+    margin: 0;
+    padding: 0;
+    gap: .4rem;
+}

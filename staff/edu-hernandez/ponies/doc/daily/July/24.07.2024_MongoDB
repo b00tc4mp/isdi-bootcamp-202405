@@ -1,0 +1,29 @@
+22/07/2024 - 09:08h
+Wednesyay
+
+--------------------
+PART 1
+--------------------
+
+MongoDB is using cloud services
+
+cor will be part of MongoDB, all logic wil be part of
+Mongodb DataBase.
+
+10:18h
+
+import data to connect with Mongodb
+
+-----------------------------------
+PART 2
+-----------------------------------
+
+📁 cor/Data
+
+TODO cor/logic - modified to Mongodb
+TODO cor/data - Modified ti Mongodb
+TODO cor/indes.js
+
+📁 api/
+
+TODO index.js

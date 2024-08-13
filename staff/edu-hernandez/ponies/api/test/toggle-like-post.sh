@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/gen3r4t39Id/likes -X PATCH -H "Authorization: Basic eduhv"

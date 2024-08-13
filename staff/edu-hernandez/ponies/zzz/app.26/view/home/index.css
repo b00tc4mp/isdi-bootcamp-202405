@@ -1,0 +1,33 @@
+@import url('../components/Button.css');
+@import url('../components/Container.css');
+@import url('../components/Form.css');
+@import url('../components/Heading.css');
+@import url('../components/Image.css');
+@import url('../components/Input.css');
+@import url('../components/Label.css');
+@import url('../components/Link.css');
+@import url('../components/Paragraph.css');
+@import url('../components/Time.css');
+
+@import url('./components/Header.css');
+@import url('./components/Footer.css');
+@import url('./components/Post.css');
+@import url('./components/PostList.css');
+@import url('./components/CreatePost.css');
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+.view main { 
+    min-height: 100vh;
+    min-width: 100vh;
+}
+
+.main {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}

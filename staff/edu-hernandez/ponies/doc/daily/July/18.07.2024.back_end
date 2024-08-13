@@ -1,0 +1,86 @@
+18/07/2024 - 09:10h
+Back- end
+
+PARTE 1 - 
+
+*Fix authenticateUser - api's index.js ✅
+*Fix userId(username) - api's index.js ✅
+*Fix authentication - api's index.js ✅
+    const { authorization } = req.headers ✅
+
+    *Fix logic.cor getUsername ✅
+
+*express (:username) generate an object and 
+    we can extract values:
+    const { username } = req.params
+
+*Fix getAllPosts - api's index ✅
+*Fix getAllPoniesPosts - api's index ✅
+*Fix getAllFavPosts - api's index ✅
+
+CREATE - createPosts - api's index ✅
+CREATE - create-post - .sh file ✅
+
+DELETE - develop delete method for ponies 
+
+TOGGLE method for toggleFavPost
+
+*Develop - GeAllPosts
+
+-------------------------------------------------
+PARTE 2 - CONCEPTS
+-------------------------------------------------
+
+Servers are async
+
+sync - at the moment
+async - not at time. Example, setTimeout(() => console.log('hola mundo), 1000)
+
+JAVASCRIPT is a monoprocess language
+JAVASCRIPT Motor for chrome - v8
+JAVASCRIPT Run Time(work environment) - Chrome as well
+
+Each browser is a different run time
+
+setTimeout(() => console.log('speed to 100'), 2000)
+setTimeout(() => console.log('warm up windows'), 4000)
+console.log('turnos lights on')
+
+tick time in js
+
+------------------------
+ASYNC EXAMPLE in console
+------------------------
+
+setTimeout(() => console.log('warm up windows'), 2000)
+    console.log('warm up windows', performance.now())
+
+setTimeout(() => console.log('speed to 100'), 2000)
+    console.log('speed to 100', performance.now())
+
+console.log('turns lights on')
+    console.log('turnos lights on', performance.now())
+
+*********               *********
+*********               *********
+    -------------------------
+    CHECKOUT PLAYGROUND/STUFF
+    -------------------------
+*********               *********
+*********               *********
+<><><><><><><><><><><><><><><>
+
+Implement node 
+
+- getALlPosts ponies/app/logic ✅
+- PostList ponies/app/app/view ✅
+
+<><><><><><><><><><><><><><><>
+
+
+<><><>CHECK OUT<><><>
+--CORS--
+
+TODO Prepare API and running
+TODO Then test CORS into API
+TODO PostList.jsx ponies/app/view/home/postList.jsx

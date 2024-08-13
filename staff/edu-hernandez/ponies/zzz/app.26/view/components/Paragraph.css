@@ -1,0 +1,8 @@
+.Paragraph {
+    font-family: Poppins;
+    font-size: 16px;
+    margin: 0;
+
+    padding-left: .5rem;
+    color: rgb(32, 32, 32);
+}

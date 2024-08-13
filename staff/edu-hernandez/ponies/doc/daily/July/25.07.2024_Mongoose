@@ -1,0 +1,85 @@
+25/07/2024 - 09:12h
+Wednesyay
+
+--------------------
+⚙️ PART 1
+--------------------
+
+ponies/cor
+crear variables de entorno ✅
+
+⚙️.env
+en Terminal, printenv ✅
+
+acceder a variables de entorno
+node process.env ✅
+process.env.HOME ✅
+
+crear nueva variable en el proceso
+process.env.HOLA='MUNDO'
+new process
+HOLA='MUNDO'
+
+📁 ponies/cor/logic
+authenticateUSer - cambiar variable de proceso(process.env.MONGODB_URI) ✅
+
+añadir en .gitignore ✅
+1. .env 
+2. node_modules ✅
+
+instalar en cor y en api
+npm i - D dotenv (para desarrollador) ✅
+
+añadir import dotenv/config en authentincaeUSer.js ✅
+
+cambiar en todos los ficheros que contengan const client = new MongoClient(ipnumber)
+por (process.env.MONGODB:URI) y añadir import dotenv/config
+
+instalar npm i dotenv en api ✅
+
+cambiar index de api console.info ✅
+
+📁crear en app
+⚙️.env ✅
+
+📁app/logic
+
+change line xhr.open('GET', 'http://localhost:8080/posts/ponies') ✅
+xhr.open{'POST', `$import.meta.env.VITE_API_URL`}
+cambiar en todas las logicas de app ✅
+
+cambiar export default en todas las lógicas de app como return
+
+No se ve afectado el index por que el archivo mantiene el nombre.
+Cambia la declaración dentro de cada función.
+
+📁 cor/logic
+
+cambiar a export default todas los archivos como un gran return, export default
+mantiene la gestión de los errores de manera interna.
+
+-----------------------------------------------
+⚙️ PART 2
+-----------------------------------------------
+
+📁 ponies/com
+add com
+
+📁 ponies/app/logic
+
+set up all functions ✅
+
+trabajar en el README.txt 
+
+git switch develop move
+
+crear issue project ✅
+
+
+📁 ponies/cor/data
+npm i mongoose ✅
+create a Mongoose Demo  ✅
+
+TODO todas las lógicas con mongoose ✅
+TODO index de api cambiar mongodb por mongoose ✅
+TODO data/index.js borrar 

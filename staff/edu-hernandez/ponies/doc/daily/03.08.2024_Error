@@ -1,0 +1,25 @@
+29/07/2024 - 09:37h
+Friyay
+
+------------------------------------
+⚙️ PART 1 - React Dom
+------------------------------------
+
+ponies/app
+
+install Routers for react
+
+npm i react-router-dom
+
+Insert importation ReactDOM
+Proteger Rutas con UseNavigate & 
+Navigate
+
+index.jsx
+App.jsx
+
+------------------------------------
+⚙️ PART 2 - react Dom
+------------------------------------
+
+Home.jsx

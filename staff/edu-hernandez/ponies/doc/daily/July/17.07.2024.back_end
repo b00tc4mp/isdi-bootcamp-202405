@@ -1,0 +1,46 @@
+Back- end 09:19h
+
+Re-editar Login en index, gestion de errores dentro de la
+página.
+
+Reemplazar html <p><p> con error message
+
+Gestionar los errores de registros, eliminar html de registro y printar dentro de la misma página de registro
+mostrando el error.
+
+password no guardar em caso de error.
+
+https://www.geeksforgeeks.org/server-side-rendering-vs-client-side-rendering-vs-server-side-generation/
+
+PARTE 2 - APP OFFICIAL
+
+api trabaja con .json
+web trabaja con html
+
+Montar la api para vincular la web con la api.
+
+importar cor en api
+
+npm i cor en api
+
+crear un curl con register user
+
+.json siempre en comillas dobles
+
+recbir data
+
+setEncoding('utf-8') setea y codifica data
+
+parsear data a JSON
+
+si resulta todo efectivo res.status(201).send{}
+
+try & catch, probar de importar logic desde cor y la usame en try para traer el métdo registerUser
+con los parámetros que se requieran.
+
+si existe algu error, res.status(500) //response status. Para saber que tipo de error es res,status(500).json({ error : error.constructor.name, message: eror.message })
+
+
+// TODO POST /users/auth (authenticateUser)
+// TODO GET /users/:userId/name (getUserName)
+// TODO GET /posts/

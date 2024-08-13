@@ -1,0 +1,32 @@
+21/07/2024
+Sunyay
+
+{ errors }
+
+📁 api/test/get-all-posts.sh
+    {"error":"TypeError","message":"Cannot read properties of null (reading 'username')"}*
+
+📁 api/index.js
+    Could not find a declaration file for module 'express'. 
+    '../ponies/api/node_modules/express/index.js' implicitly has an 'any' type.
+
+    Try `npm i --save-dev @types/express` if it exists or add a new declaration (.d.ts) 
+    file containing `declare module 'express';`ts(7016)
+
+📁 ponies/api_new_version
+
+Could not find a declaration file for module 'cor/logic/index.js'. 
+'/Users/eduhernandez/workspace/isdi-bootcamp-202405/staff/edu-hernandez/ponies/cor/logic/index.js' 
+implicitly has an 'any' type.
+Try `npm i --save-dev @types/cor` if it exists or add a new declaration (.d.ts) file containing 
+`declare module 'cor/logic/index.js';`ts(7016)
+
+📁 ponies/api_new_version
+
+Could not find a declaration file for module 'cor/logic/index.js'. 
+'/Users/eduhernandez/workspace/isdi-bootcamp-202405/staff/edu-hernandez/ponies/cor/logic/index.js' 
+implicitly has an 'any' type.
+Try `npm i --save-dev @types/cor` if it exists or add a new declaration (.d.ts) file containing 
+`declare module 'cor/logic/index.js';`ts(7016)
+
+📁 ..

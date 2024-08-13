@@ -1,0 +1,349 @@
+import 'dotenv/config'
+import mongoose from 'mongoose'
+import { expect } from 'chai'
+import bcrypt from 'bcryptjs'
+import registerUser from './registerUser.js'
+import { User } from '../data/models.js'
+import { errors } from 'com'
+
+const { ValidationError, DuplicityError } = errors
+
+describe('registerUser', () => {
+    before(() => mongoose.connect(process.env.MONGODB_URI))
+
+    beforeEach(() => User.deleteMany())
+
+    it('succeeds on new user', () =>
+        registerUser(
+            'Roger',
+            'Federer',
+            'roger@federer.com',
+            'rfederer',
+            '123123123',
+            '123123123')
+            .then(() => User.findOne({ username: 'rfederer' }).lean())
+            .then(user => {
+                expect(user.name).to.equal('Roger')
+                expect(user.surname).to.equal('Federer')
+                expect(user.email).to.equal('roger@federer.com')
+
+                return bcrypt.compare('123123123', user.password)
+            })
+            .then(match => expect(match).to.be.true)
+    )
+
+    it('fails on existing user with same email', () => {
+        let _error
+
+        return User.create({
+            name: 'Roger',
+            surname: 'Federer',
+            email: 'roger@federer.com',
+            username: 'rfederer',
+            password: '123123123'
+        })
+            .then(() =>
+                registerUser(
+                    'Novak',
+                    'Djokovic',
+                    'roger@federer.com',
+                    'novak',
+                    '123123123',
+                    '123123123'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(error).to.be.instanceOf(DuplicityError)
+                expect(error.message).to.equal('user already exists')
+            })
+    })
+
+    it('fails on existing user with same username', () => {
+        let _error
+
+        return User.create({
+            name: 'Roger',
+            surname: 'Federer',
+            email: 'roger@federer.com',
+            username: 'rfederer',
+            password: '123123123'
+        })
+            .then(() =>
+                registerUser(
+                    'Roger',
+                    'Federer',
+                    'roger@federer.com',
+                    'rfederer',
+                    '123123123',
+                    '123123123'
+                ))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('user already exists')
+            })
+    })
+
+    it('fails on non-string name', () => {
+        let error
+
+        try {
+            registerUser(
+                45,
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('name is not a string')
+        }
+    })
+
+    it('fails on invalid name', () => {
+        let error
+
+        try {
+            registerUser(
+                'Ro',
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid name')
+        }
+    })
+
+    it('fails on non-string surname', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                45,
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('surname is not a string')
+        }
+    })
+
+    it('fails on invalid surname', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'RF',
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid surname')
+        }
+    })
+
+    it('fails on non-string email', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                43,
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('email is not a string')
+        }
+    })
+
+    it('fails on invalid email', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'rf@rf.com',
+                'roger',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid email')
+        }
+    })
+
+    it('fails on non-string username', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'roger@federer.com',
+                43,
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('username is not a string')
+        }
+    })
+
+    it('fails on invalid username', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'R',
+                '123123123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid username')
+        }
+    })
+
+    it('fails on non-string password', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                123123123,
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password is not a string')
+        }
+    })
+
+    it('fails on password short', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'rfederer',
+                '123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password length is lower than 8 characters')
+        }
+    })
+
+    it('fails on password with empty spaces', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                '123123 123',
+                '123123123',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password has empty spaces')
+        }
+    })
+
+    it('fails on non-matching passwords', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'rfederer',
+                '123123123',
+                '123123132',
+                error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('passwords do not match')
+        }
+    })
+
+    it('fails on non-function callback', () => {
+        let error
+
+        try {
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'rfederer',
+                '123123123',
+                '123123132',
+                '')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('callback is not a function')
+        }
+    })
+
+    afterEach(() => User.deleteMany())
+
+    after(() => mongoose.disconnect())
+})

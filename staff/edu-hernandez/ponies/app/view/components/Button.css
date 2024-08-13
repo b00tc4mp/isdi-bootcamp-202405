@@ -1,0 +1,76 @@
+.Button {
+    font-family: Poppins;
+    font-size: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    font-weight: 400;
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+    padding: 4px 6px;
+    background-color: #075277;
+    color: #eee;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: #69696959 0px 5px 15px;
+}
+
+.Button--reverse {
+    background-color: #ffffff;
+    color: #075277;
+}
+
+.Button--follow {
+    box-sizing: border-box;
+    width: 100px;
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    padding: 0;
+    color: white;
+    background-color: #075277;
+}
+
+.Button--header {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px;
+    color: #075277;
+    background-color: #ffffff;
+}
+
+.Button--like {
+    color: #232323;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.Button--adfav {
+    font-weight: 600;
+    color: #075277;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.Button--actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 20%;
+    padding: .2rem .5rem .2rem .5rem;
+    color: #232323;
+    background-color: transparent;
+}
+
+.Button--delete {
+    width: 20%;
+    background-color: #c7513c;
+}
+
+.Button--edit {
+    width: 20%;
+    background: linear-gradient(to right, #1d976c, #93f9b9);
+}

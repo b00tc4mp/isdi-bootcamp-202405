@@ -1,0 +1,16 @@
+.Button {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px;
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+    padding: 4px 6px 4px 6px;
+
+    background-color: #24e1db;
+    color: rgb(51, 51, 51);
+}
+
+.Button__follow {
+    font-family: inherit;
+    color: gray;
+}

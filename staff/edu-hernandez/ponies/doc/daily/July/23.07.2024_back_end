@@ -1,0 +1,36 @@
+22/07/2024 - 09:10h
+Tuesyay
+
+{ Refactorize Component to function in React }
+
+We're using import useState from react 
+Handle State from component to function, and using Hooks.
+Not using bind and this
+Modified to setView
+Check-out components from console
+useEffect instead compononentDidMount
+Modified arrow function from component
+
+📁 ponies/app/
+App.jsx ✅
+Home.jsx ✅
+PostList.jsx ✅
+PoniesPostList.jsx ✅
+FavPostList.jsx ✅
+Footer.jsx ✅ 
+Header.jsx ✅
+
+📁 ponies/cor/logic
+getAllPoniesPost.jsx - add if to posts ✅
+getAllPosts.js - add if to posts ✅
+getFavPosts.js - add if to posts ✅
+
+----------------------------------------
+PART 2
+----------------------------------------
+
+Changing Ponies to Data Base
+
+download ->
+MongoDB - ZIP - Mongodb
+MongoDB Shell - MMongosh

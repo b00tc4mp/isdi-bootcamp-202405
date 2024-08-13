@@ -1,0 +1,16 @@
+.Button {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: .5rem;
+    border-width: 1px;
+    border-style: solid;
+    padding: .25rem .5rem;
+}
+
+.Button:hover {
+    border-color: lightgray;
+}
+
+.Button--active {
+    border-color: lightgray;
+}

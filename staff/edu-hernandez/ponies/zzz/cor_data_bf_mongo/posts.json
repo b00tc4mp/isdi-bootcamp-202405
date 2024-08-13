@@ -1,0 +1,78 @@
+[
+    {
+        "id": "kit2f2obx5o",
+        "image": "https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif?cid=790b761137mttl2ldk45kpjdi68q2no2naza0tddf92052i3&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        "caption": "test",
+        "author": "eduhv",
+        "date": "2024-07-23T12:11:47.079Z",
+        "likes": [
+            "lucas"
+        ]
+    },
+    {
+        "id": "f0mmmnmyi4g",
+        "image": "https://media.giphy.com/media/tHIRLHtNwxpjIFqPdV/giphy.gif?cid=82a1493b9wsyxs3wghbiahclfzlhfyf7xrsos076712jzjxt&ep=v1_gifs_trending&rid=giphy.gif&ct=g",
+        "caption": "test",
+        "author": "eduhv",
+        "date": "2024-07-23T12:46:42.538Z",
+        "likes": [
+            "rtapia",
+            "lucas",
+            "eduhv"
+        ]
+    },
+    {
+        "id": "1i36otb883eo",
+        "image": "https://media3.giphy.com/media/etn52ENYVnpxqMaXiT/giphy.webp?cid=82a1493b3e13p090u8quqxk8fvvu4kt6edftqgirysh3qchn&ep=v1_gifs_trending&rid=giphy.webp&ct=g",
+        "caption": "sunyay",
+        "author": "eduhv",
+        "date": "2024-07-23T14:19:31.638Z",
+        "likes": [
+            "rtapia",
+            "lucas"
+        ]
+    },
+    {
+        "id": "3j776ky7c4m0",
+        "image": "https://media3.giphy.com/media/etn52ENYVnpxqMaXiT/giphy.webp?cid=82a1493b3e13p090u8quqxk8fvvu4kt6edftqgirysh3qchn&ep=v1_gifs_trending&rid=giphy.webp&ct=g",
+        "caption": "test7",
+        "author": "eduhv",
+        "date": "2024-07-23T14:37:29.039Z",
+        "likes": [
+            "eduhv",
+            "rtapia",
+            "lucas"
+        ]
+    },
+    {
+        "id": "1dcmzb4jjme",
+        "image": "https://media.giphy.com/media/Ok4HaWlYrewuY/giphy.gif?cid=82a1493bc7s2wxfwpn37gsnm0e6o7xxlmidg59mkx3p2v7g6&ep=v1_gifs_trending&rid=giphy.gif&ct=g",
+        "caption": "oh my",
+        "author": "lucas",
+        "date": "2024-07-24T06:44:58.702Z",
+        "likes": [
+            "eduhv"
+        ]
+    },
+    {
+        "id": "m57a9ky4zkw",
+        "image": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnh5Z3Bqc28xdjE0YzN6czNvdXFlMm1maHBjeWthZmphbnMwOHc3aSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/JW9OPVo9fiyfm/giphy.gif",
+        "caption": "Superman",
+        "author": "clark",
+        "date": "2024-07-24T06:45:59.062Z",
+        "likes": [
+            "clark",
+            "eduhv"
+        ]
+    },
+    {
+        "id": "dsxkcxubecw",
+        "image": "https://media.giphy.com/media/tHIRLHtNwxpjIFqPdV/giphy.gif?cid=82a1493b9wsyxs3wghbiahclfzlhfyf7xrsos076712jzjxt&ep=v1_gifs_trending&rid=giphy.gif&ct=g",
+        "caption": "test",
+        "author": "rtapia",
+        "date": "2024-07-24T06:53:33.010Z",
+        "likes": [
+            "rtapia"
+        ]
+    }
+]

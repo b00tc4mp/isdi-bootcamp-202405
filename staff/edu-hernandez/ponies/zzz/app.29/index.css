@@ -1,0 +1,31 @@
+@import url('./view/components/Button.css');
+@import url('./view/components/Input.css');
+@import url('./view/components/Label.css');
+@import url('./view/components/Form.css');
+@import url('./view/components/Time.css');
+@import url('./view/components/Image.css');
+@import url('./view/components/Paragraph.css');
+@import url('./view/components/Container.css');
+@import url('./view/components/Heading.css');
+
+@import url('./view/home/Header.css');
+@import url('./view/home/Footer.css');
+@import url('./view/home/Post.css');
+@import url('./view/home/PostList.css');
+@import url('./view/home/CreatePost.css');
+@import url('./view/home/Avatar.css');
+
+* {
+    margin: 0;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+
+    background-image: url(./img/background/flag.png);
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}

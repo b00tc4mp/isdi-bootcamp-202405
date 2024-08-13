@@ -1,0 +1,43 @@
+.Container {
+    display: flex;
+    box-sizing: border-box;
+    padding: .4rem;
+}
+
+.Container--column {
+    flex-direction: column;
+}
+
+.Container--center {
+    justify-content: center;
+}
+
+.Container--right {
+    justify-content: end;
+}
+
+.Container--buttons--center {
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    gap: .4rem;
+}
+
+.Container--row {
+    flex-direction: row;
+    gap: .5rem;
+}
+
+.Container--row--spacebetween {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    padding: .5rem .5rem 0rem .5rem;
+}
+
+.Container--row--around {
+    justify-content: space-around;
+    align-items: start;
+}

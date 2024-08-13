@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts -X POST -d '{"image":"https://media.giphy.com/media/kJBrIj09bDX4diGYZo/giphy.gif?cid=ecf05e47mddu5ys4gesjqwbfyhy5zet0hzsean0leg14kab0&ep=v1_gifs_search&rid=giphy.gif&ct=g","caption":"Caerphily Castle"}' -H "Authorization: Basic eduhv" -H "Content-Type: application/json"

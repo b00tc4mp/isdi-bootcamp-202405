@@ -1,0 +1,24 @@
+.Paragraph {
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    color: #075277;
+}
+
+.Ponie--font {
+    font-family: Poller One;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFA2D1;
+}
+
+.Paragraph--weight600 {
+    font-weight: 600;
+}
+
+.Paragraph--post__caption {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    padding: 0rem .5rem 0rem .5rem;
+}

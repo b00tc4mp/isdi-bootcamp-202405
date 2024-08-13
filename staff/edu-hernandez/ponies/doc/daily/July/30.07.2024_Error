@@ -1,0 +1,31 @@
+29/07/2024 - 09:37h
+Tuesyay
+
+------------------------------------
+⚙️ PART 1 - Seguridad
+------------------------------------
+
+JSON Web Token (JWT)
+https://medium.com/@extio/understanding-json-web-tokens-jwt-a-secure-approach-to-web-authentication-f551e8d66deb
+
+📁 ponies/api
+
+index.js ✅
+get-user-name.sh ✅
+.env ✅
+
+📁 app/logic
+
+loginUser.js
+{...} ✅
+
+Post.jsx
+
+📁 cor/logic
+
+registeUser.js ✅
+authenticateUser.js ✅
+registeUser.spec.js ✅
+registeUser.test.js ✅
+
+📁 new playground/ts folder

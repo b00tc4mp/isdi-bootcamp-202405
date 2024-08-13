@@ -1,0 +1,109 @@
+19/07/2024 - 09:06h
+Friyay
+Back- end
+
+PARTE 1 - Fix problems
+
+<><>--REFACTORIZE--<><>
+
+TODO copy getAllPosts to 
+- getAllFavPosts (change route) ✅
+- getAllPoniesPosts (cchange route) ✅
+
+Edit api's index.js, add CORS to ponies/favs & PoniesPostLists
+- Edit PoniesPostLists ✅
+
+📁app/logic/registerUSer.js ✅
+TODO input validation ✅
+
+----------------------------------------------------------------
+
+Express offers the possibility to set Headers for all setHeaders
+index.js
+
+TODO loginUser ponies/app/logic and {..} ✅
+TODO login.jsx ponies/app/view 
+TODO register.jsx ponies/app/logic - Line 35
+
+TODO validation ✅
+
+TODO getUserName ponies/app/logic
+TODO Header.jsx ponies/app/view/home
+
+-------------------------------------
+PART 2 - REFACTORIZE CODE
+-------------------------------------
+
+WIP refactorizing code adding server side
+
+📁ponies/app/logic
+createPost.js
+deletePost.js
+toggleLikePost.js
+toggleFavPosts.js
+updatePostCaption.js
+toggleFollowUser.js
+loginUser.js
+
+📁ponies/app/view/home
+createPost.jsx
+
+📁app/view/home
+PostList.jsx
+FavsPostList.jsx
+PoniesPostList.jsx
+Post.jsx    - handleLikePostClick
+            - handleEditPostSubmit
+            - 
+
+📁ponies/cor/data
+👓Checkout posts.json
+👓users.json
+
+📁ponies/api/index.js
+develop posts/postId updatePostCaption
+
+📁ponies/cor/test
+🆕develop update-post-caption.sh
+authenticate-user.shregister-user.sh
+create-post.sh
+
+----------------------------------------->
+Next Step
+<-----------------------------------------
+
+API & COR to async
+We have to 
+
+fs.readFileSync is not a good practice.
+
+📁ponies/cor/data
+insertUser.js
+insertUser.test.js
+findUser.js
+findUser.test.js
+insertPost.js
+insertPost.test.js
+deletePost.js
+findPpost.js
+findPost.test.js
+getAllFavPosts.js
+
+
+📁ponies/cor/logic
+registerUser.js
+registerUser.test.js
+authenticateUser.js
+createPost.js   - import validate
+                - validate.username {..}
+getAllFavPosts.js
+getAllPoniesPosts.js
+getAllPost.js
+
+📁ponies/api/index.js
+index.js    - api.post('/users')
+            - authenticateUser
+            - data
+
+📁ponie/cor
+add url validate.js

@@ -1,0 +1,98 @@
+26/07/2024 - 09:00h
+Wednesyay
+
+--------------------
+⚙️ PART 1 - mongoose
+--------------------
+
+⚙️ Limpiar Base de Datos/Corrupto
+
+📁 cor/logic ✅
+
+Revisar:
+
+Logic and implement mongoose to all functions
+    - DeletePost.js & test
+        - Añadir comprobación de (post.author !== username)
+        antes de borrar Post.
+        - findById
+        - deleteOne, _id
+        - Testing
+    - getAllFavPosts & test
+        - .lean()
+        - findOne()
+        - imports
+    - getAllPosts
+        - imports
+    - getAllPoniesPosts & test
+        - imports
+        - toArray()
+    - toggleFavPost & test
+        - Post.findById(postId).lean()
+    - toggleFollowUSer & test
+        - checkout
+    - updatePostCaption & test
+        - imports
+        - User.findById(postId).lean()
+
+📁 cor/ installed chai & mocha 
+
+    - demo_chai.js ✅
+    - demo_mocha.js ✅
+
+Herraminetas de testing - automatizar
+
+Mocha & chai
+
+-------------------------------------
+⚙️ PART 2 Mocha & Chai
+-------------------------------------
+
+Automatizar Tests
+
+Vamos a testear nucleo de getAllPoniesPosts
+así que instalamos mocha & chai en cor
+
+📁 cor/package.json
+
+modificar test ✅
+
+Para debugar mocha te ofrece la opción de arrancar modo test
+
+📁 cor/logic all test.js
+
+
+TODO registerUSer.spec.js
+
+registerUSer.test.js ✅
+    - describe('registerUSer', () => {
+        it('succeeds on new user', done => {
+            registerUser('', '', '', username data, error => {
+                console.error(error)
+
+                return
+            })
+        })
+    })
+
+hacer pruebas para todo tipo de errores
+    - email
+    - password
+    - ...
+
+Probar errores async, con try catch.
+Probar varios métodos ✅
+
+TODO toggleLikePost.js ✅
+TODO add toggleLikePost.spec.js ✅
+
+TODO toggleLikePost callback ✅
+
+📁 cor/.env
+
+añadir en .env test para realizar las pruebas en la BBDD. ✅
+probar base de datos /test ✅
+ 
+📁 api/.env
+
+añadir /ponies para dejar lista la base de datos sea la oficial ✅
