@@ -5,6 +5,7 @@ import Header from './Header'
 import Library from './Library'
 import Footer from './Footer'
 import GameRegister from './GameRegister'
+import GameSearch from './GameSearch'
 
 export default function Home({ onLogout }) {
     const [path, setPath] = useState('/')
@@ -38,7 +39,7 @@ export default function Home({ onLogout }) {
             <Routes>
                 <Route path='/' element={<p className='text-white'>Hello World</p>} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
-                <Route path='/games/search' />
+                <Route path='/games/search' element={<GameSearch />} />
                 <Route path='/games/:gameId' />
             </Routes>
         </main>

@@ -16,7 +16,7 @@ const link = 'https://www.microsoft.com/en-us/p/candy-crush-saga/9nblggh18846?ac
 describe('registerGame', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() => User.deleteMany())
+    beforeEach(() => Promise.all([User.deleteMany(), Game.deleteMany()]))
 
     it('succeds on new game', () =>
         User.create({ username: 'monoloco', email: 'mono@loco.com', password: '12312323' })
@@ -111,7 +111,7 @@ describe('registerGame', () => {
         }
     })
 
-    afterEach(() => User.deleteMany())
+    afterEach(() => Promise.all([User.deleteMany(), Game.deleteMany()]))
 
     after(() => mongoose.disconnect())
 })
