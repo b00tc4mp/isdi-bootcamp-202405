@@ -1,4 +1,3 @@
-import Logo from '../library/Logo'
 import Container from '../library/Container'
 import Form from '../library/Form'
 import Input from '../library/Input'
@@ -37,8 +36,7 @@ export default function GameRegister({ onGameRegister }) {
 
     return <>
         <Container className='flex flex-col items-center w-full h-full dark:bg-[#1e1e1e]'>
-            <Logo />
-            <Form className='gap-2 flex justify-between items-center' onSubmit={handleRegisterSubmit}>
+            <Form className='gap-2 flex justify-around items-center' onSubmit={handleRegisterSubmit}>
                 <Input id='name-input' type='text' placeholder='Name' />
                 <Input id='image-input' type='text' placeholder='Image' />
                 <Input id='description-input' type='text' placeholder='Description' />

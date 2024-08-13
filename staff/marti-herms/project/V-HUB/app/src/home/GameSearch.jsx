@@ -5,7 +5,7 @@ import Form from '../library/Form'
 import Input from '../library/Input'
 import Button from '../library/Button'
 
-export default function GameSearch() {
+export default function GameSearch({ onChange }) {
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
@@ -38,9 +38,11 @@ export default function GameSearch() {
         const { value: query } = event.target
 
         setQuery(query)
+
+        onChange()
     }
 
-    return <Form onSubmit={handleSubmit} className='flex justify-start items-center text-black'>
+    return <Form onSubmit={handleSubmit} className='flex h-[20%] my-2 gap-2 justify-start items-center text-black'>
         <Input name='q' placeholder='search' value={query} onChange={handleInputChange} />
         <Button className='bg-white' type='submit'>Search</Button>
     </Form>

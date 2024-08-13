@@ -6,9 +6,11 @@ import Library from './Library'
 import Footer from './Footer'
 import GameRegister from './GameRegister'
 import GameSearch from './GameSearch'
+import GameSearchResults from './GameSearchResults'
 
 export default function Home({ onLogout }) {
     const [path, setPath] = useState('/')
+    const [refreshStamp, setRefreshStamp] = useState(null)
 
     const navigate = useNavigate()
 
@@ -17,6 +19,7 @@ export default function Home({ onLogout }) {
     }, [path])
 
     const handleHomeClick = () => {
+        setRefreshStamp(Date.now())
         setPath('/')
     }
 
@@ -25,7 +28,12 @@ export default function Home({ onLogout }) {
     }
 
     const handleSearchGameClick = () => {
+        setRefreshStamp(Date.now())
         setPath('/games/search')
+    }
+
+    const handleInputChange = () => {
+        setRefreshStamp(Date.now())
     }
 
     const handleRegisterGame = (gameId) => {
@@ -39,7 +47,7 @@ export default function Home({ onLogout }) {
             <Routes>
                 <Route path='/' element={<p className='text-white'>Hello World</p>} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
-                <Route path='/games/search' element={<GameSearch />} />
+                <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} /></>} />
                 <Route path='/games/:gameId' />
             </Routes>
         </main>

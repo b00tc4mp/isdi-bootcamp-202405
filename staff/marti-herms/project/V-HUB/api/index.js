@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
 
-        api.post('/games/search', jwtVerifier, handle.searchGame)
+        api.get('/games/search', jwtVerifier, handle.searchGame)
 
         api.use(errorHandler)
 
