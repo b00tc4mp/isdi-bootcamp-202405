@@ -26,6 +26,10 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/games/search', jwtVerifier, handle.searchGame)
 
+        api.get('/games/library', jwtVerifier, handle.getUserLibrary)
+
+        api.patch('/games/library/:gameId', jwtVerifier, handle.toggleAddGame)
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
