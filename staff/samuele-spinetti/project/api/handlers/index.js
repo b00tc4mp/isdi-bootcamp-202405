@@ -4,6 +4,7 @@ import getUserNameHandler from './getUserNameHandler.js'
 import getUserHandler from './getUserHandler.js'
 import updateAvatarHandler from './updateAvatarHandler.js'
 import updatePasswordHandler from './updatePasswordHandler.js'
+import getAllHCPsHandler from './getAllHCPsHandler.js'
 
 export {
     authenticateUserHandler,
@@ -11,5 +12,6 @@ export {
     getUserNameHandler,
     getUserHandler,
     updateAvatarHandler,
-    updatePasswordHandler
+    updatePasswordHandler,
+    getAllHCPsHandler
 }

@@ -33,7 +33,7 @@ const point = new Schema({
         type: String,
         enum: ['Point'],
         required: true,
-        defaul: 'Point'
+        default: 'Point'
     },
     coordinates: {
         type: [Number],

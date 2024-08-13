@@ -1,14 +1,15 @@
+@import "leaflet/dist/leaflet.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "leaflet/dist/leaflet.css";
 
 @layer base {
     html {
         font-family: "Cabin", system-ui, sans-serif;
     }
 }
+
+
 
 * {
     box-sizing: border-box;

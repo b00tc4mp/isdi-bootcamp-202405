@@ -48,7 +48,7 @@ export default function SearchHCP({ onHealthCareProviderSearched }) {
     return <>
         <Container className="flex flex-row">
             <Form onSubmit={handleSearchHealthCareProviderSubmit}>
-                <Input className="border border-black" type="text" name="q" id="search-input" placheholder="Search" defaulValue={query} value={query} onChange={handleInputChange} />
+                <Input className="border border-black" type="text" name="q" id="search-input" placheholder="Search" defaultValue={query} value={query} onChange={handleInputChange} />
                 <Button type="submit">
                     <Image className="h-[30px] w-[30px]" src="/searchIcon.svg" alt="Search icon" />
                 </Button>

@@ -5,6 +5,7 @@ import getUser from './getUser.js'
 import updateAvatar from './updateAvatar.js'
 import updatePassword from './updatePassword.js'
 import getAllHCPs from './getAllHCPs.js'
+import searchHCP from './searchHCP.js'
 
 const logic = {
     authenticateUser,
@@ -13,7 +14,8 @@ const logic = {
     getUser,
     updateAvatar,
     updatePassword,
-    getAllHCPs
+    getAllHCPs,
+    searchHCP
 }
 
 export default logic

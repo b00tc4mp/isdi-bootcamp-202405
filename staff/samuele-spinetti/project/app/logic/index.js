@@ -6,6 +6,7 @@ import registerUser from './registerUser.js'
 import getUser from './getUser.js'
 import updateAvatar from './updateAvatar.js'
 import updatePassword from './updatePassword.js'
+import getAllHCPs from './getAllHCPs.js'
 
 const logic = {
     isUserLoggedIn,
@@ -15,7 +16,8 @@ const logic = {
     getUserName,
     getUser,
     updateAvatar,
-    updatePassword
+    updatePassword,
+    getAllHCPs
 }
 
 export default logic

@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 
 import logic from '../../logic'
 
 import HealthCareProvider from './HealthCareProvider'
 
 export default function HealthCareProvidersList() {
-    const [healthCareProviders, setHealthCareProviders] = useState()
+    const [healthCareProviders, setHealthCareProviders] = useState([])
 
     useEffect(() => {
-        loadHCP()
-    }, [refreshStamp])
-
-    const loadHCP = () => {
         try {
-            logic.getAllSearchHCPList()
+            logic.getAllHCPs()
                 .then(healthCareProviders => setHealthCareProviders(healthCareProviders))
                 .catch(error => {
                     console.error(error)
@@ -26,13 +21,12 @@ export default function HealthCareProvidersList() {
 
             alert(error.message)
         }
-    }
+    }, [])
 
-    return <section className="flex flex-col gap-4">
-        {
-            healthCareProviders.map(healthCareProvider => <HealthCareProvider
-                key={healthCareProvider.id}
-                healthCareProvider={healthCareProvider}
-            />)}
+    return <section className="pt-[500px] flex flex-col gap-6">
+        {healthCareProviders.map(healthCareProvider => <HealthCareProvider
+            key={healthCareProvider._id}
+            healthCareProvider={healthCareProvider}
+        />)}
     </section>
 }
