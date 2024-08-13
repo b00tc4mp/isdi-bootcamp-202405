@@ -10,6 +10,7 @@ import searchItems from './searchItems'
 import toggleFollowUser from './toggleFollowUser'
 import getAllFollowingUserPosts from './getAllFollowingUserPosts'
 import deletePost from './deletePost'
+import createEvent from './createEvent'
 
 const logic = {
     registerUser,
@@ -23,7 +24,8 @@ const logic = {
     searchItems,
     toggleFollowUser,
     getAllFollowingUserPosts,
-    deletePost
+    deletePost,
+    createEvent
 }
 
 export default logic

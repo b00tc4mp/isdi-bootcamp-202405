@@ -7,6 +7,7 @@ import searchItemsHandler from './searchItemsHandler.js'
 import toggleFollowUserHandler from './toggleFollowUserHandler.js'
 import getAllFollowingUserPostsHandler from './getAllFollowingUserPostsHandler.js'
 import deletePostHandler from './deletePostHandler.js'
+import createEventHandler from './createEventHandler.js'
 
 export {
     registerUserHandler,
@@ -17,5 +18,6 @@ export {
     searchItemsHandler,
     toggleFollowUserHandler,
     getAllFollowingUserPostsHandler,
-    deletePostHandler
+    deletePostHandler,
+    createEventHandler
 }
