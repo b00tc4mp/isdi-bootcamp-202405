@@ -4,6 +4,7 @@ import registerUser from './registerUser.js'
 import isUserLoggedIn from './isUserLoggedIn.js'
 import getUserUsername from './getUserUsername.js'
 import registerGame from './registerGame.js'
+import searchGame from './searchGame.js'
 
 const logic = {
     loginUser,
@@ -11,7 +12,8 @@ const logic = {
     registerUser,
     isUserLoggedIn,
     getUserUsername,
-    registerGame
+    registerGame,
+    searchGame
 }
 
 export default logic
