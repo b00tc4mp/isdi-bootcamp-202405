@@ -18,6 +18,7 @@ export default (userId, query) => {
                 .then(games => {
                     const promises = games.map(game => {
                         game.inLibrary = user.library.some(gameObjectId => gameObjectId.toString() === game._id.toString())
+                        game.inFavs = user.favs.some(gameObjectId => gameObjectId.toString() === game._id.toString())
 
                         return game
                     })

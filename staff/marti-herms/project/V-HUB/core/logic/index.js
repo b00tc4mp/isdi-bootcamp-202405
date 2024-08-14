@@ -5,6 +5,7 @@ import registerGame from './registerGame.js'
 import searchGame from './searchGame.js'
 import getUserLibrary from './getUserLibrary.js'
 import toggleAddGame from './toggleAddGame.js'
+import toggleFavGame from './toggleFavGame.js'
 
 const logic = {
     authenticateUser,
@@ -13,7 +14,8 @@ const logic = {
     registerGame,
     searchGame,
     getUserLibrary,
-    toggleAddGame
+    toggleAddGame,
+    toggleFavGame
 }
 
 export default logic

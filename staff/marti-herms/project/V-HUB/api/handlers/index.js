@@ -5,6 +5,7 @@ import registerGameHandler from './registerGameHandler.js'
 import searchGameHandler from './searchGameHandler.js'
 import getUserLibraryHandler from './getUserLibraryHandler.js'
 import toggleAddGameHandler from './toggleAddGameHandler.js'
+import toggleFavGameHandler from './toggleFavGameHandler.js'
 
 const handle = {
     authenticateUser: authenticateUserHandler,
@@ -13,7 +14,8 @@ const handle = {
     registerGame: registerGameHandler,
     searchGame: searchGameHandler,
     getUserLibrary: getUserLibraryHandler,
-    toggleAddGame: toggleAddGameHandler
+    toggleAddGame: toggleAddGameHandler,
+    toggleFavGame: toggleFavGameHandler
 }
 
 export default handle

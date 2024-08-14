@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default (gameId) => {
     validate.string(gameId, 'gameId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/games/${gameId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/games/${gameId}/library`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
