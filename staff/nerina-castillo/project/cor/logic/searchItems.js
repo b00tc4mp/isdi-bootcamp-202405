@@ -14,11 +14,11 @@ export default (userId, query) => {
 
             const userSearch = User.find({ username: new RegExp(query) }, { __v: 0 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(users => users.map(foundUser => ({
-                    id: foundUser._id.toString(),
-                    username: foundUser.username,
-                    avatar: foundUser.avatar,
-                    following: user.following.some(userObjectId => userObjectId.toString() === foundUser._id.toString())
+                .then(users => users.map(user => ({
+                    id: user._id.toString(),
+                    username: user.username,
+                    avatar: user.avatar,
+                    following: user.following.some(userObjectId => userObjectId.toString() === user._id.toString())
                 })))
 
             const postSearch = Post.find({ text: new RegExp(query) }, { __v: 0 }).sort({ date: -1 }).lean()

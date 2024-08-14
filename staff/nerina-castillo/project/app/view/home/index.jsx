@@ -5,7 +5,6 @@ import Heading from '../library/Heading'
 import logic from '../../logic/index.js'
 import Header from './Header'
 import Footer from './Footer'
-import PostList from './PostList'
 import ResultsPostList from './ResultsPostList'
 import FollowingPostList from './FollowingUserPostList'
 
@@ -50,9 +49,7 @@ export default function Home({ onLogout }) {
             <Routes>
                 <Route path='/' element={<FollowingPostList refreshStamp={refreshStamp} />} />
 
-                <Route path='/search' element={<PostList refreshStamp={refreshStamp} />} />
-
-                <Route path='/search/:to' element={<ResultsPostList refreshStamp={refreshStamp} />} />
+                <Route path='/search' element={<ResultsPostList refreshStamp={refreshStamp} />} />
             </Routes>
         </main>
 

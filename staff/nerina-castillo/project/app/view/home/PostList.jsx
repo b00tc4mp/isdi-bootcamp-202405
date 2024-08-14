@@ -38,7 +38,6 @@ export default function PostList({ refreshStamp }) {
     }
 
     return <section>
-        <Search />
 
         {posts.map(post => <Post
             key={post.id}

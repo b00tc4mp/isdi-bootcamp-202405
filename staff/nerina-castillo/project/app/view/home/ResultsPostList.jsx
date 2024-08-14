@@ -5,6 +5,7 @@ import logic from '../../logic'
 
 import Post from './Post'
 import Heading from '../library/Heading'
+import Search from './Search'
 
 export default function ResultsPostList({ refreshStamp }) {
     const [searchParams] = useSearchParams()
@@ -14,9 +15,12 @@ export default function ResultsPostList({ refreshStamp }) {
     const q = searchParams.get('q') || ''
 
     useEffect(() => {
-
-        loadItems()
-
+        if (q) {
+            loadItems()
+        } else {
+            setUsers([])
+            setPosts([])
+        }
     }, [refreshStamp, q])
 
     const handlePostDeleted = () => loadItems()
@@ -43,6 +47,8 @@ export default function ResultsPostList({ refreshStamp }) {
     }
 
     return <section>
+        <Search />
+
         <div>
             <Heading level='2'>Users</Heading>
             {users.map(user => (

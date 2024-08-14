@@ -2,11 +2,10 @@ import { errors, validate } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (userId, query) => {
+export default (query) => {
     validate.string(query, 'query')
-    validate.string(userId, 'userId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/posts/search?=${query}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/search?q=${query}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
