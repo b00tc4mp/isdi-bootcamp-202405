@@ -21,7 +21,10 @@ describe('authenticateUser', () => {
                 return User.create({ username: 'monoloco', email: 'mono@loco.com', password: hash, role: false })
                     .then(user => {
                         return authenticateUser('monoloco', '123123123')
-                            .then(id => expect(id).to.equal(user.id))
+                            .then(_user => {
+                                expect(_user.id).to.equal(user.id)
+                                expect(_user.role).to.equal(user.role)
+                            })
                     })
             })
     )

@@ -9,6 +9,10 @@ const validateString = (string, explain = 'string') => {
     if (typeof string != 'string') throw new ValidationError(`${explain} is not a string`)
 }
 
+const validateNumber = (number, explain = 'number') => {
+    if (typeof number != 'number') throw new ValidationError(`${explain} is not a number`)
+}
+
 const validateObject = (object, explain = 'object') => {
     if (object === null || typeof object !== 'object' || object.constructor !== Object) throw new ValidationError(`${explain} is not an object`)
 }
@@ -39,7 +43,8 @@ const validate = {
     username: validateUsername,
     email: validateEmail,
     password: validatePassword,
-    boolean: validateBoolean
+    boolean: validateBoolean,
+    number: validateNumber
 }
 
 export default validate
