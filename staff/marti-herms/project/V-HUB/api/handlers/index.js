@@ -7,6 +7,7 @@ import getUserLibraryHandler from './getUserLibraryHandler.js'
 import getUserFavsHandler from './getUserFavsHandler.js'
 import toggleAddGameHandler from './toggleAddGameHandler.js'
 import toggleFavGameHandler from './toggleFavGameHandler.js'
+import makeReviewHandler from './makeReviewHandler.js'
 
 const handle = {
     authenticateUser: authenticateUserHandler,
@@ -17,7 +18,8 @@ const handle = {
     getUserLibrary: getUserLibraryHandler,
     getUserFavs: getUserFavsHandler,
     toggleAddGame: toggleAddGameHandler,
-    toggleFavGame: toggleFavGameHandler
+    toggleFavGame: toggleFavGameHandler,
+    makeReview: makeReviewHandler
 }
 
 export default handle

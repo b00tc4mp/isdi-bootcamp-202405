@@ -34,6 +34,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/games/:gameId/favs', jwtVerifier, handle.toggleFavGame)
 
+        api.post('/games/:gameId/review', jwtVerifier, jsonBodyParser, handle.makeReview)
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
