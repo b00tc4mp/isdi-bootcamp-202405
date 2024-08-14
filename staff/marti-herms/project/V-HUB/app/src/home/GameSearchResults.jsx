@@ -5,7 +5,7 @@ import logic from '../../logic'
 
 import useContext from '../context'
 
-import Game from './Game'
+import GameBanner from './GameBanner'
 
 export default function GameSearchResults({ refreshStamp }) {
     const { alert } = useContext()
@@ -45,7 +45,7 @@ export default function GameSearchResults({ refreshStamp }) {
             count++
 
             if (count <= maxView)
-                return <Game key={game.id} game={game} />
+                return <GameBanner key={game.id} game={game} onInteraction={loadGames} />
 
             return
         })}

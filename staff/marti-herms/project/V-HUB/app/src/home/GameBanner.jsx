@@ -4,8 +4,9 @@ import Paragraph from '../library/Paragraph'
 
 import useContext from '../context'
 import logic from '../../logic'
+import { useEffect } from 'react'
 
-export default function Game({ game }) {
+export default function Game({ game, onInteraction }) {
     const { alert } = useContext()
 
     const handleGameClick = () => {
@@ -15,7 +16,7 @@ export default function Game({ game }) {
     const handleAddGame = () => {
         try {
             logic.toggleAddGame(game._id)
-                .then(() => { })
+                .then(() => onInteraction())
                 .catch(error => {
                     console.error(error)
 
@@ -30,7 +31,13 @@ export default function Game({ game }) {
 
     const handleFavGame = () => {
         try {
+            logic.toggleFavGame(game._id)
+                .then(() => onInteraction())
+                .catch(error => {
+                    console.error(error)
 
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -51,8 +58,8 @@ export default function Game({ game }) {
             </Container>
         </button>
         <Container className='flex flex-col gap-2 mr-2'>
-            <button className='bg-gray-500 rounded' onClick={handleAddGame}>Add</button>
-            {game.inLibrary && <button className='bg-green-300 rounded' onClick={handleFavGame}>Fav</button>}
+            <button className='bg-gray-500 rounded' onClick={handleAddGame}>{game.inLibrary ? 'Remove' : 'Add'}</button>
+            {game.inLibrary && <button className={game.inFavs ? 'bg-red-500 rounded' : 'bg-green-300 rounded'} onClick={handleFavGame}>Fav</button>}
         </Container>
     </article>
 }

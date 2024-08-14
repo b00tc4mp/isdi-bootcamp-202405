@@ -48,7 +48,7 @@ export default function Register({ onLoginClick, onRegister }) {
     return <main className='flex flex-col w-screen h-screen dark:bg-[#1e1e1e]'>
         <Logo />
         <Container className={'flex flex-col items-center justify-center  text-white w-full h-screen'}>
-            <Form className='gap-4' onSubmit={handleRegisterSubmit}>
+            <Form className='h-full gap-4' onSubmit={handleRegisterSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='email-input' type='email' placeholder='Email' />
                 <Input id='password-input' type='password' placeholder='Password' />
