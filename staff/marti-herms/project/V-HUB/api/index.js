@@ -28,6 +28,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/games/library', jwtVerifier, handle.getUserLibrary)
 
+        api.get('/games/favs', jwtVerifier, handle.getUserFavs)
+
         api.patch('/games/:gameId/library', jwtVerifier, handle.toggleAddGame)
 
         api.patch('/games/:gameId/favs', jwtVerifier, handle.toggleFavGame)
