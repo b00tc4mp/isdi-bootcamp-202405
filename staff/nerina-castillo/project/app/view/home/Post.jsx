@@ -4,9 +4,6 @@ import logic from '../../logic'
 import formatTime from '../../util/formatTime.js'
 
 import Button from '../library/Button'
-import Input from '../library/Input'
-import Label from '../library/Label'
-import Form from '../library/Form'
 import Time from '../library/Time'
 import Image from '../library/Image'
 import Paragraph from '../library/Paragraph'
@@ -81,7 +78,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
             {/* <Button onClick={handlLikePostClick}></Button> */}
 
             {post.author.id === logic.getUserId() && <>
-                <Button onClick={handleDeletePostClick}>delete</Button>
+                <Button onClick={handleDeletePostClick}>DELETE</Button>
             </>}
         </Container>
 

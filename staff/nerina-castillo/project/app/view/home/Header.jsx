@@ -6,7 +6,7 @@ import Button from '../library/Button'
 
 //TODO useContext
 
-export default function Header({ onHomeClick, onLogout, onSearchClick }) {
+export default function Header({ onHomeClick, onLogout, onSearchClick, onCalendarClick }) {
     const [name, setName] = useState(null)
 
     //TODO theme
@@ -27,7 +27,6 @@ export default function Header({ onHomeClick, onLogout, onSearchClick }) {
         }
     }, [])
 
-    // const handleHomeClick = () => onHomeClick()
 
     const handleLogout = () => {
         try {
@@ -45,9 +44,12 @@ export default function Header({ onHomeClick, onLogout, onSearchClick }) {
 
     const handleSearchClick = () => onSearchClick()
 
+    const handleCalendarSearch = () => onCalendarClick()
+
     return <header>
         <Button onClick={handleHomeClick}>home</Button>
         <Button onClick={handleSearchClick}>search</Button>
+        <Button onClick={handleCalendarSearch}>calendar</Button>
         <Button onClick={handleLogout}>logout</Button>
     </header>
 }

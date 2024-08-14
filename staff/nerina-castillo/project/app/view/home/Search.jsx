@@ -8,7 +8,7 @@ import Button from '../library/Button'
 export default function Search() {
     const navigate = useNavigate()
     const location = useLocation()
-    const [searchParams, setSeachParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState('')
 
     const q = searchParams.get('q') || ''
@@ -29,7 +29,7 @@ export default function Search() {
         else if (location.pathname !== '/search')
             navigate(`/search?q=${query}`)
         else
-            setSeachParams({ q: query })
+            setSearchParams({ q: query })
 
         setQuery(query)
     }
