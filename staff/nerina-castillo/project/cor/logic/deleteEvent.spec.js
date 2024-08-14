@@ -79,7 +79,6 @@ describe('deleteEvent', () => {
             })
     })
 
-
     it('fails on non-string userId', () => {
         let error
 

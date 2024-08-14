@@ -16,7 +16,6 @@ export default function Calendar({ events = [] }) {
     const daysInMonth = endOfMonth.getDate()
 
     useEffect(() => {
-        console.log(events)
     }, [events])
 
     const handlePrevMonth = () => {
@@ -36,7 +35,10 @@ export default function Calendar({ events = [] }) {
     }
 
     const filteredEvents = selectedDate
-        ? events.filter(event => formatDate(new Date(event.startDate)) === formatDate(selectedDate))
+        ? events.filter(event => {
+            const eventStartDate = new Date(event.startDate);
+            return formatDate(eventStartDate) === formatDate(selectedDate);
+        })
         : []
 
     const days = []
@@ -51,18 +53,24 @@ export default function Calendar({ events = [] }) {
         )
 
         days.push(
-            <Container
+            <div
                 key={i}
                 className={`day ${selectedDate && selectedDate.getDate() === i ? 'selected' : ''}`}
-                onClick={() => handleDayClick(i)}>{i}{dayEvents.length > 0 && (
-                    <Container >{dayEvents.slice(0, 3).map((event, index) => (
-                        <Container key={index} >{event.description}</Container>))}
-
-                        {dayEvents.length > 3 &&
-
-                            <Container >+{dayEvents.length - 3} more</Container>}
-                    </Container>)}
-            </Container>)
+                onClick={() => handleDayClick(i)}
+            >
+                {i}
+                {dayEvents.length > 0 && (
+                    <div className="events-list">
+                        {dayEvents.slice(0, 3).map((event, index) => (
+                            <div key={index} className="event-description">
+                                {event.description}
+                            </div>
+                        ))}
+                        {dayEvents.length > 3 && <div className="more-events">+{dayEvents.length - 3} more</div>}
+                    </div>
+                )}
+            </div>
+        )
     }
 
     return (
@@ -75,7 +83,9 @@ export default function Calendar({ events = [] }) {
                         <Button onClick={handleNextMonth}>&gt;</Button>
                     </Container>
 
-                    <Container>{days}</Container>
+                    <Container>
+                        {days}
+                    </Container>
                 </>
             ) : (
                 <EventList events={filteredEvents} onBack={() => setView('calendar')} />
