@@ -19,7 +19,7 @@ export default (userId, gameId) => {
                     if (!game) throw new NotFoundError('game not found')
 
                     if (user.library.some(gameObjectId => gameObjectId.toString() === gameId))
-                        return User.findByIdAndUpdate(userId, { $pull: { library: game._id } })
+                        return User.findByIdAndUpdate(userId, { $pull: { library: game._id, favs: game._id } })
                             .catch(error => { throw new SystemError(error.message) })
                     else
                         return User.findByIdAndUpdate(userId, { $push: { library: game._id } })
