@@ -2,7 +2,10 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Header from './Header'
 import Heading from '../library/Heading'
+import Container from '../library/Container'
 import Footer from './Footer'
+import Paragraph from '../library/Paragraph'
+import Image from '../library/Image'
 
 export default function Home({ onLogout }) {
     const navigate = useNavigate()
@@ -13,15 +16,41 @@ export default function Home({ onLogout }) {
 
     const handleContact = () => navigate('/contact')
 
-    const hadleLogin = () => navigate('/login')
+    const handleLogout = () => {
+        onLogout()
+        navigate('/login')
+    }
 
     return <>
-        <Header onLogout={onLogout}></Header>
+        <Header />
+        <main className='flex flex-col items-center gap-4 mt-16 mb-12 bg-teal-100'>
+            <Container className='w-full max-w-lg flex flex-col items-center mt-0'>
+                <img src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg mb-4 rounded-lg' />
 
-        <main className='bg-teal-100 h-screen'>
-            <Heading>Exoticus</Heading>
+                <Container className='text-lg bg-white p-3 rounded-[50px] shadow-lg text-center'>
+                    <Heading className='font-extrabold mb-1'>¿Cómo funciona?</Heading>
+                    <Paragraph className='text-sm text-gray-700 mb-4'>
+                        Exotics es una aplicación donde podrás contactar con las guarderías de exóticos más cercanas para que cuiden de tus mascotas cuando lo necesites.
+                    </Paragraph>
+
+                    <Heading className='text-base font-bold mb-2'>🔍Busca</Heading>
+                    <Paragraph className='text-sm text-gray-700 mb-4'>
+                        Entra en la aplicación y busca al cuidador o la guardería más cercana a ti.
+                    </Paragraph>
+
+                    <Heading className='text-base font-bold mb-2'>📧Contacta y reserva</Heading>
+                    <Paragraph className='text-sm text-gray-700 mb-4'>
+                        Contacta con el cuidador o la guardería que más se adecue a tus necesidades y reserva.
+                    </Paragraph>
+
+                    <Heading className='text-base font-bold mb-2'>🐾Disfruta</Heading>
+                    <Paragraph className='text-sm text-gray-700 mb-4'>
+                        Tu mascota estará cuidada mientras tú disfrutas de tus vacaciones.
+                    </Paragraph>
+                </Container>
+            </Container>
         </main>
 
-        <Footer onHomeClick={handleHome} onPetsittersClick={handlePetsitters} onContactClick={handleContact} onLoginClick={hadleLogin} />
+        <Footer onHomeClick={handleHome} onPetsittersClick={handlePetsitters} onContactClick={handleContact} onLoginClick={handleLogout} />
     </>
 }

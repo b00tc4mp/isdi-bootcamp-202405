@@ -1,5 +1,3 @@
-export default function Label({ children, ...nextProps }) {
-    console.debug('Label -> call')
-
-    return <label className="m-0 italic dark:text-white" {...nextProps} >{children}</label>
+export default function Label({ children, className = '', ...nextProps }) {
+    return <label className={`${className}`} {...nextProps}>{children}</label>
 }
