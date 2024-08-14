@@ -6,7 +6,7 @@ import useContext from '../context'
 
 import logic from '../../logic'
 
-export default function Game({ game, onInteraction, onGameClick }) {
+export default function GameBanner({ game, onInteraction, onGameClick }) {
     const { alert } = useContext()
 
     const handleGameClick = () => {

@@ -1,9 +1,9 @@
 import 'dotenv/config'
+import mongoose from 'mongoose'
+
 import { User, Game } from '../data/models.js'
 
 import registerGame from './registerGame.js'
-
-import mongoose from 'mongoose'
 
 const img = 'https://store-images.s-microsoft.com/image/apps.54354.13510798882606697.7a42c472-75d7-487e-9538-ebb5ce1657e6.372723d8-dd1a-450a-9fed-d420e7705e4e?mode=scale&q=90&h=300&w=200'
 

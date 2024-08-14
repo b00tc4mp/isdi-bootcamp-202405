@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import bcrypt from 'bcryptjs'
+import mongoose from 'mongoose'
 
 import authenticateUser from './authenticateUser.js'
 
 import { User } from '../data/models.js'
 
-import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => bcrypt.hash('123123123', 8))

@@ -9,6 +9,7 @@ import getUserLibrary from './getUserLibrary.js'
 import getUserFavs from './getUserFavs.js'
 import toggleAddGame from './toggleAddGame.js'
 import toggleFavGame from './toggleFavGame.js'
+import makeReview from './makeReview.js'
 
 const logic = {
     loginUser,
@@ -21,7 +22,8 @@ const logic = {
     getUserLibrary,
     getUserFavs,
     toggleAddGame,
-    toggleFavGame
+    toggleFavGame,
+    makeReview
 }
 
 export default logic

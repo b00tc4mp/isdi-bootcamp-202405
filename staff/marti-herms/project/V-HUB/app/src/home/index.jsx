@@ -14,6 +14,7 @@ export default function Home({ onLogout }) {
 
     const [path, setPath] = useState(location.pathname)
     const [refreshStamp, setRefreshStamp] = useState(null)
+    const [makeReviewVisibility, setMakeReviewVisibility] = useState(false)
 
     const navigate = useNavigate()
 
@@ -47,6 +48,14 @@ export default function Home({ onLogout }) {
         setPath(`/games/${gameId}`)
     }
 
+    const handleAddReview = () => {
+        setMakeReviewVisibility(true)
+    }
+
+    const handleCancelReview = () => {
+        setMakeReviewVisibility(false)
+    }
+
     return <>
         <Header onLogoutClick={onLogout} ></Header>
 
@@ -55,10 +64,16 @@ export default function Home({ onLogout }) {
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
                 <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} onGameClick={handleGame} /></>} />
-                <Route path='/games/:gameId' element={<Game />} />
+                <Route path='/games/:gameId' element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
             </Routes>
         </main>
 
-        <Footer path={path} onSearchGame={handleSearchGameClick} onRegisterGame={handleRegisterGameClick} onHome={handleHomeClick} ></Footer>
+        <Footer path={path}
+            makeReviewVisibility={makeReviewVisibility}
+            onSearchGame={handleSearchGameClick}
+            onRegisterGame={handleRegisterGameClick}
+            onHome={handleHomeClick}
+            onAddReview={handleAddReview}
+            onCancel={handleCancelReview} ></Footer>
     </>
 }
