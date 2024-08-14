@@ -20,6 +20,9 @@ export default (userId, query) => {
                         game.inLibrary = user.library.some(gameObjectId => gameObjectId.toString() === game._id.toString())
                         game.inFavs = user.favs.some(gameObjectId => gameObjectId.toString() === game._id.toString())
 
+                        game.id = game._id.toString()
+                        delete game._id
+
                         return game
                     })
 

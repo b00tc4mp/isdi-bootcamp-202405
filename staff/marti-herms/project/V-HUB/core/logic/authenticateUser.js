@@ -20,7 +20,10 @@ export default (username, password) => {
                 .then(match => {
                     if (!match) throw new CredentialsError('wrong password')
 
-                    return user._id.toString()
+                    user.id = user._id.toString()
+                    delete user._id
+
+                    return user
                 })
         })
 }

@@ -28,7 +28,7 @@ export default function Register({ onLoginClick, onRegister }) {
         const email = emailInput.value
         const password = passwordInput.value
         const rePassword = rePasswordInput.value
-        const role = roleInput.value || 'regular'
+        const role = roleInput.checked ? 'dev' : 'regular'
 
         try {
             logic.registerUser(username, email, password, rePassword, role)
@@ -45,15 +45,15 @@ export default function Register({ onLoginClick, onRegister }) {
         }
     }
 
-    return <main className='flex flex-col w-screen h-screen dark:bg-[#1e1e1e]'>
+    return <main className='flex flex-col justify-center w-screen h-screen dark:bg-[#1e1e1e]'>
         <Logo />
-        <Container className={'flex flex-col items-center justify-center  text-white w-full h-screen'}>
-            <Form className='h-full gap-4' onSubmit={handleRegisterSubmit}>
+        <Container className={'flex flex-col items-center justify-center text-white w-full h-screen'}>
+            <Form className='h-full gap-4 items-center' onSubmit={handleRegisterSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='email-input' type='email' placeholder='Email' />
                 <Input id='password-input' type='password' placeholder='Password' />
                 <Input id='repassword-input' type='password' placeholder='Repeat Password' />
-                <Checkbox id='role-input' value='dev' />
+                <Checkbox id='role-input' name='dev' />
                 <Button type='submit' className='bg-rose-500 hover:bg-rose-800'>Register</Button>
                 <Link className='text-xl underline underline-offset-2 hover:text-blue-500' onClick={onLoginClick}>Login</Link>
             </Form>

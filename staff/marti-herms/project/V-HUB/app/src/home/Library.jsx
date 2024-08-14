@@ -5,7 +5,7 @@ import logic from '../../logic'
 import useContext from '../context.js'
 import GameBanner from './GameBanner.jsx'
 
-export default function Library() {
+export default function Library({ onGameClick }) {
     const { alert } = useContext()
 
     const [games, setGames] = useState([])
@@ -60,8 +60,8 @@ export default function Library() {
 
     return <div>
         <button className='w-full h-8 bg-black text-white border border-solid border-slate-700' onClick={handleLibrary}>Library</button>
-        {libraryVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={libraryGames} />)}
+        {libraryVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={libraryGames} onGameClick={onGameClick} />)}
         <button className='w-full h-8 bg-black text-white border border-solid border-slate-700' onClick={handleFavs}>Favs</button>
-        {favsVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={favsGames} />)}
+        {favsVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={favsGames} onGameClick={onGameClick} />)}
     </div>
 }

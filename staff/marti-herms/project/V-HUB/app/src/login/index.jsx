@@ -48,9 +48,9 @@ export default function Login({ onLogin, onRegisterClick }) {
     }
 
     return <main className='flex flex-col w-screen h-screen dark:bg-[#1e1e1e]'>
-        <Logo />
+        <Logo className='mt-7' />
         <Container className={'flex flex-col items-center justify-center text-white w-screen h-full'}>
-            <Form className='h-full gap-10' onSubmit={handleLoginSubmit}>
+            <Form className='h-full gap-10 items-center justify-center' onSubmit={handleLoginSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='password-input' type='password' placeholder='Password' />
                 <Button className='bg-rose-500 hover:bg-rose-800' type='submit' >Login</Button>

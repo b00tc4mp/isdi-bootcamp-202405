@@ -3,19 +3,20 @@ import Image from '../library/Image'
 import Paragraph from '../library/Paragraph'
 
 import useContext from '../context'
-import logic from '../../logic'
-import { useEffect } from 'react'
 
-export default function Game({ game, onInteraction }) {
+import logic from '../../logic'
+
+export default function Game({ game, onInteraction, onGameClick }) {
     const { alert } = useContext()
 
     const handleGameClick = () => {
-        window.location.href = game.link
+        // window.location.href = game.link
+        onGameClick(game.id)
     }
 
     const handleAddGame = () => {
         try {
-            logic.toggleAddGame(game._id)
+            logic.toggleAddGame(game.id)
                 .then(() => onInteraction())
                 .catch(error => {
                     console.error(error)
@@ -31,7 +32,7 @@ export default function Game({ game, onInteraction }) {
 
     const handleFavGame = () => {
         try {
-            logic.toggleFavGame(game._id)
+            logic.toggleFavGame(game.id)
                 .then(() => onInteraction())
                 .catch(error => {
                     console.error(error)

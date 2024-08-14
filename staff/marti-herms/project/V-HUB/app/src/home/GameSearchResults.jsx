@@ -7,7 +7,7 @@ import useContext from '../context'
 
 import GameBanner from './GameBanner'
 
-export default function GameSearchResults({ refreshStamp }) {
+export default function GameSearchResults({ refreshStamp, onGameClick }) {
     const { alert } = useContext()
 
     const [searchParams] = useSearchParams()
@@ -16,8 +16,14 @@ export default function GameSearchResults({ refreshStamp }) {
 
     const [games, setGames] = useState([])
 
+    const maxView = 5
+
+    let count = 0
+
     useEffect(() => {
         loadGames()
+
+        count = 0
     }, [refreshStamp, q])
 
     const loadGames = () => {
@@ -29,23 +35,19 @@ export default function GameSearchResults({ refreshStamp }) {
 
                     alert(error.message)
                 })
-        } catch {
+        } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
     }
 
-    const maxView = 5
-
-    let count = 0
-
     return <section className='flex flex-col gap-4'>
         {games.map(game => {
             count++
 
             if (count <= maxView)
-                return <GameBanner key={game.id} game={game} onInteraction={loadGames} />
+                return <GameBanner key={game.id} game={game} onInteraction={loadGames} onGameClick={onGameClick} />
 
             return
         })}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 
 import Header from './Header'
 import Library from './Library'
@@ -7,9 +7,12 @@ import Footer from './Footer'
 import GameRegister from './GameRegister'
 import GameSearch from './GameSearch'
 import GameSearchResults from './GameSearchResults'
+import Game from './Game'
 
 export default function Home({ onLogout }) {
-    const [path, setPath] = useState('/')
+    const location = useLocation()
+
+    const [path, setPath] = useState(location.pathname)
     const [refreshStamp, setRefreshStamp] = useState(null)
 
     const navigate = useNavigate()
@@ -40,15 +43,19 @@ export default function Home({ onLogout }) {
         setPath(`/games/${gameId}`)
     }
 
+    const handleGame = (gameId) => {
+        setPath(`/games/${gameId}`)
+    }
+
     return <>
         <Header onLogoutClick={onLogout} ></Header>
 
         <main className='py-10 w-screen h-full dark:bg-[#1e1e1e]'>
             <Routes>
-                <Route path='/' element={<Library />} />
+                <Route path='/' element={<Library onGameClick={handleGame} />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
-                <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} /></>} />
-                <Route path='/games/:gameId' />
+                <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} onGameClick={handleGame} /></>} />
+                <Route path='/games/:gameId' element={<Game />} />
             </Routes>
         </main>
 

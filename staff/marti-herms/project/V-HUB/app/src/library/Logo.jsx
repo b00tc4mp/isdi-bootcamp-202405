@@ -1,6 +1,6 @@
-export default function Logo() {
-    return <div className='bg-transparent box-content'>
-        <img className='relative top-0 bg-transparent w-3/12 h-3/12' src='../images/logo.svg' alt='logo' />
-        <p className='relative top-0 text-white z-10'>V-HUB</p>
+export default function Logo({ className = '' }) {
+    return <div className={'flex flex-col items-center bg-transparent box-content ' + className}>
+        <img className='relative top-0 bg-transparent w-[80px] h-[80px]' src='../images/logo.svg' alt='logo' />
+        <p className='relative top-[-58px] text-3xl text-white font-bold z-10 h-0'>V-HUB</p>
     </div>
 }
