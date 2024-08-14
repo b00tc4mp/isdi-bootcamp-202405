@@ -14,15 +14,14 @@ export default (userId) => {
 
             return Game.find({ _id: { $in: user.library } }, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then((games => {
+                .then(games => {
                     const promises = games.map(game => {
-                        game.id = game._id.toString()
-                        delete game._id
+                        game.inLibrary = user.library.some(gameObjectId => gameObjectId.toString() === game._id.toString())
 
                         return game
                     })
 
                     return Promise.all(promises)
-                }))
+                })
         })
 } 

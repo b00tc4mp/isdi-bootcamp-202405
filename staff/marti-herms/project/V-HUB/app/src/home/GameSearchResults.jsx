@@ -2,9 +2,14 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import logic from '../../logic'
+
+import useContext from '../context'
+
 import Game from './Game'
 
 export default function GameSearchResults({ refreshStamp }) {
+    const { alert } = useContext()
+
     const [searchParams] = useSearchParams()
 
     const q = searchParams.get('q') || ''

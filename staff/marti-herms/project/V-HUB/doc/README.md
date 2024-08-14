@@ -21,7 +21,8 @@ A hub for gamers and developers to play or upload videogames
 - change role
 
 **Dev User**
-- post game to site
+- register game to site
+- list own game
 - update own game
 - change role
 

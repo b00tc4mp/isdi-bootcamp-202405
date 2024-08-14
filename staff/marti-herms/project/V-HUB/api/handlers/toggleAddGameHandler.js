@@ -1,11 +1,13 @@
 import { logic } from 'core'
 
 export default (req, res, next) => {
-    const { userId, gameId } = req
+    const { userId } = req
+
+    const { gameId } = req.params
 
     try {
         logic.toggleAddGame(userId, gameId)
-            .then(games => res.json(games))
+            .then(() => res.status(204).json())
             .catch(error => next(error))
     } catch (error) {
         next(error)

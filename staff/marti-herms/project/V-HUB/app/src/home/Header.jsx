@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 
-import useContext from '../context'
-
 import logic from '../../logic'
+
+import useContext from '../context'
 
 import Paragraph from '../library/Paragraph'
 
 export default function Header({ onLogoutClick }) {
+    const { alert } = useContext()
+
     const [username, setUsername] = useState(null)
 
     useEffect(() => {

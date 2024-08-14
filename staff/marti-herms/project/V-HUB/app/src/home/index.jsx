@@ -45,7 +45,7 @@ export default function Home({ onLogout }) {
 
         <main className='py-10 w-screen h-full dark:bg-[#1e1e1e]'>
             <Routes>
-                <Route path='/' element={<p className='text-white'>Hello World</p>} />
+                <Route path='/' element={<Library />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
                 <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} /></>} />
                 <Route path='/games/:gameId' />

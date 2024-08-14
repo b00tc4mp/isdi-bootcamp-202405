@@ -27,6 +27,11 @@ export default function GameRegister({ onGameRegister }) {
         try {
             logic.registerGame(name, image, description, link)
                 .then(gameId => onGameRegister(gameId))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 

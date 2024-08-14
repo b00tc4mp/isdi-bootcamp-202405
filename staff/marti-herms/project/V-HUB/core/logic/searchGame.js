@@ -15,5 +15,14 @@ export default (userId, query) => {
 
             return Game.find({ name: new RegExp(query) }, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
+                .then(games => {
+                    const promises = games.map(game => {
+                        game.inLibrary = user.library.some(gameObjectId => gameObjectId.toString() === game._id.toString())
+
+                        return game
+                    })
+
+                    return Promise.all(promises)
+                })
         })
 }
