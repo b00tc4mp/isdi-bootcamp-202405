@@ -36,6 +36,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/games/:gameId/review', jwtVerifier, jsonBodyParser, handle.makeReview)
 
+        api.get('/games/:gameId', jwtVerifier, handle.getGameById)
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
