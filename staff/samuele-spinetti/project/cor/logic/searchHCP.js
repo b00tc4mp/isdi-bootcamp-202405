@@ -13,14 +13,8 @@ export default (userId, query) => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return HealthCareProvider.find({ tags: new RegExp(query) }, { __v: 0 }).sort({ name: 1 }).lean()
+            return HealthCareProvider.find({ $or: [{ name: new RegExp(query) }, { tags: { $regex: new RegExp(query) } }] }, { __v: 0 }).sort({ name: 1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(hcr => {
-                    if (!hcr) {
-                        return HealthCareProvider.find({ name: new RegExp(query) }).sort({ name: 1 }).lean()
-                            .catch(error => { throw new SystemError(error.message) })
-                    }
-                    return hcr
-                })
+                .then(hcr => hcr)
         })
 }

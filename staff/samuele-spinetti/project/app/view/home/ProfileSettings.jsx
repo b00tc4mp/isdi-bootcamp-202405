@@ -110,53 +110,47 @@ export default function ProfileSettings() {
     }
 
     return <section className="flex flex-col items-center gap-3">
-        <Heading className="text-[30px]">Profile Settings</Heading>
+        <Heading className="text-[30px] items-center font-semibold">Profile Settings</Heading>
         <Container className=" items-center justify-center" >
-            <Container className="flex flex-col">
-                <Image src={!user?.avatar ? "/userIcon.svg" : user.avatar} className="w-[170px] h-[170px]  bg-[#bebebe]" />
-                <Button className="bg-[#ffd4ff] border-white rounded-[10px]" onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
+            <Container className="flex flex-col items-center gap-3">
+                <Image src={!user?.avatar ? "/userIcon.svg" : user.avatar} className="w-[170px] h-[170px] rounded-xl bg-[#bebebe]" />
+                <Button className="border border-black rounded-xl w-36 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
             </Container>
 
-            <Container className="fle flex-col">
-                <Heading level="2">Personal Informations</Heading>
-                <Input value={user?.name} disabled />
-                <Input value={user?.surname} disabled />
-                <Input value={user?.username} disabled />
-                <Input value={user?.email} disabled />
-                <Button className="bg-[#ffd4ff] border-white rounded-[10px]" onClick={handleEditPasswordClick}>Edit Password</Button>
+            {editAvatarVisible &&
+                <Container className="flex flex-col content-center items-center">
+                    <Form className="flex flex-col items-center gap-[0.3rem]" onSubmit={handleEditAvatarSubmit}>
+                        <Input className="border-black rounded-[20px] text-center mt-2" id="edit-avatar-input" type="text" placeholder="New avatar" />
+
+                        < Container className="flex items-center gap-2">
+                            <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="submit">Save</Button>
+                            <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="button" onClick={handleCancelEditAvatarClick}>Cancel</Button>
+                        </Container >
+                    </Form >
+                </Container >}
+
+            <Container className="flex flex-col gap-1">
+                <Heading level="2" className="font-medium text-xl text-center mt-5">Personal Informations</Heading>
+                <Input className="text-center" value={user?.name} disabled />
+                <Input className="text-center" value={user?.surname} disabled />
+                <Input className="text-center" value={user?.username} disabled />
+                <Input className="text-center" value={user?.email} disabled />
             </Container>
         </Container >
 
-        {editAvatarVisible &&
-            <Container className="flex flex-col content-center items-center">
-                <Form className="form-edit-avatar" onSubmit={handleEditAvatarSubmit}>
-                    <Label htmlFor="edit-avatar-input"></Label>
-                    <Input className="border-white rounded-[20px]" id="edit-avatar-input" type="text" />
-
-                    < Container className="flex content-center gap-2">
-                        <Button className="bg-[#ffd4ff] border-white rounded-[10px]" type="submit">Save</Button>
-                        <Button className="bg-[#ffd4ff] border-white rounded-[10px]" type="button" onClick={handleCancelEditAvatarClick}>Cancel</Button>
-                    </Container >
-                </Form >
-            </Container >
-        }
-
+        <Button className="border border-black rounded-xl w-36 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold mt-2" onClick={handleEditPasswordClick}>Edit Password</Button>
         {editPasswordVisible &&
-            <Container className="flex flex-col content-center items-center">
+            <Container className="flex flex-col content-center items-center gap-2">
                 <Form className="flex flex-col items-center gap-[0.3rem]" onSubmit={handleEditPasswordSubmit}>
-                    <Label htmlFor="edit-oldPassword-input"></Label>
-                    <Input className="border-white rounded-[20px]" id="edit-oldPassword-input" type="password" placeholder="Old password" />
-                    < Label htmlFor="edit-newPassword-input"></Label >
-                    <Input className="border-white rounded-[20px]" id="edit-newPassword-input" type="password" placeholder="New password" />
-                    <Label htmlFor="edit-newPasswordRepeat-input"></Label>
-                    <Input className="border-white rounded-[20px]" id="edit-newPasswordRepeat-input" type="password" placeholder="Repeat new password" />
+                    <Input className="border-black rounded-[15px] text-center" id="edit-oldPassword-input" type="password" placeholder="Old password" />
+                    <Input className="border-black rounded-[15px] text-center" id="edit-newPassword-input" type="password" placeholder="New password" />
+                    <Input className="border-black rounded-[15px] text-center" id="edit-newPasswordRepeat-input" type="password" placeholder="Repeat new password" />
 
                     <Container className="flex content-center gap-4">
-                        <Button className="bg-[#ffd4ff] border-white rounded-[10px]" type="submit">Save</Button>
-                        <Button className="bg-[#ffd4ff] border-white rounded-[10px]" type="button" onClick={handleCancelEditPasswordClick}>Cancel</Button>
+                        <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="submit">Save</Button>
+                        <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="button" onClick={handleCancelEditPasswordClick}>Cancel</Button>
                     </Container >
                 </Form >
-            </Container >
-        }
+            </Container >}
     </section >
 }

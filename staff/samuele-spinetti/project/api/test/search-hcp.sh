@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/healthcareproviders/search?q=hola -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJiODJkOTc1YjNhMGUxYmMxNWJlMGIiLCJpYXQiOjE3MjM2MjgzNzN9.4I1Q0kvTlN1w7AGL81lOrkH09TVuKj17hIn-SKO9TCg"

@@ -75,12 +75,33 @@ const healthCareProvider = new Schema({
     }
 })
 
+const newsArticle = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: false
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    webURL: {
+        type: String,
+        required: true
+    }
+})
+
 const User = model('User', user)
 const Location = model('Location', point)
 const HealthCareProvider = model('HealthCareProvider', healthCareProvider)
+const NewsArticle = model('NewsArticle', newsArticle)
 
 export {
     User,
     Location,
-    HealthCareProvider
+    HealthCareProvider,
+    NewsArticle
 }

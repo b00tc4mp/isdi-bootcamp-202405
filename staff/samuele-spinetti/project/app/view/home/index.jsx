@@ -4,7 +4,7 @@ import MapSection from './MapSection'
 import ProfileSettings from './ProfileSettings'
 import Header from './Header'
 import Footer from './Footer'
-import Heading from '../library/Heading'
+import NewsArticlesList from './NewsArticlesList'
 
 export default function Home({ onLogout }) {
     const navigate = useNavigate()
@@ -13,16 +13,16 @@ export default function Home({ onLogout }) {
 
     const handleProfileSettings = () => navigate('/settings')
 
-    const handleHealthCareProvidersList = () => navigate('/map')
+    const handleHealthCareProvidersList = () => navigate('/search')
 
     return <>
         <Header onProfileSettingsClicked={handleProfileSettings} onLogout={onLogout}></Header>
 
-        <main className="mt-[6rem] mb-[3rem]">
-            {/* <Heading className="flex flex-col justify-center items-center text-[#C900CD] [gradient-to-br from-green-400 to-fuchsia-500] text-[20px] font-bold">Healthy living, Pride being!</Heading> */}
+        <main className="mt-20 mb-20">
             <Routes>
+                <Route path="/" element={<NewsArticlesList />} />
                 <Route path="/settings" element={<ProfileSettings />} />
-                <Route path="/map" element={<MapSection />} />
+                <Route path="/search" element={<MapSection />} />
             </Routes>
         </main>
 

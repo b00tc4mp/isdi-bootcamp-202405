@@ -23,9 +23,9 @@ export default function HealthCareProvidersList() {
         }
     }, [])
 
-    return <section className="pt-[500px] flex flex-col gap-6">
+    return <section className="flex flex-col gap-6">
         {healthCareProviders.map(healthCareProvider => <HealthCareProvider
-            key={healthCareProvider._id}
+            key={healthCareProvider.id}
             healthCareProvider={healthCareProvider}
         />)}
     </section>

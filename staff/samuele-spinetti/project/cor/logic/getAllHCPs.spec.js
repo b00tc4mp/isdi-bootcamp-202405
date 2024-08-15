@@ -62,7 +62,6 @@ describe('getAllHCPs', () => {
         }
     })
 
-
     afterEach(() => Promise.all([HealthCareProvider.deleteMany(), User.deleteMany()]))
 
     after(() => mongoose.disconnect())

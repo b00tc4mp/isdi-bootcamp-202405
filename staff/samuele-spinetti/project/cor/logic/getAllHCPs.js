@@ -13,6 +13,17 @@ export default userId => {
 
             return HealthCareProvider.find({}, { __v: 0 }).sort({ name: 1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(healthCareProviders => healthCareProviders)
+                .then(healthCareProviders => {
+                    const promises = healthCareProviders.map(healthCareProvider => {
+                        healthCareProvider.id = healthCareProvider._id.toString()
+                        healthCareProvider.location.id = healthCareProvider.location._id.toString()
+                        delete healthCareProvider._id
+                        delete healthCareProvider.location._id
+
+                        return healthCareProvider
+                    })
+                    return Promise.all(promises)
+                        .then(healthCareProviders => healthCareProviders)
+                })
         })
 }

@@ -1,12 +1,15 @@
-import getUserName from './getUserName.js'
-import isUserLoggedIn from './isUserLoggedIn.js'
-import loginUser from './loginUser.js'
-import logoutUser from './logoutUser.js'
-import registerUser from './registerUser.js'
-import getUser from './getUser.js'
-import updateAvatar from './updateAvatar.js'
-import updatePassword from './updatePassword.js'
-import getAllHCPs from './getAllHCPs.js'
+import getUserName from './getUserName'
+import isUserLoggedIn from './isUserLoggedIn'
+import loginUser from './loginUser'
+import logoutUser from './logoutUser'
+import registerUser from './registerUser'
+import getUser from './getUser'
+import updateAvatar from './updateAvatar'
+import updatePassword from './updatePassword'
+import getAllHCPs from './getAllHCPs'
+import searchHCP from './searchHCP'
+import getAllNews from './getAllNews'
+import fetchNews from './fetchNews'
 
 const logic = {
     isUserLoggedIn,
@@ -17,7 +20,10 @@ const logic = {
     getUser,
     updateAvatar,
     updatePassword,
-    getAllHCPs
+    getAllHCPs,
+    searchHCP,
+    getAllNews,
+    fetchNews
 }
 
 export default logic

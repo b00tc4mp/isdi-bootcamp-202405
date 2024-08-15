@@ -10,7 +10,7 @@ export default function ResultsHCPList() {
 
     const q = searchParams.get('q') || ''
 
-    const [healthCareProviders, setHealthCareProviders] = useState()
+    const [healthCareProviders, setHealthCareProviders] = useState([])
 
     useEffect(() => {
         loadHCP()
@@ -33,11 +33,10 @@ export default function ResultsHCPList() {
             }
     }
 
-    return <section className="flex flex-col gap-4">
-        {
-            healthCareProviders.map(healthCareProvider => <HealthCareProvider
-                key={healthCareProvider.id}
-                healthCareProvider={healthCareProvider}
-            />)}
+    return <section className="flex flex-col gap-6">
+        {healthCareProviders.map(healthCareProvider => <HealthCareProvider
+            key={healthCareProvider._id}
+            healthCareProvider={healthCareProvider}
+        />)}
     </section>
 }

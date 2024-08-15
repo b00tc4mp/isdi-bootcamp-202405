@@ -24,7 +24,7 @@ export default function Header({ onProfileSettingsClicked, onLogout }) {
 
     const handleProfileSettingsClick = () => onProfileSettingsClicked()
 
-    return <header className="fixed w-full flex justify-between bg-gradient-to-br from-green-400 to-fuchsia-500 gap-4p-2 items-center box-border shadow-[0_1px_1px] h-20 top-0 left-0 z-40">
+    return <header className="fixed w-full flex justify-between bg-gradient-to-br from-green-400 to-fuchsia-500 gap-4 p-2 items-center box-border shadow-[0_1px_1px] h-20 top-0 left-0 z-40">
 
         <Container className="ml-5">
             <Button onClick={handleProfileSettingsClick}>

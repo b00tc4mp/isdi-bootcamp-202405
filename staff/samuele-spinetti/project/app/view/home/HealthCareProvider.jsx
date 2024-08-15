@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
 
 import Container from '../library/Container'
 import Heading from '../library/Heading'
@@ -7,33 +9,63 @@ import Paragraph from '../library/Paragraph'
 import Button from '../library/Button'
 
 export default function HealthCareProvider({ healthCareProvider }) {
+    const mapRef = useRef()
     const [openingHoursVisible, setOpeningHoursVisible] = useState(false)
+    const [mapVisible, setMapVisible] = useState(false)
 
     const onOpeningHoursClick = () => setOpeningHoursVisible(true)
 
     const onCancelOpeningHoursClick = () => setOpeningHoursVisible(false)
 
-    return <article className="shadow-[1px_1px_10px_1px] shadow-[#41ff7a] bg-white p-0">
+    const onOpenMapClick = () => setMapVisible(true)
+
+    const onCloseMapClick = () => setMapVisible(false)
+
+    return <article className="shadow-[1px_1px_10px_1px] shadow-[#a3a3a3] bg-white p-[12px] rounded-xl mx-5">
         <Container className="flex flex-col justify-center items-center">
-            <Heading>{healthCareProvider.name}</Heading>
-            <Image className="w-[300px] " src={healthCareProvider.image} />
-            <Paragraph>{healthCareProvider.street}</Paragraph>
-            {healthCareProvider.openingHours[0] === 'Open 24h'
-                ? <Paragraph>Open 24H</Paragraph>
-                : <Button onClick={onOpeningHoursClick}>Opening Hours</Button>}
-            {openingHoursVisible && <><ul>
-                <li>{healthCareProvider.openingHours[0]}</li>
-                <li>{healthCareProvider.openingHours[1]}</li>
-                <li>{healthCareProvider.openingHours[2]}</li>
-                <li>{healthCareProvider.openingHours[3]}</li>
-                <li>{healthCareProvider.openingHours[4]}</li>
-                <li>{healthCareProvider.openingHours[5]}</li>
-                <li>{healthCareProvider.openingHours[6]}</li>
-            </ul>
-                <Button onClick={onCancelOpeningHoursClick}>Cancel</Button>
+            <Heading className="font-extrabold text-xl text-center">{healthCareProvider.name}</Heading>
+            <Container className="flex flex-row">
+                <Container>
+                    <Image className="w-[150px]" src={healthCareProvider.image} />
+                </Container>
+                <Container className="flex flex-col max-w-20">
+                    <Paragraph>{healthCareProvider.street}</Paragraph>
+                    {healthCareProvider.openingHours[0] === 'Open 24h'
+                        ? <Paragraph>Open 24H</Paragraph>
+                        : <Button onClick={onOpeningHoursClick}>Opening Hours</Button>}
+                    {openingHoursVisible && <><ul>
+                        <li>{healthCareProvider.openingHours[0]}</li>
+                        <li>{healthCareProvider.openingHours[1]}</li>
+                        <li>{healthCareProvider.openingHours[2]}</li>
+                        <li>{healthCareProvider.openingHours[3]}</li>
+                        <li>{healthCareProvider.openingHours[4]}</li>
+                        <li>{healthCareProvider.openingHours[5]}</li>
+                        <li>{healthCareProvider.openingHours[6]}</li>
+                    </ul>
+                        <Button onClick={onCancelOpeningHoursClick}>Cancel</Button>
+                    </>}
+                    <a className="max-w-20" href={healthCareProvider.webURL} target="_blank">{healthCareProvider.webURL}</a>
+                    <a href={`tel:${healthCareProvider.phoneNumber}`}>{healthCareProvider.phoneNumber}</a>
+                </Container>
+            </Container>
+            <Button onClick={onOpenMapClick}>Map{mapVisible && <><MapContainer className="h-[300px] w-[100%] rounded-2xl"
+                center={healthCareProvider.location.coordinates} // Barcelona
+                zoom={13}
+                ref={mapRef}
+            >
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <Marker position={healthCareProvider.location.coordinates}>
+                    <Popup>{healthCareProvider.name}</Popup>
+                </Marker>
+                <Button onClick={onCloseMapClick}>Close</Button>
+            </MapContainer>
+                <Button onClick={onCloseMapClick}>Close</Button>
             </>}
-            <a href={healthCareProvider.webURL} target="_blank">{healthCareProvider.webURL}</a>
-            <a href={`tel:${healthCareProvider.phoneNumber}`}>{healthCareProvider.phoneNumber}</a>
+            </Button>
+
         </Container>
-    </article>
+    </article >
 }

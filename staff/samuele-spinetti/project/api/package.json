@@ -8,9 +8,9 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node",
-    "watch": "node --watch",
-    "inspect": "node --inspect-brk",
+    "start": "node .",
+    "watch": "node --watch .",
+    "inspect": "node --inspect-brk .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
