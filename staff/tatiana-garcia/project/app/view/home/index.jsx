@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import Header from './Header'
 import Heading from '../library/Heading'
@@ -14,7 +14,10 @@ export default function Home({ onLogout }) {
 
     const handlePetsitters = () => navigate('/petsitters')
 
-    const handleContact = () => navigate('/contact')
+    const handleContact = () => {
+        navigate('/contact')
+
+    }
 
     const handleLogout = () => {
         onLogout()
@@ -25,7 +28,7 @@ export default function Home({ onLogout }) {
         <Header />
         <main className='flex flex-col items-center gap-4 mt-16 mb-12 bg-teal-100'>
             <Container className='w-full max-w-lg flex flex-col items-center mt-0'>
-                <img src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg mb-4 rounded-lg' />
+                <Image src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg mb-4 rounded-lg' />
 
                 <Container className='text-lg bg-white p-3 rounded-[50px] shadow-lg text-center'>
                     <Heading className='font-extrabold mb-1'>¿Cómo funciona?</Heading>
