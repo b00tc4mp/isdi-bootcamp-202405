@@ -11,25 +11,25 @@ export default function EventList({ events }) {
         setEventList(events)
     }, [events])
 
-    // const handleEventDeleted = () => loadEvents()
+    const handleEventDeleted = () => loadEvents()
 
-    // const handleEventEdited = () => loadEvents()
+    const handleEventEdited = () => loadEvents()
 
-    // const loadEvents = () => {
-    //     try {
-    //         logic.getAllEvents()
-    //             .then(events => setEvents(events))
-    //             .catch(error => {
-    //                 console.error(error)
+    const loadEvents = () => {
+        try {
+            logic.getAllEvents()
+                .then(events => setEventList(events))
+                .catch(error => {
+                    console.error(error)
 
-    //                 alert(error.message)
-    //             })
-    //     } catch (error) {
-    //         console.error(error)
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
 
-    //         alert(error.message)
-    //     }
-    // }
+            alert(error.message)
+        }
+    }
 
     // const filteredEvents = selectedDate
     //     ? events.filter(event => formatDate(new Date(event.startDate)) === formatDate(selectedDate))
@@ -39,8 +39,8 @@ export default function EventList({ events }) {
         {eventList.map(event => <Event
             key={event.id}
             event={event}
-        // onEventDeleted={handleEventDeleted}
-        //TODO handleEdit
+            onEventDeleted={handleEventDeleted}
+            onEventEdited={handleEventEdited}
         />)}
     </section>
 }

@@ -3,25 +3,42 @@ import { useState } from 'react'
 import CreatePost from './CreatePost'
 
 import Button from '../library/Button'
+import CreateEvent from './CreateEvent'
 
-export default function Footer({ onPostCreated }) {
-    const [createPostVisible, setCreatePostVisible] = useState(false)
+export default function Footer({ onPostCreated, onEventCreated, location }) {
+    const [createVisible, setCreateVisible] = useState(false)
 
-    const handleCreatePostClick = () => setCreatePostVisible(true)
+    const handleCreateClick = () => setCreateVisible(true)
 
-    const handleCancelCreatePostClick = () => setCreatePostVisible(false)
+    const handleCancelCreateClick = () => setCreateVisible(false)
+
+    const handleEventCreated = () => {
+        setCreateVisible(false)
+
+        onEventCreated()
+    }
 
     const handlePostCreated = () => {
-        setCreatePostVisible(false)
+        setCreateVisible(false)
 
         onPostCreated()
     }
 
     return <footer>
-        <Button onClick={handleCreatePostClick}>+</Button>
+        <Button onClick={handleCreateClick}>+</Button>
 
-        {createPostVisible && <CreatePost
-            onPostCreated={handlePostCreated}
-            onCancelCreatePost={handleCancelCreatePostClick} />}
+        {createVisible && location === '/calendar' && (
+            <CreateEvent
+                onEventCreated={handleEventCreated}
+                onCancelCreateEvent={handleCancelCreateClick}
+            />
+        )}
+
+        {createVisible && location !== '/calendar' && (
+            <CreatePost
+                onPostCreated={handlePostCreated}
+                onCancelCreatePost={handleCancelCreateClick}
+            />
+        )}
     </footer>
 }

@@ -13,6 +13,7 @@ import deletePost from './deletePost'
 import createEvent from './createEvent'
 import getAllEvents from './getAllEvents'
 import deleteEvent from './deleteEvent'
+import updateEventData from './updateEventData'
 
 const logic = {
     registerUser,
@@ -29,7 +30,8 @@ const logic = {
     deletePost,
     createEvent,
     getAllEvents,
-    deleteEvent
+    deleteEvent,
+    updateEventData
 }
 
 export default logic

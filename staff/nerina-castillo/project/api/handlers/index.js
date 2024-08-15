@@ -10,6 +10,7 @@ import deletePostHandler from './deletePostHandler.js'
 import createEventHandler from './createEventHandler.js'
 import getAllEventsHandler from './getAllEventsHandler.js'
 import deleteEventHandler from './deleteEventHandler.js'
+import updateEventDataHandler from './updateEventDataHandler.js'
 
 export {
     registerUserHandler,
@@ -23,5 +24,6 @@ export {
     deletePostHandler,
     createEventHandler,
     getAllEventsHandler,
-    deleteEventHandler
+    deleteEventHandler,
+    updateEventDataHandler
 }

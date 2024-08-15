@@ -1,3 +1,10 @@
-export default function Input({ className = '', ...nextProps }) {
-    return <input className={`${className}`} {...nextProps}></input>
+export default function Input({ id, value, onChange, ...props }) {
+    return (
+        <input
+            id={id}
+            value={value}
+            onChange={onChange}
+            {...props}
+        />
+    );
 }

@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import logic from '../../logic'
 
 import Post from './Post'
+import User from './User'
 import Heading from '../library/Heading'
 import Search from './Search'
 
@@ -52,7 +53,11 @@ export default function ResultsPostList({ refreshStamp }) {
         <div>
             <Heading level='2'>Users</Heading>
             {users.map(user => (
-                <Heading key={user.id} level='3'>{user.username}</Heading>
+                <User
+                    key={user.id}
+                    user={user}
+                    onUserFollowToggled={handleUserFollowToggled}
+                />
             ))}
         </div>
 

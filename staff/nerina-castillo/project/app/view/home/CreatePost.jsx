@@ -15,8 +15,8 @@ export default function Createpost({ onPostCreated, onCancelCreatePost }) {
         const postImageInput = form['post-image-input']
         const postTextInput = form['post-text-input']
 
-        const postImage = postImageInput.value || null
-        const postText = postTextInput.value || null
+        const postImage = postImageInput.value
+        const postText = postTextInput.value
 
         try {
             logic.createPost(postImage, postText)

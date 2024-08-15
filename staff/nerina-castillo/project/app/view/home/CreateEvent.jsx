@@ -6,7 +6,7 @@ import Label from '../library/Label'
 import Button from '../library/Button'
 import Container from '../library/Container'
 
-export default function CreateEvent({ onEventCreated, onCancerlCreateEvent }) {
+export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
     const handleCreateEventSubmit = event => {
         event.preventDefault()
 
@@ -39,7 +39,7 @@ export default function CreateEvent({ onEventCreated, onCancerlCreateEvent }) {
         }
     }
 
-    const handleCancelCreatePostClick = () => onCancerlCreateEvent()
+    const handleCancelCreateEventClick = () => onCancelCreateEvent()
 
     return <section>
         <Heading level='4'>create event</Heading>
@@ -59,15 +59,15 @@ export default function CreateEvent({ onEventCreated, onCancerlCreateEvent }) {
             </Container>
             <Container>
                 <Label htmlFor='event-start-date-input'>start date</Label>
-                <Input id='event-start-date-input' />
+                <Input id='event-start-date-input' type='date' />
             </Container>
             <Container>
                 <Label htmlFor='event-end-date-input'>end date</Label>
-                <Input id='event-end-date-input' />
+                <Input id='event-end-date-input' type='date' />
             </Container>
             <Container>
                 <Button type='submit'>create</Button>
-                <Button type='submit' onClick={handleCancelCreatePostClick}>cancel</Button>
+                <Button type='button' onClick={handleCancelCreateEventClick}>cancel</Button>
             </Container>
         </Form>
     </section>

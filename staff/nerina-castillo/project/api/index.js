@@ -18,7 +18,8 @@ import {
     deletePostHandler,
     createEventHandler,
     getAllEventsHandler,
-    deleteEventHandler
+    deleteEventHandler,
+    updateEventDataHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -52,6 +53,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/events', jwtVerifier, getAllEventsHandler)
 
         api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
+
+        api.patch('/events/:eventId/data', jwtVerifier, jsonBodyParser, updateEventDataHandler)
 
         api.use(errorHandler)
 

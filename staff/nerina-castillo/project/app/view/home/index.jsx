@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 import Heading from '../library/Heading'
 import logic from '../../logic/index.js'
@@ -15,6 +15,7 @@ export default function Home({ onLogout }) {
     const navigate = useNavigate()
     const [name, setName] = useState(null)
     const [events, setEvents] = useState([])
+    const location = useLocation()
 
     useEffect(() => {
         try {
@@ -49,6 +50,9 @@ export default function Home({ onLogout }) {
 
     const handleCalendarSearch = () => navigate('/calendar')
 
+    const handleEventCreated = () => setRefreshStamp(Date.now())
+
+
     return <>
         <Header
             onHomeClick={handleFollowClick}
@@ -66,12 +70,16 @@ export default function Home({ onLogout }) {
 
                 <Route path='/search' element={<ResultsPostList refreshStamp={refreshStamp} />} />
 
-                <Route path='/events' element={<EventList refreshStamp={refreshStamp} />} />
+                <Route path='/events' element={<EventList events={events} />} />
 
                 <Route path='/calendar' element={<Calendar events={events} />} />
             </Routes>
         </main>
 
-        <Footer onPostCreated={handlePostCreated}></Footer>
+        <Footer
+            onPostCreated={handlePostCreated}
+            onEventCreated={handleEventCreated}
+            location={location.pathname}
+        ></Footer>
     </>
 }
