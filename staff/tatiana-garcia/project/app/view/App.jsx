@@ -6,6 +6,7 @@ import Home from './home/index.jsx'
 import Contact from './contact/index.jsx'
 
 import logic from '../logic/index.js'
+import Petsitters from './pettsiters/index.jsx'
 
 export default function App() {
   const navigate = useNavigate()
@@ -31,6 +32,7 @@ export default function App() {
     <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
     <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
     <Route path='/contact' element={<Contact onRegisterPetsitterClick={handleRegisterClick} />} />
+    <Route path='/petsitters' element={<Petsitters />} />
 
   </Routes>
 }

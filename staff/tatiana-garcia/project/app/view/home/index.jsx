@@ -10,20 +10,6 @@ import Image from '../library/Image'
 export default function Home({ onLogout }) {
     const navigate = useNavigate()
 
-    const handleHome = () => navigate('/')
-
-    const handlePetsitters = () => navigate('/petsitters')
-
-    const handleContact = () => {
-        navigate('/contact')
-
-    }
-
-    const handleLogout = () => {
-        onLogout()
-        navigate('/login')
-    }
-
     return <>
         <Header />
         <main className='flex flex-col items-center gap-4 mt-16 mb-12 bg-teal-100'>
@@ -54,6 +40,6 @@ export default function Home({ onLogout }) {
             </Container>
         </main>
 
-        <Footer onHomeClick={handleHome} onPetsittersClick={handlePetsitters} onContactClick={handleContact} onLoginClick={handleLogout} />
+        <Footer defaultTab={'home'} />
     </>
 }

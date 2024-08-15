@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import logic from '../../logic/index.js'
 
 import Header from '../home/Header.jsx'
@@ -54,6 +55,8 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
+    const navigate = useNavigate()
+
     return <>
         <Header />
         <main className='bg-teal-100 h-screen flex flex-col items-center justify-center gap-4 text-[1.1rem]'>
@@ -77,7 +80,7 @@ export default function Login({ onLogin, onRegisterClick }) {
 
                 <Link className='text-sm' onClick={handleRegisterClick}>¿Eres nuevo/a? Regístrate</Link>
 
-                <Footer />
+                <Footer defaultTab={'login'} />
 
             </Container>
 

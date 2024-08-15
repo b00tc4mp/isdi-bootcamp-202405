@@ -10,15 +10,6 @@ import Link from '../library/Link'
 export default function Contact({ onRegisterPetsitterClick }) {
     const navigate = useNavigate()
 
-    const handleHome = () => navigate('/')
-
-    const handlePetsitters = () => navigate('/petsitters')
-
-    const handleContact = () => navigate('/contact')
-
-    const handleLogout = () => { navigate('/login') }
-
-
     const handleRegisterPetsitterClick = event => {
         event.preventDefault()
 
@@ -46,7 +37,7 @@ export default function Contact({ onRegisterPetsitterClick }) {
             </Container>
         </main>
 
-        <Footer onHomeClick={handleHome} onPetsittersClick={handlePetsitters} onContactClick={handleContact} onLoginClick={handleLogout} />
+        <Footer defaultTab={'contact'} />
     </>
 
 }
