@@ -1,5 +1,6 @@
 import logic from '../../logic/index.js'
 
+import Header from '../home/Header.jsx'
 import Heading from '../library/Heading.jsx'
 import Container from '../library/Container.jsx'
 import Form from '../library/Form.jsx'
@@ -7,8 +8,10 @@ import Label from '../library/Label.jsx'
 import Input from '../library/Input.jsx'
 import Button from '../library/Button.jsx'
 import Link from '../library/Link.jsx'
+import Footer from '../home/Footer.jsx'
 
 import { errors } from '../../../com/index.js'
+
 
 const { NotFoundError, CredentialsError } = errors
 
@@ -51,24 +54,34 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main>
-        <Heading>Login</Heading>
+    return <>
+        <Header />
+        <main className='bg-teal-100 h-screen flex flex-col items-center justify-center gap-4 text-[1.1rem]'>
 
-        <Form onSubmit={handleLoginSubmit} className="flex-col">
-            <Container>
-                <Label htmlFor='username-input'>Nombre de usuario</Label>
-                <Input type='text' id='username-input' name='username' placeholder='nombre de usuario' />
+            <Container className='p-6 bg-white rounded-[50px] shadow-md w-full max-w-sm'>
+                <Heading className='text-center text-xl font-bold mb-4'>Login</Heading>
+
+                <Form onSubmit={handleLoginSubmit} className='text-lg bg-white p-3 rounded-[50px] shadow-xl text-center flex-col'>
+                    <Container className='mb-4'>
+                        <Label className='block text-sm font-medium text-gray-700' htmlFor='username-input'>Nombre de usuario</Label>
+                        <Input className='mt-1 p-2 w-full border border-gray-300 rounded-md' type='text' id='username-input' name='username' placeholder='nombre de usuario' />
+                    </Container>
+
+                    <Container className='mb-6'>
+                        <Label className='block text-sm font-medium text-gray-700' htmlFor='password-input'>Contraseña</Label>
+                        <Input className='mt-1 p-2 w-full border border-gray-300 rounded-md' type='password' id='password-input' name='password' placeholder='contraseña' />
+                    </Container>
+
+                    <Button className='flex-col' type='submit'>Login</Button>
+                </Form>
+
+                <Link className='text-sm' onClick={handleRegisterClick}>¿Eres nuevo/a? Regístrate</Link>
+
+                <Footer />
+
             </Container>
 
-            <Container>
-                <Label htmlFor='password-input'>Contraseña</Label>
-                <Input type='password' id='password-input' name='password' placeholder='contraseña' />
-            </Container>
+        </main>
 
-            <Button type='submit'>Login</Button>
-        </Form>
-
-        <Link onClick={handleRegisterClick}>¿Eres nuevo/a? Regístrate</Link>
-
-    </main>
+    </>
 }
