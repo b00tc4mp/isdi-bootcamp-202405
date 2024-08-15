@@ -10,7 +10,6 @@ export default function GameBanner({ game, onInteraction, onGameClick }) {
     const { alert } = useContext()
 
     const handleGameClick = () => {
-        // window.location.href = game.link
         onGameClick(game.id)
     }
 

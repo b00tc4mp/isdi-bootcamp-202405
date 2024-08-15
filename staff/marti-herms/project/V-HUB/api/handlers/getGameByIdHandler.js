@@ -1,4 +1,4 @@
-import logic from 'core'
+import { logic } from 'core'
 
 export default (req, res, next) => {
     const { userId } = req
