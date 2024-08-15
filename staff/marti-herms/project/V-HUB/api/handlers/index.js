@@ -6,6 +6,7 @@ import searchGameHandler from './searchGameHandler.js'
 import getUserLibraryHandler from './getUserLibraryHandler.js'
 import getUserFavsHandler from './getUserFavsHandler.js'
 import getGameByIdHandler from './getGameByIdHandler.js'
+import getGamesReviewsHandler from './getGamesReviewsHandler.js'
 import toggleAddGameHandler from './toggleAddGameHandler.js'
 import toggleFavGameHandler from './toggleFavGameHandler.js'
 import makeReviewHandler from './makeReviewHandler.js'
@@ -19,6 +20,7 @@ const handle = {
     getUserLibrary: getUserLibraryHandler,
     getUserFavs: getUserFavsHandler,
     getGameById: getGameByIdHandler,
+    getGamesReviews: getGamesReviewsHandler,
     toggleAddGame: toggleAddGameHandler,
     toggleFavGame: toggleFavGameHandler,
     makeReview: makeReviewHandler
