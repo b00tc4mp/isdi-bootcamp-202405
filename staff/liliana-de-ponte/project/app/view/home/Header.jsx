@@ -1,5 +1,7 @@
 import logic from '../../logic/index.js'
 
+import { MdLogout } from 'react-icons/md'
+import { IoHomeOutline } from 'react-icons/io5'
 import { useState, useEffect } from 'react'
 
 import Container from '../library/Container'
@@ -45,13 +47,14 @@ export default function Header({ onHomeClick, onLogout }) {
         }
     }
 
-    return <header className="bg-[#050968]">
+    return <header className="bg-[#050968] fixed left-0 top-0 w-full">
 
-        <Container>
-            <Paragraph>{name}!</Paragraph>
-
-            <Button onClick={handleHomeClick}><Image src="public/home.svg"></Image></Button>
-            <Button onClick={handleLogout}><Image src="public/exit.svg"></Image></Button>
+        <Container className="flex justify-between items-center">
+            <Paragraph className="text-[#FFEBF4]">{name}!</Paragraph>
+            <Container className=" flex justify-end items-center gap-[2rem]">
+                <Button onClick={handleHomeClick}><IoHomeOutline size={22} /></Button>
+                <Button onClick={handleLogout}><MdLogout size={22} /></Button>
+            </Container>
         </Container>
 
 

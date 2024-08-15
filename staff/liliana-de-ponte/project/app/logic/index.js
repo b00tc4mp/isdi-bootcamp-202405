@@ -5,6 +5,10 @@ import getUserName from './getUserName.js'
 import getUserId from './getUserId.js'
 import createEvent from './createEvent.js'
 import logoutUser from './logoutUser.js'
+import getAllEvents from './getAllEvents.js'
+import deleteEvent from './deleteEvent.js'
+import toggleLikeEvents from './toggleLikeEvents.js'
+import getAllLikeEvents from './getAllLikeEvents.js'
 
 const logic = {
     registerUser,
@@ -13,7 +17,12 @@ const logic = {
     getUserName,
     getUserId,
     createEvent,
-    logoutUser
+    logoutUser,
+    getAllEvents,
+    deleteEvent,
+    toggleLikeEvents,
+    getAllLikeEvents
+
 }
 
 export default logic

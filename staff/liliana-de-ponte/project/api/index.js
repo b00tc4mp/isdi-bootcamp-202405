@@ -8,7 +8,11 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     getUserNameHandler,
-    createEventHandler
+    createEventHandler,
+    getAllEventsHandler,
+    deleteEventHandler,
+    toggleLikeEventHandler,
+    getAllLikeEventsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -26,6 +30,14 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
 
         api.post('/events', jwtVerifier, jsonBodyParser, createEventHandler)
+
+        api.get('/events', jwtVerifier, getAllEventsHandler)
+
+        api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
+
+        api.patch('/events/:eventId/likes', jwtVerifier, toggleLikeEventHandler)
+
+        api.get('/events/likes', jwtVerifier, getAllLikeEventsHandler)
 
         api.use(errorHandler)
 

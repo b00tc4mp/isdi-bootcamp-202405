@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Header from './Header'
 import Footer from './Footer'
+import EventList from './EventList'
 
 export default function Home({ onLogout }) {
 
@@ -24,15 +25,18 @@ export default function Home({ onLogout }) {
     }
 
     return <>
-        <Header>
+        <Header
             onHomeClick={handleHomeClick}
             onLikesClick={handleLikesClick}
-            onLogout={onLogout}
+            onLogout={onLogout}>
         </Header>
 
-        <main>
-            <h1>Esto es home</h1>
-        </main>
+        <main className="flex flex-col items-center gap-4 mt-16 mb-12">
+            <Routes>
+                <Route path="/" element={<EventList refreshStamp={refreshStamp} />} />
+
+            </Routes>
+        </main >
 
         <Footer onEventCreated={handleEventCreated}></Footer>
     </>
