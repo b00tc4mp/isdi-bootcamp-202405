@@ -37,13 +37,24 @@ function validateEmail(email) {
     if (!EMAIL_REGEX.test(email)) throw new ValidationError(`invalid email`)
 }
 
+function validateUrl(url, explain = 'url') {
+    validateString(url, explain)
+    if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
+}
+
+function validateNumber(value, explain = 'value') {
+    if (typeof value !== 'number') throw new ValidationError(`${explain} is not a number`)
+}
+
 const validate = {
     string: validateString,
     password: validatePassword,
     name: validateName,
     address: validateAddress,
     email: validateEmail,
-    phone: validatePhone
+    phone: validatePhone,
+    url: validateUrl,
+    number: validateNumber
 }
 
 export default validate

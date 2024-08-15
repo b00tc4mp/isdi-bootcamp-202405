@@ -53,19 +53,27 @@ const product = new Schema({
     type: {
         type: String
     },
+    minprize: {
+        type: Number,
+        required: true
+    },
+    maxprize: {
+        type: Number,
+        required: true
+    },
     image: {
         type: String,
         required: true
     },
-    location: {
-        type: [Number],
-        validate: {
-            validator: function (arr) {
-                return arr.length === 2
-            },
-            message: 'The array must contain exactly two numbers.'
-        }
-    },
+    // location: {
+    //     type: [Number],
+    //     validate: {
+    //         validator: function (arr) {
+    //             return arr.length === 2
+    //         },
+    //         message: 'The array must contain exactly two numbers.'
+    //     }
+    // },
     enabled: {
         type: Boolean,
         required: true,
