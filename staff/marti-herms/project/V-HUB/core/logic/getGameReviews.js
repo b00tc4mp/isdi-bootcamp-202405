@@ -18,7 +18,7 @@ export default (userId, gameId) => {
                 .then(game => {
                     if (!game) throw new NotFoundError('game not found')
 
-                    return Review.find({ game: gameId }).lean()
+                    return Review.find({ game: gameId }).sort({ date: -1 }).lean()
                         .catch(error => { throw new SystemError(error.message) })
                         .then(reviews => {
                             const promises = reviews.map(review => {

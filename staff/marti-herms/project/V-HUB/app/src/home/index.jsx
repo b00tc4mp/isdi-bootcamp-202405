@@ -59,7 +59,7 @@ export default function Home({ onLogout }) {
     return <>
         <Header onLogoutClick={onLogout} ></Header>
 
-        <main className='py-10 w-screen h-full dark:bg-[#1e1e1e]'>
+        <main className='my-10 w-screen h-full dark:bg-[#1e1e1e]'>
             <Routes>
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />

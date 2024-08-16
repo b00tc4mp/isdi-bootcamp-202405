@@ -10,6 +10,6 @@ export default function Footer({ path, makeReviewVisibility, onSearchGame, onReg
         </>}
         {path.startsWith('/games') && <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>}
         {path.length > 15 && (makeReviewVisibility ? <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onCancel}>Cancel</button> :
-            <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onAddReview}>+</button>)}
+            <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onAddReview}>Review</button>)}
     </footer>
 }
