@@ -6,7 +6,7 @@ import useContext from '../context'
 
 import logic from '../../logic'
 
-export default function GameBanner({ game, onInteraction, onGameClick }) {
+export default function GameBanner({ game, onInteraction, onGameClick, collectionType }) {
     const { alert } = useContext()
 
     const handleGameClick = () => {
@@ -53,13 +53,13 @@ export default function GameBanner({ game, onInteraction, onGameClick }) {
                     <Paragraph>{game.name}</Paragraph>
                 </Container>
                 <Container>
-                    <Paragraph>{game.description}</Paragraph>
+                    <Paragraph>{game.description.slice(0, 25) + '...'}</Paragraph>
                 </Container>
             </Container>
         </button>
-        <Container className='flex flex-col gap-2 mr-2'>
+        {collectionType !== 'devGames' && <Container className='flex flex-col gap-2 mr-2'>
             <button className='bg-gray-500 rounded' onClick={handleAddGame}>{game.inLibrary ? 'Remove' : 'Add'}</button>
             {game.inLibrary && <button className={game.inFavs ? 'bg-red-500 rounded' : 'bg-green-300 rounded'} onClick={handleFavGame}>Fav</button>}
-        </Container>
+        </Container>}
     </article>
 }

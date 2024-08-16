@@ -36,11 +36,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/games/:gameId/review', jwtVerifier, jsonBodyParser, handle.makeReview)
 
+        api.get('/games/dev', jwtVerifier, handle.getDevUserGames)
+
         api.get('/games/:gameId', jwtVerifier, handle.getGameById)
 
         api.get('/games/:gameId/reviews', jwtVerifier, handle.getGamesReviews)
-
-        api.get('/games', jwtVerifier, handle.getDevUserGames)
 
         api.use(errorHandler)
 

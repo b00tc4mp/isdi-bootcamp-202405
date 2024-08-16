@@ -81,6 +81,14 @@ export default function Game({ makeReviewVisibility, onCancel }) {
         }
     }
 
+    const handleDelete = (reviewId) => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
+
     const loadReviews = () => {
         try {
             logic.getGameReviews(gameId)
@@ -139,7 +147,7 @@ export default function Game({ makeReviewVisibility, onCancel }) {
         </Form>}
 
         <Container className='flex flex-col mt-4 mb-10'>
-            {reviews && reviews.map(review => <Review key={review.id} review={review} />)}
+            {reviews && reviews.map(review => <Review key={review.id} review={review} onDelete={handleDelete} />)}
         </Container>
     </>
 }
