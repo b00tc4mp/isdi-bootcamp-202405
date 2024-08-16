@@ -11,6 +11,7 @@ import getDevUserGamesHandler from './getDevUserGamesHandler.js'
 import toggleAddGameHandler from './toggleAddGameHandler.js'
 import toggleFavGameHandler from './toggleFavGameHandler.js'
 import makeReviewHandler from './makeReviewHandler.js'
+import deleteReviewHandler from './deleteReviewHandler.js'
 
 const handle = {
     authenticateUser: authenticateUserHandler,
@@ -25,7 +26,8 @@ const handle = {
     getDevUserGames: getDevUserGamesHandler,
     toggleAddGame: toggleAddGameHandler,
     toggleFavGame: toggleFavGameHandler,
-    makeReview: makeReviewHandler
+    makeReview: makeReviewHandler,
+    deleteReview: deleteReviewHandler
 }
 
 export default handle

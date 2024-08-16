@@ -42,6 +42,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/games/:gameId/reviews', jwtVerifier, handle.getGamesReviews)
 
+        api.delete('/reviews/:reviewId', jwtVerifier, handle.deleteReview)
+
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
