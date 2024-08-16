@@ -12,6 +12,7 @@ import toggleAddGame from './toggleAddGame.js'
 import toggleFavGame from './toggleFavGame.js'
 import makeReview from './makeReview.js'
 import deleteReview from './deleteReview.js'
+import getUserAvatar from './getUserAvatar.js'
 
 const logic = {
     authenticateUser,
@@ -27,7 +28,8 @@ const logic = {
     toggleAddGame,
     toggleFavGame,
     makeReview,
-    deleteReview
+    deleteReview,
+    getUserAvatar
 }
 
 export default logic

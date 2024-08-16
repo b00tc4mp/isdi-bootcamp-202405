@@ -18,13 +18,11 @@ A hub for gamers and developers to play or upload videogames
 - play/download game
 - add review
 - delete review
-- change role
 
 **Dev User**
 - register game to site
 - list own game
 - update own game
-- change role
 
 ### UIUX Design
 

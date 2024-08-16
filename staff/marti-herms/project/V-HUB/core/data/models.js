@@ -18,7 +18,7 @@ const user = new Schema({
         required: true
     },
     avatar: {
-        type: String,
+        type: String
     },
     role: {
         type: String,
