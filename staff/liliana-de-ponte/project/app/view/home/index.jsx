@@ -5,6 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import EventList from './EventList'
 import LikeEventList from './LikeEventList'
+import AttendanceEventList from './AttendanceEventList'
 
 export default function Home({ onLogout }) {
 
@@ -36,6 +37,8 @@ export default function Home({ onLogout }) {
                 <Route path="/" element={<EventList refreshStamp={refreshStamp} />} />
 
                 <Route path="/likes" element={<LikeEventList />} />
+
+                <Route path="/attendees" element={<AttendanceEventList />} />
 
             </Routes>
         </main >

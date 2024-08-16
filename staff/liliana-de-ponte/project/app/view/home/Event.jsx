@@ -15,7 +15,7 @@ import Button from '../library/Button.jsx'
 
 import Confirm from '../common/Confirm.jsx'
 
-export default function Event({ event, onEventDeleted, onEventLikeToggled, onEventAttendeeToggled }) {
+export default function Event({ event, onEventDeleted, onEventLikeToggled, onEventAttendanceToggled }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
 
     const handleDeleteEventClick = () => setConfirmMessage('Delete event?')
@@ -53,21 +53,21 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
         }
     }
 
-    // const handleAttendeeEventClick = () => {
-    //     try {
-    //         logic.toggleAttendeeEvent(event.id)
-    //             .then(() => onEventAttendeeToggled())
-    //             .catch(error => {
-    //                 console.error(error)
+    const handleAttendanceEventClick = () => {
+        try {
+            logic.toggleAttendanceEvent(event.id)
+                .then(() => onEventAttendanceToggled())
+                .catch(error => {
+                    console.error(error)
 
-    //                 alert(error.message)
-    //             })
-    //     } catch (error) {
-    //         console.error(error)
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
 
-    //         alert(error.message)
-    //     }
-    // }
+            alert(error.message)
+        }
+    }
 
     return <article className="border-[#050968] p-4 rounded-[80px] bg-[#FFEBF4] m-4 max-w-md border-4 font-bold">
         <Container className="items-center justify-between">
@@ -80,13 +80,12 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
             </Container>
 
             <Container className="flex justify-between absolute">
-                {/* <Button onClick={handleAttendeeEventClick}>{(event.attendee ? <GoStarFill /> : <FiStar />) + ' ' + event.attendees.length + ' attendee' + (event.attendees.length === 1 ? '' : 's')}</Button> */}
+                <Button onClick={handleAttendanceEventClick}>{(event.attendee ? <GoStarFill color="blue" /> : <FiStar color="blue" />) + ' ' + event.attendees.length + ' attendee' + (event.attendees.length === 1 ? '' : 's')}</Button>
 
-
-                <Button onClick={handleLikeEventClick}>{event.like ? <BiSolidLike /> : <BiLike />}</Button>
+                <Button onClick={handleLikeEventClick}>{event.like ? <BiSolidLike color="blue" /> : <BiLike color="blue" />}</Button>
 
                 {event.author.id === logic.getUserId() && <>
-                    <Button onClick={handleDeleteEventClick}><BsTrash3 />
+                    <Button onClick={handleDeleteEventClick}><BsTrash3 color="blue" />
                     </Button>
                     {/* <Button onClick={handleEditEventClick}></Button> */}
                 </>}

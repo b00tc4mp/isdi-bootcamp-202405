@@ -21,9 +21,9 @@ export default function LikeEventList() {
         loadEvents()
     }
 
-    // const handleEventAttendeeToggled =()=> {
-    //     loadEvents()
-    // }
+    const handleEventAttendanceToggled = () => {
+        loadEvents()
+    }
 
     const loadEvents = () => {
         try {
@@ -49,7 +49,7 @@ export default function LikeEventList() {
             onEventDeleted={handleEventDeleted}
             // onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
-        // onEventAttendeeToggled={handleEventAttendeeToggled}
+            onEventAttendanceToggled={handleEventAttendanceToggled}
 
         />)}
     </section>

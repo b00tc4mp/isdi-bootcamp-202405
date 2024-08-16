@@ -6,6 +6,8 @@ import getAllEventsHandler from './getAllEventsHandler.js'
 import deleteEventHandler from './deleteEventHandler.js'
 import toggleLikeEventHandler from './toggleLikeEventHandler.js'
 import getAllLikeEventsHandler from './getAllLikeEventsHandler.js'
+import toggleAttendanceEventHandler from './toggleAttendanceEventHandler.js'
+import getAllAttendanceEventsHandler from './getAllAttendanceEventHandler.js'
 
 export {
     registerUserHandler,
@@ -15,6 +17,8 @@ export {
     getAllEventsHandler,
     deleteEventHandler,
     toggleLikeEventHandler,
-    getAllLikeEventsHandler
+    getAllLikeEventsHandler,
+    toggleAttendanceEventHandler,
+    getAllAttendanceEventsHandler
 
 }

@@ -12,7 +12,9 @@ import {
     getAllEventsHandler,
     deleteEventHandler,
     toggleLikeEventHandler,
-    getAllLikeEventsHandler
+    getAllLikeEventsHandler,
+    toggleAttendanceEventHandler,
+    getAllAttendanceEventsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -38,6 +40,10 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/events/:eventId/likes', jwtVerifier, toggleLikeEventHandler)
 
         api.get('/events/likes', jwtVerifier, getAllLikeEventsHandler)
+
+        api.patch('/events/:eventId/attendees', jwtVerifier, toggleAttendanceEventHandler)
+
+        api.get('/events/attendees', jwtVerifier, getAllAttendanceEventsHandler)
 
         api.use(errorHandler)
 

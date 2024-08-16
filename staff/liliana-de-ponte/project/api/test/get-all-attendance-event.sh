@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/attendees -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNDVjZjhmNDA5Nzg2MDJlN2NkMDAiLCJpYXQiOjE3MjM4MjUxNTl9.ASL7TCE0EdHNIz_p_rsqvoX3Tg6XkHiDZZEIfSYECIY"
