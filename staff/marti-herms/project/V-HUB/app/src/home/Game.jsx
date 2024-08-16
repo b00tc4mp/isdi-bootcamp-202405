@@ -34,7 +34,6 @@ export default function Game({ makeReviewVisibility, onCancel }) {
                     setGame(game)
 
                     loadReviews()
-
                 })
                 .catch(error => {
                     console.error(error)
@@ -67,7 +66,6 @@ export default function Game({ makeReviewVisibility, onCancel }) {
                     onCancel()
 
                     loadReviews()
-                    calculateRating()
                 })
                 .catch(error => {
                     console.error(error)
@@ -83,9 +81,17 @@ export default function Game({ makeReviewVisibility, onCancel }) {
 
     const handleDelete = (reviewId) => {
         try {
+            logic.deleteReview(reviewId)
+                .then(() => loadReviews())
+                .catch(error => {
+                    console.error(error)
 
+                    alert(error.message)
+                })
         } catch (error) {
+            console.error(error)
 
+            alert(error.message)
         }
     }
 
@@ -125,7 +131,7 @@ export default function Game({ makeReviewVisibility, onCancel }) {
                 </Container>
             </Container>
             <Container className='flex flex-col justify-center pl-2'>
-                <Paragraph className='text-white font-semibold text-lg ml-0'>{game.description}</Paragraph>
+                <Paragraph className='text-white font-semibold text-lg ml-0 text-wrap'>{game.description}</Paragraph>
                 <Container className='flex flex-row items-center'>
                     <Rating name='read-only' value={rating} precision={0.25} readOnly />
                     <Paragraph>{rating}</Paragraph>
