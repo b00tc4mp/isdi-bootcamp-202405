@@ -51,7 +51,10 @@ function validateUrl(url, explain = 'url') {
 }
 
 function validateLocation(location, explain = 'location') {
+    if (!location || typeof location !== 'object') throw new ValidationError(`${explain} must be an object`)
+
     const { coordinates } = location
+
     if (!Array.isArray(coordinates) || coordinates.length !== 2) throw new ValidationError(`invalid ${explain} coordinates`)
 
     coordinates.forEach((value, index) => {
@@ -61,13 +64,21 @@ function validateLocation(location, explain = 'location') {
     })
 }
 
+function validateLatitude(latitude, explain = 'latitude') {
+    if (latitude < -90 || latitude > 90) throw new ValidationError(`${explain} must be between -90 and 90 degrees`)
+}
+
+function validateLongitude(longitude, explain = 'longitude') {
+    if (longitude < -180 || longitude > 180) throw new ValidationError(`${explain} must be between -180 and 180 degrees`)
+}
+
 function validateDate(date, explain = 'date') {
     if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`)
 }
 
 function validateEventDates(startDate, endDate) {
     validateDate(startDate, 'startDate')
-    validateDate(endDate, 'ednDate')
+    validateDate(endDate, 'endDate')
 
     if (startDate > endDate) throw new ValidationError('startDate cannot be later than endDate')
 }
@@ -83,6 +94,8 @@ const validate = {
     url: validateUrl,
     string: validateString,
     location: validateLocation,
+    latitude: validateLatitude,
+    longitude: validateLongitude,
     date: validateDate,
     eventDates: validateEventDates
 }

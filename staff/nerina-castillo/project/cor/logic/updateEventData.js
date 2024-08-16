@@ -6,7 +6,17 @@ const { NotFoundError, OwnershipError, SystemError } = errors
 export default (userId, eventId, eventData) => {
     validate.string(userId, 'userId')
     validate.string(eventId, 'eventId')
-    validate.object(eventData, 'eventData')
+
+    const { image, description, latitude, longitude, startDate, endDate } = eventData
+    if (typeof image !== 'string') {
+        throw new ValidationError('Image must be a string')
+    }
+    validate.string(image, 'image')
+    validate.string(description, 'description')
+    validate.location(latitude, 'latitude')
+    validate.location(longitude, 'longitude')
+    validate.eventDates(new Date(startDate), new Date(endDate))
+    console.log(eventData)
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -20,8 +30,9 @@ export default (userId, eventId, eventData) => {
 
                     if (event.author.toString() !== userId) throw new OwnershipError('event does not belong to user')
 
-                    return Event.updateOne({ _id: eventId }, { $set: eventData }, { new: true })
+                    return Event.updateOne({ _id: eventId }, { $set: eventData })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })
+        .then(() => { })
 }

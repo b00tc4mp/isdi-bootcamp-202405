@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Post from './Post'
+import Container from '../library/Container'
 
 export default function FollowingPostList() {
     const [posts, setPosts] = useState([])
@@ -31,7 +32,7 @@ export default function FollowingPostList() {
         }
     }
 
-    return <section>
+    return <Container>
         {posts.map(post => <Post
             key={post.id}
             post={post}
@@ -39,5 +40,5 @@ export default function FollowingPostList() {
             onPostLikeToggled={handlePostLikeToggled}
             onUserFollowToggled={handleUserFollowToggled}
         />)}
-    </section>
+    </Container>
 }

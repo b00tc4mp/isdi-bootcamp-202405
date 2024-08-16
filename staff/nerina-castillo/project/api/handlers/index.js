@@ -11,6 +11,7 @@ import createEventHandler from './createEventHandler.js'
 import getAllEventsHandler from './getAllEventsHandler.js'
 import deleteEventHandler from './deleteEventHandler.js'
 import updateEventDataHandler from './updateEventDataHandler.js'
+import getUsersByRoleHandler from './getUsersByRoleHandler.js'
 
 export {
     registerUserHandler,
@@ -25,5 +26,6 @@ export {
     createEventHandler,
     getAllEventsHandler,
     deleteEventHandler,
-    updateEventDataHandler
+    updateEventDataHandler,
+    getUsersByRoleHandler
 }

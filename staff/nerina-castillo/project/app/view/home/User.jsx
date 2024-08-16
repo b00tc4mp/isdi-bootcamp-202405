@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import logic from '../../logic'
 import Avatar from './Avatar'
 import Button from '../library/Button'
@@ -5,15 +7,20 @@ import Container from '../library/Container'
 import Heading from '../library/Heading'
 
 export default function User({ user, onUserFollowToggled }) {
+    const [following, setFollowing] = useState(user.following)
+
     const handleFollowUserClick = () => {
         try {
             logic.toggleFollowUser(user.id)
-                .then(() => onUserFollowToggled())
+                .then(() => {
+                    setFollowing(!following)
+                    if (onUserFollowToggled) onUserFollowToggled()
+                })
                 .catch(error => {
-                    console.log(error)
+                    console.error(error)
 
                     alert(error.message)
-                })
+                });
         } catch (error) {
             console.error(error)
 
@@ -21,13 +28,16 @@ export default function User({ user, onUserFollowToggled }) {
         }
     }
 
-    return <Container>
-        <Avatar url={user.avatar} alt={`${user.username}'s avatar`} />
-
+    return (
         <Container>
-            <Heading level='4'>{user.username}</Heading>
+            <Avatar url={user.avatar} alt={`${user.username}'s avatar`} />
 
-            <Button onClick={handleFollowUserClick}>{user.following ? 'unfollow' : 'follow'}</Button>
+            <Container>
+                <Heading level='4'>{user.username}</Heading>
+
+                <Button onClick={handleFollowUserClick} >{following ? 'unfollow' : 'follow'}</Button>
+
+            </Container>
         </Container>
-    </Container>
+    )
 }

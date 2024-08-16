@@ -1,10 +1,8 @@
 import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
-
 import { User } from '../data/models.js'
 import errors from '../../com/errors.js'
-
 import getUserName from './getUserName.js'
 
 const { ObjectId } = Types

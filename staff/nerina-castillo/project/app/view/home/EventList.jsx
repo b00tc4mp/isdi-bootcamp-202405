@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 
 import logic from '../../logic'
 import Event from './Event'
-import formatDate from '../../util/formatDate'
 
 export default function EventList({ events }) {
     const [eventList, setEventList] = useState([])
@@ -30,10 +29,6 @@ export default function EventList({ events }) {
             alert(error.message)
         }
     }
-
-    // const filteredEvents = selectedDate
-    //     ? events.filter(event => formatDate(new Date(event.startDate)) === formatDate(selectedDate))
-    //     : []
 
     return <section>
         {eventList.map(event => <Event

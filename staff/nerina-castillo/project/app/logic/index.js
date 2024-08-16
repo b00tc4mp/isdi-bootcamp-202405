@@ -14,6 +14,7 @@ import createEvent from './createEvent'
 import getAllEvents from './getAllEvents'
 import deleteEvent from './deleteEvent'
 import updateEventData from './updateEventData'
+import getUsersByRole from './getUsersByRole'
 
 const logic = {
     registerUser,
@@ -31,7 +32,8 @@ const logic = {
     createEvent,
     getAllEvents,
     deleteEvent,
-    updateEventData
+    updateEventData,
+    getUsersByRole
 }
 
 export default logic

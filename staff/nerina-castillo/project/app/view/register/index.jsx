@@ -67,7 +67,13 @@ export default function Register({ onRegister, onLoginClick }) {
 
             <Container>
                 <Label htmlFor='role-input'>role</Label>
-                <Input type='text' id='role-input' name='role-input' placeholder='role' />
+                <select id='role-input' name='role-input'>
+                    <option value='user'>user</option>
+                    <option value='band'>band</option>
+                    <option value='label'>label</option>
+                    <option value='promoter'>promoter</option>
+                    <option value='venue'>venue</option>
+                </select>
             </Container>
 
             <Container>

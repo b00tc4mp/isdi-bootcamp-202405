@@ -19,7 +19,8 @@ import {
     createEventHandler,
     getAllEventsHandler,
     deleteEventHandler,
-    updateEventDataHandler
+    updateEventDataHandler,
+    getUsersByRoleHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -54,7 +55,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
 
-        api.patch('/events/:eventId/data', jwtVerifier, jsonBodyParser, updateEventDataHandler)
+        api.patch('/events/:eventId', jwtVerifier, jsonBodyParser, updateEventDataHandler)
+
+        api.get('/users', jwtVerifier, getUsersByRoleHandler)
 
         api.use(errorHandler)
 

@@ -9,6 +9,10 @@ import ResultsPostList from './ResultsPostList'
 import FollowingPostList from './FollowingUserPostList'
 import EventList from './EventList'
 import Calendar from './Calendar'
+import BandList from './BandList'
+import LabelList from './LabelList'
+import PromotersList from './PromotersList'
+import VenuesList from './VenuesList'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
@@ -52,6 +56,13 @@ export default function Home({ onLogout }) {
 
     const handleEventCreated = () => setRefreshStamp(Date.now())
 
+    const handleBandsClick = () => navigate('/bands')
+
+    const handleLabelsClick = () => navigate('/labels')
+
+    const handlePromotersClick = () => navigate('/promoters')
+
+    const handleVenuesClick = () => navigate('/venues')
 
     return <>
         <Header
@@ -73,6 +84,14 @@ export default function Home({ onLogout }) {
                 <Route path='/events' element={<EventList events={events} />} />
 
                 <Route path='/calendar' element={<Calendar events={events} />} />
+
+                <Route path='/bands' element={<BandList refreshStamp={refreshStamp} />} />
+
+                <Route path='/labels' element={<LabelList refreshStamp={refreshStamp} />} />
+
+                <Route path='/promoters' element={<PromotersList refreshStamp={refreshStamp} />} />
+
+                <Route path='/venues' element={<VenuesList refreshStamp={refreshStamp} />} />
             </Routes>
         </main>
 
@@ -80,6 +99,10 @@ export default function Home({ onLogout }) {
             onPostCreated={handlePostCreated}
             onEventCreated={handleEventCreated}
             location={location.pathname}
+            onBandsClick={handleBandsClick}
+            onLabelsClick={handleLabelsClick}
+            onPromotersClick={handlePromotersClick}
+            onVenuesClick={handleVenuesClick}
         ></Footer>
     </>
 }

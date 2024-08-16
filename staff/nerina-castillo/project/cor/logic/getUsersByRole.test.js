@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import registerUser from './registerUser.js'
-
 import mongoose from 'mongoose'
+import getUsersByRole from './getUsersByRole.js'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => registerUser('barrenfienlds', 'barrenfieldsband', 'band', 'barren@fields.com', 'barrenfields1', 'barrenfields1'))
+    .then(() => getUsersByRole('band'))
+    .then(users => console.log(users))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

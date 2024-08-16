@@ -14,27 +14,32 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
 
         const eventImageInput = form['event-image-input']
         const eventDescriptionInput = form['event-description-input']
-        const eventLocationInput = form['event-location-input']
+        const eventLatitudeInput = form['event-latitude-input']
+        const eventLongitudeInput = form['event-longitude-input']
         const eventStartDateInput = form['event-start-date-input']
-        const eventEndtDateInput = form['event-end-date-input']
+        const eventEndDateInput = form['event-end-date-input']
 
         const eventImage = eventImageInput.value
         const eventDescription = eventDescriptionInput.value
-        const eventLocation = eventLocationInput.value
-        const eventStartDate = eventStartDateInput.value
-        const eventEndtDate = eventEndtDateInput.value
+        const eventLatitude = parseFloat(eventLatitudeInput.value.trim())
+        const eventLongitude = parseFloat(eventLongitudeInput.value.trim())
+        const eventStartDate = new Date(eventStartDateInput.value)
+        const eventEndDate = new Date(eventEndDateInput.value)
+
+        if (isNaN(eventLatitude) || isNaN(eventLongitude)) {
+            console.error('invalid longitude and latitude')
+            return
+        }
 
         try {
-            logic.createEvent(eventImage, eventDescription, eventLocation, eventStartDate, eventEndtDate)
+            logic.createEvent(eventImage, eventDescription, eventLongitude, eventLatitude, eventStartDate, eventEndDate)
                 .then(() => onEventCreated())
                 .catch(error => {
                     console.error(error)
-
                     alert(error.message)
                 })
         } catch (error) {
             console.error(error)
-
             alert(error.message)
         }
     }
@@ -55,7 +60,8 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
             </Container>
             <Container>
                 <Label htmlFor='event-location-input'>location</Label>
-                <Input id='event-location-input' />
+                <Input id='event-latitude-input' />
+                <Input id='event-longitude-input' />
             </Container>
             <Container>
                 <Label htmlFor='event-start-date-input'>start date</Label>

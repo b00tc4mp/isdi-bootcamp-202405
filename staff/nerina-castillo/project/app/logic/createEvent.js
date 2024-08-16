@@ -2,9 +2,10 @@ import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (image, description, location, startDate, endDate) => {
+export default (image, description, latitude, longitude, startDate, endDate) => {
     validate.string(description, 'description')
-    validate.location(location, 'location')
+    validate.latitude(latitude, 'latitude')
+    validate.longitude(longitude, 'longitude')
     validate.eventDates(new Date(startDate), new Date(endDate))
 
     return fetch(`${import.meta.env.VITE_API_URL}/events`, {
@@ -13,7 +14,7 @@ export default (image, description, location, startDate, endDate) => {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, description, location, startDate, endDate })
+        body: JSON.stringify({ image, description, location: { type: 'Point', coordinates: [longitude, latitude] }, startDate, endDate })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

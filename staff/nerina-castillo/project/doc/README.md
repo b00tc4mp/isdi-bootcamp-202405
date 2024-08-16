@@ -22,7 +22,6 @@ The application offers a platform for different user profiles to interact, colla
 User
 - Create post
 - List posts
-- Modify own post
 - Delete own post
 - View event calendar
 - Create event

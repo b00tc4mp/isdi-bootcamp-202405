@@ -3,8 +3,8 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId) => {
-    validate.string(userId)
+export default userId => {
+    validate.string(userId, 'userId')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })

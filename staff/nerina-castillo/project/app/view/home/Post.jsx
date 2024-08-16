@@ -73,7 +73,6 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        {/* TODO editPostVisible */}
         <Container>
             {/* <Button onClick={handlLikePostClick}></Button> */}
 
