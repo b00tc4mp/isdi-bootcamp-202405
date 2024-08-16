@@ -4,7 +4,7 @@ import { User } from '../data/models.js'
 
 import { validate, errors } from '../../com/index.js'
 
-const { NotFoundError, CredentialsError, SystemError } = errors
+const { NotFoundError, ValidationError, SystemError } = errors
 
 export default (username, password) => {
     validate.username(username)
@@ -20,7 +20,7 @@ export default (username, password) => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(match => {
                     if (!match)
-                        throw new CredentialsError('wrong password')
+                        throw new ValidationError('passwords do not match')
 
                     return user._id.toString()
                 })

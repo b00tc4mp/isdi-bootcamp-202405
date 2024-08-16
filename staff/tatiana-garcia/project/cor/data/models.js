@@ -23,9 +23,12 @@ const user = new Schema({
         type: String,
         required: true
     },
-    role: {
+    // role: {
+    //     type: String,
+    //     required: true
+    // },
+    cif: {
         type: String,
-        required: true
     },
     image: {
         type: String,
@@ -40,9 +43,9 @@ const user = new Schema({
     petsitterName: {
         type: String
     },
-    pets: {
-        type: [String]
-    }
+    // pets: {
+    //     type: [String]
+    // }
 })
 
 const User = model('User', user)

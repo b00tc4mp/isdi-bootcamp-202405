@@ -8,20 +8,21 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { NotFoundError, CredentialsError, ValidationError } = errors
+const { NotFoundError, ValidationError } = errors
 
 describe('authenticateUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => User.deleteMany())
 
-    it('succeds on username and password is correct', () => {
+    it('succeds on username and password is correct', () =>
         bcrypt.hash('123123123', 8)
-            .then(hash => User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123', passwordRepeat: '123123123', role: 'user', petsitterName: 'elsaltres', city: 'Barcelona', description: 'estoy hasta las pelotas', pets: ['conejo, cobaya'] }))
-            .then(() => authenticateUser('tatig', '123123123'))
-            .then(value => expect(value).to.be.string)
-
-    })
+            .then(hash => {
+                User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: hash })
+                    .then(() => authenticateUser('tatig', '123123123'))
+                    .then(value => expect(value).to.be.string)
+            })
+    )
 
     it('fails on non-existing user', () => {
         let _error
@@ -37,12 +38,15 @@ describe('authenticateUser', () => {
     it('fails on passwords do not match', () => {
         let _error
 
-        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: '123123123', passwordRepeat: '123123123', role: 'user', petsitterName: 'elsaltres', city: 'Barcelona', description: 'estoy hasta las pelotas', pets: ['conejo, cobaya'] })
-            .then(user => authenticateUser(user.username, '123123223'))
+        return bcrypt.hash('123123123', 8)
+            .then(hash =>
+                User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', username: 'tatig', password: hash })
+            )
+            .then(() => authenticateUser('tatig', '111111111'))
             .catch(error => _error = error)
             .finally(() => {
-                expect(_error).to.be.instanceOf(CredentialsError)
-                expect(_error.message).to.equal('wrong password')
+                expect(_error).to.be.instanceOf(ValidationError)
+                expect(_error.message).to.equal('passwords do not match')
             })
     })
 

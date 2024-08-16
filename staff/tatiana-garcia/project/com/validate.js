@@ -36,10 +36,16 @@ function validatePassword(password, explain = 'password') {
     if (password.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
 }
 
-function validateRole(role, explain = 'role') {
-    validateString(role, 'role')
-    if (role !== 'user' && role !== 'petsitter') throw new ValidationError(`invalid ${explain}`)
+function validateCif(cif, explain = 'cif') {
+    validateString(cif, 'cif')
+    if (cif.trim().length < 9) throw new ValidationError(`${explain} length is lower than 9 characters`)
+    if (cif.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
 }
+
+// function validateRole(role, explain = 'role') {
+//     validateString(role, 'role')
+//     if (role !== 'user' && role !== 'petsitter') throw new ValidationError(`invalid ${explain}`)
+// }
 
 function validateCity(city) {
     validateString(city, 'city')
@@ -69,7 +75,8 @@ const validate = {
     email: validateEmail,
     username: validateUsername,
     password: validatePassword,
-    role: validateRole,
+    cif: validateCif,
+    // role: validateRole,
     city: validateCity,
     description: validateDescription,
     url: validateUrl,

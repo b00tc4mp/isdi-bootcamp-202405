@@ -5,12 +5,14 @@ import { validate, errors } from '../../com/index.js'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
-export default (image, name, surname, email, username, password, passwordRepeat) => {
+export default (image, name, surname, username, cif, city, email, password, passwordRepeat) => {
     validate.url(image, 'image')
     validate.name(name, 'name')
     validate.surname(surname, 'surname')
-    validate.email(email)
     validate.username(username)
+    validate.cif(cif, 'cif')
+    validate.city(city, 'city')
+    validate.email(email)
     validate.password(password)
 
     if (password !== passwordRepeat) throw new ValidationError('passwords do not match')
@@ -31,8 +33,12 @@ export default (image, name, surname, email, username, password, passwordRepeat)
         })
         .then(hash =>
             User.create({
+                image,
                 name,
                 surname,
+                username,
+                city,
+                cif,
                 email,
                 username,
                 password: hash
