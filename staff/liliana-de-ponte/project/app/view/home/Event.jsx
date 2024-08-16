@@ -1,12 +1,19 @@
 import logic from '../../logic/index.js'
 
 import { useState } from 'react'
+import { BiLike } from "react-icons/bi"
+import { BiSolidLike } from "react-icons/bi"
+import { BsTrash3 } from "react-icons/bs"
+import { GoStarFill } from "react-icons/go"
+import { FiStar } from "react-icons/fi"
 
 import Container from '../library/Container.jsx'
 import Image from '../library/Image.jsx'
 import Paragraph from '../library/Paragraph.jsx'
 import Link from '../library/Link.jsx'
 import Button from '../library/Button.jsx'
+
+import Confirm from '../common/Confirm.jsx'
 
 export default function Event({ event, onEventDeleted, onEventLikeToggled, onEventAttendeeToggled }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
@@ -32,7 +39,7 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
 
     const handleLikeEventClick = () => {
         try {
-            logic.toggleLikeEvent(event.id)
+            logic.toggleLikeEvents(event.id)
                 .then(() => onEventLikeToggled())
                 .catch(error => {
                     console.error(error)
@@ -46,21 +53,21 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
         }
     }
 
-    const handleAttendeeEventClick = () => {
-        try {
-            logic.toggleAttendeeEvent(event.id)
-                .then(() => onEventAttendeeToggled())
-                .catch(error => {
-                    console.error(error)
+    // const handleAttendeeEventClick = () => {
+    //     try {
+    //         logic.toggleAttendeeEvent(event.id)
+    //             .then(() => onEventAttendeeToggled())
+    //             .catch(error => {
+    //                 console.error(error)
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
+    //                 alert(error.message)
+    //             })
+    //     } catch (error) {
+    //         console.error(error)
 
-            alert(error.message)
-        }
-    }
+    //         alert(error.message)
+    //     }
+    // }
 
     return <article className="border-[#050968] p-4 rounded-[80px] bg-[#FFEBF4] m-4 max-w-md border-4 font-bold">
         <Container className="items-center justify-between">
@@ -73,12 +80,14 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
             </Container>
 
             <Container className="flex justify-between absolute">
-                <Button onClick={handleAttendeeEventClick}>{(event.attendee ? '❤️' : '🤍') + ' ' + event.attendees.length + ' attendee' + (event.attendees.length === 1 ? '' : 's')}</Button>
+                {/* <Button onClick={handleAttendeeEventClick}>{(event.attendee ? <GoStarFill /> : <FiStar />) + ' ' + event.attendees.length + ' attendee' + (event.attendees.length === 1 ? '' : 's')}</Button> */}
 
-                <Button onClick={handleLikeEventClick}>{event.like ? '🏳️‍🌈' : '🏳️'}</Button>
+
+                <Button onClick={handleLikeEventClick}>{event.like ? <BiSolidLike /> : <BiLike />}</Button>
 
                 {event.author.id === logic.getUserId() && <>
-                    <Button onClick={handleDeleteEventClick}>🗑️</Button>
+                    <Button onClick={handleDeleteEventClick}><BsTrash3 />
+                    </Button>
                     {/* <Button onClick={handleEditEventClick}></Button> */}
                 </>}
 

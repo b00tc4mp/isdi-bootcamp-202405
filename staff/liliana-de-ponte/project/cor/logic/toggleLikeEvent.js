@@ -18,17 +18,17 @@ export default (userId, eventId) => {
                 .then(event => {
                     if (!event) throw new NotFoundError('event not found')
 
-                    const { likes } = event
+                    const { likes } = user
 
-                    const index = likes.findIndex(userObjectId => userObjectId.toString() === userId)
+                    const index = likes.findIndex(eventObjectId => eventObjectId.toString() === eventId)
 
                     if (index < 0)
-                        likes.push(userId)
+                        likes.push(eventId)
 
                     else
                         likes.splice(index, 1)
 
-                    return Event.updateOne({ _id: eventId }, { $set: { likes } })
+                    return User.updateOne({ _id: userId }, { $set: { likes } })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

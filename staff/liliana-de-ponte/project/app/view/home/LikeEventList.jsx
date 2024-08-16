@@ -4,40 +4,37 @@ import { useState, useEffect } from 'react'
 
 import Event from './Event'
 
-export default function EventList({ refreshStamp }) {
+export default function LikeEventList() {
 
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-
         loadEvents()
-    }, [refreshStamp])
+    }, [])
 
     const handleEventDeleted = () => {
+
         loadEvents()
     }
-
-    // const handleEventEdited = () => {
-    //     loadEvents()
-    // }
 
     const handleEventLikeToggled = () => {
         loadEvents()
     }
 
-    // const handleEventAttendeeToggled = () => {
+    // const handleEventAttendeeToggled =()=> {
     //     loadEvents()
     // }
 
     const loadEvents = () => {
         try {
-            logic.getAllEvents()
+            logic.getAllLikeEvents()
                 .then(events => setEvents(events))
                 .catch(error => {
                     console.error(error)
 
                     alert(error.message)
                 })
+
         } catch (error) {
             console.error(error)
 
@@ -47,15 +44,14 @@ export default function EventList({ refreshStamp }) {
 
     return <section className="flex flex-col gap-4">
         {events.map(event => <Event
-            event={event}
             key={event.id}
+            event={event}
             onEventDeleted={handleEventDeleted}
             // onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
-        // onEventAttendeToggled={handleEventAttendeeToggled}
+        // onEventAttendeeToggled={handleEventAttendeeToggled}
 
         />)}
-
     </section>
 
 }

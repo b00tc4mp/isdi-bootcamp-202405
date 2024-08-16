@@ -67,7 +67,7 @@ User
 - email (string)
 - username (string)
 - password (string)
-
+- likes ([Event.id])
 
 Event
 - id (auto)
@@ -79,7 +79,7 @@ Event
 - image (string)
 - location ([number, number])
 - attendees ([User.id])
-- likes ([User.id])
+
 
 ## Next Version
 

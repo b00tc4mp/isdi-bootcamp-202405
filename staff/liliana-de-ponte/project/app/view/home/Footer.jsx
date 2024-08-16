@@ -7,7 +7,7 @@ import CreateEvent from './CreateEvent'
 import Button from '../library/Button'
 import Container from '../library/Container'
 
-export default function Footer({ onEventCreated }) {
+export default function Footer({ onEventCreated, onLikesClick }) {
 
     const [createEventVisible, setCreateEventVisible] = useState(false)
 
@@ -19,6 +19,9 @@ export default function Footer({ onEventCreated }) {
         setCreateEventVisible(false)
 
     }
+    const handleLikesClick = () => {
+        onLikesClick()
+    }
 
     const handleEventCreated = () => {
         setCreateEventVisible(false)
@@ -26,14 +29,16 @@ export default function Footer({ onEventCreated }) {
         onEventCreated()
     }
 
-    return <footer className="fixed bottom-0 left-0 w-full flex justify-center bg-[#050968]">
 
-        <Container className="flex justify-between items-center mx-auto max-w-md p-2">
+
+    return <footer className="fixed bottom-0 left-0 w-full bg-[#050968]">
+
+        <Container className="flex justify-around items-center">
             <Button><FiStar size={22} /></Button>
             <Button onClick={handleCreateEventClick}><FaRegSquarePlus size={22} /></Button>
-            <Button><BiLike size={22} /></Button>
+            <Button onClick={handleLikesClick}><BiLike size={22} /></Button>
         </Container>
 
-        {createEventVisible && <CreateEvent onEventCreated={handleEventCreated} onCalcelCreateEvent={handleCancelCreateEventClick} />}
+        {createEventVisible && <CreateEvent onEventCreated={handleEventCreated} onCancelCreateEvent={handleCancelCreateEventClick} />}
     </footer>
 }

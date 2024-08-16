@@ -24,20 +24,20 @@ describe('toggleLikeEvent', () => {
                 Event.create({ author: user.id, title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
                     .then(event =>
                         toggleLikeEvent(user.id, event.id)
-                            .then(() => Event.findById(event.id).lean())
-                            .then(event =>
-                                expect(event.likes.map(userObjectId => userObjectId.toString())).to.include(user.id))
+                            .then(() => User.findById(user.id).lean())
+                            .then(user =>
+                                expect(user.likes.map(userObjectId => userObjectId.toString())).to.include(event.id))
                     )
             )
     )
 
     it('succeeds on existing user and event with likes', () =>
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user =>
-                Event.create({ author: new ObjectId().toString(), title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] }, likes: [user.id] })
-                    .then(event => toggleLikeEvent(user.id, event.id)
-                        .then(() => Event.findById(event.id).lean())
-                        .then(event => expect(event.likes).to.not.include(user.id))
+        Event.create({ author: new ObjectId().toString(), title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
+            .then(event =>
+                User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789', likes: [event.id] })
+                    .then(user => toggleLikeEvent(user.id, event.id)
+                        .then(() => User.findById(user.id).lean())
+                        .then(user => expect(user.likes).to.not.include(event.id))
                     )
             )
     )

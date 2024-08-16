@@ -17,18 +17,19 @@ describe('getAllLikeEvent', () => {
     beforeEach(() =>
         Promise.all([User.deleteMany(), Event.deleteMany()]))
 
-    if ('succeeds on existing user', () =>
-        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
+    if ('succeeds on existing user', () => {
+        return Event.create({ author: new ObjectId().toString(), title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
             .then(event =>
-                Event.create({ author: 'samuspine', title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
-                    .then(user =>
+                User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789', likes: [event.id] })
+                    .then(user => {
                         getAllLikeEvents(user.id)
-                            .then(() => User.findOne({ username: 'samuspine' }))
-                            .then(user => expect(user.favs).to.include(event.id)
-                            )
-                    )
+                        User.findOne({ username: 'samuspine' })
+                            .then(event => expect(event.likes).to.include(event.id))
+                    })
             )
-    )
+
+    })
+
 
         it('fails on non-existing user', () => {
             let _error

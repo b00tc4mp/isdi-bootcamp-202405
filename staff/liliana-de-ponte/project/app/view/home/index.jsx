@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import EventList from './EventList'
+import LikeEventList from './LikeEventList'
 
 export default function Home({ onLogout }) {
 
@@ -27,7 +28,6 @@ export default function Home({ onLogout }) {
     return <>
         <Header
             onHomeClick={handleHomeClick}
-            onLikesClick={handleLikesClick}
             onLogout={onLogout}>
         </Header>
 
@@ -35,9 +35,13 @@ export default function Home({ onLogout }) {
             <Routes>
                 <Route path="/" element={<EventList refreshStamp={refreshStamp} />} />
 
+                <Route path="/likes" element={<LikeEventList />} />
+
             </Routes>
         </main >
 
-        <Footer onEventCreated={handleEventCreated}></Footer>
+        <Footer
+            onEventCreated={handleEventCreated}
+            onLikesClick={handleLikesClick}></Footer>
     </>
 }

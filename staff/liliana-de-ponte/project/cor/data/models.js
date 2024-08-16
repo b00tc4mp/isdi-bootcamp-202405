@@ -25,6 +25,11 @@ const user = new Schema({
         type: String,
         required: true
     },
+
+    likes: {
+        type: [ObjectId],
+        ref: 'Event'
+    }
 })
 
 const point = new Schema({
@@ -84,10 +89,6 @@ const event = new Schema({
         ref: 'User'
     },
 
-    likes: {
-        type: [ObjectId],
-        ref: 'Event'
-    }
 })
 
 const User = model('User', user)
