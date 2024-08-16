@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import getUserFavs from './getUserFavs.js'
+import getDevUserGames from './getDevUserGames.js'
 import mongoose, { Types } from 'mongoose'
 
 const { ObjectId } = Types
@@ -15,7 +15,7 @@ const img = 'https://store-images.s-microsoft.com/image/apps.54354.1351079888260
 
 const link = 'https://www.microsoft.com/en-us/p/candy-crush-saga/9nblggh18846?activetab=pivot:overviewtab'
 
-describe('getUserFavs', () => {
+describe('getDevUserGames', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => Promise.all([User.deleteMany(), Game.deleteMany()]))
@@ -25,12 +25,12 @@ describe('getUserFavs', () => {
             .then(user => {
                 return Game.create({ author: user.id, name: 'candy crush', image: img, description: 'candy crush game broh', link: link })
                     .then(game =>
-                        User.findByIdAndUpdate(user.id, { $push: { favs: game.id } })
+                        User.findByIdAndUpdate(user.id, { $push: { games: game.id } })
                             .then(() => Game.create({ author: user.id, name: 'candy crush', image: img, description: 'candy crush game broh', link: link }))
                     )
                     .then(game =>
-                        User.findByIdAndUpdate(user.id, { $push: { favs: game.id } })
-                            .then(() => getUserFavs(user.id)))
+                        User.findByIdAndUpdate(user.id, { $push: { games: game.id } })
+                            .then(() => getDevUserGames(user.id)))
             })
             .then(games => {
                 expect(games).to.be.an('array')
@@ -40,7 +40,7 @@ describe('getUserFavs', () => {
 
     it('succeeds on existing user and no posts returning empty array ', () => {
         return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => getUserFavs(user.id))
+            .then(user => getDevUserGames(user.id))
             .then(games => {
                 expect(games).to.be.an('array')
                 expect(games.length).to.equal(0)
@@ -51,7 +51,7 @@ describe('getUserFavs', () => {
         let _error
 
         return Game.create({ author: new ObjectId(), name: 'candy crush', image: img, description: 'candy crush game broh', link: link })
-            .then(game => getUserFavs('66ba007f874aa7b84ec54491'))
+            .then(game => getDevUserGames('66ba007f874aa7b84ec54491'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -63,7 +63,7 @@ describe('getUserFavs', () => {
         let error
 
         try {
-            getUserFavs(123)
+            getDevUserGames(123)
         } catch (_error) {
             error = _error
         } finally {

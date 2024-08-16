@@ -14,8 +14,8 @@ A hub for gamers and developers to play or upload videogames
 - add game to library
 - add game to favourites
 - search games (by name, date, genre...)
-- view game detail
-- play game
+- view game details
+- play/download game
 - add review
 - delete review
 - change role

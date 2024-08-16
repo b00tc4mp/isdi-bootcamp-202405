@@ -7,6 +7,7 @@ import getUserLibrary from './getUserLibrary.js'
 import getUserFavs from './getUserFavs.js'
 import getGameById from './getGameById.js'
 import getGameReviews from './getGameReviews.js'
+import getDevUserGames from './getDevUserGames.js'
 import toggleAddGame from './toggleAddGame.js'
 import toggleFavGame from './toggleFavGame.js'
 import makeReview from './makeReview.js'
@@ -21,6 +22,7 @@ const logic = {
     getUserFavs,
     getGameById,
     getGameReviews,
+    getDevUserGames,
     toggleAddGame,
     toggleFavGame,
     makeReview

@@ -2,7 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (gameId, comment, rate = -1) => {
+export default (gameId, comment, rate) => {
     validate.string(gameId, 'gameId')
     validate.string(comment, 'comment')
     validate.number(rate, 'rate')

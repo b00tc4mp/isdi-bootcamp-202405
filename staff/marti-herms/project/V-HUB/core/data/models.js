@@ -64,14 +64,6 @@ const game = new Schema({
         type: String,
         required: true
     },
-    downloads: {
-        type: Number,
-        default: 0
-    },
-    rating: {
-        type: Number,
-        default: 0
-    },
     date: {
         type: Date,
         required: true,
@@ -92,6 +84,8 @@ const review = new Schema({
     },
     rate: {
         type: Number,
+        required: true,
+        enum: [0, 1, 2, 3, 4, 5]
     },
     comment: {
         type: String,

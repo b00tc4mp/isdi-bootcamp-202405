@@ -53,7 +53,7 @@ export default function Register({ onLoginClick, onRegister }) {
                 <Input id='email-input' type='email' placeholder='Email' />
                 <Input id='password-input' type='password' placeholder='Password' />
                 <Input id='repassword-input' type='password' placeholder='Repeat Password' />
-                <Checkbox id='role-input' name='dev' />
+                <Checkbox id='role-input' name='dev'> Game Dev</Checkbox>
                 <Button type='submit' className='bg-rose-500 hover:bg-rose-800'>Register</Button>
                 <Link className='text-xl underline underline-offset-2 hover:text-blue-500' onClick={onLoginClick}>Login</Link>
             </Form>
