@@ -2,24 +2,19 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
+export default (userId) => {
+    validate.string(userId, 'userId')
 
-export default (targetUserId = '') => {
-    validate.string(targetUserId, 'targetUserId')
-
-    const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
-
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId || userId}/username`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 200) {
+            if (status === 200)
                 return response.json()
-                    .then(username => username)
-            }
+                    .then(user => user)
 
             return response.json()
                 .then(body => {

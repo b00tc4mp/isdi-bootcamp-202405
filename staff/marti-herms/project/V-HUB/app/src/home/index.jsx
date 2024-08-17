@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import Header from './Header'
 import Library from './Library'
@@ -8,32 +8,28 @@ import GameRegister from './GameRegister'
 import GameSearch from './GameSearch'
 import GameSearchResults from './GameSearchResults'
 import Game from './Game'
+import Profile from './Profile'
+
+import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 
 export default function Home({ onLogout }) {
-    const location = useLocation()
-
-    const [path, setPath] = useState(location.pathname)
     const [refreshStamp, setRefreshStamp] = useState(null)
     const [makeReviewVisibility, setMakeReviewVisibility] = useState(false)
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        navigate(path)
-    }, [path])
-
     const handleHomeClick = () => {
         setRefreshStamp(Date.now())
-        setPath('/')
+        navigate('/')
     }
 
     const handleRegisterGameClick = () => {
-        setPath('/games/register')
+        navigate('/games/register')
     }
 
     const handleSearchGameClick = () => {
         setRefreshStamp(Date.now())
-        setPath('/games/search')
+        navigate('/games/search')
     }
 
     const handleInputChange = () => {
@@ -41,11 +37,21 @@ export default function Home({ onLogout }) {
     }
 
     const handleRegisterGame = (gameId) => {
-        setPath(`/games/${gameId}`)
+        navigate(`/games/${gameId}`)
     }
 
     const handleGame = (gameId) => {
-        setPath(`/games/${gameId}`)
+        navigate(`/games/${gameId}`)
+    }
+
+    const handleProfileClick = () => {
+        const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
+
+        navigate(`/profile/${userId}`)
+    }
+
+    const handleSearchUser = (userId) => {
+        navigate(`/profile/${userId}`)
     }
 
     const handleAddReview = () => {
@@ -57,19 +63,19 @@ export default function Home({ onLogout }) {
     }
 
     return <>
-        <Header onLogoutClick={onLogout} ></Header>
+        <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} ></Header>
 
         <main className='my-10 w-screen h-full dark:bg-[#1e1e1e]'>
             <Routes>
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
+                <Route path='/profile/:userId' element={<Profile />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
                 <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} onGameClick={handleGame} /></>} />
                 <Route path='/games/:gameId' element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
             </Routes>
         </main>
 
-        <Footer path={path}
-            makeReviewVisibility={makeReviewVisibility}
+        <Footer makeReviewVisibility={makeReviewVisibility}
             onSearchGame={handleSearchGameClick}
             onRegisterGame={handleRegisterGameClick}
             onHome={handleHomeClick}

@@ -14,6 +14,8 @@ import toggleAddGame from './toggleAddGame.js'
 import toggleFavGame from './toggleFavGame.js'
 import makeReview from './makeReview.js'
 import deleteReview from './deleteReview.js'
+import getUserAvatar from './getUserAvatar.js'
+import getUser from './getUser.js'
 
 const logic = {
     loginUser,
@@ -31,7 +33,9 @@ const logic = {
     toggleAddGame,
     toggleFavGame,
     makeReview,
-    deleteReview
+    deleteReview,
+    getUserAvatar,
+    getUser
 }
 
 export default logic
