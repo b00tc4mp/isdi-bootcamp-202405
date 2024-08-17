@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-import Context from '../../Context'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -8,7 +7,7 @@ import Button from '../library/Button'
 import Image from '../library/Image'
 
 export default function Header({ onProfileSettingsClicked, onLogout }) {
-    const { alert } = useContext(Context)
+    const { alert } = useContext()
 
     const handleLogoutClick = () => {
         try {

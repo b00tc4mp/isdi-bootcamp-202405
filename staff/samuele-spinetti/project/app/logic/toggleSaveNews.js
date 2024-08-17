@@ -2,14 +2,11 @@ import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (query, distance, coords) => {
-    validate.string(query, 'query')
-    validate.number(distance, 'distance')
-    validate.array(coords, 'coords')
-    validate.number(coords[0], 'longitude')
-    validate.number(coords[1], 'latitude')
+export default newsId => {
+    validate.id(newsId, 'newsId')
 
-    return fetch(`http://localhost:8080/healthcareproviders/search?q=${query}&distance=${distance}&coords=${coords}`, {
+    return fetch(`http://localhost:8080/news/${newsId}/save`, {
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -18,9 +15,7 @@ export default (query, distance, coords) => {
         .then(response => {
             const { status } = response
 
-            if (status === 200)
-                return response.json()
-                    .then(healthCareProviders => healthCareProviders)
+            if (status === 204) return
 
             return response.json()
                 .then(body => {

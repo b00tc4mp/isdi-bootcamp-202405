@@ -25,6 +25,10 @@ const user = new Schema({
     },
     avatar: {
         type: String
+    },
+    favs: {
+        type: [String],
+        required: false
     }
 })
 
@@ -88,11 +92,13 @@ const newsArticle = new Schema({
         type: String,
         required: true
     },
-    webURL: {
+    url: {
         type: String,
         required: true
     }
 })
+
+healthCareProvider.index({ location: '2dsphere' })
 
 const User = model('User', user)
 const Location = model('Location', point)

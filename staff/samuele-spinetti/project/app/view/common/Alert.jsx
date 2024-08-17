@@ -4,7 +4,6 @@ import Button from '../library/Button'
 import Span from '../library/Span'
 
 export default function Alert({ message, onAccept }) {
-
     return <>
         <Container className="fixed w-screen top-0 h-screen bg-black opacity-50"></Container>
 

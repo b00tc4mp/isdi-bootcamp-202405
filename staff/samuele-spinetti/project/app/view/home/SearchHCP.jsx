@@ -6,6 +6,7 @@ import Form from '../library/Form'
 import Input from '../library/Input'
 import Button from '../library/Button'
 import Image from '../library/Image'
+import Span from '../library/Span'
 
 export default function SearchHCP() {
     const navigate = useNavigate()
@@ -14,11 +15,12 @@ export default function SearchHCP() {
     const [query, setQuery] = useState('')
 
     const q = searchParams.get('q') || ''
+    const distance = searchParams.get('distance') || '10'
 
     useEffect(() => {
         if (q)
-            setQuery(q)
-    }, [q])
+            setQuery(q, distance)
+    }, [q, distance])
 
     const handleSearchHealthCareProviderSubmit = event => {
         event.preventDefault()
@@ -26,13 +28,14 @@ export default function SearchHCP() {
         const form = event.target
 
         const { value: query } = form.q
+        const { value: distance } = form.distance
 
         if (!query.trim())
-            navigate('/search')
+            navigate(`/search?q=${query}&distance=${distance}`)
         else if (location.pathname !== '/search')
-            navigate(`/search?q=${query}`)
+            navigate('/search')
         else
-            setSearchParams({ q: query })
+            setSearchParams({ q: query, distance })
 
         setQuery(query)
     }
@@ -45,17 +48,23 @@ export default function SearchHCP() {
 
     return <>
         <Container>
-            <Form className="flex flex-row items-center" onSubmit={handleSearchHealthCareProviderSubmit}>
-                <Input className="border border-black" type="text" name="q" id="search-input" placheholder="Search" value={query} onChange={handleInputChange} />
-                <Button type="submit">
-                    <Image className="h-[30px] w-[30px]" src="/searchIcon.svg" alt="Search icon" />
-                </Button>
-            </Form>
-            <Form>
-
-                <label for="minmax-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Min-max range</label>
-                <input id="minmax-range" type="range" min="0" max="10" defaultValue="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
-
+            <Form onSubmit={handleSearchHealthCareProviderSubmit}>
+                <Container className="flex flex-row items-center" >
+                    <Input className="border border-black" type="text" name="q" id="search-input" placeholder="Search" value={query} onChange={handleInputChange} />
+                    <Button type="submit">
+                        <Image className="h-[30px] w-[30px]" src="/searchIcon.svg" alt="Search icon" />
+                    </Button>
+                </Container>
+                <Container>
+                    <Container className="flex justify-between w-full">
+                        <Span>0</Span>
+                        <Span>2.5</Span>
+                        <Span>5</Span>
+                        <Span>7.5</Span>
+                        <Span>10</Span>
+                    </Container>
+                    <Input type="range" min="0" max="10" name="distance" className="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
+                </Container>
             </Form>
         </Container>
     </>

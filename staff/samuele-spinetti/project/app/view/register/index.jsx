@@ -1,6 +1,6 @@
 import logic from '../../logic/index.js'
-import { useContext } from 'react'
-import Context from '../../Context'
+
+import useContext from '../context.js'
 
 import Heading from '../library/Heading'
 import Form from '../library/Form'
@@ -14,7 +14,7 @@ import Paragraph from '../library/Paragraph'
 import Link from '../library/Link'
 
 export default function Register({ onRegister, onLoginClick }) {
-    const { alert } = useContext(Context)
+    const { alert } = useContext()
 
     const handleRegisterSubmit = event => {
         event.preventDefault()

@@ -45,6 +45,14 @@ function validateImage(image, explain = 'image') {
     if (!image.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
 
+function validateNumber(number, explain = 'number') {
+    if (typeof number !== 'number') throw new ValidationError(`${explain} is not a number`)
+}
+
+function validateArray(array, explain = 'array') {
+    if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
+}
+
 const validate = {
     string: validateString,
     object: validateObject,
@@ -53,7 +61,9 @@ const validate = {
     email: validateEmail,
     password: validatePassword,
     id: validateId,
-    image: validateImage
+    image: validateImage,
+    number: validateNumber,
+    array: validateArray
 }
 
 export default validate

@@ -24,9 +24,9 @@ export default function HealthCareProvider({ healthCareProvider }) {
     return <article className="shadow-[1px_1px_10px_1px] shadow-[#a3a3a3] bg-white p-[12px] rounded-xl mx-5">
         <Container className="flex flex-col justify-center items-center">
             <Heading className="font-extrabold text-xl text-center">{healthCareProvider.name}</Heading>
-            <Container className="flex flex-row">
-                <Container>
-                    <Image className="w-[150px]" src={healthCareProvider.image} />
+            <Container className="flex flex-row h-[100%] w-[100%]">
+                <Container >
+                    <Image className="w-32" src={healthCareProvider.image} />
                 </Container>
                 <Container className="flex flex-col max-w-20">
                     <Paragraph>{healthCareProvider.street}</Paragraph>
@@ -60,7 +60,6 @@ export default function HealthCareProvider({ healthCareProvider }) {
                 <Marker position={healthCareProvider.location.coordinates}>
                     <Popup>{healthCareProvider.name}</Popup>
                 </Marker>
-                <Button onClick={onCloseMapClick}>Close</Button>
             </MapContainer>
                 <Button onClick={onCloseMapClick}>Close</Button>
             </>}

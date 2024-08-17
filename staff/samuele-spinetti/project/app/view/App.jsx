@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import Context from '../Context'
+import { Context } from './context.js'
 
 import Login from './login'
 import Register from './register'

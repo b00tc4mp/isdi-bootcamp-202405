@@ -10,6 +10,7 @@ import getAllHCPs from './getAllHCPs'
 import searchHCP from './searchHCP'
 import getAllNews from './getAllNews'
 import fetchNews from './fetchNews'
+import toggleSaveNews from './toggleSaveNews'
 
 const logic = {
     isUserLoggedIn,
@@ -23,7 +24,8 @@ const logic = {
     getAllHCPs,
     searchHCP,
     getAllNews,
-    fetchNews
+    fetchNews,
+    toggleSaveNews
 }
 
 export default logic

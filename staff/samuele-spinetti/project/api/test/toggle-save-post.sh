@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/news/66bf5d8f1ae1075dec2f790b/save -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNWQ2YTA5MTAzZGMyODIzNThiZGYiLCJpYXQiOjE3MjM4MTczMjR9.dhASUKqqDSgwZRSrjYyVO6QTsy6u4SnkbTZ08w9UF_M"

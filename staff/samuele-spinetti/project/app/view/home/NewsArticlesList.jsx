@@ -6,29 +6,28 @@ import NewsArticle from './NewsArticle'
 import Heading from '../library/Heading'
 
 export default function NewsArticlesList() {
-    const [getAllNews, setGetAllNews] = useState([])
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
 
     useEffect(() => {
         setLoading(true)
-        setError(null)
 
         try {
-            logic.fetchNews('Health LGBTQI+') // Example search query
+            logic.fetchNews('Health LGBTQI+')
                 .then((newsArticles) => {
                     if (newsArticles.length > 0) {
-                        setArticles(newsArticles);
+                        setArticles(newsArticles)
                     } else {
                         logic.getAllNews()
                         setArticles(newsArticles)
                     }
-                    setLoading(false);
+                    setLoading(false)
                 })
-                .catch((err) => {
-                    setError('Failed to fetch news');
-                    setLoading(false);
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                    setLoading(false)
                 })
         } catch (error) {
             console.error(error)
@@ -38,7 +37,6 @@ export default function NewsArticlesList() {
     }, [])
 
     if (loading) return <p>Loading news...</p>;
-    if (error) return <p>{error}</p>;
 
     return <>
         <Heading className="flex flex-col justify-center items-center text-[#C900CD] [gradient-to-br from-green-400 to-fuchsia-500] text-[30px] font-bold h-20">Healthy living, Pride being!</Heading>

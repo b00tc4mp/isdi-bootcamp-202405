@@ -7,30 +7,38 @@ import HealthCareProvider from './HealthCareProvider'
 
 export default function ResultsHCPList() {
     const [searchParams] = useSearchParams()
+    const [healthCareProviders, setHealthCareProviders] = useState([])
 
     const q = searchParams.get('q') || ''
-
-    const [healthCareProviders, setHealthCareProviders] = useState([])
+    const distance = Number(searchParams.get('distance') || '10')
 
     useEffect(() => {
         loadHCP()
-    }, [q])
+    }, [q], distance)
 
     const loadHCP = () => {
-        if (q !== null)
-            try {
-                logic.searchHCP(q)
-                    .then(healthCareProviders => setHealthCareProviders(healthCareProviders))
-                    .catch(error => {
-                        console.error(error)
+        if (q !== null) {
+            navigator.geolocation.getCurrentPosition((position => {
+                const coords = [position.coords.latitude, position.coords.longitude]
+                try {
+                    logic.searchHCP(q, distance, coords)
+                        .then(healthCareProviders => setHealthCareProviders(healthCareProviders))
+                        .catch(error => {
+                            console.error(error)
 
-                        alert(error.message)
-                    })
-            } catch (error) {
+                            alert(error.message)
+                        })
+                } catch (error) {
+                    console.error(error)
+
+                    alert(error.message)
+                }
+            }), error => {
                 console.error(error)
 
-                alert(error.message)
-            }
+                aler(error.message)
+            })
+        }
     }
 
     return <section className="flex flex-col gap-6">

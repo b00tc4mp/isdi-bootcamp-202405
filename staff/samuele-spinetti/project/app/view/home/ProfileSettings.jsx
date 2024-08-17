@@ -1,14 +1,13 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 
 import Heading from '../library/Heading'
 import Container from '../library/Container'
-import Label from '../library/Label'
 import Input from '../library/Input'
 import Button from '../library/Button'
 import Image from '../library/Image'
 import Form from '../library/Form'
 
-import Context from '../../Context'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -16,7 +15,7 @@ export default function ProfileSettings() {
     const [user, setUser] = useState(null)
     const [editAvatarVisible, setEditAvatarVisible] = useState(false)
     const [editPasswordVisible, setEditPasswordVisible] = useState(false)
-    const { alert } = useContext(Context)
+    const { alert } = useContext()
 
     useEffect(() => {
         try {

@@ -7,6 +7,7 @@ import updatePasswordHandler from './updatePasswordHandler.js'
 import getAllHCPsHandler from './getAllHCPsHandler.js'
 import searchHCPHandler from './searchHCPHandler.js'
 import getAllNewsHandler from './getAllNewsHandler.js'
+import toggleSaveNewsHandler from './toggleSaveNewsHandler.js'
 
 export {
     authenticateUserHandler,
@@ -17,5 +18,6 @@ export {
     updatePasswordHandler,
     getAllHCPsHandler,
     searchHCPHandler,
-    getAllNewsHandler
+    getAllNewsHandler,
+    toggleSaveNewsHandler
 }

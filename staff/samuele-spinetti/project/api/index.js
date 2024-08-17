@@ -14,7 +14,8 @@ import {
     updatePasswordHandler,
     getAllHCPsHandler,
     searchHCPHandler,
-    getAllNewsHandler
+    getAllNewsHandler,
+    toggleSaveNewsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -40,6 +41,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
+
+        api.patch('/news/:newsId/save', jwtVerifier, toggleSaveNewsHandler)
 
         api.use(errorHandler)
 

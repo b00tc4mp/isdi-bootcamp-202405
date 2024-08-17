@@ -1,7 +1,6 @@
 import logic from '../../logic/index.js'
 
-import { useContext } from 'react'
-import Context from '../../Context'
+import useContext from '../context.js'
 
 import Heading from '../library/Heading'
 import Form from '../library/Form'
@@ -18,7 +17,7 @@ import { errors } from 'com'
 const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
-    const { alert } = useContext(Context)
+    const { alert } = useContext()
 
     const handleLoginSubmit = event => {
         event.preventDefault()

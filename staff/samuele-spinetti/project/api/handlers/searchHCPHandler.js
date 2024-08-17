@@ -1,10 +1,14 @@
 import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
-    const { userId, query: { q } } = req
+    let { userId, query: { q, distance, coords } } = req
+
+    distance = Number(distance)
+
+    coords = coords.split(',').map(coord => Number(coord))
 
     try {
-        logic.searchHCP(userId, q)
+        logic.searchHCP(userId, q, distance, coords)
             .then(healthCareProviders => res.json(healthCareProviders))
             .catch(error => next(error))
     } catch (error) {

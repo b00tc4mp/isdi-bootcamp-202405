@@ -14,14 +14,12 @@ export default userId => {
             return NewsArticle.find({}, { __v: 0 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(newsArticles => {
-                    const promises = newsArticles.map(newsArticle => {
+                    return newsArticles.map(newsArticle => {
                         newsArticle.id = newsArticle._id.toString()
                         delete newsArticle._id
 
                         return newsArticle
                     })
-                    return Promise.all(promises)
-                        .then(newsArticles => newsArticles)
                 })
         })
 }

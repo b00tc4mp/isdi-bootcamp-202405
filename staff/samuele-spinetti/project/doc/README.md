@@ -77,7 +77,7 @@ User
 - email (string)
 - username (string)
 - password (string)
-- role (string, enum: regular|admin)
+- favs([News.id])
 
 HealthCenter
 - id (auto)

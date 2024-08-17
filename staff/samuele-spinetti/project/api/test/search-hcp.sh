@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/healthcareproviders/search?q=hola -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJiODJkOTc1YjNhMGUxYmMxNWJlMGIiLCJpYXQiOjE3MjM2MjgzNzN9.4I1Q0kvTlN1w7AGL81lOrkH09TVuKj17hIn-SKO9TCg"
+curl -v 'http://localhost:8080/healthcareproviders/search?q=hospital&distance=5&coords=41.4896223,2.2375339' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmMzZhZGM3ZmYyOGVhODBhMDkxZDQiLCJpYXQiOjE3MjM4MDc0MDh9.KLV77DCS9jxRMPth2gavmpj1PtLdtJ7o2bYD_QQzuqM"
