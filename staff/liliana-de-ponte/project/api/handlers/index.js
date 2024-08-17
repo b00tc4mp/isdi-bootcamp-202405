@@ -8,6 +8,7 @@ import toggleLikeEventHandler from './toggleLikeEventHandler.js'
 import getAllLikeEventsHandler from './getAllLikeEventsHandler.js'
 import toggleAttendanceEventHandler from './toggleAttendanceEventHandler.js'
 import getAllAttendanceEventsHandler from './getAllAttendanceEventHandler.js'
+import searchEventsHandler from './searchEventsHandler.js'
 
 export {
     registerUserHandler,
@@ -19,6 +20,7 @@ export {
     toggleLikeEventHandler,
     getAllLikeEventsHandler,
     toggleAttendanceEventHandler,
-    getAllAttendanceEventsHandler
+    getAllAttendanceEventsHandler,
+    searchEventsHandler
 
 }

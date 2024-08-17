@@ -36,6 +36,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
         const eventTitleInput = form['event-title-input']
         const eventOrganizerInput = form['event-organizer-input']
         const eventDate = new Date(year, month - 1, day).toISOString()
+
         // const eventDateInput = form['event-date-input']
         const eventDurationInput = form['event-duration-input']
         const eventDescriptionInput = form['event-description-input']

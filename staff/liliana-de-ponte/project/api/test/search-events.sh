@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/search?q=evento -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNDVjZjhmNDA5Nzg2MDJlN2NkMDAiLCJpYXQiOjE3MjM5MDU0Mzl9.PccyvqFUVt_M311wpl8OE1o-zP5LU6JByXtCBcmkwz0"

@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import toggleAttendeeEvent from './toggleAttendeeEvent.js'
+import toggleAttendanceEvent from './toggleAttendanceEvent.js'
 import mongoose, { Types } from 'mongoose'
 
 const { ObjectId } = Types
@@ -11,7 +11,7 @@ import { errors } from '../../com/index.js'
 
 const { NotFoundError, ValidationError } = errors
 
-describe('toggleAttendeeEvent', () => {
+describe('toggleAttendanceEvent', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() =>
@@ -23,7 +23,7 @@ describe('toggleAttendeeEvent', () => {
             .then(user =>
                 Event.create({ author: user.id, title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
                     .then(event =>
-                        toggleAttendeeEvent(user.id, event.id)
+                        toggleAttendanceEvent(user.id, event.id)
                             .then(() => Event.findById(event.id).lean())
                             .then(event => expect(event.attendees.map(userObjectId => userObjectId.toString())).to.include(user.id))
                     )
@@ -35,7 +35,7 @@ describe('toggleAttendeeEvent', () => {
             .then(user =>
                 Event.create({ author: user.id, title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] }, attendees: [user.id] })
                     .then(event =>
-                        toggleAttendeeEvent(user.id, event.id)
+                        toggleAttendanceEvent(user.id, event.id)
                             .then(() => Event.findById(event.id).lean())
                             .then(event => expect(event.attendees).to.not.include(user.username))
                     )
@@ -46,7 +46,7 @@ describe('toggleAttendeeEvent', () => {
         let _error
 
         return Event.create({ author: new ObjectId().toString(), title: 'TRT', organizer: 'Sergio Canovas', date: 2024 / 9 / 17, duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
-            .then(event => toggleAttendeeEvent(new ObjectId().toString(), event.id))
+            .then(event => toggleAttendanceEvent(new ObjectId().toString(), event.id))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -59,7 +59,7 @@ describe('toggleAttendeeEvent', () => {
         let _error
 
         return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
-            .then(user => toggleAttendeeEvent(user.id, new ObjectId().toString()))
+            .then(user => toggleAttendanceEvent(user.id, new ObjectId().toString()))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -71,7 +71,7 @@ describe('toggleAttendeeEvent', () => {
         let error
 
         try {
-            toggleAttendeeEvent(123, new ObjectId().toString())
+            toggleAttendanceEvent(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
@@ -83,7 +83,7 @@ describe('toggleAttendeeEvent', () => {
     it('fails on non-string eventId', () => {
         let error
         try {
-            toggleAttendeeEvent(new ObjectId().toString(), 123)
+            toggleAttendanceEvent(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {

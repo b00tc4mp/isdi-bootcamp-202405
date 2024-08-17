@@ -11,6 +11,7 @@ import toggleLikeEvents from './toggleLikeEvents.js'
 import getAllLikeEvents from './getAllLikeEvents.js'
 import toggleAttendanceEvent from './toggleAttendanceEvent.js'
 import getAllAttendanceEvent from './getAllAttendanceEvents.js'
+import searchEvents from './searchEvents.js'
 
 const logic = {
     registerUser,
@@ -25,7 +26,8 @@ const logic = {
     toggleLikeEvents,
     getAllLikeEvents,
     toggleAttendanceEvent,
-    getAllAttendanceEvent
+    getAllAttendanceEvent,
+    searchEvents
 
 }
 

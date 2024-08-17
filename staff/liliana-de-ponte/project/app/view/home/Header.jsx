@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
-import Image from '../library/Image'
+import Search from './Search.jsx'
 
 //todo
 
@@ -48,6 +48,7 @@ export default function Header({ onHomeClick, onLogout }) {
     }
 
     return <header className="bg-[#050968] fixed left-0 top-0 w-full">
+        <Search />
 
         <Container className="flex justify-between items-center">
             <Paragraph className="text-[#FFEBF4]">{name}!</Paragraph>

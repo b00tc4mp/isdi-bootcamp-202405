@@ -6,6 +6,7 @@ import Footer from './Footer'
 import EventList from './EventList'
 import LikeEventList from './LikeEventList'
 import AttendanceEventList from './AttendanceEventList'
+import ResultsEventList from './ResultsEventList'
 
 export default function Home({ onLogout }) {
 
@@ -26,6 +27,11 @@ export default function Home({ onLogout }) {
         navigate('/likes')
     }
 
+
+    const handleAttendancesClick = () => {
+        navigate('/attendees')
+    }
+
     return <>
         <Header
             onHomeClick={handleHomeClick}
@@ -40,11 +46,14 @@ export default function Home({ onLogout }) {
 
                 <Route path="/attendees" element={<AttendanceEventList />} />
 
+                <Route path="/search" element={<ResultsEventList />} />
+
             </Routes>
         </main >
 
         <Footer
             onEventCreated={handleEventCreated}
-            onLikesClick={handleLikesClick}></Footer>
+            onLikesClick={handleLikesClick}
+            onAttendancesClick={handleAttendancesClick}></Footer>
     </>
 }
