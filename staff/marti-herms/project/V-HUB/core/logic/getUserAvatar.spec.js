@@ -20,7 +20,7 @@ describe('getUserAvatar', () => {
 
     it('succeeds on existing user and returning avatar', () => {
         return User.create({ username: 'monoloco', email: 'mono@loco.com', password: '123123123', avatar: img })
-            .then(user => getUserAvatar(user.id))
+            .then(user => getUserAvatar(user.id, user.id))
             .then(avatar => {
                 expect(avatar).to.equal(img)
             })
@@ -28,7 +28,7 @@ describe('getUserAvatar', () => {
 
     it('succeeds on existing user and not returning avatar', () => {
         return User.create({ username: 'monoloco', email: 'mono@loco.com', password: '123123123' })
-            .then(user => getUserAvatar(user.id))
+            .then(user => getUserAvatar(user.id, user.id))
             .then(avatar => {
                 expect(avatar).to.equal('')
             })
@@ -37,7 +37,7 @@ describe('getUserAvatar', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return getUserAvatar('66ba007f874aa7b84ec54491')
+        return getUserAvatar('66ba007f874aa7b84ec54491', '66ba007f874aa7b84ec54491')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -45,16 +45,41 @@ describe('getUserAvatar', () => {
             })
     })
 
+    it('fails on non-existing target user', () => {
+        let _error
+
+        return User.create({ username: 'monoloco', email: 'mono@loco.com', password: '123123123' })
+            .then(user => getUserAvatar(user.id, '66ba007f874aa7b84ec54491'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('target user not found')
+            })
+    })
+
     it('fails on non-string userId', () => {
         let error
 
         try {
-            getUserAvatar(123)
+            getUserAvatar(123, '66ba007f874aa7b84ec54491')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('userId is not a string')
+        }
+    })
+
+    it('fails on non-string targetUserId', () => {
+        let error
+
+        try {
+            getUserAvatar('66ba007f874aa7b84ec54491', 123)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('targetUserId is not a string')
         }
     })
 

@@ -2,7 +2,7 @@ import { User } from '../data/models.js'
 
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { NotFoundError, SystemError } = errors
 
 export default (userId, targetUserId) => {
     validate.string(userId, 'userId')
@@ -11,15 +11,23 @@ export default (userId, targetUserId) => {
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+            if (!user)
+                throw new NotFoundError('user not found')
+
 
             return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(user => {
-            if (!user) throw new NotFoundError('target user not found')
+            if (!user)
+                throw new NotFoundError('target user not found')
 
+            user.id = user._id.toString()
 
-            return user.avatar || ''
+            delete user._id
+
+            delete user.password
+
+            return user
         })
 }
