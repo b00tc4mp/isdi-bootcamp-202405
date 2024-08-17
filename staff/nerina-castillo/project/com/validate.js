@@ -73,7 +73,10 @@ function validateLongitude(longitude, explain = 'longitude') {
 }
 
 function validateDate(date, explain = 'date') {
-    if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`)
+    if (typeof date === 'string') {
+        date = new Date(date);
+    }
+    if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`);
 }
 
 function validateEventDates(startDate, endDate) {
@@ -81,6 +84,14 @@ function validateEventDates(startDate, endDate) {
     validateDate(endDate, 'endDate')
 
     if (startDate > endDate) throw new ValidationError('startDate cannot be later than endDate')
+}
+
+function validateNumber(number, explain = 'number') {
+    if (typeof number !== 'number') throw new ValidationError(`${explain} is not a number`)
+}
+
+function validateArray(array, explain = 'array') {
+    if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
 }
 
 const validate = {
@@ -97,7 +108,9 @@ const validate = {
     latitude: validateLatitude,
     longitude: validateLongitude,
     date: validateDate,
-    eventDates: validateEventDates
+    eventDates: validateEventDates,
+    number: validateNumber,
+    array: validateArray
 }
 
 export default validate

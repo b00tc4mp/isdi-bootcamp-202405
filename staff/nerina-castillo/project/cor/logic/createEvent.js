@@ -1,17 +1,18 @@
 import { User, Event } from '../data/models.js'
-import { errors, validate } from '../../com/index.js'
 
-const { NotFoundError, SystemError, ValidationError } = errors
+import { validate, errors } from '../../com/index.js'
 
-export default (userId, image, description, location, startDate, endDate) => {
+const { NotFoundError, SystemError } = errors
+
+export default (userId, image, title, description, location, startDate, startTime, tickets) => {
     validate.string(userId, 'userId')
+    validate.string(title, 'title')
     validate.string(description, 'description')
+    validate.url(image, 'image')
     validate.location(location, 'location')
-    validate.eventDates(new Date(startDate), new Date(endDate))
-
-    if (image) validate.string(image, 'image')
-    if (!description) throw new ValidationError('description is required')
-    if (!location) throw new ValidationError('location is required')
+    validate.date(startDate, 'startDate')
+    validate.string(startTime, 'startTime')
+    validate.url(tickets, 'tickets')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -19,13 +20,17 @@ export default (userId, image, description, location, startDate, endDate) => {
             if (!user) throw new NotFoundError('user not found')
 
             return Event.create({
-                author: userId,
-                ...(image !== undefined && { image }),
+                image,
+                title,
                 description,
                 location,
                 startDate,
-                endDate
+                startTime,
+                tickets,
+                author: userId
+
             })
                 .catch(error => { throw new SystemError(error.message) })
         })
 }
+

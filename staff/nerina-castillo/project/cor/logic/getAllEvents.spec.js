@@ -18,9 +18,9 @@ describe('getAllEvents', () => {
     it('succeeds on existing user listing all events', () => {
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user =>
-                Event.create({ author: user.id, image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver', description: 'Barrenfields concert', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date() })
+                Event.create({ author: user.id, image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver', title: 'Barrenfields', description: 'Barrenfields concert', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), startTime: '21:30', tickets: 'http://lhdbs' })
                     .then(() =>
-                        Event.create({ author: user.id, image: null, description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date() })
+                        Event.create({ author: user.id, image: null, title: 'luiiisss', description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), startTime: '21:30', tickets: 'http://lhdbs' })
                             .then(() =>
                                 getAllEvents(user.id)
                                     .then(events => {

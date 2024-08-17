@@ -63,7 +63,7 @@ export default function Calendar({ events = [] }) {
                     <div className="events-list">
                         {dayEvents.slice(0, 3).map((event, index) => (
                             <div key={index} className="event-description">
-                                {event.description}
+                                {event.title}
                             </div>
                         ))}
                         {dayEvents.length > 3 && <div className="more-events">+{dayEvents.length - 3} more</div>}

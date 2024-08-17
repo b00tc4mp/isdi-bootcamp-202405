@@ -21,11 +21,11 @@ describe('deleteEvent', () => {
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(_user => {
                 user = _user
-                return Event.create({ author: user.id, image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver', description: 'Barrenfields concert', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date() })
+                return Event.create({ author: user.id, image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver', title: 'Barrenfields', description: 'Barrenfields concert', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), startTime: '21.30', tickets: 'http://lrejb' })
             })
             .then(_event1 => {
                 event1 = _event1
-                return Event.create({ author: user.id, image: null, description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date() })
+                return Event.create({ author: user.id, image: null, title: 'luissss', description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date(), startTime: '21.30', tickets: 'http://lrejb' })
             })
             .then(_event2 => {
                 event2 = _event2
@@ -41,7 +41,7 @@ describe('deleteEvent', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return Event.create({ author: new ObjectId().toString(), image: null, description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date() })
+        return Event.create({ author: new ObjectId().toString(), image: null, title: 'luissss', description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), startTime: '21.30', tickets: 'http://lrejb' })
             .then(event =>
                 deleteEvent(new ObjectId().toString(), event.id)
                     .catch(error => _error = error)
@@ -69,7 +69,7 @@ describe('deleteEvent', () => {
 
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user => {
-                return Event.create({ author: new ObjectId(), image: null, description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), endDate: new Date() })
+                return Event.create({ author: new ObjectId().toString(), image: null, title: 'luissss', description: 'Luis Aragofest', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), startTime: '21.30', tickets: 'http://lrejb' })
                     .then(event => deleteEvent(user.id, event.id))
                     .catch(error => _error = error)
                     .finally(() => {

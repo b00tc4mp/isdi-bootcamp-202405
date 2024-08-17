@@ -13,26 +13,25 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
         const form = event.target
 
         const eventImageInput = form['event-image-input']
+        const eventTitleInput = form['event-title-input']
         const eventDescriptionInput = form['event-description-input']
         const eventLatitudeInput = form['event-latitude-input']
         const eventLongitudeInput = form['event-longitude-input']
         const eventStartDateInput = form['event-start-date-input']
-        const eventEndDateInput = form['event-end-date-input']
+        const eventStartTimeInput = form['event-start-time-input']
+        const eventTicketsInput = form['event-tickets-input']
 
         const eventImage = eventImageInput.value
+        const eventTitle = eventTitleInput.value
         const eventDescription = eventDescriptionInput.value
         const eventLatitude = parseFloat(eventLatitudeInput.value.trim())
         const eventLongitude = parseFloat(eventLongitudeInput.value.trim())
         const eventStartDate = new Date(eventStartDateInput.value)
-        const eventEndDate = new Date(eventEndDateInput.value)
-
-        if (isNaN(eventLatitude) || isNaN(eventLongitude)) {
-            console.error('invalid longitude and latitude')
-            return
-        }
+        const eventStartTime = eventStartTimeInput.value
+        const eventTickets = eventTicketsInput.value
 
         try {
-            logic.createEvent(eventImage, eventDescription, eventLongitude, eventLatitude, eventStartDate, eventEndDate)
+            logic.createEvent(eventImage, eventTitle, eventDescription, eventLongitude, eventLatitude, eventStartDate, eventStartTime, eventTickets)
                 .then(() => onEventCreated())
                 .catch(error => {
                     console.error(error)
@@ -55,6 +54,10 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
                 <Input id='event-image-input' />
             </Container>
             <Container>
+                <Label htmlFor='event-title-input'>title</Label>
+                <Input id='event-title-input' />
+            </Container>
+            <Container>
                 <Label htmlFor='event-description-input'>description</Label>
                 <Input id='event-description-input' />
             </Container>
@@ -64,12 +67,16 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
                 <Input id='event-longitude-input' />
             </Container>
             <Container>
-                <Label htmlFor='event-start-date-input'>start date</Label>
+                <Label htmlFor='event-start-date-input'>date</Label>
                 <Input id='event-start-date-input' type='date' />
             </Container>
             <Container>
-                <Label htmlFor='event-end-date-input'>end date</Label>
-                <Input id='event-end-date-input' type='date' />
+                <Label htmlFor='event-start-time-input'>time</Label>
+                <Input id='event-start-time-input' type='time' />
+            </Container>
+            <Container>
+                <Label htmlFor='event- tickets-input'>tickets</Label>
+                <Input id='event-tickets-input' />
             </Container>
             <Container>
                 <Button type='submit'>create</Button>

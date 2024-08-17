@@ -13,6 +13,7 @@ import Confirm from '../common/Confirm'
 import Input from '../library/Input'
 import Label from '../library/Label'
 import Form from '../library/Form'
+import formatDate from '../../util/formatDate.js'
 
 export default function Event({ event: currentEvent, onEventDeleted, onEventEdited }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
@@ -79,12 +80,14 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
         <article>
             <Container>
                 {currentEvent.image && (
-                    <Image src={currentEvent.image} title={currentEvent.description} alt='event image' />
+                    <Image src={currentEvent.image} title={currentEvent.title} alt='event image' />
                 )}
-                <Heading level='4'>{currentEvent.description}</Heading>
+                <Heading level='4'>{currentEvent.title}</Heading>
+                <Paragraph>description: {currentEvent.description}</Paragraph>
                 <Paragraph>location: {currentEvent.location.coordinates.join(', ')}</Paragraph>
-                <Paragraph>starts: {formatTime(new Date(currentEvent.startDate))}</Paragraph>
-                <Paragraph>ends: {formatTime(new Date(currentEvent.endDate))}</Paragraph>
+                <Paragraph>date: {formatDate(new Date(currentEvent.startDate))}</Paragraph>
+                <Paragraph>time: {currentEvent.startTime}</Paragraph>
+                <Paragraph>tickets: {currentEvent.tickets}</Paragraph>
                 <Time>{formatTime(new Date(currentEvent.date))}</Time>
                 <Heading level='6'>{currentEvent.author.username}</Heading>
                 <Container>

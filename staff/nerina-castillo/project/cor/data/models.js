@@ -83,6 +83,10 @@ const event = new Schema({
     image: {
         type: String
     },
+    title: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true
@@ -95,9 +99,12 @@ const event = new Schema({
         type: Date,
         required: true,
     },
-    endDate: {
-        type: Date,
+    startTime: {
+        type: String,
         required: true,
+    },
+    tickets: {
+        type: String
     },
     date: {
         type: Date,
@@ -106,13 +113,7 @@ const event = new Schema({
     }
 })
 
-const city = new Schema({
-    name: String,
-    location: {
-        type: point,
-        required: true
-    }
-})
+event.index({ location: '2dsphere' })
 
 const comment = new Schema({
     author: {
@@ -138,15 +139,13 @@ const comment = new Schema({
 const User = model('User', user)
 const Post = model('Post', post)
 const Event = model('Event', event)
-const Point = model('Point', point)
-const City = model('City', city)
+const Location = model('Location', point)
 const Comment = model('Comment', comment)
 
 export {
     User,
     Post,
     Event,
-    Point,
-    City,
+    Location,
     Comment
 }
