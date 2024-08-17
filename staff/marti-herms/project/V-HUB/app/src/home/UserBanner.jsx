@@ -6,8 +6,13 @@ import useContext from '../context'
 
 import logic from '../../logic'
 
+import defaultAvatar from '../../images/defaultAvatar.svg'
+import extractPayloadFromToken from '../../util/extractPayloadFromToken'
+
 export default function GameBanner({ user, onInteraction, onUserClick }) {
     const { alert } = useContext()
+
+    const { sub: currentUserId } = extractPayloadFromToken(sessionStorage.token)
 
     const handleUserClick = () => {
         onUserClick(user.id)
@@ -29,17 +34,17 @@ export default function GameBanner({ user, onInteraction, onUserClick }) {
         }
     }
 
-    return <article className='flex flex-row items-center border border-solid border-slate-700 dark:bg-black'>
+    return <article className='flex flex-row items-center justify-between border-y border-solid border-slate-700 dark:bg-black'>
         <button className='bg-transparent border-0' onClick={handleUserClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>
-                    <Avatar className='w-2/12 h-2/12' src={user.avatar} />
+                    <Avatar className='w-2/12 h-2/12' url={user.avatar || defaultAvatar} />
                     <Paragraph>{user.username}</Paragraph>
                 </Container>
             </Container>
         </button>
-        <Container className='flex flex-col gap-2 mr-2'>
-            <button className='bg-gray-500 rounded' onClick={handleFollowUser}>{user.following ? 'Unfollow' : 'Follow'}</button>
-        </Container>
+        {user.id !== currentUserId && <Container className='flex flex-col gap-2 mr-2'>
+            <button className='bg-gray-500 rounded' onClick={handleFollowUser}>{user.followed ? 'Unfollow' : 'Follow'}</button>
+        </Container>}
     </article>
 }

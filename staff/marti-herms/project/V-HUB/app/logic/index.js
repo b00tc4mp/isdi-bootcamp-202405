@@ -5,6 +5,7 @@ import isUserLoggedIn from './isUserLoggedIn.js'
 import getUserUsername from './getUserUsername.js'
 import registerGame from './registerGame.js'
 import searchGame from './searchGame.js'
+import searchUser from './searchUser.js'
 import getUserLibrary from './getUserLibrary.js'
 import getUserFavs from './getUserFavs.js'
 import getGameById from './getGameById.js'
@@ -12,6 +13,7 @@ import getGameReviews from './getGameReviews.js'
 import getDevUserGames from './getDevUserGames.js'
 import toggleAddGame from './toggleAddGame.js'
 import toggleFavGame from './toggleFavGame.js'
+import toggleFollowUser from './toggleFollowUser.js'
 import makeReview from './makeReview.js'
 import deleteReview from './deleteReview.js'
 import getUserAvatar from './getUserAvatar.js'
@@ -20,26 +22,28 @@ import editUserAvatar from './editUserAvatar.js'
 import editUserUsername from './editUserUsername.js'
 
 const logic = {
-    loginUser,
-    logoutUser,
-    registerUser,
-    isUserLoggedIn,
-    getUserUsername,
-    registerGame,
-    searchGame,
-    getUserLibrary,
-    getUserFavs,
+    deleteReview,
+    editUserAvatar,
+    editUserUsername,
+    getDevUserGames,
     getGameById,
     getGameReviews,
-    getDevUserGames,
+    getUser,
+    getUserAvatar,
+    getUserFavs,
+    getUserLibrary,
+    getUserUsername,
+    isUserLoggedIn,
+    loginUser,
+    logoutUser,
+    makeReview,
+    registerGame,
+    registerUser,
+    searchGame,
+    searchUser,
     toggleAddGame,
     toggleFavGame,
-    makeReview,
-    deleteReview,
-    getUserAvatar,
-    getUser,
-    editUserAvatar,
-    editUserUsername
+    toggleFollowUser,
 }
 
 export default logic

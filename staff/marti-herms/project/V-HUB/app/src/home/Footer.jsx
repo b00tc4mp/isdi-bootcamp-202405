@@ -9,11 +9,11 @@ export default function Footer({ makeReviewVisibility, onSearchGame, onRegisterG
         <Routes>
             <Route path='/' element={<>
                 {role === 'dev' && <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onRegisterGame}>Register Game</button>}
-                <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onSearchGame}>Search Game</button>
+                <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onSearchGame}>Search</button>
             </>} />
             <Route path='/profile/:userId' element={<button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>} />
             <Route path='/games/register' element={<button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>} />
-            <Route path='/games/search' element={<button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>} />
+            <Route path='/search' element={<button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>} />
             <Route path='/games/:gameId' element={<>
                 <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onHome}>HOME</button>
                 {makeReviewVisibility ? <button className='border border-solid border-slate-500 bg-white px-2 rounded' onClick={onCancel}>Cancel</button> :

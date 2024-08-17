@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 
 import Header from './Header'
 import Library from './Library'
@@ -16,7 +16,14 @@ export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
     const [makeReviewVisibility, setMakeReviewVisibility] = useState(false)
 
+    const location = useLocation()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (location.pathname === '/games/search' || location.pathname === '/users/search') {
+            navigate('/search')
+        }
+    }, [location])
 
     const handleHomeClick = () => {
         setRefreshStamp(Date.now())
@@ -27,9 +34,9 @@ export default function Home({ onLogout }) {
         navigate('/games/register')
     }
 
-    const handleSearchGameClick = () => {
+    const handleSearchClick = () => {
         setRefreshStamp(Date.now())
-        navigate('/games/search')
+        navigate('/search')
     }
 
     const handleInputChange = () => {
@@ -72,13 +79,13 @@ export default function Home({ onLogout }) {
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
                 <Route path='/profile/:userId' element={<Profile refreshStamp={refreshStamp} onChange={handleSearchUser} />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
-                <Route path='/games/search' element={<><Search onChange={handleInputChange} /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
+                <Route path='/search' element={<><Search onChange={handleInputChange} /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
                 <Route path='/games/:gameId' element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
             </Routes>
         </main>
 
         <Footer makeReviewVisibility={makeReviewVisibility}
-            onSearchGame={handleSearchGameClick}
+            onSearchGame={handleSearchClick}
             onRegisterGame={handleRegisterGameClick}
             onHome={handleHomeClick}
             onAddReview={handleAddReview}

@@ -25,9 +25,9 @@ export default function Search({ onChange }) {
         const { value: query } = form.q
 
         if (!query.trim())
-            navigate('/games/search')
-        else if (location.pathname !== '/games/search')
-            navigate(`/games/search?q=${query}`)
+            navigate('/search')
+        else if (location.pathname !== '/search')
+            navigate(`/search?q=${query}`)
         else
             setSearchParams({ q: query })
 

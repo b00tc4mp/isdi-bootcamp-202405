@@ -27,23 +27,24 @@ export default function Game({ makeReviewVisibility, onCancel }) {
     const [value, setValue] = useState(0)
 
     useEffect(() => {
-        try {
-            logic.getGameById(gameId)
-                .then(game => {
-                    setGame(game)
+        if (gameId.length >= 10)
+            try {
+                logic.getGameById(gameId)
+                    .then(game => {
+                        setGame(game)
 
-                    loadReviews()
-                })
-                .catch(error => {
-                    console.error(error)
+                        loadReviews()
+                    })
+                    .catch(error => {
+                        console.error(error)
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
+                        alert(error.message)
+                    })
+            } catch (error) {
+                console.error(error)
 
-            alert(error.message)
-        }
+                alert(error.message)
+            }
     }, [])
 
     useEffect(() => calculateRating(), [reviews])

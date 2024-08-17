@@ -20,19 +20,19 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, handle.authenticateUser)
 
+        api.patch('/users/username', jwtVerifier, jsonBodyParser, handle.editUserUsername)
+
+        api.patch('/users/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
+
+        api.get('/users/search', jwtVerifier, handle.searchUser)
+
         api.get('/users/:targetUserId', jwtVerifier, handle.getUser)
 
         api.get('/users/:targetUserId/username', jwtVerifier, handle.getUserUsername)
 
         api.get('/users/:targetUserId/avatar', jwtVerifier, handle.getUserAvatar)
 
-        api.patch('/users/username', jwtVerifier, jsonBodyParser, handle.editUserUsername)
-
-        api.patch('/users/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
-
-        api.get('/users/search', jwtVerifier, handle.searchGame)
-
-        api.patch('/users/:targetUserId/following', jwtVerifier, handle.toggleFavGame)
+        api.patch('/users/:targetUserId/following', jwtVerifier, handle.toggleFollowUser)
 
         api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
 

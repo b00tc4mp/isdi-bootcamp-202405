@@ -45,7 +45,7 @@ export default function GameBanner({ game, onInteraction, onGameClick, collectio
         }
     }
 
-    return <article className='flex flex-row items-center border border-solid border-slate-700 dark:bg-black'>
+    return <article className='flex flex-row items-center border-y border-solid border-slate-700 dark:bg-black'>
         <button className='bg-transparent border-0' onClick={handleGameClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>
@@ -53,7 +53,7 @@ export default function GameBanner({ game, onInteraction, onGameClick, collectio
                     <Paragraph>{game.name}</Paragraph>
                 </Container>
                 <Container>
-                    <Paragraph>{game.description.slice(0, 25) + '...'}</Paragraph>
+                    <Paragraph>{game.description && game.description.slice(0, 25) + '...'}</Paragraph>
                 </Container>
             </Container>
         </button>

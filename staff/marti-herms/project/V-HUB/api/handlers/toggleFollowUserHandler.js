@@ -6,7 +6,7 @@ export default (req, res, next) => {
     const { targetUserId } = req.params
 
     try {
-        logic.toggleAddGame(userId, targetUserId)
+        logic.toggleFollowUser(userId, targetUserId)
             .then(() => res.status(204).json())
             .catch(error => next(error))
     } catch (error) {
