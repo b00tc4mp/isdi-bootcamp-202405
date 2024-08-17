@@ -5,7 +5,7 @@ import Form from '../library/Form'
 import Input from '../library/Input'
 import Button from '../library/Button'
 
-export default function GameSearch({ onChange }) {
+export default function Search({ onChange }) {
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()

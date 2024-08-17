@@ -9,7 +9,7 @@ import Avatar from '../library/Avatar'
 
 import defaultAvatar from '../../images/defaultAvatar.svg'
 
-export default function Header({ onLogoutClick, onProfileClick }) {
+export default function Header({ onLogoutClick, onProfileClick, refreshStamp }) {
     const { alert } = useContext()
 
     const [username, setUsername] = useState('')
@@ -34,7 +34,7 @@ export default function Header({ onLogoutClick, onProfileClick }) {
 
             alert(error.message)
         }
-    }, [])
+    }, [refreshStamp])
 
 
     return <header className='fixed top-0 left-0 w-screen bg-slate-700 z-10 flex flex-row justify-end items-center px-3 border-b border-solid border-b-black'>

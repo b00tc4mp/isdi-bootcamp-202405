@@ -13,7 +13,6 @@ import Link from '../library/Link'
 import Container from '../library/Container'
 import Paragraph from '../library/Paragraph'
 import Image from '../library/Image'
-import Star from '../library/Star'
 
 import Review from './Review'
 
@@ -79,7 +78,7 @@ export default function Game({ makeReviewVisibility, onCancel }) {
         }
     }
 
-    const handleDelete = (reviewId) => {
+    const handleDeleteReview = (reviewId) => {
         try {
             logic.deleteReview(reviewId)
                 .then(() => loadReviews())
@@ -153,7 +152,7 @@ export default function Game({ makeReviewVisibility, onCancel }) {
         </Form>}
 
         <Container className='flex flex-col mt-4 mb-10'>
-            {reviews && reviews.map(review => <Review key={review.id} review={review} onDelete={handleDelete} />)}
+            {reviews && reviews.map(review => <Review key={review.id} review={review} onDelete={handleDeleteReview} />)}
         </Container>
     </>
 }

@@ -5,8 +5,8 @@ import Header from './Header'
 import Library from './Library'
 import Footer from './Footer'
 import GameRegister from './GameRegister'
-import GameSearch from './GameSearch'
-import GameSearchResults from './GameSearchResults'
+import Search from './Search'
+import SearchResults from './SearchResults'
 import Game from './Game'
 import Profile from './Profile'
 
@@ -51,6 +51,8 @@ export default function Home({ onLogout }) {
     }
 
     const handleSearchUser = (userId) => {
+        setRefreshStamp(Date.now())
+
         navigate(`/profile/${userId}`)
     }
 
@@ -63,14 +65,14 @@ export default function Home({ onLogout }) {
     }
 
     return <>
-        <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} ></Header>
+        <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} refreshStamp={refreshStamp} ></Header>
 
         <main className='my-10 w-screen h-full dark:bg-[#1e1e1e]'>
             <Routes>
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
-                <Route path='/profile/:userId' element={<Profile />} />
+                <Route path='/profile/:userId' element={<Profile refreshStamp={refreshStamp} onChange={handleSearchUser} />} />
                 <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
-                <Route path='/games/search' element={<><GameSearch onChange={handleInputChange} /> <GameSearchResults refreshStamp={refreshStamp} onGameClick={handleGame} /></>} />
+                <Route path='/games/search' element={<><Search onChange={handleInputChange} /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
                 <Route path='/games/:gameId' element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
             </Routes>
         </main>

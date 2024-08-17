@@ -16,7 +16,7 @@ import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 
 import defaultAvatar from '../../images/defaultAvatar.svg'
 
-export default function Profile({ refreshStamp }) {
+export default function Profile({ refreshStamp, onChange }) {
     const { alert } = useContext()
 
     const { userId } = useParams()
@@ -123,7 +123,7 @@ export default function Profile({ refreshStamp }) {
             <Form className='flex-col' onSubmit={handleEditUsername}>
                 <Container>
                     <label htmlFor='new-username'>Username</label>
-                    <Input id='new-username' defaultValue={user && user.username} />
+                    <Input id='new-username' />
                 </Container>
                 <Container className='flex-row m-3 justify-around'>
                     <Button type='submit'>Submit</Button>
@@ -135,7 +135,7 @@ export default function Profile({ refreshStamp }) {
             <Form className='flex-col' onSubmit={handleEditAvatar}>
                 <Container>
                     <label htmlFor='new-avatar'>Avatar</label>
-                    <Input id='new-avatar' defaultValue={user && user.avatar} />
+                    <Input id='new-avatar' />
                 </Container>
                 <Container className='flex-row m-3 justify-around'>
                     <Button type='submit'>Submit</Button>
