@@ -3,6 +3,7 @@ import registerUser from './registerUser.js'
 import getUserUsername from './getUserUsername.js'
 import registerGame from './registerGame.js'
 import searchGame from './searchGame.js'
+import searchUser from './searchUser.js'
 import getUserLibrary from './getUserLibrary.js'
 import getUserFavs from './getUserFavs.js'
 import getGameById from './getGameById.js'
@@ -23,6 +24,7 @@ const logic = {
     getUserUsername,
     registerGame,
     searchGame,
+    searchUser,
     getUserLibrary,
     getUserFavs,
     getGameById,

@@ -35,6 +35,10 @@ const user = new Schema({
     games: {
         type: [ObjectId],
         ref: 'Game'
+    },
+    following: {
+        type: [ObjectId],
+        ref: 'User'
     }
 })
 
