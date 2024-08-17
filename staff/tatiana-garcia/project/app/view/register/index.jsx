@@ -8,7 +8,11 @@ import Footer from '../home/Footer'
 import Heading from '../library/Heading'
 import Header from '../home/Header'
 
+import useContext from '../context'
+
 export default function Register({ onRegister, onLoginClick }) {
+    const { alert } = useContext()
+
     const handleRegisterSubmit = event => {
         event.preventDefault()
 
@@ -36,7 +40,7 @@ export default function Register({ onRegister, onLoginClick }) {
                 .catch(error => {
                     console.error(error)
 
-                    alert(error.message)
+                    alert(message)
                 })
         } catch (error) {
             console.error(error)

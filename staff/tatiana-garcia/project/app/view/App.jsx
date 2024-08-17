@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import Register from './register'
 import Login from './login/index.jsx'
 import Home from './home/index.jsx'
 import Contact from './contact/index.jsx'
+import Alert from './common/Alert.jsx'
+
+import { Context } from './context.js'
 
 import logic from '../logic/index.js'
 import Petsitters from './pettsiters/index.jsx'
@@ -11,11 +15,16 @@ import Petsitters from './pettsiters/index.jsx'
 export default function App() {
   const navigate = useNavigate()
 
+  const [alertMessage, setAlertMessage] = useState(null)
+
   const handleLogin = () => { navigate('/') }
 
   const handleRegisterClick = () => { navigate('/register') }
 
-  const handleRegister = () => { navigate('/login') }
+  const handleRegister = () => {
+    setAlertMessage('¡Te has registrado correctamente! Ya puedes loguearte en Exoticus')
+    navigate('/login')
+  }
 
   // const handleContact = () => { navigate('/contact') }
 
@@ -27,12 +36,17 @@ export default function App() {
     navigate('/login')
   }
 
-  return <Routes>
-    <Route path='/*' element={<Home onLogout={handleLogout} />} />
-    <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
-    <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
-    <Route path='/contact' element={<Contact onRegisterPetsitterClick={handleRegisterClick} />} />
-    <Route path='/petsitters' element={<Petsitters />} />
+  const handleAlertAccept = () => setAlertMessage(null)
 
-  </Routes>
+  return <Context.Provider value={{ alert: setAlertMessage }}>
+    <Routes>
+      <Route path='/*' element={<Home onLogout={handleLogout} />} />
+      <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
+      <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
+      <Route path='/contact' element={<Contact onRegisterPetsitterClick={handleRegisterClick} />} />
+      <Route path='/petsitters' element={<Petsitters />} />
+    </Routes>
+
+    {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
+  </Context.Provider>
 }
