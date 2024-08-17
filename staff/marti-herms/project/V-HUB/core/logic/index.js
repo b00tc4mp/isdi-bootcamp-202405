@@ -14,6 +14,8 @@ import makeReview from './makeReview.js'
 import deleteReview from './deleteReview.js'
 import getUserAvatar from './getUserAvatar.js'
 import getUser from './getUser.js'
+import editUserAvatar from './editUserAvatar.js'
+import editUserUsername from './editUserUsername.js'
 
 const logic = {
     authenticateUser,
@@ -31,7 +33,9 @@ const logic = {
     makeReview,
     deleteReview,
     getUserAvatar,
-    getUser
+    getUser,
+    editUserAvatar,
+    editUserUsername
 }
 
 export default logic

@@ -14,6 +14,8 @@ import makeReviewHandler from './makeReviewHandler.js'
 import deleteReviewHandler from './deleteReviewHandler.js'
 import getUserAvatarHandler from './getUserAvatarHandler.js'
 import getUserHandler from './getUserHandler.js'
+import editUserAvatarHandler from './editUserAvatarHandler.js'
+import editUserUsernameHandler from './editUserUsernameHandler.js'
 
 const handle = {
     authenticateUser: authenticateUserHandler,
@@ -31,7 +33,9 @@ const handle = {
     makeReview: makeReviewHandler,
     deleteReview: deleteReviewHandler,
     getUserAvatar: getUserAvatarHandler,
-    getUser: getUserHandler
+    getUser: getUserHandler,
+    editUserAvatar: editUserAvatarHandler,
+    editUserUsername: editUserUsernameHandler
 }
 
 export default handle

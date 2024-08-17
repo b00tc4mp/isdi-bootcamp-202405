@@ -26,6 +26,10 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/users/:targetUserId/avatar', jwtVerifier, handle.getUserAvatar)
 
+        api.patch('/users/username', jwtVerifier, jsonBodyParser, handle.editUserUsername)
+
+        api.patch('/users/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
+
         api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
 
         api.get('/games/search', jwtVerifier, handle.searchGame)
