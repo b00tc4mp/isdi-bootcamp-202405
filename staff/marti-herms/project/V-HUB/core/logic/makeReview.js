@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, gameId, comment, rate = -1) => {
+export default (userId, gameId, comment, rate = 0) => {
     validate.string(userId, 'userId')
     validate.string(gameId, 'gameId')
     validate.string(comment, 'comment')

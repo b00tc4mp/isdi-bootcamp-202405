@@ -28,7 +28,7 @@ describe('makeReview', () => {
             )
             .then(review => {
                 expect(review.comment).to.equal('great game')
-                expect(review.rate).to.equal(-1)
+                expect(review.rate).to.equal(0)
             })
     )
 

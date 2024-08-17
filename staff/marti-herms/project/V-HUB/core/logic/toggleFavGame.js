@@ -26,4 +26,5 @@ export default (userId, gameId) => {
                             .catch(error => { throw new SystemError(error.message) })
                 })
         })
+        .then(() => { })
 }

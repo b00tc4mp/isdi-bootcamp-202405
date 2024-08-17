@@ -1,28 +1,28 @@
-import { User, Game } from '../data/models.js'
+import { User } from '../data/models.js'
 
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, gameId) => {
+export default (userId, targetUserId) => {
     validate.string(userId, 'userId')
-    validate.string(gameId, 'gameId')
+    validate.string(targetUserId, 'targetUserId')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Game.findById(gameId).lean()
+            return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(game => {
-                    if (!game) throw new NotFoundError('game not found')
+                .then(targetUser => {
+                    if (!targetUser) throw new NotFoundError('targetUser not found')
 
-                    if (user.library.some(gameObjectId => gameObjectId.toString() === gameId))
-                        return User.findByIdAndUpdate(userId, { $pull: { library: game._id, favs: game._id } })
+                    if (user.following.some(userObjectId => userObjectId.toString() === targetUserId))
+                        return User.findByIdAndUpdate(userId, { $pull: { following: targetUser._id } })
                             .catch(error => { throw new SystemError(error.message) })
                     else
-                        return User.findByIdAndUpdate(userId, { $push: { library: game._id } })
+                        return User.findByIdAndUpdate(userId, { $push: { following: targetUser._id } })
                             .catch(error => { throw new SystemError(error.message) })
                 })
         })
