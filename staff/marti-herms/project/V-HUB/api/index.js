@@ -22,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/users/:targetUserId/username', jwtVerifier, handle.getUserUsername)
 
+        api.get('/users/:targetUserId/avatar', jwtVerifier, handle.getUserAvatar)
+
         api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
 
         api.get('/games/search', jwtVerifier, handle.searchGame)
