@@ -33,7 +33,9 @@ export default function Contact({ onRegisterPetsitterClick }) {
                     Si eres una guardería y quieres ofrecer tus servicios, dale click al siguiente botón y regístrate como guardería.
                 </Paragraph>
 
-                <Link className='flex font-semibold border boder-[1px] border-black justify-center rounded-xl text-[length:inherit] bg-teal-100 ' onClick={handleRegisterPetsitterClick}>Regístrate como guardería</Link>
+                <Container className='text-center  pb-8 pt-2'>
+                    <Link className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' onClick={handleRegisterPetsitterClick}>Regístrate como guardería</Link>
+                </Container>
             </Container>
         </main>
 

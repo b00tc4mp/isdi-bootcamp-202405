@@ -20,6 +20,7 @@ const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
     const { alert } = useContext()
+    const navigate = useNavigate()
 
     const handleLoginSubmit = event => {
         event.preventDefault()
@@ -41,7 +42,7 @@ export default function Login({ onLogin, onRegisterClick }) {
                     let message = error.message
 
                     if (error instanceof NotFoundError || error instanceof CredentialsError)
-                        message = 'incorrect username and/or password'
+                        message = 'nombre de usuario y/o contraseña incorrectos'
 
                     alert(message)
                 })
@@ -57,8 +58,6 @@ export default function Login({ onLogin, onRegisterClick }) {
 
         onRegisterClick()
     }
-
-    const navigate = useNavigate()
 
     return <>
         <Header />

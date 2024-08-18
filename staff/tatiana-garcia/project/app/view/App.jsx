@@ -11,6 +11,7 @@ import { Context } from './context.js'
 
 import logic from '../logic/index.js'
 import Petsitters from './pettsiters/index.jsx'
+import Settings from './settings/index.jsx'
 
 export default function App() {
   const navigate = useNavigate()
@@ -41,10 +42,11 @@ export default function App() {
   return <Context.Provider value={{ alert: setAlertMessage }}>
     <Routes>
       <Route path='/*' element={<Home onLogout={handleLogout} />} />
-      <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
+      <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/settings' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
       <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
       <Route path='/contact' element={<Contact onRegisterPetsitterClick={handleRegisterClick} />} />
       <Route path='/petsitters' element={<Petsitters />} />
+      <Route path='/settings' element={<Settings onLogoutClick={handleLogout} />} />
     </Routes>
 
     {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
