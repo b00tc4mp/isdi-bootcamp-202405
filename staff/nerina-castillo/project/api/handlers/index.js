@@ -12,6 +12,7 @@ import getAllEventsHandler from './getAllEventsHandler.js'
 import deleteEventHandler from './deleteEventHandler.js'
 import updateEventDataHandler from './updateEventDataHandler.js'
 import getUsersByRoleHandler from './getUsersByRoleHandler.js'
+import searchEventHandler from './searchEventHandler.js'
 
 export {
     registerUserHandler,
@@ -27,5 +28,6 @@ export {
     getAllEventsHandler,
     deleteEventHandler,
     updateEventDataHandler,
-    getUsersByRoleHandler
+    getUsersByRoleHandler,
+    searchEventHandler
 }

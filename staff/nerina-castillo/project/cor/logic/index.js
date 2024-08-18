@@ -12,6 +12,7 @@ import getAllEvents from './getAllEvents.js'
 import deleteEvent from './deleteEvent.js'
 import updateEventData from './updateEventData.js'
 import getUsersByRole from './getUsersByRole.js'
+import searchEvent from './searchEvent.js'
 
 const logic = {
     registerUser,
@@ -27,7 +28,8 @@ const logic = {
     getAllEvents,
     deleteEvent,
     updateEventData,
-    getUsersByRole
+    getUsersByRole,
+    searchEvent
 }
 
 export default logic

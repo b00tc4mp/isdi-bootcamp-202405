@@ -4,6 +4,7 @@ import Container from '../library/Container'
 import Button from '../library/Button'
 import formatDate from '../../util/formatDate'
 import EventList from './EventList'
+import ResultsEventList from './ResultsEventList'
 
 export default function Calendar({ events = [] }) {
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -73,7 +74,7 @@ export default function Calendar({ events = [] }) {
         )
     }
 
-    return (
+    return <>
         <Container>
             {view === 'calendar' ? (
                 <>
@@ -91,5 +92,5 @@ export default function Calendar({ events = [] }) {
                 <EventList events={filteredEvents} onBack={() => setView('calendar')} />
             )}
         </Container>
-    )
+    </>
 }

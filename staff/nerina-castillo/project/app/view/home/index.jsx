@@ -13,6 +13,7 @@ import BandList from './BandList'
 import LabelList from './LabelList'
 import PromotersList from './PromotersList'
 import VenuesList from './VenuesList'
+import ResultsEventList from './ResultsEventList.jsx'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
@@ -81,9 +82,12 @@ export default function Home({ onLogout }) {
 
                 <Route path='/search' element={<ResultsPostList refreshStamp={refreshStamp} />} />
 
-                <Route path='/events' element={<EventList events={events} />} />
+                <Route path='/events' element={<ResultsEventList refreshStamp={refreshStamp} />} />
 
-                <Route path='/calendar' element={<Calendar events={events} />} />
+                <Route path='/calendar' element={<>
+                    <ResultsEventList refreshStamp={refreshStamp} />
+                    <Calendar events={events} />
+                </>} />
 
                 <Route path='/bands' element={<BandList refreshStamp={refreshStamp} />} />
 
@@ -92,6 +96,8 @@ export default function Home({ onLogout }) {
                 <Route path='/promoters' element={<PromotersList refreshStamp={refreshStamp} />} />
 
                 <Route path='/venues' element={<VenuesList refreshStamp={refreshStamp} />} />
+
+                {/* <Route path='/events-results' element={<ResultsEventList refreshStamp={refreshStamp} />} /> */}
             </Routes>
         </main>
 
