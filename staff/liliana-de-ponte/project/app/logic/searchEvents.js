@@ -2,10 +2,14 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default query => {
+export default (query, distance, coords) => {
     validate.string(query, 'query')
+    validate.number(distance, 'distance')
+    validate.array(coords, 'coords')
+    validate.number(coords[0], 'longitude')
+    validate.number(coords[1], 'latitude')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/events/search?q=${query}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/events/search?q=${query}&distance=${distance}&coords=${coords}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

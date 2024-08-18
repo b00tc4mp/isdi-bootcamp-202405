@@ -91,6 +91,8 @@ const event = new Schema({
 
 })
 
+event.index({ location: '2dsphere' })
+
 const User = model('User', user)
 const Event = model('Event', event)
 const Location = model('Location', point)

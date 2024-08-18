@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/events/search?q=evento -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNDVjZjhmNDA5Nzg2MDJlN2NkMDAiLCJpYXQiOjE3MjM5MDU0Mzl9.PccyvqFUVt_M311wpl8OE1o-zP5LU6JByXtCBcmkwz0"
+curl -v 'http://localhost:8080/events/search?q=meditacion&distance=5&coords=41.37960077199107,2.1519619540344737' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmMxZDZlNGY5MmNlYzQyODNkN2RhOTAiLCJpYXQiOjE3MjM5Nzk5ODJ9.2XSXskCbr4LRI2taKxxJPtYNLnVlUXh5i7byTZelv-g"

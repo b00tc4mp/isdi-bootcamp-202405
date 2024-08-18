@@ -1,11 +1,15 @@
 import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
-    const { userId, query: { q } } = req
+    let { userId, query: { q, distance, coords } } = req
+
+    distance = Number(distance)
+
+    coords = coords.split(',').map(coord => Number(coord))
 
     try {
-        logic.searchEvents(userId, q)
-            .then(posts => res.json(posts))
+        logic.searchEvents(userId, q, distance, coords)
+            .then(events => res.json(events))
             .catch(error => next(error))
     } catch (error) {
         next(error)

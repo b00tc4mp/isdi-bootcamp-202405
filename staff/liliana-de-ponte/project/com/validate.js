@@ -44,40 +44,21 @@ function validateUrl(url, explain = 'url') {
     if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
 
-// function validateLocation(location, explain = 'location') {
-
-//     // const location = locationString.split(',').map(coord => parseFloat(coord.trim()))
-
-//     if (!Array.isArray(location) || location.length !== 2) throw new ValidationError(`invalid ${explain}`)
-
-//     if (!location.every(location => typeof location === 'number')) throw new ValidationError(`${explain} is not a number`);
-// }
-
-
 function validateLatitude(latitude, explain = 'latitude') {
-    // if (typeof latitude !== 'number') throw new ValidationError(`${explain} must be a number`)
-
     if (latitude < -90 || latitude > 90) throw new ValidationError(`${explain} must be between -90 and 90 degrees`)
 }
 
-
 function validateLongitude(longitude, explain = 'longitude') {
-    // if (typeof longitude !== 'number') throw new ValidationError(`${explain} must be a number`)
-
     if (longitude < -180 || longitude > 180) throw new ValidationError(`${explain} must be between -180 and 180 degrees`)
 }
 
+function validateNumber(number, explain = 'number') {
+    if (typeof number !== 'number') throw new ValidationError(`${explain} is not a number`)
+}
 
-// function validateLocation(location, explain = 'location') {
-//     if (!Array.isArray(location) || location.length !== 2) throw new ValidationError(`invalid ${explain}`)
-
-//     const [latitude, longitude] = location;
-
-//     if (latitude < -90 || latitude > 90) throw new ValidationError(`${explain} must be between -90 and 90 degrees`)
-
-//     if (longitude < -180 || latitude > 180) throw new ValidationError(`${explain} must be between -180 and 180 degrees`)
-
-// }
+function validateArray(array, explain = 'array') {
+    if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
+}
 
 
 const validate = {
@@ -90,8 +71,9 @@ const validate = {
     email: validateEmail,
     url: validateUrl,
     latitude: validateLatitude,
-    longitude: validateLongitude
-
+    longitude: validateLongitude,
+    number: validateNumber,
+    array: validateArray
     // location: validateLocation
 
 }
