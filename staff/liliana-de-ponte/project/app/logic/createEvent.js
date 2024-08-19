@@ -2,14 +2,13 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (title, organizer, date, duration, description, image, latitude, longitude) => {
+export default (title, organizer, date, duration, description, image, location) => {
     validate.string(title, 'title')
     validate.string(organizer, 'organizer')
     validate.string(duration, 'duration')
     validate.string(description, 'description')
     validate.url(image, 'image')
-    validate.latitude(latitude, 'latitude')
-    validate.longitude(longitude, 'longitude')
+    validate.location(location, 'location')
 
     return fetch(`${import.meta.env.VITE_API_URL}/events`, {
         method: 'POST',

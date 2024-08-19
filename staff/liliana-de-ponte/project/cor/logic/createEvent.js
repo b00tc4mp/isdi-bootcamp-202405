@@ -7,14 +7,12 @@ const { NotFoundError, SystemError } = errors
 export default (userId, title, organizer, date, duration, description, image, location) => {
     validate.string(userId, 'userId')
     validate.string(title, 'title')
-    //validate date
+    validate.date(date, 'date')
     validate.string(organizer, 'organizer')
     validate.string(duration, 'duration')
     validate.string(description, 'description')
     validate.url(image, 'image')
-    // validate.latitude(latitude, 'latitude')
-    // validate.longitude(longitude, 'longitude')
-
+    validate.location(location, 'location')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })

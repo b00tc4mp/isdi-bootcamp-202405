@@ -5,17 +5,17 @@ import logic from '../../logic'
 
 import Event from './Event'
 
-export default function ResultsEventList({ refreshStamp }) {
+export default function ResultsEventList() {
     const [searchParams] = useSearchParams()
+    const [events, setEvents] = useState([])
 
     const q = searchParams.get('q') || ''
-
-    const [events, setEvents] = useState([])
+    const distance = Number(searchParams.get('distance') || '10')
 
     useEffect(() => {
 
         loadEvents()
-    }, [refreshStamp])
+    }, [q], distance)
 
     const handleEventDeleted = () => {
         loadEvents()
@@ -29,21 +29,32 @@ export default function ResultsEventList({ refreshStamp }) {
     }
 
     const loadEvents = () => {
-        try {
-            logic.searchEvents(q)
-                .then(events => setEvents(events))
-                .catch(error => {
+        if (q) {
+            navigator.geolocation.getCurrentPosition((position => {
+                const coords = [position.coords.latitude, position.coords.longitude]
+
+                try {
+                    logic.searchEvents(q, distance, coords)
+                        .then(events => setEvents(events))
+                        .catch(error => {
+                            console.error(error)
+
+                            alert(error.message)
+                        })
+
+                } catch (error) {
                     console.error(error)
 
                     alert(error.message)
-                })
+                }
+            }), error => {
+                console.error(error)
 
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
+                alert(error.message)
+            })
         }
     }
+
     return <section className="flex flex-col gap-4">
         {events.map(event => <Event
             key={event.id}

@@ -72,16 +72,8 @@ const event = new Schema({
 
     },
     location: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            required: true,
-            default: 'Point'
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
+        type: point,
+        required: true
     },
 
     attendees: {

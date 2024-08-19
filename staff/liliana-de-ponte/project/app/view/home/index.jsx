@@ -7,6 +7,7 @@ import EventList from './EventList'
 import LikeEventList from './LikeEventList'
 import AttendanceEventList from './AttendanceEventList'
 import ResultsEventList from './ResultsEventList'
+// import MoreInfoEvent from './MoreInfoEvent'
 
 export default function Home({ onLogout }) {
 
@@ -32,6 +33,7 @@ export default function Home({ onLogout }) {
         navigate('/attendees')
     }
 
+
     return <>
         <Header
             onHomeClick={handleHomeClick}
@@ -47,6 +49,8 @@ export default function Home({ onLogout }) {
                 <Route path="/attendees" element={<AttendanceEventList />} />
 
                 <Route path="/search" element={<ResultsEventList />} />
+
+                {/* <Route path="/info" element={<MoreInfoEvent />} /> */}
 
             </Routes>
         </main >

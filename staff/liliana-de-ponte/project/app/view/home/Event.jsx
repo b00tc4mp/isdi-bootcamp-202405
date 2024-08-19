@@ -71,16 +71,22 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
         }
     }
 
+    const handleMoreInfoClick = event => {
+        event.preventDefault()
+
+        onMoreInfoClick()
+    }
+
     return <article className="border-[#050968] p-4 rounded-[80px] bg-[#FFEBF4] m-4 max-w-md border-4 font-bold">
         <Container className="items-center justify-between relative">
             <Container className="items-center justify-between">
-                <Image src={event.image} alt={event.title} className="h-24 w-24 rounded-full mr-4" />
+                <Image src={event.image} alt={event.title} className="h-24 w-24 rounded-full mr-4 border-4 border-[#050968] " />
 
                 <Heading level="3" className="font-bold" >{event.organizer}</Heading>
 
                 <Paragraph className="text-[#050968] font-semibold"><FaCalendarAlt />{event.date}</Paragraph>
 
-                <Link className="text-[#9747FF] font-semibold">+ Info</Link>
+                <Link className="text-[#9747FF] font-semibold" onClick={handleMoreInfoClick}>+ Info</Link>
             </Container>
 
             <Container className="absolute bottom-0 right-0 flex space-x-2 p-4">

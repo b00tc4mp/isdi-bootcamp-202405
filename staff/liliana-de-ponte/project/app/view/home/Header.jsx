@@ -48,18 +48,19 @@ export default function Header({ onHomeClick, onLogout }) {
     }
 
     return <header className="bg-[#050968] fixed left-0 top-0 w-full z-50 h-32 flex items-center">
+        <Container>
+            <Container className="flex justify-between items-center">
+                <Paragraph className="text-[#FFEBF4]">{name}!</Paragraph>
+            </Container>
 
-        <Container className="flex justify-between items-center">
-            <Paragraph className="text-[#FFEBF4]">{name}!</Paragraph>
 
-            <Search />
+            <Container className=" flex justify-end items-center gap-[2rem]">
+                <Button onClick={handleHomeClick}><IoHomeOutline size={22} /></Button>
+                <Button onClick={handleLogout}><MdLogout size={22} /></Button>
+            </Container>
         </Container>
 
-        <Container className=" flex justify-end items-center gap-[2rem]">
-            <Button onClick={handleHomeClick}><IoHomeOutline size={22} /></Button>
-            <Button onClick={handleLogout}><MdLogout size={22} /></Button>
-        </Container>
-
+        <Search />
 
     </header>
 }

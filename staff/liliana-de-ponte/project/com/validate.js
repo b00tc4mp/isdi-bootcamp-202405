@@ -44,6 +44,27 @@ function validateUrl(url, explain = 'url') {
     if (!url.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
 
+function validateDate(date, explain = 'date') {
+    if (typeof date === 'string') {
+        date = new Date(date);
+    }
+    if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`);
+}
+
+function validateLocation(location, explain = 'location') {
+    if (!location || typeof location !== 'object') throw new ValidationError(`${explain} must be an object`)
+
+    const { coordinates } = location
+
+    if (!Array.isArray(coordinates) || coordinates.length !== 2) throw new ValidationError(`invalid ${explain} coordinates`)
+
+    coordinates.forEach((value, index) => {
+        if (typeof value !== 'number') {
+            throw new ValidationError(`invalid ${explain} coordinate value at index ${index}`)
+        }
+    })
+}
+
 function validateLatitude(latitude, explain = 'latitude') {
     if (latitude < -90 || latitude > 90) throw new ValidationError(`${explain} must be between -90 and 90 degrees`)
 }
@@ -73,8 +94,9 @@ const validate = {
     latitude: validateLatitude,
     longitude: validateLongitude,
     number: validateNumber,
-    array: validateArray
-    // location: validateLocation
+    array: validateArray,
+    date: validateDate,
+    location: validateLocation
 
 }
 
