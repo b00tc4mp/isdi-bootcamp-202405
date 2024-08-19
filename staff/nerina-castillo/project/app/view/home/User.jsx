@@ -20,7 +20,7 @@ export default function User({ user, onUserFollowToggled }) {
                     console.error(error)
 
                     alert(error.message)
-                });
+                })
         } catch (error) {
             console.error(error)
 
@@ -28,16 +28,14 @@ export default function User({ user, onUserFollowToggled }) {
         }
     }
 
-    return (
-        <Container>
-            <Avatar url={user.avatar} alt={`${user.username}'s avatar`} />
-
-            <Container>
-                <Heading level='4'>{user.username}</Heading>
-
-                <Button onClick={handleFollowUserClick} >{following ? 'unfollow' : 'follow'}</Button>
-
+    return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
+        <Container className='flex justify-between items-center m-[.5rem]'>
+            <Container className='flex items-center gap-1'>
+                <Avatar url={user.avatar} alt={`${user.username}'s avatar`} />
+                <Heading className='font-bold text-slate-400 text-lg'>{user.username}</Heading>
             </Container>
+
+            <Button onClick={handleFollowUserClick} >{following ? 'unfollow' : 'follow'}</Button>
         </Container>
-    )
+    </article>
 }

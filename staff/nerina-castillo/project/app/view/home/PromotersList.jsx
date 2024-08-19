@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import User from './User'
 import Container from '../library/Container'
+import Heading from '../library/Heading'
 
 export default function BandList() {
     const [users, setUsers] = useState([])
@@ -28,11 +29,15 @@ export default function BandList() {
         }
     }
 
-    return <Container>
-        {users.map(user => <User
-            key={user.id}
-            user={user}
-            onUserFollowToggled={handleUserFollowToggled}
-        />)}
-    </Container>
+    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
+        <Heading className='ml-2 font-bold text-lg mt-3 text-slate-500'>promoters</Heading>
+
+        <Container>
+            {users.map(user => <User
+                key={user.id}
+                user={user}
+                onUserFollowToggled={handleUserFollowToggled}
+            />)}
+        </Container>
+    </section>
 }

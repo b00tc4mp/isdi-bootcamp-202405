@@ -7,6 +7,7 @@ import Post from './Post'
 import User from './User'
 import Heading from '../library/Heading'
 import Search from './Search'
+import Container from '../library/Container'
 
 export default function ResultsPostList({ refreshStamp }) {
     const [searchParams] = useSearchParams()
@@ -47,11 +48,11 @@ export default function ResultsPostList({ refreshStamp }) {
         }
     }
 
-    return <section>
+    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
         <Search />
 
-        <div>
-            <Heading level='2'>Users</Heading>
+        <Container>
+            <Heading className='ml-2 font-bold text-lg mb-3 text-slate-500'>users</Heading>
             {users.map(user => (
                 <User
                     key={user.id}
@@ -59,10 +60,10 @@ export default function ResultsPostList({ refreshStamp }) {
                     onUserFollowToggled={handleUserFollowToggled}
                 />
             ))}
-        </div>
+        </Container>
 
-        <div>
-            <Heading level='2'>Posts</Heading>
+        <Container>
+            <Heading className='ml-2 font-bold text-lg mb-3 text-slate-500'>posts</Heading>
             {posts.map(post => (
                 <Post
                     key={post.id}
@@ -72,7 +73,7 @@ export default function ResultsPostList({ refreshStamp }) {
                     onUserFollowToggled={handleUserFollowToggled}
                 />
             ))}
-        </div>
+        </Container>
     </section>
 
 }

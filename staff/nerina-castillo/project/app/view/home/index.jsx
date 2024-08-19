@@ -1,42 +1,24 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
-import Heading from '../library/Heading'
 import logic from '../../logic/index.js'
 import Header from './Header'
 import Footer from './Footer'
 import ResultsPostList from './ResultsPostList'
 import FollowingPostList from './FollowingUserPostList'
-import EventList from './EventList'
 import Calendar from './Calendar'
 import BandList from './BandList'
 import LabelList from './LabelList'
 import PromotersList from './PromotersList'
 import VenuesList from './VenuesList'
 import ResultsEventList from './ResultsEventList.jsx'
+import Container from '../library/Container.jsx'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
     const navigate = useNavigate()
-    const [name, setName] = useState(null)
     const [events, setEvents] = useState([])
     const location = useLocation()
-
-    useEffect(() => {
-        try {
-            logic.getUserName()
-                .then(name => setName(name))
-                .catch(error => {
-                    console.error(error)
-
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }, [])
 
     useEffect(() => {
         logic.getAllEvents()
@@ -65,7 +47,7 @@ export default function Home({ onLogout }) {
 
     const handleVenuesClick = () => navigate('/venues')
 
-    return <>
+    return <> <Container>
         <Header
             onHomeClick={handleFollowClick}
             onSearchClick={handleSearchClick}
@@ -74,8 +56,7 @@ export default function Home({ onLogout }) {
             onLogout={onLogout}
         />
 
-        <main>
-            <Heading>Hello, {name}</Heading>
+        <main className='bg-slate-700 text-slate-300 min-h-screen'>
 
             <Routes>
                 <Route path='/' element={<FollowingPostList refreshStamp={refreshStamp} />} />
@@ -97,7 +78,6 @@ export default function Home({ onLogout }) {
 
                 <Route path='/venues' element={<VenuesList refreshStamp={refreshStamp} />} />
 
-                {/* <Route path='/events-results' element={<ResultsEventList refreshStamp={refreshStamp} />} /> */}
             </Routes>
         </main>
 
@@ -110,5 +90,6 @@ export default function Home({ onLogout }) {
             onPromotersClick={handlePromotersClick}
             onVenuesClick={handleVenuesClick}
         ></Footer>
+    </Container>
     </>
 }

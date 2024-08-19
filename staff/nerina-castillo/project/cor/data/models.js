@@ -28,7 +28,7 @@ const user = new Schema({
     },
     avatar: {
         type: String,
-        default: 'https://i1.wp.com/mediamaniaonline.com/wp-content/uploads/2019/05/cropped-vinyl-icon-black-33.png?fit=512%2C512&ssl=1'
+        default: 'https://st4.depositphotos.com/21557188/23280/v/380/depositphotos_232802030-stock-illustration-vinyl-icon-white-outline-sign.jp'
     },
     following: {
         type: [ObjectId],

@@ -35,21 +35,21 @@ export default function Createpost({ onPostCreated, onCancelCreatePost }) {
 
     const handleCancelCreatePostClick = () => onCancelCreatePost()
 
-    return <section>
-        <Heading level='4'>create post</Heading>
+    return <section className='fixed bottom-0 w-full bg-slate-300 text-slate-900 border rounded-xl'>
+        <Heading className='mb-4 mt-3 ml-2 text-xl font-bold'>create post</Heading>
 
         <Form onSubmit={handleCreatePostSubmit}>
-            <Container>
+            <Container className='flex flex-col gap-2'>
                 <Label htmlFor='post-image-input'>image</Label>
-                <Input id='post-image-input' />
+                <Input id='post-image-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
             </Container>
-            <Container>
+            <Container className='flex flex-col gap-2'>
                 <Label htmlFor='post-text-input'>text</Label>
-                <Input id='post-text-input' />
+                <Input id='post-text-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
             </Container>
-            <Container>
-                <Button type='submit'>create</Button>
-                <Button type='reset' onClick={handleCancelCreatePostClick}>cancel</Button>
+            <Container className='flex flex-col'>
+                <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold'>CREATE</Button>
+                <Button type='reset' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2' onClick={handleCancelCreatePostClick}>CANCEL</Button>
             </Container>
         </Form>
     </section>

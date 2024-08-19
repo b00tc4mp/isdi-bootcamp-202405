@@ -14,7 +14,7 @@ export default function ResultsEventList() {
 
     useEffect(() => {
         loadEvents()
-    }, [q], distance)
+    }, [q, distance])
 
     const loadEvents = () => {
         if (q) {
@@ -42,13 +42,13 @@ export default function ResultsEventList() {
         }
     }
 
-    return <section>
+    return <section className='mt-[40px] flex flex-col gap-4'>
         <SearchEvent />
 
-        <Heading level='2'>Events</Heading>
+        <Heading className='ml-2 font-bold text-lg text-slate-500'>events</Heading>
 
         {events.map(event => <Event
-            hey={event.id}
+            key={event.id}
             event={event}
         />)}
     </section>

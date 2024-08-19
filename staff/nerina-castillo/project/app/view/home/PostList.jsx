@@ -33,7 +33,7 @@ export default function PostList({ refreshStamp }) {
         }
     }
 
-    return <section>
+    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
 
         {posts.map(post => <Post
             key={post.id}

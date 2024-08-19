@@ -1,3 +1,5 @@
 export default function Time({ children }) {
-    return <time>{children}</time>
+    return <time className='block px-[.5rem] text-slate-400 text-sm mb-1 mt-1'>
+        {children}
+    </time>
 }

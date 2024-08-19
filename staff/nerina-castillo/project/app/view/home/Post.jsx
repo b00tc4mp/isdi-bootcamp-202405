@@ -51,33 +51,32 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
         }
     }
 
-    return <article>
-        <Container>
-            <Avatar url={post.author.avatar}></Avatar>
-
-            <Heading level='4'>{post.author.username}</Heading>
+    return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
+        <Container className='flex justify-between items-center m-[.5rem]'>
+            <Container className='flex items-center gap-1'>
+                <Avatar url={post.author.avatar} />
+                <Heading className='font-bold text-slate-400 text-lg'>{post.author.username}</Heading>
+            </Container>
 
             <Button onClick={handleFollowUserClick}>{post.author.following ? 'unfollow' : 'follow'}</Button>
-
         </Container>
 
-        {post.image && (
-            <Image src={post.image} title={post.title} alt={post.alt} />
-        )}
-
         {post.text && (
-            <Paragraph >{post.text}</Paragraph>
+            <Paragraph className='mt-2 ml-2'>{post.text}</Paragraph>
+        )}
+        {post.image && (
+            <Image className='mt-2' src={post.image} title={post.title} alt={post.alt} />
         )}
 
         {/* TODO like and fav Container */}
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        <Container>
+        <Container className='flex justify-end w-full'>
             {/* <Button onClick={handlLikePostClick}></Button> */}
 
             {post.author.id === logic.getUserId() && <>
-                <Button onClick={handleDeletePostClick}>DELETE</Button>
+                <Button className='mb-1' onClick={handleDeletePostClick}>DELETE</Button>
             </>}
         </Container>
 

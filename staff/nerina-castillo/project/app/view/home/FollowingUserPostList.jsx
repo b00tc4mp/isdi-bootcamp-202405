@@ -3,12 +3,12 @@ import logic from '../../logic'
 import Post from './Post'
 import Container from '../library/Container'
 
-export default function FollowingPostList() {
+export default function FollowingPostList(refreshStamp) {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
         loadPosts()
-    }, [])
+    }, [refreshStamp])
 
     const handlePostDeleted = () => loadPosts()
 
@@ -32,7 +32,7 @@ export default function FollowingPostList() {
         }
     }
 
-    return <Container>
+    return <Container className='mt-[40px] mb-[40px] flex flex-col gap-4'>
         {posts.map(post => <Post
             key={post.id}
             post={post}

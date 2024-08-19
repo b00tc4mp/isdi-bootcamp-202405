@@ -54,23 +54,26 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main>
-        <Heading level='1'>Login</Heading>
+    return <main className='flex items-center gap-4 text-base bg-gradient-to-b from-slate-700 to-slate-900 text-slate-300 min-h-screen'>
 
         <Form onSubmit={handleLoginSubmit}>
-            <Container className='bg-green-400'>
+            <Heading className='absolute top-0 ml-0 mt-8 mb-6 mr-4 font-bold text-3xl'>LOGIN</Heading>
+
+            <Container className='flex flex-col'>
                 <Label htmlFor='username-input'>username</Label>
                 <Input type='text' id='username-input' name='username-input'></Input>
             </Container>
 
-            <Container>
+            <Container className='flex flex-col'>
                 <Label htmlFor='password-input'>password</Label>
                 <Input type='password' id='password-input' name='password-input'></Input>
             </Container>
 
-            <Button type='submit'>Login</Button>
+            <Button className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl font-bold' type='submit'>LOGIN</Button>
+
+            <Link className='mt-4 mx-auto text-lg' href='' onClick={handleRegisterClick}>i haven't an account</Link>
+
         </Form>
 
-        <Link href='' onClick={handleRegisterClick}>I haven't an account</Link>
     </main>
 }

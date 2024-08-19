@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
 
-export default function EventList({ events }) {
+export default function EventList({ events, onBack }) {
     const [eventList, setEventList] = useState([])
 
     useEffect(() => {
@@ -30,10 +30,11 @@ export default function EventList({ events }) {
         }
     }
 
-    return <section>
+    return <section className='mt-[10px] mb-[40px] flex flex-col gap-4'>
         {eventList.map(event => <Event
             key={event.id}
             event={event}
+            onBack={onBack}
             onEventDeleted={handleEventDeleted}
             onEventEdited={handleEventEdited}
         />)}

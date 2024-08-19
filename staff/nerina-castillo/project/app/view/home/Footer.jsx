@@ -32,11 +32,11 @@ export default function Footer({ onPostCreated, onEventCreated, location, onBand
 
     const handleVenuesClick = () => onVenuesClick()
 
-    return <footer>
+    return <footer className='fixed start-0 bottom-0 w-full flex justify-around box-border py-2 px-0 z-10 bg-slate-800 text-slate-300 border-t border-slate-300'>
         <Button onClick={handleBandsClick}>bands</Button>
         <Button onClick={handleLabelsClick}>labels</Button>
         <Button onClick={handleCreateClick}>+</Button>
-        <Button onClick={handlePromotersClick}>promoters</Button>
+        <Button onClick={handlePromotersClick}>promo</Button>
         <Button onClick={handleVenuesClick}>venues</Button>
 
         {createVisible && location === '/calendar' && (

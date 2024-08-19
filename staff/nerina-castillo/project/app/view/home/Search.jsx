@@ -40,10 +40,9 @@ export default function Search() {
         setQuery(query)
     }
 
-    return <>
-        <Form onSubmit={handleSubmit}>
-            <Input name='q' placeholder='search' value={query} onChange={handleInputChange} />
-            <Button type='submit'>search</Button>
-        </Form>
-    </>
+    return <Form className='mt-5 gap-[.2rem]' onSubmit={handleSubmit}>
+        <Input name='q' placeholder='search' value={query} onChange={handleInputChange} />
+        <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEARCH</Button>
+    </Form>
+
 }

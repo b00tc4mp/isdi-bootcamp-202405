@@ -51,22 +51,21 @@ export default function SearchEvent() {
         setQuery(query)
     }
 
-    return <>
-        <Container>
-            <Form onSubmit={handleSearchEventSubmit}>
-                <Container>
-                    <Input type='text' name='q' id='search-event-input' placeholder='search' value={query} onChange={handleInputChange} />
-                    <Button type='submit'>search</Button>
-                </Container>
-                <Container>
-                    <span>0</span>
-                    <span>2.5</span>
-                    <span>5</span>
-                    <span>7.5</span>
-                    <span>10</span>
-                </Container>
-                <Input type='range' min='0' max='10' name='distance' />
-            </Form>
-        </Container>
-    </>
+    return <Container className='flex flex-col gap-2'>
+        <Form className='mt-5' onSubmit={handleSearchEventSubmit}>
+            <Container className='flex flex-col gap-[.2rem]'>
+                <Input type='text' name='q' id='search-event-input' placeholder='search' value={query} onChange={handleInputChange} />
+                <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEARCH</Button>
+
+            </Container>
+            <Container className='flex justify-between w-full'>
+                <span>0 km</span>
+                <span>2.5 km</span>
+                <span>5 km</span>
+                <span>7.5 km</span>
+                <span>10 km</span>
+            </Container>
+            <Input type='range' min='0' max='10' name='distance' className='h-2 w-full appearance-none rounded-sm bg-slate-300' />
+        </Form>
+    </Container>
 }
