@@ -3,8 +3,10 @@ import { logic } from 'core'
 export default (req, res, next) => {
     const { userId } = req
 
+    const { targetUserId } = req.params
+
     try {
-        logic.getUserFavs(userId)
+        logic.getUserFavs(userId, targetUserId)
             .then(games => res.json(games))
             .catch(error => next(error))
     } catch (error) {

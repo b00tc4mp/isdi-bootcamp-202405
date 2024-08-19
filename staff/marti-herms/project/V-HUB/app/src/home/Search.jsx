@@ -42,8 +42,8 @@ export default function Search({ onChange }) {
         onChange()
     }
 
-    return <Form onSubmit={handleSubmit} className='flex h-[20%] my-2 gap-2 justify-start items-center text-black'>
-        <Input name='q' placeholder='search' value={query} onChange={handleInputChange} />
-        <Button className='bg-white' type='submit'>Search</Button>
+    return <Form onSubmit={handleSubmit} className='flex h-[12%] mt-3 mb-2 gap-2 justify-start items-center text-black'>
+        <Input name='q' placeholder='search: candy crush, @eden...' value={query} onChange={handleInputChange} />
+        <Button className='bg-white w-9/12 h-10 px-3 py-1 text-2xl text-black rounded-md border border-solid border-black shadow-md shadow-black' type='submit'>Search</Button>
     </Form>
 }

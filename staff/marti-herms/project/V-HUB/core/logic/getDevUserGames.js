@@ -4,28 +4,35 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-export default (userId) => {
+export default (userId, targetUserId) => {
     validate.string(userId, 'userId')
+    validate.string(targetUserId, 'targetUserId')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Game.find({ _id: { $in: user.games } }, { __v: 0 }).sort({ date: -1 }).lean()
+            return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(games => {
-                    const promises = games.map(game => {
-                        game.inLibrary = user.library.some(gameObjectId => gameObjectId.toString() === game._id.toString())
-                        game.inFavs = user.favs.some(gameObjectId => gameObjectId.toString() === game._id.toString())
+                .then(user => {
+                    if (!user) throw new NotFoundError('user not found')
 
-                        game.id = game._id.toString()
-                        delete game._id
+                    return Game.find({ _id: { $in: user.games } }, { __v: 0 }).sort({ date: -1 }).lean()
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(games => {
+                            const promises = games.map(game => {
+                                game.inLibrary = user.library.some(gameObjectId => gameObjectId.toString() === game._id.toString())
+                                game.inFavs = user.favs.some(gameObjectId => gameObjectId.toString() === game._id.toString())
 
-                        return game
-                    })
+                                game.id = game._id.toString()
+                                delete game._id
 
-                    return Promise.all(promises)
+                                return game
+                            })
+
+                            return Promise.all(promises)
+                        })
                 })
         })
 } 

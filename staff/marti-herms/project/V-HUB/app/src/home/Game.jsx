@@ -132,11 +132,11 @@ export default function Game({ makeReviewVisibility, onCancel }) {
             </Container>
             <Container className='flex flex-col justify-center pl-2'>
                 <Paragraph className='text-white font-semibold text-lg ml-0 text-wrap'>{game.description}</Paragraph>
-                <Container className='flex flex-row items-center'>
+                <Container className='flex flex-row justify-center items-center'>
                     <Rating name='read-only' value={rating} precision={0.25} readOnly />
                     <Paragraph>{rating}</Paragraph>
                 </Container>
-                <Link className='text-white font-semibold text-lg text-center hover:text-violet-500 active:text-violet-500:' href={game.link}>Download Here</Link>
+                <Link className='text-white font-semibold text-lg text-center hover:text-violet-500 active:text-violet-500:' href={game.link}>Go to official page</Link>
             </Container>
         </>}
 

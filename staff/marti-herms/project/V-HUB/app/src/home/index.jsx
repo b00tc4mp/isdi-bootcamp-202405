@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Library from './Library'
 import Footer from './Footer'
-import GameRegister from './GameRegister'
+import AddGame from './AddGame'
 import Search from './Search'
 import SearchResults from './SearchResults'
 import Game from './Game'
@@ -30,7 +30,7 @@ export default function Home({ onLogout }) {
         navigate('/')
     }
 
-    const handleRegisterGameClick = () => {
+    const handleAddGameClick = () => {
         navigate('/games/register')
     }
 
@@ -39,12 +39,12 @@ export default function Home({ onLogout }) {
         navigate('/search')
     }
 
-    const handleInputChange = () => {
+    const handleRefresh = () => {
         setRefreshStamp(Date.now())
     }
 
-    const handleRegisterGame = (gameId) => {
-        navigate(`/games/${gameId}`)
+    const handleAddGame = () => {
+        navigate('/')
     }
 
     const handleGame = (gameId) => {
@@ -74,19 +74,19 @@ export default function Home({ onLogout }) {
     return <>
         <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} refreshStamp={refreshStamp} ></Header>
 
-        <main className='my-10 w-screen h-full dark:bg-[#1e1e1e]'>
+        <main className='py-[10%] w-screen h-full dark:bg-[#1e1e1e]'>
             <Routes>
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
-                <Route path='/profile/:userId' element={<Profile refreshStamp={refreshStamp} onChange={handleSearchUser} />} />
-                <Route path='/games/register' element={<GameRegister onGameRegister={handleRegisterGame} />} />
-                <Route path='/search' element={<><Search onChange={handleInputChange} /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
+                <Route path='/profile/:userId' element={<Profile refreshStamp={refreshStamp} onChange={handleSearchUser} onGameClick={handleGame} />} />
+                <Route path='/games/register' element={<AddGame onAddGame={handleAddGame} />} />
+                <Route path='/search' element={<><Search onChange={handleRefresh} /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
                 <Route path='/games/:gameId' element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
             </Routes>
         </main>
 
         <Footer makeReviewVisibility={makeReviewVisibility}
             onSearchGame={handleSearchClick}
-            onRegisterGame={handleRegisterGameClick}
+            onAddGame={handleAddGameClick}
             onHome={handleHomeClick}
             onAddReview={handleAddReview}
             onCancel={handleCancelReview} ></Footer>

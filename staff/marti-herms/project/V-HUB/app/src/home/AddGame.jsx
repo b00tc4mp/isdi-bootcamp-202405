@@ -1,12 +1,13 @@
+import { Button } from '@mui/material'
+
 import Container from '../library/Container'
 import Form from '../library/Form'
 import Input from '../library/Input'
-import Button from '../library/Button'
 
 import useContext from '../context'
 import logic from '../../logic'
 
-export default function GameRegister({ onGameRegister }) {
+export default function AddGame({ onAddGame }) {
     const { alert } = useContext()
 
     const handleRegisterSubmit = (event) => {
@@ -26,7 +27,7 @@ export default function GameRegister({ onGameRegister }) {
 
         try {
             logic.registerGame(name, image, description, link)
-                .then(gameId => onGameRegister(gameId))
+                .then(() => onAddGame())
                 .catch(error => {
                     console.error(error)
 
@@ -46,7 +47,7 @@ export default function GameRegister({ onGameRegister }) {
                 <Input id='image-input' type='text' placeholder='Image' />
                 <Input id='description-input' type='text' placeholder='Description' />
                 <Input id='link-input' type='text' placeholder='Link' />
-                <Button type='submit' className='bg-rose-500 hover:bg-rose-800'>Register</Button>
+                <Button variant='contained' type='submit'>Add Game</Button>
             </Form>
         </Container>
     </>

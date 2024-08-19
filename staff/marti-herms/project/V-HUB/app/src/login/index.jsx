@@ -1,10 +1,13 @@
+import { Button } from '@mui/material'
+
+
 import logic from '../../logic'
 
 import Input from '../library/Input'
 import Logo from '../library/Logo'
 import Container from '../library/Container'
 import Form from '../library/Form'
-import Button from '../library/Button'
+// import Button from '../library/Button'
 import Link from '../library/Link'
 
 import useContext from '../context'
@@ -48,13 +51,13 @@ export default function Login({ onLogin, onRegisterClick }) {
     }
 
     return <main className='flex flex-col w-screen h-screen dark:bg-[#1e1e1e]'>
-        <Logo className='mt-7' />
-        <Container className={'flex flex-col items-center justify-center text-white w-screen h-full'}>
-            <Form className='h-full gap-10 items-center justify-center' onSubmit={handleLoginSubmit}>
+        <Logo className='mt-28' />
+        <Container className={'flex flex-col items-center justify-start text-white w-screen h-full'}>
+            <Form className='h-[70%] justify-evenly items-center my-4' onSubmit={handleLoginSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='password-input' type='password' placeholder='Password' />
-                <Button className='bg-rose-500 hover:bg-rose-800' type='submit' >Login</Button>
-                <Link className='text-xl underline underline-offset-2 hover:text-blue-500' onClick={onRegisterClick}>Register</Link>
+                <Button variant='contained' type='submit' className='active:text-black hover:text-black' >Login</Button>
+                <Button className='active:text-white hover:text-white ' onClick={onRegisterClick}>Register</Button>
             </Form>
         </Container>
     </main>

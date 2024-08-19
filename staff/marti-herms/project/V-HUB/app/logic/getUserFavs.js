@@ -2,8 +2,8 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-export default () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/games/favs`, {
+export default (targetUserId) => {
+    return fetch(`${import.meta.env.VITE_API_URL}/games/${targetUserId}/favs`, {
         headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })

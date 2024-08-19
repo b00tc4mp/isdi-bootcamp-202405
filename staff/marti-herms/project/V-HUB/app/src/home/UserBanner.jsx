@@ -34,7 +34,7 @@ export default function GameBanner({ user, onInteraction, onUserClick }) {
         }
     }
 
-    return <article className='flex flex-row items-center justify-between border-y border-solid border-slate-700 dark:bg-black'>
+    return <article className='flex flex-row items-center justify-between p-3 border-y border-solid border-slate-700 dark:bg-black'>
         <button className='bg-transparent border-0' onClick={handleUserClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>
@@ -43,7 +43,7 @@ export default function GameBanner({ user, onInteraction, onUserClick }) {
                 </Container>
             </Container>
         </button>
-        {user.id !== currentUserId && <Container className='flex flex-col gap-2 mr-2'>
+        {user.id !== currentUserId && <Container className='flex flex-col gap-2 mr-2 h-full w-[90px]'>
             <button className='bg-gray-500 rounded' onClick={handleFollowUser}>{user.followed ? 'Unfollow' : 'Follow'}</button>
         </Container>}
     </article>

@@ -56,7 +56,7 @@ export default function SearchResults({ refreshStamp, onGameClick, onUserClick }
         }
     }
 
-    return <section className='flex flex-col gap-4'>
+    return <section className='flex flex-col'>
         {q.startsWith('@') ?
             results.map(user => <UserBanner key={user.id} user={user} onInteraction={loadUsers} onUserClick={onUserClick} />) :
             results.map(game => <GameBanner key={game.id} game={game} onInteraction={loadGames} onGameClick={onGameClick} collectionType={'search'} />)}

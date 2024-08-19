@@ -38,11 +38,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/games/search', jwtVerifier, handle.searchGame)
 
-        api.get('/games/library', jwtVerifier, handle.getUserLibrary)
+        api.get('/games/:targetUserId/library', jwtVerifier, handle.getUserLibrary)
 
-        api.get('/games/favs', jwtVerifier, handle.getUserFavs)
+        api.get('/games/:targetUserId/favs', jwtVerifier, handle.getUserFavs)
 
-        api.get('/games/dev', jwtVerifier, handle.getDevUserGames)
+        api.get('/games/:targetUserId/dev', jwtVerifier, handle.getDevUserGames)
 
         api.get('/games/:gameId', jwtVerifier, handle.getGameById)
 

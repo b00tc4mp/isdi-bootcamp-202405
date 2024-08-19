@@ -53,11 +53,11 @@ export default function GameBanner({ game, onInteraction, onGameClick, collectio
                     <Paragraph>{game.name}</Paragraph>
                 </Container>
                 <Container>
-                    <Paragraph>{game.description && game.description.slice(0, 25) + '...'}</Paragraph>
+                    <Paragraph>{game.description.length >= 25 ? game.description.slice(0, 25) + '...' : game.description}</Paragraph>
                 </Container>
             </Container>
         </button>
-        {collectionType !== 'devGames' && <Container className='flex flex-col gap-2 mr-2'>
+        {collectionType !== 'devGames' && <Container className='flex flex-col gap-2 mr-2 h-full w-[90px]'>
             <button className='bg-gray-500 rounded' onClick={handleAddGame}>{game.inLibrary ? 'Remove' : 'Add'}</button>
             {game.inLibrary && <button className={game.inFavs ? 'bg-red-500 rounded' : 'bg-green-300 rounded'} onClick={handleFavGame}>Fav</button>}
         </Container>}
