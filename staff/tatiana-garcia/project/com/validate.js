@@ -15,13 +15,13 @@ function validateName(name, explain = 'name') {
     if (!NAME_REGEX.test(name.trim())) throw new ValidationError(`invalid ${explain}`)
 }
 
-function validateSurname(surname) {
+function validateSurname(surname, explain = 'surname') {
     validateString(surname, 'surname')
-    if (!NAME_REGEX.test(surname)) throw new ValidationError('invalid surname')
+    if (!NAME_REGEX.test(surname)) throw new ValidationError(`invalid ${explain}`)
 }
-function validateEmail(email) {
+function validateEmail(email, explain = 'email') {
     validateString(email, 'email')
-    if (!EMAIL_REGEX.test(email.trim())) throw new ValidationError('invalid email')
+    if (!EMAIL_REGEX.test(email.trim())) throw new ValidationError(`invalid ${explain}`)
 }
 
 function validateUsername(username, explain = 'username') {
@@ -58,9 +58,9 @@ function validateDescription(description, explain = 'description') {
     if (typeof description !== 'string') throw new ValidationError(`${explain} is not a string`)
 }
 
-function validateUrl(url, explain = 'url') {
-    // validateString(url, explain)
-    if (!url.startsWith('https')) throw new ValidationError(`invalid ${explain}`)
+function validateImage(image, explain = 'image') {
+    validateString(image, explain)
+    if (!image.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
 
 function validatePets(pets) {
@@ -79,7 +79,7 @@ const validate = {
     // role: validateRole,
     city: validateCity,
     description: validateDescription,
-    url: validateUrl,
+    image: validateImage,
     pets: validatePets
 
 }

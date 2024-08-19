@@ -7,7 +7,9 @@ import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/i
 
 import {
     registerUserHandler,
-    authenticateUserHandler
+    authenticateUserHandler,
+    getUserHandler,
+    updateUserHandler
 
 } from './handlers/index.js'
 
@@ -22,6 +24,10 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/users', jsonBodyParser, registerUserHandler)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
+
+        api.patch('/users', jwtVerifier, updateUserHandler)
 
         api.use(errorHandler)
 
