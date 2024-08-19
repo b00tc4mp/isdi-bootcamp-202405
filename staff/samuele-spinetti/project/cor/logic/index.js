@@ -8,6 +8,8 @@ import getAllHCPs from './getAllHCPs.js'
 import searchHCP from './searchHCP.js'
 import getAllNews from './getAllNews.js'
 import toggleSaveNews from './toggleSaveNews.js'
+import getNews from './getNews.js'
+import getAllSavedNews from './getAllSavedNews.js'
 
 const logic = {
     authenticateUser,
@@ -19,7 +21,9 @@ const logic = {
     getAllHCPs,
     searchHCP,
     getAllNews,
-    toggleSaveNews
+    toggleSaveNews,
+    getNews,
+    getAllSavedNews
 }
 
 export default logic

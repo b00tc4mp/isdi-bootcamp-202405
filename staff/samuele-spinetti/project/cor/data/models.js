@@ -1,4 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
+
+const { ObjectId } = Types
 
 const user = new Schema({
     name: {
@@ -27,8 +29,8 @@ const user = new Schema({
         type: String
     },
     favs: {
-        type: [String],
-        required: false
+        type: [ObjectId],
+        ref: 'NewsArticle'
     }
 })
 
@@ -82,7 +84,8 @@ const healthCareProvider = new Schema({
 const newsArticle = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     image: {
         type: String,
@@ -90,10 +93,18 @@ const newsArticle = new Schema({
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     url: {
         type: String,
+        required: true
+    },
+    author: {
+        type: String,
+        required: false
+    },
+    publishedAt: {
+        type: Date,
         required: true
     }
 })

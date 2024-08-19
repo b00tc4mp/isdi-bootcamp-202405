@@ -6,12 +6,12 @@ import Image from '../library/Image'
 import Paragraph from '../library/Paragraph'
 import Button from '../library/Button'
 
-export default function NewsArticle({ newsArticle, onNewsSaveToggled }) {
+export default function NewsArticle({ newsArticle, onNewsArticleSaveToggled }) {
 
     const handleSaveNewsClick = () => {
         try {
-            logic.toggleSaveNews(newsArticle.source.id)
-                .then(() => onNewsSaveToggled())
+            logic.toggleSaveNews(newsArticle.id)
+                .then(() => onNewsArticleSaveToggled())
                 .catch(error => {
                     console.error(error)
 
@@ -29,13 +29,13 @@ export default function NewsArticle({ newsArticle, onNewsSaveToggled }) {
             <Heading className="font-extrabold text-2xl mt-2 mb-2">{newsArticle.title}</Heading>
             <Container className="relative">
                 <Paragraph className="text-sm text-gray-500">Published {`${newsArticle.publishedAt.slice(0, 10)}`}</Paragraph>
-                <Image className="w-[200px] rounded-xl mt-2 mb-2" src={newsArticle.urlToImage} />
+                <Image className="w-[200px] rounded-xl mt-2 mb-2" src={newsArticle.image} />
                 <Paragraph className="mt-4 mb-5">{`${newsArticle.description}...`}</Paragraph>
             </Container>
         </Container>
         <Container className="flex flex-row justify-between items-center">
             <Button onClick={handleSaveNewsClick}>
-                <Image src="./heart.svg" className={newsArticle.fav ? "fill-red-600 h-[30px] w-[30px]" : "fill-black h-[30px] w-[30px]"} ></Image>
+                <Image src={newsArticle.fav ? "./heart-red.svg" : "./heart-black.svg"} />
             </Button>
             <a className="left-0 gap" href={newsArticle.url} target="_blank">Read more</a>
         </Container>

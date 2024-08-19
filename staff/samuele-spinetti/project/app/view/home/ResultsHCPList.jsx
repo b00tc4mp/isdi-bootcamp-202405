@@ -14,7 +14,7 @@ export default function ResultsHCPList() {
 
     useEffect(() => {
         loadHCP()
-    }, [q], distance)
+    }, [q, distance])
 
     const loadHCP = () => {
         if (q !== null) {
@@ -36,7 +36,7 @@ export default function ResultsHCPList() {
             }), error => {
                 console.error(error)
 
-                aler(error.message)
+                alert(error.message)
             })
         }
     }

@@ -5,34 +5,23 @@ import logic from '../../logic'
 import NewsArticle from './NewsArticle'
 import Heading from '../library/Heading'
 
-export default function NewsArticlesList() {
+export default function NewsArticlesSavedList() {
     const [articles, setArticles] = useState([])
-    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        setLoading(true)
-
         loadNewsArticles()
     }, [])
 
     const handleNewsArticleSaveToggled = () => loadNewsArticles()
 
     const loadNewsArticles = () => {
-        setLoading(true)
-
         try {
-            logic.getNews()
-                .then(newsArticles => {
-                    if (newsArticles.length > 0) {
-                        setArticles(newsArticles)
-                        setLoading(false)
-                    }
-                })
+            logic.getAllSavedNews()
+                .then(newsArticles => setArticles(newsArticles))
                 .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-                    setLoading(false)
                 })
         } catch (error) {
             console.error(error)
@@ -40,8 +29,6 @@ export default function NewsArticlesList() {
             alert(error)
         }
     }
-
-    if (loading) return <p>Loading news...</p>
 
     return <>
         <Heading className="flex flex-col justify-center items-center text-[#C900CD] [gradient-to-br from-green-400 to-fuchsia-500] text-[30px] font-bold h-20">Healthy living, Pride being!</Heading>

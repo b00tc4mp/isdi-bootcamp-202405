@@ -14,8 +14,9 @@ import {
     updatePasswordHandler,
     getAllHCPsHandler,
     searchHCPHandler,
-    getAllNewsHandler,
-    toggleSaveNewsHandler
+    toggleSaveNewsHandler,
+    getNewsHandler,
+    getAllSavedNewsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -36,7 +37,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/healthcareproviders/search', jwtVerifier, searchHCPHandler)
 
-        api.get('/news', jwtVerifier, getAllNewsHandler)
+        api.get('/news', jwtVerifier, getNewsHandler)
+
+        api.get('/news/saved', jwtVerifier, getAllSavedNewsHandler)
 
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 

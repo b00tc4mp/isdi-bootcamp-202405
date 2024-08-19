@@ -18,7 +18,7 @@ export default (userId, query, distance, coords) => {
             if (!user) throw new NotFoundError('user not found')
 
             return HealthCareProvider.find({
-                $or: [{ name: new RegExp(query) }, { tags: { $regex: new RegExp(query) } }],
+                $or: [{ name: new RegExp(query, 'i') }, { tags: { $regex: new RegExp(query, 'i') } }],
                 location: {
                     $near: {
                         $geometry: { type: 'Point', coordinates: coords },

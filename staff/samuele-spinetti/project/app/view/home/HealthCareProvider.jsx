@@ -28,7 +28,7 @@ export default function HealthCareProvider({ healthCareProvider }) {
                 <Container >
                     <Image className="w-32" src={healthCareProvider.image} />
                 </Container>
-                <Container className="flex flex-col max-w-20">
+                <Container className="flex flex-col">
                     <Paragraph>{healthCareProvider.street}</Paragraph>
                     {healthCareProvider.openingHours[0] === 'Open 24h'
                         ? <Paragraph>Open 24H</Paragraph>
@@ -44,12 +44,12 @@ export default function HealthCareProvider({ healthCareProvider }) {
                     </ul>
                         <Button onClick={onCancelOpeningHoursClick}>Cancel</Button>
                     </>}
-                    <a className="max-w-20" href={healthCareProvider.webURL} target="_blank">{healthCareProvider.webURL}</a>
+                    <a className="" href={healthCareProvider.webURL} target="_blank">{healthCareProvider.webURL}</a>
                     <a href={`tel:${healthCareProvider.phoneNumber}`}>{healthCareProvider.phoneNumber}</a>
                 </Container>
             </Container>
             <Button onClick={onOpenMapClick}>Map{mapVisible && <><MapContainer className="h-[300px] w-[100%] rounded-2xl"
-                center={healthCareProvider.location.coordinates} // Barcelona
+                center={healthCareProvider.location.coordinates}
                 zoom={13}
                 ref={mapRef}
             >
