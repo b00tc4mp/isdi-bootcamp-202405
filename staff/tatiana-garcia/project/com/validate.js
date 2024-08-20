@@ -42,11 +42,6 @@ function validateCif(cif, explain = 'cif') {
     if (cif.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
 }
 
-// function validateRole(role, explain = 'role') {
-//     validateString(role, 'role')
-//     if (role !== 'user' && role !== 'petsitter') throw new ValidationError(`invalid ${explain}`)
-// }
-
 function validateCity(city) {
     validateString(city, 'city')
     if (city === '') throw new ValidationError('the field can not be empty')
@@ -64,7 +59,12 @@ function validateImage(image, explain = 'image') {
 }
 
 function validatePets(pets) {
-    if (pets < 1) throw new ValidationError('At least one pet must be selected')
+    validateArray(pets, ['pets'])
+    if (pets.length < 1) throw new ValidationError('at least one pet must be selected')
+}
+
+function validateArray(array, explain = ['']) {
+    if (!(array instanceof Array)) throw new ValidationError(`${explain} is not a array`)
 }
 
 
@@ -76,11 +76,11 @@ const validate = {
     username: validateUsername,
     password: validatePassword,
     cif: validateCif,
-    // role: validateRole,
     city: validateCity,
     description: validateDescription,
     image: validateImage,
-    pets: validatePets
+    pets: validatePets,
+    array: validateArray
 
 }
 

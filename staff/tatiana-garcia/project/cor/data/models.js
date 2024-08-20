@@ -1,4 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Schema, Types, model } from 'mongoose'
+
+const { ObjectId } = Types
 
 const user = new Schema({
     name: {
@@ -23,33 +25,48 @@ const user = new Schema({
         type: String,
         required: true
     },
-    // role: {
-    //     type: String,
-    //     required: true
-    // },
     cif: {
         type: String,
     },
     image: {
-        type: String,
-        default: 'https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg'
+        type: String
     },
     city: {
         type: String
+    }
+
+})
+
+const petsitter = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    petsitterName: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String
+    },
+    city: {
+        type: String,
+        required: true,
     },
     description: {
         type: String
     },
-    petsitterName: {
-        type: String
-    },
-    // pets: {
-    //     type: [String]
-    // }
+    pets: {
+        type: [String]
+    }
+
 })
 
 const User = model('User', user)
+const Petsitter = model('Petsitter', petsitter)
 
 export {
-    User
+    User,
+    Petsitter
 }
