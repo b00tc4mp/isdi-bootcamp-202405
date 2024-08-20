@@ -30,7 +30,7 @@ describe('getUserLibrary', () => {
                     )
                     .then(game =>
                         User.findByIdAndUpdate(user.id, { $push: { library: game.id } })
-                            .then(() => getUserLibrary(user.id)))
+                            .then(() => getUserLibrary(user.id, user.id)))
             })
             .then(games => {
                 expect(games).to.be.an('array')
@@ -40,7 +40,7 @@ describe('getUserLibrary', () => {
 
     it('succeeds on existing user and no posts returning empty array ', () => {
         return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
-            .then(user => getUserLibrary(user.id))
+            .then(user => getUserLibrary(user.id, user.id))
             .then(games => {
                 expect(games).to.be.an('array')
                 expect(games.length).to.equal(0)
@@ -51,7 +51,7 @@ describe('getUserLibrary', () => {
         let _error
 
         return Game.create({ author: new ObjectId(), name: 'candy crush', image: img, description: 'candy crush game broh', link: link })
-            .then(game => getUserLibrary('66ba007f874aa7b84ec54491'))
+            .then(game => getUserLibrary('66ba007f874aa7b84ec54491', '66ba007f874aa7b84ec54491'))
             .catch(error => _error = error)
             .finally(() => {
                 console.log(_error)
@@ -60,16 +60,43 @@ describe('getUserLibrary', () => {
             })
     })
 
+    it('fails on non-existing targetUser', () => {
+        let _error
+
+        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+            .then(user => Game.create({ author: new ObjectId(), name: 'candy crush', image: img, description: 'candy crush game broh', link: link })
+                .then(game => getUserLibrary(user.id, '66ba007f874aa7b84ec54491')))
+            .catch(error => _error = error)
+            .finally(() => {
+                console.log(_error)
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('targetUser not found')
+            })
+    })
+
     it('fails on non-string userId', () => {
         let error
 
         try {
-            getUserLibrary(123)
+            getUserLibrary(123, '66ba007f874aa7b84ec54491')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('userId is not a string')
+        }
+    })
+
+    it('fails on non-string targetUserId', () => {
+        let error
+
+        try {
+            getUserLibrary('66ba007f874aa7b84ec54491', 123)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('targetUserId is not a string')
         }
     })
 

@@ -16,7 +16,7 @@ export default (userId, targetUserId) => {
             return User.findById(targetUserId).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(user => {
-                    if (!user) throw new NotFoundError('user not found')
+                    if (!user) throw new NotFoundError('targetUser not found')
 
                     return Game.find({ _id: { $in: user.favs } }, { __v: 0 }).sort({ date: -1 }).lean()
                         .catch(error => { throw new SystemError(error.message) })
