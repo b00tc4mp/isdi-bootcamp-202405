@@ -12,7 +12,7 @@ import Container from '../library/Container'
 import Avatar from './Avatar'
 import Confirm from '../common/Confirm'
 
-export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
+export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostLikeToggled }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
 
     const handleDeletePostClick = () => setConfirmMessage('delete post?')
@@ -51,6 +51,22 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
         }
     }
 
+    const handleLikePostClick = () => {
+        try {
+            logic.toggleLikePost(post.id)
+                .then(() => onPostLikeToggled())
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
         <Container className='flex justify-between items-center m-[.5rem]'>
             <Container className='flex items-center gap-1'>
@@ -68,12 +84,10 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled }) {
             <Image className='mt-2' src={post.image} title={post.title} alt={post.alt} />
         )}
 
-        {/* TODO like and fav Container */}
-
         <Time>{formatTime(new Date(post.date))}</Time>
 
         <Container className='flex justify-end w-full'>
-            {/* <Button onClick={handlLikePostClick}></Button> */}
+            <Button className='mb-1' onClick={handleLikePostClick}>{(post.like ? 'dislike ' : 'like ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
 
             {post.author.id === logic.getUserId() && <>
                 <Button className='mb-1' onClick={handleDeletePostClick}>DELETE</Button>

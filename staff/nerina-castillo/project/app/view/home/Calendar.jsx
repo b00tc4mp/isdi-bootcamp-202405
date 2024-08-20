@@ -78,7 +78,7 @@ export default function Calendar({ events = [] }) {
         )
     }
 
-    return <section className='pb-[60px]'>
+    return <section className='pb-[40px]'>
         <Container>
             {view === 'calendar' ? (
                 <>

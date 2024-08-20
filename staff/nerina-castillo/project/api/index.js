@@ -21,7 +21,8 @@ import {
     deleteEventHandler,
     updateEventDataHandler,
     getUsersByRoleHandler,
-    searchEventHandler
+    searchEventHandler,
+    toggleLikePostHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -61,6 +62,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/users', jwtVerifier, getUsersByRoleHandler)
 
         api.get('/events/search', jwtVerifier, searchEventHandler)
+
+        api.patch('/posts/:postId/likes', jwtVerifier, toggleLikePostHandler)
 
         api.use(errorHandler)
 

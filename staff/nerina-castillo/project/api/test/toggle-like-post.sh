@@ -1,0 +1,1 @@
+curl -v -X PATCH http://localhost:8080/posts/66c35c12917f2cb730cdeae8/likes -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI3MmI1NTVlZTNjM2RmNGRmN2UzYzgiLCJpYXQiOjE3MjQxNDUxMjJ9.w4rOPnKD3fOsKDCc3WSG457Y8I8DaoO_tL77U5GAGfo" 

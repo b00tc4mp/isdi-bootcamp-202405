@@ -13,6 +13,7 @@ import deleteEvent from './deleteEvent.js'
 import updateEventData from './updateEventData.js'
 import getUsersByRole from './getUsersByRole.js'
 import searchEvent from './searchEvent.js'
+import toggleLikePost from './toggleLikePost.js'
 
 const logic = {
     registerUser,
@@ -29,7 +30,8 @@ const logic = {
     deleteEvent,
     updateEventData,
     getUsersByRole,
-    searchEvent
+    searchEvent,
+    toggleLikePost
 }
 
 export default logic

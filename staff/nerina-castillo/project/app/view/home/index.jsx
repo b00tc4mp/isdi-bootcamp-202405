@@ -65,10 +65,7 @@ export default function Home({ onLogout }) {
 
                 <Route path='/events' element={<ResultsEventList refreshStamp={refreshStamp} />} />
 
-                <Route path='/calendar' element={<>
-                    <ResultsEventList refreshStamp={refreshStamp} />
-                    <Calendar events={events} />
-                </>} />
+                <Route path='/calendar' element={<ResultsEventList refreshStamp={refreshStamp} />} />
 
                 <Route path='/bands' element={<BandList refreshStamp={refreshStamp} />} />
 

@@ -100,10 +100,7 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
                 <span>{currentEvent.tickets}</span>
             </Paragraph>
             <Heading className='text-xs text-slate-500'>{currentEvent.author.username}</Heading>
-            <Container className='flex justify-between'>
-                <Time>{formatTime(new Date(currentEvent.date))}</Time>
-                <Button className='mb-1' onClick={onBack}>back</Button>
-            </Container>
+            <Time>{formatTime(new Date(currentEvent.date))}</Time>
 
             <Container>
                 {currentEvent.author.id === logic.getUserId() && <>

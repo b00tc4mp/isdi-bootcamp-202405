@@ -13,6 +13,7 @@ import deleteEventHandler from './deleteEventHandler.js'
 import updateEventDataHandler from './updateEventDataHandler.js'
 import getUsersByRoleHandler from './getUsersByRoleHandler.js'
 import searchEventHandler from './searchEventHandler.js'
+import toggleLikePostHandler from './toggleLikePostHandler.js'
 
 export {
     registerUserHandler,
@@ -29,5 +30,6 @@ export {
     deleteEventHandler,
     updateEventDataHandler,
     getUsersByRoleHandler,
-    searchEventHandler
+    searchEventHandler,
+    toggleLikePostHandler
 }

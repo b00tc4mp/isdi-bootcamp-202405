@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-
 import logic from '../../logic'
 import Event from './Event'
+import Button from '../library/Button'
 
 export default function EventList({ events, onBack }) {
     const [eventList, setEventList] = useState([])
@@ -30,11 +30,12 @@ export default function EventList({ events, onBack }) {
         }
     }
 
-    return <section className='mt-[10px] mb-[40px] flex flex-col gap-4'>
+    return <section className='mt-[10px] mb-[-20px] flex flex-col gap-4'>
+        <Button onClick={onBack}>back</Button>
+
         {eventList.map(event => <Event
             key={event.id}
             event={event}
-            onBack={onBack}
             onEventDeleted={handleEventDeleted}
             onEventEdited={handleEventEdited}
         />)}

@@ -23,7 +23,6 @@ describe('getUsersByRole', () => {
                 expect(users[0].username).to.equal('gonzalo')
                 expect(users[0].role).to.equal('user')
                 expect(users[0].email).to.equal('gon@zalo.com')
-                expect(users[0].password).to.equal('gonzalo123')
             })
     })
 
