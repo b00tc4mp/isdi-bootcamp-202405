@@ -9,6 +9,8 @@ import getUserFavs from './getUserFavs.js'
 import getGameById from './getGameById.js'
 import getGameReviews from './getGameReviews.js'
 import getDevUserGames from './getDevUserGames.js'
+import getUserFollowing from './getUserFollowing.js'
+import getUserFollowers from './getUserFollowers.js'
 import toggleAddGame from './toggleAddGame.js'
 import toggleFavGame from './toggleFavGame.js'
 import toggleFollowUser from './toggleFollowUser.js'
@@ -31,6 +33,8 @@ const logic = {
     getUserAvatar,
     getUserFavs,
     getUserLibrary,
+    getUserFollowers,
+    getUserFollowing,
     getUserUsername,
     makeReview,
     registerGame,

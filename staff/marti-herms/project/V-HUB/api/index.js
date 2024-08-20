@@ -30,9 +30,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/users/:targetUserId/username', jwtVerifier, handle.getUserUsername)
 
-        api.get('/users/:targetUserId/avatar', jwtVerifier, handle.getUserAvatar)
+        api.get('/users/:targetUserId/following', jwtVerifier, handle.getUserFollowing)
 
-        api.patch('/users/:targetUserId/following', jwtVerifier, handle.toggleFollowUser)
+        api.get('/users/:targetUserId/followers', jwtVerifier, handle.getUserFollowers)
+
+        api.patch('/users/:targetUserId/follow', jwtVerifier, handle.toggleFollowUser)
 
         api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
 

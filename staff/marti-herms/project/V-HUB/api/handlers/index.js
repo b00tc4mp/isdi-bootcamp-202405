@@ -9,6 +9,8 @@ import getUserFavsHandler from './getUserFavsHandler.js'
 import getGameByIdHandler from './getGameByIdHandler.js'
 import getGamesReviewsHandler from './getGamesReviewsHandler.js'
 import getDevUserGamesHandler from './getDevUserGamesHandler.js'
+import getUserFollowersHandler from './getUserFollowersHandler.js'
+import getUserFollowingHandler from './getUserFollowingHandler.js'
 import toggleAddGameHandler from './toggleAddGameHandler.js'
 import toggleFavGameHandler from './toggleFavGameHandler.js'
 import toggleFollowUserHandler from './toggleFollowUserHandler.js'
@@ -30,6 +32,8 @@ const handle = {
     getUser: getUserHandler,
     getUserAvatar: getUserAvatarHandler,
     getUserFavs: getUserFavsHandler,
+    getUserFollowers: getUserFollowersHandler,
+    getUserFollowing: getUserFollowingHandler,
     getUserLibrary: getUserLibraryHandler,
     getUserUsername: getUserUsernameHandler,
     makeReview: makeReviewHandler,

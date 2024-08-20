@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default (targetUserId) => {
     validate.string(targetUserId, 'targetUserId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}/following`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}/follow`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
