@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-
 import logic from '../../logic'
 import Post from './Post'
-import Button from '../library/Button'
 
 export default function PostList({ refreshStamp }) {
     const [posts, setPosts] = useState([])
@@ -39,8 +37,8 @@ export default function PostList({ refreshStamp }) {
             key={post.id}
             post={post}
             onPostDeleted={handlePostDeleted}
+            onPostLikeToggled={handlePostLikeToggled}
             onUserFollowToggled={handleUserFollowToggled}
-        // TODO handels 
         />)}
     </section>
 }

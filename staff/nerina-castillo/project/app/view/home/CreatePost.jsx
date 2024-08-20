@@ -7,6 +7,7 @@ import Button from '../library/Button'
 import Container from '../library/Container'
 
 export default function Createpost({ onPostCreated, onCancelCreatePost }) {
+
     const handleCreatePostSubmit = event => {
         event.preventDefault()
 

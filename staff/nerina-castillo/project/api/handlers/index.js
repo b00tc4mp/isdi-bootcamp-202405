@@ -14,6 +14,7 @@ import updateEventDataHandler from './updateEventDataHandler.js'
 import getUsersByRoleHandler from './getUsersByRoleHandler.js'
 import searchEventHandler from './searchEventHandler.js'
 import toggleLikePostHandler from './toggleLikePostHandler.js'
+import createCommentHandler from './createCommentHandler.js'
 
 export {
     registerUserHandler,
@@ -31,5 +32,6 @@ export {
     updateEventDataHandler,
     getUsersByRoleHandler,
     searchEventHandler,
-    toggleLikePostHandler
+    toggleLikePostHandler,
+    createCommentHandler
 }

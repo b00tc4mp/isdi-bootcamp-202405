@@ -4,12 +4,12 @@ import User from './User'
 import Container from '../library/Container'
 import Heading from '../library/Heading'
 
-export default function BandList() {
+export default function BandList(refreshStamp) {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
         loadUsers()
-    }, [])
+    }, [refreshStamp])
 
     const handleUserFollowToggled = () => loadUsers()
 

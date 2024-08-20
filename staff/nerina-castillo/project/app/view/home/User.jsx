@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import logic from '../../logic'
 import Avatar from './Avatar'
@@ -7,19 +7,23 @@ import Container from '../library/Container'
 import Heading from '../library/Heading'
 
 export default function User({ user, onUserFollowToggled }) {
-    const [following, setFollowing] = useState(user.following)
+    const [isFollowing, setIsFollowing] = useState(user.following)
+
+    useEffect(() => {
+        setIsFollowing(user.following)
+    }, [user])
 
     const handleFollowUserClick = () => {
         try {
             logic.toggleFollowUser(user.id)
                 .then(() => {
-                    setFollowing(!following)
-                    if (onUserFollowToggled) onUserFollowToggled()
+                    setIsFollowing(prev => !prev)
+                    onUserFollowToggled()
                 })
                 .catch(error => {
                     console.error(error)
 
-                    alert(error.message)
+                    alert(error.confirmMessage)
                 })
         } catch (error) {
             console.error(error)
@@ -35,7 +39,8 @@ export default function User({ user, onUserFollowToggled }) {
                 <Heading className='font-bold text-slate-400 text-lg'>{user.username}</Heading>
             </Container>
 
-            <Button onClick={handleFollowUserClick} >{following ? 'unfollow' : 'follow'}</Button>
+            <Button onClick={handleFollowUserClick}>{isFollowing ? 'unfollow' : 'follow'}</Button>
+
         </Container>
     </article>
 }

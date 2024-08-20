@@ -32,10 +32,13 @@ export default function FollowingPostList(refreshStamp) {
         }
     }
 
+    const handleCommentCreated = () => { }
+
     return <Container className='mt-[40px] mb-[40px] flex flex-col gap-4'>
         {posts.map(post => <Post
             key={post.id}
             post={post}
+            onCommentCreated={handleCommentCreated}
             onPostDeleted={handlePostDeleted}
             onPostLikeToggled={handlePostLikeToggled}
             onUserFollowToggled={handleUserFollowToggled}

@@ -2,9 +2,8 @@ import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
-
-import createPost from './createPost.js'
 import { errors } from '../../com/index.js'
+import createPost from './createPost.js'
 
 const { ObjectId } = Types
 const { NotFoundError, ValidationError } = errors

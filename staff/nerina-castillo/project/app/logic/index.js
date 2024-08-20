@@ -17,6 +17,7 @@ import updateEventData from './updateEventData'
 import getUsersByRole from './getUsersByRole'
 import searchEvent from './searchEvent'
 import toggleLikePost from './toggleLikePost'
+import createComment from './createComment'
 
 const logic = {
     registerUser,
@@ -37,7 +38,8 @@ const logic = {
     updateEventData,
     getUsersByRole,
     searchEvent,
-    toggleLikePost
+    toggleLikePost,
+    createComment
 }
 
 export default logic

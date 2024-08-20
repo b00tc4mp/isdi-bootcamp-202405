@@ -22,7 +22,8 @@ import {
     updateEventDataHandler,
     getUsersByRoleHandler,
     searchEventHandler,
-    toggleLikePostHandler
+    toggleLikePostHandler,
+    createCommentHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -64,6 +65,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/events/search', jwtVerifier, searchEventHandler)
 
         api.patch('/posts/:postId/likes', jwtVerifier, toggleLikePostHandler)
+
+        api.post('/comments/:postId', jwtVerifier, jsonBodyParser, createCommentHandler)
 
         api.use(errorHandler)
 
