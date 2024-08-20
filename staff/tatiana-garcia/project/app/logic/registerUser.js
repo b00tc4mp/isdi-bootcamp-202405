@@ -3,7 +3,7 @@ import { errors, validate } from '../../com/index.js'
 const { SystemError } = errors
 
 export default (image, name, surname, email, username, password, passwordRepeat) => {
-    validate.url(image, 'image')
+    validate.image(image, 'image')
     validate.name(name, 'name')
     validate.surname(surname)
     validate.email(email)

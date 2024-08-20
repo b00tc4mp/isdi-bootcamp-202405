@@ -7,7 +7,7 @@ export default (req, res, next) => {
 
     try {
         logic.updateUser(userId, newImage, newName, newSurname, newEmail, newSsername, newPassord)
-            .then(() => res.status(204).json())
+            .then(() => res.status(204).send())
             .catch(error => next(error))
     } catch (error) {
         next(error)
