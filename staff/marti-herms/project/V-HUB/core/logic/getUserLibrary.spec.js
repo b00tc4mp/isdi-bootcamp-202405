@@ -54,7 +54,6 @@ describe('getUserLibrary', () => {
             .then(game => getUserLibrary('66ba007f874aa7b84ec54491', '66ba007f874aa7b84ec54491'))
             .catch(error => _error = error)
             .finally(() => {
-                console.log(_error)
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('user not found')
             })
@@ -68,7 +67,6 @@ describe('getUserLibrary', () => {
                 .then(game => getUserLibrary(user.id, '66ba007f874aa7b84ec54491')))
             .catch(error => _error = error)
             .finally(() => {
-                console.log(_error)
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('targetUser not found')
             })

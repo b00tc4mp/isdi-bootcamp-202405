@@ -78,6 +78,8 @@ export default function Home({ onLogout }) {
             <Routes>
                 <Route path='/' element={<Library onGameClick={handleGame} />} />
                 <Route path='/profile/:userId' element={<Profile refreshStamp={refreshStamp} onChange={handleSearchUser} onGameClick={handleGame} />} />
+                <Route path='/profile/:userId/following' element={<p>Hello</p>} />
+                <Route path='/profile/:userId/followers' element={<p>Hello</p>} />
                 <Route path='/games/register' element={<AddGame onAddGame={handleAddGame} />} />
                 <Route path='/search' element={<><Search onChange={handleRefresh} /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
                 <Route path='/games/:gameId' element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />

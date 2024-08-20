@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
 import logic from '../../logic'
 
@@ -19,6 +19,9 @@ import defaultAvatar from '../../images/defaultAvatar.svg'
 
 export default function Profile({ refreshStamp, onChange, onGameClick }) {
     const { alert } = useContext()
+
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const { userId } = useParams()
 
@@ -119,6 +122,14 @@ export default function Profile({ refreshStamp, onChange, onGameClick }) {
         setEditAvatarVisibility(false)
     }
 
+    const handleFollowers = () => {
+        navigate(location.pathname + '/followers')
+    }
+
+    const handleFollowing = () => {
+        navigate(location.pathname + '/following')
+    }
+
     return <>
         {user && <Container className='flex flex-row justify-center items-center my-4'>
             <Avatar url={user.avatar || defaultAvatar} className='w-20 h-20' />
@@ -152,6 +163,10 @@ export default function Profile({ refreshStamp, onChange, onGameClick }) {
         </Container>}
         {user && <Container>
             <Library onGameClick={onGameClick} user={user} />
+        </Container>}
+        {user && <Container>
+            <Button className='bg-white w-9/12 h-10 px-3 py-1 text-2xl text-black rounded-md border border-solid border-black shadow-md shadow-black' onClick={handleFollowing}>Following</Button>
+            <Button className='bg-white w-9/12 h-10 px-3 py-1 text-2xl text-black rounded-md border border-solid border-black shadow-md shadow-black' onClick={handleFollowers}>Followers</Button>
         </Container>}
     </>
 }

@@ -14,7 +14,7 @@ export default function Footer({ makeReviewVisibility, onSearchGame, onAddGame, 
                 {role === 'dev' && <NavigationButton onClick={onAddGame}>Add Game</NavigationButton>}
                 <NavigationButton onClick={onSearchGame}>Search</NavigationButton>
             </>} />
-            <Route path='/profile/:userId' element={<NavigationButton onClick={onHome}>HOME</NavigationButton>} />
+            <Route path='/profile/:userId/*' element={<NavigationButton onClick={onHome}>HOME</NavigationButton>} />
             <Route path='/games/register' element={<NavigationButton onClick={onHome}>HOME</NavigationButton>} />
             <Route path='/search' element={<NavigationButton onClick={onHome}>HOME</NavigationButton>} />
             <Route path='/games/:gameId' element={<>

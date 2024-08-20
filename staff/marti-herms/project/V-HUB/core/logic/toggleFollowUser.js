@@ -21,9 +21,11 @@ export default (userId, targetUserId) => {
                     if (user.following.some(userObjectId => userObjectId.toString() === targetUserId))
                         return User.findByIdAndUpdate(userId, { $pull: { following: targetUser._id } })
                             .catch(error => { throw new SystemError(error.message) })
+                            .then(() => User.findByIdAndUpdate(targetUserId, { $pull: { followers: user._id } }))
                     else
                         return User.findByIdAndUpdate(userId, { $push: { following: targetUser._id } })
                             .catch(error => { throw new SystemError(error.message) })
+                            .then(() => User.findByIdAndUpdate(targetUserId, { $push: { followers: user._id } }))
                 })
         })
         .then(() => { })

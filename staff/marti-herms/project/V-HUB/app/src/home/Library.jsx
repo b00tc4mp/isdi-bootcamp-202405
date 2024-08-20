@@ -4,12 +4,14 @@ import logic from '../../logic'
 
 import useContext from '../context.js'
 import GameBanner from './GameBanner.jsx'
+import Button from '../library/Button.jsx'
+
 import extractPayloadFromToken from '../../util/extractPayloadFromToken.js'
 
 export default function Library({ onGameClick, user }) {
     const { alert } = useContext()
 
-    const { userId, role } = extractPayloadFromToken(sessionStorage.token)
+    const { sub: userId, role } = extractPayloadFromToken(sessionStorage.token)
 
     const [games, setGames] = useState([])
     const [libraryVisibility, setLibraryVisibility] = useState(false)
@@ -90,12 +92,12 @@ export default function Library({ onGameClick, user }) {
 
     return <div>
         {((!user && role) || user.role === 'dev') && <>
-            <button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleDevGames}>Games</button>
+            <Button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleDevGames}>Games</Button>
             {devGamesVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={devGames} onGameClick={onGameClick} collectionType={'devGames'} />)}
         </>}
-        <button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleLibrary}>Library</button>
+        <Button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleLibrary}>Library</Button>
         {libraryVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={libraryGames} onGameClick={onGameClick} collectionType={'library'} />)}
-        <button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleFavs}>Favs</button>
+        <Button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleFavs}>Favs</Button>
         {favsVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={favsGames} onGameClick={onGameClick} collectionType={'favs'} />)}
     </div>
 }
