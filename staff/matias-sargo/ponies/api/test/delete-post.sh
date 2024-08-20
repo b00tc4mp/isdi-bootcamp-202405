@@ -1,1 +1,0 @@
-curl -v http://localhost:8080/posts/fgefrmf1i00 -X DELETE -H "Authorization: Basic matif"
