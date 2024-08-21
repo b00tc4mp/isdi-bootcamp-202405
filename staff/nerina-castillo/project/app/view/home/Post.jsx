@@ -8,17 +8,40 @@ import Paragraph from '../library/Paragraph'
 import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Avatar from './Avatar'
+import CreateComment from './CreateComment'
+import CommentList from './CommentList'
 import Confirm from '../common/Confirm'
-import CreateComment from './CreateComment.jsx'
 
 export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostLikeToggled, onCommentCreated }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [isFollowing, setIsFollowing] = useState(post.author.following)
     const [createCommentVisible, setCreateCommentVisible] = useState(false)
+    const [comments, setComments] = useState([])
 
     useEffect(() => {
         setIsFollowing(post.author.following)
+        loadComments()
     }, [post])
+
+    useEffect(() => {
+        loadComments()
+    }, [])
+
+    const loadComments = () => {
+        try {
+            logic.getAllComments(post.id)
+                .then(comments => setComments(comments))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
 
     const handleDeletePostClick = () => setConfirmMessage('delete post?')
 
@@ -82,6 +105,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
     const handleCommentCreated = () => {
         setCreateCommentVisible(false)
 
+        loadComments()
         onCommentCreated()
     }
 
@@ -104,15 +128,15 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
 
         <Time>{formatTime(new Date(post.date))}</Time>
 
-        <Container className='flex justify-end w-full'>
+        <Container className='flex justify-between w-full'>
             <Button className='mb-1' onClick={handleLikePostClick}>{(post.like ? 'dislike ' : 'like ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button className='mb-1' onClick={handleCreateCommentClick}>comment</Button>
 
             {post.author.id === logic.getUserId() && <>
                 <Button className='mb-1' onClick={handleDeletePostClick}>DELETE</Button>
             </>}
         </Container>
 
-        <Button onClick={handleCreateCommentClick}>comment</Button>
 
         {createCommentVisible && <CreateComment
             postId={post.id}
@@ -120,6 +144,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
             onCancelCreateComment={handleCancelCreateCommentClick}
         />}
 
+        <CommentList comments={comments} />
         {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel}></Confirm>}
     </article>
 }

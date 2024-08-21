@@ -31,11 +31,13 @@ export default function PostList({ refreshStamp }) {
         }
     }
 
-    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
+    const handleCommentCreated = () => { }
 
+    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
         {posts.map(post => <Post
             key={post.id}
             post={post}
+            onCommentCreated={handleCommentCreated}
             onPostDeleted={handlePostDeleted}
             onPostLikeToggled={handlePostLikeToggled}
             onUserFollowToggled={handleUserFollowToggled}

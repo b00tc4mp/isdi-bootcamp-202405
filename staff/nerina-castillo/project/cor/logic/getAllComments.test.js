@@ -1,8 +1,9 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import createComment from './createComment.js'
+import getAllComments from './getAllComments.js'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => createComment('66c597120107c18982b0053a', '66c597486b034849c9d13396', 'come on!'))
+    .then(() => getAllComments('66c597486b034849c9d13396'))
+    .then(comments => console.log(comments))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

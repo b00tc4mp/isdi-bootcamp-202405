@@ -3,7 +3,7 @@ import logic from '../../logic'
 import Post from './Post'
 import Container from '../library/Container'
 
-export default function FollowingPostList(refreshStamp) {
+export default function FollowingPostList({ refreshStamp }) {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
