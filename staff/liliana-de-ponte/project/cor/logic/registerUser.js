@@ -11,6 +11,7 @@ export default (name, surname, email, username, password, passwordRepeat) => {
     validate.email(email)
     validate.username(username)
     validate.password(password)
+    validate.password(passwordRepeat, 'passwordRepeat')
 
     if (password !== passwordRepeat)
         throw new ValidationError('passwords do not match')

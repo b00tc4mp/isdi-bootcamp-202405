@@ -46,7 +46,7 @@ export default function Search() {
     }
 
     return <>
-        <Container>
+        <Container className="mt-4">
             <Form onSubmit={handleSubmit}>
 
                 <Container className="flex flex-row items-center" >

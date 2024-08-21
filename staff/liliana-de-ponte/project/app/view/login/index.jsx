@@ -59,18 +59,16 @@ export default function Login({ onLogin, onRegisterClick }) {
         </Container>
 
         <Form onSubmit={handleLoginSubmit}>
-            <Container className="flex-col">
-                <Input className="h-9" type="text" id="username-input" name="username" placeholder="Username"></Input>
-            </Container>
+            <Container className="flex-col items-center gap-4">
+                <Input className="h-9 w-11/12" type="text" id="username-input" name="username" placeholder="Username"></Input>
 
-            <Container className="flex-col ">
-                <Input className="h-9" type="password" id="password-input" name="password" placeholder="Password"></Input>
-            </Container>
+                <Input className="h-9 w-11/12" type="password" id="password-input" name="password" placeholder="Password"></Input>
 
-            <Button className=" bg-[#050968]" type="submit">Login</Button>
+                <Button className=" flex-col items-center bg-[#050968] w-11/12" type="submit">Login</Button>
+            </Container>
         </Form>
 
-        <Container >
+        <Container className="flex-col items-start p-10">
             <Paragraph>Don't have an account? <Container className="text-[#9747FF] font-bold"><Link onClick={handleRegisterClick}>Sign up</Link></Container></Paragraph>
         </Container>
 

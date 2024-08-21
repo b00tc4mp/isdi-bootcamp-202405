@@ -9,7 +9,7 @@ import { User, Event } from '../data/models.js'
 
 import { errors } from 'com/index.js'
 
-const { ValidationError, NotFoundError } = errors
+const { ValidationError, NotFoundError, OwnerShipError } = errors
 
 describe('deleteEvent', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -45,6 +45,34 @@ describe('deleteEvent', () => {
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('user not found')
 
+            })
+    })
+
+    it('fails on non existing event', () => {
+        let _error
+        return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
+            .then(user => deleteEvent(user.id, new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('event not found')
+
+            })
+    })
+
+    it('fails on existing user and event but event does not belong tu user', () => {
+        let _error
+
+        return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
+            .then(user => {
+                return Event.create({ author: new ObjectId().toString(), title: 'TRT', organizer: 'Sergio Canovas', date: new Date(2024 / 9 / 17), duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
+                    .then(event => deleteEvent(user.id, event.id))
+                    .catch(error => _error = error)
+                    .finally(() => {
+                        expect(_error).to.be.instanceOf(OwnerShipError)
+                        expect(_error.message).to.equal('event not belong to user')
+
+                    })
             })
     })
 

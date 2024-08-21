@@ -15,7 +15,8 @@ import {
     getAllLikeEventsHandler,
     toggleAttendanceEventHandler,
     getAllAttendanceEventsHandler,
-    searchEventsHandler
+    searchEventsHandler,
+    getEventHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -47,6 +48,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/events/attendees', jwtVerifier, getAllAttendanceEventsHandler)
 
         api.get('/events/search', jwtVerifier, searchEventsHandler)
+
+        api.get('/events/:eventId/info', jwtVerifier, getEventHandler)
 
         api.use(errorHandler)
 

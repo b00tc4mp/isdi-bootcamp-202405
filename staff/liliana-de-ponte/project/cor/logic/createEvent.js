@@ -22,7 +22,7 @@ export default (userId, title, organizer, date, duration, description, image, lo
             return Event.create({
                 title,
                 organizer,
-                date,
+                date: new Date(date),
                 duration,
                 description,
                 image,

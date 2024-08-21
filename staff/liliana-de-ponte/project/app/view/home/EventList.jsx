@@ -45,7 +45,7 @@ export default function EventList({ refreshStamp }) {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className="flex flex-col gap-1 w-full p-1 mt-1">
         {events.map(event => <Event
             event={event}
             key={event.id}

@@ -170,6 +170,19 @@ describe('registerUser', () => {
         }
     })
 
+    it('fails on non-string repeat password', () => {
+        let error
+
+        try {
+            registerUser('Samuele', 'Spinetti', 'samuele@spinetti.com', 'samuelespinetti', '123456789', 123456789)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('passwordRepeat is not a string')
+        }
+    })
+
     it('fails on password short', () => {
         let error
 
@@ -183,11 +196,37 @@ describe('registerUser', () => {
         }
     })
 
+    it('fails on repeat password short', () => {
+        let error
+
+        try {
+            registerUser('Samuele', 'Spinetti', 'samuele@spinetti.com', 'samuelespinetti', '123456789', '123456')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('passwordRepeat length is lower than 8 characters')
+        }
+    })
+
     it('fails on password with spaces', () => {
         let error
 
         try {
             registerUser('Samuele', 'Spinetti', 'samuele@spinetti.com', 'samuelespinetti', '123456 789', '123456789')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password has empty spaces')
+        }
+    })
+
+    it('fails on repeat password with spaces', () => {
+        let error
+
+        try {
+            registerUser('Samuele', 'Spinetti', 'samuele@spinetti.com', 'samuelespinetti', '123456789', '123456 789')
         } catch (_error) {
             error = _error
         } finally {

@@ -7,9 +7,9 @@ import EventList from './EventList'
 import LikeEventList from './LikeEventList'
 import AttendanceEventList from './AttendanceEventList'
 import ResultsEventList from './ResultsEventList'
-// import MoreInfoEvent from './MoreInfoEvent'
+import MoreInfoEvent from './MoreInfoEvent'
 
-export default function Home({ onLogout }) {
+export default function Home({ onLogout, eventId }) {
 
     const navigate = useNavigate()
 
@@ -50,7 +50,7 @@ export default function Home({ onLogout }) {
 
                 <Route path="/search" element={<ResultsEventList />} />
 
-                {/* <Route path="/info" element={<MoreInfoEvent />} /> */}
+                <Route path="/info/:eventId" element={<MoreInfoEvent />} />
 
             </Routes>
         </main >

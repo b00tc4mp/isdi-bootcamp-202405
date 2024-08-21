@@ -58,34 +58,24 @@ export default function Register({ onRegister, onLoginClick }) {
         </Container>
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col gap-[0.9rem">
-            <Container className="flex-col">
-                <Input className=" h-9" type="text" id="name-input" name="name" placeholder="name" />
-            </Container>
+            <Container className="flex-col items-center gap-4">
+                <Input className=" h-9 w-11/12" type="text" id="name-input" name="name" placeholder="Name" />
 
-            <Container className="flex-col">
-                <Input className=" h-9" type="text" id="surname-input" surname="surname" placeholder="surname" />
-            </Container>
+                <Input className=" h-9 w-11/12" type="text" id="surname-input" surname="surname" placeholder="Surname" />
 
-            <Container className="flex-col ">
-                <Input className=" h-9" type="email" id="email-input" name="email" placeholder="email" />
-            </Container>
+                <Input className=" h-9 w-11/12" type="email" id="email-input" name="email" placeholder="Email" />
 
-            <Container className="flex-col ">
-                <Input className=" h-9" type="text" id="username-input" name="username" placeholder="username" />
-            </Container>
+                <Input className=" h-9 w-11/12" type="text" id="username-input" name="username" placeholder="Username" />
 
-            <Container className="flex-col ">
-                <Input className=" h-9" type="password" id="password-input" name="password" placeholder="password" />
-            </Container>
+                <Input className=" h-9 w-11/12" type="password" id="password-input" name="password" placeholder="Password" />
 
-            <Container className="flex-col ">
-                <Input className=" h-9" type="password" id="password2-input" name="password2" placeholder="repeat password" />
-            </Container>
+                <Input className=" h-9 w-11/12" type="password" id="password2-input" name="password2" placeholder="Repeat Password" />
 
-            <Button className="bg-[#050968]" type="submit">Register</Button>
+                <Button className="bg-[#050968] w-11/12" type="submit">Register</Button>
+            </Container>
         </Form>
 
-        <Container className="text-[#9747FF] font-bold">
+        <Container className="text-[#9747FF] font-bold p-8 text-lg">
             <Link href="" onClick={handleLoginClick}>Login</Link>
         </Container>
     </main>

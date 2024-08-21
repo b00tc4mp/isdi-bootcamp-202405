@@ -1,4 +1,5 @@
 import logic from '../../logic/index.js'
+import formatTime from '../../utils/formatTime.js'
 
 import { useState } from 'react'
 import { BiLike } from "react-icons/bi"
@@ -18,6 +19,7 @@ import Heading from '../library/Heading.jsx'
 import Confirm from '../common/Confirm.jsx'
 
 export default function Event({ event, onEventDeleted, onEventLikeToggled, onEventAttendanceToggled }) {
+
     const [confirmMessage, setConfirmMessage] = useState(null)
 
     const handleDeleteEventClick = () => setConfirmMessage('Delete event?')
@@ -71,45 +73,45 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
         }
     }
 
-    const handleMoreInfoClick = event => {
-        event.preventDefault()
 
-        onMoreInfoClick()
-    }
+    return <article className="shadow-[1px_1px_10px_1px] shadow-[#050968] rounded-[5px] bg-[#FFEBF4] p-2 m-2 font-bold relative">
+        <Container className="items-start relative">
 
-    return <article className="border-[#050968] p-4 rounded-[80px] bg-[#FFEBF4] m-4 max-w-md border-4 font-bold">
-        <Container className="items-center justify-between relative">
-            <Container className="items-center justify-between">
-                <Image src={event.image} alt={event.title} className="h-24 w-24 rounded-full mr-4 border-4 border-[#050968] " />
+            <Link className="absolute right-2 text-[#050968] text-xs flex items-center z-10 mr-0 mt-0" href={`/info/${event.id}`}><u>+Info</u></Link>
 
-                <Heading level="3" className="font-bold" >{event.organizer}</Heading>
+            {/* <Button className="absolute top-2 right-2 text-[#9747FF] text-xs flex items-center z-10" style={{ transform: 'translate(50%, -50%)' }} onClick={handleAttendanceEventClick}>{event.attendee ? <GoStarFill color="9747FF" size={20} /> : <FiStar color="9747FF" size={20} />}<span style={{ color: '#9747FF' }}>{' '}{event.attendees.length} attendee{event.attendees.length === 1 ? '' : 's'}</span></Button> */}
 
-                <Paragraph className="text-[#050968] font-semibold"><FaCalendarAlt />{event.date}</Paragraph>
-
-                <Link className="text-[#9747FF] font-semibold" onClick={handleMoreInfoClick}>+ Info</Link>
+            <Container className="flex-shrink-0">
+                <Image src={event.image} alt={event.title} title={event.title} className="h-24 w-24 rounded-xl mr-2 border-2 shadow-[1px_1px_10px_1px] shadow-[#050968]" />
             </Container>
 
-            <Container className="absolute bottom-0 right-0 flex space-x-2 p-4">
+            <Container className="flex flex-col justify-start items-start w-full ml-2 mt-4">
 
-                <Button className="text-blue-700" onClick={handleAttendanceEventClick}>{(event.attendee ? "SI" : "NO") + ' ' + event.attendees.length + ' attendee' + (event.attendees.length === 1 ? '' : 's')}</Button>
+                <Heading level="5" className="text-[#050968] text-sm font-semibold mb-1 mt-[-4px] mr-6" >{event.title}</Heading>
 
-                {/* <Button onClick={handleAttendanceEventClick}>{(event.attendee ? <GoStarFill color="blue" /> : <FiStar color="blue" />) + ' ' + event.attendees.length + ' attendee' + (event.attendees.length === 1 ? '' : 's')}</Button> */}
+                <Paragraph className="text-[#050968] text-[10px] font-semibold flex items-center mb-2 ml-4"><FaCalendarAlt />{formatTime(new Date(event.date))}</Paragraph>
+            </Container>
 
-                <Button onClick={handleLikeEventClick}>{event.like ? <BiSolidLike color="blue" /> : <BiLike color="blue" />}</Button>
+            <Button className="text-[#9747FF] mt-6 text-sm" onClick={handleAttendanceEventClick}>{event.attendee ? <GoStarFill color="9747FF" size={20} /> : <FiStar color="9747FF" size={20} />}<span style={{ color: '#9747FF' }}>{' '}{event.attendees.length}</span></Button>
+
+            <Container className="absolute bottom-0 right-0 flex items-end space-x-3">
 
                 {event.author.id === logic.getUserId() && <>
-                    <Button onClick={handleDeleteEventClick}><BsTrash3 color="blue" />
+
+                    <Button className="mb-0 right-8 flex items-center" onClick={handleDeleteEventClick}><BsTrash3 color="050968" size={16} />
                     </Button>
+
+                    <Button className="mb-0" onClick={handleLikeEventClick}>{event.like ? <BiSolidLike color="9747FF" size={20} /> : <BiLike color="9747FF" size={20} />}</Button>
+
+
                     {/* <Button onClick={handleEditEventClick}></Button> */}
                 </>}
-
 
                 {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteEventAccept} onCancel={handleDeleteEventCancel} />}
 
             </Container>
-
         </Container>
 
-    </article>
+    </article >
 }
 

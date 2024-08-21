@@ -2,6 +2,7 @@ import logic from '../../logic/index.js'
 
 import { MdLogout } from 'react-icons/md'
 import { IoHomeOutline } from 'react-icons/io5'
+import { IoSearchSharp } from "react-icons/io5"
 import { useState, useEffect } from 'react'
 
 import Container from '../library/Container'
@@ -14,6 +15,7 @@ import Search from './Search.jsx'
 export default function Header({ onHomeClick, onLogout }) {
 
     const [name, setName] = useState(null)
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
 
     useEffect(() => {
         try {
@@ -46,21 +48,25 @@ export default function Header({ onHomeClick, onLogout }) {
             alert(error.message)
         }
     }
+    const handleSearchClick = () => {
+        setIsSearchVisible(!isSearchVisible)
+    }
 
-    return <header className="bg-[#050968] fixed left-0 top-0 w-full z-50 h-32 flex items-center">
+    return <header className="bg-[#050968] fixed left-0 top-0 w-full z-50 h-16 flex items-center">
         <Container>
-            <Container className="flex justify-between items-center">
+            <Container className="flex items-center">
                 <Paragraph className="text-[#FFEBF4]">{name}!</Paragraph>
             </Container>
 
 
             <Container className=" flex justify-end items-center gap-[2rem]">
                 <Button onClick={handleHomeClick}><IoHomeOutline size={22} /></Button>
+                <Button onClick={handleSearchClick}><IoSearchSharp size={22} /></Button>
                 <Button onClick={handleLogout}><MdLogout size={22} /></Button>
             </Container>
         </Container>
 
-        <Search />
+        {isSearchVisible && (<Search />)}
 
     </header>
 }

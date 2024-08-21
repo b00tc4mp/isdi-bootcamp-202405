@@ -23,10 +23,10 @@ function validateUsername(username, explain = 'username') {
     if (!USERNAME_REGEX.test(username)) throw new ValidationError(`invalid ${explain}`)
 }
 
-function validatePassword(password) {
-    validateString(password, 'password')
-    if (password.trim().length < 8) throw new ValidationError('password length is lower than 8 characters')
-    if (password.includes(' ')) throw new ValidationError('password has empty spaces')
+function validatePassword(password, explain = 'password') {
+    validateString(password, explain)
+    if (password.trim().length < 8) throw new ValidationError(`${explain} length is lower than 8 characters`)
+    if (password.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
 }
 
 function validateName(name, explain = 'name') {
