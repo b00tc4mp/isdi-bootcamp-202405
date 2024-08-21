@@ -9,7 +9,7 @@ const query = querys[Math.floor(Math.random() * querys.length)]
 const API_KEY = 'ff0fbb8fbbcb42fb8677c064c4c35732'
 const NEWS_API_URL = 'https://newsapi.org/v2'
 
-const pageSize = 5
+const pageSize = 7
 
 const APIRequestUrl = `${NEWS_API_URL}/everything?q=${query}&pageSize=${pageSize}&language=en&apiKey=${API_KEY}`
 
@@ -53,7 +53,7 @@ export default userId => {
                             }))
 
                     return Promise.all(articlePromises)
-                        .then(() => NewsArticle.find({}, { __v: 0 }).sort({ date: -1 }).lean())
+                        .then(() => NewsArticle.find({}, { __v: 0 }).sort({ publishedAt: -1 }).lean())
                         .then(articles => {
                             articles.forEach(article => {
                                 article.id = article._id.toString()

@@ -5,7 +5,7 @@ import Span from '../library/Span'
 
 export default function Alert({ message, onAccept }) {
     return <>
-        <Container className="fixed w-screen top-0 h-screen bg-black opacity-50"></Container>
+        <Container className="fixed w-screen top-0 h-screen bg-black opacity-60"></Container>
 
         <Container className="fixed w-screen top-0 h-screen flex items-center justify-center">
             <Container className="p-4 border bg-white flex-col w-[10rem] h-[10rem]  flex items-center justify-center gap-5 rounded-xl">

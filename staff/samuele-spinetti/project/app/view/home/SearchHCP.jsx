@@ -56,12 +56,12 @@ export default function SearchHCP() {
                     </Button>
                 </Container>
                 <Container>
-                    <Container className="flex justify-between w-full">
-                        <Span>0</Span>
-                        <Span>2.5</Span>
-                        <Span>5</Span>
-                        <Span>7.5</Span>
-                        <Span>10</Span>
+                    <Container className="flex justify-between w-full mt-3 text-xs">
+                        <Span>0km</Span>
+                        <Span>2.5km</Span>
+                        <Span>5km</Span>
+                        <Span>7.5km</Span>
+                        <Span>10km</Span>
                     </Container>
                     <Input type="range" min="0" max="10" name="distance" className="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
                 </Container>

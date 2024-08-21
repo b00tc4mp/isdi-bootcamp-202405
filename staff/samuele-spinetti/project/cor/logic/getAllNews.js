@@ -11,15 +11,18 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return NewsArticle.find({}, { __v: 0 }).lean()
+            return NewsArticle.find({}, { __v: 0 }).sort({ publishedAt: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(newsArticles => {
-                    return newsArticles.map(newsArticle => {
+                    newsArticles.map(newsArticle => {
+                        newsArticle.fav = user.favs.some(newsArticleObjectId => newsArticleObjectId.toString() === newsArticle._id.toString())
                         newsArticle.id = newsArticle._id.toString()
                         delete newsArticle._id
 
                         return newsArticle
                     })
+
+                    return newsArticles
                 })
         })
 }

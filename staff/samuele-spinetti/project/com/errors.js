@@ -30,6 +30,14 @@ class SystemError extends Error {
     }
 }
 
+class OwnerShipError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 class CredentialsError extends Error {
     constructor(message) {
         super(message)
@@ -52,7 +60,8 @@ const errors = {
     DuplicityError,
     SystemError,
     CredentialsError,
-    SessionError
+    SessionError,
+    OwnerShipError
 }
 
 export default errors

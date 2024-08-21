@@ -6,6 +6,7 @@ import Header from './Header'
 import Footer from './Footer'
 import NewsArticlesList from './NewsArticlesList'
 import NewsArticlesSavedList from './NewsArticlesSavedList'
+import Community from './Community'
 
 export default function Home({ onLogout }) {
     const navigate = useNavigate()
@@ -20,6 +21,8 @@ export default function Home({ onLogout }) {
 
     const handleNewsArticlesSavedList = () => navigate('/saved')
 
+    const handleCommunity = () => navigate('/community')
+
     return <>
         <Header
             onProfileSettingsClicked={handleProfileSettings}
@@ -33,9 +36,10 @@ export default function Home({ onLogout }) {
                 <Route path="/saved" element={<NewsArticlesSavedList />} />
                 <Route path="/settings" element={<ProfileSettings />} />
                 <Route path="/search" element={<MapSection />} />
+                <Route path="/community" element={<Community />} />
             </Routes>
         </main>
 
-        <Footer onHomeClicked={handleHome} onHealthCareProvidersListClicked={handleHealthCareProvidersList}></Footer>
+        <Footer onHomeClicked={handleHome} onCommunityClicked={handleCommunity} onHealthCareProvidersListClicked={handleHealthCareProvidersList}></Footer>
     </>
 }

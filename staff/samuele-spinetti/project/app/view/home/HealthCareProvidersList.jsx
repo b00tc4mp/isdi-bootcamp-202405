@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -6,6 +7,7 @@ import HealthCareProvider from './HealthCareProvider'
 
 export default function HealthCareProvidersList() {
     const [healthCareProviders, setHealthCareProviders] = useState([])
+    const { alert } = useContext()
 
     useEffect(() => {
         try {

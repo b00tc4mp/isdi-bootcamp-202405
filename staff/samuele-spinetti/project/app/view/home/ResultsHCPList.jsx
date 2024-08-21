@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -8,6 +9,7 @@ import HealthCareProvider from './HealthCareProvider'
 export default function ResultsHCPList() {
     const [searchParams] = useSearchParams()
     const [healthCareProviders, setHealthCareProviders] = useState([])
+    const { alert } = useContext()
 
     const q = searchParams.get('q') || ''
     const distance = Number(searchParams.get('distance') || '10')
@@ -41,9 +43,9 @@ export default function ResultsHCPList() {
         }
     }
 
-    return <section className="flex flex-col gap-6">
+    return <section className="flex flex-col gap-6 mb-24">
         {healthCareProviders.map(healthCareProvider => <HealthCareProvider
-            key={healthCareProvider._id}
+            key={healthCareProvider.id}
             healthCareProvider={healthCareProvider}
         />)}
     </section>

@@ -4,7 +4,7 @@ const { SystemError } = errors
 
 export default () => {
 
-    return fetch('http://localhost:8080/news', {
+    return fetch('http://localhost:8080/', {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

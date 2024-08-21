@@ -21,7 +21,7 @@ export default (req, res, next) => {
                     res.json(token)
                 })
             )
-
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

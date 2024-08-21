@@ -109,16 +109,62 @@ const newsArticle = new Schema({
     }
 })
 
+const post = new Schema({
+    author: {
+        type: String,
+        required: true,
+        ref: 'User'
+    },
+    caption: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    likes: {
+        type: [ObjectId],
+        ref: 'User'
+    }
+})
+
+const comment = new Schema({
+    author: {
+        type: String,
+        required: true,
+        ref: 'User'
+    },
+    text: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    post: {
+        type: ObjectId,
+        ref: 'Post'
+    }
+})
+
 healthCareProvider.index({ location: '2dsphere' })
 
 const User = model('User', user)
 const Location = model('Location', point)
 const HealthCareProvider = model('HealthCareProvider', healthCareProvider)
 const NewsArticle = model('NewsArticle', newsArticle)
+const Post = model('Post', post)
+const Comment = model('Comment', comment)
 
 export {
     User,
     Location,
     HealthCareProvider,
-    NewsArticle
+    NewsArticle,
+    Post,
+    Comment
 }

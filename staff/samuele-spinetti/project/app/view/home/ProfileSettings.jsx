@@ -31,7 +31,7 @@ export default function ProfileSettings() {
 
             alert(error.message)
         }
-    }, [user])
+    }, [])
 
     const handleEditAvatarClick = () => {
         setEditAvatarVisible(true)
@@ -109,11 +109,11 @@ export default function ProfileSettings() {
     }
 
     return <section className="flex flex-col items-center gap-3">
-        <Heading className="text-[30px] items-center font-semibold">Profile Settings</Heading>
+        <Heading className="text-[30px] items-center font-semibold mt-3">Profile Settings</Heading>
         <Container className=" items-center justify-center" >
             <Container className="flex flex-col items-center gap-3">
-                <Image src={!user?.avatar ? "/userIcon.svg" : user.avatar} className="w-[170px] h-[170px] rounded-xl bg-[#bebebe]" />
-                <Button className="border border-black rounded-xl w-36 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
+                <Image src={!user?.avatar ? "/profileIcon.svg" : user.avatar} className="w-[170px] h-[170px] rounded-xl" />
+                <Button className="border border-gray-600 rounded-xl w-36 h-10 bg-gradient-to-br text-gray-600 font-bold" onClick={handleEditAvatarClick}>Edit Your Avatar</Button>
             </Container>
 
             {editAvatarVisible &&
@@ -122,8 +122,8 @@ export default function ProfileSettings() {
                         <Input className="border-black rounded-[20px] text-center mt-2" id="edit-avatar-input" type="text" placeholder="New avatar" />
 
                         < Container className="flex items-center gap-2">
-                            <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="submit">Save</Button>
-                            <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="button" onClick={handleCancelEditAvatarClick}>Cancel</Button>
+                            <Button className="border border-gray-600 rounded-xl w-28 h-10 bg-gradient-to-br text-gray-600 font-bold" type="submit">Save</Button>
+                            <Button className="border border-gray-600 rounded-xl w-28 h-10 bg-gradient-to-br text-gray-600 font-bold" type="button" onClick={handleCancelEditAvatarClick}>Cancel</Button>
                         </Container >
                     </Form >
                 </Container >}
@@ -137,17 +137,17 @@ export default function ProfileSettings() {
             </Container>
         </Container >
 
-        <Button className="border border-black rounded-xl w-36 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold mt-2" onClick={handleEditPasswordClick}>Edit Password</Button>
+        <Button className="border border-gray-600 rounded-xl w-36 h-10 bg-gradient-to-br text-gray-600 font-bold mt-2" onClick={handleEditPasswordClick}>Edit Password</Button>
         {editPasswordVisible &&
-            <Container className="flex flex-col content-center items-center gap-2">
-                <Form className="flex flex-col items-center gap-[0.3rem]" onSubmit={handleEditPasswordSubmit}>
-                    <Input className="border-black rounded-[15px] text-center" id="edit-oldPassword-input" type="password" placeholder="Old password" />
-                    <Input className="border-black rounded-[15px] text-center" id="edit-newPassword-input" type="password" placeholder="New password" />
-                    <Input className="border-black rounded-[15px] text-center" id="edit-newPasswordRepeat-input" type="password" placeholder="Repeat new password" />
+            <Container className="flex flex-col content-center items-center mb-8 gap-3">
+                <Form className="flex flex-col items-center gap-2" onSubmit={handleEditPasswordSubmit}>
+                    <Input className="border-gray-600 rounded-[15px] text-center" id="edit-oldPassword-input" type="password" placeholder="Old password" />
+                    <Input className="border-gray-600 rounded-[15px] text-center" id="edit-newPassword-input" type="password" placeholder="New password" />
+                    <Input className="border-gray-600 rounded-[15px] text-center" id="edit-newPasswordRepeat-input" type="password" placeholder="Repeat new password" />
 
                     <Container className="flex content-center gap-4">
-                        <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="submit">Save</Button>
-                        <Button className="border border-black rounded-xl w-28 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold" type="button" onClick={handleCancelEditPasswordClick}>Cancel</Button>
+                        <Button className="border border-gray-600 rounded-xl w-28 h-10 bg-gradient-to-br text-gray-600 font-bold" type="submit">Save</Button>
+                        <Button className="border border-gray-600 rounded-xl w-28 h-10 bg-gradient-to-br text-gray-600 font-bold" type="button" onClick={handleCancelEditPasswordClick}>Cancel</Button>
                     </Container >
                 </Form >
             </Container >}

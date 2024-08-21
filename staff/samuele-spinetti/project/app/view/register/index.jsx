@@ -57,9 +57,10 @@ export default function Register({ onRegister, onLoginClick }) {
         onLoginClick()
     }
     return <main className="flex flex-col justify-center items-center bg-gradient-to-br from-green-400 to-fuchsia-500 h-screen w-screen">
-
-        <Heading className="font-medium text-[35px] fixed top-0 p-10">Sign up</Heading>
-
+        <Container>
+            <Heading className="font-extrabold text-[40px] fixed top-0 m-5">QueerCare</Heading>
+            <Heading ñevel="2" className="font-semibold text-[30px]">Sign up</Heading>
+        </Container>
         <Form className="flex flex-col justify-center items-center" onSubmit={handleRegisterSubmit}>
             <Container className="group">
                 <Input id="name-input" name="name" type="text" required />

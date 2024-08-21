@@ -13,7 +13,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "com": "file:../com",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.3"
   },
   "devDependencies": {
     "chai": "^5.1.1",

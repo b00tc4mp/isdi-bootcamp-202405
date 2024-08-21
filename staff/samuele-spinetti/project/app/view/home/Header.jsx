@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom'
+
 import useContext from '../context.js'
 
 import logic from '../../logic'
@@ -7,6 +9,7 @@ import Button from '../library/Button'
 import Image from '../library/Image'
 
 export default function Header({ onProfileSettingsClicked, onNewsArticlesListClicked, onNewsArticlesSavedListClicked, onLogout }) {
+    const location = useLocation()
     const { alert } = useContext()
 
     const handleLogoutClick = () => {
@@ -35,14 +38,16 @@ export default function Header({ onProfileSettingsClicked, onNewsArticlesListCli
             </Button>
         </Container>
 
-        <Container className="inline-flex">
-            <Button className="bg-gray-300 hover:bg-gray-400 font-bold py-2 px-4 rounded-l" onClick={handleNewsArticlesListClick}>
-                <Image className="w-[20px] h-[20px]" src="./news.svg" />
-            </Button>
-            <Button className="bg-gray-300 hover:bg-gray-400 font-bold py-2 px-4 rounded-r" onClick={handleNewsArticlesSavedListClick}>
-                <Image className="w-[20px] h-[20px]" src="./heart.svg" />
-            </Button>
-        </Container>
+        {location.pathname === '/' &&
+            <Container className="inline-flex">
+                <Button className="bg-gray-100 hover:bg-gray-300 py-2 px-4 rounded-l" onClick={handleNewsArticlesListClick}>
+                    <Image className="w-[20px] h-[20px]" src="./news.svg" />
+                </Button>
+                <Button className="bg-gray-100 hover:bg-gray-300 py-2 px-4 rounded-r" onClick={handleNewsArticlesSavedListClick}>
+                    <Image className="w-[20px] h-[20px]" src="./heart.svg" />
+                </Button>
+            </Container>
+        }
 
         <Container className="mr-5">
             <Button className="border-black " onClick={handleLogoutClick}>Logout</Button>

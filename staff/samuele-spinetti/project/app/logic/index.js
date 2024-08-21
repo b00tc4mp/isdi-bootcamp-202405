@@ -12,6 +12,14 @@ import getAllNews from './getAllNews'
 import getNews from './getNews'
 import toggleSaveNews from './toggleSaveNews'
 import getAllSavedNews from './getAllSavedNews'
+import createPost from './createPost'
+import getAllPosts from './getAllPosts'
+import getUserId from './getUserId'
+import deletePost from './deletePost'
+import toggleLikePost from './toggleLikePost'
+import createComment from './createComment'
+import getAllComments from './getAllComments'
+import deleteComment from './deleteComment'
 
 const logic = {
     isUserLoggedIn,
@@ -27,7 +35,15 @@ const logic = {
     getAllNews,
     getNews,
     toggleSaveNews,
-    getAllSavedNews
+    getAllSavedNews,
+    createPost,
+    getAllPosts,
+    getUserId,
+    deletePost,
+    toggleLikePost,
+    createComment,
+    getAllComments,
+    deleteComment
 }
 
 export default logic

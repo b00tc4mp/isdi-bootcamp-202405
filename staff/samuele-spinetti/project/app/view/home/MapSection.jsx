@@ -1,31 +1,9 @@
-import { useEffect, useState } from 'react'
-
-import logic from '../../logic'
-
 import Heading from '../library/Heading'
 import Container from '../library/Container'
 import SearchHCP from './SearchHCP'
 import ResultsHCPList from './ResultsHCPList'
 
 export default function MapSection() {
-    const [healthCareProviders, setHealthCareProviders] = useState([])
-
-    useEffect(() => {
-        try {
-            logic.getAllHCPs()
-                .then(healthCareProviders => setHealthCareProviders(healthCareProviders))
-                .catch(error => {
-                    console.error(error)
-
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }, [])
-
     return <>
         <section className="flex flex-col justify-center items-center gap-7 mb-6 z-40">
             <Container className="flex flex-col items-center h-28">

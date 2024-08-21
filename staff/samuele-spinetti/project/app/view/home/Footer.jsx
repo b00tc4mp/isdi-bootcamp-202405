@@ -2,12 +2,14 @@ import Container from '../library/Container'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-export default function Footer({ onHomeClicked, onHealthCareProvidersListClicked }) {
+export default function Footer({ onHomeClicked, onHealthCareProvidersListClicked, onCommunityClicked }) {
     const handleHomeClick = () => onHomeClicked()
 
     const handleHealthCareProvidersListClick = () => onHealthCareProvidersListClicked()
 
-    return <footer className="fixed items-center bottom-0 left-0 w-full flex justify-around shadow-[0_-1px_1px] bg-gradient-to-br from-green-400 to-fuchsia-500 h-20 z-40">
+    const handleCommunityClick = () => onCommunityClicked()
+
+    return <footer className="fixed items-center bottom-0 left-0 w-full flex justify-around shadow-[0_-1px_1px] bg-gradient-to-br from-green-400 to-fuchsia-500 h-20">
 
         <Container>
             <Button onClick={handleHomeClick}>
@@ -15,13 +17,13 @@ export default function Footer({ onHomeClicked, onHealthCareProvidersListClicked
             </Button>
         </Container>
 
-        <Container >
-            <Button >
+        <Container>
+            <Button onClick={handleCommunityClick}>
                 <Image src="/communityIcon.svg" alt="Community icon" className="h-[50px] w-[50px]" />
             </Button>
         </Container>
 
-        <Container >
+        <Container>
             <Button onClick={handleHealthCareProvidersListClick}>
                 <Image src="/mapIcon.svg" alt="Map icon" className="h-[30px] w-[30px]" />
             </Button>

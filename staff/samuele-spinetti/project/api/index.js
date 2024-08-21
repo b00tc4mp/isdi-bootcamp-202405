@@ -1,5 +1,8 @@
 import 'dotenv/config'
 import express from 'express'
+import { CronJob as cron } from 'cron'
+
+import { logic } from '../cor/index.js'
 
 import { mongoose } from '../cor/index.js'
 
@@ -15,8 +18,15 @@ import {
     getAllHCPsHandler,
     searchHCPHandler,
     toggleSaveNewsHandler,
-    getNewsHandler,
-    getAllSavedNewsHandler
+    getAllSavedNewsHandler,
+    createPostHandler,
+    getAllPostsHandler,
+    deletePostHandler,
+    toggleLikePostHandler,
+    createCommentHandler,
+    getAllCommentsHandler,
+    deleteCommentHandler,
+    getAllNewsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -29,6 +39,10 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
+        api.post('/posts', jwtVerifier, jsonBodyParser, createPostHandler)
+
+        api.post('/comments/:postId', jwtVerifier, jsonBodyParser, createCommentHandler)
+
         api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
 
         api.get('/users/:targetUserId/settings', jwtVerifier, getUserHandler)
@@ -37,15 +51,44 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/healthcareproviders/search', jwtVerifier, searchHCPHandler)
 
-        api.get('/news', jwtVerifier, getNewsHandler)
+        api.get('/news', jwtVerifier, getAllNewsHandler)
 
         api.get('/news/saved', jwtVerifier, getAllSavedNewsHandler)
+
+        api.get('/posts', jwtVerifier, getAllPostsHandler)
+
+        api.get('/comments/:postId', jwtVerifier, getAllCommentsHandler)
 
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
 
         api.patch('/news/:newsId/save', jwtVerifier, toggleSaveNewsHandler)
+
+        api.patch('/posts/:postId/likes', jwtVerifier, toggleLikePostHandler)
+
+        api.delete('/posts/:postId', jwtVerifier, deletePostHandler)
+
+        api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
+
+        new cron('0 * * * * *', () => {
+
+            api.get('/', jwtVerifier, (req, res, next) => {
+                const { userId } = req
+
+                try {
+                    logic.getNews(userId)
+                        .then(newsArticles => res.json(newsArticles))
+                        .catch(error => next(error))
+                } catch (error) {
+                    next(error)
+                }
+            })
+        },
+            null,
+            true,
+            'Europe/Madrid'
+        )
 
         api.use(errorHandler)
 
