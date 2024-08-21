@@ -17,15 +17,12 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
     const [isFollowing, setIsFollowing] = useState(post.author.following)
     const [createCommentVisible, setCreateCommentVisible] = useState(false)
     const [comments, setComments] = useState([])
+    const [commentsVisible, setCommentsVisible] = useState(false)
 
     useEffect(() => {
         setIsFollowing(post.author.following)
         loadComments()
     }, [post])
-
-    useEffect(() => {
-        loadComments()
-    }, [])
 
     const loadComments = () => {
         try {
@@ -73,7 +70,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
                 .catch(error => {
                     console.error(error)
 
-                    alert(error.confirmMessage)
+                    alert(error.message)
                 })
         } catch (error) {
             console.error(error)
@@ -98,16 +95,21 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
         }
     }
 
-    const handleCreateCommentClick = () => setCreateCommentVisible(true)
+    const handleCreateCommentClick = () => {
+        setCreateCommentVisible(prev => !prev)
+        setCommentsVisible(prev => !prev)
+    }
 
     const handleCancelCreateCommentClick = () => setCreateCommentVisible(false)
 
     const handleCommentCreated = () => {
         setCreateCommentVisible(false)
 
-        loadComments()
         onCommentCreated()
     }
+    const handleCommentDeleted = (commentId) => setComments(prevComments => prevComments.filter(comment => comment.id !== commentId))
+
+    const handleCommentsVisible = () => setCommentsVisible(false)
 
     return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
         <Container className='flex justify-between items-center m-[.5rem]'>
@@ -126,25 +128,27 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
             <Image className='mt-2' src={post.image} title={post.title} alt={post.alt} />
         )}
 
-        <Time>{formatTime(new Date(post.date))}</Time>
+        <Time className='mt-2'>{formatTime(new Date(post.date))}</Time>
 
-        <Container className='flex justify-between w-full'>
-            <Button className='mb-1' onClick={handleLikePostClick}>{(post.like ? 'dislike ' : 'like ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-            <Button className='mb-1' onClick={handleCreateCommentClick}>comment</Button>
+        <Container className='flex justify-between w-full mb-4'>
+            <Button onClick={handleLikePostClick}>{(post.like ? 'dislike ' : 'like ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            {post.author.id === logic.getUserId() && (
+                <Button onClick={handleDeletePostClick}>delete</Button>
+            )}
+            <Button onClick={() => setCommentsVisible(prev => !prev)}>comment</Button>
 
-            {post.author.id === logic.getUserId() && <>
-                <Button className='mb-1' onClick={handleDeletePostClick}>DELETE</Button>
-            </>}
         </Container>
 
+        {commentsVisible && (
+            <CommentList
+                comments={comments}
+                onCommentDeleted={handleCommentDeleted}
+                postId={post.id}
+                onCommentCreated={loadComments}
+                onCancelCreateComment={handleCancelCreateCommentClick}
+            />
+        )}
 
-        {createCommentVisible && <CreateComment
-            postId={post.id}
-            onCommentCreated={handleCommentCreated}
-            onCancelCreateComment={handleCancelCreateCommentClick}
-        />}
-
-        <CommentList comments={comments} />
-        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel}></Confirm>}
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
     </article>
 }

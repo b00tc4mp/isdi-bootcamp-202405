@@ -4,6 +4,7 @@ import logic from '../../logic'
 import Event from './Event'
 import SearchEvent from './SearchEvent'
 import Calendar from './Calendar'
+import Heading from '../library/Heading'
 
 export default function ResultsEventList() {
     const [searchParams] = useSearchParams()
@@ -64,7 +65,9 @@ export default function ResultsEventList() {
     }
 
     return (
-        <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
+        <section className='flex flex-col gap-1'>
+            <Heading className='mt-[48px] ml-2 text-2xl font-bold'>calendar</Heading>
+
             <SearchEvent />
 
             {searchPerformed ? (

@@ -29,8 +29,8 @@ export default function BandList(refreshStamp) {
         }
     }
 
-    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
-        <Heading className='ml-2 font-bold text-lg mt-3 text-slate-500'>venues</Heading>
+    return <section className='mb-[40px] flex flex-col gap-4'>
+        <Heading className='mt-[48px] ml-2 text-2xl font-bold'>venues</Heading>
 
         <Container>
             {users.map(user => <User

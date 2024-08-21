@@ -51,10 +51,10 @@ export default function SearchEvent() {
         setQuery(query)
     }
 
-    return <Container className='flex flex-col gap-2'>
+    return <Container className='mb-3 flex flex-col gap-2'>
         <Form className='mt-5' onSubmit={handleSearchEventSubmit}>
             <Container className='flex flex-col gap-[.2rem]'>
-                <Input type='text' name='q' id='search-event-input' placeholder='search' value={query} onChange={handleInputChange} />
+                <Input type='text' name='q' id='search-event-input' placeholder='search events' value={query} onChange={handleInputChange} />
                 <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEARCH</Button>
 
             </Container>

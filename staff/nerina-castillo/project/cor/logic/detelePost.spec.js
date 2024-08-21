@@ -1,10 +1,8 @@
 import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
-
 import { User, Post } from '../data/models.js'
 import errors from '../../com/errors.js'
-
 import deletePost from './deletePost.js'
 
 const { ObjectId } = Types
@@ -75,7 +73,7 @@ describe('deletePost', () => {
         let error
 
         try {
-            deletePost(123, new ObjectId().toString());
+            deletePost(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {

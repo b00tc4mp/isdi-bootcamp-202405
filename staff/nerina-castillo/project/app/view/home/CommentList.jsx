@@ -1,21 +1,17 @@
 import Container from '../library/Container'
-import Avatar from './Avatar'
-import Heading from '../library/Heading'
-import Paragraph from '../library/Paragraph'
-import Time from '../library/Time'
-import formatTime from '../../util/formatTime.js'
+import Comment from './Comment'
+import CreateComment from './CreateComment'
 
-export default function CommentList({ comments }) {
-    return <Container>
-        {comments.map(comment => <Container
-            key={comment.id}
-        >
-            <Container>
-                <Avatar url={comment.author.avatar} />
-                <Heading>{comment.author.username}</Heading>
-                <Time>{formatTime(new Date(comment.date))}</Time>
-            </Container>
-            <Paragraph>{comment.text}</Paragraph>
-        </Container>)}
+export default function CommentList({ comments, onCommentDeleted, postId, onCommentCreated }) {
+    return <Container className='border border-gray-500 rounded-xl mb-2 mt-1'>
+        <CreateComment postId={postId} onCommentCreated={onCommentCreated} />
+        {comments.map(comment => (
+            <Comment
+                key={comment.id}
+                comment={comment}
+                onCommentDeleted={onCommentDeleted}
+            />
+        ))}
     </Container>
+
 }

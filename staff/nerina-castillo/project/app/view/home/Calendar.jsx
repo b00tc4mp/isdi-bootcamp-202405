@@ -78,8 +78,8 @@ export default function Calendar({ events = [] }) {
         )
     }
 
-    return <section className='pb-[40px]'>
-        <Container>
+    return <section>
+        <Container className='pb-[40px] ml-1 mr-1'>
             {view === 'calendar' ? (
                 <>
                     <Container className='flex justify-around items-center mb-4'>

@@ -48,7 +48,7 @@ export default function ResultsPostList({ refreshStamp }) {
         }
     }
 
-    return <section className='mt-[40px] mb-[40px] flex flex-col gap-4'>
+    return <section className=' flex flex-col gap-4 mb-10'>
         <Search />
 
         <Container>

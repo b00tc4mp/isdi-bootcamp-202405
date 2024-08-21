@@ -9,43 +9,44 @@ import Container from '../library/Container'
 import Avatar from './Avatar'
 import Confirm from '../common/Confirm'
 
-export default function Comment({ comment }) {
+export default function Comment({ comment, onCommentDeleted }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
-    // const handleDeleteComment = () => setConfirmMessage('delete comment?')
+    const handleDeleteComment = () => setConfirmMessage('delete comment?')
 
-    // const handleDeleteCommentCancel = () => setConfirmMessage(null)
+    const handleDeleteCommentCancel = () => setConfirmMessage(null)
 
-    // const handleDeleteCommentAccept = () => {
-    //     try {
-    //         logic.deleteComment(comment.id)
-    //             .then(() => onCommentDeleted())
-    //             .catch(error => {
-    //                 console.error(error)
+    const handleDeleteCommentAccept = () => {
+        try {
+            logic.deleteComment(comment.id)
+                .then(() => onCommentDeleted(comment.id))
+                .catch(error => {
+                    console.error(error)
 
-    //                 alert(error.message)
-    //             })
-    //     } catch (error) {
-    //         console.error(error)
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
 
-    //         alert(error.message)
-    //     }
-    // }
+            alert(error.message)
+        }
+    }
 
-    return <article>
+    return <article className='m-3 mt-1'>
         <Container>
-            <Container>
+            <Container className='flex items-center gap-1'>
                 <Avatar url={comment.author.avatar} />
-                <Heading>{comment.author.username}</Heading>
+                <Heading className='text-sm font-semibold text-slate-400'>{comment.author.username}</Heading>
+                <Time className='text-xs text-slate-500'>{formatTime(new Date(comment.date))}</Time>
             </Container>
+            <Container className='flex items-center justify-between'>
+                <Paragraph className='text-sm'>{comment.text}</Paragraph>
 
-            <Paragraph>{comment.text}</Paragraph>
-            <Time>{formatTime(new Date(comment.date))}</Time>
-
-            {comment.author.id === logic.getUserId() && <>
-                <Button onClick={handleDeleteComment}></Button>
-            </>}
+                {comment.author.id === logic.getUserId() && <>
+                    <Button onClick={handleDeleteComment}>delete</Button>
+                </>}
+            </Container>
         </Container>
 
-        {/* {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteCommentAccept} onCancel={handleDeleteCommentCancel = () => setConfirmMessage(null)} />} */}
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteCommentAccept} onCancel={handleDeleteCommentCancel} />}
     </article>
 }

@@ -1,11 +1,14 @@
+import { useState } from 'react'
 import logic from '../../logic'
 import Form from '../library/Form'
 import Input from '../library/Input'
 import Label from '../library/Label'
 import Button from '../library/Button'
 import Container from '../library/Container'
+import Heading from '../library/Heading'
 
-export default function CreateComment({ onCommentCreated, onCancelCreateComment, postId }) {
+export default function CreateComment({ onCommentCreated, postId }) {
+    const [commentText, setCommentText] = useState('')
 
     const handleCreateCommentSubmit = event => {
         event.preventDefault()
@@ -17,7 +20,10 @@ export default function CreateComment({ onCommentCreated, onCancelCreateComment,
 
         try {
             logic.createComment(postId, commentText)
-                .then(() => onCommentCreated())
+                .then(() => {
+                    onCommentCreated()
+                    setCommentText('')
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -31,17 +37,16 @@ export default function CreateComment({ onCommentCreated, onCancelCreateComment,
 
     }
 
-    const handleCancelCreateCommentClick = () => onCancelCreateComment()
+    return <section className='  '>
+        <Heading className='mb-4 mt-3 ml-2 text-xs text-slate-500 font-bold'>comment</Heading>
 
-    return <section>
         <Form onSubmit={handleCreateCommentSubmit}>
-            <Container>
-                <Label htmlFor='comment-text-input'>comment</Label>
-                <Input id='comment-text-input' />
+            <Container className='flex flex-col gap-2'>
+                <Label htmlFor='comment-text-input'></Label>
+                <Input id='comment-text-input' onChange={e => setCommentText(e.target.value)} className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none text-slate-300' />
             </Container>
-            <Container>
-                <Button type='submit'>send</Button>
-                <Button type='reset' onClick={handleCancelCreateCommentClick}>cancel</Button>
+            <Container className='flex flex-col'>
+                <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEND</Button>
             </Container>
         </Form>
     </section>

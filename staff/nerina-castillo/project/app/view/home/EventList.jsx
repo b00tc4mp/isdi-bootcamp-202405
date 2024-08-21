@@ -30,7 +30,7 @@ export default function EventList({ events, onBack }) {
         }
     }
 
-    return <section className='mt-[10px] mb-[-20px] flex flex-col gap-4'>
+    return <section className=' mb-[-20px] flex flex-col gap-4'>
         <Button onClick={onBack}>back</Button>
 
         {eventList.map(event => <Event

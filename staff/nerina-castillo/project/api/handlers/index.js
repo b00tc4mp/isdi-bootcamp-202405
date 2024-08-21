@@ -16,6 +16,7 @@ import searchEventHandler from './searchEventHandler.js'
 import toggleLikePostHandler from './toggleLikePostHandler.js'
 import createCommentHandler from './createCommentHandler.js'
 import getAllCommentsHandler from './getAllCommentsHandler.js'
+import deleteCommentHandler from './deleteCommentHandler.js'
 
 export {
     registerUserHandler,
@@ -35,5 +36,6 @@ export {
     searchEventHandler,
     toggleLikePostHandler,
     createCommentHandler,
-    getAllCommentsHandler
+    getAllCommentsHandler,
+    deleteCommentHandler
 }

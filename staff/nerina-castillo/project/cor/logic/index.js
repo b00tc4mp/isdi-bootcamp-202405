@@ -16,6 +16,7 @@ import searchEvent from './searchEvent.js'
 import toggleLikePost from './toggleLikePost.js'
 import createComment from './createComment.js'
 import getAllComments from './getAllComments.js'
+import deleteComment from './deleteComment.js'
 
 const logic = {
     registerUser,
@@ -35,7 +36,8 @@ const logic = {
     searchEvent,
     toggleLikePost,
     createComment,
-    getAllComments
+    getAllComments,
+    deleteComment
 }
 
 export default logic

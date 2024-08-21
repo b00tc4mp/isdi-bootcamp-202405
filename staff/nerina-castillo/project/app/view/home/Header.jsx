@@ -46,7 +46,7 @@ export default function Header({ onHomeClick, onLogout, onSearchClick, onCalenda
 
     const handleCalendarSearch = () => onCalendarClick()
 
-    return <header className='fixed start-0 top-0 w-full flex justify-around c py-2 px-0 z-10 bg-slate-800 text-slate-300 border-b border-slate-300'>
+    return <header className='fixed start-0 top-0 w-full flex justify-around py-2 px-0 z-10 bg-slate-800 text-slate-300 border-b border-slate-300'>
         <Button onClick={handleHomeClick}>home</Button>
         <Button onClick={handleSearchClick}>search</Button>
         <Button onClick={handleCalendarSearch}>calendar</Button>

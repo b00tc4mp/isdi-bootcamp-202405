@@ -24,7 +24,8 @@ import {
     searchEventHandler,
     toggleLikePostHandler,
     createCommentHandler,
-    getAllCommentsHandler
+    getAllCommentsHandler,
+    deleteCommentHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -70,6 +71,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/comments/:postId', jwtVerifier, jsonBodyParser, createCommentHandler)
 
         api.get('/posts/:postId/comments', jwtVerifier, getAllCommentsHandler)
+
+        api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
         api.use(errorHandler)
 

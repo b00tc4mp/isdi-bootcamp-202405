@@ -76,7 +76,7 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
         }
     }
 
-    return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
+    return <article className='border-b border--b border-gray-500 ml-2 mr-2 mb-10'>
         <Container>
             {currentEvent.image && (
                 <Image src={currentEvent.image} title={currentEvent.title} alt='event image' />
