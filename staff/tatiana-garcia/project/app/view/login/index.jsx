@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import useContext from '../context.js'
 
 import logic from '../../logic/index.js'
@@ -20,21 +19,20 @@ const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
     const { alert } = useContext()
-    const navigate = useNavigate()
 
     const handleLoginSubmit = event => {
         event.preventDefault()
 
         const form = event.target
 
-        const usernameInput = form['username-input']
+        const emailInput = form['email-input']
         const passwordInput = form['password-input']
 
-        const username = usernameInput.value
+        const email = emailInput.value
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(email, password)
                 .then(() => onLogin())
                 .catch(error => {
                     console.error(error)
@@ -68,8 +66,8 @@ export default function Login({ onLogin, onRegisterClick }) {
 
                 <Form onSubmit={handleLoginSubmit} className='text-lg bg-white p-3 rounded-[50px] text-center flex-col'>
                     <Container className='mb-4'>
-                        <Label className='block text-sm font-medium text-gray-700' htmlFor='username-input'>Nombre de usuario</Label>
-                        <Input className='mt-1 p-2 w-full border border-gray-400 rounded-md' type='text' id='username-input' name='username' placeholder='nombre de usuario' />
+                        <Label className='block text-sm font-medium text-gray-700' htmlFor='email-input'>email</Label>
+                        <Input className='mt-1 p-2 w-full border border-gray-400 rounded-md' type='email' id='email-input' name='email' placeholder='introduce tu email' />
                     </Container>
 
                     <Container className='mb-6'>

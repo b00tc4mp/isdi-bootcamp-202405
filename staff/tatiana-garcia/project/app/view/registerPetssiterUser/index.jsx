@@ -9,35 +9,39 @@ import Heading from '../library/Heading'
 import Header from '../home/Header'
 
 import useContext from '../context'
+import { useState } from 'react'
 
 export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLoginClick }) {
     const { alert } = useContext()
+    const [selectedPets, setSelectedPets] = useState([])
 
     const handleregisterPetsitterUserSubmit = event => {
         event.preventDefault()
 
         const form = event.target
 
+        const imageInput = form['image-input']
         const nameInput = form['name-input']
         const surnameInput = form['surname-input']
-        const usernameInput = form['username-input']
-        const cifInput = form['cif-input']
         const cityInput = form['city-input']
+        const descriptionInput = form['description-input']
         const emailInput = form['email-input']
         const passwordInput = form['password-input']
         const passwordRepeatInput = form['password-repeat-input']
+        const petsInput = form['pets-input']
 
+        const image = imageInput.value
         const name = nameInput.value
         const surname = surnameInput.value
-        const username = usernameInput.value
-        const cif = cifInput.value
         const city = cityInput.value
+        const description = descriptionInput.value
         const email = emailInput.value
         const password = passwordInput.value
         const passwordRepeat = passwordRepeatInput.value
+        const pets = petsInput.value
 
         try {
-            logic.registerPetsitterUser(name, surname, username, cif, city, email, password, passwordRepeat)
+            logic.registerPetsitterUser(image, name, surname, city, description, email, password, passwordRepeat, pets)
                 .then(() => onRegisterPetsitterUser())
                 .catch(error => {
                     console.error(error)
@@ -48,6 +52,16 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
             console.error(error)
 
             alert(error.message)
+        }
+    }
+
+    const handlePetChange = event => {
+        const { value, checked } = event.target
+
+        if (checked) {
+            setSelectedPets([...selectedPets, value])
+        } else {
+            setSelectedPets(selectedPets.filter(pet => pet !== value))
         }
     }
 
@@ -65,6 +79,11 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
 
                 <form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
                     <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
+                    </Container>
+
+                    <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' />
                     </Container>
@@ -74,18 +93,9 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' placeholder='apellidos' />
                     </Container>
 
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='username-input'>Nombre de usuario</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='username-input' name='username' placeholder='nombre de usuario' />
-                    </Container>
-
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='cif-input'>Cif/Nif</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='cif-input' name='cif' placeholder='Cif/Nif' />
-                    </Container>
-
-                    <Container>
-                        <select name='city' id='city-input'>
+                    <Container >
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='city-input'>Ciudad</Label>
+                        <select className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' name='city' id='city-input' required >
                             <option value=''>Seleccione una ciudad</option>
                             <option value='madrid'>Madrid</option>
                             <option value='barcelona'>Barcelona</option>
@@ -135,7 +145,12 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                     </Container>
 
                     <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Email</Label>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Descripción</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='description-input' name='description' placeholder='descripción' />
+                    </Container>
+
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' />
                     </Container>
 
@@ -147,6 +162,50 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                     <Container className='pb-2'>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='password-repeat-input'>Repite contraseña</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' placeholder='repite contraseña' />
+                    </Container>
+
+                    <Container>
+                        <label htmlFor='pets-input'>¿Qué animales cuidas?</label><br /><br />
+
+                        <input
+                            type='checkbox'
+                            id='rabbit-input'
+                            value='Rabbit'
+                            onChange={handlePetChange}
+                        />
+                        <label htmlFor='rabbit-input'>Conejos</label><br />
+
+                        <input
+                            type='checkbox'
+                            id='guinea-pig-input'
+                            value='GuineaPig'
+                            onChange={handlePetChange}
+                        />
+                        <label htmlFor='guinea-pig-input'>Cobayas</label><br />
+
+                        <input
+                            type='checkbox'
+                            id='hamsters-input'
+                            value='Hamsters'
+                            onChange={handlePetChange}
+                        />
+                        <label htmlFor='hamsters-input'>Hamsters</label><br />
+
+                        <input
+                            type='checkbox'
+                            id='birds-input'
+                            value='Birds'
+                            onChange={handlePetChange}
+                        />
+                        <label htmlFor='birds-input'>Aves</label><br />
+
+                        <input
+                            type='checkbox'
+                            id='reptiles-input'
+                            value='Reptiles'
+                            onChange={handlePetChange}
+                        />
+                        <label htmlFor='reptiles-input'>Reptiles</label><br /><br />
                     </Container>
 
                     <Container className='text-center'>

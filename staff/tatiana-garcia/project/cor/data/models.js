@@ -1,6 +1,4 @@
-import { Schema, Types, model } from 'mongoose'
-
-const { ObjectId } = Types
+import { Schema, model } from 'mongoose'
 
 const user = new Schema({
     name: {
@@ -16,43 +14,21 @@ const user = new Schema({
         required: true,
         unique: true
     },
-    username: {
-        type: String,
-        required: true,
-        unique: true
+    city: {
+        type: String
     },
     password: {
         type: String,
         required: true
     },
-    cif: {
+    role: {
         type: String,
+        required: true,
+        enum: ['regular', 'petsitter'],
+        default: ['regular']
     },
     image: {
         type: String
-    },
-    city: {
-        type: String
-    }
-
-})
-
-const petsitter = new Schema({
-    author: {
-        type: ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    petsitterName: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String
-    },
-    city: {
-        type: String,
-        required: true,
     },
     description: {
         type: String
@@ -64,9 +40,7 @@ const petsitter = new Schema({
 })
 
 const User = model('User', user)
-const Petsitter = model('Petsitter', petsitter)
 
 export {
-    User,
-    Petsitter
+    User
 }

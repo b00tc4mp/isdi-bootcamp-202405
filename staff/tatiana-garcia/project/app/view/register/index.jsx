@@ -22,7 +22,6 @@ export default function Register({ onRegister, onLoginClick }) {
         const nameInput = form['name-input']
         const surnameInput = form['surname-input']
         const emailInput = form['email-input']
-        const usernameInput = form['username-input']
         const passwordInput = form['password-input']
         const passwordRepeatInput = form['password-repeat-input']
 
@@ -30,12 +29,11 @@ export default function Register({ onRegister, onLoginClick }) {
         const name = nameInput.value
         const surname = surnameInput.value
         const email = emailInput.value
-        const username = usernameInput.value
         const password = passwordInput.value
         const passwordRepeat = passwordRepeatInput.value
 
         try {
-            logic.registerUser(image, name, surname, email, username, password, passwordRepeat)
+            logic.registerUser(image, name, surname, email, password, passwordRepeat)
                 .then(() => onRegister())
                 .catch(error => {
                     console.error(error)
@@ -83,11 +81,6 @@ export default function Register({ onRegister, onLoginClick }) {
                     </Container>
 
                     <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='username-input'>Nombre de usuario</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='username-input' name='username' placeholder='nombre de usuario' />
-                    </Container>
-
-                    <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='password-input'>Contraseña</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' placeholder='contraseña' />
                     </Container>
@@ -98,7 +91,7 @@ export default function Register({ onRegister, onLoginClick }) {
                     </Container>
 
                     <Container className='text-center'>
-                        <button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Register'}</button>
+                        <button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Regístrate'}</button>
                     </Container>
                 </form>
                 <Container className='text-center  pb-8 pt-2'>

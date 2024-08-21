@@ -7,7 +7,7 @@ import Footer from './Footer'
 import Paragraph from '../library/Paragraph'
 import Image from '../library/Image'
 
-export default function Home({ onLogout }) {
+export default function Home({ }) {
     const navigate = useNavigate()
 
     return <>

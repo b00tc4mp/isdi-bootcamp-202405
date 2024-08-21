@@ -2,12 +2,11 @@ import { errors, validate } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (image, name, surname, email, username, password, passwordRepeat) => {
+export default (image, name, surname, email, password, passwordRepeat) => {
     validate.image(image, 'image')
     validate.name(name, 'name')
     validate.surname(surname)
     validate.email(email)
-    validate.username(username)
     validate.password(password)
     validate.password(passwordRepeat, 'passwordRepeat')
 
@@ -16,7 +15,7 @@ export default (image, name, surname, email, username, password, passwordRepeat)
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, name, surname, email, username, password, passwordRepeat })
+        body: JSON.stringify({ image, name, surname, email, password, passwordRepeat })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

@@ -4,13 +4,13 @@ import { User } from '../data/models.js'
 
 import { validate, errors } from '../../com/index.js'
 
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError, CredentialsError, SystemError } = errors
 
-export default (username, password) => {
-    validate.username(username)
+export default (email, password) => {
+    validate.email(email, 'email')
     validate.password(password)
 
-    return User.findOne({ username }).lean()
+    return User.findOne({ email }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
@@ -20,9 +20,12 @@ export default (username, password) => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(match => {
                     if (!match)
-                        throw new ValidationError('passwords do not match')
+                        throw new CredentialsError('wrong password')
 
-                    return user._id.toString()
+                    user.id = user._id.toString()
+                    delete user._id
+
+                    return user
                 })
         })
 }

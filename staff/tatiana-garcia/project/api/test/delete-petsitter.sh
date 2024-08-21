@@ -1,1 +1,0 @@
-curl -v http://localhost:8080/petsitter/66c598f1e17b28ff0a434d4c -X DELETE -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM1OThiYWUxN2IyOGZmMGE0MzRkNDgiLCJpYXQiOjE3MjQyMjU3NDd9.1N1cfMa65imQaInqdnBGARsO9yVkt0OOqM5aKpVmspA"

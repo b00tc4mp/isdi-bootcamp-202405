@@ -6,12 +6,12 @@ import { errors } from '../../com/index.js'
 const { SessionError } = errors
 
 export default (req, res, next) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
 
     try {
-        logic.authenticateUser(username, password)
-            .then(userId =>
-                jwt.sign({ sub: userId }, process.env.JWT_SECRET, (error, token) => {
+        logic.authenticateUser(email, password)
+            .then(user =>
+                jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET, (error, token) => {
                     if (error) {
                         next(new SessionError(error.message))
 

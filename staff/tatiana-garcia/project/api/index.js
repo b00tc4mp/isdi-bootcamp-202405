@@ -10,8 +10,6 @@ import {
     authenticateUserHandler,
     getUserHandler,
     updateUserHandler,
-    createPetsitterHandler,
-    deletePetsitterHandler,
     registerPetsitterUserHandler
 
 } from './handlers/index.js'
@@ -33,10 +31,6 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
 
         api.patch('/users', jwtVerifier, updateUserHandler)
-
-        api.post('/petsitter', jwtVerifier, jsonBodyParser, createPetsitterHandler)
-
-        api.delete('/petsitter/:petsitterId', jwtVerifier, deletePetsitterHandler)
 
         api.use(errorHandler)
 
