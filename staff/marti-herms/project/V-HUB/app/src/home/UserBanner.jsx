@@ -1,6 +1,9 @@
+import { RiUserFollowLine as FollowIcon, RiUserUnfollowLine as UnfollowIcon } from 'react-icons/ri'
+
 import Container from '../library/Container'
 import Avatar from '../library/Avatar'
 import Paragraph from '../library/Paragraph'
+import Button from '../library/Button'
 
 import useContext from '../context'
 
@@ -9,7 +12,7 @@ import logic from '../../logic'
 import defaultAvatar from '../../images/defaultAvatar.svg'
 import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 
-export default function GameBanner({ user, onInteraction, onUserClick }) {
+export default function UserBanner({ user, onInteraction, onUserClick }) {
     const { alert } = useContext()
 
     const { sub: currentUserId } = extractPayloadFromToken(sessionStorage.token)
@@ -34,17 +37,17 @@ export default function GameBanner({ user, onInteraction, onUserClick }) {
         }
     }
 
-    return <article className='flex flex-row items-center justify-between p-3 border-y border-solid border-slate-700 dark:bg-black'>
-        <button className='bg-transparent border-0' onClick={handleUserClick}>
+    return <article className='flex flex-row w-full items-center justify-between p-3 border-y border-solid border-slate-700 dark:bg-black'>
+        <Button className='bg-transparent border-0' onClick={handleUserClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>
                     <Avatar className='w-2/12 h-2/12' url={user.avatar || defaultAvatar} />
-                    <Paragraph>{user.username}</Paragraph>
+                    <Paragraph className='text-xl font-bold'>{user.username}</Paragraph>
                 </Container>
             </Container>
-        </button>
-        {user.id !== currentUserId && <Container className='flex flex-col gap-2 mr-2 h-full w-[90px]'>
-            <button className='bg-gray-500 rounded' onClick={handleFollowUser}>{user.followed ? 'Unfollow' : 'Follow'}</button>
+        </Button>
+        {user.id !== currentUserId && <Container className='flex flex-col gap-2 mr-2 h-full'>
+            <Button onClick={handleFollowUser}>{user.followed ? <UnfollowIcon className='w-8 h-8 dark:text-white' /> : <FollowIcon className='w-8 h-8 dark:text-white' />}</Button>
         </Container>}
     </article>
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Button } from '@mui/material'
 
 import Container from '../library/Container'
@@ -9,6 +10,14 @@ import logic from '../../logic'
 
 export default function AddGame({ onAddGame }) {
     const { alert } = useContext()
+
+    const [image, setImage] = useState('')
+
+    const handleChange = () => {
+        const link = document.getElementById('image-input').value
+
+        setImage(link)
+    }
 
     const handleRegisterSubmit = (event) => {
         event.preventDefault()
@@ -41,11 +50,12 @@ export default function AddGame({ onAddGame }) {
     }
 
     return <>
-        <Container className='flex flex-col items-center w-full h-full dark:bg-[#1e1e1e]'>
-            <Form className='flex justify-center items-center h-full gap-10' onSubmit={handleRegisterSubmit}>
+        <Container className='absolute flex flex-col justify-center items-center w-full h-[90%] py-[14%] dark:bg-[#1e1e1e]'>
+            <Form className='flex flex-col justify-center items-center h-full gap-10' onSubmit={handleRegisterSubmit}>
                 <Input id='name-input' type='text' placeholder='Name' />
-                <Input id='image-input' type='text' placeholder='Image' />
-                <Input id='description-input' type='text' placeholder='Description' />
+                {image && <img src={image} className='w-56 h-auto rounded' alt="" />}
+                <Input id='image-input' type='text' placeholder='Image' onChange={handleChange} />
+                <textarea className='w-9/12 rounded p-1 h-20 text-2xl' id='description-input' type='text' placeholder='Description' />
                 <Input id='link-input' type='text' placeholder='Link' />
                 <Button variant='contained' type='submit'>Add Game</Button>
             </Form>

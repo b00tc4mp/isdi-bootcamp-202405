@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
+import { TbListSearch as SearchIcon } from 'react-icons/tb'
 
 import Form from '../library/Form'
 import Input from '../library/Input'
 import Button from '../library/Button'
 
-export default function Search({ onChange }) {
+export default function Search() {
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
@@ -35,15 +36,22 @@ export default function Search({ onChange }) {
     }
 
     const handleInputChange = (event) => {
-        const { value: query } = event.target
+        const input = document.getElementById('search-input')
+
+        const { value: query } = input
+
+        if (!query.trim())
+            navigate('/search')
+        else if (location.pathname !== '/search')
+            navigate(`/search?q=${query}`)
+        else
+            setSearchParams({ q: query })
 
         setQuery(query)
-
-        onChange()
     }
 
-    return <Form onSubmit={handleSubmit} className='flex h-[12%] mt-3 mb-2 gap-2 justify-start items-center text-black'>
-        <Input name='q' placeholder='search: candy crush, @eden...' value={query} onChange={handleInputChange} />
-        <Button className='bg-white w-9/12 h-10 px-3 py-1 text-2xl text-black rounded-md border border-solid border-black shadow-md shadow-black' type='submit'>Search</Button>
+    return <Form onSubmit={handleSubmit} className='flex flex-row h-[12%] mt-3 mb-2 gap-2 justify-center items-center text-black'>
+        <Input name='q' id='search-input' placeholder='search: candy crush, @eden...' value={query} onChange={handleInputChange} />
+        <Button type='submit'><SearchIcon className='w-8 h-8 dark:text-white' /></Button>
     </Form>
 }

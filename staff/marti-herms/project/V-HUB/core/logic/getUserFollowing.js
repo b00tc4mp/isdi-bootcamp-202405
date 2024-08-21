@@ -10,8 +10,8 @@ export default (userId, targetUserId) => {
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user)
+        .then(_user => {
+            if (!_user)
                 throw new NotFoundError('user not found')
 
             return User.findById(targetUserId).lean()
@@ -19,12 +19,13 @@ export default (userId, targetUserId) => {
                 .then(user => {
                     if (!user) throw new NotFoundError('targetUser not found')
 
-                    return User.find({ _id: { $in: user.following } })
+                    return User.find({ _id: { $in: user.following } }, { __v: 0 }).sort({ username: 1 }).lean()
                         .catch(error => { throw new SystemError(error.message) })
                         .then(users => {
                             const promises = users.map(user => {
-                                user.id = user._id.toString()
+                                user.followed = _user.following.some(userObjectId => userObjectId.toString() === user._id.toString())
 
+                                user.id = user._id.toString()
                                 delete user._id
 
                                 delete user.password

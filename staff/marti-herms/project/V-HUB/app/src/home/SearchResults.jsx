@@ -16,12 +16,15 @@ export default function SearchResults({ refreshStamp, onGameClick, onUserClick }
     const q = searchParams.get('q') || ''
 
     const [results, setResults] = useState([])
+    const [debounceTimer, setDebounceTimer] = useState(null)
 
     useEffect(() => {
-        if (q.startsWith('@'))
-            loadUsers()
-        else
-            loadGames()
+        if (q !== '' || q !== '@') {
+            debounceSearch()
+        } else {
+            clearTimeout(debounceTimer)
+            setResults([])
+        }
     }, [refreshStamp, q])
 
     const loadGames = () => {
@@ -56,9 +59,21 @@ export default function SearchResults({ refreshStamp, onGameClick, onUserClick }
         }
     }
 
+    const debounceSearch = () => {
+        if (debounceTimer)
+            clearTimeout(debounceTimer)
+
+        setDebounceTimer(setTimeout(() => {
+            if (q.startsWith('@'))
+                loadUsers()
+            else
+                loadGames()
+        }, 1000))
+    }
+
     return <section className='flex flex-col'>
-        {q.startsWith('@') ?
+        {results.length > 0 && (q.startsWith('@') ?
             results.map(user => <UserBanner key={user.id} user={user} onInteraction={loadUsers} onUserClick={onUserClick} />) :
-            results.map(game => <GameBanner key={game.id} game={game} onInteraction={loadGames} onGameClick={onGameClick} collectionType={'search'} />)}
+            results.map(game => <GameBanner key={game.id} game={game} onInteraction={loadGames} onGameClick={onGameClick} collectionType={'search'} />))}
     </section>
 }

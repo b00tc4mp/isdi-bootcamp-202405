@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Rating from '@mui/material/Rating'
+import StarIcon from '@mui/icons-material/Star'
+import { IoIosSend as SendIcon } from 'react-icons/io'
 
 import useContext from '../context'
 
@@ -24,7 +26,7 @@ export default function Game({ makeReviewVisibility, onCancel }) {
     const [game, setGame] = useState()
     const [reviews, setReviews] = useState([])
     const [rating, setRating] = useState(0)
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(2)
 
     useEffect(() => {
         if (gameId.length >= 10)
@@ -133,23 +135,33 @@ export default function Game({ makeReviewVisibility, onCancel }) {
             <Container className='flex flex-col justify-center pl-2'>
                 <Paragraph className='text-white font-semibold text-lg ml-0 text-wrap'>{game.description}</Paragraph>
                 <Container className='flex flex-row justify-center items-center'>
-                    <Rating name='read-only' value={rating} precision={0.25} readOnly />
+                    <Rating
+                        name='read-only'
+                        value={rating}
+                        precision={0.25}
+                        size='large'
+                        emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />}
+                        readOnly />
                     <Paragraph>{rating}</Paragraph>
                 </Container>
                 <Link className='text-white font-semibold text-lg text-center hover:text-violet-500 active:text-violet-500:' href={game.link}>Go to official page</Link>
             </Container>
         </>}
 
-        {makeReviewVisibility && <Form className='flex h-[20%] my-2 gap-2 justify-start items-center text-black' onSubmit={handleMakeReview}>
-            <Input name='comment' placeholder='comment' id='comment-input' />
-            <Container className='flex flex-row'>
-                <Rating name='rating-input'
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }} />
+        {makeReviewVisibility && <Form className='flex flex-row h-[15%] my-2 justify-start items-center box-content text-black' onSubmit={handleMakeReview}>
+            <Container className='flex flex-col justify-center items-center box-content w-[80%]'>
+                <Input name='comment' placeholder='comment' id='comment-input' />
+                <Container className='flex flex-row'>
+                    <Rating name='rating-input'
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        size='large'
+                        emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} />
+                </Container>
             </Container>
-            <Button className='bg-white' type='submit'>Submit</Button>
+            <Button type='submit'><SendIcon className='w-10 h-10 dark:text-white' /></Button>
         </Form>}
 
         <Container className='flex flex-col mt-4 mb-10'>

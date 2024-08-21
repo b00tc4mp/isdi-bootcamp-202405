@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default (targetUserId) => {
     validate.string(targetUserId, 'targetUserId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/games/${targetUserId}/library`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}/following`, {
         headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
         .catch(error => { throw new SystemError(error.message) })
@@ -14,7 +14,7 @@ export default (targetUserId) => {
 
             if (status === 200) {
                 return response.json()
-                    .then(games => games)
+                    .then(users => users)
             }
 
             return response.json()

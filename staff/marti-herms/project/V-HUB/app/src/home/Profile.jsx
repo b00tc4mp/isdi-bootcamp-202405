@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { IoIosSend as SubmitIcon } from 'react-icons/io'
+import { MdCancel as CancelIcon, MdOutlineEdit as EditIcon } from 'react-icons/md'
+import { FaUserPen as AvatarIcon } from 'react-icons/fa6'
 
 import logic from '../../logic'
 
@@ -13,7 +16,8 @@ import Button from '../library/Button'
 import Form from '../library/Form'
 import Input from '../library/Input'
 
-import extractPayloadFromToken from '../../util/extractPayloadFromToken'
+import extractPayloadFromToken from '../../util/extractPayloadFromToken.js'
+import paths from '../../util/paths.js'
 
 import defaultAvatar from '../../images/defaultAvatar.svg'
 
@@ -21,7 +25,6 @@ export default function Profile({ refreshStamp, onChange, onGameClick }) {
     const { alert } = useContext()
 
     const navigate = useNavigate()
-    const location = useLocation()
 
     const { userId } = useParams()
 
@@ -100,18 +103,12 @@ export default function Profile({ refreshStamp, onChange, onGameClick }) {
     }
 
     const handleEditUsernameClick = () => {
-        setLibraryVisibility(false)
-        setFavsVisibility(false)
-        setdevGamesVisibility(false)
         setEditAvatarVisibility(false)
 
         setEditUsernameVisibility(true)
     }
 
     const handleEditAvatarClick = () => {
-        setLibraryVisibility(false)
-        setFavsVisibility(false)
-        setdevGamesVisibility(false)
         setEditUsernameVisibility(false)
 
         setEditAvatarVisibility(true)
@@ -123,50 +120,50 @@ export default function Profile({ refreshStamp, onChange, onGameClick }) {
     }
 
     const handleFollowers = () => {
-        navigate(location.pathname + '/followers')
+        navigate(paths.followers + userId)
     }
 
     const handleFollowing = () => {
-        navigate(location.pathname + '/following')
+        navigate(paths.following + userId)
     }
 
     return <>
         {user && <Container className='flex flex-row justify-center items-center my-4'>
-            <Avatar url={user.avatar || defaultAvatar} className='w-20 h-20' />
+            <Avatar url={user.avatar || defaultAvatar} className='w-[7rem] h-[7rem] relative top-[5px]' />
             <h2 className='text-white text-4xl'>{user.username}</h2>
         </Container>}
-        {user && user.id === loggedInUserId && <Container className='m-3 flex flex-col justify-center items-center gap-2 box-content'>
-            <Button className='rounded bg-slate-300 h-auto text-black hover:bg-slate-500' onClick={handleEditUsernameClick}>Edit Username</Button>
-            <Button className='rounded bg-slate-300 h-auto text-black hover:bg-slate-500' onClick={handleEditAvatarClick}>Edit Avatar</Button>
+        {user && user.id === loggedInUserId && <Container className='m-3 flex flex-row justify-center items-center box-content'>
+            <Button className='rounded-s bg-slate-300 h-auto text-black hover:bg-slate-500 p-1' onClick={handleEditAvatarClick}><AvatarIcon className='w-8 h-8' /></Button>
+            <Button className='rounded-e bg-slate-300 h-auto text-black hover:bg-slate-500 p-1' onClick={handleEditUsernameClick}><EditIcon className='w-8 h-8' /></Button>
         </Container>}
-        {editUsernameVisibility && <Container className='flex flex-col justify-center items-center'>
+        {user && <Container className='flex flex-col items-center my-2 gap-2'>
+            <Button className='w-[150px] rounded bg-slate-300 h-auto text-black hover:bg-slate-500' onClick={handleFollowing}>Following</Button>
+            <Button className='w-[150px] rounded bg-slate-300 h-auto text-black hover:bg-slate-500' onClick={handleFollowers}>Followers</Button>
+        </Container>}
+        {editUsernameVisibility && <Container className='flex flex-col justify-center items-center my-8'>
             <Form onSubmit={handleEditUsername}>
                 <Container className='flex flex-col justify-center items-center'>
                     <Input id='new-username' placeholder='username' className='py-3' />
                 </Container>
                 <Container className='flex flex-row m-3 justify-around mx-10'>
-                    <Button className='dark:bg-white' type='submit'>Submit</Button>
-                    <Button className='dark:bg-white' onClick={handleEditUserCancel}>Cancel</Button>
+                    <Button type='submit'><SubmitIcon className='w-8 h-8 dark:text-white' /></Button>
+                    <Button onClick={handleEditUserCancel}><CancelIcon className='w-8 h-8 dark:text-white' /></Button>
                 </Container>
             </Form>
         </Container>}
-        {editAvatarVisibility && <Container className='flex flex-col justify-center items-center'>
+        {editAvatarVisibility && <Container className='flex flex-col justify-center items-center my-8'>
             <Form onSubmit={handleEditAvatar}>
                 <Container className='flex flex-col justify-center items-center'>
                     <Input id='new-avatar' placeholder='avatar' className='py-3' />
                 </Container>
                 <Container className='flex flex-row m-3 justify-around mx-10'>
-                    <Button className='dark:bg-white' type='submit'>Submit</Button>
-                    <Button className='dark:bg-white' onClick={handleEditUserCancel}>Cancel</Button>
+                    <Button type='submit'><SubmitIcon className='w-8 h-8 dark:text-white' /></Button>
+                    <Button onClick={handleEditUserCancel}><CancelIcon className='w-8 h-8 dark:text-white' /></Button>
                 </Container>
             </Form>
         </Container>}
-        {user && <Container>
+        {user && <Container className='mt-6'>
             <Library onGameClick={onGameClick} user={user} />
-        </Container>}
-        {user && <Container>
-            <Button className='bg-white w-9/12 h-10 px-3 py-1 text-2xl text-black rounded-md border border-solid border-black shadow-md shadow-black' onClick={handleFollowing}>Following</Button>
-            <Button className='bg-white w-9/12 h-10 px-3 py-1 text-2xl text-black rounded-md border border-solid border-black shadow-md shadow-black' onClick={handleFollowers}>Followers</Button>
         </Container>}
     </>
 }

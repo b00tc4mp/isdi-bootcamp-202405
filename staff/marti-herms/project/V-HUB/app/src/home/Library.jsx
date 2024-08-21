@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 
 import useContext from '../context.js'
-import GameBanner from './GameBanner.jsx'
-import Button from '../library/Button.jsx'
+
+import GameBanner from './GameBanner'
+import DropdownButton from '../library/DropdownButton'
 
 import extractPayloadFromToken from '../../util/extractPayloadFromToken.js'
 
@@ -92,12 +93,12 @@ export default function Library({ onGameClick, user }) {
 
     return <div>
         {((!user && role) || user.role === 'dev') && <>
-            <Button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleDevGames}>Games</Button>
+            <DropdownButton onClick={handleDevGames}>Games</DropdownButton>
             {devGamesVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={devGames} onGameClick={onGameClick} collectionType={'devGames'} />)}
         </>}
-        <Button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleLibrary}>Library</Button>
+        <DropdownButton onClick={handleLibrary}>Library</DropdownButton>
         {libraryVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={libraryGames} onGameClick={onGameClick} collectionType={'library'} />)}
-        <Button className='w-full h-[45px] bg-black text-white border border-solid border-slate-700' onClick={handleFavs}>Favs</Button>
+        <DropdownButton onClick={handleFavs}>Favs</DropdownButton>
         {favsVisibility && games.map(game => <GameBanner key={game.id} game={game} onInteraction={favsGames} onGameClick={onGameClick} collectionType={'favs'} />)}
     </div>
 }

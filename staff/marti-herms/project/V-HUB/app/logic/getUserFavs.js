@@ -1,8 +1,10 @@
-import { errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
 export default (targetUserId) => {
+    validate.string(targetUserId, 'targetUserId')
+
     return fetch(`${import.meta.env.VITE_API_URL}/games/${targetUserId}/favs`, {
         headers: { Authorization: `Bearer ${sessionStorage.token}` }
     })
