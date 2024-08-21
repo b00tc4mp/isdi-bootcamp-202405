@@ -28,6 +28,7 @@ export default function Footer({ makeReviewVisibility, onSearchGame, onAddGame, 
             <Route path={paths.search} element={<Button onClick={onHome}><HomeIcon className='w-8 h-8 dark:text-white' /></Button>} />
             <Route path={paths.followers + ':userId'} element={<Button onClick={onHome}><HomeIcon className='w-8 h-8 dark:text-white' /></Button>} />
             <Route path={paths.following + ':userId'} element={<Button onClick={onHome}><HomeIcon className='w-8 h-8 dark:text-white' /></Button>} />
+            <Route path='/*' element={<Button onClick={onHome}><HomeIcon className='w-8 h-8 dark:text-white' /></Button>} />
         </Routes>
     </footer>
 }

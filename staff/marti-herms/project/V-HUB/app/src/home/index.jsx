@@ -10,6 +10,7 @@ import SearchResults from './SearchResults'
 import Game from './Game'
 import Profile from './Profile'
 import UserList from './UserList'
+import NotFoundPage from './NotFoundPage'
 
 import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 import paths from '../../util/paths.js'
@@ -81,6 +82,7 @@ export default function Home({ onLogout }) {
                 <Route path={paths.addGame} element={<AddGame onAddGame={handleAddGame} />} />
                 <Route path={paths.search} element={<><Search /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
                 <Route path={paths.game + ':gameId'} element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
+                <Route path='/*' element={<NotFoundPage />} />
             </Routes>
         </main>
 
