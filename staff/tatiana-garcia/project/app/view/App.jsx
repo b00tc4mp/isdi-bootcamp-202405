@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
-import Register from './register'
+import Register from './register/index.jsx'
+import RegisterPetsitterUser from './registerPetssiterUser/index.jsx'
 import Login from './login/index.jsx'
 import Home from './home/index.jsx'
 import Contact from './contact/index.jsx'
@@ -22,12 +23,17 @@ export default function App() {
 
   const handleRegisterClick = () => { navigate('/register') }
 
+  const handleRegisterPetsitterUserClick = () => { navigate('/registerPetsitter') }
+
   const handleRegister = () => {
     setAlertMessage('¡Te has registrado correctamente! Ya puedes loguearte en Exoticus')
     navigate('/login')
   }
 
-  // const handleContact = () => { navigate('/contact') }
+  const handleRegisterPetsitterUser = () => {
+    setAlertMessage('¡Te has registrado correctamente! Ya puedes loguearte en Exoticus')
+    navigate('/login')
+  }
 
   const handleLoginClick = () => { navigate('/login') }
 
@@ -44,7 +50,8 @@ export default function App() {
       <Route path='/*' element={<Home onLogout={handleLogout} />} />
       <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/settings' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
       <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
-      <Route path='/contact' element={<Contact onRegisterPetsitterClick={handleRegisterClick} />} />
+      <Route path='/contact' element={<Contact onRegisterPetsitterUserClick={handleRegisterPetsitterUserClick} />} />
+      <Route path='/registerPetsitter' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <RegisterPetsitterUser onRegisterPetsitterUser={handleRegisterPetsitterUser} onLoginClick={handleLoginClick} />} />
       <Route path='/petsitters' element={<Petsitters />} />
       <Route path='/settings' element={<Settings onLogoutClick={handleLogout} />} />
     </Routes>

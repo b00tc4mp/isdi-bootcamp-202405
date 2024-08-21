@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/petsitterUser -X POST -d '{"name":"Alberto","surname":"Garcia","username":"abtg", "cif":"B12345678", "city":"Barcelona","email":"abt@garcia.com","password":"123123123","passwordRepeat":"123123123"}' -H "Content-Type: application/json"}

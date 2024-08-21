@@ -3,23 +3,22 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 import bcrypt from 'bcryptjs'
 
-import registerPetsitter from './registerPetsitter.js'
+import registerPetsitterUser from './registerPetsitterUser.js'
 import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
 const { DuplicityError, ValidationError } = errors
 
-describe('registerPetsitter', () => {
+describe('registerPetsitterUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => User.deleteMany())
 
     it('succeeds on new petsitter', () =>
-        registerPetsitter('https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tat@garcia.com', '123123123', '123123123')
+        registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tat@garcia.com', '123123123', '123123123')
             .then(() => User.findOne({ username: 'tatig' }).lean())
             .then(user => {
-                expect(user.image).to.equal('https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg')
                 expect(user.name).to.equal('Tatiana')
                 expect(user.surname).to.equal('Garcia')
                 expect(user.username).to.equal('tatig')
@@ -32,11 +31,11 @@ describe('registerPetsitter', () => {
             })
     )
 
-    it('fails on existing user with same email', () => {
+    it('fails on existing petsitter with same email', () => {
         let _error
 
-        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', username: 'tatig', cif: 'B12345678', city: 'Barcelona', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123' })
-            .then(() => registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123'))
+        return User.create({ name: 'Tatiana', surname: 'Garcia', username: 'tatig', cif: 'B12345678', city: 'Barcelona', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123' })
+            .then(() => registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
@@ -44,11 +43,11 @@ describe('registerPetsitter', () => {
             })
     })
 
-    it('fails on existing user with same username', () => {
+    it('fails on existing petsitter with same username', () => {
         let _error
 
-        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', username: 'tatig', cif: 'B12345678', city: 'Barcelona', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123' })
-            .then(() => registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123'))
+        return User.create({ name: 'Tatiana', surname: 'Garcia', username: 'tatig', cif: 'B12345678', city: 'Barcelona', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123' })
+            .then(() => registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
@@ -60,7 +59,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 123, 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+            registerPetsitterUser(123, 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -73,7 +72,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', '', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+            registerPetsitterUser('', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -86,7 +85,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 123, 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+            registerPetsitterUser('Tatiana', 123, 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -99,7 +98,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', '', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+            registerPetsitterUser('Tatiana', '', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -112,7 +111,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 123, '123123123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 123, '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -125,7 +124,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', '', '123123123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', '', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -138,7 +137,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 123, 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 123, 'B12345678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -151,7 +150,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', '', 'B12345678', 'Barcelona', '123123123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', '', 'B12345678', 'Barcelona', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -160,11 +159,51 @@ describe('registerPetsitter', () => {
         }
     })
 
+    it('fails on non string cif', () => {
+        let error
+
+        try {
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 112345678, 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('cif is not a string')
+        }
+    })
+
+
+    it('fails on non cif too short', () => {
+        let error
+
+        try {
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B1234', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('cif length is lower than 9 characters')
+        }
+    })
+
+    it('fails on non cif have spaces', () => {
+        let error
+
+        try {
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B1234 5678', 'Barcelona', 'tati@garcia.com', '123123123', '123123123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('cif has empty spaces')
+        }
+    })
+
     it('fails on non string password', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', 123123123, '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', 123123123, '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -177,7 +216,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '1231', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '1231', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -190,7 +229,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123 123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123123 123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -203,7 +242,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123456123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', 'Barcelona', 'tati@garcia.com', '123456123', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -216,7 +255,7 @@ describe('registerPetsitter', () => {
         let error
 
         try {
-            registerPetsitter('https://www.ngenespanol.com/', 'Tatiana', 'Garcia', 'tatig', 'B12345678', '', 'tati@garcia.com', '123123123', '123123123')
+            registerPetsitterUser('Tatiana', 'Garcia', 'tatig', 'B12345678', '', 'tati@garcia.com', '123123123', '123123123')
         } catch (_error) {
             error = _error
         } finally {

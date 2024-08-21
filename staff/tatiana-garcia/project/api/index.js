@@ -11,7 +11,8 @@ import {
     getUserHandler,
     updateUserHandler,
     createPetsitterHandler,
-    deletePetsitterHandler
+    deletePetsitterHandler,
+    registerPetsitterUserHandler
 
 } from './handlers/index.js'
 
@@ -24,6 +25,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.use(cors)
 
         api.post('/users', jsonBodyParser, registerUserHandler)
+
+        api.post('/petsitterUser', jsonBodyParser, registerPetsitterUserHandler)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 

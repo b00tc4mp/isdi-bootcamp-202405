@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/petsitter/66c4c382dcc1de50809d25f7 -X DELETE -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM0YzMxZmRjYzFkZTUwODA5ZDI1ZjIiLCJpYXQiOjE3MjQxNzE3OTl9.VR0y6Mf97NyH7AP2wLM-9kWwpML7EPqn6PSw6qfhe4M"
+curl -v http://localhost:8080/petsitter/66c598f1e17b28ff0a434d4c -X DELETE -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM1OThiYWUxN2IyOGZmMGE0MzRkNDgiLCJpYXQiOjE3MjQyMjU3NDd9.1N1cfMa65imQaInqdnBGARsO9yVkt0OOqM5aKpVmspA"

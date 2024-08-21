@@ -5,8 +5,7 @@ import { validate, errors } from '../../com/index.js'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
-export default (image, name, surname, username, cif, city, email, password, passwordRepeat) => {
-    validate.url(image, 'image')
+export default (name, surname, username, cif, city, email, password, passwordRepeat) => {
     validate.name(name, 'name')
     validate.surname(surname, 'surname')
     validate.username(username)
@@ -33,7 +32,6 @@ export default (image, name, surname, username, cif, city, email, password, pass
         })
         .then(hash =>
             User.create({
-                image,
                 name,
                 surname,
                 username,

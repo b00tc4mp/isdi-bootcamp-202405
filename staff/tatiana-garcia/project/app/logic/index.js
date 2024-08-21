@@ -1,5 +1,5 @@
 import registerUser from './registerUser'
-//import registerPetsitter from './registerPetsitter'
+import registerPetsitterUser from './registerPetsitterUser'
 import getUser from './getUser'
 import getUserId from './getUserId'
 import loginUser from './loginUser'
@@ -9,7 +9,7 @@ import updateUser from './updateUser'
 
 const logic = {
     registerUser,
-    //registerPetsitter,
+    registerPetsitterUser,
     getUser,
     getUserId,
     loginUser,
