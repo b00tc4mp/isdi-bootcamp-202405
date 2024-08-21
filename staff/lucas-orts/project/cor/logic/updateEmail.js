@@ -14,15 +14,17 @@ export default (userId, email, password) => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.findOne({ email }).lean()
+            return bcrypt.compare(password, user.password)
                 .catch(error => { throw new SystemError(error.message) })
-                .then(user => {
-                    if (user) throw new DuplicityError('email already exists')
+                .then(match => {
+                    if (!match) throw new CredentialsError('wrong password')
 
-                    return bcrypt.compare(password, user.password)
+                    return User.findOne({ email }).lean()
                         .catch(error => { throw new SystemError(error.message) })
-                        .then(match => {
-                            if (!match) throw new CredentialsError('wrong password')
+                        .then(user => {
+                            if (user) throw new DuplicityError('email already exists')
+
+
 
                             return User.updateOne({ _id: userId }, { $set: { email } })
                                 .catch(error => { throw new SystemError(error.message) })

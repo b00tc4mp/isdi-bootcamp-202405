@@ -38,16 +38,16 @@ const App = () => {
     }
 
     const handleLogout = () => {
-        navigate('/login')
+        navigate('/')
     }
 
     const handleAlertAccept = () => setAlertMessage(null)
 
     return <Context.Provider value={{ theme, setTheme, alert: setAlertMessage }}>
         <Routes>
-            <Route path="/login"><Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} /></Route>
-            <Route path="/register">  <Register onRegister={handleRegister} onLoginClick={handleLoginClick} /></Route>
-            <Route path="/*"><Home onLogout={handleLogout} /></Route>
+            <Route path="/login" element={<Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
+            <Route path="/register" element={<Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
+            <Route path="/*" element={<Home onLogout={handleLogout} />} />
         </Routes>
 
         {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
