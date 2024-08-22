@@ -1,36 +1,21 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import Header from './home/Header'
+import Home from './home'
 import Login from './login'
 import Register from './register'
-import Home from './home'
-import Alert from './common/Alert'
-
-import { Context } from './context'
-
 import logic from '../logic'
 
-const App = () => {
-    const navigate = useNavigate()
+import Alert from './common/Alert'
+import { Context } from './context'
 
-    const [theme, setTheme] = useState(localStorage.theme)
+export default function App() {
+    const navigate = useNavigate()
+    const [isAuthenticated, setIsAuthenticated] = useState(logic.isUserLoggedIn())
     const [alertMessage, setAlertMessage] = useState(null)
 
-    useEffect(() => {
-        document.documentElement.className = theme
-        localStorage.theme = theme
-    }, [theme])
-
-    const handleLogin = () => {
+    const handleHomeClick = () => {
         navigate('/')
-    }
-
-    const handleRegisterClick = () => {
-        navigate('/register')
-    }
-
-    const handleRegister = () => {
-        navigate('/login')
     }
 
     const handleLoginClick = () => {
@@ -38,20 +23,37 @@ const App = () => {
     }
 
     const handleLogout = () => {
+        setIsAuthenticated(false)
+        navigate('/') // Redirigir a Home después de logout
+    }
+
+    const handleLogin = () => {
+        setIsAuthenticated(true)
         navigate('/')
+    }
+
+    const handleRegisterClick = () => {
+        navigate('/register')
     }
 
     const handleAlertAccept = () => setAlertMessage(null)
 
-    return <Context.Provider value={{ theme, setTheme, alert: setAlertMessage }}>
-        <Routes>
-            <Route path="/login" element={<Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
-            <Route path="/register" element={<Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
-            <Route path="/*" element={<Home onLogout={handleLogout} />} />
-        </Routes>
-
-        {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
-    </Context.Provider>
+    return (
+        <Context.Provider value={{ alert: setAlertMessage }}>
+            <>
+                <Header
+                    onHomeClick={handleHomeClick}
+                    onLogout={handleLogout}
+                    onLoginClick={handleLoginClick} // Aquí pasamos la función correctamente
+                    isAuthenticated={isAuthenticated}
+                />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
+                    <Route path="/register" element={<Register onRegister={() => navigate('/login')} onLoginClick={handleLoginClick} />} />
+                </Routes>
+                {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
+            </>
+        </Context.Provider>
+    )
 }
-
-export default App

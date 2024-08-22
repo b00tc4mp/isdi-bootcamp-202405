@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import updateProductPrize from './updateProductPrize.js'
+import updateProductPrice from './updateProductPrice.js'
 import mongoose, { Types } from 'mongoose'
 
 const { ObjectId } = Types
@@ -11,7 +11,7 @@ import errors from '../../com/errors.js'
 
 const { NotFoundError, ValidationError } = errors
 
-describe('updateProductPrize', () => {
+describe('updateProductPrice', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
@@ -19,12 +19,12 @@ describe('updateProductPrize', () => {
     it('succeeds on existing user and product', () =>
         User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user =>
-                Product.create({ farmer: user.id, name: 'tomato', type: 'cherry', minprize: 2, maxprize: 3, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-                    .then(product => updateProductPrize(user.id, product.id, 3, 4)
+                Product.create({ farmer: user.id, name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
+                    .then(product => updateProductPrice(user.id, product.id, 3, 4)
                         .then(() => Product.findById(product.id).lean())
                         .then(updatedProduct => {
-                            expect(updatedProduct.minprize).to.equal(3)
-                            expect(updatedProduct.maxprize).to.equal(4)
+                            expect(updatedProduct.minprice).to.equal(3)
+                            expect(updatedProduct.maxprice).to.equal(4)
                         })
                     )
             )
@@ -33,8 +33,8 @@ describe('updateProductPrize', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return Product.create({ farmer: new ObjectId().toString(), name: 'tomato', type: 'cherry', minprize: 2, maxprize: 3, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-            .then(product => updateProductPrize(new ObjectId().toString(), product.id, 3, 4))
+        return Product.create({ farmer: new ObjectId().toString(), name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
+            .then(product => updateProductPrice(new ObjectId().toString(), product.id, 3, 4))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -46,7 +46,7 @@ describe('updateProductPrize', () => {
         let _error
 
         return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
-            .then(user => updateProductPrize(user.id, new ObjectId().toString(), 3, 4))
+            .then(user => updateProductPrice(user.id, new ObjectId().toString(), 3, 4))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -58,7 +58,7 @@ describe('updateProductPrize', () => {
         let error
 
         try {
-            updateProductPrize(123, new ObjectId().toString(), 3, 4)
+            updateProductPrice(123, new ObjectId().toString(), 3, 4)
         } catch (_error) {
             error = _error
         } finally {
@@ -71,7 +71,7 @@ describe('updateProductPrize', () => {
         let error
 
         try {
-            updateProductPrize(new ObjectId().toString(), 123, 3, 4)
+            updateProductPrice(new ObjectId().toString(), 123, 3, 4)
         } catch (_error) {
             error = _error
         } finally {
@@ -80,28 +80,28 @@ describe('updateProductPrize', () => {
         }
     })
 
-    it('fails on non-numeric minprize', () => {
+    it('fails on non-numeric minprice', () => {
         let error
 
         try {
-            updateProductPrize(new ObjectId().toString(), new ObjectId().toString(), '123', 123)
+            updateProductPrice(new ObjectId().toString(), new ObjectId().toString(), '123', 123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('minprize is not a number')
+            expect(error.message).to.equal('minprice is not a number')
         }
     })
-    it('fails on non-numeric maxprize', () => {
+    it('fails on non-numeric maxprice', () => {
         let error
 
         try {
-            updateProductPrize(new ObjectId().toString(), new ObjectId().toString(), 123, '123')
+            updateProductPrice(new ObjectId().toString(), new ObjectId().toString(), 123, '123')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('maxprize is not a number')
+            expect(error.message).to.equal('maxprice is not a number')
         }
     })
 

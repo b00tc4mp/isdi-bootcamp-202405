@@ -18,15 +18,15 @@ describe('createProduct', () => {
     it('succeeds on new product', () =>
         User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user =>
-                createProduct(user.id, 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                createProduct(user.id, 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
                     .then(() => Product.findOne({ farmer: user.id })
                         .then(product => {
                             expect(product.farmer.toString()).to.equal(user.id)
                             expect(product.name).to.equal('lemon')
                             expect(product.type).to.equal('')
-                            expect(product.minprize).to.equal(5.3)
-                            expect(product.maxprize).to.equal(6.1)
-                            expect(product.image).to.equal('https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                            expect(product.minprice).to.equal(5.3)
+                            expect(product.maxprice).to.equal(6.1)
+                            expect(product.image).to.equal('https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
                         })
                     )
             )
@@ -36,7 +36,7 @@ describe('createProduct', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return createProduct(new ObjectId().toString(), 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+        return createProduct(new ObjectId().toString(), 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -48,7 +48,7 @@ describe('createProduct', () => {
         let error
 
         try {
-            createProduct(123, 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+            createProduct(123, 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
         } catch (_error) {
             error = _error
         } finally {
@@ -61,7 +61,7 @@ describe('createProduct', () => {
         let error
 
         try {
-            createProduct(new ObjectId().toString(), 123, '', 5.3, 6.1, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+            createProduct(new ObjectId().toString(), 123, '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
         } catch (_error) {
             error = _error
         } finally {
@@ -74,7 +74,7 @@ describe('createProduct', () => {
         let error
 
         try {
-            createProduct(new ObjectId().toString(), 'lemon', 123, 5.3, 6.1, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+            createProduct(new ObjectId().toString(), 'lemon', 123, 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
         } catch (_error) {
             error = _error
         } finally {
@@ -83,29 +83,29 @@ describe('createProduct', () => {
         }
     })
 
-    it('fails on non-number minprize', () => {
+    it('fails on non-number minprice', () => {
         let error
 
         try {
-            createProduct(new ObjectId().toString(), 'lemon', '', '5.3', 6.1, 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+            createProduct(new ObjectId().toString(), 'lemon', '', '5.3', 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('minprize is not a number')
+            expect(error.message).to.equal('minprice is not a number')
         }
     })
 
-    it('fails on non-number maxprize', () => {
+    it('fails on non-number maxprice', () => {
         let error
 
         try {
-            createProduct(new ObjectId().toString(), 'lemon', '', 5.3, '6.1', 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+            createProduct(new ObjectId().toString(), 'lemon', '', 5.3, '6.1', 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('maxprize is not a number')
+            expect(error.message).to.equal('maxprice is not a number')
         }
     })
 

@@ -53,11 +53,11 @@ const product = new Schema({
     type: {
         type: String
     },
-    minprize: {
+    minprice: {
         type: Number,
         required: true
     },
-    maxprize: {
+    maxprice: {
         type: Number,
         required: true
     },

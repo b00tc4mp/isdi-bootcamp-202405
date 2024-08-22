@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
-import logic from '../../logic' // Asegúrate de importar la lógica
+import logic from '../../logic'
 
-export default function Header({ onHomeClick, onLogout, isAuthenticated }) {
+export default function Header({ onHomeClick, onLogout, onLoginClick, isAuthenticated }) {
     const [name, setName] = useState(null)
 
     useEffect(() => {
@@ -21,16 +21,18 @@ export default function Header({ onHomeClick, onLogout, isAuthenticated }) {
                 alert(error.message)
             }
         } else {
-            setName(null) // Clear the name when the user is not authenticated
+            setName(null)
         }
     }, [isAuthenticated])
 
     const handleLogout = () => {
         try {
-            logic.logoutUser() // Lógica para cerrar sesión
-            onLogout() // Llama al callback para actualizar el estado en Home
+            logic.logoutUser()
+
+            onLogout()
         } catch (error) {
             console.error(error)
+
             alert(error.message)
         }
     }
@@ -40,7 +42,7 @@ export default function Header({ onHomeClick, onLogout, isAuthenticated }) {
             <Container>
                 <Button onClick={onHomeClick}>Home</Button>
                 {!isAuthenticated ? (
-                    <Button>Login</Button>
+                    <Button onClick={onLoginClick}>Login</Button> // Esto debe llamar a onLoginClick
                 ) : (
                     <>
                         <Paragraph>{name}</Paragraph>
