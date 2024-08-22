@@ -25,7 +25,10 @@ export default (email, password) => {
                     user.id = user._id.toString()
                     delete user._id
 
-                    return user
+                    return {
+                        id: user.id,
+                        role: user.role
+                    }
                 })
         })
 }

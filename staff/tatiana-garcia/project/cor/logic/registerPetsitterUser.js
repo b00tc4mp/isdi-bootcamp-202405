@@ -5,13 +5,13 @@ import { validate, errors } from '../../com/index.js'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
-export default (image, name, surname, city, description, email, password, passwordRepeat, pets) => {
+export default (image, name, city, description, email, phoneNumber, password, passwordRepeat, pets) => {
     validate.image(image, 'image')
     validate.name(name, 'name')
-    validate.surname(surname, 'surname')
     validate.city(city, 'city')
     validate.description(description, 'description')
     validate.email(email, 'email')
+    validate.phone(phoneNumber, 'phone')
     validate.password(password)
     validate.pets(pets, 'pets')
 
@@ -30,10 +30,10 @@ export default (image, name, surname, city, description, email, password, passwo
             User.create({
                 image,
                 name,
-                surname,
                 city,
                 description,
                 email,
+                phoneNumber,
                 password: hash,
                 role: 'petsitter',
                 pets

@@ -59,9 +59,10 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 **User**
  - id (auto)
  - name (string)
- - surname (string)
+ - surname (string, optional)
  - email (string)
- - city ([string])
+ - phone (string, optional)
+ - city (string, optional)
  - password (string)
  -  description (string, optional)
  - image (string, optional)

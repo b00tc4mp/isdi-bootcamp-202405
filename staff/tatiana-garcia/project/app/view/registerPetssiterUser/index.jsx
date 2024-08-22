@@ -22,26 +22,26 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
 
         const imageInput = form['image-input']
         const nameInput = form['name-input']
-        const surnameInput = form['surname-input']
         const cityInput = form['city-input']
         const descriptionInput = form['description-input']
         const emailInput = form['email-input']
+        const phoneNumberInput = form['phoneNumber-input']
         const passwordInput = form['password-input']
         const passwordRepeatInput = form['password-repeat-input']
         const petsInput = form['pets-input']
 
         const image = imageInput.value
         const name = nameInput.value
-        const surname = surnameInput.value
         const city = cityInput.value
         const description = descriptionInput.value
         const email = emailInput.value
+        const phoneNumber = phoneNumberInput.value
         const password = passwordInput.value
         const passwordRepeat = passwordRepeatInput.value
         const pets = petsInput.value
 
         try {
-            logic.registerPetsitterUser(image, name, surname, city, description, email, password, passwordRepeat, pets)
+            logic.registerPetsitterUser(image, name, city, description, email, phoneNumber, password, passwordRepeat, pets)
                 .then(() => onRegisterPetsitterUser())
                 .catch(error => {
                     console.error(error)
@@ -86,11 +86,6 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' />
-                    </Container>
-
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='surname-input'>Apellidos</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' placeholder='apellidos' />
                     </Container>
 
                     <Container >
@@ -152,6 +147,11 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' />
+                    </Container>
+
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='phoneNumber-input'>Teléfono</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' id='phoneNumber-input' name='phoneNumber' placeholder='inserta tu teléfono' />
                     </Container>
 
                     <Container>
