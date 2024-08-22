@@ -136,16 +136,54 @@ const comment = new Schema({
     }
 })
 
+const message = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    text: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
+
+const chat = new Schema({
+    participants: [{
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    }],
+    messages: [{
+        type: ObjectId,
+        ref: 'Message'
+    }],
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
+
 const User = model('User', user)
 const Post = model('Post', post)
 const Event = model('Event', event)
 const Location = model('Location', point)
 const Comment = model('Comment', comment)
+const Message = model('Message', message)
+const Chat = model('Chat', chat)
 
 export {
     User,
     Post,
     Event,
     Location,
-    Comment
+    Comment,
+    Message,
+    Chat
 }

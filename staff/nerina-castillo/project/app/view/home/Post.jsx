@@ -118,7 +118,9 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
                 <Heading className='font-bold text-slate-400 text-lg'>{post.author.username}</Heading>
             </Container>
 
-            <Button onClick={handleFollowUserClick}>{isFollowing ? 'unfollow' : 'follow'}</Button>
+            <Button onClick={handleFollowUserClick}>
+                <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './follow.png'} />
+            </Button>
         </Container>
 
         {post.text && (
@@ -131,11 +133,18 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
         <Time className='mt-2'>{formatTime(new Date(post.date))}</Time>
 
         <Container className='flex justify-between w-full mb-4'>
-            <Button onClick={handleLikePostClick}>{(post.like ? 'dislike ' : 'like ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button onClick={handleLikePostClick}>
+                <Image src={(post.like ? './dislike.png ' : './like.png ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')} />
+            </Button>
             {post.author.id === logic.getUserId() && (
-                <Button onClick={handleDeletePostClick}>delete</Button>
+                <Button onClick={handleDeletePostClick}>
+                    <Image src='./delete.png' className='w-[20px] h-[20px]' />
+                </Button>
             )}
-            <Button onClick={() => setCommentsVisible(prev => !prev)}>comment</Button>
+            <Button onClick={() => setCommentsVisible(prev => !prev)}>
+                <Image src='./commented.png' className='w-[20px] h-[20px]' />
+
+            </Button>
 
         </Container>
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
 import Button from '../library/Button'
+import Image from '../library/Image'
 
 export default function EventList({ events, onBack }) {
     const [eventList, setEventList] = useState([])
@@ -31,7 +32,9 @@ export default function EventList({ events, onBack }) {
     }
 
     return <section className=' mb-[-20px] flex flex-col gap-4'>
-        <Button onClick={onBack}>back</Button>
+        <Button onClick={onBack}>
+            <Image src='./back.png' className="w-[20px] h-[20px]" />
+        </Button>
 
         {eventList.map(event => <Event
             key={event.id}

@@ -104,8 +104,11 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
 
             <Container>
                 {currentEvent.author.id === logic.getUserId() && <>
-                    <Button onClick={handleDeleteEventClick}>DELETE</Button>
-                    <Button onClick={handleEditEventClick}>EDIT</Button>
+                    <Button className='left-0' onClick={handleDeleteEventClick}>
+                        <Image src='./delete.png' className='w-[20px] h-[20px]' />
+
+                    </Button>
+                    {/* <Button onClick={handleEditEventClick}>EDIT</Button> */}
                 </>}
             </Container>
 

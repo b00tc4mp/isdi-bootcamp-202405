@@ -20,6 +20,7 @@ import toggleLikePost from './toggleLikePost'
 import createComment from './createComment'
 import getAllComments from './getAllComments'
 import deleteComment from './deleteComment'
+import createChat from './createChat'
 
 const logic = {
     registerUser,
@@ -43,7 +44,8 @@ const logic = {
     toggleLikePost,
     createComment,
     getAllComments,
-    deleteComment
+    deleteComment,
+    createChat
 }
 
 export default logic

@@ -17,6 +17,7 @@ import toggleLikePostHandler from './toggleLikePostHandler.js'
 import createCommentHandler from './createCommentHandler.js'
 import getAllCommentsHandler from './getAllCommentsHandler.js'
 import deleteCommentHandler from './deleteCommentHandler.js'
+import createChatHandler from './createChatHandler.js'
 
 export {
     registerUserHandler,
@@ -37,5 +38,6 @@ export {
     toggleLikePostHandler,
     createCommentHandler,
     getAllCommentsHandler,
-    deleteCommentHandler
+    deleteCommentHandler,
+    createChatHandler
 }

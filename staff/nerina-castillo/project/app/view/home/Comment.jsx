@@ -8,6 +8,7 @@ import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Avatar from './Avatar'
 import Confirm from '../common/Confirm'
+import Image from '../library/Image.jsx'
 
 export default function Comment({ comment, onCommentDeleted }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
@@ -42,7 +43,9 @@ export default function Comment({ comment, onCommentDeleted }) {
                 <Paragraph className='text-sm'>{comment.text}</Paragraph>
 
                 {comment.author.id === logic.getUserId() && <>
-                    <Button onClick={handleDeleteComment}>delete</Button>
+                    <Button onClick={handleDeleteComment}>
+                        <Image src='./delete.png' className="w-[15px] h-[15px]" />
+                    </Button>
                 </>}
             </Container>
         </Container>
