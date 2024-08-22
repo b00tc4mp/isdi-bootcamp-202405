@@ -1,34 +1,97 @@
-import { User, Property } from '../data/models.js'  // Asumiendo que Property es tu modelo de propiedad
-import { errors, validate } from '../../com/index.js'
+import { User, Property } from "../data/models.js";
 
-const { NotFoundError, SystemError, ValidationError } = errors
+import { validate, errors } from "../../com/index.js";
 
-export default (userId, image, description, location, price, type) => {
-    validate.string(userId, 'userId')
-    validate.string(description, 'description')
-    validate.string(location, 'location')
-    validate.number(price, 'price')
-    validate.type(type, 'type', ['floor', 'room']) // Valida que type sea 'piso' o 'habitacion'
+const { NotFoundError, SystemError } = errors;
 
-    if (image) validate.string(image, 'image')
-    if (!description) throw new ValidationError('description is required')
-    if (!location) throw new ValidationError('location is required')
-    if (!price) throw new ValidationError('price is required')
-    if (!type) throw new ValidationError('type is required')
+export default (
+  userId,
+  images,
+  title,
+  description,
+  latitude,
+  longitude,
+  price,
+  type
+) => {
+  // Validaciones
+  validate.string(userId, "userId");
+  validate.string(title, "title");
+  validate.string(description, "description");
+  validate.array(images, validate.url, "images"); // Validamos que las imágenes sean un array de URLs
+  images.forEach((image, index) => validate.url(image, `images[${index}]`)); // Validamos cada URL en el array
+  validate.latitude(latitude, "latitude");
+  validate.longitude(longitude, "longitude");
+  validate.number(price, "price");
+  validate.type(type, "type", ["apartment", "room"]);
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+  // Preparar la ubicación como un objeto Point
+  const location = {
+    type: "Point",
+    coordinates: [longitude, latitude], // Primero longitud, luego latitud
+  };
 
-            return Property.create({
-                owner: userId,  // Asume que 'owner' es el campo que referencia al usuario
-                ...(image !== undefined && { image }),
-                description,
-                location,
-                price,
-                type
-            })
-                .catch(error => { throw new SystemError(error.message) })
-        })
-}
+  // Buscar el usuario en la base de datos
+  return User.findById(userId)
+    .lean()
+    .catch((error) => {
+      throw new SystemError(error.message);
+    })
+    .then((user) => {
+      if (!user) throw new NotFoundError("user not found");
+
+      // Crear la propiedad en la base de datos
+      return Property.create({
+        images,
+        title,
+        description,
+        location,
+        price,
+        type,
+        owner: userId, // Asumimos que el campo se llama `owner` para referirse al usuario que crea la propiedad
+      }).catch((error) => {
+        throw new SystemError(error.message);
+      });
+    });
+};
+// import { Property, User } from '../data/models.js';
+// import { validate, errors } from '../../com/index.js';
+
+// const { NotFoundError, SystemError } = errors;
+
+// export default async function createProp(userId, images, description, latitude, longitude, price, type) {
+//     validate.string(userId, 'userId');
+//     validate.array(images, validate.url, 'images');
+//     validate.string(description, 'description');
+//     validate.latitude(latitude, 'latitude');
+//     validate.longitude(longitude, 'longitude');
+//     validate.number(price, 'price');
+//     validate.type(type, 'type');
+
+//     const user = await User.findById(userId);
+//     if (!user) throw new NotFoundError('User not found');
+
+//     const location = {
+//         type: 'Point',
+//         coordinates: [longitude, latitude]
+//     };
+
+//     try {
+//         const property = await Property.create({
+//             owner: userId,
+//             images,
+//             description,
+//             location,
+//             price,
+//             type
+//         });
+
+//         // Asocia la propiedad con el usuario
+//         user.properties.push(property._id);
+//         await user.save();
+
+//         return property;
+//     } catch (error) {
+//         throw new SystemError(error.message);
+//     }
+// }

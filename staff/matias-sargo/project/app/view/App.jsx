@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 import Login from './login'
 import Register from './register'
-// import Home from './home'
+import Home from './home'
 // import Alert from './common/Alert'
 
 import { Context } from '../context'
@@ -67,3 +67,4 @@ const App = () => {
 }
 
 export default App
+

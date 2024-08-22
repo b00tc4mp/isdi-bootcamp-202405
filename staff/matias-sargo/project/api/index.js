@@ -1,31 +1,34 @@
-import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
 
-import { mongoose } from '../cor/index.js'
+import { mongoose } from '../cor/index.js';
 
-import { jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
+import { jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js';
 
 import {
     registerUserHandler,
     authenticateUserHandler,
-   
-} from './handlers/index.js'
+    createPropHandler,
+    getAllPropsHandler 
+} from './handlers/index.js';
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
-        console.info(`API connected to ${process.env.MONGODB_URI}`)
+        console.info(`API connected to ${process.env.MONGODB_URI}`);
 
-        const api = express()
+        const api = express();
 
-        api.use(cors())
+        api.use(cors());
 
-        api.post('/users', jsonBodyParser, registerUserHandler)
+        api.post('/users', jsonBodyParser, registerUserHandler);
+        api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
 
-        api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+        api.post('/properties', jsonBodyParser, jwtVerifier, createPropHandler);
+        api.get('/properties', jwtVerifier, getAllPropsHandler)
 
-        api.use(errorHandler)
+        api.use(errorHandler);
 
-        api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
+        api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`));
     })
-    .catch(error => console.error(error))
+    .catch(error => console.error(error));
