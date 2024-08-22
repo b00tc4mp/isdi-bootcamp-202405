@@ -17,8 +17,7 @@ export default (userId, postId) => {
         })
         .then(post => {
             if (!post) throw new NotFoundError('post not found')
-
-            if (post.author.toString() !== userId) throw new OwnerShipError('post does not belong to user')
+            else if (post.author.toString() !== userId) throw new OwnerShipError('post does not belong to user')
 
             return Post.deleteOne({ _id: postId })
                 .catch(error => { throw new SystemError(error.message) })

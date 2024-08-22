@@ -11,7 +11,6 @@ import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/i
 import {
     authenticateUserHandler,
     registerUserHandler,
-    getUserNameHandler,
     getUserHandler,
     updateAvatarHandler,
     updatePasswordHandler,
@@ -43,8 +42,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/comments/:postId', jwtVerifier, jsonBodyParser, createCommentHandler)
 
-        api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
-
         api.get('/users/:targetUserId/settings', jwtVerifier, getUserHandler)
 
         api.get('/healthcareproviders', jwtVerifier, getAllHCPsHandler)
@@ -71,27 +68,31 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
-        new cron('0 * * * * *', () => {
+        // new cron('0 * * * * *', () => {
 
-            api.get('/', jwtVerifier, (req, res, next) => {
-                const { userId } = req
+        //     console.log('works')
 
-                try {
-                    logic.getNews(userId)
-                        .then(newsArticles => res.json(newsArticles))
-                        .catch(error => next(error))
-                } catch (error) {
-                    next(error)
-                }
-            })
-        },
-            null,
-            true,
-            'Europe/Madrid'
-        )
+        //     api.get('/', jwtVerifier, (req, res, next) => {
+        //         const { userId } = req
+
+        //         try {
+        //             logic.getNews(userId)
+        //                 .then(newsArticles => res.json(newsArticles))
+        //                 .catch(error => next(error))
+        //         } catch (error) {
+        //             next(error)
+        //         }
+        //     })
+        // },
+        //     null,
+        //     true,
+        //     'Europe/Madrid'
+        // )
 
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
     })
     .catch(error => console.error(error))
+
+//0 */2 * * *

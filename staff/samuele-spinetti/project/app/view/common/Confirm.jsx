@@ -4,9 +4,9 @@ import Paragraph from '../library/Paragraph'
 
 export default function Confirm({ message, onAccept, onCancel }) {
     return <>
-        <Container className="fixed w-screen top-0 left-0 h-screen justify-center items-center bg-black opacity-60"></Container>
+        <Container className="fixed w-screen top-0 left-0 h-screen bg-black opacity-60"></Container>
 
-        <Container className="fixed w-screen top-0 h-screen flex items-center justify-center">
+        <Container className="fixed w-screen top-0 left-0 h-screen flex items-center justify-center">
             <Container className="p-4 border bg-white h-52 w-52 rounded-xl flex flex-col justify-center items-center">
                 <Paragraph className="text-base font-semibold">{message}</Paragraph>
                 <br />

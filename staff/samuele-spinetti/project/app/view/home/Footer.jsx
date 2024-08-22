@@ -9,7 +9,7 @@ export default function Footer({ onHomeClicked, onHealthCareProvidersListClicked
 
     const handleCommunityClick = () => onCommunityClicked()
 
-    return <footer className="fixed items-center bottom-0 left-0 w-full flex justify-around shadow-[0_-1px_1px] bg-gradient-to-br from-green-400 to-fuchsia-500 h-20">
+    return <footer className="fixed items-center bottom-0 left-0 w-full flex justify-around shadow-[0_-1px_1px] bg-gradient-to-br from-green-400 to-fuchsia-500 h-20 z-40">
 
         <Container>
             <Button onClick={handleHomeClick}>
@@ -19,7 +19,7 @@ export default function Footer({ onHomeClicked, onHealthCareProvidersListClicked
 
         <Container>
             <Button onClick={handleCommunityClick}>
-                <Image src="/communityIcon.svg" alt="Community icon" className="h-[50px] w-[50px]" />
+                <Image src="/communityIcon.svg" alt="Community icon" className="h-[70px] w-[70px]" />
             </Button>
         </Container>
 

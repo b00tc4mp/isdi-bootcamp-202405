@@ -61,8 +61,8 @@ describe('deleteComment', () => {
 
         return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samu', password: '123123123' })
             .then(user => {
-                Comment.create({ author: new ObjectId().toString(), text: 'hello', post: new ObjectId().toString() })
-                    .then(post => deleteComment(user.id, post.id))
+                return Comment.create({ author: new ObjectId().toString(), text: 'hello', post: new ObjectId().toString() })
+                    .then(comment => deleteComment(user.id, comment.id))
                     .catch(error => _error = error)
                     .finally(() => {
                         expect(_error).to.be.instanceOf(OwnerShipError)

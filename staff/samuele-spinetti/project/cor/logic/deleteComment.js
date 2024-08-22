@@ -17,8 +17,7 @@ export default (userId, commentId) => {
         })
         .then(comment => {
             if (!comment) throw new NotFoundError('comment not found')
-
-            if (comment.author.toString() !== userId) throw new OwnerShipError('comment does not belong to user')
+            else if (comment.author.toString() !== userId) throw new OwnerShipError('comment does not belong to user')
 
             return Comment.deleteOne({ _id: commentId })
                 .catch(error => { throw new SystemError(error.message) })

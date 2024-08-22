@@ -38,7 +38,7 @@ export default function Header({ onProfileSettingsClicked, onNewsArticlesListCli
             </Button>
         </Container>
 
-        {location.pathname === '/' &&
+        {(location.pathname === '/' || location.pathname === '/saved') && (
             <Container className="inline-flex">
                 <Button className="bg-gray-100 hover:bg-gray-300 py-2 px-4 rounded-l" onClick={handleNewsArticlesListClick}>
                     <Image className="w-[20px] h-[20px]" src="./news.svg" />
@@ -47,7 +47,7 @@ export default function Header({ onProfileSettingsClicked, onNewsArticlesListCli
                     <Image className="w-[20px] h-[20px]" src="./heart.svg" />
                 </Button>
             </Container>
-        }
+        )}
 
         <Container className="mr-5">
             <Button className="border-black " onClick={handleLogoutClick}>Logout</Button>

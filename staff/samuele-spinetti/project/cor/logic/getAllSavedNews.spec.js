@@ -15,22 +15,35 @@ describe('getAllSavedNews', () => {
 
     beforeEach(() => Promise.all([User.deleteMany(), NewsArticle.deleteMany()]))
 
-    it('succeeds on existing user listing all fav newsArticles', () => {
+    it('succeeds on get all saved newsArticles', () => {
         return NewsArticle.create({
-            title: "The Tasty nightclub had 'a bit of a Studio 54 vibe'. A police raid put it in the headlines",
+            title: "The Tasty nightclub had 'a bit of a Studio 54 vibe'. A police raid put it in the headlines1",
             image: 'https://live-production.wcms.abc-cdn.net.au/ec2270f94596dde9729877a7f6477b6c?impolicy=wcms_watermark_news&cropH=348&cropW=618&xPos=1&yPos=0&width=862&height=485&imformat=generic',
             description: `When dozens of police stormed one of Melbourne's most popular gay night spots three decades ago, what transpired was "pretty horrific".`,
             url: 'https://www.abc.net.au/news/2024-08-08/melbourne-tasty-raid-gay-community-victoria-police/104195430',
             author: 'Andie Noonan',
             publishedAt: '2024-08-07T22:34:47.000Z'
         })
-            .then(newsArticle =>
-                User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samu', password: '123123123', favs: [newsArticle.id] })
-                    .then(user => {
-                        getAllSavedNews(user.id)
-                        User.findOne({ username: 'samu' })
-                            .then(user => expect(user.favs).to.include(newsArticle.id))
-                    })
+            .then(news1 =>
+                NewsArticle.create({
+                    title: "The Tasty nightclub had 'a bit of a Studio 54 vibe'. A police raid put it in the headlines2",
+                    image: 'https://live-production.wcms.abc-cdn.net.au/ec2270f94596dde9729877a7f6477b6c?impolicy=wcms_watermark_news&cropH=348&cropW=618&xPos=1&yPos=0&width=862&height=485&imformat=generic',
+                    description: `When dozens of police stormed one of Melbourne's most popular gay night spots three decades ago, what transpired was "pretty horrific".`,
+                    url: 'https://www.abc.net.au/news/2024-08-08/melbourne-tasty-raid-gay-community-victoria-police/104195430',
+                    author: 'Andie Noonan',
+                    publishedAt: '2024-08-07T22:34:47.000Z'
+                })
+                    .then(news2 =>
+                        User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samu', password: '123123123', favs: [news1.id, news2.id] })
+                            .then(user => {
+                                getAllSavedNews(user.id)
+                                return User.findOne({ username: 'samu' })
+                                    .then(user => {
+                                        expect(user.favs[0].toString()).to.equal(news1.id)
+                                        expect(user.favs[1].toString()).to.equal(news2.id)
+                                    })
+                            })
+                    )
             )
     })
 

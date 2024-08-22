@@ -1,4 +1,3 @@
-import getUserName from './getUserName'
 import isUserLoggedIn from './isUserLoggedIn'
 import loginUser from './loginUser'
 import logoutUser from './logoutUser'
@@ -26,7 +25,6 @@ const logic = {
     loginUser,
     logoutUser,
     registerUser,
-    getUserName,
     getUser,
     updateAvatar,
     updatePassword,

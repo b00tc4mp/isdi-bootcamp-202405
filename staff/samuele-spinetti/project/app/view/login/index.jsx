@@ -66,13 +66,13 @@ export default function Login({ onLogin, onRegisterClick }) {
                 <Input id="username-input" name="username" type="text" required />
                 <Span className="highlight"></Span>
                 <Span className="bar"></Span>
-                <Label htmlFor="username-input">Username</Label>
+                <Label htmlFor="username-input" className="text-xl">Username</Label>
             </Container>
             <Container className="group">
                 <Input id="password-input" name="password" type="password" required />
                 <Span className="highlight"></Span>
                 <Span className="bar"></Span>
-                <Label htmlFor="password-input">Password</Label>
+                <Label htmlFor="password-input" className="text-xl">Password</Label>
             </Container>
             <Button className="border-black text-[18px] border rounded w-20" type="submit">Login</Button>
         </Form>

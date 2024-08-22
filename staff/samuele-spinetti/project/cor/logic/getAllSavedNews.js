@@ -14,7 +14,7 @@ export default userId => {
             return NewsArticle.find({ _id: { $in: user.favs } }, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(newsArticles => {
-                    newsArticles.map(newsArticle => {
+                    const promises = newsArticles.map(newsArticle => {
                         newsArticle.fav = user.favs.some(newsArticleObjectId => newsArticleObjectId.toString() === newsArticle._id.toString())
                         newsArticle.id = newsArticle._id.toString()
                         delete newsArticle._id
@@ -22,7 +22,8 @@ export default userId => {
                         return newsArticle
                     })
 
-                    return newsArticles
+                    return Promise.all(promises)
+                        .then(newsArticles => newsArticles)
                 })
         })
 }

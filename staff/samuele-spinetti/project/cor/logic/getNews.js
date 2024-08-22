@@ -1,29 +1,27 @@
 import 'dotenv/config'
 import { User, NewsArticle } from '../data/models.js'
+
+import randomQuery from '../../app/util/randomQuery.js'
+
 import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
-const querys = ['LGBTQI+', 'lgbtqi+', 'gay', 'lesbian', 'homosexual', 'LGBTQ health', 'queer', 'gay pride']
-const query = querys[Math.floor(Math.random() * querys.length)]
+const pageSize = 3
 
-const API_KEY = 'ff0fbb8fbbcb42fb8677c064c4c35732'
-const NEWS_API_URL = 'https://newsapi.org/v2'
-
-const pageSize = 7
-
-const APIRequestUrl = `${NEWS_API_URL}/everything?q=${query}&pageSize=${pageSize}&language=en&apiKey=${API_KEY}`
-
-export default userId => {
+export default (userId, query) => {
     validate.id(userId, 'userId')
+    validate.string(query, 'query')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
+            const APIRequestUrl = `${process.env.NEWS_API_URL}/everything?q=${query}&pageSize=${pageSize}&language=en&apiKey=${process.env.API_KEY}`
+
             return fetch(APIRequestUrl)
                 .catch(error => { throw new SystemError(error.message) })
-                .then((response) => {
+                .then(response => {
                     const { status } = response
 
                     if (status === 200)

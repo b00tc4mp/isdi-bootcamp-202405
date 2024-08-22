@@ -56,51 +56,55 @@ export default function Register({ onRegister, onLoginClick }) {
 
         onLoginClick()
     }
-    return <main className="flex flex-col justify-center items-center bg-gradient-to-br from-green-400 to-fuchsia-500 h-screen w-screen">
-        <Container>
-            <Heading className="font-extrabold text-[40px] fixed top-0 m-5">QueerCare</Heading>
-            <Heading ñevel="2" className="font-semibold text-[30px]">Sign up</Heading>
+    return <main className="flex flex-col justify-between items-center bg-gradient-to-br from-green-400 to-fuchsia-500 min-h-screen w-full p-8">
+        <Container className="flex flex-col items-center space-y-6">
+            <Heading className="font-extrabold text-5xl text-black mt-10">QueerCare</Heading>
+            <Heading level="2" className="font-semibold text-3xl text-black">Sign up</Heading>
         </Container>
-        <Form className="flex flex-col justify-center items-center" onSubmit={handleRegisterSubmit}>
-            <Container className="group">
-                <Input id="name-input" name="name" type="text" required />
-                <Span className="highlight"></Span>
-                <Span className="bar"></Span>
-                <Label htmlFor="name-input">Name</Label>
-            </Container>
-            <Container className="group">
-                <Input id="surname-input" name="surname" type="text" required />
-                <Span className="highlight"></Span>
-                <Span className="bar"></Span>
-                <Label htmlFor="surname-input">Surname</Label>
-            </Container>
-            <Container className="group">
-                <Input id="username-input" name="username" type="text" required />
-                <Span className="highlight"></Span>
-                <Span className="bar"></Span>
-                <Label htmlFor="username-input">Username</Label>
-            </Container>
-            <Container className="group">
-                <Input id="email-input" name="email" type="text" required />
-                <Span className="highlight"></Span>
-                <Span className="bar"></Span>
-                <Label htmlFor="email-input">Email</Label>
-            </Container>
-            <Container className="group">
-                <Input id="password-input" name="password" type="password" required />
-                <Span className="highlight"></Span>
-                <Span className="bar"></Span>
-                <Label htmlFor="password-input">Password</Label>
-            </Container>
-            <Container className="group">
-                <Input id="password-repeat-input" name="password-repeat" type="password" required />
-                <Span className="highlight"></Span>
-                <Span className="bar"></Span>
-                <Label htmlFor="password-repeat-input">Repeat Password</Label>
-            </Container>
-            <Button className="border-black text-[18px] border rounded w-20" type="submit">Register</Button>
-        </Form><br />
-        <Link onClick={handleLoginClick}>Back</Link>
+        <Container className="flex flex-col justify-center items-center mb-28" >
+            <Form onSubmit={handleRegisterSubmit}>
+                <Container className="group">
+                    <Input id="name-input" name="name" type="text" required />
+                    <Span className="highlight"></Span>
+                    <Span className="bar"></Span>
+                    <Label htmlFor="name-input" className="text-xl">Name</Label>
+                </Container>
+                <Container className="group">
+                    <Input id="surname-input" name="surname" type="text" required />
+                    <Span className="highlight"></Span>
+                    <Span className="bar"></Span>
+                    <Label htmlFor="surname-input" className="text-xl">Surname</Label>
+                </Container>
+                <Container className="group">
+                    <Input id="username-input" name="username" type="text" required />
+                    <Span className="highlight"></Span>
+                    <Span className="bar"></Span>
+                    <Label htmlFor="username-input" className="text-xl">Username</Label>
+                </Container>
+                <Container className="group">
+                    <Input id="email-input" name="email" type="text" required />
+                    <Span className="highlight"></Span>
+                    <Span className="bar"></Span>
+                    <Label htmlFor="email-input" className="text-xl">Email</Label>
+                </Container>
+                <Container className="group">
+                    <Input id="password-input" name="password" type="password" required />
+                    <Span className="highlight"></Span>
+                    <Span className="bar"></Span>
+                    <Label htmlFor="password-input" className="text-xl">Password</Label>
+                </Container>
+                <Container className="group">
+                    <Input id="password-repeat-input" name="password-repeat" type="password" required />
+                    <Span className="highlight"></Span>
+                    <Span className="bar"></Span>
+                    <Label htmlFor="password-repeat-input" className="text-xl">Repeat Password</Label>
+                </Container>
+                <Container className="flex flex-col justify-center items-center gap-4">
+                    <Button className="border-black text-[18px] border rounded w-20" type="submit">Register</Button>
+                    <Link onClick={handleLoginClick}>Back</Link>
+                </Container>
+            </Form><br />
+        </Container>
 
         <Container className="flex flex-col items-center fixed bottom-0 p-10 gap-6">
             <Paragraph>Sign in with</Paragraph>
@@ -111,5 +115,5 @@ export default function Register({ onRegister, onLoginClick }) {
                 <Image src="/linkedinIcon.svg" className="w-[50px] h-[50px]" />
             </Container>
         </Container>
-    </main>
+    </main >
 }

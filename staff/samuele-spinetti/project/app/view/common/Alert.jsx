@@ -8,9 +8,9 @@ export default function Alert({ message, onAccept }) {
         <Container className="fixed w-screen top-0 h-screen bg-black opacity-60"></Container>
 
         <Container className="fixed w-screen top-0 h-screen flex items-center justify-center">
-            <Container className="p-4 border bg-white flex-col w-[10rem] h-[10rem]  flex items-center justify-center gap-5 rounded-xl">
-                <Paragraph className="font-semibold">{message}</Paragraph>
-                <Button className="border border-black rounded-xl w-24 h-10 bg-gradient-to-br from-green-400 to-fuchsia-500" onClick={onAccept}><Span className="text-white">Accept</Span></Button>
+            <Container className="p-4 border bg-white flex-col h-52 w-52 flex items-center justify-center gap-5 rounded-xl">
+                <Paragraph className="text-lg">{message}</Paragraph>
+                <Button className="border w-20 h-10 border-gray-300 bg-white rounded-lg" onClick={onAccept}>Accept</Button>
             </Container>
         </Container>
     </>

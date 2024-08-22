@@ -15,19 +15,20 @@ describe('createComment', () => {
 
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany(), Comment.deleteMany()]))
 
-    it.only('succeeds on new post', () =>
+    it('succeeds on new comment', () =>
         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123123123' })
             .then(user =>
                 Post.create({ author: user.id, caption: 'wtf' })
-                    .then(post => {
+                    .then(post =>
                         createComment(user.id, post.id, 'help')
-                            .then(() => Comment.findOne({ author: user.id }))
-                            .then(comment => {
-                                expect(comment.author.toString()).to.equal(user.id)
-                                expect(comment.text).to.equal('help')
-                                expect(comment.post).to.equal(post.id)
-                            })
-                    })
+                            .then(() => Comment.find({ author: user.id })
+                                .then(comments => {
+                                    expect(comments[0].author.toString()).to.equal(user.id)
+                                    expect(comments[0].text).to.equal('help')
+                                    expect(comments[0].post.toString()).to.equal(post.id)
+                                })
+                            )
+                    )
             )
     )
 

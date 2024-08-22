@@ -65,8 +65,11 @@ User
 - Node
 - Express
 - React
-- Mongo
+- Mongo/Mongoose (GeoJSON)
 - Tailwindcss
+- Leaflet
+- Bcrypt
+- JWT
 
 ### Data Model
 
@@ -77,15 +80,28 @@ User
 - email (string)
 - username (string)
 - password (string)
+- avatar (string)
 - favs([News.id])
 
 HealthCenter
 - id (auto)
 - name (string)
+- image (string)
 - address (string)
 - openingHours (string)
 - contactInfo (string)
+- webUrl (string)
+- tags ([string])
 - geoLocalization (string)
+
+NewsArticles
+- id (auto)
+- title (string)
+- image (string)
+- description (string)
+- url (string)
+- author (string)
+- publishedAt (Date)
 
 Post
 - id (auto)
@@ -101,3 +117,6 @@ Comment
 - post (Post.id)
 - date (Date)
 
+### Test Coverage
+
+![Test Coverage](test-coverage.png)

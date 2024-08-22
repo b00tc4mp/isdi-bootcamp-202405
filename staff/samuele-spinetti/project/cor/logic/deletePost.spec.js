@@ -61,15 +61,15 @@ describe('deletePost', () => {
         let _error
 
         return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samu', password: '123123123' })
-            .then(user => {
-                Post.create({ author: new ObjectId(), caption: 'wtf' })
+            .then(user =>
+                Post.create({ author: new ObjectId().toString(), caption: 'wtf' })
                     .then(post => deletePost(user.id, post.id))
                     .catch(error => _error = error)
                     .finally(() => {
                         expect(_error).to.be.instanceOf(OwnerShipError)
                         expect(_error.message).to.equal('post does not belong to user')
                     })
-            })
+            )
     })
 
     it('fails on non-string userId', () => {

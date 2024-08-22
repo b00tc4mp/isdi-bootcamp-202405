@@ -100,6 +100,11 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
         }
     }
 
+    const handleHideCommentsCLick = () => {
+        setComments([])
+        setCommentsVisible(false)
+    }
+
     const handleCancelCreateComment = () => setCommentsVisible(false)
 
     const handleDeletePostCancel = () => setConfirmMessage(null)
@@ -142,8 +147,8 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
         {commentsVisible && <Container>
             <Container className="flex-col items-center">
                 <Form onSubmit={handleCreateCommentSubmit}>
-                    <Container className="flex flex-col justify-center items-center">
-                        <textarea id="comment-text-input" rows="2" className="block p-2.5 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300" placeholder="Write your thoughts here..."></textarea>
+                    <Container className="flex flex-col justify-center items-center mt-2">
+                        <textarea id="comment-text-input" rows="2" className="block p-2.5 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300" placeholder="Write your comment here..."></textarea>
                     </Container>
                     <Container className="flex justify-around mt-3 mb-3">
                         <Button className="border w-20 h-10 border-gray-300 bg-white rounded-lg" type="submit">Submit</Button>
@@ -159,6 +164,11 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
                 comment={comment}
                 onCommentDeleted={handleCommentDeleted}
             />)}
+            {comments.length !== 0
+                ? <Container className="flex justify-center underline">
+                    <Button onClick={handleHideCommentsCLick}>Hide comments</Button>
+                </Container>
+                : null}
         </section>
 
         {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
