@@ -53,7 +53,7 @@ export default function Login({ onLogin, onRegisterClick }) {
     return <main className='flex flex-col w-screen h-screen dark:bg-[#1e1e1e]'>
         <Logo className='mt-28' />
         <Container className={'flex flex-col items-center justify-start text-white w-screen h-full'}>
-            <Form className='h-[70%] justify-evenly items-center my-4' onSubmit={handleLoginSubmit}>
+            <Form className='flex flex-col h-[70%] justify-evenly items-center my-4' onSubmit={handleLoginSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='password-input' type='password' placeholder='Password' />
                 <Button variant='contained' type='submit' className='active:text-black hover:text-black' >Login</Button>

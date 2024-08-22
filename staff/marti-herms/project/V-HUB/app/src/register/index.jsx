@@ -46,9 +46,9 @@ export default function Register({ onLoginClick, onRegister }) {
     }
 
     return <main className='flex flex-col justify-center w-screen h-screen dark:bg-[#1e1e1e]'>
-        <Logo className='mt-7' />
+        <Logo className='mt-6' />
         <Container className={'flex flex-col items-center justify-center text-white w-full h-screen'}>
-            <Form className='h-full justify-evenly items-center my-4' onSubmit={handleRegisterSubmit}>
+            <Form className='flex flex-col h-full justify-start items-center gap-12 my-4' onSubmit={handleRegisterSubmit}>
                 <Input id='username-input' type='text' placeholder='Username' />
                 <Input id='email-input' type='email' placeholder='Email' />
                 <Input id='password-input' type='password' placeholder='Password' />
