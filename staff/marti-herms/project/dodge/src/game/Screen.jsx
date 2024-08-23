@@ -7,14 +7,36 @@ import Controller from './Controller'
 import Obstacle from './Obstacle'
 
 import randomNumberGenerator from '../../util/randomNumberGenerator.js'
+import { SPAWN_RATE } from '../../util/constants.js'
 
-export default function Screen({ pause }) {
+
+let obstacleCount = 0
+
+export default function Screen({ pause, end, setEnd }) {
     const [position, setPosition] = useState({ top: window.innerHeight / 2 - 25, left: window.innerWidth / 2 - 25 })
     const [obstacles, setObstacles] = useState([])
-    let obstacleCount = 0
+    const [intervalId, setIntervalId] = useState(null)
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
+        if (pause || end) {
+            clearInterval(intervalId)
+        } else if (!pause && !end) {
+            handleSpawn()
+        }
+    }, [pause, end])
+
+    const handleOutOfBounds = (obstacle) => {
+        const newArray = obstacles.filter(_obstacle => _obstacle.id !== obstacle.id)
+
+        setObstacles(newArray)
+    }
+
+    const clearField = () => {
+        setObstacles([])
+    }
+
+    const handleSpawn = () => {
+        setIntervalId(setInterval(() => {
             const side = randomNumberGenerator(1, 4)
             let x, y
             switch (side) {
@@ -39,19 +61,19 @@ export default function Screen({ pause }) {
             }
 
             setObstacles(prev => ([...prev, { top: y, left: x, id: obstacleCount++ }]))
-        }, 500)
-
-        const timeoutId = setTimeout(() => clearInterval(intervalId), 2000)
-    }, [])
-
-    const handleOutOfBounds = (obstacle) => {
-        const newArray = obstacles.filter(_obstacle => _obstacle.id !== obstacle.id)
-
-        setObstacles(newArray)
+        }, SPAWN_RATE))
     }
 
     return <Container className='h-full w-full'>
-        {obstacles.map(obstacle => <Obstacle key={obstacle.id} playerPosition={position} obstacle={obstacle} pause={pause} onOutOfBounds={handleOutOfBounds} />)}
+        {obstacles.map(obstacle =>
+            <Obstacle
+                key={obstacle.id}
+                playerPosition={position}
+                obstacle={obstacle}
+                pause={pause}
+                onOutOfBounds={handleOutOfBounds}
+                setEnd={setEnd}
+                clearField={clearField} />)}
         <Player position={position} />
         <Controller position={position} setPosition={setPosition} />
     </Container>

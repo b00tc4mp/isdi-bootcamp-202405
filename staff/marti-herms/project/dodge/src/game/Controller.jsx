@@ -44,11 +44,11 @@ export default function Controller({ position, setPosition }) {
     }
 
     const handleRight = () => {
-        setPosition({ top: position.top, left: Math.min(window.innerWidth - 50, position.left + 10) })
+        setPosition({ top: position.top, left: Math.min(window.innerWidth - 25, position.left + 10) })
     }
 
     const handleDown = () => {
-        setPosition({ top: Math.min(window.innerHeight - 50, position.top + 10), left: position.left })
+        setPosition({ top: Math.min(window.innerHeight - 25, position.top + 10), left: position.left })
 
     }
 
