@@ -1,11 +1,9 @@
 import 'dotenv/config'
-
-import getAllPetsitters from './getAllPetsitters.js'
-
+import searchPetsitters from './searchPetsitters.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => getAllPetsitters())
-    .then(petsitters => console.log(petsitters))
+    .then(() => searchPetsitters('madrid'))
+    .then(petsitter => console.log(petsitter))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

@@ -200,7 +200,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='rats-input'>Rátas</label><br />
+                        <label htmlFor='rats-input'>Ratas</label><br />
 
                         <input
                             type='checkbox'

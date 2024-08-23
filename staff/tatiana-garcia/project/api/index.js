@@ -11,7 +11,8 @@ import {
     getUserHandler,
     updateUserHandler,
     registerPetsitterUserHandler,
-    getAllPetsittersHandler
+    getAllPetsittersHandler,
+    searchPetsittersHandler
 
 } from './handlers/index.js'
 
@@ -31,7 +32,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
 
-        api.get('/petsitters', jwtVerifier, getAllPetsittersHandler)
+        api.get('/petsitters', getAllPetsittersHandler)
+
+        api.get('/petsitters/search', searchPetsittersHandler)
 
         api.patch('/users', jwtVerifier, updateUserHandler)
 

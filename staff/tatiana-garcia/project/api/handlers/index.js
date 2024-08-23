@@ -4,6 +4,7 @@ import registerPetsitterUserHandler from './registerPetsitterUserHandler.js'
 import getUserHandler from './getUserHandler.js'
 import updateUserHandler from './updateUserHandler.js'
 import getAllPetsittersHandler from './getAllPetsittersHandler.js'
+import searchPetsittersHandler from './searchPetsittersHandler.js'
 
 export {
     registerUserHandler,
@@ -11,5 +12,6 @@ export {
     registerPetsitterUserHandler,
     getUserHandler,
     updateUserHandler,
-    getAllPetsittersHandler
+    getAllPetsittersHandler,
+    searchPetsittersHandler
 }

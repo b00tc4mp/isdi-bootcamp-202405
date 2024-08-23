@@ -1,1 +1,1 @@
-curl -X GET -v http://localhost:8080/petsitters -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM3YWIyZjIzYjk5ZDYwMTRhNGU2MTMiLCJyb2xlIjoicGV0c2l0dGVyIiwiaWF0IjoxNzI0MzYyNzc1fQ.4sFqqyP05aa5XBAkiYMUn_U2U0uBiIKK949ep0xUrJM"
+curl -X GET -v http://localhost:8080/petsitters

@@ -1,12 +1,19 @@
 import { User } from '../data/models.js'
 
-import { errors } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default () => {
+export default (city, pet = null) => {
+    validate.city(city, 'city')
 
-    return User.find({ role: 'petsitter' }, { __v: 0 }).sort({ name: 1 }).lean()
+    const query = { role: 'petsitter', city: city }
+
+    if (pet) {
+        query.pets = { $in: [pet] }
+    }
+
+    return User.find(query, { __v: 0 }).sort({ name: 1 }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(petsitters => {
             return petsitters.map(petsitter => ({
@@ -20,4 +27,5 @@ export default () => {
                 pets: petsitter.pets
             }))
         })
+
 }
