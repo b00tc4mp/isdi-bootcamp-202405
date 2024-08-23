@@ -1,7 +1,5 @@
 import useContext from '../context.js'
-
 import logic from '../../logic/index'
-
 import Link from '../library/Link'
 import Heading from '../library/Heading'
 import Input from '../library/Input'

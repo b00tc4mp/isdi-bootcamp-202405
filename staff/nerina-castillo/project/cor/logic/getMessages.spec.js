@@ -18,10 +18,10 @@ describe('getMessages', () => {
             .then(user =>
                 Chat.create({ participants: [user.id] })
                     .then(chat =>
-                        Message.create({ chatId: chat.id, author: user.id, text: 'hello!' })
-                            .then(message1 => {
-                                Message.create({ chatId: chat.id, author: user.id, text: 'how are you?' })
-                                    .then(message2 => {
+                        Message.create({ chat: chat.id, author: user.id, text: 'hello!' })  // Cambiado a chat.id
+                            .then(message1 =>
+                                Message.create({ chat: chat.id, author: user.id, text: 'how are you?' })  // Cambiado a chat.id
+                                    .then(message2 =>
                                         getMessages(user.id, chat.id)
                                             .then(messages => {
                                                 expect(messages).to.have.lengthOf(2)
@@ -30,8 +30,24 @@ describe('getMessages', () => {
                                                 expect(messages[1].text).to.equal(message2.text)
                                                 expect(messages[1].author.id).to.equal(user.id)
                                             })
+                                    )
+                            )
+                    )
+            )
+    })
+
+    it('fails if the author of a message is not found', () => {
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user =>
+                Chat.create({ participants: [user.id] })
+                    .then(chat =>
+                        Message.create({ chat: chat.id, author: new ObjectId().toString(), text: 'hello!' })
+                            .then(() =>
+                                getMessages(user.id, chat.id)
+                                    .catch(error => {
+                                        expect(error.message).to.equal('author not found')
                                     })
-                            })
+                            )
                     )
             )
     })

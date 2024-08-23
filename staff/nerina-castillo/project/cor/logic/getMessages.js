@@ -17,7 +17,6 @@ export default (userId, chatId) => {
                 .then(messages => {
                     const promises = messages.map(message => {
                         return User.findById(message.author).lean()
-                            .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
                                 if (!author) throw new NotFoundError('author not found')
 

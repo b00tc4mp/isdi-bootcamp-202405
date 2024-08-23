@@ -24,7 +24,7 @@ describe('createChat', () => {
             .then(users => {
                 user1 = users[0]
                 user2 = users[1]
-                return createChat([user1._id.toString(), user2._id.toString()])
+                return createChat(user1._id.toString(), user2._id.toString())
             })
             .then(chatId => {
                 expect(chatId).to.exist
@@ -41,38 +41,65 @@ describe('createChat', () => {
 
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user => {
-                return createChat([user._id.toString(), new ObjectId().toString()])
+                return createChat(new ObjectId().toString(), user._id.toString())
                     .catch(error => _error = error)
                     .finally(() => {
                         expect(_error).to.be.instanceOf(NotFoundError)
-                        expect(_error.message).to.equal('user or users not found')
+                        expect(_error.message).to.equal('user not found')
+                    })
+            })
+    })
+    it('fails on non-existing targetUser', () => {
+        let _error
+
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user => {
+                return createChat(user._id.toString(), new ObjectId().toString())
+                    .catch(error => _error = error)
+                    .finally(() => {
+                        expect(_error).to.be.instanceOf(NotFoundError)
+                        expect(_error.message).to.equal('targetUser not found')
                     })
             })
     })
 
-    it('fails on less than two users', () => {
+    it('fails on invalid userId or targetUserId', () => {
+        let _error
+
+        return User.create({ name: 'julito', username: 'julitocamelas', role: 'user', email: 'julito@camelas.com', password: 'julito123' })
+            .then(user => createChat(12345, user._id.toString()))
+            .catch(error => {
+                _error = error
+            })
+            .then(() => {
+                expect(_error).to.be.instanceOf(ValidationError)
+                expect(_error.message).to.equal('userId is not a string')
+            })
+    })
+
+    it('fails on non-string userId', () => {
         let error
 
         try {
-            createChat([new ObjectId().toString()])
+            createChat(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid userIds')
+            expect(error.message).to.equal('userId is not a string')
         }
     })
 
-    it('fails on non-array userIds', () => {
+    it('fails on non-string targetUserId', () => {
         let error
 
         try {
-            createChat('userIds')
+            createChat(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userIds is not an array')
+            expect(error.message).to.equal('targetUserId is not a string')
         }
     })
 
