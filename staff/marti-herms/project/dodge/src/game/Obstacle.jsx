@@ -2,13 +2,23 @@ import { useEffect, useState } from 'react'
 
 import Container from '../library/Container'
 
-import { OBS_SPEED, OBS_SIZE, PLAYER_SIZE } from '../../util/constants.js'
+import { OBS_PACE, OBS_RATE, OBS_SIZE, PLAYER_SIZE } from '../../util/constants.js'
 
 export default function Obstacle({ playerPosition, obstacle, pause, onOutOfBounds, setEnd, clearField }) {
     const [obstaclePosition, setObstaclePosition] = useState({ top: obstacle.top, left: obstacle.left })
     const [intervalId, setIntervalId] = useState(null)
     const [moveY] = useState(playerPosition.top - obstaclePosition.top)
     const [moveX] = useState(playerPosition.left - obstaclePosition.left)
+
+    const obsTop = obstaclePosition.top
+    const obsLeft = obstaclePosition.left
+    const obsRight = obstaclePosition.left + OBS_SIZE
+    const obsBottom = obstaclePosition.top + OBS_SIZE
+
+    const playerTop = playerPosition.top
+    const playerLeft = playerPosition.left
+    const playerRight = playerPosition.left + PLAYER_SIZE
+    const playerBottom = playerPosition.top + PLAYER_SIZE
 
     const modifier = Math.abs(moveX) / Math.abs(moveY)
 
@@ -28,10 +38,10 @@ export default function Obstacle({ playerPosition, obstacle, pause, onOutOfBound
     }, [obstaclePosition])
 
     useEffect(() => {
-        if (obstaclePosition.top < playerPosition.top + PLAYER_SIZE && obstaclePosition.top > playerPosition.top ||
-            obstaclePosition.top + OBS_SIZE < playerPosition.top + PLAYER_SIZE && obstaclePosition.top + OBS_SIZE > playerPosition.top ||
-            obstaclePosition.left < playerPosition.left + PLAYER_SIZE && obstaclePosition.left > playerPosition.left ||
-            obstaclePosition.left + OBS_SIZE < playerPosition.left + PLAYER_SIZE && obstaclePosition.left + OBS_SIZE > playerPosition.left) {
+        if (obsTop > playerTop && obsTop < playerBottom && obsLeft > playerLeft && obsLeft < playerRight ||
+            obsBottom > playerTop && obsBottom < playerBottom && obsLeft > playerLeft && obsLeft < playerRight ||
+            obsTop > playerTop && obsTop < playerBottom && obsRight > playerLeft && obsRight < playerRight ||
+            obsBottom > playerTop && obsBottom < playerBottom && obsRight > playerLeft && obsRight < playerRight) {
             setEnd(true)
             clearField()
         }
@@ -44,14 +54,14 @@ export default function Obstacle({ playerPosition, obstacle, pause, onOutOfBound
         setIntervalId(setInterval(() => {
             modifier >= 1 ?
                 setObstaclePosition(prev => ({
-                    top: moveY > 0 ? prev.top + Math.floor(OBS_SPEED * (1 / modifier)) : prev.top - Math.floor(OBS_SPEED * (1 / modifier)),
-                    left: moveX > 0 ? prev.left + Math.floor(OBS_SPEED * (1 - (1 / modifier))) : prev.left - Math.floor(OBS_SPEED * (1 - (1 / modifier)))
+                    top: moveY > 0 ? prev.top + Math.floor(OBS_PACE * (1 / modifier)) : prev.top - Math.floor(OBS_PACE * (1 / modifier)),
+                    left: moveX > 0 ? prev.left + Math.floor(OBS_PACE * (1 - (1 / modifier))) : prev.left - Math.floor(OBS_PACE * (1 - (1 / modifier)))
                 })) :
                 setObstaclePosition(prev => ({
-                    top: moveY > 0 ? prev.top + Math.floor(OBS_SPEED * (1 - modifier)) : prev.top - Math.floor(OBS_SPEED * (1 - modifier)),
-                    left: moveX > 0 ? prev.left + Math.floor(OBS_SPEED * modifier) : prev.left - Math.floor(OBS_SPEED * modifier)
+                    top: moveY > 0 ? prev.top + Math.floor(OBS_PACE * (1 - modifier)) : prev.top - Math.floor(OBS_PACE * (1 - modifier)),
+                    left: moveX > 0 ? prev.left + Math.floor(OBS_PACE * modifier) : prev.left - Math.floor(OBS_PACE * modifier)
                 }))
-        }, 300))
+        }, OBS_RATE))
     }
 
     return <Container className={`absolute bg-red-500 w-[${OBS_SIZE}px] aspect-square text-white text-4xl`} style={{ top: `${obstaclePosition.top}px`, left: `${obstaclePosition.left}px` }}>{obstacle.id}</Container>

@@ -9,7 +9,6 @@ import Obstacle from './Obstacle'
 import randomNumberGenerator from '../../util/randomNumberGenerator.js'
 import { SPAWN_RATE } from '../../util/constants.js'
 
-
 let obstacleCount = 0
 
 export default function Screen({ pause, end, setEnd }) {
@@ -18,9 +17,12 @@ export default function Screen({ pause, end, setEnd }) {
     const [intervalId, setIntervalId] = useState(null)
 
     useEffect(() => {
-        if (pause || end) {
+        if (end) {
             clearInterval(intervalId)
-        } else if (!pause && !end) {
+            obstacleCount = 0
+        } else if (pause) {
+            clearInterval(intervalId)
+        } else {
             handleSpawn()
         }
     }, [pause, end])

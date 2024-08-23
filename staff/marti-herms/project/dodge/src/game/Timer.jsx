@@ -2,23 +2,22 @@ import { useEffect } from 'react'
 
 import { TIME } from '../../util/constants.js'
 
-export default function Timer({ pause, seconds, setSeconds, setEnd }) {
+export default function Timer({ pause, seconds, setSeconds, end }) {
     useEffect(() => {
         let intervalId = null
 
-        if (!pause && TIME >= (seconds * 1000)) {
+        if (!pause && !end) {
             intervalId = setInterval(() => {
                 setSeconds((prevSeconds) => prevSeconds + 1)
             }, 1000)
         } else if (pause && seconds !== 0) {
             clearInterval(intervalId)
-        } else if (TIME <= (seconds * 1000)) {
+        } else if (end) {
             clearInterval(intervalId)
-            setEnd(true)
         }
 
         return () => clearInterval(intervalId)
-    }, [pause, seconds])
+    }, [pause, seconds, end])
 
-    return <div className='text-white text-lg'>{seconds}</div>
+    return <div className='text-white'>Time: {seconds}</div>
 } 
