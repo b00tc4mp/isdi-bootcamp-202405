@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import createChat from './createChat.js'
+import getMessages from './getMessages.js'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => createChat('66c762ef4f6050ba3a72dc90', '66c84b7e0fd60e029920a185'))
-    .then(chatId => console.log(chatId))
+    .then(() => getMessages('66c74ef148708703fcb202d9', '66c74f77cd44c4998f03f0a5'))
+    .then(messages => console.log(messages))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

@@ -18,6 +18,8 @@ import createCommentHandler from './createCommentHandler.js'
 import getAllCommentsHandler from './getAllCommentsHandler.js'
 import deleteCommentHandler from './deleteCommentHandler.js'
 import createChatHandler from './createChatHandler.js'
+import sendMessageHandler from './sendMessageHandler.js'
+import getMessagesHandler from './getMessagesHandler.js'
 
 export {
     registerUserHandler,
@@ -39,5 +41,7 @@ export {
     createCommentHandler,
     getAllCommentsHandler,
     deleteCommentHandler,
-    createChatHandler
+    createChatHandler,
+    sendMessageHandler,
+    getMessagesHandler
 }

@@ -92,6 +92,7 @@ function validateNumber(number, explain = 'number') {
 
 function validateArray(array, explain = 'array') {
     if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
+    if (array.length < 2) throw new ValidationError(`${explain} must contain at least 2 elements`)
 }
 
 const validate = {

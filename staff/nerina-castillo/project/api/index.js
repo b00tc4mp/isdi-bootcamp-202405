@@ -26,7 +26,9 @@ import {
     createCommentHandler,
     getAllCommentsHandler,
     deleteCommentHandler,
-    createChatHandler
+    createChatHandler,
+    sendMessageHandler,
+    getMessagesHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -76,6 +78,10 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
         api.post('/chats', jwtVerifier, jsonBodyParser, createChatHandler)
+
+        api.post('/chats/:chatId/messages', jwtVerifier, jsonBodyParser, sendMessageHandler)
+
+        api.get('/chats/:chatId/messages', jwtVerifier, getMessagesHandler)
 
         api.use(errorHandler)
 

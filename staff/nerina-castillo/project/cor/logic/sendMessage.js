@@ -3,6 +3,7 @@ import { errors, validate } from '../../com/index.js'
 
 const { NotFoundError, SystemError, ValidationError } = errors
 
+
 export default (userId, chatId, text) => {
     validate.string(userId, 'userId')
     validate.string(chatId, 'chatId')
@@ -11,23 +12,28 @@ export default (userId, chatId, text) => {
     if (!text) throw new ValidationError('invalid text')
 
     return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
             return Chat.findById(chatId).lean()
-                .catch(chat => {
+                .then(chat => {
                     if (!chat) throw new NotFoundError('chat not found')
 
-                    const message = {
+                    const messageData = {
                         author: userId,
-                        text: text,
-                        chat: chatId,
+                        text,
+                        chat: chatId
                     }
 
-                    return Message.create(message)
-                        .catch(error => { throw new SystemError(error.message) })
+                    return Message.create(messageData)
+                        .then(message => {
+                            return Chat.findByIdAndUpdate(chatId, { $push: { messages: message._id } })
+                                .then(() => message)
+                        })
                 })
-                .then(() => { })
+        })
+        .catch(error => {
+            if (error instanceof NotFoundError) throw error
+            throw new SystemError(error.message)
         })
 }

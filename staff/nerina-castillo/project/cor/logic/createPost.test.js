@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-
 import createPost from './createPost.js'
 
 mongoose.connect(process.env.MONGODB_URI)

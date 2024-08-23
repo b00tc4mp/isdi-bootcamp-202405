@@ -2,12 +2,11 @@ import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
     const { userId } = req
-
-    const { targetUserId } = req.body
+    const { chatId } = req.params
 
     try {
-        logic.createChat(userId, targetUserId)
-            .then(chatId => res.status(201).json(chatId))
+        logic.getMessages(userId, chatId)
+            .then(messages => res.json(messages))
             .catch(error => next(error))
     } catch (error) {
         next(error)

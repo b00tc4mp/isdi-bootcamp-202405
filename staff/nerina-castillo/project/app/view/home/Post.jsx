@@ -134,7 +134,11 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
 
         <Container className='flex justify-between w-full mb-4'>
             <Button onClick={handleLikePostClick}>
-                <Image src={(post.like ? './dislike.png ' : './like.png ') + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')} />
+                <Image className='w-[20px] h-[20px]'
+                    src={post.like ? './dislike.png' : './like.png'}
+                    alt={(post.like ? 'Dislike' : 'Like') + ' button'}
+                />
+                <span>{post.likes.length} like{post.likes.length === 1 ? '' : 's'}</span>
             </Button>
             {post.author.id === logic.getUserId() && (
                 <Button onClick={handleDeletePostClick}>

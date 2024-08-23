@@ -10,14 +10,10 @@ import Paragraph from '../library/Paragraph'
 import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Confirm from '../common/Confirm'
-import Input from '../library/Input'
-import Label from '../library/Label'
-import Form from '../library/Form'
 import formatDate from '../../util/formatDate.js'
 
 export default function Event({ event: currentEvent, onEventDeleted, onEventEdited, onBack }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
-    const [editEventVisible, setEditEventVisible] = useState(false)
 
     const handleDeleteEventClick = () => setConfirmMessage('delete event?')
 
@@ -36,45 +32,6 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
     }
 
     const handleDeleteEventCancel = () => setConfirmMessage(null)
-
-    const handleEditEventClick = () => setEditEventVisible(true)
-
-    const handleCancelEditEventClick = () => setEditEventVisible(false)
-
-    const handleEditEventSubmit = (event) => {
-        event.preventDefault()
-
-        const form = event.target
-
-        const editImageInput = form['edit-image-input']
-        const editDescriptionInput = form['edit-description-input']
-        const editLatitudeInput = form['edit-latitude-input']
-        const editLongitudeInput = form['edit-longitude-input']
-        const editStartDateInput = form['edit-start-date-input']
-        const editEndDateInput = form['edit-end-date-input']
-
-        const image = editImageInput.value
-        const description = editDescriptionInput.value
-        const latitude = editLatitudeInput.value
-        const longitude = editLongitudeInput.value
-        const startDate = editStartDateInput.value
-        const endDate = editEndDateInput.value
-
-        try {
-            logic.updateEventData(currentEvent.id, { image, description, latitude, longitude, startDate, endDate })
-                .then(() => {
-                    setEditEventVisible(false)
-                    onEventEdited()
-                })
-                .catch(error => {
-                    console.error(error)
-                    alert(error.message)
-                });
-        } catch (error) {
-            console.error(error)
-            alert(error.message)
-        }
-    }
 
     return <article className='border-b border--b border-gray-500 ml-2 mr-2 mb-10'>
         <Container>
@@ -108,29 +65,8 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
                         <Image src='./delete.png' className='w-[20px] h-[20px]' />
 
                     </Button>
-                    {/* <Button onClick={handleEditEventClick}>EDIT</Button> */}
                 </>}
             </Container>
-
-
-            {editEventVisible && <Form onSubmit={handleEditEventSubmit}>
-                <Label htmlFor='edit-image-input'>image</Label>
-                <Input id='edit-image-input' defaultValue={currentEvent.image} />
-                <Label htmlFor='edit-description-input'>description</Label>
-                <Input id='edit-description-input' defaultValue={currentEvent.description} />
-                <Label htmlFor='edit-latitude-input'>latitude</Label>
-                <Input id='edit-latitude-input' defaultValue={currentEvent.latitude} />
-                <Label htmlFor='edit-longitude-input'>longitude</Label>
-                <Input id='edit-longitude-input' defaultValue={currentEvent.longitude} />
-                <Label htmlFor='edit-start-date-input'>start date</Label>
-                <Input id='edit-start-date-input' defaultValue={currentEvent.startDate} />
-                <Label htmlFor='edit-end-date-input'>end date</Label>
-                <Input id='edit-end-date-input' defaultValue={currentEvent.endDate} />
-
-                <Button type='submit'>save</Button>
-                <Button type='reset' onClick={handleCancelEditEventClick}>cancel</Button>
-            </Form>}
-
             {confirmMessage && (<Confirm message={confirmMessage} onAccept={handleDeleteEventAccept} onCancel={handleDeleteEventCancel}></Confirm>)}
         </Container>
     </article >

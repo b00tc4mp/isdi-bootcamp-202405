@@ -28,7 +28,7 @@ const user = new Schema({
     },
     avatar: {
         type: String,
-        default: 'https://st4.depositphotos.com/21557188/23280/v/380/depositphotos_232802030-stock-illustration-vinyl-icon-white-outline-sign.jp'
+        default: './music.png'
     },
     following: {
         type: [ObjectId],
@@ -136,23 +136,6 @@ const comment = new Schema({
     }
 })
 
-const message = new Schema({
-    author: {
-        type: ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    text: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    }
-})
-
 const chat = new Schema({
     participants: [{
         type: ObjectId,
@@ -167,6 +150,28 @@ const chat = new Schema({
         type: Date,
         required: true,
         default: Date.now
+    }
+})
+
+const message = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    text: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    chat: {
+        type: ObjectId,
+        required: true,
+        ref: 'Chat'
     }
 })
 

@@ -1,20 +1,22 @@
 import { Chat, User } from '../data/models.js'
 import { errors, validate } from '../../com/index.js'
 
-const { NotFoundError, SystemError, ValidationError } = errors
+const { NotFoundError, SystemError } = errors
 
-export default (userIds) => {
-    validate.array(userIds, 'userIds')
-    if (userIds.length < 2) throw new ValidationError('invalid userIds')
+export default (userId, targetUserId) => {
+    validate.string(userId, 'userId')
+    validate.string(targetUserId, 'targetUserId')
 
-    return User.find({ _id: { $in: userIds } }).lean()
+    return Promise.all([User.findById(userId).lean(), User.findById(targetUserId).lean(), Chat.findOne({ participants: { $all: [userId, targetUserId] } }).lean()])
         .catch(error => { throw new SystemError(error.message) })
-        .then(users => {
-            if (users.length !== userIds.length) throw new NotFoundError('user or users not found')
+        .then(([user, targetUser, chat]) => {
+            if (!user) throw new NotFoundError('user not found')
+            if (!targetUser) throw new NotFoundError('targetUser not found')
+            if (chat) return chat._id.toString()
 
-            const chat = new Chat({ participants: userIds })
-
-            return chat.save()
+            return Chat.create({ participants: [userId, targetUserId] })
                 .catch(error => { throw new SystemError(error.message) })
         })
+        .then((chat) => chat._id.toString())
+
 }

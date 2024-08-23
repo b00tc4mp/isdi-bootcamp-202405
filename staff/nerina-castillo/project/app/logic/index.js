@@ -21,6 +21,8 @@ import createComment from './createComment'
 import getAllComments from './getAllComments'
 import deleteComment from './deleteComment'
 import createChat from './createChat'
+import sendMessage from './sendMessage'
+import getMessages from './getMessages'
 
 const logic = {
     registerUser,
@@ -45,7 +47,9 @@ const logic = {
     createComment,
     getAllComments,
     deleteComment,
-    createChat
+    createChat,
+    sendMessage,
+    getMessages
 }
 
 export default logic

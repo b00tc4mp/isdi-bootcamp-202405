@@ -26,6 +26,10 @@ describe('createChat', () => {
                 user2 = users[1]
                 return createChat([user1._id.toString(), user2._id.toString()])
             })
+            .then(chatId => {
+                expect(chatId).to.exist
+                return Chat.findById(chatId)
+            })
             .then(chat => {
                 expect(chat).to.exist
                 expect(chat.participants.map(participant => participant.toString())).to.have.members([user1._id.toString(), user2._id.toString()])

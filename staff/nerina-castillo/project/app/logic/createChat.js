@@ -2,8 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default userIds => {
-    validate.array(userIds, 'userIds')
+export default targetUserId => {
+    validate.string(targetUserId, 'targetUserId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/chats`, {
         method: 'POST',
@@ -11,7 +11,7 @@ export default userIds => {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ participants: userIds })
+        body: JSON.stringify({ targetUserId })
     })
         .catch(error => {
             throw new SystemError(error.message)

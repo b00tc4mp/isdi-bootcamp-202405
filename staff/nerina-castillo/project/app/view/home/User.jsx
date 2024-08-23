@@ -10,6 +10,7 @@ import Chat from './Chat'
 export default function User({ user, onUserFollowToggled }) {
     const [isFollowing, setIsFollowing] = useState(user.following)
     const [isChatOpen, setIsChatOpen] = useState(false)
+    const [chatId, setChatId] = useState(null)
 
     useEffect(() => {
         setIsFollowing(user.following)
@@ -20,6 +21,7 @@ export default function User({ user, onUserFollowToggled }) {
             logic.toggleFollowUser(user.id)
                 .then(() => {
                     setIsFollowing(prev => !prev)
+
                     onUserFollowToggled()
                 })
                 .catch(error => {
@@ -34,7 +36,30 @@ export default function User({ user, onUserFollowToggled }) {
         }
     }
 
-    const handleToggleChat = () => setIsChatOpen(prev => !prev)
+    const handleToggleChat = () => {
+        try {
+            if (!isChatOpen) {
+                logic.createChat(user.id)
+                    .then(chatId => {
+                        setChatId(chatId)
+
+                        setIsChatOpen(true)
+                    })
+                    .catch(error => {
+                        console.error(error)
+
+                        alert(error.message)
+                    })
+            } else {
+                setIsChatOpen(false)
+                setChatId(null)
+            }
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
 
     return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
         <Container className='flex justify-between items-center m-[.5rem]'>
@@ -47,12 +72,12 @@ export default function User({ user, onUserFollowToggled }) {
                 <Button onClick={handleFollowUserClick}>
                     <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './follow.png'} />
                 </Button>
-                <Button onClick={handleToggleChat} className="ml-2">
-                    chat
-                    {/* <Image className='w-[20px] h-[20px]' src='./chat.png' alt='Open Chat' /> */}
-                </Button>
+                <Button onClick={handleToggleChat} className="ml-2">chat</Button>
             </Container>
-
         </Container>
+
+        {isChatOpen && chatId && (
+            <Chat chatId={chatId} onMessageSent={() => { }} />
+        )}
     </article>
 }

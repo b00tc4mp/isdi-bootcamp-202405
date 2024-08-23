@@ -41,12 +41,12 @@ export default function CreateComment({ onCommentCreated, postId }) {
     return <section >
         <Container className='flex flex-row justify-between'>
             <Heading className='mb-4 mt-3 ml-2 text-xs text-slate-500 font-bold'>comment</Heading>
-            <Button type='submit' className=''>
-                <Image src='./send.png' className="w-[20px] h-[20px]" />
-            </Button>
         </Container>
         <Form onSubmit={handleCreateCommentSubmit}>
             <Container className='flex flex-col gap-2'>
+                <Button type='submit' className=''>
+                    <Image src='./send.png' className='w-[20px] h-[20px]' />
+                </Button>
                 <Label htmlFor='comment-text-input'></Label>
                 <Input id='comment-text-input' onChange={e => setCommentText(e.target.value)} className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none text-slate-300 mb-2' />
             </Container>
