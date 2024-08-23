@@ -8,6 +8,12 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     getUserNameHandler,
+    updatePasswordHandler,
+    updateUserAddressHandler,
+    updateUserPhoneHandler,
+    updateEmailHandler,
+    createProductHandler,
+    updateProductPriceHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -23,6 +29,18 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
+
+        api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
+
+        api.patch('/users/address', jwtVerifier, jsonBodyParser, updateUserAddressHandler)
+
+        api.patch('/users/phone', jwtVerifier, jsonBodyParser, updateUserPhoneHandler)
+
+        api.patch('/users/email', jwtVerifier, jsonBodyParser, updateEmailHandler)
+
+        api.post('/products', jwtVerifier, jsonBodyParser, createProductHandler)
+
+        api.patch('/products/price', jwtVerifier, jsonBodyParser, updateProductPriceHandler)
 
         api.use(errorHandler)
 

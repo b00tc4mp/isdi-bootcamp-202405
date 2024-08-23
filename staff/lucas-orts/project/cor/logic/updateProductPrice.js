@@ -2,11 +2,11 @@ import { User, Product } from '../data/models.js'
 import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
-export default (userId, productId, minprize, maxprize) => {
+export default (userId, productId, minprice, maxprice) => {
     validate.string(userId, 'userId')
     validate.string(productId, 'productId')
-    validate.number(minprize, 'minprize')
-    validate.number(maxprize, 'maxprize')
+    validate.number(minprice, 'minprice')
+    validate.number(maxprice, 'maxprice')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -18,7 +18,7 @@ export default (userId, productId, minprize, maxprize) => {
                 .then(product => {
                     if (!product) throw new NotFoundError('product not found')
 
-                    return Product.updateOne({ _id: productId }, { $set: { minprize, maxprize } })
+                    return Product.updateOne({ _id: productId }, { $set: { minprice, maxprice } })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })
