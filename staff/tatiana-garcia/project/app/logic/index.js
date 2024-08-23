@@ -6,6 +6,8 @@ import loginUser from './loginUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import logoutUser from './logoutUser'
 import updateUser from './updateUser'
+import searchPetsitters from './searchPetsitters'
+import getAllPetsitters from './getAllPetsitters'
 
 const logic = {
     registerUser,
@@ -15,7 +17,9 @@ const logic = {
     loginUser,
     isUserLoggedIn,
     logoutUser,
-    updateUser
+    updateUser,
+    searchPetsitters,
+    getAllPetsitters
 }
 
 export default logic

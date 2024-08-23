@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom'
-
 import Header from './Header'
 import Heading from '../library/Heading'
 import Container from '../library/Container'
@@ -8,8 +6,6 @@ import Paragraph from '../library/Paragraph'
 import Image from '../library/Image'
 
 export default function Home({ }) {
-    const navigate = useNavigate()
-
     return <>
         <Header />
         <main className='flex flex-col items-center gap-4 mt-16 mb-12 bg-teal-100'>
