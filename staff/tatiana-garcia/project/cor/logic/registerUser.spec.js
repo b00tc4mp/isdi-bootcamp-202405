@@ -23,6 +23,7 @@ describe('registerUser', () => {
                 expect(user.name).to.equal('Tatiana')
                 expect(user.surname).to.equal('Garcia')
                 expect(user.email).to.equal('tati@garcia.com')
+                expect(user.role).to.equal('regular')
 
                 return bcrypt.compare('123123123', user.password)
                     .then(match => expect(match).to.be.true)

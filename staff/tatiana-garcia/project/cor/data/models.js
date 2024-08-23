@@ -13,6 +13,9 @@ const user = new Schema({
         required: true,
         unique: true
     },
+    phoneNumber: {
+        type: String
+    },
     city: {
         type: String
     },
@@ -24,7 +27,7 @@ const user = new Schema({
         type: String,
         required: true,
         enum: ['regular', 'petsitter'],
-        default: ['regular']
+        default: 'regular'
     },
     image: {
         type: String

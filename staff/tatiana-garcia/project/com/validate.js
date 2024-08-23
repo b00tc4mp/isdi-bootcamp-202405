@@ -4,6 +4,7 @@ const { ValidationError } = errors
 
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
 const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
+const PHONE_REGEX = /^\+?\d{9,15}$/
 
 function validateString(value, explain = 'value') {
     if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
@@ -54,6 +55,11 @@ function validateArray(array, explain = ['']) {
     if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
 }
 
+function validatePhoneNumber(phoneNumber, explain = 'phoneNumber') {
+    validateString(phoneNumber, 'phoneNumber')
+    if (!PHONE_REGEX.test(phoneNumber)) throw new ValidationError(`invalid ${explain}`)
+}
+
 const validate = {
     string: validateString,
     name: validateName,
@@ -64,7 +70,8 @@ const validate = {
     description: validateDescription,
     image: validateImage,
     pets: validatePets,
-    array: validateArray
+    array: validateArray,
+    phoneNumber: validatePhoneNumber
 }
 
 export default validate

@@ -30,7 +30,7 @@ export default (image, name, surname, email, password, passwordRepeat) => {
                 name,
                 surname,
                 email,
-                password: hash
+                password: hash,
             })
                 .catch(error => { throw new SystemError(error.message) })
         )

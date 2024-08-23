@@ -1,25 +1,23 @@
-import { validate, errors } from '../../com/index.js'
+import { errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (email, password) => {
-    validate.email(email, 'email')
-    validate.password(password)
-
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
-        method: 'POST',
+export default () => {
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters`, {
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 200)
+            if (status === 200) {
                 return response.json()
-                    .then(token => sessionStorage.token = token)
+                    .then(petsitters => petsitters)
+            }
+
             return response.json()
                 .then(body => {
                     const { error, message } = body

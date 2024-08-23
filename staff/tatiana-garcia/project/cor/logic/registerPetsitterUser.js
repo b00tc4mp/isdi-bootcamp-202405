@@ -11,7 +11,7 @@ export default (image, name, city, description, email, phoneNumber, password, pa
     validate.city(city, 'city')
     validate.description(description, 'description')
     validate.email(email, 'email')
-    validate.phone(phoneNumber, 'phone')
+    validate.phoneNumber(phoneNumber, 'phoneNumber')
     validate.password(password)
     validate.pets(pets, 'pets')
 

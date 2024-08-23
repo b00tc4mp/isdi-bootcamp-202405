@@ -16,7 +16,7 @@ describe('registerPetsitterUser', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on new petsitter', () =>
-        registerPetsitterUser('https://hospitalveterinariodonostia.com/wp-content/uploads/2018/12/6-lugares-donde-puedes-ver-animales-exoticos-6.jpg', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+        registerPetsitterUser('https://hospitalveterinariodonostia.com/wp-content/uploads/2018/12/6-lugares-donde-puedes-ver-animales-exoticos-6.jpg', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
             .then(() => User.findOne({ email: 'tati@garcia.com' }).lean())
             .then(user => {
                 expect(user.image).to.equal('https://hospitalveterinariodonostia.com/wp-content/uploads/2018/12/6-lugares-donde-puedes-ver-animales-exoticos-6.jpg')
@@ -24,6 +24,7 @@ describe('registerPetsitterUser', () => {
                 expect(user.city).to.equal('Barcelona')
                 expect(user.description).to.equal('Por favor, funciona de una santa vez')
                 expect(user.email).to.equal('tati@garcia.com')
+                expect(user.phoneNumber).to.equal('655454545')
                 expect(user.pets).to.deep.equal(['conejos', 'cobayas'])
 
                 return bcrypt.compare('123123123', user.password)
@@ -34,8 +35,8 @@ describe('registerPetsitterUser', () => {
     it('fails on existing petsitter with same email', () => {
         let _error
 
-        return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
-            .then(() => registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas']))
+        return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+            .then(() => registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas']))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
@@ -43,11 +44,11 @@ describe('registerPetsitterUser', () => {
             })
     })
 
-    it('fails on non-string name', () => {
+    it('fails on non string name', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 123, 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 123, 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -60,7 +61,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', '', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', '', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -73,7 +74,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 123, '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 123, '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -86,7 +87,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', '', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', '', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -99,7 +100,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', 123, '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', 123, '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -108,11 +109,11 @@ describe('registerPetsitterUser', () => {
         }
     })
 
-    it('fails on non password short', () => {
+    it('fails on password is too short', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -121,11 +122,11 @@ describe('registerPetsitterUser', () => {
         }
     })
 
-    it('fails on non password have spaces', () => {
+    it('fails on password have spaces', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '1231 23123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '1231 23123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -138,7 +139,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123222', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123222', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -151,7 +152,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', '', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', '', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -164,7 +165,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser(123, 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser(123, 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -177,7 +178,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -190,7 +191,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 123, 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 123, 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -203,7 +204,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', '', 'tati@garcia.com', '123123123', '123123123', ['conejos', 'cobayas'])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', '', 'tati@garcia.com', '655454545', '123123123', '123123123', ['conejos', 'cobayas'])
         } catch (_error) {
             error = _error
         } finally {
@@ -217,7 +218,7 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', [])
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', [])
         } catch (_error) {
             error = _error
         } finally {
@@ -230,12 +231,38 @@ describe('registerPetsitterUser', () => {
         let error
 
         try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '123123123', '123123123', 123)
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '655454545', '123123123', '123123123', 123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('pets is not an array')
+        }
+    })
+
+    it('fails on non string phoneNumber', () => {
+        let error
+
+        try {
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', 655454545, '123123123', '123123123', ['conejos', 'cobayas'])
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('phoneNumber is not a string')
+        }
+    })
+
+    it('fails on phoneNumber have spaces', () => {
+        let error
+
+        try {
+            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '6554  54545', '123123123', '123123123', ['conejos', 'cobayas'])
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('phoneNumber has empty spaces')
         }
     })
 

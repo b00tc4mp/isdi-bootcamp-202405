@@ -1,0 +1,14 @@
+import { logic } from '../../cor/index.js'
+
+export default (req, res, next) => {
+    const { userId } = req.params
+
+    try {
+        logic.getAllPetsitters(userId)
+            .then(petsitters => res.json(petsitters))
+            .catch(error => next(error))
+    } catch (error) {
+        next(error)
+    }
+
+}

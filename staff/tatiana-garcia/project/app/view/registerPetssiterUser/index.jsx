@@ -28,7 +28,6 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         const phoneNumberInput = form['phoneNumber-input']
         const passwordInput = form['password-input']
         const passwordRepeatInput = form['password-repeat-input']
-        const petsInput = form['pets-input']
 
         const image = imageInput.value
         const name = nameInput.value
@@ -38,7 +37,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         const phoneNumber = phoneNumberInput.value
         const password = passwordInput.value
         const passwordRepeat = passwordRepeatInput.value
-        const pets = petsInput.value
+        const pets = selectedPets
 
         try {
             logic.registerPetsitterUser(image, name, city, description, email, phoneNumber, password, passwordRepeat, pets)
@@ -169,16 +168,18 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
 
                         <input
                             type='checkbox'
-                            id='rabbit-input'
-                            value='Rabbit'
+                            id='rabbits-input'
+                            value='rabbits'
+                            name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='rabbit-input'>Conejos</label><br />
+                        <label htmlFor='rabbits-input'>Conejos</label><br />
 
                         <input
                             type='checkbox'
                             id='guinea-pig-input'
-                            value='GuineaPig'
+                            value='guineaPig'
+                            name='pets-input'
                             onChange={handlePetChange}
                         />
                         <label htmlFor='guinea-pig-input'>Cobayas</label><br />
@@ -186,15 +187,26 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <input
                             type='checkbox'
                             id='hamsters-input'
-                            value='Hamsters'
+                            value='hamsters'
+                            name='pets-input'
                             onChange={handlePetChange}
                         />
                         <label htmlFor='hamsters-input'>Hamsters</label><br />
 
                         <input
                             type='checkbox'
+                            id='rats-input'
+                            value='rats'
+                            name='pets-input'
+                            onChange={handlePetChange}
+                        />
+                        <label htmlFor='rats-input'>Rátas</label><br />
+
+                        <input
+                            type='checkbox'
                             id='birds-input'
-                            value='Birds'
+                            value='birds'
+                            name='pets-input'
                             onChange={handlePetChange}
                         />
                         <label htmlFor='birds-input'>Aves</label><br />
@@ -202,7 +214,8 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <input
                             type='checkbox'
                             id='reptiles-input'
-                            value='Reptiles'
+                            value='reptiles'
+                            name='pets-input'
                             onChange={handlePetChange}
                         />
                         <label htmlFor='reptiles-input'>Reptiles</label><br /><br />
