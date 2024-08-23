@@ -18,7 +18,7 @@ describe('updatePassword', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', () => {
-        debugger
+
         return bcrypt.hash('123123123', 8)
             .then(hash => User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: hash }))
             .then(user => updatePassword(user.id, '123123123', '123456789', '123456789')
@@ -44,7 +44,7 @@ describe('updatePassword', () => {
             })
     })
 
-    it('fails on non matching passwords', () => {
+    it('fails on wrong password', () => {
         let _error
 
         return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })

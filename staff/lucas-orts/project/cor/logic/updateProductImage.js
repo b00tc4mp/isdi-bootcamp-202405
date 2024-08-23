@@ -2,11 +2,10 @@ import { User, Product } from '../data/models.js'
 import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError, OwnershipError } = errors
 
-export default (userId, productId, minprice, maxprice) => {
+export default (userId, productId, image) => {
     validate.string(userId, 'userId')
     validate.string(productId, 'productId')
-    validate.number(minprice, 'minprice')
-    validate.number(maxprice, 'maxprice')
+    validate.url(image, 'image')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -20,7 +19,7 @@ export default (userId, productId, minprice, maxprice) => {
 
                     if (product.farmer.toString() !== userId) throw new OwnershipError('product does not belong to user')
 
-                    return Product.updateOne({ _id: productId }, { $set: { minprice, maxprice } })
+                    return Product.updateOne({ _id: productId }, { $set: { image } })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import updateProductPrice from './updateProductPrice.js'
+import updateProductImage from './updateProductImage.js'
 import mongoose, { Types } from 'mongoose'
 
 const { ObjectId } = Types
@@ -11,7 +11,7 @@ import errors from '../../com/errors.js'
 
 const { NotFoundError, ValidationError } = errors
 
-describe('updateProductPrice', () => {
+describe('updateProductImage', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
@@ -20,11 +20,10 @@ describe('updateProductPrice', () => {
         User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user =>
                 Product.create({ farmer: user.id, name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-                    .then(product => updateProductPrice(user.id, product.id, 3, 4)
+                    .then(product => updateProductImage(user.id, product.id, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?')
                         .then(() => Product.findById(product.id).lean())
                         .then(updatedProduct => {
-                            expect(updatedProduct.minprice).to.equal(3)
-                            expect(updatedProduct.maxprice).to.equal(4)
+                            expect(updatedProduct.image).to.equal('https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?')
                         })
                     )
             )
@@ -34,7 +33,7 @@ describe('updateProductPrice', () => {
         let _error
 
         return Product.create({ farmer: new ObjectId().toString(), name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-            .then(product => updateProductPrice(new ObjectId().toString(), product.id, 3, 4))
+            .then(product => updateProductImage(new ObjectId().toString(), product.id, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -46,7 +45,7 @@ describe('updateProductPrice', () => {
         let _error
 
         return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
-            .then(user => updateProductPrice(user.id, new ObjectId().toString(), 3, 4))
+            .then(user => updateProductImage(user.id, new ObjectId().toString(), 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -60,7 +59,7 @@ describe('updateProductPrice', () => {
         return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user => {
                 Product.create({ farmer: new ObjectId(), name: 'lemon', type: '', minprice: 5.3, maxprice: 6.1, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-                    .then(product => updateProductPrice(user.id, product.id))
+                    .then(product => updateProductImage(user.id, product.id))
                     .catch(error => _error = error)
                     .finally(() => {
                         expect(_error).to.be.instanceOf(OwnerShipError)
@@ -73,7 +72,7 @@ describe('updateProductPrice', () => {
         let error
 
         try {
-            updateProductPrice(123, new ObjectId().toString(), 3, 4)
+            updateProductImage(123, new ObjectId().toString(), 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?')
         } catch (_error) {
             error = _error
         } finally {
@@ -86,7 +85,7 @@ describe('updateProductPrice', () => {
         let error
 
         try {
-            updateProductPrice(new ObjectId().toString(), 123, 3, 4)
+            updateProductImage(new ObjectId().toString(), 123, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?')
         } catch (_error) {
             error = _error
         } finally {
@@ -95,28 +94,29 @@ describe('updateProductPrice', () => {
         }
     })
 
-    it('fails on non-numeric minprice', () => {
+    it('fails on non-string image', () => {
         let error
 
         try {
-            updateProductPrice(new ObjectId().toString(), new ObjectId().toString(), '123', 123)
+            updateProductImage(new ObjectId().toString(), new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('minprice is not a number')
+            expect(error.message).to.equal('image is not a string')
         }
     })
-    it('fails on non-numeric maxprice', () => {
+
+    it('fails on invalid image', () => {
         let error
 
         try {
-            updateProductPrice(new ObjectId().toString(), new ObjectId().toString(), 123, '123')
+            updateProductImage(new ObjectId().toString(), new ObjectId().toString(), 'htpp:')
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('maxprice is not a number')
+            expect(error.message).to.equal('invalid image')
         }
     })
 

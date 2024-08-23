@@ -95,17 +95,16 @@ describe('updateEmail', () => {
         }
     })
 
-    it('fails on non-matching passwords', () => {
-        let error
+    it('fails on wrong password', () => {
+        let _error
 
-        try {
-            updateEmail(new ObjectId().toString(), 'peta@zeta.com', '123123123')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(CredentialsError)
-            expect(error.message).to.equal('passwords do not match')
-        }
+        return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
+            .then(user => updateEmail(user.id, 'peta@zeta.com', '123123124'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(CredentialsError)
+                expect(_error.message).to.equal('wrong password')
+            })
     })
 
     afterEach(() => User.deleteMany())
