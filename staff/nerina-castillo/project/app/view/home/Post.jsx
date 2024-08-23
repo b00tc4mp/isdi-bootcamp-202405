@@ -133,12 +133,15 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
         <Time className='mt-2'>{formatTime(new Date(post.date))}</Time>
 
         <Container className='flex justify-between w-full mb-4'>
-            <Button onClick={handleLikePostClick}>
-                <Image className='w-[20px] h-[20px]'
+            <Button onClick={handleLikePostClick} className='flex items-center'>
+                <Image
+                    className='w-[20px] h-[20px] mr-1'
                     src={post.like ? './dislike.png' : './like.png'}
                     alt={(post.like ? 'Dislike' : 'Like') + ' button'}
                 />
-                <span>{post.likes.length} like{post.likes.length === 1 ? '' : 's'}</span>
+                <span className='text-sm'>
+                    {post.likes.length} like{post.likes.length === 1 ? '' : 's'}
+                </span>
             </Button>
             {post.author.id === logic.getUserId() && (
                 <Button onClick={handleDeletePostClick}>

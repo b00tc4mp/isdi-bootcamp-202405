@@ -45,18 +45,18 @@ export default function Header({ onHomeClick, onLogout, onSearchClick, onCalenda
 
     const handleCalendarSearch = () => onCalendarClick()
 
-    return <header className='fixed start-0 top-0 w-full flex justify-around py-2 px-0 z-10 bg-slate-800 text-slate-300 border-b border-slate-300'>
+    return <header className='fixed start-0 top-0 w-full flex justify-around py-4 px-0 z-10 bg-slate-800 text-slate-300 border-b border-slate-300'>
         <Button onClick={handleHomeClick}>
-            <Image src='./home.png' className="w-[30px] h-[30px]" />
+            <Image src='./home.png' className='w-[30px] h-[30px]' />
         </Button>
         <Button onClick={handleSearchClick}>
-            <Image src='./search.png' className="w-[30px] h-[30px]" />
+            <Image src='./search.png' className='w-[30px] h-[30px]' />
         </Button>
         <Button onClick={handleCalendarSearch}>
-            <Image src='./calendar.png' className="w-[30px] h-[30px]" />
+            <Image src='./calendar.png' className='w-[30px] h-[30px]' />
         </Button>
         <Button onClick={handleLogout}>
-            <Image src='./logout.png' className="w-[30px] h-[30px]" />
+            <Image src='./logout.png' className='w-[30px] h-[30px]' />
         </Button>
     </header>
 }

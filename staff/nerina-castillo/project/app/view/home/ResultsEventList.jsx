@@ -65,8 +65,8 @@ export default function ResultsEventList() {
     }
 
     return (
-        <section className='flex flex-col gap-1'>
-            <Heading className='mt-[48px] ml-2 text-2xl font-bold'>calendar</Heading>
+        <section className='mt-[60px] flex flex-col gap-4'>
+            <Heading className='mt-2 ml-2 text-2xl font-bold'>search</Heading>
 
             <SearchEvent />
 

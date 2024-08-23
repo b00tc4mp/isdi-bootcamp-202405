@@ -42,9 +42,9 @@ export default function Search() {
         setQuery(query)
     }
 
-    return <Container className='mt-[40px]'>
+    return <Container className='mt-[60px]'>
         <Heading className='mt-2 ml-2 text-2xl font-bold'>search</Heading>
-        <Form className='mt-6 gap-[.2rem]' onSubmit={handleSubmit}>
+        <Form className='mt-[36px] gap-[.2rem]' onSubmit={handleSubmit}>
             <Input name='q' placeholder='search' value={query} onChange={handleInputChange} />
             <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEARCH</Button>
         </Form>

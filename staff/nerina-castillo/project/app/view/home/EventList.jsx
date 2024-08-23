@@ -31,9 +31,9 @@ export default function EventList({ events, onBack }) {
         }
     }
 
-    return <section className=' mb-[-20px] flex flex-col gap-4'>
+    return <section className='mb-[-65px] flex flex-col'>
         <Button onClick={onBack}>
-            <Image src='./back.png' className="w-[20px] h-[20px]" />
+            <Image src='./back.png' className='w-[20px] h-[20px] mb-4' />
         </Button>
 
         {eventList.map(event => <Event

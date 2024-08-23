@@ -1,8 +1,6 @@
 import { useState } from 'react'
-
 import logic from '../../logic'
 import formatTime from '../../util/formatTime.js'
-
 import Button from '../library/Button'
 import Time from '../library/Time'
 import Image from '../library/Image'
@@ -12,7 +10,7 @@ import Container from '../library/Container'
 import Confirm from '../common/Confirm'
 import formatDate from '../../util/formatDate.js'
 
-export default function Event({ event: currentEvent, onEventDeleted, onEventEdited, onBack }) {
+export default function Event({ event: currentEvent, onEventDeleted }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
 
     const handleDeleteEventClick = () => setConfirmMessage('delete event?')
@@ -33,7 +31,7 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
 
     const handleDeleteEventCancel = () => setConfirmMessage(null)
 
-    return <article className='border-b border--b border-gray-500 ml-2 mr-2 mb-10'>
+    return <article className='border-b border--b border-gray-500 ml-2 mr-2 mb-[60px]'>
         <Container>
             {currentEvent.image && (
                 <Image src={currentEvent.image} title={currentEvent.title} alt='event image' />
@@ -57,9 +55,10 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
                 <span>{currentEvent.tickets}</span>
             </Paragraph>
             <Heading className='text-xs text-slate-500'>{currentEvent.author.username}</Heading>
-            <Time>{formatTime(new Date(currentEvent.date))}</Time>
 
-            <Container>
+            <Container className='flex items-center justify-between'>
+                <Time>{formatTime(new Date(currentEvent.date))}</Time>
+
                 {currentEvent.author.id === logic.getUserId() && <>
                     <Button className='left-0' onClick={handleDeleteEventClick}>
                         <Image src='./delete.png' className='w-[20px] h-[20px]' />
@@ -67,6 +66,7 @@ export default function Event({ event: currentEvent, onEventDeleted, onEventEdit
                     </Button>
                 </>}
             </Container>
+
             {confirmMessage && (<Confirm message={confirmMessage} onAccept={handleDeleteEventAccept} onCancel={handleDeleteEventCancel}></Confirm>)}
         </Container>
     </article >

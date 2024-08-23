@@ -53,7 +53,7 @@ export default function FollowingPostList({ refreshStamp }) {
 
     const handleCommentCreated = () => loadPosts()
 
-    return <Container className='mt-[40px] mb-[40px] flex flex-col gap-3'>
+    return <Container className='mt-[60px] mb-[60px] flex flex-col gap-3'>
         <Heading className='mt-2 ml-2 text-2xl font-bold'>{username}</Heading>
         {posts.map(post => <Post
             key={post.id}

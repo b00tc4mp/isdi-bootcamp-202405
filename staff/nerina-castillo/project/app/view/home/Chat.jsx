@@ -8,8 +8,9 @@ import Container from '../library/Container'
 import Input from '../library/Input.jsx'
 import Avatar from './Avatar'
 import Heading from '../library/Heading.jsx'
+import Image from '../library/Image'
 
-export default function Chat({ chatId, onMessageSent }) {
+export default function Chat({ chatId, userId, onMessageSent }) {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState('')
 
@@ -27,7 +28,7 @@ export default function Chat({ chatId, onMessageSent }) {
                     .catch(error => {
                         console.error(error)
                         alert(error.message)
-                    });
+                    })
             } catch (error) {
                 console.error(error)
                 alert(error.message)
@@ -64,26 +65,43 @@ export default function Chat({ chatId, onMessageSent }) {
         }
     }
 
-    return <Container>
-        <Container>
-            {messages.slice().reverse().map(message => <Container
-                key={message.id}
-            >
-                <Container>
-                    <Avatar url={message.author.avatar} />
-                    <Heading>{message.author.username}</Heading>
-                </Container>
-                <Container>
-                    <Paragraph>{message.text}</Paragraph>
-                    <Time>{formatTime(new Date(message.date))}</Time>
-                </Container>
+    return (
+        <Container className='bg-slate-300 flex flex-col text-slate-700 rounded-lg mb-2'>
+            <Container className='flex-1 overflow-y-auto'>
+                {messages.slice().reverse().map(message => (
+                    <Container
+                        key={message.id}
+                        className={`p-2 flex ${message.author.id === userId ? 'justify-end' : 'justify-start'}`}
+                    >
+                        <Container className={`max-w-[70%] flex flex-col ${message.author.id === userId ? 'items-end' : 'items-start'}`}>
+                            <Container className={`flex items-center ${message.author.id === userId ? 'flex-row-reverse' : ''}`}>
+                                <Avatar url={message.author.avatar} />
+                                <Heading className={`font-semibold text-slate-600 ml-2 ${message.author.id === userId ? 'mr-2 ml-0' : ''}`}>
+                                    {message.author.username}
+                                </Heading>
+                            </Container>
+                            <Container className={`mt-1 ${message.author.id === userId ? 'text-right' : 'text-left'}`}>
+                                <Paragraph>
+                                    {message.text}
+                                </Paragraph>
+                                <Time className='text-xs text-gray-500'>
+                                    {formatTime(new Date(message.date))}
+                                </Time>
+                            </Container>
+                        </Container>
+                    </Container>
+                ))}
             </Container>
-            )}
+            <Container className='p-2 flex items-center'>
+                <Input
+                    value={newMessage}
+                    onChange={e => setNewMessage(e.target.value)}
+                    className='flex-1 mr-2 border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none'
+                />
+                <Button onClick={handleSendMessage} className='self-end'>
+                    <Image className='w-[20px] h-[20px]' src='./chat.png' />
+                </Button>
+            </Container>
         </Container>
-        <Container>
-            <Input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
-            <Button onClick={handleSendMessage}>send</Button>
-        </Container>
-
-    </Container>
+    )
 }

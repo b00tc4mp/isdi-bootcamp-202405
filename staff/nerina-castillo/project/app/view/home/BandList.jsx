@@ -30,7 +30,7 @@ export default function BandList() {
     }
 
     return <section className='mb-[40px] flex flex-col gap-4'>
-        <Heading className='mt-[48px] ml-2 text-2xl font-bold'>bands</Heading>
+        <Heading className='mt-[68px] ml-2 text-2xl font-bold'>bands</Heading>
 
         <Container >
             {users.map(user => <User
