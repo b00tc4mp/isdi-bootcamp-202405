@@ -111,7 +111,7 @@ const newsArticle = new Schema({
 
 const post = new Schema({
     author: {
-        type: String,
+        type: ObjectId,
         required: true,
         ref: 'User'
     },
@@ -151,6 +151,45 @@ const comment = new Schema({
     }
 })
 
+const chat = new Schema({
+    participants: {
+        type: [ObjectId],
+        ref: 'User',
+        required: true
+    },
+    messages: {
+        type: [ObjectId],
+        ref: 'Message'
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
+
+const message = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    message: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    chat: {
+        type: ObjectId,
+        required: true,
+        ref: 'Chat'
+    }
+})
+
 healthCareProvider.index({ location: '2dsphere' })
 
 const User = model('User', user)
@@ -159,6 +198,8 @@ const HealthCareProvider = model('HealthCareProvider', healthCareProvider)
 const NewsArticle = model('NewsArticle', newsArticle)
 const Post = model('Post', post)
 const Comment = model('Comment', comment)
+const Chat = model('Chat', chat)
+const Message = model('Message', message)
 
 export {
     User,
@@ -166,5 +207,7 @@ export {
     HealthCareProvider,
     NewsArticle,
     Post,
-    Comment
+    Comment,
+    Chat,
+    Message
 }

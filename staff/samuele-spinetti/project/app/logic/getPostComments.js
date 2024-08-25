@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default postId => {
     validate.id(postId, 'postId')
 
-    return fetch(`http://localhost:8080/comments/${postId}`, {
+    return fetch(`http://localhost:8080/${postId}/comments`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

@@ -29,15 +29,16 @@ Directories and contact information for LGBTQI+-friendly healthcare providers an
 ### Use Cases
 
 User
-- View latest news about sexual health
-- Search for LGBTQI+ friendly healthcare provider
+- View latest news about LGBTQI+ community
+- Toggle save news about LGBTQI+ community
+- Search for LGBTQI+ friendly healthcare provider by distance, name, and keywords
+- View information of healthcare provider
 - Publish a post in the QCC(QueerCareCommunity)
 - Delete a post in the QCC
 - Add comment to a post in the QCC
 - Delete your own comment from a post
 - Toggle like a post in the QCC
 - Change personal informations
-- Search HealthCare providers 
 
 ### UIUX Design
 

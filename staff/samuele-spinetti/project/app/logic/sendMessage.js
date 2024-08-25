@@ -2,21 +2,23 @@ import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default postId => {
-    validate.id(postId, 'postId')
+export default (chatId, message) => {
+    validate.id(chatId, 'chatId')
+    validate.string(message, 'message')
 
-    return fetch(`http://localhost:8080/comments/${postId}`, {
+    return fetch(`http://localhost:8080/${chatId}/message`, {
+        method: 'POST',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
-        }
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 200)
-                return response.json()
-                    .then(comments => comments)
+            if (status === 201) return
 
             return response.json()
                 .then(body => {

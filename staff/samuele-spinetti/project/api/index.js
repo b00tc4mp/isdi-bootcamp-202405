@@ -2,6 +2,8 @@ import 'dotenv/config'
 import express from 'express'
 import { CronJob as cron } from 'cron'
 
+import randomQuery from '../app/util/randomQuery.js'
+
 import { logic } from '../cor/index.js'
 
 import { mongoose } from '../cor/index.js'
@@ -25,7 +27,11 @@ import {
     createCommentHandler,
     getAllCommentsHandler,
     deleteCommentHandler,
-    getAllNewsHandler
+    getAllNewsHandler,
+    getPostCommentsHandler,
+    createChatHandler,
+    sendMessageHandler,
+    getChatMessagesHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -42,6 +48,10 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/comments/:postId', jwtVerifier, jsonBodyParser, createCommentHandler)
 
+        api.post('/chat/:targetUserId', jwtVerifier, createChatHandler)
+
+        api.post('/:chatId/message', jwtVerifier, jsonBodyParser, sendMessageHandler)
+
         api.get('/users/:targetUserId/settings', jwtVerifier, getUserHandler)
 
         api.get('/healthcareproviders', jwtVerifier, getAllHCPsHandler)
@@ -56,6 +66,10 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/comments/:postId', jwtVerifier, getAllCommentsHandler)
 
+        api.get('/:postId/comments', jwtVerifier, getPostCommentsHandler)
+
+        api.get('/:targetUserId/messages', jwtVerifier, getChatMessagesHandler)
+
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
@@ -68,31 +82,29 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
-        // new cron('0 * * * * *', () => {
+        new cron(
+            '0 * * * *',
+            () => {
 
-        //     console.log('works')
+                console.log('news at ' + new Date(Date.now()))
 
-        //     api.get('/', jwtVerifier, (req, res, next) => {
-        //         const { userId } = req
+                const query = randomQuery()
 
-        //         try {
-        //             logic.getNews(userId)
-        //                 .then(newsArticles => res.json(newsArticles))
-        //                 .catch(error => next(error))
-        //         } catch (error) {
-        //             next(error)
-        //         }
-        //     })
-        // },
-        //     null,
-        //     true,
-        //     'Europe/Madrid'
-        // )
+                try {
+                    logic.getNews(query)
+                        .catch(error => console.error(error))
+
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+            null,
+            true,
+            'Europe/Madrid'
+        )
 
         api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`))
     })
     .catch(error => console.error(error))
-
-//0 */2 * * *

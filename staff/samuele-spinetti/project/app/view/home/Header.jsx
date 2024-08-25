@@ -8,7 +8,7 @@ import Container from '../library/Container'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-export default function Header({ onProfileSettingsClicked, onNewsArticlesListClicked, onNewsArticlesSavedListClicked, onLogout }) {
+export default function Header({ onProfileSettingsClicked, onNewsArticlesListClicked, onNewsArticlesSavedListClicked, onPrivateChatsClicked, onLogout }) {
     const location = useLocation()
     const { alert } = useContext()
 
@@ -30,6 +30,8 @@ export default function Header({ onProfileSettingsClicked, onNewsArticlesListCli
 
     const handleNewsArticlesSavedListClick = () => onNewsArticlesSavedListClicked()
 
+    const handlePrivateChatsClick = () => onPrivateChatsClicked()
+
     return <header className="fixed w-full flex justify-between bg-gradient-to-br from-green-400 to-fuchsia-500 gap-4 p-2 items-center box-border shadow-[0_1px_1px] h-20 top-0 left-0 z-40">
 
         <Container className="ml-5">
@@ -49,9 +51,15 @@ export default function Header({ onProfileSettingsClicked, onNewsArticlesListCli
             </Container>
         )}
 
-        <Container className="mr-5">
-            <Button className="border-black " onClick={handleLogoutClick}>Logout</Button>
-        </Container>
+        {(location.pathname === '/' || location.pathname === '/saved' || location.pathname === '/settings' || location.pathname === '/search') &&
+            <Container className="mr-5">
+                <Button className="border-black " onClick={handleLogoutClick}>Logout</Button>
+            </Container>}
+
+        {(location.pathname === '/community' || location.pathname === '/chats') &&
+            <Container className="mr-5">
+                <Button onClick={handlePrivateChatsClick}><Image className="h-[40px] w-[40px]" src="./chatIcon.svg"></Image></Button>
+            </Container>}
 
     </header >
 }

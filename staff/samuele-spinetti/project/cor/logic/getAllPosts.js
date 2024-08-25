@@ -20,7 +20,10 @@ export default userId => {
                         return User.findById(post.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
-                                post.authorId = author._id.toString()
+                                post.author = {
+                                    id: author._id.toString(),
+                                    avatar: author.avatar,
+                                }
 
                                 post.id = post._id.toString()
                                 delete post._id

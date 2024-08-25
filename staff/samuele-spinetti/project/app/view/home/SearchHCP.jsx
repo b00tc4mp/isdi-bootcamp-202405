@@ -14,8 +14,8 @@ export default function SearchHCP() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState('')
 
-    const q = searchParams.get('q') || ''
-    const distance = searchParams.get('distance') || '10'
+    const q = searchParams.get('q')
+    const distance = searchParams.get('distance')
 
     useEffect(() => {
         if (q)
@@ -31,9 +31,9 @@ export default function SearchHCP() {
         const { value: distance } = form.distance
 
         if (!query.trim())
-            navigate(`/search?q=${query}&distance=${distance}`)
-        else if (location.pathname !== '/search')
             navigate('/search')
+        else if (location.pathname !== '/search')
+            navigate(`/search?q=${query}&distance=${distance}`)
         else
             setSearchParams({ q: query, distance })
 

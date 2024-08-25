@@ -24,9 +24,8 @@ describe('getAllPosts', () => {
                             .then(post2 =>
                                 getAllPosts(user.id)
                                     .then(posts => {
-                                        debugger
-                                        expect(posts[0].authorId).to.equal(user.id)
-                                        expect(posts[1].authorId).to.equal(user.id)
+                                        expect(posts[0].author.id).to.equal(user.id)
+                                        expect(posts[1].author.id).to.equal(user.id)
                                         expect(posts[0].caption).to.equal('help2')
                                         expect(posts[1].caption).to.equal('help1')
                                     })

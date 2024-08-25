@@ -11,8 +11,8 @@ export default function ResultsHCPList() {
     const [healthCareProviders, setHealthCareProviders] = useState([])
     const { alert } = useContext()
 
-    const q = searchParams.get('q') || ''
-    const distance = Number(searchParams.get('distance') || '10')
+    const q = searchParams.get('q')
+    const distance = Number(searchParams.get('distance'))
 
     useEffect(() => {
         loadHCP()

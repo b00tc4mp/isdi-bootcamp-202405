@@ -16,6 +16,10 @@ import toggleLikePost from './toggleLikePost.js'
 import createComment from './createComment.js'
 import getAllComments from './getAllComments.js'
 import deleteComment from './deleteComment.js'
+import getPostComments from './getPostComments.js'
+import createChat from './createChat.js'
+import sendMessage from './sendMessage.js'
+import getChatMessages from './getChatMessages.js'
 
 const logic = {
     authenticateUser,
@@ -35,7 +39,11 @@ const logic = {
     toggleLikePost,
     createComment,
     getAllComments,
-    deleteComment
+    deleteComment,
+    getPostComments,
+    createChat,
+    sendMessage,
+    getChatMessages
 }
 
 export default logic

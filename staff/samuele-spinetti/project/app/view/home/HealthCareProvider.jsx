@@ -89,7 +89,13 @@ export default function HealthCareProvider({ healthCareProvider }) {
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
                         <Marker position={healthCareProvider.location.coordinates}>
-                            <Popup>{healthCareProvider.name}</Popup>
+                            <Popup>
+                                {healthCareProvider.name}
+                                <br />
+                                <a href={`http://maps.google.com/maps?q=${healthCareProvider.location.coordinates}`} target="_blank" rel="noopener noreferrer" className="underline">
+                                    Google Maps
+                                </a>
+                            </Popup>
                         </Marker>
                     </MapContainer>
 

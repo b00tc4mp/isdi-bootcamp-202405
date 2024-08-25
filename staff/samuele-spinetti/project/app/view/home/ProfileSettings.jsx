@@ -10,6 +10,7 @@ import Form from '../library/Form'
 import useContext from '../context.js'
 
 import logic from '../../logic'
+import Paragraph from '../library/Paragraph.jsx'
 
 export default function ProfileSettings() {
     const [user, setUser] = useState(null)
@@ -51,21 +52,17 @@ export default function ProfileSettings() {
 
         try {
             logic.updateAvatar(newAvatar)
-                .then(() => setEditAvatarVisible(false))
-                .catch(error => {
-                    console.error(error)
+                .then(() => {
+                    setEditAvatarVisible(false)
 
-                    alert(error.message)
+                    return logic.getUser()
                 })
-
-            logic.getUser()
                 .then(user => setUser(user))
                 .catch(error => {
                     console.error(error)
 
                     alert(error.message)
                 })
-
         } catch (error) {
             console.error(error)
 
@@ -128,12 +125,12 @@ export default function ProfileSettings() {
                     </Form >
                 </Container >}
 
-            <Container className="flex flex-col gap-1">
+            <Container className="flex flex-col gap-6">
                 <Heading level="2" className="font-medium text-xl text-center mt-5">Personal Informations</Heading>
-                <Input className="text-center" value={user?.name} disabled />
-                <Input className="text-center" value={user?.surname} disabled />
-                <Input className="text-center" value={user?.username} disabled />
-                <Input className="text-center" value={user?.email} disabled />
+                <Paragraph className="text-center text-xl">{user?.name}</Paragraph>
+                <Paragraph className="text-center text-xl">{user?.surname}</Paragraph>
+                <Paragraph className="text-center text-xl">{user?.username}</Paragraph>
+                <Paragraph className="text-center text-xl">{user?.email}</Paragraph>
             </Container>
         </Container >
 

@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/comments/66c86ef4afe9c8661da668bc -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM4NmU2ZWFmZTljODY2MWRhNjY4YTciLCJpYXQiOjE3MjQ0MTE2NzR9.cHhLY-XRPhrrsNOiDZt0bkGrUzquUbYN_7QjGD0Lr1g"

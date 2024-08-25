@@ -27,16 +27,14 @@ export default function NewsArticlesList() {
         try {
             logic.getAllNews()
                 .then(newsArticles => {
-                    if (newsArticles.length > 0) {
-                        setArticles(newsArticles)
-                        setLoading(false)
-                    }
+                    setArticles(newsArticles)
+
+                    setLoading(false)
                 })
                 .catch(error => {
                     console.error(error)
 
                     alert(error.message)
-                    setLoading(false)
                 })
         } catch (error) {
             console.error(error)

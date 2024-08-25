@@ -1,11 +1,11 @@
-import { validate, errors } from '../../com/index.js'
+import { errors, validate } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default postId => {
-    validate.id(postId, 'postId')
+export default targetUserId => {
+    validate.id(targetUserId, 'targetUserId')
 
-    return fetch(`http://localhost:8080/comments/${postId}`, {
+    return fetch(`http://localhost:8080/${targetUserId}/messages`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -16,7 +16,7 @@ export default postId => {
 
             if (status === 200)
                 return response.json()
-                    .then(comments => comments)
+                    .then(messages => messages)
 
             return response.json()
                 .then(body => {

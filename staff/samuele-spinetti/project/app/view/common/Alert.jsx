@@ -1,7 +1,6 @@
 import Container from '../library/Container'
 import Paragraph from '../library/Paragraph'
 import Button from '../library/Button'
-import Span from '../library/Span'
 
 export default function Alert({ message, onAccept }) {
     return <>
