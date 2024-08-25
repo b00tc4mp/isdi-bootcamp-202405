@@ -12,6 +12,7 @@ import Image from '../library/Image.jsx'
 
 export default function Comment({ comment, onCommentDeleted }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
+
     const handleDeleteComment = () => setConfirmMessage('delete comment?')
 
     const handleDeleteCommentCancel = () => setConfirmMessage(null)
@@ -44,7 +45,7 @@ export default function Comment({ comment, onCommentDeleted }) {
 
                 {comment.author.id === logic.getUserId() && <>
                     <Button onClick={handleDeleteComment}>
-                        <Image src='./delete.png' className="w-[15px] h-[15px]" />
+                        <Image src='./delete.png' className='w-[15px] h-[15px]' />
                     </Button>
                 </>}
             </Container>

@@ -2,10 +2,8 @@ import 'dotenv/config'
 import { expect } from 'chai'
 import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
-
 import { User } from '../data/models.js'
 import { errors } from '../../com/index.js'
-
 import registerUser from './registerUser.js'
 
 const { ValidationError, DuplicityError } = errors

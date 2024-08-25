@@ -17,18 +17,33 @@ describe('createEvent', () => {
     )
 
     it('succeeds on create event', () => {
-        User.create({ name: 'gon', surname: 'zalo', email: 'gon@zalo.com', username: 'gonzalo', password: 'hashedpassword' })
-            .then(user => {
-                createEvent(user._id.toString(), 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver', 'Barrenfields concert', 'Concer of Barrenfields and Oxido', { type: 'Point', coordinates: [40.7128, -74.0060] }, new Date(), '21:30', 'https://crocantickets.com')
+        let user
+
+        return User.create({ name: 'gon', username: 'gonzalo', email: 'gon@zalo.com', role: 'user', password: 'hashedpassword' })
+            .then(createdUser => {
+                user = createdUser
+                return createEvent(
+                    user._id.toString(),
+                    'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver',
+                    'Barrenfields concert',
+                    'Concert of Barrenfields and Oxido',
+                    { type: 'Point', coordinates: [40.7128, -74.0060] },
+                    new Date(),
+                    '21:30',
+                    'https://crocantickets.com'
+                )
             })
-            .then(() => Event.findOne({ author: user._id }))
+            .then(() => {
+                return Event.findOne({ author: user._id })
+            })
             .then(event => {
-                expect(event).to.not.be.null
+                expect(event).to.not.be.null;
                 expect(event.image).to.equal('https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif?cid=ecf05e47avd97k5cxmhrnbrgkinaptz3nbevbd8mrtpulz06&ep=v1_gifs_search&rid=giphy.gif&ct=gnlknvliver')
-                expect(event.title).to.equal('Concert of Barrenfiels and Oxido')
-                expect(event.description).to.equal('Barrenfields concert')
-                expect(event.location).to.equal({ type: 'Point', coordinates: [40.7128, -74.0060] })
-                expect(event.startDate).to.equal(new Date())
+                expect(event.title).to.equal('Barrenfields concert')
+                expect(event.description).to.equal('Concert of Barrenfields and Oxido')
+                expect(event.location.type).to.equal('Point')
+                expect(event.location.coordinates).to.deep.equal([40.7128, -74.0060])
+                expect(event.startDate).to.be.instanceOf(Date)
                 expect(event.startTime).to.equal('21:30')
                 expect(event.tickets).to.equal('https://crocantickets.com')
             })

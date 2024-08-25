@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
-import { User, Event, Location } from '../data/models.js'
+import { User, Event } from '../data/models.js'
 import errors from '../../com/errors.js'
 import searchEvent from './searchEvent.js'
 

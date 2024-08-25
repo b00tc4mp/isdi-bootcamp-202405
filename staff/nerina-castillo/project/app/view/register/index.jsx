@@ -8,7 +8,6 @@ import Container from '../library/Container'
 import Link from '../library/Link'
 import Button from '../library/Button'
 
-
 export default function Register({ onRegister, onLoginClick }) {
     const { alert } = useContext()
 

@@ -65,7 +65,7 @@ export default function User({ user, onUserFollowToggled }) {
                 <Button onClick={handleFollowUserClick}>
                     <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './outlined.png'} />
                 </Button>
-                <Button onClick={handleToggleChat} className="ml-2">
+                <Button onClick={handleToggleChat} className='ml-2'>
                     <Image className='w-[20px] h-[20px]' src='./send.png' />
                 </Button>
             </Container>

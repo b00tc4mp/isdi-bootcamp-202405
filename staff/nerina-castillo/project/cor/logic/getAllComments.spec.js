@@ -48,6 +48,28 @@ describe('getAllComments', () => {
             })
     })
 
+    it('fails on non-existing author', () => {
+        let _error
+
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user =>
+                Post.create({ author: user.id, image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif', text: 'hello' })
+                    .then(post => {
+                        return Comment.create({ author: new ObjectId().toString(), post: post.id, text: 'byeee' })
+                            .then(() => {
+                                return getAllComments(post.id)
+                                    .catch(error => {
+                                        _error = error
+                                    })
+                                    .finally(() => {
+                                        expect(_error).to.be.instanceOf(NotFoundError)
+                                        expect(_error.message).to.equal('author not found')
+                                    })
+                            })
+                    })
+            )
+    })
+
     it('fails on non-string postId', () => {
         let error
 

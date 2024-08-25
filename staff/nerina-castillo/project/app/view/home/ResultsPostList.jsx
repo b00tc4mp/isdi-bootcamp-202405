@@ -1,8 +1,6 @@
 import { useEffect, useState, } from 'react'
 import { useSearchParams } from 'react-router-dom'
-
 import logic from '../../logic'
-
 import Post from './Post'
 import User from './User'
 import Heading from '../library/Heading'

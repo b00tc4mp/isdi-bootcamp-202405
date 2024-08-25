@@ -1,10 +1,8 @@
 import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
-
 import { User, Post } from '../data/models.js'
 import errors from '../../com/errors.js'
-
 import getAllFollowingUserPosts from './getAllFollowingUserPosts.js'
 
 const { ObjectId } = Types
@@ -39,6 +37,35 @@ describe('getAllFollowingUserPosts', () => {
 
                                 expect(postFound.author).to.be.an('object').that.includes({ id: authorId.toString(), username: 'author_username', avatar: 'author_avatar_url', following: true })
                             })
+                    })
+            })
+    })
+
+    it('fails on non-existing author', () => {
+        const authorId = new ObjectId()
+        const userId = new ObjectId()
+
+        return User.create({
+            _id: userId,
+            name: 'gon',
+            username: 'gonzalo',
+            role: 'user',
+            email: 'gon@zalo.com',
+            password: 'gonzalo123',
+            following: [authorId]
+        })
+            .then(() => {
+                return Post.create({
+                    author: authorId,
+                    image: 'https://media.giphy.com/media/ji6zzUZwNIuLS/giphy.gif?cid=790b7611qml3yetzjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g',
+                    text: 'hello'
+                })
+            })
+            .then(() => {
+                return getAllFollowingUserPosts(userId.toString())
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(NotFoundError)
+                        expect(error.message).to.equal('author not found')
                     })
             })
     })

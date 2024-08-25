@@ -1,10 +1,8 @@
 import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
-
 import { User, Event } from '../data/models.js'
 import errors from '../../com/errors.js'
-
 import getAllEvents from './getAllEvents.js'
 
 const { ObjectId } = Types
@@ -36,6 +34,32 @@ describe('getAllEvents', () => {
                                     })
                             ))
             )
+    })
+
+    it('fails on event with non-existing author', () => {
+        let _error
+
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user => {
+                return Event.create({
+                    author: new ObjectId().toString(),
+                    image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif',
+                    title: 'Barrenfields',
+                    description: 'Barrenfields concert',
+                    location: { type: 'Point', coordinates: [40.7128, -74.0060] },
+                    startDate: new Date(),
+                    startTime: '21:30',
+                    tickets: 'http://lhdbs'
+                })
+                    .then(() => getAllEvents(user.id))
+                    .catch(error => {
+                        _error = error
+                    })
+                    .finally(() => {
+                        expect(_error).to.be.instanceOf(NotFoundError)
+                        expect(_error.message).to.equal('author not found')
+                    })
+            })
     })
 
     it('fails on non-existing user', () => {

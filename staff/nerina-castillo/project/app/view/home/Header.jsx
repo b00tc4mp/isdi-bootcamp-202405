@@ -3,12 +3,8 @@ import logic from '../../logic'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-//TODO useContext
-
 export default function Header({ onHomeClick, onLogout, onSearchClick, onCalendarClick }) {
     const [name, setName] = useState(null)
-
-    //TODO theme
 
     useEffect(() => {
         try {

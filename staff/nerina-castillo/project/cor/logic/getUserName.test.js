@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-
 import getUserName from './getUserName.js'
 
 mongoose.connect(process.env.MONGODB_URI)

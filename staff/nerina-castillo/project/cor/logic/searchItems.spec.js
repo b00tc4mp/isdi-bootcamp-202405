@@ -24,6 +24,7 @@ describe('searchItems', () => {
                                     .then(result => {
                                         expect(result.posts).to.be.an('array').that.is.not.empty
                                         expect(result.posts[0].text).to.equal('maybe i know you, maybe i want you, or maybe i do not')
+                                        expect(result.posts[0].like).to.be.false
                                     })
                             )
                     )
@@ -54,10 +55,17 @@ describe('searchItems', () => {
     })
 
     it('fails on existing user but non-existing author', () => {
-        User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
-            .then(user => {
-                Post.create({ author: new ObjectId().toString(), image: null, text: 'maybe i know you, maybe i want you, or maybe i do not' })
-                    .then(() => {
+        let user;
+
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(createdUser => {
+                user = createdUser
+
+                return Post.create({ author: new ObjectId().toString(), image: null, text: 'maybe i know you, maybe i want you, or maybe i do not' })
+            })
+            .then(() => {
+                return searchItems(user.id, 'maybe')
+                    .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)
                         expect(error.message).to.equal('author not found')
                     })
@@ -97,7 +105,7 @@ describe('searchItems', () => {
                     .then(() => {
                         return searchItems(user.id, 'maybe')
                             .then(() => {
-                                throw new Error('Expected NotFoundError to be thrown')
+                                throw new NotFoundError('author not found')
                             })
                             .catch(error => {
                                 expect(error).to.be.instanceOf(NotFoundError)

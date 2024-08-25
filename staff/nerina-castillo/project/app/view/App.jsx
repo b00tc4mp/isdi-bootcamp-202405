@@ -1,12 +1,10 @@
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Context } from './context'
-
 import Register from './register'
 import Login from './login'
 import Home from './home'
 import Alert from './common/Alert'
-
 import logic from '../logic'
 
 export default function App() {
@@ -28,9 +26,9 @@ export default function App() {
 
     return <Context.Provider value={{ alert: setAlertMessage }}>
         <Routes>
-            <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
-            <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
-            <Route path="/*" element={logic.isUserLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
+            <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
+            <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />} />
+            <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to='/login' />} />
         </Routes>
 
         {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}

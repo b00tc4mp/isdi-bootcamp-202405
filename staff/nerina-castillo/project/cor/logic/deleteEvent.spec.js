@@ -1,10 +1,8 @@
 import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
-
 import { User, Event } from '../data/models.js'
 import errors from '../../com/errors.js'
-
 import deleteEvent from './deleteEvent.js'
 
 const { ObjectId } = Types

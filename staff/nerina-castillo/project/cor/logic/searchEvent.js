@@ -1,5 +1,4 @@
 import { User, Event } from '../data/models.js'
-
 import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors

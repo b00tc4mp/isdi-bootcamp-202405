@@ -24,7 +24,7 @@ describe('createComment', () => {
             })
             .then(createdPost => {
                 post = createdPost
-                return createComment(user._id.toString(), post._id.toString(), 'This is a test comment')
+                return createComment(user._id.toString(), post._id.toString(), 'hello')
             })
             .then(() => {
                 return Comment.findOne({ author: user._id })
@@ -32,7 +32,7 @@ describe('createComment', () => {
             .then(comment => {
                 expect(comment).to.exist
                 expect(comment.author.toString()).to.equal(user._id.toString())
-                expect(comment.text).to.equal('This is a test comment')
+                expect(comment.text).to.equal('hello')
                 expect(comment.post.toString()).to.equal(post._id.toString())
             })
     })

@@ -1,4 +1,5 @@
 export default function formatTime(date) {
+
     const seconds = Math.round((Date.now() - date.getTime()) / 1000)
     if (seconds < 60) return seconds + ' second' + (seconds === 1 ? '' : 's')
 

@@ -14,9 +14,13 @@ describe('getUserName', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user and target user', () => {
-        User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
-            .then(user => getUserName(user.id, user.id))
-            .then(() => expect(user.name).to.equal('gon'))
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user => {
+                return getUserName(user.id, user.id)
+                    .then(name => {
+                        expect(name).to.equal('gon')
+                    })
+            })
     })
 
     it('fails on non-existing user', () => {

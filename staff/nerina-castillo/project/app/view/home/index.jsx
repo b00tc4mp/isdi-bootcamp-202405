@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-
 import logic from '../../logic/index.js'
 import Header from './Header'
 import Footer from './Footer'

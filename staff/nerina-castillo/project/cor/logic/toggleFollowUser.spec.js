@@ -2,7 +2,6 @@ import 'dotenv/config'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { User } from '../data/models.js'
-
 import errors from '../../com/errors.js'
 import toggleFollowUser from './toggleFollowUser.js'
 
@@ -14,7 +13,7 @@ describe('toggleFollowUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('handles user with existing following list', () => {
+    it('succeeds on user with existing following list', () => {
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123', following: [new ObjectId()] })
             .then(user =>
                 User.create({ name: 'barrenfields', username: 'barrenfields.band', role: 'band', email: 'barren@fields.com', password: 'barrenfields1' })
@@ -28,8 +27,8 @@ describe('toggleFollowUser', () => {
             )
     })
 
-    it('fails when attempting to follow a non-existing user', () => {
-        let error;
+    it('fails on follow a non-existing user', () => {
+        let error
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user =>
                 toggleFollowUser(user.id, new ObjectId().toString())

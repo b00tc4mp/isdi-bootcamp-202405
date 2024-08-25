@@ -3,7 +3,6 @@ import { errors, validate } from '../../com/index.js'
 
 const { NotFoundError, SystemError, ValidationError } = errors
 
-
 export default (userId, chatId, text) => {
     validate.string(userId, 'userId')
     validate.string(chatId, 'chatId')

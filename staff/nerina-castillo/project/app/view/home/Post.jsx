@@ -8,7 +8,6 @@ import Paragraph from '../library/Paragraph'
 import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Avatar from './Avatar'
-import CreateComment from './CreateComment'
 import CommentList from './CommentList'
 import Confirm from '../common/Confirm'
 
@@ -95,21 +94,21 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
         }
     }
 
-    const handleCreateCommentClick = () => {
-        setCreateCommentVisible(prev => !prev)
-        setCommentsVisible(prev => !prev)
-    }
+    // const handleCreateCommentClick = () => {
+    //     setCreateCommentVisible(prev => !prev)
+    //     setCommentsVisible(prev => !prev)
+    // }
 
-    const handleCancelCreateCommentClick = () => setCreateCommentVisible(false)
+    // const handleCancelCreateCommentClick = () => setCreateCommentVisible(false)
 
-    const handleCommentCreated = () => {
-        setCreateCommentVisible(false)
+    // const handleCommentCreated = () => {
+    //     setCreateCommentVisible(false)
 
-        onCommentCreated()
-    }
+    //     onCommentCreated()
+    // }
     const handleCommentDeleted = (commentId) => setComments(prevComments => prevComments.filter(comment => comment.id !== commentId))
 
-    const handleCommentsVisible = () => setCommentsVisible(false)
+    // const handleCommentsVisible = () => setCommentsVisible(false)
 
     return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
         <Container className='flex justify-between items-center m-[.5rem]'>
@@ -163,7 +162,6 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
                 onCommentDeleted={handleCommentDeleted}
                 postId={post.id}
                 onCommentCreated={loadComments}
-                onCancelCreateComment={handleCancelCreateCommentClick}
             />
         )}
 

@@ -2,9 +2,7 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import { expect } from 'chai'
-
 import authenticateUser from './authenticateUser.js'
-
 import { User } from '../data/models.js'
 import { errors } from '../../com/index.js'
 

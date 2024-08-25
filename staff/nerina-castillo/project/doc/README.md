@@ -26,12 +26,11 @@ User
 - View event calendar
 - Create event
 - List events
-- Search events by city, band, date or music genre
+- Search events by location, title and description
 - Modify own event
 - Delete own event
 - Follow user
-- Search users (by role)
-- List all users
+- Search users and posts
 - List following users
 - List bands
 - List venues
@@ -40,10 +39,8 @@ User
 - Add comment in a post
 - Delete own comment in a post
 - Toggle like post
-- Toggle fav post
+- Open chat
 - Send messages
-- View own profile
-- List own posts
 
 ### UIUX Design
 [Figma](https://www.figma.com/design/ENeHGUGHQy8gNxY00fCLsa/Untitled?node-id=1-710&t=TEnsDeO22H759zz5-0)
@@ -83,14 +80,13 @@ User
 - password (string)
 - avatar (string)
 - messages ([User.message])
-- favs ([Post.id])
 - following ([User.id])
 
 Post
 - id (string)
 - author (User.id)
 - image (string, optional)
-- text (string)
+- text (string, optional)
 - date (Date)
 - likes ([User.id])
 
@@ -98,10 +94,12 @@ Event
 - id (string)
 - author (User.id)
 - image (string, optional)
+- title (string)
+- description (string)
 - location ([Number, Number])
 - startDate (Date)
-- endDate (Date)
-- description (string)
+- startTime (string)
+- tickets (string)
 - date (Date)
 
 Comment
@@ -111,4 +109,19 @@ Comment
 - post (Post.id)
 - date (Date)
 
+Point
+- type (string)
+- coordinates ([Number])
 
+Chat
+- id (auto)
+- participants ([User.id])
+- messages ([Message.id])
+- date (Date)
+
+Message
+- id (auto)
+- author (User.id)
+- text (string)
+- date (Date)
+- chat (Chat.id)
