@@ -9,8 +9,8 @@ export default (userId, query) => {
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+        .then(_user => {
+            if (!_user) throw new NotFoundError('user not found')
 
             const userSearch = User.find({ username: new RegExp(query) }, { __v: 0 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
@@ -18,7 +18,7 @@ export default (userId, query) => {
                     id: user._id.toString(),
                     username: user.username,
                     avatar: user.avatar,
-                    following: user.following.some(userObjectId => userObjectId.toString() === user._id.toString())
+                    following: _user.following.some(userObjectId => userObjectId.toString() === user._id.toString())
                 })))
 
             const postSearch = Post.find({ text: new RegExp(query) }, { __v: 0 }).sort({ date: -1 }).lean()
@@ -36,7 +36,7 @@ export default (userId, query) => {
                                     id: author._id.toString(),
                                     username: author.username,
                                     avatar: author.avatar,
-                                    following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
+                                    following: _user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
                                 }
 
                                 post.id = post._id.toString()

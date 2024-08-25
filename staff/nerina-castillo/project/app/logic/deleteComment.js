@@ -5,7 +5,6 @@ const { SystemError } = errors
 export default commentId => {
     validate.string(commentId)
 
-
     return fetch(`${import.meta.env.VITE_API_URL}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {

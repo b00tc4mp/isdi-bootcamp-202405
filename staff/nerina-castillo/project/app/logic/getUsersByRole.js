@@ -1,8 +1,10 @@
-import { errors } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
 export default role => {
+    validate.string(role, 'role')
+
     return fetch(`${import.meta.env.VITE_API_URL}/users?role=${role}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`

@@ -14,11 +14,12 @@ describe('getUsersByRole', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user with role', () => {
-        User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
-            .then(() => getUsersByRole('user'))
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user => getUsersByRole(user._id.toString(), 'user'))
             .then(users => {
                 expect(users).to.be.an('array').that.is.not.empty
                 expect(users[0]).to.have.property('id')
+                expect(users[0].id).to.be.a('string')
                 expect(users[0].name).to.equal('gon')
                 expect(users[0].username).to.equal('gonzalo')
                 expect(users[0].role).to.equal('user')
@@ -29,7 +30,7 @@ describe('getUsersByRole', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return getUsersByRole(new ObjectId().toString())
+        return getUsersByRole(new ObjectId().toString(), 'user')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -40,7 +41,8 @@ describe('getUsersByRole', () => {
     it('fails on non-existing role', () => {
         let _error
 
-        return getUsersByRole('admin')
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user => getUsersByRole(user._id.toString(), 'admin'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -52,7 +54,7 @@ describe('getUsersByRole', () => {
         let error
 
         try {
-            getUsersByRole(123)
+            getUsersByRole(new ObjectId().toString(), 123)
         } catch (_error) {
             error = _error
         } finally {

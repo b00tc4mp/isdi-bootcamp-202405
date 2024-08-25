@@ -119,7 +119,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
             </Container>
 
             <Button onClick={handleFollowUserClick}>
-                <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './follow.png'} />
+                <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './outlined.png'} />
             </Button>
         </Container>
 
@@ -132,27 +132,29 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
 
         <Time className='mt-2'>{formatTime(new Date(post.date))}</Time>
 
-        <Container className='flex justify-between w-full mb-4'>
-            <Button onClick={handleLikePostClick} className='flex items-center'>
-                <Image
-                    className='w-[20px] h-[20px] mr-1'
-                    src={post.like ? './dislike.png' : './like.png'}
-                    alt={(post.like ? 'Dislike' : 'Like') + ' button'}
-                />
-                <span className='text-sm'>
-                    {post.likes.length} like{post.likes.length === 1 ? '' : 's'}
-                </span>
-            </Button>
+        <Container className='flex justify-between items-center w-full mb-4'>
+            <Container className='flex items-center'>
+                <Button onClick={handleLikePostClick} className='flex items-center mr-2'>
+                    <Image
+                        className='w-[20px] h-[20px] mr-1'
+                        src={post.like ? './dislike.png' : './like.png'}
+                        alt={(post.like ? 'Dislike' : 'Like') + ' button'}
+                    />
+                    <span className='text-xs'>
+                        {post.likes.length} like{post.likes.length === 1 ? '' : 's'}
+                    </span>
+                </Button>
+
+                <Button onClick={() => setCommentsVisible(prev => !prev)} className='flex items-center'>
+                    <Image src='./commented.png' className='w-[20px] h-[20px]' />
+                </Button>
+            </Container>
+
             {post.author.id === logic.getUserId() && (
-                <Button onClick={handleDeletePostClick}>
+                <Button onClick={handleDeletePostClick} className='ml-2'>
                     <Image src='./delete.png' className='w-[20px] h-[20px]' />
                 </Button>
             )}
-            <Button onClick={() => setCommentsVisible(prev => !prev)}>
-                <Image src='./commented.png' className='w-[20px] h-[20px]' />
-
-            </Button>
-
         </Container>
 
         {commentsVisible && (

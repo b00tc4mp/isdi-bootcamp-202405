@@ -40,7 +40,7 @@ export default function CreateComment({ onCommentCreated, postId }) {
 
     return <section >
         <Container className='flex flex-row justify-between'>
-            <Heading className='mb-4 mt-3 ml-2 text-xs text-slate-500 font-bold'>comment</Heading>
+            <Heading className='mb-4 mt-3 ml-2 text-xs text-slate-500 font-bold'>comments</Heading>
         </Container>
         <Form onSubmit={handleCreateCommentSubmit}>
             <Container className='flex flex-row gap-2 justify-between'>

@@ -90,6 +90,23 @@ describe('searchItems', () => {
         }
     })
 
+    it('fails on existing user but non-existing author', () => {
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+            .then(user => {
+                Post.create({ author: new ObjectId().toString(), image: null, text: 'maybe i know you, maybe i want you, or maybe i do not' })
+                    .then(() => {
+                        return searchItems(user.id, 'maybe')
+                            .then(() => {
+                                throw new Error('Expected NotFoundError to be thrown')
+                            })
+                            .catch(error => {
+                                expect(error).to.be.instanceOf(NotFoundError)
+                                expect(error.message).to.equal('author not found')
+                            })
+                    })
+            })
+    })
+
     afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
     after(() => mongoose.disconnect())

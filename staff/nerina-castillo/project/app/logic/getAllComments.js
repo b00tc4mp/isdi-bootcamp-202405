@@ -1,8 +1,10 @@
-import { errors } from '../../com/index.js'
+import { errors, validate } from '../../com/index.js'
 
 const { SystemError } = errors
 
 export default postId => {
+    validate.string(postId, 'postId')
+
     return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`

@@ -32,7 +32,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
 
         try {
             logic.createEvent(eventImage, eventTitle, eventDescription, eventLongitude, eventLatitude, eventStartDate, eventStartTime, eventTickets)
-                .then(() => onEventCreated())
+                .then(event => onEventCreated(event))
                 .catch(error => {
                     console.error(error)
                     alert(error.message)

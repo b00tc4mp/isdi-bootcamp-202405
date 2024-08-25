@@ -11,9 +11,9 @@ export default function EventList({ events, onBack }) {
         setEventList(events)
     }, [events])
 
-    const handleEventDeleted = () => loadEvents()
+    const handleEventDeleted = (eventId) => setEventList(prevEvents => prevEvents.filter(event => event.id !== eventId))
 
-    const handleEventEdited = () => loadEvents()
+    const handleEventEdited = editedEventDate => loadEventsByDate(editedEventDate)
 
     const loadEvents = () => {
         try {
@@ -28,6 +28,25 @@ export default function EventList({ events, onBack }) {
             console.error(error)
 
             alert(error.message)
+        }
+    }
+
+    const loadEventsByDate = (date) => {
+        if (!date) return
+
+        try {
+            logic.getAllEvents()
+                .then(events => {
+                    const filteredEvents = events.filter(event => event.startDate && event.startDate.slice(0, 10) === date.slice(0, 10));
+                    setEventList(filteredEvents);
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert(error.message);
+                });
+        } catch (error) {
+            console.error(error);
+            alert(error.message);
         }
     }
 

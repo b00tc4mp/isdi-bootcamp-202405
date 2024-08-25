@@ -3,20 +3,16 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, OwnershipError, SystemError } = errors
 
-export default (userId, eventId, eventData) => {
+export default (userId, eventId, image, title, description, location, startDate, startTime, tickets) => {
     validate.string(userId, 'userId')
     validate.string(eventId, 'eventId')
-
-    const { image, description, latitude, longitude, startDate, endDate } = eventData
-    if (typeof image !== 'string') {
-        throw new ValidationError('Image must be a string')
-    }
     validate.string(image, 'image')
+    validate.string(title, 'title')
     validate.string(description, 'description')
-    validate.location(latitude, 'latitude')
-    validate.location(longitude, 'longitude')
-    validate.eventDates(new Date(startDate), new Date(endDate))
-    console.log(eventData)
+    validate.location(location, 'location')
+    validate.date(startDate, 'startDate')
+    validate.string(startTime, 'startTime')
+    validate.url(tickets, 'tickets')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -30,7 +26,15 @@ export default (userId, eventId, eventData) => {
 
                     if (event.author.toString() !== userId) throw new OwnershipError('event does not belong to user')
 
-                    return Event.updateOne({ _id: eventId }, { $set: eventData })
+                    return Event.findByIdAndUpdate(eventId, {
+                        image,
+                        title,
+                        description,
+                        location,
+                        startDate,
+                        startTime,
+                        tickets
+                    })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

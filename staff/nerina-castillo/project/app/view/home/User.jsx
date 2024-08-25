@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import logic from '../../logic'
 import Avatar from './Avatar'
 import Button from '../library/Button'
@@ -11,10 +11,7 @@ export default function User({ user, onUserFollowToggled }) {
     const [isFollowing, setIsFollowing] = useState(user.following)
     const [isChatOpen, setIsChatOpen] = useState(false)
     const [chatId, setChatId] = useState(null)
-
-    useEffect(() => {
-        setIsFollowing(user.following)
-    }, [user])
+    const userId = user.id
 
     const handleFollowUserClick = () => {
         try {
@@ -23,15 +20,14 @@ export default function User({ user, onUserFollowToggled }) {
                     setIsFollowing(prev => !prev)
 
                     onUserFollowToggled()
+
                 })
                 .catch(error => {
                     console.error(error)
-
                     alert(error.confirmMessage)
                 })
         } catch (error) {
             console.error(error)
-
             alert(error.message)
         }
     }
@@ -42,12 +38,10 @@ export default function User({ user, onUserFollowToggled }) {
                 logic.createChat(user.id)
                     .then(chatId => {
                         setChatId(chatId)
-
                         setIsChatOpen(true)
                     })
                     .catch(error => {
                         console.error(error)
-
                         alert(error.message)
                     })
             } else {
@@ -56,7 +50,6 @@ export default function User({ user, onUserFollowToggled }) {
             }
         } catch (error) {
             console.error(error)
-
             alert(error.message)
         }
     }
@@ -70,7 +63,7 @@ export default function User({ user, onUserFollowToggled }) {
 
             <Container className='flex items-center'>
                 <Button onClick={handleFollowUserClick}>
-                    <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './follow.png'} />
+                    <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './outlined.png'} />
                 </Button>
                 <Button onClick={handleToggleChat} className="ml-2">
                     <Image className='w-[20px] h-[20px]' src='./send.png' />
@@ -79,7 +72,7 @@ export default function User({ user, onUserFollowToggled }) {
         </Container>
 
         {isChatOpen && chatId && (
-            <Chat chatId={chatId} onMessageSent={() => { }} />
+            <Chat chatId={chatId} userId={userId} onMessageSent={() => { }} />
         )}
     </article>
 }

@@ -16,7 +16,7 @@ export default (userId, targetUserId) => {
 
             return Chat.create({ participants: [userId, targetUserId] })
                 .catch(error => { throw new SystemError(error.message) })
+                .then((chat) => chat._id.toString())
         })
-        .then((chat) => chat._id.toString())
 
 }

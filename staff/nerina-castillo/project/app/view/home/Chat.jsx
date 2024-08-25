@@ -65,43 +65,43 @@ export default function Chat({ chatId, userId, onMessageSent }) {
         }
     }
 
-    return (
-        <Container className='bg-slate-300 flex flex-col text-slate-700 rounded-lg mb-2'>
-            <Container className='flex-1 overflow-y-auto'>
-                {messages.slice().reverse().map(message => (
+    return <Container className='bg-slate-300 flex flex-col text-slate-700 rounded-lg mb-2'>
+        <Container className='flex-1 overflow-y-auto'>
+            {messages.map(message => (
+                <Container
+                    key={message.id}
+                    className={`p-2 flex ${message.author.id === userId ? 'justify-start' : 'justify-end'}`}
+                >
                     <Container
-                        key={message.id}
-                        className={`p-2 flex ${message.author.id === userId ? 'justify-end' : 'justify-start'}`}
+                        className={`max-w-[70%] flex flex-col bg-slate-200 rounded-xl m-2 ${message.author.id === userId ? 'items-end' : 'items-start'}`}
                     >
-                        <Container className={`max-w-[70%] flex flex-col ${message.author.id === userId ? 'items-end' : 'items-start'}`}>
-                            <Container className={`flex items-center ${message.author.id === userId ? 'flex-row-reverse' : ''}`}>
-                                <Avatar url={message.author.avatar} />
-                                <Heading className={`font-semibold text-slate-600 ml-2 ${message.author.id === userId ? 'mr-2 ml-0' : ''}`}>
-                                    {message.author.username}
-                                </Heading>
-                            </Container>
-                            <Container className={`mt-1 ${message.author.id === userId ? 'text-right' : 'text-left'}`}>
-                                <Paragraph>
-                                    {message.text}
-                                </Paragraph>
-                                <Time className='text-xs text-gray-500'>
-                                    {formatTime(new Date(message.date))}
-                                </Time>
-                            </Container>
+                        <Container className={`flex items-center m-2 ${message.author.id === userId ? 'flex-row-reverse' : ''}`}>
+                            <Avatar url={message.author.avatar} />
+                            <Heading className={`font-semibold text-slate-600 ml-2 ${message.author.id === userId ? 'mr-2 ml-0' : ''}`}>
+                                {message.author.username}
+                            </Heading>
+                        </Container>
+                        <Container className={`ml-3 mr-3 ${message.author.id === userId ? 'text-right' : 'text-left'} break-words`}>
+                            <Paragraph className='break-words overflow-hidden'>
+                                {message.text}
+                            </Paragraph>
+                            <Time className='text-xs text-gray-500'>
+                                {formatTime(new Date(message.date))}
+                            </Time>
                         </Container>
                     </Container>
-                ))}
-            </Container>
-            <Container className='p-2 flex items-center'>
-                <Input
-                    value={newMessage}
-                    onChange={e => setNewMessage(e.target.value)}
-                    className='flex-1 mr-2 border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none'
-                />
-                <Button onClick={handleSendMessage} className='self-end'>
-                    <Image className='w-[20px] h-[20px]' src='./chat.png' />
-                </Button>
-            </Container>
+                </Container>
+            ))}
         </Container>
-    )
+        <Container className='p-2 flex items-center'>
+            <Input
+                value={newMessage}
+                onChange={e => setNewMessage(e.target.value)}
+                className='flex-1 mr-2 border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none'
+            />
+            <Button onClick={handleSendMessage} className='self-end'>
+                <Image className='w-[20px] h-[20px]' src='./chat.png' />
+            </Button>
+        </Container>
+    </Container>
 }

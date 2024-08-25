@@ -14,25 +14,31 @@ describe('createPost', () => {
     beforeEach(() =>
         Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeeds on create post with only text', () => {
-        User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+    it('succeeds on create post with both text and image', () => {
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user => {
-                createPost(user._id.toString(), null, 'hello')
+                return createPost(
+                    user._id.toString(),
+                    'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g',
+                    'hello'
+                ).then(() => Post.findOne({ author: user._id }))
             })
-            .then(() => Post.findOne({ author: user._id }))
             .then(post => {
                 expect(post).to.not.be.null
-                expect(post.image).to.be.null
+                expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
                 expect(post.text).to.equal('hello')
             })
     })
 
     it('succeeds on create post with only image', () => {
-        User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user => {
-                createPost(user._id.toString(), 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', null)
+                return createPost(
+                    user._id.toString(),
+                    'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g',
+                    null
+                ).then(() => Post.findOne({ author: user._id }))
             })
-            .then(() => Post.findOne({ author: user._id }))
             .then(post => {
                 expect(post).to.not.be.null
                 expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
@@ -40,17 +46,16 @@ describe('createPost', () => {
             })
     })
 
-    it('succeeds on create post with both text and image', () => {
-        User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
+    it('succeeds on create post with only text', () => {
+        return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user => {
-                createPost(user._id.toString(), 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'hello')
+                return createPost(user._id.toString(), null, 'hello')
+                    .then(() => Post.findOne({ author: user._id }))
             })
-            .then(() => Post.findOne({ author: user._id }))
             .then(post => {
                 expect(post).to.not.be.null
-                expect(post.image).to.equal('https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                expect(post.image).to.be.null
                 expect(post.text).to.equal('hello')
-
             })
     })
 
@@ -58,9 +63,7 @@ describe('createPost', () => {
         let _error
 
         return createPost(new ObjectId().toString(), 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b761110pgvkxrhpf2tkaqu09q7pnjf8965roppj2sz210&ep=v1_gifs_trending&rid=giphy.gif&ct=g', 'hello')
-            .catch(error => {
-                _error = error
-            })
+            .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
                 expect(_error.message).to.equal('user not found')

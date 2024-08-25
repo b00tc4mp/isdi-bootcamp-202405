@@ -9,8 +9,8 @@ export default function Confirm({ message, onAccept, onCancel }) {
         <Container className='fixed w-screen top-0 left-0 h-screen flex items-center justify-center'>
             <Container className='p-4 border bg-slate-600 flex-col h-52 flex items-center gap-5 rounded-xl'>
                 <Paragraph className='text-lg'>{message}</Paragraph>
-                <Button className='border w-20 h-10 border-slate-300 bg-slate-600 rounded-lg' onClick={onCancel}>cancel</Button>
-                <Button className='border w-20 h-10 border-slate-300 bg-slate-600 rounded-lg' onClick={onAccept}>ok</Button>
+                <Button className='border w-20 h-10 border-slate-300 bg-slate-800 rounded-lg' onClick={onCancel}>cancel</Button>
+                <Button className='border w-20 h-10 border-slate-300 bg-slate-800 rounded-lg' onClick={onAccept}>ok</Button>
             </Container>
         </Container>
     </>

@@ -3,22 +3,30 @@ import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
-export default role => {
+export default (userId, role) => {
     validate.string(role, 'role')
+    validate.string(userId, 'userId')
 
-    return User.find({ role }).lean()
+    return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
-        .then(users => {
-            if (users.length === 0) throw new NotFoundError('user not found')
+        .then(_user => {
+            if (!_user) throw new NotFoundError('user not found')
 
-            return users.map(user => {
-                user.id = user._id.toString()
+            return User.find({ role }).lean()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(users => {
+                    if (users.length === 0) throw new NotFoundError('user not found')
 
-                delete user._id
+                    return users.map(user => {
+                        user.id = user._id.toString()
+                        user.following = _user.following.some(userObjectId => userObjectId.toString() === user._id.toString())
 
-                return user
-            })
+                        delete user._id
+
+                        return user
+                    })
 
 
+                })
         })
 }
