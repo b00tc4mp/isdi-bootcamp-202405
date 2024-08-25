@@ -97,7 +97,7 @@ export default function Register({ onRegister, onLoginClick }) {
                 <Container className='text-center  pb-8 pt-2'>
                     <Link className='text-bold text-teal-600 hover:text-teal-900' onClick={handleLoginClick}>¿Ya tienes tu cuenta? Loguéate</Link>
                 </Container>
-                <Footer />
+                <Footer defaultTab={'login'} />
             </Container>
         </main>
     </>

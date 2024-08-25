@@ -74,7 +74,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         <Header />
         <main className='h-screen flex flex-col mb-32'>
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
-                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro</Heading>
+                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro de guardería</Heading>
 
                 <form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
                     <Container>
@@ -228,7 +228,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                 <Container className='text-center  pb-8 pt-2'>
                     <Link className='text-bold text-teal-600 hover:text-teal-900' onClick={handleLoginClick}>¿Ya tienes tu cuenta? Loguéate</Link>
                 </Container>
-                <Footer />
+                <Footer defaultTab={'login'} />
             </Container>
         </main>
     </>

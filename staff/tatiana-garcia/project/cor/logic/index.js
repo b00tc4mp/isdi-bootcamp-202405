@@ -5,6 +5,7 @@ import getUser from './getUser.js'
 import updateUser from './updateUser.js'
 import getAllPetsitters from './getAllPetsitters.js'
 import searchPetsitters from './searchPetsitters.js'
+import getPetsitterDetails from './getPetsitterDetails.js'
 
 const logic = {
     registerUser,
@@ -13,7 +14,8 @@ const logic = {
     getUser,
     updateUser,
     getAllPetsitters,
-    searchPetsitters
+    searchPetsitters,
+    getPetsitterDetails
 }
 
 export default logic

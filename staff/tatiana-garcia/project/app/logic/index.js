@@ -8,6 +8,7 @@ import logoutUser from './logoutUser'
 import updateUser from './updateUser'
 import searchPetsitters from './searchPetsitters'
 import getAllPetsitters from './getAllPetsitters'
+import getPetsitterDetails from './getPetsitterDetails'
 
 const logic = {
     registerUser,
@@ -19,7 +20,8 @@ const logic = {
     logoutUser,
     updateUser,
     searchPetsitters,
-    getAllPetsitters
+    getAllPetsitters,
+    getPetsitterDetails
 }
 
 export default logic

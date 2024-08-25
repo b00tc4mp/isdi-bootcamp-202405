@@ -8,9 +8,9 @@ import Image from '../library/Image'
 export default function Home({ }) {
     return <>
         <Header />
-        <main className='flex flex-col items-center gap-4 mt-16 mb-12 bg-teal-100'>
-            <Container className='w-full max-w-lg flex flex-col items-center mt-0'>
-                <Image src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg mb-4 rounded-lg' />
+        <main className='flex flex-col items-center mt-16 mb-12 bg-teal-100'>
+            <Container className='max-w-screen-md flex flex-col items-center mt-0 mb-1'>
+                <Image src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg mb-4 rounded-xl' />
 
                 <Container className='text-lg bg-white p-3 rounded-[50px] shadow-lg text-center'>
                     <Heading className='font-extrabold mb-1'>¿Cómo funciona?</Heading>

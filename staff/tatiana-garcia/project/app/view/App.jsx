@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Context } from './context.js'
+import logic from '../logic/index.js'
 
 import Register from './register/index.jsx'
 import RegisterPetsitterUser from './registerPetssiterUser/index.jsx'
@@ -7,11 +9,8 @@ import Login from './login/index.jsx'
 import Home from './home/index.jsx'
 import Contact from './contact/index.jsx'
 import Alert from './common/Alert.jsx'
-
-import { Context } from './context.js'
-
-import logic from '../logic/index.js'
-import Petsitters from './pettsiters/index.jsx'
+import Petsitters from './petsitters/index.jsx'
+import PetsitterDetails from './petsitters/petsitterDetails.jsx'
 import Settings from './settings/index.jsx'
 
 export default function App() {
@@ -54,6 +53,7 @@ export default function App() {
       <Route path='/registerPetsitter' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <RegisterPetsitterUser onRegisterPetsitterUser={handleRegisterPetsitterUser} onLoginClick={handleLoginClick} />} />
       <Route path='/petsitters' element={<Petsitters />} />
       <Route path='/settings' element={<Settings onLogoutClick={handleLogout} />} />
+      <Route path='/petsitters/:petsitterId' element={<PetsitterDetails />} />
     </Routes>
 
     {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
