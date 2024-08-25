@@ -7,6 +7,9 @@ import updateUserPhoneHandler from './updateUserPhoneHandler.js'
 import updateEmailHandler from './updateEmailHandler.js'
 import createProductHandler from './createProductHandler.js'
 import updateProductPriceHandler from './updateProductPriceHandler.js'
+import updateProductImageHandler from './updateProductImageHandler.js'
+import toggleProductEnableHandler from './toggleProductEnableHandler.js'
+import deleteProductHandler from './deleteProductHandler.js'
 
 export {
     registerUserHandler,
@@ -17,5 +20,8 @@ export {
     updateUserPhoneHandler,
     updateEmailHandler,
     createProductHandler,
-    updateProductPriceHandler
+    updateProductPriceHandler,
+    updateProductImageHandler,
+    toggleProductEnableHandler,
+    deleteProductHandler
 }

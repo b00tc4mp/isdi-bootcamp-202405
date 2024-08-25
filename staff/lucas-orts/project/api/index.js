@@ -13,7 +13,10 @@ import {
     updateUserPhoneHandler,
     updateEmailHandler,
     createProductHandler,
-    updateProductPriceHandler
+    updateProductPriceHandler,
+    updateProductImageHandler,
+    toggleProductEnableHandler,
+    deleteProductHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -40,7 +43,13 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/products', jwtVerifier, jsonBodyParser, createProductHandler)
 
-        api.patch('/products/price', jwtVerifier, jsonBodyParser, updateProductPriceHandler)
+        api.patch('/products/:productId/price', jwtVerifier, jsonBodyParser, updateProductPriceHandler)
+
+        api.patch('/products/:productId/image', jwtVerifier, jsonBodyParser, updateProductImageHandler)
+
+        api.patch('/products/:productId/enable', jwtVerifier, toggleProductEnableHandler)
+
+        api.delete('/products/:productId', jwtVerifier, deleteProductHandler)
 
         api.use(errorHandler)
 
