@@ -20,9 +20,12 @@ import getUserAvatar from './getUserAvatar.js'
 import getUser from './getUser.js'
 import editUserAvatar from './editUserAvatar.js'
 import editUserUsername from './editUserUsername.js'
+import createChat from './createChat.js'
+import sendMessage from './sendMessage.js'
 
 const logic = {
     authenticateUser,
+    createChat,
     deleteReview,
     editUserAvatar,
     editUserUsername,
@@ -41,6 +44,7 @@ const logic = {
     registerUser,
     searchGame,
     searchUser,
+    sendMessage,
     toggleAddGame,
     toggleFavGame,
     toggleFollowUser,
