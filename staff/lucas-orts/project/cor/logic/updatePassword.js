@@ -6,8 +6,9 @@ const { NotFoundError, CredentialsError, SystemError, ValidationError } = errors
 
 export default (userId, oldPassword, newPassword, newPasswordRepeat) => {
     validate.string(userId, 'userId')
-    validate.password(oldPassword)
-    validate.password(newPassword)
+    validate.password(oldPassword, 'oldPassword')
+    validate.password(newPassword, 'newPassword')
+    validate.password(newPasswordRepeat, 'newPasswordRepeat')
 
     if (newPassword !== newPasswordRepeat) throw new ValidationError('passwords do not match')
 

@@ -12,6 +12,7 @@ export default (name, surname, email, phone, address, password, passwordRepeat) 
     validate.phone(phone)
     validate.address(address)
     validate.password(password)
+    validate.password(passwordRepeat, 'passwordRepeat')
 
     if (password !== passwordRepeat) throw new ValidationError('passwords do not match')
 
