@@ -39,7 +39,7 @@ describe('getDevUserGames', () => {
     })
 
     it('succeeds on existing user and no posts returning empty array ', () => {
-        return User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+        return User.create({ username: 'monoloco', email: 'mono@loco.com', password: '123123123' })
             .then(user => getDevUserGames(user.id, user.id))
             .then(games => {
                 expect(games).to.be.an('array')
