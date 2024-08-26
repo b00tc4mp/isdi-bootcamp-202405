@@ -10,6 +10,7 @@ import updateProductPriceHandler from './updateProductPriceHandler.js'
 import updateProductImageHandler from './updateProductImageHandler.js'
 import toggleProductEnableHandler from './toggleProductEnableHandler.js'
 import deleteProductHandler from './deleteProductHandler.js'
+import getAllUserProductsHandler from './getAllUserProductsHandler.js'
 
 export {
     registerUserHandler,
@@ -23,5 +24,6 @@ export {
     updateProductPriceHandler,
     updateProductImageHandler,
     toggleProductEnableHandler,
-    deleteProductHandler
+    deleteProductHandler,
+    getAllUserProductsHandler
 }

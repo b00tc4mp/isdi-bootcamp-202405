@@ -10,6 +10,7 @@ import updateProductPrice from './updateProductPrice.js'
 import updateProductImage from './updateProductImage.js'
 import toggleProductEnable from './toggleProductEnable.js'
 import deleteProduct from './deleteProduct.js'
+import getAllUserProducts from './getAllUserProducts.js'
 
 const logic = {
     registerUser,
@@ -23,7 +24,8 @@ const logic = {
     updateProductPrice,
     updateProductImage,
     toggleProductEnable,
-    deleteProduct
+    deleteProduct,
+    getAllUserProducts
 }
 
 export default logic

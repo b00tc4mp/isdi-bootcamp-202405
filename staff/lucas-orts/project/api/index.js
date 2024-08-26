@@ -16,7 +16,8 @@ import {
     updateProductPriceHandler,
     updateProductImageHandler,
     toggleProductEnableHandler,
-    deleteProductHandler
+    deleteProductHandler,
+    getAllUserProductsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -50,6 +51,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/products/:productId/enable', jwtVerifier, toggleProductEnableHandler)
 
         api.delete('/products/:productId', jwtVerifier, deleteProductHandler)
+
+        api.get('/products', jwtVerifier, getAllUserProductsHandler)
 
         api.use(errorHandler)
 
