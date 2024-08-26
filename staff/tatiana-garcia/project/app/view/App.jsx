@@ -42,6 +42,8 @@ export default function App() {
     navigate('/login')
   }
 
+  const onLoginClicked = () => navigate('/login')
+
   const handleAlertAccept = () => setAlertMessage(null)
 
   return <Context.Provider value={{ alert: setAlertMessage }}>
@@ -53,7 +55,7 @@ export default function App() {
       <Route path='/registerPetsitter' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <RegisterPetsitterUser onRegisterPetsitterUser={handleRegisterPetsitterUser} onLoginClick={handleLoginClick} />} />
       <Route path='/petsitters' element={<Petsitters />} />
       <Route path='/settings' element={<Settings onLogoutClick={handleLogout} />} />
-      <Route path='/petsitters/:petsitterId' element={<PetsitterDetails />} />
+      <Route path='/petsitters/:petsitterId' element={<PetsitterDetails handleLoginClick={onLoginClicked} />} />
     </Routes>
 
     {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}

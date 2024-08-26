@@ -60,7 +60,7 @@ export default function SearchPetsitters() {
     return <>
         <Header />
         <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem]'>
-            <Container className='p-4 bg-teal-100 w-full max-w-sm'>
+            <Container className='p-2 bg-teal-100 w-full max-w-sm'>
                 <Heading className='text-center mb-4 font-bold'>Guarderías</Heading>
 
                 <Container className='text-lg p-0 rounded-[50px] text-center flex-col'>
@@ -134,13 +134,13 @@ export default function SearchPetsitters() {
                                 <div className='flex flex-col'>
                                     <Heading className='text-base font-bold'>{petsitter.name}</Heading>
                                     <Paragraph className='text-sm mt-1 ml-0 font-semibold text-gray-500'>{petsitter.city}</Paragraph>
-                                    <Paragraph className='text-sm mt-0 ml-0 text-gray-700'>{petsitter.description.substring(0, 30)}</Paragraph>
+                                    <Paragraph className='text-sm mt-0 ml-0 text-gray-700 overflow-hidden text-ellipsis' >{petsitter.description.substring(0, 40)}</Paragraph>
                                 </div>
                             </div>
                         ))
                     ) : (
                         <div className='text-center justify-center items-center flex flex-col'>
-                            <Paragraph className=' text-gray-500'>No hay guarderías disponible para la selección actual.</Paragraph>
+                            <Paragraph className=' text-gray-500'>No hay guarderías disponibles para la selección actual.</Paragraph>
                         </div>
                     )}
                 </Container>

@@ -1,4 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Schema, Types, model } from 'mongoose'
+
+const { ObjectId } = Types
 
 const user = new Schema({
     name: {
@@ -41,8 +43,37 @@ const user = new Schema({
 
 })
 
+const review = new Schema({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    petsitter: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    rate: {
+        type: Number,
+        required: true,
+        enum: [0, 1, 2, 3, 4, 5]
+    },
+    comment: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
+
 const User = model('User', user)
+const Review = model('Review', review)
 
 export {
-    User
+    User,
+    Review
 }

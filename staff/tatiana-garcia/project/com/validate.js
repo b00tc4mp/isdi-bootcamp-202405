@@ -3,7 +3,7 @@ import errors from './errors.js'
 const { ValidationError } = errors
 
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
+const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9 ]+$/
 const PHONE_REGEX = /^\+?\d{9,15}$/
 
 function validateString(value, explain = 'value') {
@@ -60,6 +60,10 @@ function validatePhoneNumber(phoneNumber, explain = 'phoneNumber') {
     if (!PHONE_REGEX.test(phoneNumber)) throw new ValidationError(`invalid ${explain}`)
 }
 
+function validateNumber(number, explain = 'number') {
+    if (typeof number !== 'number') throw new ValidationError(`${explain} is not a number`)
+}
+
 const validate = {
     string: validateString,
     name: validateName,
@@ -71,7 +75,8 @@ const validate = {
     image: validateImage,
     pets: validatePets,
     array: validateArray,
-    phoneNumber: validatePhoneNumber
+    phoneNumber: validatePhoneNumber,
+    number: validateNumber
 }
 
 export default validate

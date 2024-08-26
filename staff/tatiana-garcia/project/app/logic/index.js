@@ -2,6 +2,7 @@ import registerUser from './registerUser'
 import registerPetsitterUser from './registerPetsitterUser'
 import getUser from './getUser'
 import getUserId from './getUserId'
+import getUserRole from './getUserRole'
 import loginUser from './loginUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import logoutUser from './logoutUser'
@@ -15,6 +16,7 @@ const logic = {
     registerPetsitterUser,
     getUser,
     getUserId,
+    getUserRole,
     loginUser,
     isUserLoggedIn,
     logoutUser,
