@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import express from 'express'
+import express, { json } from 'express'
 import cors from 'cors'
 
 import { mongoose } from 'core'
@@ -59,6 +59,12 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/games/:gameId/review', jwtVerifier, jsonBodyParser, handle.makeReview)
 
         api.delete('/reviews/:reviewId', jwtVerifier, handle.deleteReview)
+
+        api.get('/chat/:targeUserId', jwtVerifier, handle.openChat)
+
+        api.post('/chat/:chatId/messages', jwtVerifier, jsonBodyParser, handle.sendMessage)
+
+        api.get('/chat/:chatId/messages', jwtVerifier, handle.getChatMessages)
 
         api.use(errorHandler)
 

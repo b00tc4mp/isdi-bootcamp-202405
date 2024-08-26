@@ -20,12 +20,16 @@ import getUserAvatarHandler from './getUserAvatarHandler.js'
 import getUserHandler from './getUserHandler.js'
 import editUserAvatarHandler from './editUserAvatarHandler.js'
 import editUserUsernameHandler from './editUserUsernameHandler.js'
+import openChatHandler from './openChatHandler.js'
+import sendMessageHandler from './sendMessageHandler.js'
+import getChatMessagesHandler from './getChatMessagesHandler.js'
 
 const handle = {
     authenticateUser: authenticateUserHandler,
     deleteReview: deleteReviewHandler,
     editUserAvatar: editUserAvatarHandler,
     editUserUsername: editUserUsernameHandler,
+    getChatMessages: getChatMessagesHandler,
     getDevUserGames: getDevUserGamesHandler,
     getGameById: getGameByIdHandler,
     getGamesReviews: getGamesReviewsHandler,
@@ -37,10 +41,12 @@ const handle = {
     getUserLibrary: getUserLibraryHandler,
     getUserUsername: getUserUsernameHandler,
     makeReview: makeReviewHandler,
+    openChat: openChatHandler,
     registerGame: registerGameHandler,
     registerUser: registerUserHandler,
     searchGame: searchGameHandler,
     searchUser: searchUserHandler,
+    sendMessage: sendMessageHandler,
     toggleAddGame: toggleAddGameHandler,
     toggleFavGame: toggleFavGameHandler,
     toggleFollowUser: toggleFollowUserHandler
