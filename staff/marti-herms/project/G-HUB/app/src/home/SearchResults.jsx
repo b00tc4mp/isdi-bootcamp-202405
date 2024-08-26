@@ -8,7 +8,7 @@ import useContext from '../context'
 import GameBanner from './GameBanner'
 import UserBanner from './UserBanner'
 
-export default function SearchResults({ refreshStamp, onGameClick, onUserClick }) {
+export default function SearchResults({ onGameClick, onUserClick }) {
     const { alert } = useContext()
 
     const [searchParams] = useSearchParams()
@@ -25,7 +25,7 @@ export default function SearchResults({ refreshStamp, onGameClick, onUserClick }
             clearTimeout(debounceTimer)
             setResults([])
         }
-    }, [refreshStamp, q])
+    }, [q])
 
     const loadGames = () => {
         try {

@@ -7,7 +7,8 @@ const paths = {
     game: '/games/',
     profile: '/profile/',
     following: '/following/',
-    followers: '/followers/'
+    followers: '/followers/',
+    chat: '/chat/'
 }
 
 export default paths

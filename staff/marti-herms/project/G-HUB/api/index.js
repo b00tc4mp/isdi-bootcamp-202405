@@ -60,7 +60,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.delete('/reviews/:reviewId', jwtVerifier, handle.deleteReview)
 
-        api.get('/chat/:targeUserId', jwtVerifier, handle.openChat)
+        api.get('/chat/:targetUserId', jwtVerifier, handle.openChat)
 
         api.post('/chat/:chatId/messages', jwtVerifier, jsonBodyParser, handle.sendMessage)
 

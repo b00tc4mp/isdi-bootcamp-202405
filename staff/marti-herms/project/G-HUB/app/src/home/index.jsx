@@ -11,12 +11,12 @@ import Game from './Game'
 import Profile from './Profile'
 import UserList from './UserList'
 import NotFoundPage from './NotFoundPage'
+import Chat from './Chat.jsx'
 
 import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 import paths from '../../util/paths.js'
 
 export default function Home({ onLogout }) {
-    const [refreshStamp, setRefreshStamp] = useState(null)
     const [makeReviewVisibility, setMakeReviewVisibility] = useState(false)
 
     const location = useLocation()
@@ -29,7 +29,6 @@ export default function Home({ onLogout }) {
     }, [location])
 
     const handleHomeClick = () => {
-        // setRefreshStamp(Date.now())
         navigate(paths.home)
     }
 
@@ -38,7 +37,6 @@ export default function Home({ onLogout }) {
     }
 
     const handleSearchClick = () => {
-        // setRefreshStamp(Date.now())
         navigate(paths.search)
     }
 
@@ -57,8 +55,6 @@ export default function Home({ onLogout }) {
     }
 
     const handleSearchUser = (userId) => {
-        // setRefreshStamp(Date.now())
-
         navigate(paths.profile + userId)
     }
 
@@ -70,18 +66,23 @@ export default function Home({ onLogout }) {
         setMakeReviewVisibility(false)
     }
 
+    const handleChat = (userId) => {
+        navigate(paths.chat + userId)
+    }
+
     return <>
-        <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} refreshStamp={refreshStamp} ></Header>
+        <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} ></Header>
 
         <main className='pb-[7%] w-screen h-auto dark:bg-[#1e1e1e]'>
             <Routes>
                 <Route path={paths.home} element={<Library onGameClick={handleGame} />} />
-                <Route path={paths.profile + ':userId'} element={<Profile refreshStamp={refreshStamp} onChange={handleSearchUser} onGameClick={handleGame} />} />
+                <Route path={paths.profile + ':userId'} element={<Profile onChange={handleSearchUser} onGameClick={handleGame} />} />
                 <Route path={paths.following + ':userId'} element={<UserList onUserClick={handleSearchUser} />} />
                 <Route path={paths.followers + ':userId'} element={<UserList onUserClick={handleSearchUser} />} />
                 <Route path={paths.addGame} element={<AddGame onAddGame={handleAddGame} />} />
-                <Route path={paths.search} element={<><Search /> <SearchResults refreshStamp={refreshStamp} onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
+                <Route path={paths.search} element={<><Search /> <SearchResults onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
                 <Route path={paths.game + ':gameId'} element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
+                <Route path={paths.chat + ':userId'} element={<Chat onOpenChat={handleChat} />} />
                 <Route path='/*' element={<NotFoundPage />} />
             </Routes>
         </main>
@@ -91,6 +92,7 @@ export default function Home({ onLogout }) {
             onAddGame={handleAddGameClick}
             onHome={handleHomeClick}
             onAddReview={handleAddReview}
-            onCancel={handleCancelReview} ></Footer>
+            onCancel={handleCancelReview}
+            onChat={handleChat} ></Footer>
     </>
 }

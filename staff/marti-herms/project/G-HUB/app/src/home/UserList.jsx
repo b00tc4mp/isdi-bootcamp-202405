@@ -20,9 +20,9 @@ export default function UserList({ onUserClick }) {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        if (listType === 'following')
+        if (listType === 'following' || listType === 'chat')
             loadFollowing()
-        else
+        else if (listType === 'followers')
             loadFollowers()
     }, [])
 
