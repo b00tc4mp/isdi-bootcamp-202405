@@ -1,23 +1,45 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { TIME } from '../../util/constants.js'
+import logic from '../../logic/index.js'
 
-export default function Timer({ pause, seconds, setSeconds, end }) {
+export default function Timer({ pause, end }) {
+    const [seconds, setSeconds] = useState(0)
+    const [points, setPoints] = useState(0)
+
     useEffect(() => {
         let intervalId = null
 
-        if (!pause && !end) {
-            intervalId = setInterval(() => {
-                setSeconds((prevSeconds) => prevSeconds + 1)
-            }, 1000)
-        } else if (pause && seconds !== 0) {
-            clearInterval(intervalId)
-        } else if (end) {
-            clearInterval(intervalId)
+        try {
+            if (!pause && !end) {
+                intervalId = setInterval(() => {
+                    setSeconds((prevSeconds) => prevSeconds + 1)
+                }, 1000)
+            } else if (pause && seconds !== 0) {
+                clearInterval(intervalId)
+            } else if (end) {
+                setSeconds(0)
+                setPoints(logic.getPoints())
+                clearInterval(intervalId)
+            }
+
+            return () => clearInterval(intervalId)
+        } catch (error) {
+            console.error
         }
+    }, [pause, end])
 
-        return () => clearInterval(intervalId)
-    }, [pause, seconds, end])
+    useEffect(() => {
+        try {
+            logic.setPoints(seconds)
 
-    return <div className='text-white'>Time: {seconds}</div>
+            setPoints(logic.getPoints())
+        } catch (error) {
+            console.error(error)
+        }
+    }, [seconds])
+
+    return <>
+        <p className='text-white'>Points: {points}</p>
+        <div className='text-white'>Time: {seconds}</div>
+    </>
 } 

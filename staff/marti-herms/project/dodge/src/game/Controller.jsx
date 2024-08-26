@@ -4,52 +4,41 @@ import { FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/f
 import Container from '../library/Container'
 import Button from '../library/Button'
 
-export default function Controller({ position, setPosition }) {
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyDown)
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown)
-        }
-    }, [position])
+import logic from '../../logic'
 
-    const handleKeyDown = (e) => {
-        switch (e.key) {
-            case 'ArrowUp':
-            case 'w':
-                handleUp()
-                break
-            case 'ArrowLeft':
-            case 'a':
-                handleLeft()
-                break
-            case 'ArrowRight':
-            case 'd':
-                handleRight()
-                break
-            case 'ArrowDown':
-            case 's':
-                handleDown()
-                break
-            default:
-                break
+export default function Controller({ setPlayer, pause, end }) {
+    useEffect(() => {
+        if (!pause && !end) {
+            window.addEventListener('keydown', handleMovement)
+
+            return () => window.removeEventListener('keydown', handleMovement)
+        } else if (end) {
+            logic.clearPlayer()
         }
+    }, [pause, end])
+
+    const handleMovement = (event) => {
+        logic.movePlayer(event)
+
+        const player = logic.getPlayer()
+
+        setPlayer(prev => ({ ...prev, top: player.top, left: player.left }))
     }
 
     const handleUp = () => {
-        setPosition({ top: Math.max(0, position.top - 10), left: position.left })
+        handleMovement('up')
     }
 
     const handleLeft = () => {
-        setPosition({ top: position.top, left: Math.max(0, position.left - 10) })
+        handleMovement('left')
     }
 
     const handleRight = () => {
-        setPosition({ top: position.top, left: Math.min(window.innerWidth - 25, position.left + 10) })
+        handleMovement('right')
     }
 
     const handleDown = () => {
-        setPosition({ top: Math.min(window.innerHeight - 25, position.top + 10), left: position.left })
-
+        handleMovement('down')
     }
 
     return <Container className='absolute bottom-4 left-4 w-[100px] aspect-square grid grid-cols-3 grid-rows-3'>
