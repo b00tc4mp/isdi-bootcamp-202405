@@ -4,15 +4,22 @@ import { validate, errors } from 'com';
 
 const { ValidationError, DuplicityError, SystemError } = errors;
 
-export default (name, surname, email, username, dni, password, passwordRepeat) => {
+export default (name, surname, email, username, dni, password, passwordRepeat, role = 'tenant') => {
     validate.name(name);
     validate.name(surname, 'surname');
     validate.email(email);
     validate.string(dni);
     validate.username(username);
     validate.password(password);
+    validate.string(role, 'role');
 
     if (password !== passwordRepeat) throw new ValidationError('passwords do not match');
+
+    // Verificar si el rol es válido
+    const validRoles = ['landlord', 'tenant'];
+    if (!validRoles.includes(role)) {
+        throw new ValidationError('invalid role');
+    }
 
     return User.findOne({ email }).lean()
         .catch(error => { throw new SystemError(error.message); })
@@ -41,9 +48,15 @@ export default (name, surname, email, username, dni, password, passwordRepeat) =
                 email,
                 username,
                 dni,
-                password: hash
+                password: hash,
+                role,
+                profile: {
+                    bio: '',
+                    rating: 0,
+                    reviews: []
+                }
             })
+                .then(createdUser => createdUser) // Retornamos el usuario creado
                 .catch(error => { throw new SystemError(error.message); })
-        )
-        .then(() => { });
+        );
 };

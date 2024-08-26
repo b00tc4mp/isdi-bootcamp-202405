@@ -11,7 +11,14 @@ if (!uri) {
 }
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => registerUser('Samu', 'Spine', 'samu@spine.com', 'samu', 'y12345647a', '123123123', '123123123'))
-    .then(() => console.log('user registered'))
+    .then(() => {
+        // Aquí estamos registrando un usuario con el rol de 'tenant'
+        return registerUser('Samu', 'Spine', 'samu@spine.com', 'samu', 'y12345647a', '123123123', '123123123', 'tenant');
+    })
+    .then(() => {
+        console.log('Tenant user registered successfully');
+        return registerUser('Lina', 'Smith', 'lina@smith.com', 'lina', 'x12345678b', '123123123', '123123123', 'landlord');
+    })
+    .then(() => console.log('Landlord user registered successfully'))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect());

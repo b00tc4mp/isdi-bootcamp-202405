@@ -4,6 +4,8 @@ import isUserLoggedIn from './isUserLoggedIn.js'
 import createProp from './createProp.js'
 import getUserId from './getUserId.js'  
 import getAllProps from './getAllProps.js'
+import createContract from './createContract.js'
+
 
 const logic = {
    
@@ -12,7 +14,8 @@ const logic = {
     isUserLoggedIn,
     createProp,
     getUserId,
-    getAllProps
+    getAllProps,
+    createContract
   
 }
 

@@ -13,36 +13,25 @@ export default (userId) => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found');
 
-            // Obtener todas las propiedades ordenadas por fecha
-            return Property.find({}, { __v: 0 }).sort({ date: -1 }).lean()
+            // Obtener todas las propiedades disponibles, ordenadas por fecha
+            return Property.find({ aviable: true })
+                .populate('owner', 'username avatar') // Obtiene los datos del propietario
+                .populate('reviews') // Obtiene las reseñas
+                .sort({ createdAt: -1 })
+                .lean()
                 .catch(error => { throw new SystemError(error.message); })
                 .then(properties => {
-                    // Para cada propiedad, obtener los datos del propietario
-                    const promises = properties.map(property => {
-                        return User.findById(property.owner).lean()
-                            .catch(error => { throw new SystemError(error.message); })
-                            .then(owner => {
-                                if (!owner) throw new NotFoundError('owner not found');
+                    properties.forEach(property => {
+                        // Calcular el promedio de calificaciones
+                        const totalRatings = property.reviews.reduce((sum, review) => sum + review.rating, 0);
+                        property.rating = property.reviews.length ? totalRatings / property.reviews.length : 0;
 
-                                // Enriquecer la propiedad con información del propietario
-                                property.owner = {
-                                    id: owner._id.toString(),
-                                    username: owner.username,
-                                    avatar: owner.avatar,
-                                    following: (user.following || []).some(userObjectId => userObjectId.toString() === owner._id.toString())
-                                };
-
-                                // Convertir el ObjectId de la propiedad a string
-                                property.id = property._id.toString();
-                                delete property._id;
-
-                                return property;
-                            });
+                        // Convertir el ObjectId de la propiedad a string
+                        property.id = property._id.toString();
+                        delete property._id;
                     });
 
-                    // Resolver todas las promesas y devolver las propiedades
-                    return Promise.all(promises)
-                        .then(properties => properties);
+                    return properties;
                 });
         });
 };

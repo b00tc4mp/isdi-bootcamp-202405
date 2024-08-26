@@ -63,12 +63,7 @@ Below is an example of how the data model might be structured in MongoDB:
     "name": "String",
     "email": "String",
     "password": "String",
-    "role": "String",  // 'owner' or 'tenant'
-    "profile": {
-      "bio": "String",
-      "rating": "Number",
-      "reviews": ["Review"]
-    }
+    "dni": "String",
   },
   "Property": {
     "propertyId": "String",
@@ -87,7 +82,7 @@ Below is an example of how the data model might be structured in MongoDB:
   "Review": {
     "reviewId": "String",
     "userId": "String",
-    "rating": "Number",
+    "rating": "Number", // 1 - 5
     "comment": "String",
     "date": "Date"
   }

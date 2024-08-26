@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/properties -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM0NTY4OWVjZDY2MjNjYmM5ZTA2YzAiLCJpYXQiOjE3MjQyNDUwMDJ9.ZyH0N7naSi4LO8DL8xCOnY_s65DLBxrkuSCslIzXXww"
+curl -v http://localhost:8080/properties -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNjMzZlNTg0YzhkODI5NDQyOWU2NWEiLCJpYXQiOjE3MjQ2NjA2Mjl9.VTo9ZTzTAMb414MxOyYsJ2QaiZDawSGtmFDaM2faI94"

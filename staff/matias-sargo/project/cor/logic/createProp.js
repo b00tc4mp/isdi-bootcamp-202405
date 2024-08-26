@@ -1,5 +1,4 @@
 import { User, Property } from "../data/models.js";
-
 import { validate, errors } from "../../com/index.js";
 
 const { NotFoundError, SystemError } = errors;
@@ -9,6 +8,7 @@ export default (
   images,
   title,
   description,
+  address,
   latitude,
   longitude,
   price,
@@ -23,7 +23,8 @@ export default (
   validate.latitude(latitude, "latitude");
   validate.longitude(longitude, "longitude");
   validate.number(price, "price");
-  validate.type(type, "type", ["apartment", "room"]);
+  validate.type(type, "type");
+  validate.string(address, "address");
 
   // Preparar la ubicación como un objeto Point
   const location = {
@@ -45,53 +46,14 @@ export default (
         images,
         title,
         description,
+        address, // Incluir el campo de dirección
         location,
         price,
         type,
         owner: userId, // Asumimos que el campo se llama `owner` para referirse al usuario que crea la propiedad
+        aviable: true, // Por defecto, la propiedad está disponible
       }).catch((error) => {
         throw new SystemError(error.message);
       });
     });
 };
-// import { Property, User } from '../data/models.js';
-// import { validate, errors } from '../../com/index.js';
-
-// const { NotFoundError, SystemError } = errors;
-
-// export default async function createProp(userId, images, description, latitude, longitude, price, type) {
-//     validate.string(userId, 'userId');
-//     validate.array(images, validate.url, 'images');
-//     validate.string(description, 'description');
-//     validate.latitude(latitude, 'latitude');
-//     validate.longitude(longitude, 'longitude');
-//     validate.number(price, 'price');
-//     validate.type(type, 'type');
-
-//     const user = await User.findById(userId);
-//     if (!user) throw new NotFoundError('User not found');
-
-//     const location = {
-//         type: 'Point',
-//         coordinates: [longitude, latitude]
-//     };
-
-//     try {
-//         const property = await Property.create({
-//             owner: userId,
-//             images,
-//             description,
-//             location,
-//             price,
-//             type
-//         });
-
-//         // Asocia la propiedad con el usuario
-//         user.properties.push(property._id);
-//         await user.save();
-
-//         return property;
-//     } catch (error) {
-//         throw new SystemError(error.message);
-//     }
-// }

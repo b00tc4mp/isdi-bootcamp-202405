@@ -2,10 +2,12 @@ import { validate, errors } from '../../com/index.js';
 
 const { SystemError } = errors;
 
-export default (images, description, latitude, longitude, price, type) => {
+export default (images, title, description, address, latitude, longitude, price, type) => {
     // Validaciones
     validate.array(images, validate.url, 'images'); // Asegura que 'images' sea un array de URLs válidos
+    validate.string(title, 'title'); // Asegura que 'title' sea un string válido
     validate.string(description, 'description');
+    validate.string(address, 'address'); // Asegura que 'address' sea un string válido
     validate.latitude(latitude, 'latitude');
     validate.longitude(longitude, 'longitude');
     validate.number(price, 'price');
@@ -20,7 +22,9 @@ export default (images, description, latitude, longitude, price, type) => {
         },
         body: JSON.stringify({
             images,
+            title,
             description,
+            address,
             location: { type: 'Point', coordinates: [longitude, latitude] }, // Formato GeoJSON para la ubicación
             price,
             type,

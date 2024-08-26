@@ -10,7 +10,8 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     createPropHandler,
-    getAllPropsHandler 
+    getAllPropsHandler, 
+    createContractHandler
 } from './handlers/index.js';
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -26,6 +27,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/properties', jsonBodyParser, jwtVerifier, createPropHandler);
         api.get('/properties', jwtVerifier, getAllPropsHandler)
+
+        api.post('/contracts', jsonBodyParser, jwtVerifier, createContractHandler);
 
         api.use(errorHandler);
 
