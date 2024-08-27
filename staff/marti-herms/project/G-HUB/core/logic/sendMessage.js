@@ -23,7 +23,7 @@ export default (userId, chatId, content) => {
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(message =>
-            Chat.findByIdAndUpdate(chatId, { $push: { messages: message._id } })
+            Chat.findByIdAndUpdate(chatId, { date: Date.now(), $push: { messages: message._id } })
                 .catch(error => { throw new SystemError(error.message) })
         )
         .then(() => { })

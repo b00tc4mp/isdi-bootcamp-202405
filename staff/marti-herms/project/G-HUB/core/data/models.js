@@ -113,6 +113,10 @@ const chat = new Schema({
     messages: {
         type: [ObjectId],
         ref: 'Message'
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
 

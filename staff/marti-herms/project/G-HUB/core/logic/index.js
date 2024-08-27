@@ -23,6 +23,7 @@ import editUserUsername from './editUserUsername.js'
 import openChat from './openChat.js'
 import sendMessage from './sendMessage.js'
 import getChatMessages from './getChatMessages.js'
+import getUserChats from './getUserChats.js'
 
 const logic = {
     authenticateUser,
@@ -50,6 +51,7 @@ const logic = {
     toggleAddGame,
     toggleFavGame,
     toggleFollowUser,
+    getUserChats
 }
 
 export default logic
