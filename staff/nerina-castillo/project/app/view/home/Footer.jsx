@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import CreatePost from './CreatePost'
 import Button from '../library/Button'
 import CreateEvent from './CreateEvent'
@@ -6,15 +7,17 @@ import Image from '../library/Image'
 
 export default function Footer({ onPostCreated, onEventCreated, location, onBandsClick, onLabelsClick, onPromotersClick, onVenuesClick }) {
     const [createVisible, setCreateVisible] = useState(false)
+    const navigate = useNavigate()
 
     const handleCreateClick = () => setCreateVisible(true)
 
     const handleCancelCreateClick = () => setCreateVisible(false)
 
-    const handleEventCreated = () => {
+    const handleEventCreated = (newEvent) => {
         setCreateVisible(false)
 
-        onEventCreated()
+        onEventCreated(newEvent)
+        navigate('/calendar')
     }
 
     const handlePostCreated = () => {

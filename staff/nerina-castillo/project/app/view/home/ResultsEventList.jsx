@@ -31,12 +31,19 @@ export default function ResultsEventList() {
         setEventList(events)
     }, [events])
 
-    const handleEventDeleted = (eventId) => {
+    const handleEventCreated = newEvent => {
+        setEvents(prevEvents => [...prevEvents, newEvent])
+        setEventList(prevEvents => [...prevEvents, newEvent])
+
+        if (searchPerformed) setFilteredEvents(prevFiltered => [...prevFiltered, newEvent])
+    }
+
+    const handleEventDeleted = eventId => {
         setEventList(prevEvents => prevEvents.filter(event => event.id !== eventId))
         setFilteredEvents(prevFiltered => prevFiltered.filter(event => event.id !== eventId))
     }
 
-    const handleEventEdited = (updatedEvent) => {
+    const handleEventEdited = updatedEvent => {
         setEventList(prevEvents => prevEvents.map(event =>
             event.id === updatedEvent.id ? updatedEvent : event
         ))
@@ -121,6 +128,7 @@ export default function ResultsEventList() {
                 filteredEvents.length > 0 && filteredEvents.map(event => (
                     <Event key={event.id}
                         event={event}
+                        onEventCreated={handleEventCreated}
                         onEventDeleted={handleEventDeleted}
                         onEventEdited={handleEventEdited} />
                 ))

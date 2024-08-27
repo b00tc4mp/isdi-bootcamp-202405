@@ -60,9 +60,7 @@ export default function Calendar() {
 
     const handleDayClick = (day) => {
         const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-        // setSelectedDate(date)
-        // setView('events')
-        // navigate(`/search?`)
+
         setSearchParams({ date: date.toISOString() })
     }
 
@@ -71,11 +69,11 @@ export default function Calendar() {
         setSelectedDate(null)
     }
 
-    const handleEventDeleted = (eventId) => {
-        setFilteredEvents(prevEvents => prevEvents.filter(event => event.id !== eventId))
-    }
+    // const handleEventDeleted = (eventId) => {
+    //     setFilteredEvents(prevEvents => prevEvents.filter(event => event.id !== eventId))
+    // }
 
-    const handleEventEdited = () => { }
+    // const handleEventEdited = () => { }
 
 
     const days = []
