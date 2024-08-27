@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -16,6 +17,7 @@ import Confirm from '../common/Confirm'
 export default function Comment({ comment, onCommentDeleted }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [user, setUser] = useState(null)
+    const { alert } = useContext()
 
     useEffect(() => {
         try {

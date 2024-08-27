@@ -4,9 +4,9 @@ import { CronJob as cron } from 'cron'
 
 import randomQuery from '../app/util/randomQuery.js'
 
-import { logic } from 'cor'
+import { logic } from '../cor/index.js'
 
-import { mongoose } from 'cor'
+import { mongoose } from '../cor/index.js'
 
 import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 
@@ -89,7 +89,7 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
         new cron(
-            '*/30 * * * *',
+            '*/2 * * * *',
             () => {
 
                 console.log('news at ' + new Date(Date.now()))

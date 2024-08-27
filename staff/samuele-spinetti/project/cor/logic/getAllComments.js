@@ -1,6 +1,6 @@
 import { User, Post, Comment } from '../data/models.js'
 
-import { validate, errors } from 'com'
+import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, postId) => {

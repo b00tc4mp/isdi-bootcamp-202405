@@ -12,8 +12,7 @@ export default function Alert({ message, onAccept }) {
                 <Paragraph className="text-xl font-semibold text-gray-800 text-center">{message}</Paragraph>
                 <Button
                     className="bg-gradient-to-br from-green-400 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-lg"
-                    onClick={onAccept}
-                >
+                    onClick={onAccept}>
                     Accept
                 </Button>
             </Container>

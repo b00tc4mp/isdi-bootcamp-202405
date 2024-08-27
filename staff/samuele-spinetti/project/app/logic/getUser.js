@@ -1,8 +1,10 @@
-import { errors } from '../../com/index.js'
+import { errors, validate } from '../../com/index.js'
 
 const { SystemError } = errors
 
 export default targetUserId => {
+    validate.id(targetUserId, 'targetUserId')
+
     return fetch(`http://localhost:8080/users/${targetUserId}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`

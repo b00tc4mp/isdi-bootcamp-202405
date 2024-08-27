@@ -1,4 +1,4 @@
-import { errors } from 'com'
+import { errors } from '../../com/index.js'
 
 const { ValidationError, CredentialsError, NotFoundError, DuplicityError, SessionError, OwnerShipError, PermissionError } = errors
 

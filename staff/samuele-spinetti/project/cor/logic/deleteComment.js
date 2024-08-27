@@ -1,5 +1,5 @@
 import { User, Comment } from '../data/models.js'
-import { validate, errors } from 'com'
+import { validate, errors } from '../../com/index.js'
 
 const { NotFoundError, OwnerShipError, SystemError } = errors
 

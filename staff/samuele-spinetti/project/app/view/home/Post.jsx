@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 import formatTime from '../../util/formatTime.js'
@@ -20,6 +21,7 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
     const [postComments, setPostComments] = useState([])
     const [comments, setComments] = useState([])
     const navigate = useNavigate()
+    const { alert } = useContext()
 
     useEffect(() => {
         try {

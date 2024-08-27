@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -7,6 +8,7 @@ import Button from '../library/Button'
 import Image from '../library/Image'
 
 export default function Header({ onProfileSettingsClicked, onNewsArticlesListClicked, onNewsArticlesSavedListClicked, onPrivateChatsClicked, onLogout }) {
+    const { alert } = useContext()
     const location = useLocation()
 
     const handleLogoutClick = () => {

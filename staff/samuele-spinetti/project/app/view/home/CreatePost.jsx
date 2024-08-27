@@ -1,11 +1,14 @@
 import logic from '../../logic'
 
+import useContext from '../context.js'
+
 import Container from '../library/Container'
 import Button from '../library/Button'
 import Form from '../library/Form'
 import Heading from '../library/Heading'
 
 export default function CreatePost({ onCancelCreatePost, onPostCreated }) {
+    const { alert } = useContext()
 
     const handleCreatePostSubmit = event => {
         event.preventDefault()

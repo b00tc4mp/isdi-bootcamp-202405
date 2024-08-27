@@ -42,6 +42,7 @@ export default function Register({ onRegister, onLoginClick }) {
                 })
                 .catch(error => {
                     console.error(error)
+
                     alert(error.message)
                 })
         } catch (error) {

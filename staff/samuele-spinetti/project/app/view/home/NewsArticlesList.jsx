@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -10,6 +11,7 @@ import Paragraph from '../library/Paragraph'
 export default function NewsArticlesList() {
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(true)
+    const { alert } = useContext()
 
     useEffect(() => {
         setLoading(true)

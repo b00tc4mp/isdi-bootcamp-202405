@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef, Fragment } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import useContext from '../context.js'
+
 import logic from '../../logic'
-import formatTime from '../../util/formatTime'
 
 import Container from '../library/Container'
 import Paragraph from '../library/Paragraph'
@@ -10,12 +11,15 @@ import Button from '../library/Button'
 import Heading from '../library/Heading'
 import Image from '../library/Image'
 import Form from '../library/Form'
+import Message from './Message'
+
 
 export default function Chat() {
     const [messages, setMessages] = useState([])
     const [userId, setUserId] = useState(null)
     const [avatar, setAvatar] = useState(null)
     const navigate = useNavigate()
+    const { alert } = useContext()
 
     const messagesEndRef = useRef(null)
 
@@ -124,33 +128,12 @@ export default function Chat() {
                     </Container>
                 </Container>
 
-                <Container className="flex flex-col overflow-y-auto p-4 bg-gray-100">
-                    {messages.length === 0 ? (
-                        <Paragraph className="text-center text-gray-500">No messages yet.</Paragraph>
-                    ) : (
-                        messages.map(message => (
-                            (message.author.id === logic.getUserId()) ? (
+                <Container className="flex flex-col h-screen w-screen overflow-y-auto p-4 bg-gray-100">
+                    {messages.length === 0
+                        ? <Paragraph className="text-center text-gray-500">No messages yet.</Paragraph>
+                        : messages.map(message => <Message key={message.id} message={message} />)
+                    }
 
-                                <Fragment key={message.id}>
-                                    <Container className="flex p-2 mb-1 rounded-lg max-w-[70%] bg-green-300 text-black self-end">
-                                        <Paragraph className="p-1 text-lg">{message.message}</Paragraph>
-                                    </Container>
-                                    <Container className="self-end mb-2">
-                                        <Paragraph className="text-xs text-gray-400">{formatTime(new Date(message.date))}</Paragraph>
-                                    </Container>
-                                </Fragment>
-                            ) : (
-                                <Fragment key={message.id}>
-                                    <Container className="flex p-2 mb-1 rounded-lg max-w-[70%] bg-fuchsia-200 text-black self-start">
-                                        <Paragraph className="p-1 text-lg">{message.message}</Paragraph>
-                                    </Container>
-                                    <Container className="self-start mb-2">
-                                        <Paragraph className="text-xs text-gray-400">{formatTime(new Date(message.date))}</Paragraph>
-                                    </Container>
-                                </Fragment>
-                            )
-                        ))
-                    )}
                     <div ref={messagesEndRef} />
                 </Container>
 

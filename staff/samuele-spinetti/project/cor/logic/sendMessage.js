@@ -1,6 +1,6 @@
 import { User, Chat, Message } from '../data/models.js'
 
-import { errors, validate } from 'com'
+import { errors, validate } from '../../com/index.js'
 
 const { NotFoundError, SystemError } = errors
 
@@ -29,8 +29,8 @@ export default (userId, chatId, message) => {
                         .catch(error => { throw new SystemError(error.message) })
                         .then(message => {
                             return Chat.findByIdAndUpdate(chatId, { $push: { messages: message._id } })
-                                .then(() => message)
                         })
+                        .then(() => { })
                 })
         })
 }

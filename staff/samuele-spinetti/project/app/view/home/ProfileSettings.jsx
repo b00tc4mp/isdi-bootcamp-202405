@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -9,7 +10,6 @@ import Button from '../library/Button'
 import Image from '../library/Image'
 import Form from '../library/Form'
 import Paragraph from '../library/Paragraph'
-import useContext from '../context.js'
 
 export default function ProfileSettings() {
     const [user, setUser] = useState(null)

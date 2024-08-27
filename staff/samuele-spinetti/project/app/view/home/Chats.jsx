@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import useContext from '../context.js'
+
 import logic from '../../logic'
 
 import Paragraph from '../library/Paragraph'
@@ -12,6 +14,7 @@ import Heading from '../library/Heading'
 export default function Chats() {
     const [chats, setChats] = useState([])
     const navigate = useNavigate()
+    const { alert } = useContext()
 
     useEffect(() => {
 

@@ -3,7 +3,7 @@ import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 
 import { User, Chat, Message } from '../data/models.js'
-import { errors } from 'com'
+import { errors } from '../../com/index.js'
 import sendMessage from './sendMessage.js'
 
 const { ObjectId } = Types

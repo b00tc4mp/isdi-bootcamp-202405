@@ -1,12 +1,12 @@
 import 'dotenv/config'
 import { NewsArticle } from '../data/models.js'
 
-import { validate, errors } from 'com'
+import { validate, errors } from '../../com/index.js'
 const { SystemError } = errors
 
 const pageSize = 8
 
-export default (query) => {
+export default query => {
     validate.string(query, 'query')
 
     const APIRequestUrl = `${process.env.NEWS_API_URL}/everything?q=${query}&pageSize=${pageSize}&language=en&apiKey=${process.env.NEWS_API_KEY}`

@@ -1,6 +1,6 @@
 import { Chat, User } from '../data/models.js'
 
-import { errors, validate } from 'com'
+import { errors, validate } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, targetUserId) => {
