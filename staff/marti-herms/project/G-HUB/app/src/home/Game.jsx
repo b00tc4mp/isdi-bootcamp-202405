@@ -147,8 +147,10 @@ export default function Game({ makeReviewVisibility, onCancel }) {
                 <Link className='text-white font-semibold text-lg text-center hover:text-violet-500 active:text-violet-500:' href={game.link}>Go to official page</Link>
             </Container>
         </>}
-
-        {makeReviewVisibility && <Form className='flex flex-row h-[15%] my-2 justify-start items-center box-content text-black' onSubmit={handleMakeReview}>
+        <Container className='flex flex-col mt-4' style={{ marginBottom: makeReviewVisibility ? '140px' : '60px' }}>
+            {reviews && reviews.map(review => <Review key={review.id} review={review} onDelete={handleDeleteReview} />)}
+        </Container>
+        {makeReviewVisibility && <Form className='fixed bottom-[60px] flex flex-row w-full h-auto p-1 dark:bg-[#1e1e1e] justify-start items-center box-content text-black' onSubmit={handleMakeReview}>
             <Container className='flex flex-col justify-center items-center box-content w-[80%]'>
                 <Input name='comment' placeholder='comment' id='comment-input' />
                 <Container className='flex flex-row'>
@@ -163,9 +165,5 @@ export default function Game({ makeReviewVisibility, onCancel }) {
             </Container>
             <Button type='submit'><SendIcon className='w-10 h-10 dark:text-white' /></Button>
         </Form>}
-
-        <Container className='flex flex-col mt-4 mb-10'>
-            {reviews && reviews.map(review => <Review key={review.id} review={review} onDelete={handleDeleteReview} />)}
-        </Container>
     </>
 }

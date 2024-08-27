@@ -77,10 +77,10 @@ export default function Home({ onLogout }) {
             <Routes>
                 <Route path={paths.home} element={<Library onGameClick={handleGame} />} />
                 <Route path={paths.profile + ':userId'} element={<Profile onChange={handleSearchUser} onGameClick={handleGame} />} />
-                <Route path={paths.following + ':userId'} element={<UserList onUserClick={handleSearchUser} />} />
-                <Route path={paths.followers + ':userId'} element={<UserList onUserClick={handleSearchUser} />} />
+                <Route path={paths.following + ':userId'} element={<UserList onUserClick={handleSearchUser} onChatClick={handleChat} />} />
+                <Route path={paths.followers + ':userId'} element={<UserList onUserClick={handleSearchUser} onChatClick={handleChat} />} />
                 <Route path={paths.addGame} element={<AddGame onAddGame={handleAddGame} />} />
-                <Route path={paths.search} element={<><Search /> <SearchResults onGameClick={handleGame} onUserClick={handleSearchUser} /></>} />
+                <Route path={paths.search} element={<><Search /> <SearchResults onGameClick={handleGame} onUserClick={handleSearchUser} onChatClick={handleChat} /></>} />
                 <Route path={paths.game + ':gameId'} element={<Game makeReviewVisibility={makeReviewVisibility} onCancel={handleCancelReview} />} />
                 <Route path={paths.chat + ':userId'} element={<Chat onOpenChat={handleChat} />} />
                 <Route path='/*' element={<NotFoundPage />} />

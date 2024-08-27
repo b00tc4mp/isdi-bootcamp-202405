@@ -1,6 +1,12 @@
+import { IoRemoveCircleOutline as RemoveIcon } from 'react-icons/io5'
+import { IoIosAddCircleOutline as AddIcon } from 'react-icons/io'
+import { MdFavorite as FavIcon, MdFavoriteBorder as NotFavIcon } from "react-icons/md";
+
+
 import Container from '../library/Container'
 import Image from '../library/Image'
 import Paragraph from '../library/Paragraph'
+import Button from '../library/Button'
 
 import useContext from '../context'
 
@@ -46,7 +52,7 @@ export default function GameBanner({ game, onInteraction, onGameClick, collectio
     }
 
     return <article className='flex flex-row items-center border-y border-solid border-slate-700 dark:bg-black'>
-        <button className='bg-transparent border-0' onClick={handleGameClick}>
+        <Button className='bg-transparent border-0' onClick={handleGameClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>
                     <Image className='w-2/12 h-2/12' src={game.image} />
@@ -56,10 +62,10 @@ export default function GameBanner({ game, onInteraction, onGameClick, collectio
                     <Paragraph>{game.description.length >= 25 ? game.description.slice(0, 25) + '...' : game.description}</Paragraph>
                 </Container>
             </Container>
-        </button>
-        {collectionType !== 'devGames' && <Container className='flex flex-col gap-2 mr-2 h-full w-[90px]'>
-            <button className='bg-gray-500 rounded' onClick={handleAddGame}>{game.inLibrary ? 'Remove' : 'Add'}</button>
-            {game.inLibrary && <button className={game.inFavs ? 'bg-red-500 rounded' : 'bg-green-300 rounded'} onClick={handleFavGame}>Fav</button>}
+        </Button>
+        {collectionType !== 'devGames' && <Container className='flex flex-row gap-2 mr-2 h-full w-[90px]'>
+            <Button onClick={handleAddGame}>{game.inLibrary ? <RemoveIcon className='w-8 h-8 dark:text-white' /> : <AddIcon className='w-8 h-8 dark:text-white' />}</Button>
+            <Button onClick={handleFavGame} disabled={!game.inLibrary}>{game.inFavs ? <FavIcon className='w-8 h-8 text-red-600' /> : <NotFavIcon className='w-8 h-8 text-red-600' />}</Button>
         </Container>}
     </article>
 }

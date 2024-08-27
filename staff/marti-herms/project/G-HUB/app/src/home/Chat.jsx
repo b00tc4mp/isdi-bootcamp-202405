@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { IoIosSend as SendIcon } from 'react-icons/io'
 
@@ -19,14 +19,21 @@ import defaultAvatar from '../../images/defaultAvatar.svg'
 import logic from '../../logic'
 
 export default function Chat({ onOpenChat }) {
+    const [user, setUser] = useState(null)
     const [users, setUsers] = useState([])
     const [chat, setChat] = useState(null)
+    const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
+    const messageRef = useRef()
     const { alert } = useContext()
 
     const { sub: loggedInUser } = extractPayloadFromToken(sessionStorage.token)
 
     const { userId } = useParams()
+
+    useEffect(() => {
+        messageRef.current?.scrollIntoView({ behaviour: 'smooth' })
+    }, [messages.length])
 
     useEffect(() => {
         try {
@@ -39,7 +46,12 @@ export default function Chat({ onOpenChat }) {
                         alert(error.message)
                     })
             } else {
-                logic.openChat(userId)
+                logic.getUser(userId)
+                    .then(user => {
+                        setUser(user)
+
+                        return logic.openChat(userId)
+                    })
                     .then(chatId => setChat(chatId))
                     .catch(error => {
                         console.error(error)
@@ -66,6 +78,7 @@ export default function Chat({ onOpenChat }) {
             if (intervalId) {
                 clearInterval(intervalId)
                 setChat(null)
+                setMessages([])
             }
         }
     }, [chat])
@@ -77,11 +90,13 @@ export default function Chat({ onOpenChat }) {
 
         const messageInput = form['message-input']
 
-        const message = messageInput.value
+        setMessage(messageInput.value)
 
         try {
             logic.sendMessage(chat, message)
                 .then(() => {
+                    setMessage('')
+
                     loadMessages()
                 })
                 .catch(error => {
@@ -94,6 +109,10 @@ export default function Chat({ onOpenChat }) {
 
             alert(error.message)
         }
+    }
+
+    const handleInputChange = (e) => {
+        setMessage(e.target.value)
     }
 
     const loadMessages = () => {
@@ -119,10 +138,15 @@ export default function Chat({ onOpenChat }) {
     return <Container className='w-full h-full flex flex-col pb-[110px]' >
         {userId !== loggedInUser ? <>
             <Container className='w-full h-full flex flex-col'>
+                {user && <Container className='flex flex-row items-center ml-4 mt-4'>
+                    <Avatar className='w-2/12 h-2/12' url={user.avatar || defaultAvatar} />
+                    <Paragraph className='text-xl font-bold'>{user.username}</Paragraph>
+                </Container>}
                 {messages.map(message => <Message key={message.id} message={message} />)}
+                <div ref={messageRef} />
             </Container>
             <Form className='fixed w-full h-[50px] bottom-[60px] dark:bg-[#1e1e1e] flex flex-row justify-center items-center gap-2' onSubmit={handleSendMessage}>
-                <Input id='message-input' />
+                <Input id='message-input' value={message} onChange={handleInputChange} />
                 <Button className='bg-blue-800 rounded-full h-[40px] aspect-square' ><SendIcon className='w-8 h-8 ml-0.5 mt-1 text-white' /></Button>
             </Form>
         </> :

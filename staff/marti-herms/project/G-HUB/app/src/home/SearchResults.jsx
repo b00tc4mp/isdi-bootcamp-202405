@@ -8,7 +8,7 @@ import useContext from '../context'
 import GameBanner from './GameBanner'
 import UserBanner from './UserBanner'
 
-export default function SearchResults({ onGameClick, onUserClick }) {
+export default function SearchResults({ onGameClick, onUserClick, onChatClick }) {
     const { alert } = useContext()
 
     const [searchParams] = useSearchParams()
@@ -19,11 +19,14 @@ export default function SearchResults({ onGameClick, onUserClick }) {
     const [debounceTimer, setDebounceTimer] = useState(null)
 
     useEffect(() => {
-        if (q !== '' || q !== '@') {
-            debounceSearch()
-        } else {
-            clearTimeout(debounceTimer)
+        if (q === '@' || q === '') {
             setResults([])
+            debounceTimer && clearTimeout(debounceTimer)
+        } else {
+            if (debounceTimer)
+                clearTimeout(debounceTimer)
+
+            debounceSearch()
         }
     }, [q])
 
@@ -60,20 +63,17 @@ export default function SearchResults({ onGameClick, onUserClick }) {
     }
 
     const debounceSearch = () => {
-        if (debounceTimer)
-            clearTimeout(debounceTimer)
-
         setDebounceTimer(setTimeout(() => {
             if (q.startsWith('@'))
                 loadUsers()
             else
                 loadGames()
-        }, 1000))
+        }, 700))
     }
 
     return <section className='flex flex-col'>
         {results.length > 0 && (q.startsWith('@') ?
-            results.map(user => <UserBanner key={user.id} user={user} onInteraction={loadUsers} onUserClick={onUserClick} />) :
+            results.map(user => <UserBanner key={user.id} user={user} onInteraction={loadUsers} onUserClick={onUserClick} onChatClick={onChatClick} />) :
             results.map(game => <GameBanner key={game.id} game={game} onInteraction={loadGames} onGameClick={onGameClick} collectionType={'search'} />))}
     </section>
 }

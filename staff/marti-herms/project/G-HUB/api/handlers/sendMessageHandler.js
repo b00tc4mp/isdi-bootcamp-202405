@@ -9,6 +9,8 @@ export default (req, res, next) => {
 
     try {
         logic.sendMessage(userId, chatId, content)
+            .then(() => res.status(201).json())
+            .catch(error => next(error))
     } catch (error) {
         next(error)
     }

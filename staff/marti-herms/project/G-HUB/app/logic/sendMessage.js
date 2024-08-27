@@ -17,7 +17,7 @@ export default (chatId, content) => {
         .then(response => {
             const { status } = response
 
-            if (status === 200) return
+            if (status === 201) return
 
             return response.json()
                 .then(body => {
