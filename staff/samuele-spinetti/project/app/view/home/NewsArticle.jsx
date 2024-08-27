@@ -1,5 +1,4 @@
 import logic from '../../logic'
-import useContext from '../context.js'
 
 import Container from '../library/Container'
 import Heading from '../library/Heading'
@@ -8,7 +7,6 @@ import Paragraph from '../library/Paragraph'
 import Button from '../library/Button'
 
 export default function NewsArticle({ newsArticle, onNewsArticleSaveToggled }) {
-    const { alert } = useContext()
 
     const handleSaveNewsClick = () => {
         try {

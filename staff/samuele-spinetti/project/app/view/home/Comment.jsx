@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -17,11 +16,10 @@ import Confirm from '../common/Confirm'
 export default function Comment({ comment, onCommentDeleted }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [user, setUser] = useState(null)
-    const { alert } = useContext()
 
     useEffect(() => {
         try {
-            logic.getUser()
+            logic.getUser(comment.author)
                 .then(user => setUser(user))
                 .catch(error => {
                     console.error(error)
@@ -59,7 +57,7 @@ export default function Comment({ comment, onCommentDeleted }) {
 
         <Container className="flex justify-between">
             <Container className="flex items-center">
-                <Image src={!user?.avatar ? "./profileIcon.svg" : user.avatar} className="w-[30px] h-[30px] rounded-lg" />
+                <Image src={!(user?.avatar) ? './profileIcon.svg' : user.avatar} className="w-[30px] h-[30px] rounded-lg" />
                 <Heading level="4" className="m-2 text-gray-600">Anonymous</Heading>
             </Container>
         </Container>

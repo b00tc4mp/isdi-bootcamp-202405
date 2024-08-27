@@ -54,6 +54,14 @@ class SessionError extends Error {
     }
 }
 
+class PermissionError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 const errors = {
     ValidationError,
     NotFoundError,
@@ -61,7 +69,8 @@ const errors = {
     SystemError,
     CredentialsError,
     SessionError,
-    OwnerShipError
+    OwnerShipError,
+    PermissionError
 }
 
 export default errors

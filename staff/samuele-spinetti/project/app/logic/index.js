@@ -23,6 +23,8 @@ import getPostComments from './getPostComments'
 import createChat from './createChat'
 import sendMessage from './sendMessage'
 import getChatMessages from './getChatMessages'
+import getAllChats from './getAllChats'
+import getChatParticipant from './getChatParticipant'
 
 const logic = {
     isUserLoggedIn,
@@ -49,7 +51,9 @@ const logic = {
     getPostComments,
     createChat,
     sendMessage,
-    getChatMessages
+    getChatMessages,
+    getAllChats,
+    getChatParticipant
 }
 
 export default logic

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { errors } from '../../com/index.js'
+import { errors } from 'com'
 
 const { SessionError } = errors
 

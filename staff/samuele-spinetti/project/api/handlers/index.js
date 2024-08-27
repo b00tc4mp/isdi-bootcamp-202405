@@ -19,6 +19,8 @@ import getPostCommentsHandler from './getPostCommentsHandler.js'
 import createChatHandler from './createChatHandler.js'
 import sendMessageHandler from './sendMessageHandler.js'
 import getChatMessagesHandler from './getChatMessagesHandler.js'
+import getAllChatsHandler from './getAllChatsHandler.js'
+import getChatParticipantHandler from './getChatParticipantHandler.js'
 
 export {
     authenticateUserHandler,
@@ -41,5 +43,7 @@ export {
     getPostCommentsHandler,
     createChatHandler,
     sendMessageHandler,
-    getChatMessagesHandler
+    getChatMessagesHandler,
+    getAllChatsHandler,
+    getChatParticipantHandler
 }

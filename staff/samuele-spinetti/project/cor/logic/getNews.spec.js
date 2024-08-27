@@ -17,9 +17,10 @@ describe('getNews', () => {
     beforeEach(() => Promise.all([NewsArticle.deleteMany()]))
 
     it('succeeds on get News', () => {
+        debugger
         const query = randomQuery()
 
-        const APIRequestUrl = `${process.env.NEWS_API_URL}/everything?q=${query}&pageSize=${pageSize}&language=en&apiKey=${process.env.API_KEY}`
+        const APIRequestUrl = `${process.env.NEWS_API_URL}/everything?q=${query}&pageSize=${pageSize}&language=en&apiKey=${process.env.NEWS_API_KEY}`
 
         return fetch(APIRequestUrl)
             .then(response => {

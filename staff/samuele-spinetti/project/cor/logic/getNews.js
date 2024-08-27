@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { NewsArticle } from '../data/models.js'
 
-import { validate, errors } from '../../com/index.js'
+import { validate, errors } from 'com'
 const { SystemError } = errors
 
 const pageSize = 8

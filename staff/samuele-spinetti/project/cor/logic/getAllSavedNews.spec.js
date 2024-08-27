@@ -36,8 +36,8 @@ describe('getAllSavedNews', () => {
                     .then(news2 =>
                         User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samu', password: '123123123', favs: [news1.id, news2.id] })
                             .then(user => {
-                                getAllSavedNews(user.id)
-                                return User.findOne({ username: 'samu' })
+                                return getAllSavedNews(user.id)
+                                    .then(() => User.findOne({ username: 'samu' }))
                                     .then(user => {
                                         expect(user.favs[0].toString()).to.equal(news1.id)
                                         expect(user.favs[1].toString()).to.equal(news2.id)

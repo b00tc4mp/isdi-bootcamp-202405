@@ -8,6 +8,7 @@ import NewsArticlesList from './NewsArticlesList'
 import NewsArticlesSavedList from './NewsArticlesSavedList'
 import Community from './Community'
 import Chats from './Chats'
+import Chat from './Chat'
 
 export default function Home({ onLogout }) {
     const navigate = useNavigate()
@@ -42,6 +43,7 @@ export default function Home({ onLogout }) {
                 <Route path="/search" element={<MapSection />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/chats" element={<Chats />} />
+                <Route path="/chats/:chatId" element={<Chat />} />
             </Routes>
         </main>
 

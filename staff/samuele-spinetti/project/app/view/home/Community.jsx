@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -14,7 +13,6 @@ import Post from './Post'
 export default function Community() {
     const [createPostVisible, setCreatePostVisible] = useState(false)
     const [posts, setPosts] = useState([])
-    const { alert } = useContext()
 
     useEffect(() => {
         loadPosts()

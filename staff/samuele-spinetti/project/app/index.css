@@ -9,13 +9,10 @@
     }
 }
 
-
-
 * {
     box-sizing: border-box;
 }
 
-/* form starting stylings ------------------------------- */
 .group {
     position: relative;
     margin-bottom: 30px;
@@ -36,7 +33,6 @@ input:focus {
     outline: none;
 }
 
-/* LABEL ======================================= */
 label {
     color: #ffffff;
     font-size: 18px;
@@ -50,7 +46,6 @@ label {
     -webkit-transition: 0.2s ease all;
 }
 
-/* active state */
 input:focus~label,
 input:valid~label {
     top: -20px;
@@ -58,41 +53,6 @@ input:valid~label {
     color: #ffffff;
 }
 
-/* BOTTOM BARS =================================
-.bar {
-    position: relative;
-    display: block;
-    width: 300px;
-}
-
-.bar:before,
-.bar:after {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 1px;
-    position: absolute;
-    background: #ffffff;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
-
-.bar:before {
-    left: 50%;
-}
-
-.bar:after {
-    right: 50%;
-} */
-
-/* active state */
-input:focus~.bar:before,
-input:focus~.bar:after {
-    width: 50%;
-}
-
-/* HIGHLIGHTER ================================== */
 .highlight {
     position: absolute;
     height: 60%;
@@ -103,14 +63,12 @@ input:focus~.bar:after {
     opacity: 0.5;
 }
 
-/* active state */
 input:focus~.highlight {
     -webkit-animation: inputHighlighter 0.3s ease;
     -moz-animation: inputHighlighter 0.3s ease;
     animation: inputHighlighter 0.3s ease;
 }
 
-/* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
     from {
         background: #ffffff;
@@ -143,7 +101,3 @@ input:focus~.highlight {
         background: transparent;
     }
 }
-
-/* .main {
-    background-color: var(--QueerCare, linear-gradient(168deg, hsl(155, 100%, 51%) 16.58%, #E700FA 79.85%));
-} */

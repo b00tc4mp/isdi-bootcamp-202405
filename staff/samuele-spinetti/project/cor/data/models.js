@@ -26,7 +26,7 @@ const user = new Schema({
         required: true
     },
     avatar: {
-        type: String
+        type: String,
     },
     favs: {
         type: [ObjectId],
@@ -156,10 +156,6 @@ const chat = new Schema({
         type: [ObjectId],
         ref: 'User',
         required: true
-    },
-    messages: {
-        type: [ObjectId],
-        ref: 'Message'
     },
     date: {
         type: Date,

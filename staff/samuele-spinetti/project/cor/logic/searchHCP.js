@@ -1,6 +1,6 @@
 import { User, HealthCareProvider } from '../data/models.js'
 
-import { validate, errors } from '../../com/index.js'
+import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 

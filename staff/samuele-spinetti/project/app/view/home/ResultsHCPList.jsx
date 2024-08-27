@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -9,7 +8,6 @@ import HealthCareProvider from './HealthCareProvider'
 export default function ResultsHCPList() {
     const [searchParams] = useSearchParams()
     const [healthCareProviders, setHealthCareProviders] = useState([])
-    const { alert } = useContext()
 
     const q = searchParams.get('q')
     const distance = Number(searchParams.get('distance'))

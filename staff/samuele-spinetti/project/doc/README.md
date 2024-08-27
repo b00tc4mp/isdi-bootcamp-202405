@@ -8,7 +8,7 @@ We understand that the LGBTQI+ community encounters distinct challenges and barr
 
 IF YOU CAN'T LOVE YOURSELF, HOW THE HELL YOU GONNA LOVE SOMEBODY ELSE!
 
-![QueerCare Image](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGFzNDljMWF6YTRkZDJ3OHllajJ6OHgyZjV1cjE1YjNuZ3M0cTRncyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8BliXi8qqCgSk2SZg6/giphy.webp)
+![QueerCare Image](https://media.giphy.com/media/m7e07TZRV20Xm/giphy.gif?cid=790b7611z3nitub7zo8vwlgaaef9co01c0ow63sozsh298em&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
 
@@ -39,6 +39,8 @@ User
 - Delete your own comment from a post
 - Toggle like a post in the QCC
 - Change personal informations
+- Create a private chat with others user
+- Send private massages to others users
 
 ### UIUX Design
 
@@ -117,6 +119,18 @@ Comment
 - author (User.id)
 - post (Post.id)
 - date (Date)
+
+Chat
+- id (auto)
+- participants ([User.id])
+- date (Date)
+
+Message
+- id (auto)
+- author (User.id)
+- message (string)
+- date (Date)
+- chat (Chat.id)
 
 ### Test Coverage
 

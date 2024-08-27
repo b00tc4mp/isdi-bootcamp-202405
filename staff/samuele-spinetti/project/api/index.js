@@ -4,9 +4,9 @@ import { CronJob as cron } from 'cron'
 
 import randomQuery from '../app/util/randomQuery.js'
 
-import { logic } from '../cor/index.js'
+import { logic } from 'cor'
 
-import { mongoose } from '../cor/index.js'
+import { mongoose } from 'cor'
 
 import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 
@@ -31,7 +31,9 @@ import {
     getPostCommentsHandler,
     createChatHandler,
     sendMessageHandler,
-    getChatMessagesHandler
+    getChatMessagesHandler,
+    getAllChatsHandler,
+    getChatParticipantHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -52,7 +54,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/:chatId/message', jwtVerifier, jsonBodyParser, sendMessageHandler)
 
-        api.get('/users/:targetUserId/settings', jwtVerifier, getUserHandler)
+        api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
 
         api.get('/healthcareproviders', jwtVerifier, getAllHCPsHandler)
 
@@ -70,6 +72,10 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/:targetUserId/messages', jwtVerifier, getChatMessagesHandler)
 
+        api.get('/chats', jwtVerifier, getAllChatsHandler)
+
+        api.get('/chats/:chatId', jwtVerifier, getChatParticipantHandler)
+
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
@@ -83,7 +89,7 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
         new cron(
-            '0 * * * *',
+            '*/30 * * * *',
             () => {
 
                 console.log('news at ' + new Date(Date.now()))

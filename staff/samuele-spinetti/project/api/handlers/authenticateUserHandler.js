@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
-import { errors } from '../../com/index.js'
-import { logic } from '../../cor/index.js'
+import { errors } from 'com'
+import { logic } from 'cor'
 
 const { SessionError } = errors
 

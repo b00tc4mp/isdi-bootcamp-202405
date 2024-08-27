@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react'
 
+import logic from '../../logic'
+
 import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Input from '../library/Input'
 import Button from '../library/Button'
 import Image from '../library/Image'
 import Form from '../library/Form'
-
+import Paragraph from '../library/Paragraph'
 import useContext from '../context.js'
-
-import logic from '../../logic'
-import Paragraph from '../library/Paragraph.jsx'
 
 export default function ProfileSettings() {
     const [user, setUser] = useState(null)
@@ -18,9 +17,11 @@ export default function ProfileSettings() {
     const [editPasswordVisible, setEditPasswordVisible] = useState(false)
     const { alert } = useContext()
 
+    const userId = logic.getUserId()
+
     useEffect(() => {
         try {
-            logic.getUser()
+            logic.getUser(userId)
                 .then(user => setUser(user))
                 .catch(error => {
                     console.error(error)
@@ -55,7 +56,7 @@ export default function ProfileSettings() {
                 .then(() => {
                     setEditAvatarVisible(false)
 
-                    return logic.getUser()
+                    return logic.getUser(userId)
                 })
                 .then(user => setUser(user))
                 .catch(error => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import useContext from '../context.js'
+import { useNavigate } from 'react-router-dom'
 
 import logic from '../../logic'
 import formatTime from '../../util/formatTime.js'
@@ -13,30 +13,18 @@ import Time from '../library/Time'
 import Confirm from '../common/Confirm'
 import Form from '../library/Form'
 import Comment from './Comment'
-import PrivateChat from './PrivateChat'
 
 export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [inputVisible, setInputVisible] = useState(false)
     const [postComments, setPostComments] = useState([])
     const [comments, setComments] = useState([])
-    const [privateChat, setPrivateChat] = useState(false)
-    const [user, setUser] = useState(null)
-    const { alert } = useContext()
+    const navigate = useNavigate()
 
     useEffect(() => {
         try {
             logic.getPostComments(post.id)
                 .then(comments => setPostComments(comments))
-                .then(() => {
-                    logic.getUser()
-                        .then(user => setUser(user))
-                        .catch(error => {
-                            console.error(error)
-
-                            alert(error)
-                        })
-                })
                 .catch(error => {
                     console.error(error)
 
@@ -159,9 +147,24 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
 
     const handleCommentDeleted = () => loadComments()
 
-    const handlePrivateChatClick = () => setPrivateChat(true)
+    const handlePrivateChatClick = () => {
+        try {
+            logic.createChat(post.author.id)
+                .then(chatId => {
+                    navigate(`/chats/${chatId}`)
 
-    const handleClosePrivateChatClicked = () => setPrivateChat(false)
+                })
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
 
     return <article className="shadow-[1px_1px_10px_1px] shadow-[#a3a3a3] bg-white p-[12px] rounded-xl mx-5">
 
@@ -176,7 +179,7 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
         </Container>
 
         <Paragraph className="m-2 ml-0">{post.caption}</Paragraph>
-        <Time className={"block m-2 ml-0 text-[#c0c0c0] text-[0.9rem]"}>{formatTime(new Date(post.date))}</Time>
+        <Time className="block m-2 ml-0 text-[#c0c0c0] text-[0.9rem]">{formatTime(new Date(post.date))}</Time>
 
         <Container className="items-center">
             <Container className="flex flex-row items-center justify-between">
@@ -228,8 +231,5 @@ export default function Post({ post, onPostDeleted, onPostLikeToggled }) {
         </section>
 
         {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeletePostAccept} onCancel={handleDeletePostCancel} />}
-
-        {privateChat && <PrivateChat targetUser={post.author} onClosePrivateChatClicked={handleClosePrivateChatClicked} />}
-
     </article >
 }

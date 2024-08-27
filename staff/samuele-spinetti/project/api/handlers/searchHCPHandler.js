@@ -1,4 +1,4 @@
-import { logic } from '../../cor/index.js'
+import { logic } from 'cor'
 
 export default (req, res, next) => {
     let { userId, query: { q, distance, coords } } = req

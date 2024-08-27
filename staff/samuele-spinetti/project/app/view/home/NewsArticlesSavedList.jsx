@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import useContext from '../context.js'
 
 import logic from '../../logic'
 
@@ -8,7 +7,6 @@ import Heading from '../library/Heading'
 
 export default function NewsArticlesSavedList() {
     const [articles, setArticles] = useState([])
-    const { alert } = useContext()
 
     useEffect(() => {
         loadNewsArticles()

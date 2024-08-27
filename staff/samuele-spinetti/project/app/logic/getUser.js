@@ -2,12 +2,8 @@ import { errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
-
-export default () => {
-    const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
-
-    return fetch(`http://localhost:8080/users/${userId}/settings`, {
+export default targetUserId => {
+    return fetch(`http://localhost:8080/users/${targetUserId}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -18,7 +14,7 @@ export default () => {
 
             if (status === 200)
                 return response.json()
-                    .then(user => user)
+                    .then(targetUser => targetUser)
 
             return response.json()
                 .then(body => {
