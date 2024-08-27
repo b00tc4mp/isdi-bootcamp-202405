@@ -22,6 +22,9 @@ export default (userId, targetUserId) => {
                         chat.id = chat._id.toString()
                         delete chat._id
 
+                        chat.participants[0] = chat.participants[0].toString()
+                        chat.participants[1] = chat.participants[1].toString()
+
                         return chat
                     })
 

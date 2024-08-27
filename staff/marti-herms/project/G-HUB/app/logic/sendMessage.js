@@ -10,7 +10,10 @@ export default (chatId, content) => {
 
     return fetch(`${import.meta.env.VITE_API_URL}/chat/${chatId}/messages`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${sessionStorage.token}` },
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ content })
     })
         .catch(error => { throw new SystemError(error.message) })

@@ -1,7 +1,6 @@
 import { RiUserFollowLine as FollowIcon, RiUserUnfollowLine as UnfollowIcon } from 'react-icons/ri'
 import { IoIosSend as SendIcon } from 'react-icons/io'
 
-
 import Container from '../library/Container'
 import Avatar from '../library/Avatar'
 import Paragraph from '../library/Paragraph'

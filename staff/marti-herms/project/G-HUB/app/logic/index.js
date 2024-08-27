@@ -25,6 +25,7 @@ import editUserUsername from './editUserUsername.js'
 import openChat from './openChat.js'
 import sendMessage from './sendMessage.js'
 import getChatMessages from './getChatMessages.js'
+import getUserChats from './getUserChats.js'
 
 const logic = {
     deleteReview,
@@ -36,6 +37,7 @@ const logic = {
     getGameReviews,
     getUser,
     getUserAvatar,
+    getUserChats,
     getUserFavs,
     getUserLibrary,
     getUserUsername,

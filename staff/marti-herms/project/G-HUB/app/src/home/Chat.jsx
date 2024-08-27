@@ -38,7 +38,16 @@ export default function Chat({ onOpenChat }) {
     useEffect(() => {
         try {
             if (userId === loggedInUser) {
-                logic.getUserFollowing(userId)
+                logic.getUserChats(userId)
+                    .then(chats => {
+                        const promises = chats.map(chat => {
+                            const index = chat.participants[0] === userId ? 1 : 0
+
+                            return logic.getUser(chat.participants[index])
+                        })
+
+                        return Promise.all(promises)
+                    })
                     .then(users => setUsers(users))
                     .catch(error => {
                         console.error(error)
@@ -91,6 +100,8 @@ export default function Chat({ onOpenChat }) {
         const messageInput = form['message-input']
 
         setMessage(messageInput.value)
+
+        console.log(chat)
 
         try {
             logic.sendMessage(chat, message)
