@@ -6,6 +6,7 @@ import Container from '../library/Container'
 import Heading from '../library/Heading'
 import Image from '../library/Image'
 import Chat from './Chat'
+import Modal from './Modal'
 
 export default function User({ user, onUserFollowToggled }) {
     const [isFollowing, setIsFollowing] = useState(user.following)
@@ -18,19 +19,17 @@ export default function User({ user, onUserFollowToggled }) {
             logic.toggleFollowUser(user.id)
                 .then(() => {
                     setIsFollowing(prev => !prev)
-
                     onUserFollowToggled()
-
                 })
                 .catch(error => {
                     console.error(error)
                     alert(error.confirmMessage)
-                })
+                });
         } catch (error) {
             console.error(error)
             alert(error.message)
         }
-    }
+    };
 
     const handleToggleChat = () => {
         try {
@@ -43,7 +42,7 @@ export default function User({ user, onUserFollowToggled }) {
                     .catch(error => {
                         console.error(error)
                         alert(error.message)
-                    })
+                    });
             } else {
                 setIsChatOpen(false)
                 setChatId(null)
@@ -54,7 +53,7 @@ export default function User({ user, onUserFollowToggled }) {
         }
     }
 
-    return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
+    return <article className='border-b border-gray-500 ml-2 mr-2'>
         <Container className='flex justify-between items-center m-[.5rem]'>
             <Container className='flex items-center gap-1'>
                 <Avatar url={user.avatar} alt={`${user.username}'s avatar`} />
@@ -71,8 +70,8 @@ export default function User({ user, onUserFollowToggled }) {
             </Container>
         </Container>
 
-        {isChatOpen && chatId && (
+        <Modal isOpen={isChatOpen} onClose={handleToggleChat}>
             <Chat chatId={chatId} userId={userId} onMessageSent={() => { }} />
-        )}
+        </Modal>
     </article>
 }

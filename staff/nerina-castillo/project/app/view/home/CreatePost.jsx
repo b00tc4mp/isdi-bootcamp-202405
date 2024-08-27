@@ -46,7 +46,7 @@ export default function Createpost({ onPostCreated, onCancelCreatePost }) {
             </Container>
             <Container className='flex flex-col gap-2'>
                 <Label htmlFor='post-text-input'>text</Label>
-                <Input id='post-text-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
+                <textarea id='post-text-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
             </Container>
             <Container className='flex flex-col'>
                 <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold'>CREATE</Button>

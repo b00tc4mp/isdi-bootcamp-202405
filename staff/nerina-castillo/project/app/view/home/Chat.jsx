@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import logic from '../../logic'
 import formatTime from '../../util/formatTime.js'
 import Button from '../library/Button'
@@ -13,6 +13,13 @@ import Image from '../library/Image'
 export default function Chat({ chatId, userId, onMessageSent }) {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState('')
+    const messagesEndRef = useRef(null)
+
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+        }
+    }, [messages])
 
     useEffect(() => {
         const loadMessages = () => {
@@ -45,9 +52,7 @@ export default function Chat({ chatId, userId, onMessageSent }) {
             logic.sendMessage(chatId, newMessage)
                 .then(() => {
                     setNewMessage('')
-
                     onMessageSent()
-
                     return logic.getMessages(chatId)
                 })
                 .then(updatedMessages => {
@@ -55,17 +60,15 @@ export default function Chat({ chatId, userId, onMessageSent }) {
                 })
                 .catch(error => {
                     console.error(error)
-
                     alert(error.message)
-                })
+                });
         } catch (error) {
             console.error(error)
-
             alert(error.message)
         }
     }
 
-    return <Container className='bg-slate-300 flex flex-col text-slate-700 rounded-lg mb-2'>
+    return <Container className='bg-slate-300 flex flex-col text-slate-700 rounded-lg mb-2 h-[100%] overflow-y-auto'>
         <Container className='flex-1 overflow-y-auto'>
             {messages.map(message => (
                 <Container
@@ -81,8 +84,8 @@ export default function Chat({ chatId, userId, onMessageSent }) {
                                 {message.author.username}
                             </Heading>
                         </Container>
-                        <Container className={`ml-3 mr-3 ${message.author.id === userId ? 'text-right' : 'text-left'} break-words`}>
-                            <Paragraph className='break-words max-w-[55%]'>
+                        <Container className={`ml-3 mr-3 ${message.author.id === userId ? 'text-left' : 'text-left'} break-words`}>
+                            <Paragraph className='break-words word-break max-w-44'>
                                 {message.text}
                             </Paragraph>
                             <Time className='text-xs text-gray-500'>
@@ -92,9 +95,10 @@ export default function Chat({ chatId, userId, onMessageSent }) {
                     </Container>
                 </Container>
             ))}
+            <div ref={messagesEndRef} />
         </Container>
         <Container className='p-2 flex items-center'>
-            <Input
+            <textarea
                 value={newMessage}
                 onChange={e => setNewMessage(e.target.value)}
                 className='flex-1 mr-2 border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none'

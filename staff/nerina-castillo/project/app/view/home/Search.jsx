@@ -5,6 +5,7 @@ import Input from '../library/Input'
 import Button from '../library/Button'
 import Heading from '../library/Heading'
 import Container from '../library/Container'
+import Image from '../library/Image'
 
 export default function Search() {
     const navigate = useNavigate()
@@ -44,8 +45,12 @@ export default function Search() {
     return <Container className='mt-[60px]'>
         <Heading className='mt-2 ml-2 text-2xl font-bold'>search</Heading>
         <Form className='mt-[36px] gap-[.2rem]' onSubmit={handleSubmit}>
-            <Input name='q' placeholder='search' value={query} onChange={handleInputChange} />
-            <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEARCH</Button>
+            <Container className='flex flex-row gap-2 justify-between'>
+                <Input name='q' placeholder='search' className='w-full' value={query} onChange={handleInputChange} />
+                <Button type='submit' className='ml-2'>
+                    <Image className='w-[25px] h-[20px]' src='./search.png' />
+                </Button>
+            </Container>
         </Form>
-    </Container>
+    </Container >
 }

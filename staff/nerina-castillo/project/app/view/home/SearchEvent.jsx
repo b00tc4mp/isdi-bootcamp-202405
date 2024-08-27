@@ -1,13 +1,12 @@
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Container from '../library/Container'
 import Form from '../library/Form'
 import Input from '../library/Input'
 import Button from '../library/Button'
+import Image from '../library/Image'
 
 export default function SearchEvent() {
-    const navigate = useNavigate()
-    const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState('')
 
@@ -48,10 +47,11 @@ export default function SearchEvent() {
 
     return <Container className='mb-3 flex flex-col gap-2'>
         <Form className='mt-5' onSubmit={handleSearchEventSubmit}>
-            <Container className='flex flex-col gap-[.2rem]'>
-                <Input type='text' name='q' id='search-event-input' placeholder='search events' value={query} onChange={handleInputChange} />
-                <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold mb-2'>SEARCH</Button>
-
+            <Container className='flex flex-row gap-2 justify-between mb-2'>
+                <Input name='q' placeholder='search' className='w-full' value={query} onChange={handleInputChange} />
+                <Button type='submit' className='ml-2'>
+                    <Image className='w-[25px] h-[20px]' src='./search.png' />
+                </Button>
             </Container>
             <Container className='flex justify-between w-full'>
                 <span>0 km</span>

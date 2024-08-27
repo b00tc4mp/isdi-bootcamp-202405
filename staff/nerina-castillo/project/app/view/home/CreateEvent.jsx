@@ -71,7 +71,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
                 </Container>
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-description-input'>description</Label>
-                    <Input id='event-description-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
+                    <textarea id='event-description-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
                 <Container className='flex flex-col gap-2'>
                     <Label htmlFor='event-location-input'>location</Label>

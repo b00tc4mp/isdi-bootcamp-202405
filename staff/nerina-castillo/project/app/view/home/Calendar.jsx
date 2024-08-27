@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import formatDate from '../../util/formatDate'
@@ -31,8 +31,6 @@ export default function Calendar() {
     }, [selectedDate])
 
     useEffect(() => {
-        console.debug('calendar -> useEffect')
-
         try {
             logic.getAllEvents()
                 .then(events => setEvents(events))
@@ -69,13 +67,6 @@ export default function Calendar() {
         setSelectedDate(null)
     }
 
-    // const handleEventDeleted = (eventId) => {
-    //     setFilteredEvents(prevEvents => prevEvents.filter(event => event.id !== eventId))
-    // }
-
-    // const handleEventEdited = () => { }
-
-
     const days = []
     for (let i = 0; i < startDay; i++) {
         days.push(<Container key={`empty-${i}`} className='border p-2' />)
@@ -110,36 +101,26 @@ export default function Calendar() {
 
     return <section>
         <Container className='pb-[70px] ml-1 mr-1'>
-            {view === 'calendar' ? (
-                <>
-                    <Container className='flex justify-around items-center mb-4'>
-                        <Button onClick={handlePrevMonth} className='p-2 border-none'>&lt;</Button>
-                        <span className='text-lg font-semibold'>{currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' })}</span>
-                        <Button onClick={handleNextMonth} className='p-2 border-none'>&gt;</Button>
-                    </Container>
 
-                    <Container className='grid grid-cols-7 text-center font-semibold'>
-                        <Container>sun</Container>
-                        <Container>mon</Container>
-                        <Container>tue</Container>
-                        <Container>wed</Container>
-                        <Container>thu</Container>
-                        <Container>fri</Container>
-                        <Container>sat</Container>
-                    </Container>
+            <Container className='flex justify-around items-center mb-4'>
+                <Button onClick={handlePrevMonth} className='p-2 border-none'>&lt;</Button>
+                <span className='text-lg font-semibold'>{currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' })}</span>
+                <Button onClick={handleNextMonth} className='p-2 border-none'>&gt;</Button>
+            </Container>
 
-                    <Container className='grid grid-cols-7 gap-1'>
-                        {days}
-                    </Container>
-                </>
-            ) : (
-                <EventList
-                    events={filteredEvents}
-                    onBack={handleBackToCalendar}
-                    onEventDeleted={handleEventDeleted}
-                    onEventEdited={handleEventEdited}
-                />
-            )}
+            <Container className='grid grid-cols-7 text-center font-semibold'>
+                <Container>sun</Container>
+                <Container>mon</Container>
+                <Container>tue</Container>
+                <Container>wed</Container>
+                <Container>thu</Container>
+                <Container>fri</Container>
+                <Container>sat</Container>
+            </Container>
+
+            <Container className='grid grid-cols-7 gap-1'>
+                {days}
+            </Container>
         </Container>
     </section>
 }
