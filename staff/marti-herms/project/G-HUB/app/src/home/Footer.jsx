@@ -21,7 +21,7 @@ export default function Footer({ makeReviewVisibility, onSearchGame, onAddGame, 
         onChat(userId)
     }
 
-    return <footer className='fixed w-screen h-[7%] bottom-0 left-0 flex flex-row justify-evenly items-center border-t border-solid border-t-black z-10 bg-slate-700'>
+    return <footer className='fixed w-screen h-[60px] bottom-0 left-0 bg-gray-600 dark:bg-slate-700 flex flex-row justify-evenly items-center dark:border-t dark:border-solid dark:border-t-black z-10 shadow-[0px_1px_1px_gray]'>
         <Routes>
             <Route path={paths.home} element={<>
                 {role === 'dev' && <Button onClick={onAddGame}><AddGameIcon className='w-8 h-8 dark:text-white' /></Button>}

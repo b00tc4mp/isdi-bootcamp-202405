@@ -55,7 +55,7 @@ export default function AddGame({ onAddGame }) {
                 <Input id='name-input' type='text' placeholder='Name' />
                 {image && <img src={image} className='w-56 h-auto rounded' alt="" />}
                 <Input id='image-input' type='text' placeholder='Image' onChange={handleChange} />
-                <textarea className='w-9/12 rounded-lg p-1 h-20 text-2xl' id='description-input' type='text' placeholder='Description' />
+                <textarea className='w-9/12 rounded-lg p-1 h-20 text-2xl border border-solid border-black shadow-md shadow-black' id='description-input' type='text' placeholder='Description' />
                 <Input id='link-input' type='text' placeholder='Link' />
                 <Button variant='contained' type='submit'>Add Game</Button>
             </Form>

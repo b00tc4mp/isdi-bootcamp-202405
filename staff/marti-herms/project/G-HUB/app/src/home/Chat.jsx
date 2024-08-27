@@ -156,7 +156,7 @@ export default function Chat({ onOpenChat }) {
                 {messages.map(message => <Message key={message.id} message={message} />)}
                 <div ref={messageRef} />
             </Container>
-            <Form className='fixed w-full h-[50px] bottom-[60px] dark:bg-[#1e1e1e] flex flex-row justify-center items-center gap-2' onSubmit={handleSendMessage}>
+            <Form className='fixed w-full h-[50px] bottom-[65px] dark:bg-[#1e1e1e] flex flex-row justify-center items-center gap-2' onSubmit={handleSendMessage}>
                 <Input id='message-input' value={message} onChange={handleInputChange} />
                 <Button className='bg-blue-800 rounded-full h-[40px] aspect-square' ><SendIcon className='w-8 h-8 ml-0.5 mt-1 text-white' /></Button>
             </Form>
@@ -168,7 +168,7 @@ export default function Chat({ onOpenChat }) {
                             <Avatar className='w-2/12 h-2/12' url={user.avatar || defaultAvatar} />
                             <Paragraph className='text-xl font-bold'>{user.username}</Paragraph>
                         </Container>
-                        <Button className='h-[40px]' onClick={() => handleOpenChat(user.id)} ><SendIcon className='w-8 h-8 ml-0.5 mt-1 text-white' /></Button>
+                        <Button className='h-[40px]' onClick={() => handleOpenChat(user.id)} ><SendIcon className='w-8 h-8 ml-0.5 mt-1 dark:text-white' /></Button>
                     </article>
                 )}
             </Container>}

@@ -42,7 +42,7 @@ export default function UserBanner({ user, onInteraction, onUserClick, onChatCli
         onChatClick(user.id)
     }
 
-    return <article className='flex flex-row w-full items-center justify-between p-3 border-y border-solid border-slate-700 dark:bg-black'>
+    return <article className='flex flex-row w-full items-center justify-between p-3 border-y border-solid border-black dark:border-slate-700 dark:bg-black'>
         <Button className='bg-transparent border-0' onClick={handleUserClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>

@@ -8,7 +8,10 @@ import Button from '../library/Button'
 
 import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 
+import useContext from '../context';
+
 export default function Review({ review, onDelete }) {
+    const { theme } = useContext
     const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
 
     const handleDelete = () => {
@@ -23,6 +26,7 @@ export default function Review({ review, onDelete }) {
                 name='read-only'
                 value={review.rate}
                 style={{ marginBottom: '12px', marginTop: '6px' }}
+                icon={<StarIcon style={{ color: theme === 'dark' ? 'inherit' : 'blue' }} fontSize='inherit' />}
                 emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />}
                 readOnly />}
         </Container>

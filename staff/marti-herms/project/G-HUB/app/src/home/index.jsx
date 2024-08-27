@@ -73,7 +73,7 @@ export default function Home({ onLogout }) {
     return <>
         <Header onLogoutClick={onLogout} onProfileClick={handleProfileClick} ></Header>
 
-        <main className='pb-[7%] w-screen h-auto dark:bg-[#1e1e1e]'>
+        <main className='pb-[60px] w-screen h-auto'>
             <Routes>
                 <Route path={paths.home} element={<Library onGameClick={handleGame} />} />
                 <Route path={paths.profile + ':userId'} element={<Profile onChange={handleSearchUser} onGameClick={handleGame} />} />

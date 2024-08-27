@@ -130,7 +130,7 @@ export default function Profile({ refreshStamp, onChange, onGameClick }) {
     return <>
         {user && <Container className='flex flex-row justify-center items-center my-4'>
             <Avatar url={user.avatar || defaultAvatar} className='w-[7rem] h-[7rem] relative top-[5px]' />
-            <h2 className='text-white text-4xl'>{user.username}</h2>
+            <h2 className='dark:text-white text-4xl'>{user.username}</h2>
         </Container>}
         {user && user.id === loggedInUserId && <Container className='m-3 flex flex-row justify-center items-center box-content'>
             <Button className='rounded-s bg-slate-300 h-auto text-black hover:bg-slate-500 p-1' onClick={handleEditAvatarClick}><AvatarIcon className='w-8 h-8' /></Button>

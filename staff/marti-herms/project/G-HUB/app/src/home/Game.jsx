@@ -20,6 +20,7 @@ import Review from './Review'
 
 export default function Game({ makeReviewVisibility, onCancel }) {
     const { alert } = useContext()
+    const { theme } = useContext()
 
     const { gameId } = useParams()
 
@@ -128,38 +129,40 @@ export default function Game({ makeReviewVisibility, onCancel }) {
             <Container className='flex flex-row items-center gap-4' >
                 <Image className='w-32 h-32' src={game.image} alt={game.name} />
                 <Container>
-                    <Paragraph className='text-white font-semibold text-2xl'>{game.name}</Paragraph>
-                    <Paragraph className='text-white font-semibold text-lg'>{game.author.username}</Paragraph>
+                    <Paragraph className='dark:text-white font-semibold text-2xl'>{game.name}</Paragraph>
+                    <Paragraph className='dark:text-white font-semibold text-lg'>{game.author.username}</Paragraph>
                 </Container>
             </Container>
             <Container className='flex flex-col justify-center pl-2'>
-                <Paragraph className='text-white font-semibold text-lg ml-0 text-wrap'>{game.description}</Paragraph>
+                <Paragraph className='dark:text-white font-semibold text-lg ml-0 text-wrap'>{game.description}</Paragraph>
                 <Container className='flex flex-row justify-center items-center'>
                     <Rating
                         name='read-only'
                         value={rating}
                         precision={0.25}
                         size='large'
+                        icon={<StarIcon style={{ color: theme === 'dark' ? 'inherit' : 'blue' }} fontSize='inherit' />}
                         emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />}
                         readOnly />
-                    <Paragraph>{rating}</Paragraph>
+                    <Paragraph>{rating.toFixed(2)}</Paragraph>
                 </Container>
-                <Link className='text-white font-semibold text-lg text-center hover:text-violet-500 active:text-violet-500:' href={game.link}>Go to official page</Link>
+                <Link className='dark:text-white font-semibold text-lg text-center hover:text-violet-500 active:text-violet-500:' href={game.link}>Go to official page</Link>
             </Container>
         </>}
         <Container className='flex flex-col mt-4' style={{ marginBottom: makeReviewVisibility ? '140px' : '60px' }}>
             {reviews && reviews.map(review => <Review key={review.id} review={review} onDelete={handleDeleteReview} />)}
         </Container>
-        {makeReviewVisibility && <Form className='fixed bottom-[60px] flex flex-row w-full h-auto p-1 dark:bg-[#1e1e1e] justify-start items-center box-content text-black' onSubmit={handleMakeReview}>
+        {makeReviewVisibility && <Form className='fixed bottom-[60px] flex flex-row w-full h-auto p-1 bg-gray-400 dark:bg-[#1e1e1e] justify-start items-center box-content text-black' onSubmit={handleMakeReview}>
             <Container className='flex flex-col justify-center items-center box-content w-[80%]'>
                 <Input name='comment' placeholder='comment' id='comment-input' />
-                <Container className='flex flex-row'>
+                <Container className='flex flex-row mt-1'>
                     <Rating name='rating-input'
                         value={value}
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}
                         size='large'
+                        icon={<StarIcon style={{ color: theme === 'dark' ? 'inherit' : 'blue' }} fontSize='inherit' />}
                         emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} />
                 </Container>
             </Container>

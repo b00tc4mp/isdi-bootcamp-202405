@@ -51,7 +51,7 @@ export default function GameBanner({ game, onInteraction, onGameClick, collectio
         }
     }
 
-    return <article className='flex flex-row items-center border-y border-solid border-slate-700 dark:bg-black'>
+    return <article className='flex flex-row items-center border-y border-solid border-black dark:border-slate-700 dark:bg-black'>
         <Button className='bg-transparent border-0' onClick={handleGameClick}>
             <Container className='flex flex-col'>
                 <Container className='flex flex-row items-center'>
