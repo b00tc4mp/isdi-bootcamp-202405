@@ -4,16 +4,22 @@ import Event from './Event'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-export default function EventList({ events, onBack }) {
+export default function EventList({ events, onBack, onEventDeleted, onEventEdited }) {
     const [eventList, setEventList] = useState([])
 
     useEffect(() => {
         setEventList(events)
     }, [events])
 
-    const handleEventDeleted = eventId => setEventList(prevEvents => prevEvents.filter(event => event.id !== eventId))
+    const handleEventDeleted = (eventId) => {
+        setEventList(prevEvents => prevEvents.filter(event => event.id !== eventId))
+        onEventDeleted(eventId)
+    }
 
-    const handleEventEdited = editedEventDate => loadEventsByDate(editedEventDate)
+    const handleEventEdited = (editedEventDate) => {
+        loadEventsByDate(editedEventDate)
+        onEventEdited(editedEventDate)
+    }
 
     const loadEventsByDate = date => {
         if (!date) return

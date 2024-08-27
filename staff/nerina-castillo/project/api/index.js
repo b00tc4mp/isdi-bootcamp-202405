@@ -28,7 +28,8 @@ import {
     deleteCommentHandler,
     createChatHandler,
     sendMessageHandler,
-    getMessagesHandler
+    getMessagesHandler,
+    getEventByDateHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -68,6 +69,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/users', jwtVerifier, getUsersByRoleHandler)
 
         api.get('/events/search', jwtVerifier, searchEventHandler)
+
+        api.get('/events/by-date/:date', jwtVerifier, getEventByDateHandler)
 
         api.patch('/posts/:postId/likes', jwtVerifier, toggleLikePostHandler)
 

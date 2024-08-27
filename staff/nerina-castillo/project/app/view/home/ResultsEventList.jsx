@@ -8,35 +8,62 @@ import Heading from '../library/Heading'
 
 export default function ResultsEventList() {
     const [searchParams] = useSearchParams()
-    const [events, setEvents] = useState([])
     const [filteredEvents, setFilteredEvents] = useState([])
     const [searchPerformed, setSearchPerformed] = useState(false)
+    const [events, setEvents] = useState([])
+    const [eventList, setEventList] = useState([])
 
     const q = searchParams.get('q') || ''
     const distance = Number(searchParams.get('distance') || '10')
+    const date = searchParams.get('date')
 
     useEffect(() => {
-        loadAllEvents()
-
-        if (q) {
+        if (q || date) {
             setSearchPerformed(true)
             loadFilteredEvents()
         } else {
             setSearchPerformed(false)
-            setFilteredEvents([])
+            loadEventsByDate(date)
         }
-    }, [q, distance])
+    }, [q, distance, date])
 
-    const loadAllEvents = () => {
+    useEffect(() => {
+        setEventList(events)
+    }, [events])
+
+    const handleEventDeleted = (eventId) => {
+        setEventList(prevEvents => prevEvents.filter(event => event.id !== eventId))
+        setFilteredEvents(prevFiltered => prevFiltered.filter(event => event.id !== eventId))
+    }
+
+    const handleEventEdited = (updatedEvent) => {
+        setEventList(prevEvents => prevEvents.map(event =>
+            event.id === updatedEvent.id ? updatedEvent : event
+        ))
+        setFilteredEvents(prevFiltered => prevFiltered.map(event =>
+            event.id === updatedEvent.id ? updatedEvent : event
+        ))
+    }
+
+    const loadEventsByDate = date => {
+        if (!date) return
+
         try {
             logic.getAllEvents()
-                .then(events => setEvents(events))
+                .then(events => {
+                    const filteredEvents = events.filter(event => event.startDate && event.startDate.slice(0, 10) === date.slice(0, 10))
+
+                    setEvents(filteredEvents)
+                    setEventList(filteredEvents)
+                })
                 .catch(error => {
                     console.error(error)
+
                     alert(error.message)
                 })
         } catch (error) {
             console.error(error)
+
             alert(error.message)
         }
     }
@@ -48,7 +75,10 @@ export default function ResultsEventList() {
 
                 try {
                     logic.searchEvent(q, distance, coords)
-                        .then(events => setFilteredEvents(events))
+                        .then(events => {
+                            setFilteredEvents(events)
+                            setEventList(events)
+                        })
                         .catch(error => {
                             console.error(error)
                             alert(error.message)
@@ -61,6 +91,23 @@ export default function ResultsEventList() {
                 console.error(error)
                 alert(error.message)
             })
+        } else if (date) {
+            try {
+                logic.getEventByDate(new Date(date))
+                    .then(events => {
+                        setFilteredEvents(events)
+                        setEventList(events)
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        alert(error.message)
+                    })
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message)
+            }
+
         }
     }
 
@@ -72,10 +119,13 @@ export default function ResultsEventList() {
 
             {searchPerformed ? (
                 filteredEvents.length > 0 && filteredEvents.map(event => (
-                    <Event key={event.id} event={event} />
+                    <Event key={event.id}
+                        event={event}
+                        onEventDeleted={handleEventDeleted}
+                        onEventEdited={handleEventEdited} />
                 ))
             ) : (
-                <Calendar events={events} />
+                <Calendar />
             )}
         </section>
     )

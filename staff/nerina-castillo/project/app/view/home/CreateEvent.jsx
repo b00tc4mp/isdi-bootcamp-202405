@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import logic from '../../logic/index.js'
 import Heading from '../library/Heading'
 import Form from '../library/Form'
@@ -5,8 +6,18 @@ import Input from '../library/Input'
 import Label from '../library/Label'
 import Button from '../library/Button'
 import Container from '../library/Container'
+import formatDateFromUrl from '../../util/formatDateFromUrl.js'
 
 export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
+
+    const [formattedDate, setFormattedDate] = useState('')
+
+    useEffect(() => {
+        const dateFromUrl = formatDateFromUrl()
+        setFormattedDate(dateFromUrl)
+        console.log(formattedDate)
+    }, [])
+
     const handleCreateEventSubmit = event => {
         event.preventDefault()
 
@@ -32,13 +43,15 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
 
         try {
             logic.createEvent(eventImage, eventTitle, eventDescription, eventLongitude, eventLatitude, eventStartDate, eventStartTime, eventTickets)
-                .then(event => onEventCreated(event))
+                .then(() => onEventCreated())
                 .catch(error => {
                     console.error(error)
+
                     alert(error.message)
                 })
         } catch (error) {
             console.error(error)
+
             alert(error.message)
         }
     }
@@ -69,7 +82,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
                 </Container>
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-start-date-input'>date</Label>
-                    <Input id='event-start-date-input' type='date' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
+                    <Input id='event-start-date-input' type='date' value={formattedDate} className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-start-time-input'>time</Label>

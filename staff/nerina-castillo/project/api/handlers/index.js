@@ -20,6 +20,7 @@ import deleteCommentHandler from './deleteCommentHandler.js'
 import createChatHandler from './createChatHandler.js'
 import sendMessageHandler from './sendMessageHandler.js'
 import getMessagesHandler from './getMessagesHandler.js'
+import getEventByDateHandler from './getEventByDateHandler.js'
 
 export {
     registerUserHandler,
@@ -43,5 +44,6 @@ export {
     deleteCommentHandler,
     createChatHandler,
     sendMessageHandler,
-    getMessagesHandler
+    getMessagesHandler,
+    getEventByDateHandler
 }

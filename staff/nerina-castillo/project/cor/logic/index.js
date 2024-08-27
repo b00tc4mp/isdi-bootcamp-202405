@@ -20,6 +20,7 @@ import deleteComment from './deleteComment.js'
 import createChat from './createChat.js'
 import sendMessage from './sendMessage.js'
 import getMessages from './getMessages.js'
+import getEventByDate from './getEventByDate.js'
 
 const logic = {
     registerUser,
@@ -43,7 +44,8 @@ const logic = {
     deleteComment,
     createChat,
     sendMessage,
-    getMessages
+    getMessages,
+    getEventByDate
 }
 
 export default logic

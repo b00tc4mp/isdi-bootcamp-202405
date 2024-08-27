@@ -74,9 +74,9 @@ function validateLongitude(longitude, explain = 'longitude') {
 
 function validateDate(date, explain = 'date') {
     if (typeof date === 'string') {
-        date = new Date(date);
+        date = new Date(date)
     }
-    if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`);
+    if (!(date instanceof Date) || isNaN(date.getTime())) throw new ValidationError(`invalid ${explain}`)
 }
 
 function validateEventDates(startDate, endDate) {

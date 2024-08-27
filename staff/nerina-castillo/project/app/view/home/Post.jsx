@@ -14,7 +14,7 @@ import Confirm from '../common/Confirm'
 export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostLikeToggled, onCommentCreated }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [isFollowing, setIsFollowing] = useState(post.author.following)
-    const [createCommentVisible, setCreateCommentVisible] = useState(false)
+    // const [createCommentVisible, setCreateCommentVisible] = useState(false)
     const [comments, setComments] = useState([])
     const [commentsVisible, setCommentsVisible] = useState(false)
 

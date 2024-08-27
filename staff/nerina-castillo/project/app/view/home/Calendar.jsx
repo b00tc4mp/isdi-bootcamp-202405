@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
-
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import formatDate from '../../util/formatDate'
 import EventList from './EventList'
+import logic from '../../logic'
 
-export default function Calendar({ events = [] }) {
+export default function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [selectedDate, setSelectedDate] = useState(null)
     const [view, setView] = useState('calendar')
+    const [filteredEvents, setFilteredEvents] = useState([])
+    const [events, setEvents] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
     const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
@@ -16,7 +20,33 @@ export default function Calendar({ events = [] }) {
     const daysInMonth = endOfMonth.getDate()
 
     useEffect(() => {
-    }, [events])
+        if (selectedDate) {
+            const updatedEvents = events.filter(event => {
+                const eventStartDate = new Date(event.startDate)
+
+                return formatDate(eventStartDate) === formatDate(selectedDate)
+            })
+            setFilteredEvents(updatedEvents)
+        }
+    }, [selectedDate])
+
+    useEffect(() => {
+        console.debug('calendar -> useEffect')
+
+        try {
+            logic.getAllEvents()
+                .then(events => setEvents(events))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }, [])
 
     const handlePrevMonth = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
@@ -30,8 +60,10 @@ export default function Calendar({ events = [] }) {
 
     const handleDayClick = (day) => {
         const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-        setSelectedDate(date)
-        setView('events')
+        // setSelectedDate(date)
+        // setView('events')
+        // navigate(`/search?`)
+        setSearchParams({ date: date.toISOString() })
     }
 
     const handleBackToCalendar = () => {
@@ -39,12 +71,12 @@ export default function Calendar({ events = [] }) {
         setSelectedDate(null)
     }
 
-    const filteredEvents = selectedDate
-        ? events.filter(event => {
-            const eventStartDate = new Date(event.startDate)
-            return formatDate(eventStartDate) === formatDate(selectedDate)
-        })
-        : []
+    const handleEventDeleted = (eventId) => {
+        setFilteredEvents(prevEvents => prevEvents.filter(event => event.id !== eventId))
+    }
+
+    const handleEventEdited = () => { }
+
 
     const days = []
     for (let i = 0; i < startDay; i++) {
@@ -79,7 +111,7 @@ export default function Calendar({ events = [] }) {
     }
 
     return <section>
-        <Container className='pb-[60px] ml-1 mr-1'>
+        <Container className='pb-[70px] ml-1 mr-1'>
             {view === 'calendar' ? (
                 <>
                     <Container className='flex justify-around items-center mb-4'>
@@ -103,7 +135,12 @@ export default function Calendar({ events = [] }) {
                     </Container>
                 </>
             ) : (
-                <EventList events={filteredEvents} onBack={handleBackToCalendar} />
+                <EventList
+                    events={filteredEvents}
+                    onBack={handleBackToCalendar}
+                    onEventDeleted={handleEventDeleted}
+                    onEventEdited={handleEventEdited}
+                />
             )}
         </Container>
     </section>

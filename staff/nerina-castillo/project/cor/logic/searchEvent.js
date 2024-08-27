@@ -31,6 +31,7 @@ export default (userId, query, distance, coords) => {
                 .catch(error => { throw new SystemError(error.message); })
                 .then(events => events.map(event => {
                     event.id = event._id.toString()
+
                     delete event._id
 
                     return event

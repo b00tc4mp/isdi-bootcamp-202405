@@ -30,11 +30,7 @@ export default function SearchEvent() {
         navigator.geolocation.getCurrentPosition(position => {
             const coords = `${position.coords.latitude},${position.coords.longitude}`
 
-            if (!query.trim())
-                navigate(`/search?q=${query}&distance=${distance}&coords=${coords}`)
-            else if (location.pathname !== '/calendar')
-                navigate('/calendar')
-            else setSearchParams({ q: query, distance, coords })
+            setSearchParams({ q: query, distance, coords })
 
             setQuery(query)
         }, error => {

@@ -82,7 +82,7 @@ export default function Chat({ chatId, userId, onMessageSent }) {
                             </Heading>
                         </Container>
                         <Container className={`ml-3 mr-3 ${message.author.id === userId ? 'text-right' : 'text-left'} break-words`}>
-                            <Paragraph className='break-words overflow-hidden'>
+                            <Paragraph className='break-words max-w-[55%]'>
                                 {message.text}
                             </Paragraph>
                             <Time className='text-xs text-gray-500'>
