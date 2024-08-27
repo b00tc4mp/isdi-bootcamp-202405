@@ -4,7 +4,7 @@ import cors from 'cors'
 
 import { mongoose } from 'core'
 
-import { jsonBodyParser, jwtVerifier, errorHandler } from './middleware/index.js'
+import { jwtVerifier, errorHandler } from './middleware/index.js'
 
 import handle from './handlers/index.js'
 
@@ -16,13 +16,15 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.use(cors())
 
-        api.post('/users', jsonBodyParser, handle.registerUser)
+        api.use(json())
 
-        api.post('/users/auth', jsonBodyParser, handle.authenticateUser)
+        api.post('/users', handle.registerUser)
 
-        api.patch('/users/username', jwtVerifier, jsonBodyParser, handle.editUserUsername)
+        api.post('/users/auth', handle.authenticateUser)
 
-        api.patch('/users/avatar', jwtVerifier, jsonBodyParser, handle.editUserAvatar)
+        api.patch('/users/username', jwtVerifier, handle.editUserUsername)
+
+        api.patch('/users/avatar', jwtVerifier, handle.editUserAvatar)
 
         api.get('/users/search', jwtVerifier, handle.searchUser)
 
@@ -38,7 +40,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/users/:targetUserId/follow', jwtVerifier, handle.toggleFollowUser)
 
-        api.post('/games', jwtVerifier, jsonBodyParser, handle.registerGame)
+        api.post('/games', jwtVerifier, handle.registerGame)
 
         api.get('/games/search', jwtVerifier, handle.searchGame)
 
@@ -56,15 +58,17 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/games/:gameId/favs', jwtVerifier, handle.toggleFavGame)
 
-        api.post('/games/:gameId/review', jwtVerifier, jsonBodyParser, handle.makeReview)
+        api.post('/games/:gameId/review', jwtVerifier, handle.makeReview)
 
         api.delete('/reviews/:reviewId', jwtVerifier, handle.deleteReview)
 
         api.get('/chat/:targetUserId', jwtVerifier, handle.openChat)
 
-        api.post('/chat/:chatId/messages', jwtVerifier, jsonBodyParser, handle.sendMessage)
+        api.post('/chat/:chatId/messages', jwtVerifier, handle.sendMessage)
 
         api.get('/chat/:chatId/messages', jwtVerifier, handle.getChatMessages)
+
+        api.get('/chats/:targetUserId', jwtVerifier, handle.getUserChats)
 
         api.use(errorHandler)
 

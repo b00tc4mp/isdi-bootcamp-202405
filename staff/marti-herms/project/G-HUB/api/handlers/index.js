@@ -23,6 +23,7 @@ import editUserUsernameHandler from './editUserUsernameHandler.js'
 import openChatHandler from './openChatHandler.js'
 import sendMessageHandler from './sendMessageHandler.js'
 import getChatMessagesHandler from './getChatMessagesHandler.js'
+import getUserChatsHandler from './getUserChatsHandler.js'
 
 const handle = {
     authenticateUser: authenticateUserHandler,
@@ -35,6 +36,7 @@ const handle = {
     getGamesReviews: getGamesReviewsHandler,
     getUser: getUserHandler,
     getUserAvatar: getUserAvatarHandler,
+    getUserChats: getUserChatsHandler,
     getUserFavs: getUserFavsHandler,
     getUserFollowers: getUserFollowersHandler,
     getUserFollowing: getUserFollowingHandler,

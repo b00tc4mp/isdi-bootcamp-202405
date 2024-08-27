@@ -65,6 +65,8 @@ export default function Game({ makeReviewVisibility, onCancel }) {
         try {
             logic.makeReview(gameId, comment, rate || 0)
                 .then(() => {
+                    console.log('hello')
+
                     onCancel()
 
                     loadReviews()
