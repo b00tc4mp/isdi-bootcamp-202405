@@ -29,6 +29,7 @@ describe('toggleFollowUser', () => {
 
     it('fails on follow a non-existing user', () => {
         let error
+
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user =>
                 toggleFollowUser(user.id, new ObjectId().toString())

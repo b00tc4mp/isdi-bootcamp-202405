@@ -2,6 +2,7 @@ import { logic } from 'cor'
 
 export default (req, res, next) => {
     const { userId } = req
+
     const { q } = req.query
 
     try {

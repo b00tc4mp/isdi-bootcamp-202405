@@ -41,16 +41,7 @@ describe('getAllEvents', () => {
 
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user => {
-                return Event.create({
-                    author: new ObjectId().toString(),
-                    image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif',
-                    title: 'Barrenfields',
-                    description: 'Barrenfields concert',
-                    location: { type: 'Point', coordinates: [40.7128, -74.0060] },
-                    startDate: new Date(),
-                    startTime: '21:30',
-                    tickets: 'http://lhdbs'
-                })
+                return Event.create({ author: new ObjectId().toString(), image: 'https://media.giphy.com/media/gHbQG42yJMVHy/giphy.gif', title: 'Barrenfields', description: 'Barrenfields concert', location: { type: 'Point', coordinates: [40.7128, -74.0060] }, startDate: new Date(), startTime: '21:30', tickets: 'http://crocantickets.com' })
                     .then(() => getAllEvents(user.id))
                     .catch(error => {
                         _error = error

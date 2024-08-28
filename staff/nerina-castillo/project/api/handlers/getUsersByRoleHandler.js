@@ -2,6 +2,7 @@ import { logic } from 'cor'
 
 export default (req, res, next) => {
     const { role } = req.query
+
     const { userId } = req
 
     try {

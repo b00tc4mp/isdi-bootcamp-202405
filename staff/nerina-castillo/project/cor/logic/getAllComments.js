@@ -11,7 +11,7 @@ export default postId => {
         .then(post => {
             if (!post) throw new NotFoundError('post not found')
 
-            return Comment.find({ post: postId }, { __v: 0 }).sort({ date: -1 }).lean()
+            return Comment.find({ post: postId }, { __v: 0 }).sort({ date: 1 }).lean()
                 .catch(error => { throw SystemError(error.message) })
                 .then(comments => {
                     const promises = comments.map(comment => {

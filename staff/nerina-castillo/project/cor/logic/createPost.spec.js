@@ -71,15 +71,15 @@ describe('createPost', () => {
     })
 
     it('fails on non-existing image and text', () => {
-        let error;
+        let error
 
         try {
-            createPost(new ObjectId().toString(), '', '');
+            createPost(new ObjectId().toString(), '', '')
         } catch (_error) {
-            error = _error;
+            error = _error
         } finally {
-            expect(error).to.be.instanceOf(ValidationError);
-            expect(error.message).to.equal('either image or text must be provided');
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('either image or text must be provided')
         }
     })
 

@@ -55,7 +55,7 @@ describe('searchItems', () => {
     })
 
     it('fails on existing user but non-existing author', () => {
-        let user;
+        let user
 
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(createdUser => {

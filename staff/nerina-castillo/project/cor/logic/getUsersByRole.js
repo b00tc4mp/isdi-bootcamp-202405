@@ -26,7 +26,6 @@ export default (userId, role) => {
                         return user
                     })
 
-
                 })
         })
 }

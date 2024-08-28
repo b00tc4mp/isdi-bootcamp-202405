@@ -36,7 +36,7 @@ User
 - List venues
 - List promoters
 - List labels
-- Add comment in a post
+- Add comments in a post
 - Delete own comment in a post
 - Toggle like post
 - Open chat
@@ -67,7 +67,11 @@ User
 - Node
 - Express
 - React
-- Mongo
+- Mongodb
+- Mongoose
+- Bcrypt
+- Tailwind
+- JWT
 
 ### Data Model
 
@@ -125,3 +129,7 @@ Message
 - text (string)
 - date (Date)
 - chat (Chat.id)
+
+### Test Coverage
+
+![Test Coverage](./test-coverage.png)

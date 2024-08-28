@@ -56,7 +56,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
 
     const handleCancelCreateEventClick = () => onCancelCreateEvent()
 
-    return <section className='fixed bottom-0 top-0 w-full bg-slate-300 text-slate-900 border'>
+    return <section className='fixed bottom-0 top-0 w-full bg-slate-300 text-slate-900 border pb-2'>
         <Heading className='ml-2 mt-2 text-xl font-bold'>create event</Heading>
 
         <Form onSubmit={handleCreateEventSubmit}>

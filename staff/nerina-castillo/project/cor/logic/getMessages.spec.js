@@ -18,9 +18,9 @@ describe('getMessages', () => {
             .then(user =>
                 Chat.create({ participants: [user.id] })
                     .then(chat =>
-                        Message.create({ chat: chat.id, author: user.id, text: 'hello!' })  // Cambiado a chat.id
+                        Message.create({ chat: chat.id, author: user.id, text: 'hello!' })
                             .then(message1 =>
-                                Message.create({ chat: chat.id, author: user.id, text: 'how are you?' })  // Cambiado a chat.id
+                                Message.create({ chat: chat.id, author: user.id, text: 'how are you?' })
                                     .then(message2 =>
                                         getMessages(user.id, chat.id)
                                             .then(messages => {

@@ -23,7 +23,7 @@ describe('deletePost', () => {
                                 deletePost(user.id, post1.id)
                                     .then(() => Post.find({}).lean())
                                     .then(posts => {
-                                        expect(posts[0].author.toString()).to.equal(post2.author.toString());
+                                        expect(posts[0].author.toString()).to.equal(post2.author.toString())
                                     })
                             )
                     )

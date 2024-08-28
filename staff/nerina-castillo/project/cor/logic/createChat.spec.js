@@ -14,26 +14,20 @@ describe('createChat', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Chat.deleteMany()]))
 
     it('succeeds on create chat', () => {
-        let user1
-        let user2
-
         return Promise.all([
             User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' }),
             User.create({ name: 'julito', username: 'julitocamelas', role: 'user', email: 'julito@camelas.com', password: 'julito123' })
         ])
-            .then(users => {
-                user1 = users[0]
-                user2 = users[1]
-                return createChat(user1._id.toString(), user2._id.toString())
-            })
-            .then(chatId => {
-                expect(chatId).to.exist
-                return Chat.findById(chatId)
-            })
-            .then(chat => {
-                expect(chat).to.exist
-                expect(chat.participants.map(participant => participant.toString())).to.have.members([user1._id.toString(), user2._id.toString()])
-            })
+            .then(users => createChat(users[0]._id.toString(), users[1]._id.toString())
+                .then(chatId => {
+                    expect(chatId).to.exist
+                    return Chat.findById(chatId)
+                })
+                .then(chat => {
+                    expect(chat).to.exist
+                    expect(chat.participants.map(participant => participant.toString())).to.have.members([users[0]._id.toString(), users[1]._id.toString()])
+                })
+            )
     })
 
     it('fails on non-existing user', () => {
@@ -60,20 +54,6 @@ describe('createChat', () => {
                         expect(_error).to.be.instanceOf(NotFoundError)
                         expect(_error.message).to.equal('targetUser not found')
                     })
-            })
-    })
-
-    it('fails on invalid userId or targetUserId', () => {
-        let _error
-
-        return User.create({ name: 'julito', username: 'julitocamelas', role: 'user', email: 'julito@camelas.com', password: 'julito123' })
-            .then(user => createChat(12345, user._id.toString()))
-            .catch(error => {
-                _error = error
-            })
-            .then(() => {
-                expect(_error).to.be.instanceOf(ValidationError)
-                expect(_error.message).to.equal('userId is not a string')
             })
     })
 

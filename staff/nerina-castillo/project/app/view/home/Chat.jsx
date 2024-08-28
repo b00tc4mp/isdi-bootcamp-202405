@@ -5,7 +5,6 @@ import Button from '../library/Button'
 import Time from '../library/Time'
 import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
-import Input from '../library/Input.jsx'
 import Avatar from './Avatar'
 import Heading from '../library/Heading.jsx'
 import Image from '../library/Image'
@@ -61,7 +60,7 @@ export default function Chat({ chatId, userId, onMessageSent }) {
                 .catch(error => {
                     console.error(error)
                     alert(error.message)
-                });
+                })
         } catch (error) {
             console.error(error)
             alert(error.message)
@@ -73,7 +72,7 @@ export default function Chat({ chatId, userId, onMessageSent }) {
             {messages.map(message => (
                 <Container
                     key={message.id}
-                    className={`p-2 flex ${message.author.id === userId ? 'justify-start' : 'justify-end'}`}
+                    className={`p-2 flex ${message.author.id === userId ? 'justify-end' : 'justify-start'}`}
                 >
                     <Container
                         className={`max-w-[70%] flex flex-col bg-slate-200 rounded-xl m-2 ${message.author.id === userId ? 'items-end' : 'items-start'}`}
@@ -84,20 +83,16 @@ export default function Chat({ chatId, userId, onMessageSent }) {
                                 {message.author.username}
                             </Heading>
                         </Container>
-                        <Container className={`ml-3 mr-3 ${message.author.id === userId ? 'text-left' : 'text-left'} break-words`}>
-                            <Paragraph className='break-words word-break max-w-44'>
-                                {message.text}
-                            </Paragraph>
-                            <Time className='text-xs text-gray-500'>
-                                {formatTime(new Date(message.date))}
-                            </Time>
+                        <Container className={`ml-3 mr-3 ${message.author.id === userId ? 'text-left' : 'text-right'} break-words`}>
+                            <Paragraph className='break-words word-break max-w-40'>{message.text}</Paragraph>
                         </Container>
+                        <Time className='text-xs text-gray-500'>{formatTime(new Date(message.date))}</Time>
                     </Container>
                 </Container>
             ))}
             <div ref={messagesEndRef} />
         </Container>
-        <Container className='p-2 flex items-center'>
+        <Container className='p-2 flex items-center mb-4'>
             <textarea
                 value={newMessage}
                 onChange={e => setNewMessage(e.target.value)}

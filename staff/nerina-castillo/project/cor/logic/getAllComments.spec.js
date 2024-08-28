@@ -25,11 +25,10 @@ describe('getAllComments', () => {
                                         getAllComments(post.id)
                                             .then(comments => {
                                                 expect(comments).to.have.lengthOf(2)
-
                                                 expect(comments[0].author.id).to.equal(user.id)
-                                                expect(comments[0].text).to.equal('come on!')
+                                                expect(comments[0].text).to.equal('yeaaahhh')
                                                 expect(comments[1].author.id).to.equal(user.id)
-                                                expect(comments[1].text).to.equal('yeaaahhh')
+                                                expect(comments[1].text).to.equal('come on!')
                                             })
                                     )
                             )

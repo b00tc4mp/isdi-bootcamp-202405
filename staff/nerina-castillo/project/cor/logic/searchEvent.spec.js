@@ -45,7 +45,7 @@ describe('searchEvents', () => {
                         },
                         startDate: new Date(),
                         startTime: '21:30',
-                        tickets: 'http://lhdbs'
+                        tickets: 'http://crocantickets.com'
                     })
                 ])
             })

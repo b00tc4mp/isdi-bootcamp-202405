@@ -2,6 +2,7 @@ import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
     const { userId } = req
+
     const { chatId } = req.params
 
     try {

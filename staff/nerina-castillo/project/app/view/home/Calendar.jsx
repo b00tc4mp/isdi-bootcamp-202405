@@ -3,13 +3,11 @@ import { useSearchParams } from 'react-router-dom'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import formatDate from '../../util/formatDate'
-import EventList from './EventList'
 import logic from '../../logic'
 
 export default function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [selectedDate, setSelectedDate] = useState(null)
-    const [view, setView] = useState('calendar')
     const [filteredEvents, setFilteredEvents] = useState([])
     const [events, setEvents] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
@@ -60,11 +58,6 @@ export default function Calendar() {
         const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
 
         setSearchParams({ date: date.toISOString() })
-    }
-
-    const handleBackToCalendar = () => {
-        setView('calendar')
-        setSelectedDate(null)
     }
 
     const days = []

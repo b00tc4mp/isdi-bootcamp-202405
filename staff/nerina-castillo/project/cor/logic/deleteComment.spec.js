@@ -12,6 +12,7 @@ describe('deleteComment', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => Promise.all([User.deleteMany(), Comment.deleteMany()]))
+
     it('succeeds on delete comment', () => {
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
             .then(user =>
@@ -24,8 +25,8 @@ describe('deleteComment', () => {
                                         deleteComment(user.id, comment1.id)
                                             .then(() => Comment.find({}).lean())
                                             .then(comments => {
-                                                expect(comments).to.have.lengthOf(1);
-                                                expect(comments[0].author.toString()).to.equal(comment2.author.toString());
+                                                expect(comments).to.have.lengthOf(1)
+                                                expect(comments[0].author.toString()).to.equal(comment2.author.toString())
                                             })
                                     )
                             )
@@ -42,10 +43,7 @@ describe('deleteComment', () => {
                     .then(post =>
                         Comment.create({ author: new ObjectId().toString(), post: post.id, text: 'hello' })
                             .then(comment =>
-                                deleteComment(new ObjectId().toString(), comment.id)
-                            )
-                    )
-            )
+                                deleteComment(new ObjectId().toString(), comment.id))))
             .catch(error => {
                 _error = error
             })
@@ -64,10 +62,7 @@ describe('deleteComment', () => {
                     .then(post =>
                         Comment.create({ author: user.id, post: post.id, text: 'hello' })
                             .then(comment =>
-                                deleteComment(user.id, new ObjectId().toString())
-                            )
-                    )
-            )
+                                deleteComment(user.id, new ObjectId().toString()))))
             .catch(error => {
                 _error = error
             })
@@ -86,10 +81,7 @@ describe('deleteComment', () => {
                     .then(post =>
                         Comment.create({ author: new ObjectId().toString(), post: post.id, text: 'hello' })
                             .then(comment =>
-                                deleteComment(user.id, comment.id)
-                            )
-                    )
-            )
+                                deleteComment(user.id, comment.id))))
             .catch(error => {
                 _error = error
             })

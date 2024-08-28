@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-
 import { errors } from '../../com/index.js'
 import { logic } from '../../cor/index.js'
 

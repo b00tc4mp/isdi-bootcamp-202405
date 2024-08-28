@@ -31,13 +31,6 @@ export default function ResultsEventList() {
         setEventList(events)
     }, [events])
 
-    const handleEventCreated = newEvent => {
-        setEvents(prevEvents => [...prevEvents, newEvent])
-        setEventList(prevEvents => [...prevEvents, newEvent])
-
-        if (searchPerformed) setFilteredEvents(prevFiltered => [...prevFiltered, newEvent])
-    }
-
     const handleEventDeleted = eventId => {
         setEventList(prevEvents => prevEvents.filter(event => event.id !== eventId))
         setFilteredEvents(prevFiltered => prevFiltered.filter(event => event.id !== eventId))
@@ -118,23 +111,21 @@ export default function ResultsEventList() {
         }
     }
 
-    return (
-        <section className='mt-[60px] flex flex-col gap-4'>
-            <Heading className='mt-2 ml-2 text-2xl font-bold'>search</Heading>
+    return <section className='mt-[60px] flex flex-col gap-4'>
+        <Heading className='mt-2 ml-2 text-2xl font-bold'>search</Heading>
 
-            <SearchEvent />
+        <SearchEvent />
 
-            {searchPerformed ? (
-                filteredEvents.length > 0 && filteredEvents.map(event => (
-                    <Event key={event.id}
-                        event={event}
-                        onEventCreated={handleEventCreated}
-                        onEventDeleted={handleEventDeleted}
-                        onEventEdited={handleEventEdited} />
-                ))
-            ) : (
-                <Calendar />
-            )}
-        </section>
-    )
+        {searchPerformed ? (
+            filteredEvents.length > 0 && filteredEvents.map(event => (
+                <Event key={event.id}
+                    event={event}
+                    onEventDeleted={handleEventDeleted}
+                    onEventEdited={handleEventEdited} />
+            ))
+        ) : (
+            <Calendar />
+        )}
+    </section>
+
 }

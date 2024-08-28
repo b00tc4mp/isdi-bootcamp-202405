@@ -14,27 +14,20 @@ describe('createComment', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany(), Comment.deleteMany()]))
 
     it('succeeds on create comment', () => {
-        let user
-        let post
-
         return User.create({ name: 'gon', username: 'gonzalo', role: 'user', email: 'gon@zalo.com', password: 'gonzalo123' })
-            .then(createdUser => {
-                user = createdUser
-                return Post.create({ author: user._id, text: 'hello' })
-            })
-            .then(createdPost => {
-                post = createdPost
-                return createComment(user._id.toString(), post._id.toString(), 'hello')
-            })
-            .then(() => {
-                return Comment.findOne({ author: user._id })
-            })
-            .then(comment => {
-                expect(comment).to.exist
-                expect(comment.author.toString()).to.equal(user._id.toString())
-                expect(comment.text).to.equal('hello')
-                expect(comment.post.toString()).to.equal(post._id.toString())
-            })
+            .then(user =>
+                Post.create({ author: user._id, text: 'hello' })
+                    .then(post =>
+                        createComment(user._id.toString(), post._id.toString(), 'hello')
+                            .then(() => Comment.findOne({ author: user._id }))
+                            .then(comment => {
+                                expect(comment).to.exist
+                                expect(comment.author.toString()).to.equal(user._id.toString())
+                                expect(comment.text).to.equal('hello')
+                                expect(comment.post.toString()).to.equal(post._id.toString())
+                            })
+                    )
+            )
     })
 
     it('fails on non-existing user', () => {

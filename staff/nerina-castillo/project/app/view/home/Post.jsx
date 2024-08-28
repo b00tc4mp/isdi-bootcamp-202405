@@ -11,10 +11,9 @@ import Avatar from './Avatar'
 import CommentList from './CommentList'
 import Confirm from '../common/Confirm'
 
-export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostLikeToggled, onCommentCreated }) {
+export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostLikeToggled }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [isFollowing, setIsFollowing] = useState(post.author.following)
-    // const [createCommentVisible, setCreateCommentVisible] = useState(false)
     const [comments, setComments] = useState([])
     const [commentsVisible, setCommentsVisible] = useState(false)
 
@@ -26,7 +25,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
     const loadComments = () => {
         try {
             logic.getAllComments(post.id)
-                .then(comments => setComments(comments))
+                .then(comments => setComments(comments.reverse()))
                 .catch(error => {
                     console.error(error)
 
@@ -94,21 +93,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
         }
     }
 
-    // const handleCreateCommentClick = () => {
-    //     setCreateCommentVisible(prev => !prev)
-    //     setCommentsVisible(prev => !prev)
-    // }
-
-    // const handleCancelCreateCommentClick = () => setCreateCommentVisible(false)
-
-    // const handleCommentCreated = () => {
-    //     setCreateCommentVisible(false)
-
-    //     onCommentCreated()
-    // }
     const handleCommentDeleted = (commentId) => setComments(prevComments => prevComments.filter(comment => comment.id !== commentId))
-
-    // const handleCommentsVisible = () => setCommentsVisible(false)
 
     return <article className='border-b border--b border-gray-500 ml-2 mr-2'>
         <Container className='flex justify-between items-center m-[.5rem]'>
