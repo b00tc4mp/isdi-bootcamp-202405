@@ -4,10 +4,7 @@ const { SystemError } = errors
 
 export default (petsitterId) => {
     return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${petsitterId}`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
-        }
+        method: 'GET'
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

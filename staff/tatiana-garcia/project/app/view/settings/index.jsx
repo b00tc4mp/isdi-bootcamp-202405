@@ -20,7 +20,6 @@ export default function Settings({ onLogoutClick }) {
         name: '',
         surname: '',
         email: '',
-        username: '',
         password: '',
         passwordRepeat: ''
 
@@ -35,7 +34,6 @@ export default function Settings({ onLogoutClick }) {
                         name: user.name || '',
                         surname: user.surname || '',
                         email: user.email || '',
-                        username: user.username || '',
                         password: user.password || '',
                         passwordRepeat: user.passwordRepeat || ''
                     })
@@ -55,7 +53,7 @@ export default function Settings({ onLogoutClick }) {
     const handleUpdateSubmit = event => {
         event.preventDefault()
 
-        const { userId, image, name, surname, email, username, password, passwordRepeat } = formValues
+        const { userId, image, name, surname, email, password, passwordRepeat } = formValues
 
         if (password && password !== passwordRepeat) {
             alert('las contraseñas no coinciden')
@@ -64,7 +62,7 @@ export default function Settings({ onLogoutClick }) {
         }
 
         try {
-            logic.updateUser({ userId, image, name, surname, email, username, password })
+            logic.updateUser({ userId, image, name, surname, email, password })
                 .then(() => alert('Perfil actualizado correctamente'))
                 .catch(error => {
                     console.error(error)
@@ -115,11 +113,6 @@ export default function Settings({ onLogoutClick }) {
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Email</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' value={formValues.email} onChange={handleInputChange} placeholder='email' />
-                    </Container>
-
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='username-input'>Nombre de usuario</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='username-input' name='username' value={formValues.username} onChange={handleInputChange} placeholder='nombre de usuario' />
                     </Container>
 
                     <Container>

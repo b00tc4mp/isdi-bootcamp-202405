@@ -1,22 +1,20 @@
-import { errors } from '../../com/index.js'
+import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/petsitters`, {
-        method: 'GET',
-        headers: {
-            // Authorization: `Bearer ${sessionStorage.token}`
-        }
+export default (petsitterId) => {
+    validate.string(petsitterId)
+
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${petsitterId}/reviews`, {
+        method: 'GET'
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 200) {
+            if (status === 200)
                 return response.json()
-                    .then(petsitters => petsitters)
-            }
+                    .then(reviews => reviews)
 
             return response.json()
                 .then(body => {
@@ -27,4 +25,5 @@ export default () => {
                     throw new constructor(message)
                 })
         })
+
 }

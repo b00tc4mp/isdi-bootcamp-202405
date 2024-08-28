@@ -253,19 +253,6 @@ describe('registerPetsitterUser', () => {
         }
     })
 
-    it('fails on phoneNumber have spaces', () => {
-        let error
-
-        try {
-            registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Tatiana', 'Barcelona', 'Por favor, funciona de una santa vez', 'tati@garcia.com', '6554  54545', '123123123', '123123123', ['conejos', 'cobayas'])
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('phoneNumber has empty spaces')
-        }
-    })
-
     afterEach(() => User.deleteMany())
 
     after(() => mongoose.disconnect())

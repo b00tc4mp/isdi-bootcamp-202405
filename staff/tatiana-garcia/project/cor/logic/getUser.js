@@ -2,7 +2,7 @@ import { User } from '../data/models.js'
 
 import { validate, errors } from '../../com/index.js'
 
-const { NotfoundError, SystemError } = errors
+const { NotFoundError, SystemError } = errors
 
 export default (userId) => {
     validate.string(userId, 'userId')
@@ -10,7 +10,7 @@ export default (userId) => {
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) { throw new NotfoundError('user not found') }
+            if (!user) { throw new NotFoundError('user not found') }
 
             user.id = user._id.toString()
 

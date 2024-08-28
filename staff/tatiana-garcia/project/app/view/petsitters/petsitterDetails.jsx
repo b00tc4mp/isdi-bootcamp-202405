@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Rating from '@mui/material/Rating'
+import StarIcon from '@mui/icons-material/Star'
+
 import useContext from '../context'
 
 import logic from '../../logic/index.js'
@@ -11,21 +14,120 @@ import Link from '../library/Link.jsx'
 import Heading from '../library/Heading'
 import Paragraph from '../library/Paragraph'
 import Button from '../library/Button.jsx'
+import Input from '../library/Input'
+import Label from '../library/Label'
+import Form from '../library/Form.jsx'
+
+import Review from './Review.jsx'
+import extractPayloadFromToken from '../../util/extractPayLoadFromToken.js'
 
 export default function PetsitterDetails({ handleLoginClick }) {
     const { alert } = useContext()
-    const [petsitter, setPetsitter] = useState(null)
-    const [addReviewVisibility, setAddReviewVisibility] = useState(false)
     const { petsitterId } = useParams()
 
+
+    const [petsitter, setPetsitter] = useState(null)
+    const [reviews, setReviews] = useState([])
     const [userRole, setUserRole] = useState(null)
+    const [rating, setRating] = useState(0)
+    const [value, setValue] = useState(1)
+    const [addReviewVisibility, setAddReviewVisibility] = useState(false)
+
 
     const onLoginClick = () => handleLoginClick()
+
+    const onAddReviewClick = () => {
+        setAddReviewVisibility(true)
+    }
+
+    const onCancelReviewClick = () => {
+        setAddReviewVisibility(false)
+    }
+
+    const onReviewSubmit = (event) => {
+        const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
+
+        event.preventDefault()
+
+        const form = event.target
+
+        const commentInput = form['comment-input']
+        const ratingInput = form['rating-input']
+
+        const comment = commentInput.value
+        const rate = parseInt(ratingInput.value)
+
+        try {
+            logic.addReview(userId, petsitterId, comment, rate || 0)
+                .then(() => {
+                    onCancelReviewClick()
+
+                    loadReviews()
+                })
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handleDeletePetsitterReview = (reviewId) => {
+        try {
+            logic.deletePetsitterReview(reviewId)
+                .then(() => loadReviews())
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const loadReviews = () => {
+        try {
+            logic.getPetsitterReview(petsitterId)
+                .then(reviews => setReviews(reviews))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const calculateRating = () => {
+        const reviewsWithRatings = reviews.filter(review => review.rate > 0)
+
+        const ratings = reviewsWithRatings.map(review => review.rate)
+
+        const rating = ratings.length > 0
+            ? ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / ratings.length
+            : 0
+
+        setRating(rating || 0)
+    }
 
     useEffect(() => {
         try {
             logic.getPetsitterDetails(petsitterId)
-                .then(petsitter => setPetsitter(petsitter))
+                .then(petsitter => {
+                    setPetsitter(petsitter)
+
+                    loadReviews()
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -44,7 +146,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
         }
     }, [petsitterId, alert])
 
-
+    useEffect(() => calculateRating(), [reviews])
 
     return (<>
         <Header />
@@ -55,12 +157,15 @@ export default function PetsitterDetails({ handleLoginClick }) {
             {petsitter != null ? (
                 <Container className='text-lg bg-white p-3 mt-0 rounded-[50px] shadow-lg overflow-y-auto max-h-[80vh]'>
                     <Container className='flex items-center mb-4'>
-                        <img src={petsitter.image} alt='Vetpoint' className='h-24 w-24 rounded-[15px] mr-4 p-2 ml-3' />
+                        <img src={petsitter.image} alt='imagen guarderia' className='h-24 w-24 rounded-[15px] mr-4 p-2 ml-3' />
 
                         <Container className='flex flex-col'>
                             <Heading className='text-base font-bold'>{petsitter.name}</Heading>
                             <Paragraph className='text-sm mt-1 ml-0 font-semibold text-gray-500'>{petsitter.city}</Paragraph>
-                            <Paragraph className='text-sm mt-1 ml-0 font-semibold text-gray-500'>⭐⭐⭐⭐⭐</Paragraph>
+                            <Container className='flex flex-row items-center'>
+                                <Rating name='read-only' value={rating} precision={0.25} size='small' emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} readOnly />
+                                <Paragraph className='text-sm mt-1 ml-0 font-semibold text-gray-500'>{rating.toFixed(1)}</Paragraph>
+                            </Container>
                         </Container>
                     </Container>
 
@@ -72,7 +177,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
                         userRole === 'regular' ? (
                             <Container className='font-bold text-lg p-1 flex flex-row space-x-2'>
                                 <Button className='w-36 bg-green-100 text-black rounded-full hover:bg-green-200 transition duration-200'>Contáctame</Button>
-                                <Button className='w-36 bg-green-100 text-black rounded-full hover:bg-green-200 transition duration-200'>Valórame</Button>
+                                <Button className='w-36 bg-green-100 text-black rounded-full hover:bg-green-200 transition duration-200' onClick={onAddReviewClick}>Valórame</Button>
                             </Container>
 
                         ) : (
@@ -82,18 +187,10 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
                     <Container>
                         <Heading className='items-start justify-start flex flex-row text-xl font-bold '>⭐ Reseñas</Heading>
-                        <Container className='flex flex-col max-h-48 overflow-y-auto space-y-4'>
-                            <img src='https://res.cloudinary.com/worldpackers/image/upload/c_fill,f_auto,q_auto,w_1024/v1/guides/article_cover/kswgynyhsz3xfmptodmt' alt='foto koalas' className='h-24 w-24 rounded-[15px] p-2 ml-3 mr-2' />
-                            <Container>
-                                <Container className='flex flex-row'>
-                                    <Heading className='text-sm font-bold'>Manuel Barzi</Heading>
-                                    <Paragraph className='text-sm items-center my-0'>⭐⭐⭐⭐⭐</Paragraph>
-                                </Container>
-                                <Container>
-                                    <Paragraph className=' text-sm mt-0 ml-0 text-gray-700'>Elena de Vetpoint, es muy simpática y ha cuidado fenomenal de mi iguana.</Paragraph>
-
-                                </Container>
-                            </Container>
+                        <Container className='flex flex-col max-h-48 space-y-4'>
+                            {reviews.map(review => (
+                                <Review key={review.id} review={review} onDelete={handleDeletePetsitterReview} />
+                            ))}
                         </Container>
                     </Container>
                 </Container>
@@ -110,12 +207,30 @@ export default function PetsitterDetails({ handleLoginClick }) {
             </Container>
 
             {addReviewVisibility && <>
-                <Container className='absolute bg-black opacity-70 w-screen h-screen z-20'></Container>
-                <Container>
+                <Container className='absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-20 flex items-center justify-center'>
 
+                    <Form className='bg-white p-6 border border-black rounded-[25px] flex flex-col items-center w-11/12 max-w-md' onSubmit={onReviewSubmit}>
+                        <Label className='text-black text-center font-bold mb-4'>Da tu opinión sobre {petsitter?.name}</Label>
+                        <Container className='mb-4 w-full'>
+                            <Input className='bg-gray-200 w-full p-2 rounded' type='text' id='' name='comment-input' placeholder='escribe aquí tu reseña' />
+                        </Container>
+                        <Container className='flex justify-center'>
+                            <Rating name='rating-input'
+                                value={value}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                }}
+                                size='large'
+                                emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} />
+                        </Container>
+                        <Container className='flex justify-between mt-4 w-full'>
+                            <Button type='button' className='w-28 bg-red-400 text-white rounded-full hover:bg-red-500 transition duration-200' onClick={onCancelReviewClick}>Cancelar</Button>
+                            <Button type='submit' className='w-28 bg-green-400 text-white rounded-full hover:bg-green-500 transition duration-200'>Enviar</Button>
+                        </Container>
+                    </Form>
                 </Container>
             </>}
-        </main>
+        </main >
     </>
     )
 }

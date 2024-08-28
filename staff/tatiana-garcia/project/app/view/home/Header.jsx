@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Container from '../library/Container.jsx'
-import Paragraph from '../library/Paragraph.jsx'
 import Heading from '../library/Heading.jsx'
 
 export default function Header() {
