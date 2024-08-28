@@ -89,7 +89,7 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/comments/:commentId', jwtVerifier, deleteCommentHandler)
 
         new cron(
-            '*/2 * * * *',
+            '*/5 * * * *',
             () => {
 
                 console.log('news at ' + new Date(Date.now()))

@@ -7,6 +7,7 @@ import Heading from '../library/Heading'
 import Button from '../library/Button'
 import Container from '../library/Container'
 import Image from '../library/Image.jsx'
+import Paragraph from '../library/Paragraph'
 
 import CreatePost from './CreatePost'
 import Post from './Post'
@@ -18,6 +19,7 @@ export default function Community() {
 
     useEffect(() => {
         loadPosts()
+
     }, [])
 
     const handlePostDeleted = () => {
@@ -65,12 +67,15 @@ export default function Community() {
         </Container>
         {createPostVisible && <CreatePost onPostCreated={handlePostCreated} onCancelCreatePost={handleCancelCreatePostClick} />}
         <section className="flex flex-col gap-6 mb-24">
-            {posts.map(post => <Post
-                key={post.id}
-                post={post}
-                onPostDeleted={handlePostDeleted}
-                onPostLikeToggled={handlePostLikeToggled}
-            />)}
+            {posts.length === 0 ? (
+                <Paragraph className="text-center text-gray-500">No chats yet.</Paragraph>
+            ) : (
+                posts.map(post => <Post
+                    key={post.id}
+                    post={post}
+                    onPostDeleted={handlePostDeleted}
+                    onPostLikeToggled={handlePostLikeToggled}
+                />))}
         </section>
     </>
 }
