@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (reviewId) => {
-    validate.string(reviewId, 'reviewId')
+    validate.id(reviewId, 'reviewId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/reviews/${reviewId}`, {
         method: 'DELETE',

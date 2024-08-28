@@ -34,7 +34,7 @@ export default function Obstacles({ player, pause, end, setEnd }) {
 
             const items = logic.getObstacles()
 
-            setObstacles(prev => ([...items]))
+            setObstacles(() => ([...items]))
         }, SPAWN_RATE))
     }
 
@@ -47,7 +47,7 @@ export default function Obstacles({ player, pause, end, setEnd }) {
 
             const items = logic.getObstacles()
 
-            setObstacles(prev => ([...items]))
+            setObstacles(() => ([...items]))
         }, OBS_RATE))
     }
 
@@ -56,7 +56,7 @@ export default function Obstacles({ player, pause, end, setEnd }) {
 
         const items = logic.getObstacles()
 
-        setObstacles(prev => [...items])
+        setObstacles(() => [...items])
     }
 
     const clearField = () => {

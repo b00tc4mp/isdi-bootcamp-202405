@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (gameId) => {
-    validate.string(gameId)
+    validate.id(gameId)
 
     return fetch(`${import.meta.env.VITE_API_URL}/games/${gameId}/reviews`, {
         headers: { Authorization: `Bearer ${sessionStorage.token}` }

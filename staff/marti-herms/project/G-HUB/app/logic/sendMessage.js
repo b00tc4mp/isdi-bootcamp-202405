@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (chatId, content) => {
-    validate.string(chatId, 'chatId')
+    validate.id(chatId, 'chatId')
     validate.string(content, 'content')
 
     if (content.trim().length === 0) throw new Error('empty content')

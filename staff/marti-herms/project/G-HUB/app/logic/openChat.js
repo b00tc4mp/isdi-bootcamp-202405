@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default (targetUserId) => {
-    validate.string(targetUserId, 'targetUserId')
+    validate.id(targetUserId, 'targetUserId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/chat/${targetUserId}`, {
         headers: { Authorization: `Bearer ${sessionStorage.token}` }

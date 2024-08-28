@@ -1,6 +1,7 @@
 import data from '../data'
 
 export default (seconds) => {
+    // TODO validate seconds
     if (seconds === 0)
         data.player.item.points = 0
     else if (seconds < 20)

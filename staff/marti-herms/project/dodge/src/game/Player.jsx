@@ -1,7 +1,5 @@
 import Container from '../library/Container'
 
-import { PLAYER_SIZE } from '../../util/constants.js'
-
 export default function Player({ player }) {
     // console.log(player.top, player.left)
 

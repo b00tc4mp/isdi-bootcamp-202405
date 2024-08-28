@@ -29,7 +29,7 @@ export default function Game({ username, onHomeClick }) {
     const handleRestartClick = () => {
         setEnd(false)
 
-        setPlayer(prev => (logic.getPlayer()))
+        setPlayer(() => (logic.getPlayer()))
     }
 
     return <>
