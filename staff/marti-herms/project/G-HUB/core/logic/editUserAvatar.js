@@ -5,7 +5,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, newAvatar) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.string(newAvatar, 'avatar')
 
     return User.findById(userId).lean()

@@ -65,6 +65,18 @@ describe('getUserChats', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+        try {
+            getUserChats('123', '66c0ae22930f95c985427ece')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string targetUserId', () => {
         let error
         try {
@@ -74,6 +86,18 @@ describe('getUserChats', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('targetUserId is not a string')
+        }
+    })
+
+    it('fails on invalid targetUserId', () => {
+        let error
+        try {
+            getUserChats('66c0ae22930f95c985427ece', '123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid targetUserId')
         }
     })
 

@@ -5,7 +5,7 @@ import { validate, errors } from 'com'
 const { DuplicityError, NotFoundError, SystemError } = errors
 
 export default (userId, newUsername) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.username(newUsername, 'newUsername')
 
     return User.findOne({ username: newUsername }).lean()

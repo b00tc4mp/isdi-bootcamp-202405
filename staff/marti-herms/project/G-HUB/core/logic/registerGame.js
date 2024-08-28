@@ -5,7 +5,7 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (userId, name, image, description, link) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.string(name, 'name')
     validate.string(image, 'image')
     validate.string(description, 'description')

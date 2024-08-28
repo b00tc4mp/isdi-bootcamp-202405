@@ -5,8 +5,8 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (userId, chatId) => {
-    validate.string(userId, 'userId')
-    validate.string(chatId, 'chatId')
+    validate.id(userId, 'userId')
+    validate.id(chatId, 'chatId')
 
     return Promise.all([User.findById(userId).lean(), Chat.findById(chatId).lean()])
         .catch(error => { throw new SystemError(error.message) })

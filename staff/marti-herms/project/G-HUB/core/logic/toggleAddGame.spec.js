@@ -84,6 +84,19 @@ describe('toggleAddGame', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            toggleAddGame('123', '66ba007f874aa7b84ec54491')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string gameId', () => {
         let error
 
@@ -94,6 +107,19 @@ describe('toggleAddGame', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('gameId is not a string')
+        }
+    })
+
+    it('fails on invalid gameId', () => {
+        let error
+
+        try {
+            toggleAddGame('66ba313a881fabd96394b179', '123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid gameId')
         }
     })
 

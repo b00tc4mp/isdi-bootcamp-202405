@@ -48,11 +48,24 @@ describe('editUserAvatar', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            editUserAvatar('123', newAvatar)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string avatar', () => {
         let error
 
         try {
-            editUserAvatar('monoloco', 123)
+            editUserAvatar('66ba007f874aa7b84ec54491', 123)
         } catch (_error) {
             error = _error
         } finally {

@@ -82,6 +82,19 @@ describe('makeReview', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            makeReview('123', '66b9e687cfa7ce5e041652b3', 'great game', 3)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string gameId', () => {
         let error
 
@@ -92,6 +105,19 @@ describe('makeReview', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('gameId is not a string')
+        }
+    })
+
+    it('fails on invalid gameId', () => {
+        let error
+
+        try {
+            makeReview('66b9e687cfa7ce5e041652b3', '132', 'great game', 3)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid gameId')
         }
     })
 

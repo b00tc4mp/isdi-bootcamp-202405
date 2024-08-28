@@ -59,6 +59,19 @@ describe('registerGame', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            registerGame('123', 'candy crush', img, 'candy crush game broh', link)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string name', () => {
         let error
 

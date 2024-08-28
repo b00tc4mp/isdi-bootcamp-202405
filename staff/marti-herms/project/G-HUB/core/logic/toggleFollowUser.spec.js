@@ -80,6 +80,19 @@ describe('toggleFollowUser', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            toggleFollowUser('123', '66ba007f874aa7b84ec54491')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string targetUserId', () => {
         let error
 
@@ -90,6 +103,19 @@ describe('toggleFollowUser', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('targetUserId is not a string')
+        }
+    })
+
+    it('fails on invalid targetUserId', () => {
+        let error
+
+        try {
+            toggleFollowUser('66ba313a881fabd96394b179', '123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid targetUserId')
         }
     })
 

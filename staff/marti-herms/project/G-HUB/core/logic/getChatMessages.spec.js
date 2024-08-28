@@ -82,6 +82,19 @@ describe('getChatMessages', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            getChatMessages('123', '66ba007f874aa7b84ec54491')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string chatId', () => {
         let error
 
@@ -92,6 +105,19 @@ describe('getChatMessages', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('chatId is not a string')
+        }
+    })
+
+    it('fails on invalid chatId', () => {
+        let error
+
+        try {
+            getChatMessages('66ba007f874aa7b84ec54491', '123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid chatId')
         }
     })
 

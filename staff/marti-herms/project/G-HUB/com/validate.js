@@ -37,6 +37,11 @@ const validateBoolean = (boolean, explain = 'value') => {
     if (typeof boolean !== 'boolean') throw new ValidationError(`${explain} is not a boolean`)
 }
 
+const validateId = (id, explain = 'value') => {
+    validateString(id, explain)
+    if (id.length < 24) throw new ValidationError(`invalid ${explain}`)
+}
+
 const validate = {
     string: validateString,
     object: validateObject,
@@ -44,7 +49,8 @@ const validate = {
     email: validateEmail,
     password: validatePassword,
     boolean: validateBoolean,
-    number: validateNumber
+    number: validateNumber,
+    id: validateId
 }
 
 export default validate

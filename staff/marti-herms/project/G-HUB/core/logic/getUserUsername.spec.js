@@ -50,7 +50,7 @@ describe('getUserUsername', () => {
         let error
 
         try {
-            getUserUsername(123, 'eden')
+            getUserUsername(123, '66b941110938786955ecf3b5')
         } catch (_error) {
             error = _error
         } finally {
@@ -59,24 +59,24 @@ describe('getUserUsername', () => {
         }
     })
 
-    // it('fails on invalid userId', () => {
-    //     let error
+    it('fails on invalid userId', () => {
+        let error
 
-    //     try {
-    //         getUserUsername('', 'eden')
-    //     } catch (_error) {
-    //         error = _error
-    //     } finally {
-    //         expect(error).to.be.instanceOf(ValidationError)
-    //         expect(error.message).to.equal('invalid userId')
-    //     }
-    // })
+        try {
+            getUserUsername('415164352', '66b941110938786955ecf3b5')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
 
     it('fails on non-string targetUserId', () => {
         let error
 
         try {
-            getUserUsername('eden', 123)
+            getUserUsername('66b941110938786955ecf3b5', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -85,18 +85,18 @@ describe('getUserUsername', () => {
         }
     })
 
-    // it('fails on invalid targetUserId', () => {
-    //     let error
+    it('fails on invalid targetUserId', () => {
+        let error
 
-    //     try {
-    //         getUserUsername('eden', '')
-    //     } catch (_error) {
-    //         error = _error
-    //     } finally {
-    //         expect(error).to.be.instanceOf(ValidationError)
-    //         expect(error.message).to.equal('invalid targetUserId')
-    //     }
-    // })
+        try {
+            getUserUsername('66b941110938786955ecf3b5', '156461')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid targetUserId')
+        }
+    })
 
     afterEach(() => User.deleteMany())
 

@@ -1,8 +1,6 @@
 import 'dotenv/config'
 import getUserAvatar from './getUserAvatar.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import { User } from '../data/models.js'

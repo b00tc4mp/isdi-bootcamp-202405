@@ -64,6 +64,19 @@ describe('deleteReview', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            deleteReview('ewjfn', '66ba007f874aa7b84ec54491')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string reviewId', () => {
         let error
 
@@ -74,6 +87,19 @@ describe('deleteReview', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('reviewId is not a string')
+        }
+    })
+
+    it('fails on invalid reviewId', () => {
+        let error
+
+        try {
+            deleteReview('66ba007f874aa7b84ec54491', '123')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid reviewId')
         }
     })
 

@@ -53,6 +53,19 @@ describe('searchGame', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            searchGame('123', 'candy crush')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string query', () => {
         let error
 

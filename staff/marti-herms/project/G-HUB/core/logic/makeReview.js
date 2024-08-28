@@ -5,8 +5,8 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 export default (userId, gameId, comment, rate = 0) => {
-    validate.string(userId, 'userId')
-    validate.string(gameId, 'gameId')
+    validate.id(userId, 'userId')
+    validate.id(gameId, 'gameId')
     validate.string(comment, 'comment')
     validate.number(rate, 'rate')
 

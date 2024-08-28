@@ -1,9 +1,6 @@
 import 'dotenv/config'
 import editUserUsername from './editUserUsername.js'
-import mongoose, { Types } from 'mongoose'
-import bcrypt from 'bcryptjs'
-
-const { ObjectId } = Types
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import { User } from '../data/models.js'
@@ -60,6 +57,19 @@ describe('editUserUsername', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('userId is not a string')
+        }
+    })
+
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            editUserUsername('123', 'eden')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
         }
     })
 

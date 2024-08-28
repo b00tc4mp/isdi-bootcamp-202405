@@ -72,6 +72,19 @@ describe('sendMessage', () => {
         }
     })
 
+    it('fails on invalid userId', () => {
+        let error
+
+        try {
+            sendMessage('123', '66c0ae22930f95c985427ece', 'hello')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid userId')
+        }
+    })
+
     it('fails on non-string chatId', () => {
         let error
 
@@ -82,6 +95,19 @@ describe('sendMessage', () => {
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('chatId is not a string')
+        }
+    })
+
+    it('fails on invalid chatId', () => {
+        let error
+
+        try {
+            sendMessage('66c0ae22930f95c985427ece', '123', 'hello')
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid chatId')
         }
     })
 

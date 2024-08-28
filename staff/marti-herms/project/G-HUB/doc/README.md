@@ -13,16 +13,19 @@ A hub for gamers and developers to play or upload videogames
 - list favourites
 - add game to library
 - add game to favourites
-- search games (by name, date, genre...)
+- search games (by name)
+- search users (by name)
 - view game details
 - play/download game
 - add review
 - delete review
+- follow user
+- chat with user
+- view user profile
 
 **Dev User**
 - register game to site
 - list own game
-- update own game
 
 ### UIUX Design
 
@@ -50,7 +53,11 @@ A hub for gamers and developers to play or upload videogames
 - Node
 - Express
 - React
-- Mongo
+- Mongodb
+- Mongoose
+- JWT
+- Bcrypt
+- Tailwindcss
 
 ### Data Model
 
@@ -64,6 +71,8 @@ A hub for gamers and developers to play or upload videogames
 - library ([Game.id])
 - favs ([Game.id])
 - games ([Game.id], optional)
+- following ([User.id])
+- followers ([User.id])
 
 **Game**
 - id (auto)
@@ -73,8 +82,6 @@ A hub for gamers and developers to play or upload videogames
 - image (string)
 - description (string)
 - link (string)
-- downloads (number)
-- rating (number)
 - date (Date)
 
 **Review**
@@ -85,3 +92,14 @@ A hub for gamers and developers to play or upload videogames
 - comment (string)
 - date (Date)
 
+**Chat**
+- id (auto)
+- participants ([User.id])
+- messages (Message.id)
+- date (Date)
+
+**Message**
+- id (auto)
+- author (User.id)
+- content (string)
+- date (Date)
