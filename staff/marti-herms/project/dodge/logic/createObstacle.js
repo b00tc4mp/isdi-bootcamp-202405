@@ -1,6 +1,7 @@
 import data from '../data'
 
 export default (id) => {
-    //TODO validate id
+    if (typeof id !== 'number') throw new Error('invalid id')
+
     data.obstacles.addObstacle(id)
 }

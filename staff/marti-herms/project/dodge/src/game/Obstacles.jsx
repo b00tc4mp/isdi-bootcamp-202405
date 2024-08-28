@@ -30,11 +30,15 @@ export default function Obstacles({ player, pause, end, setEnd }) {
 
     const handleSpawn = () => {
         setSpawnIntervalId(setInterval(() => {
-            logic.createObstacle(obstacleCount++)
+            try {
+                logic.createObstacle(obstacleCount++)
 
-            const items = logic.getObstacles()
+                const items = logic.getObstacles()
 
-            setObstacles(() => ([...items]))
+                setObstacles(() => ([...items]))
+            } catch (error) {
+                console.error(error)
+            }
         }, SPAWN_RATE))
     }
 
@@ -52,11 +56,15 @@ export default function Obstacles({ player, pause, end, setEnd }) {
     }
 
     const handleOutOfBounds = (id) => {
-        logic.removeObstacle(id)
+        try {
+            logic.removeObstacle(id)
 
-        const items = logic.getObstacles()
+            const items = logic.getObstacles()
 
-        setObstacles(() => [...items])
+            setObstacles(() => [...items])
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const clearField = () => {

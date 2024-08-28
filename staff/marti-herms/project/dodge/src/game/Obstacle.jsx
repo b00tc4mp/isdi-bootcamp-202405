@@ -6,8 +6,12 @@ import logic from '../../logic/index.js'
 
 export default function Obstacle({ player, obstacle, onOutOfBounds, setEnd }) {
     useEffect(() => {
-        if (logic.checkOutOfBounds(obstacle.id)) {
-            onOutOfBounds(obstacle.id)
+        try {
+            if (logic.checkOutOfBounds(obstacle.id)) {
+                onOutOfBounds(obstacle.id)
+            }
+        } catch (error) {
+            console.error(error)
         }
     }, [obstacle.top, obstacle.left])
 
