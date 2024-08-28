@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/likes -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNkYjQ3NzJlMzZkMjU0ZDg4M2QyNTEiLCJyb2xlIjoicHJvamVjdCIsImlhdCI6MTcyNDg1NTA5OH0.Y3vb9__md95SqpXU34elCnFUSlsAAm0HYcM7ldCCT2c"
