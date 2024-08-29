@@ -28,7 +28,7 @@ export default (userId, query, distance, coords) => {
                     }
                 }
             }, { __v: 0 }).sort({ title: 1 }).lean()
-                .catch(error => { throw new SystemError(error.message); })
+                .catch(error => { throw new SystemError(error.message) })
                 .then(events => events.map(event => {
                     event.id = event._id.toString()
 

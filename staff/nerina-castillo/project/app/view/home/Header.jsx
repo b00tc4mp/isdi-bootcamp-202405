@@ -26,7 +26,7 @@ export default function Header({ onHomeClick, onLogout, onSearchClick, onCalenda
     const handleLogout = () => {
         try {
             logic.logoutUser()
-
+            location.reload()
             onLogout()
         } catch (error) {
             console.error(error)

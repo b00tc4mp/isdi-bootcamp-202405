@@ -2,7 +2,6 @@
 
 Scene is an application designed to connect musicians, bands, concert venues, promoters, and record labels within the underground scene. The primary objective is to create and promote concerts, as well as to facilitate networking and connections among the various participants in the music scene.
 
-
 ![Scene Image](https://media.giphy.com/media/39DV0pT9v42Fq/giphy.gif?cid=ecf05e47m4kzmaq2wr3vcwdlfcfo7fgconr1yjonyfor0zy7&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Functional
@@ -31,7 +30,7 @@ User
 - Delete own event
 - Follow user
 - Search users and posts
-- List following users
+- List following user's posts
 - List bands
 - List venues
 - List promoters
@@ -83,11 +82,10 @@ User
 - email (string)
 - password (string)
 - avatar (string)
-- messages ([User.message])
 - following ([User.id])
 
 Post
-- id (string)
+- id (auto)
 - author (User.id)
 - image (string, optional)
 - text (string, optional)
@@ -95,7 +93,7 @@ Post
 - likes ([User.id])
 
 Event
-- id (string)
+- id (auto)
 - author (User.id)
 - image (string, optional)
 - title (string)
@@ -112,10 +110,6 @@ Comment
 - author (User.id)
 - post (Post.id)
 - date (Date)
-
-Point
-- type (string)
-- coordinates ([Number])
 
 Chat
 - id (auto)

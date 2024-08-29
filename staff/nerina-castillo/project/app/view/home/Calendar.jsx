@@ -56,7 +56,6 @@ export default function Calendar() {
 
     const handleDayClick = (day) => {
         const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-
         setSearchParams({ date: date.toISOString() })
     }
 
