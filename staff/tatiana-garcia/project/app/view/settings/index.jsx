@@ -111,7 +111,7 @@ export default function Settings({ onLogoutClick }) {
                 <Container className='text-center pb-8 pt-2'>
                     <Link className='font-bold p-2 text-teal-700 hover:text-teal-900' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
-                <Footer />
+                <Footer defaultTab={'login'} />
             </Container>
         </main>
     </>

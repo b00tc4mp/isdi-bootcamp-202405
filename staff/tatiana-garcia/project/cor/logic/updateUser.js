@@ -1,7 +1,7 @@
 import { User } from '../data/models.js'
 import { validate, errors } from '../../com/index.js'
 
-const { SystemError, DuplicityError } = errors
+const { SystemError } = errors
 
 export default function (userId, newImage, newName, newSurname) {
     validate.id(userId, 'userId')

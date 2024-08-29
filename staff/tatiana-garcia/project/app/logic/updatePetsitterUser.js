@@ -1,31 +1,33 @@
 import { errors, validate } from '../../com/index.js'
+import extractPayLoadFromToken from '../util/extractPayLoadFromToken'
 
 const { SystemError } = errors
 
-export default (image, name, city, description, email, linKPage, contacEmail, phoneNumber, password, passwordRepeat, pets) => {
+export default (image, name, city, description, linKPage, contactEmail, phoneNumber, pets) => {
     validate.image(image, 'image')
     validate.name(name, 'name')
     validate.city(city, 'city')
     validate.description(description, 'description')
-    validate.email(email, 'email')
     validate.image(linKPage, 'linkPage')
-    validate.email(contacEmail, 'contacEmail')
+    validate.email(contactEmail, 'contactEmail')
     validate.phoneNumber(phoneNumber, 'phoneNumber')
-    validate.password(password)
     validate.pets(pets, 'pets')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/petsitterUser`, {
-        method: 'POST',
+    const { sub: userId } = extractPayLoadFromToken(sessionStorage.token)
+
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${userId}`, {
+        method: 'PATCH',
         headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, name, city, description, email, linKPage, contacEmail, phoneNumber, password, passwordRepeat, pets })
+        body: JSON.stringify({ image, name, city, description, linKPage, contactEmail, phoneNumber, pets })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 201) return
+            if (status === 204) return
 
             return response.json()
                 .then(body => {
@@ -34,7 +36,6 @@ export default (image, name, city, description, email, linKPage, contacEmail, ph
                     const constructor = errors[error]
 
                     throw new constructor(message)
-
                 })
         })
 }

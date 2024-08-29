@@ -1,4 +1,5 @@
 import logic from '../../logic'
+import { useNavigate } from 'react-router-dom'
 
 import Container from '../library/Container'
 import Label from '../library/Label'
@@ -9,13 +10,23 @@ import Heading from '../library/Heading'
 import Header from '../home/Header'
 
 import useContext from '../context'
-import { useState } from 'react'
+import extractPayLoadFromToken from '../../util/extractPayLoadFromToken'
+import { useEffect, useState } from 'react'
 
-export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClick }) {
+export default function SettingsPetsitter({ onLogoutClick }) {
     const { alert } = useContext()
-    const [selectedPets, setSelectedPets] = useState([])
 
-    const handleregisterPetsitterUserSubmit = event => {
+    const { sub: userId } = extractPayLoadFromToken(sessionStorage.token)
+    const [selectedPets, setSelectedPets] = useState([])
+    const [petsitter, setPetsitter] = useState(null)
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        loadPetsitterUser()
+    }, [])
+
+    const handleUpdatePetsitterUserSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -24,28 +35,30 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
         const nameInput = form['name-input']
         const cityInput = form['city-input']
         const descriptionInput = form['description-input']
-        const emailInput = form['email-input']
-        const phoneNumberInput = form['phoneNumber-input']
-        const passwordInput = form['password-input']
-        const passwordRepeatInput = form['password-repeat-input']
+        const linkPageInput = form['link-page.input']
+        const contactEmailInput = form['contact-email-input']
+        const phoneNumberInput = form['phone-number-input']
 
         const image = imageInput.value
         const name = nameInput.value
         const city = cityInput.value
         const description = descriptionInput.value
-        const email = emailInput.value
+        const linkPage = linkPageInput.value
+        const contactEmail = contactEmailInput.value
         const phoneNumber = phoneNumberInput.value
-        const password = passwordInput.value
-        const passwordRepeat = passwordRepeatInput.value
         const pets = selectedPets
 
         try {
-            logic.registerPetsitterUser(image, name, city, description, email, phoneNumber, password, passwordRepeat, pets)
-                .then(() => onRegisterPetsitterUser())
+            logic.updatePetsitterUser(image, name, city, description, linkPage, contactEmail, phoneNumber, pets)
+                .then(() => {
+                    loadPetsitterUser()
+
+                    navigate('/')
+                })
                 .catch(error => {
                     console.error(error)
 
-                    alert(message)
+                    alert(error.message)
                 })
         } catch (error) {
             console.error(error)
@@ -64,32 +77,49 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
         }
     }
 
-    const handleLoginClick = event => {
+
+    const handleLogoutClick = event => {
         event.preventDefault()
 
-        onLoginClick()
+        onLogoutClick()
+    }
+
+    const loadPetsitterUser = () => {
+        try {
+            logic.getUser(userId)
+                .then(petsitter => setUser(petsitter))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
 
     return <>
         <Header />
         <main className='h-screen flex flex-col mb-32'>
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
-                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro de guardería</Heading>
+                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Editar usuario</Heading>
 
-                <form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
+                {petsitter && <form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' defaultValue={petsitter.image} placeholder='https://' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.name} id='name-input' name='name' placeholder='nombre' />
                     </Container>
 
                     <Container >
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='city-input'>Ciudad</Label>
-                        <select className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' name='city' id='city-input' required >
+                        <select className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' defaultValue={petsitter.city} name='city' id='city-input'>
                             <option value=''>Seleccione una ciudad</option>
                             <option value='madrid'>Madrid</option>
                             <option value='barcelona'>Barcelona</option>
@@ -140,27 +170,22 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Descripción</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='description-input' name='description' placeholder='descripción' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.description} id='description-input' name='description' placeholder='descripción' />
                     </Container>
 
                     <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' />
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='link-page-input'>Página web</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='link-page-input' type='text' defaultValue={petsitter.linkPage} placeholder='https://' />
+                    </Container>
+
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email de contacto</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' defaultValue={petsitter.contactEmail} id='contact-email-input' name='contactEmail' placeholder='email' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='phoneNumber-input'>Teléfono</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' id='phoneNumber-input' name='phoneNumber' placeholder='inserta tu teléfono' />
-                    </Container>
-
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='password-input'>Contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' placeholder='contraseña' />
-                    </Container>
-
-                    <Container className='pb-2'>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='password-repeat-input'>Repite contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' placeholder='repite contraseña' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' defaultValue={petsitter.phoneNumber} id='phone-number-input' name='phoneNumber' placeholder='inserta tu teléfono' />
                     </Container>
 
                     <Container>
@@ -168,6 +193,7 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                         <input
                             type='checkbox'
+                            defaultValue={petsitter.pets}
                             id='rabbits-input'
                             value='rabbits'
                             name='pets-input'
@@ -177,6 +203,7 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                         <input
                             type='checkbox'
+                            defaultValue={petsitter.pets}
                             id='guinea-pig-input'
                             value='guineaPig'
                             name='pets-input'
@@ -186,6 +213,7 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                         <input
                             type='checkbox'
+                            defaultValue={petsitter.pets}
                             id='hamsters-input'
                             value='hamsters'
                             name='pets-input'
@@ -195,6 +223,7 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                         <input
                             type='checkbox'
+                            defaultValue={petsitter.pets}
                             id='rats-input'
                             value='rats'
                             name='pets-input'
@@ -204,6 +233,7 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                         <input
                             type='checkbox'
+                            defaultValue={petsitter.pets}
                             id='birds-input'
                             value='birds'
                             name='pets-input'
@@ -213,6 +243,7 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
 
                         <input
                             type='checkbox'
+                            defaultValue={petsitter.pets}
                             id='reptiles-input'
                             value='reptiles'
                             name='pets-input'
@@ -222,11 +253,11 @@ export default function PetsitterSettings({ onRegisterPetsitterUser, onLoginClic
                     </Container>
 
                     <Container className='text-center'>
-                        <button className='w-32 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Regístrate'}</button>
+                        <button className='w-32 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</button>
                     </Container>
-                </form>
+                </form>}
                 <Container className='text-center  pb-8 pt-2'>
-                    <Link className='text-bold text-teal-600 hover:text-teal-900' onClick={handleLoginClick}>¿Ya tienes tu cuenta? Loguéate</Link>
+                    <Link className='font-bold p-2 text-teal-700 hover:text-teal-900' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
                 <Footer defaultTab={'login'} />
             </Container>

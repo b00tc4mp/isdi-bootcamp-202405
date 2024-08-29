@@ -9,6 +9,7 @@ import getPetsitterDetailsHandler from './getPetsitterDetailsHandler.js'
 import addReviewHandler from './addReviewHandler.js'
 import getPetsitterReviewHandler from './getPetsitterReviewHandler.js'
 import deletePetsitterReview from './deletePetsitterReview.js'
+import updatePetsitterUserHandler from './updatePetsitterUserHandler.js'
 
 export {
     registerUserHandler,
@@ -21,5 +22,6 @@ export {
     getPetsitterDetailsHandler,
     addReviewHandler,
     getPetsitterReviewHandler,
-    deletePetsitterReview
+    deletePetsitterReview,
+    updatePetsitterUserHandler
 }

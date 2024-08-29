@@ -9,6 +9,7 @@ import getPetsitterDetails from './getPetsitterDetails.js'
 import addReview from './addReview.js'
 import getPetsitterReview from './getPetsitterReview.js'
 import deletePetsitterReview from './deletePetsitterReview.js'
+import updatePetsitterUser from './updatePetsitterUser.js'
 
 const logic = {
     registerUser,
@@ -21,7 +22,8 @@ const logic = {
     getPetsitterDetails,
     addReview,
     getPetsitterReview,
-    deletePetsitterReview
+    deletePetsitterReview,
+    updatePetsitterUser
 }
 
 export default logic

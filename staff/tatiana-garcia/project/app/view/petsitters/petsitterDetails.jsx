@@ -30,7 +30,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
     const [reviews, setReviews] = useState([])
     const [userRole, setUserRole] = useState(null)
     const [rating, setRating] = useState(0)
-    const [value, setValue] = useState(1)
+    const [value, setValue] = useState(0)
     const [addReviewVisibility, setAddReviewVisibility] = useState(false)
 
 
@@ -221,7 +221,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
                                     setValue(newValue);
                                 }}
                                 size='large'
-                                emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} />
+                                emptyIcon={<StarIcon style={{ opacity: 1, color: 'grey' }} fontSize='inherit' />} />
                         </Container>
                         <Container className='flex justify-between mt-4 w-full'>
                             <Button type='button' className='w-28 bg-red-400 text-white rounded-full hover:bg-red-500 transition duration-200' onClick={onCancelReviewClick}>Cancelar</Button>

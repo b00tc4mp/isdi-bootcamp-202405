@@ -16,7 +16,8 @@ import {
     getPetsitterDetailsHandler,
     addReviewHandler,
     getPetsitterReviewHandler,
-    deletePetsitterReview
+    deletePetsitterReview,
+    updatePetsitterUserHandler
 
 } from './handlers/index.js'
 
@@ -47,6 +48,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.post('/petsitters/:petsitterId/review', jsonBodyParser, addReviewHandler)
 
         api.patch('/users/:userId', jwtVerifier, jsonBodyParser, updateUserHandler)
+
+        api.patch('/petsitters/:userId', jwtVerifier, jsonBodyParser, updatePetsitterUserHandler)
 
         api.delete('/review/:reviewId', jwtVerifier, deletePetsitterReview)
 

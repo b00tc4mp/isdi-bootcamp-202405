@@ -25,6 +25,8 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         const cityInput = form['city-input']
         const descriptionInput = form['description-input']
         const emailInput = form['email-input']
+        const linkPageInput = form['link-page.input']
+        const contactEmailInput = form['contact-email-input']
         const phoneNumberInput = form['phoneNumber-input']
         const passwordInput = form['password-input']
         const passwordRepeatInput = form['password-repeat-input']
@@ -34,13 +36,15 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         const city = cityInput.value
         const description = descriptionInput.value
         const email = emailInput.value
+        const linkPage = linkPageInput.value
+        const contactEmail = contactEmailInput.value
         const phoneNumber = phoneNumberInput.value
         const password = passwordInput.value
         const passwordRepeat = passwordRepeatInput.value
         const pets = selectedPets
 
         try {
-            logic.registerPetsitterUser(image, name, city, description, email, phoneNumber, password, passwordRepeat, pets)
+            logic.registerPetsitterUser(image, name, city, description, email, linkPage, contactEmail, phoneNumber, password, passwordRepeat, pets)
                 .then(() => onRegisterPetsitterUser())
                 .catch(error => {
                     console.error(error)
@@ -146,6 +150,16 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' />
+                    </Container>
+
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='link-page-input'>Página web</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='link-page-input' type='text' placeholder='https://' />
+                    </Container>
+
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email de contacto</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='contact-email-input' name='cantactEmail' placeholder='email' />
                     </Container>
 
                     <Container>
