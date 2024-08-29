@@ -30,7 +30,7 @@ export default function BandList(refreshStamp) {
     }
 
     return <section className='mb-[40px] flex flex-col gap-4'>
-        <Heading className='mt-[68px] ml-2 text-2xl font-bold'>venues</Heading>
+        <Heading className='mt-3 ml-2 text-xl font-bold -mb-4'>venues</Heading>
 
         <Container>
             {users.map(user => <User

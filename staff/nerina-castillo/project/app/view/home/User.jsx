@@ -54,8 +54,8 @@ export default function User({ user, onUserFollowToggled }) {
     }
 
     return <article className='border-b border-gray-500 ml-2 mr-2'>
-        <Container className='flex justify-between items-center m-[.5rem]'>
-            <Container className='flex items-center gap-1'>
+        <Container className='flex justify-between items-center mt-[.5rem] mb-[.5rem]'>
+            <Container className='flex items-center'>
                 <Avatar url={user.avatar} alt={`${user.username}'s avatar`} />
                 <Heading className='font-bold text-slate-400 text-lg'>{user.username}</Heading>
             </Container>

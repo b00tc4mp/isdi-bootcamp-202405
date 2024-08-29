@@ -4,15 +4,13 @@ import Header from './Header'
 import Footer from './Footer'
 import ResultsPostList from './ResultsPostList'
 import FollowingPostList from './FollowingUserPostList'
-import BandList from './BandList'
-import LabelList from './LabelList'
-import PromotersList from './PromotersList'
-import VenuesList from './VenuesList'
-import ResultsEventList from './ResultsEventList.jsx'
-import Container from '../library/Container.jsx'
+import ResultsEventList from './ResultsEventList'
+import Container from '../library/Container'
+import Menu from './Menu'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
+    const [isListVisible, setIsListVisible] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -26,13 +24,6 @@ export default function Home({ onLogout }) {
 
     const handleEventCreated = () => setRefreshStamp(Date.now())
 
-    const handleBandsClick = () => navigate('/bands')
-
-    const handleLabelsClick = () => navigate('/labels')
-
-    const handlePromotersClick = () => navigate('/promoters')
-
-    const handleVenuesClick = () => navigate('/venues')
 
     return <> <Container>
         <Header
@@ -54,14 +45,7 @@ export default function Home({ onLogout }) {
 
                 <Route path='/calendar' element={<ResultsEventList />} />
 
-                <Route path='/bands' element={<BandList refreshStamp={refreshStamp} />} />
-
-                <Route path='/labels' element={<LabelList refreshStamp={refreshStamp} />} />
-
-                <Route path='/promoters' element={<PromotersList refreshStamp={refreshStamp} />} />
-
-                <Route path='/venues' element={<VenuesList refreshStamp={refreshStamp} />} />
-
+                <Route path='/menu' element={<Menu onLogOut={onLogout} refreshStamp={refreshStamp} isListVisible={isListVisible} setListVisibility={setIsListVisible} />} />
             </Routes>
         </main>
 
@@ -69,10 +53,6 @@ export default function Home({ onLogout }) {
             onPostCreated={handlePostCreated}
             onEventCreated={handleEventCreated}
             location={location.pathname}
-            onBandsClick={handleBandsClick}
-            onLabelsClick={handleLabelsClick}
-            onPromotersClick={handlePromotersClick}
-            onVenuesClick={handleVenuesClick}
         ></Footer>
     </Container>
     </>

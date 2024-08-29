@@ -12,7 +12,7 @@ The application offers a platform for different user profiles to interact, colla
 
 - An interactive calendar where events can be viewed, created, modified, and deleted.
 
-- A search tool to find events by date, geolocation, band, or music genre.
+- A search tool to find events by geolocation, title or description.
 
 - A directory for each role within the app, allowing users to connect with them or send messages.
 
