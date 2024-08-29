@@ -64,6 +64,16 @@ function validateNumber(number, explain = 'number') {
     if (typeof number !== 'number') throw new ValidationError(`${explain} is not a number`)
 }
 
+function validateId(id, explain = 'id') {
+    validateString(id, 'id')
+    if (id.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
+}
+
+function validateObject(object, explain = 'object') {
+    if (object === null || typeof object !== 'object' || object.constructor !== object) throw new ValidationError(`${explain} is not an object`)
+
+}
+
 const validate = {
     string: validateString,
     name: validateName,
@@ -76,7 +86,9 @@ const validate = {
     pets: validatePets,
     array: validateArray,
     phoneNumber: validatePhoneNumber,
-    number: validateNumber
+    number: validateNumber,
+    id: validateId,
+    object: validateObject
 }
 
 export default validate

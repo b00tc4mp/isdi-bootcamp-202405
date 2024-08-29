@@ -15,6 +15,12 @@ const user = new Schema({
         required: true,
         unique: true
     },
+    contacEmail: {
+        type: String
+    },
+    linKPage: {
+        type: String
+    },
     phoneNumber: {
         type: String
     },

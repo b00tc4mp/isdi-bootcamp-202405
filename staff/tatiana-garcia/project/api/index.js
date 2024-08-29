@@ -46,7 +46,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/petsitters/:petsitterId/review', jsonBodyParser, addReviewHandler)
 
-        api.patch('/users', jwtVerifier, updateUserHandler)
+        api.patch('/users/:userId', jwtVerifier, jsonBodyParser, updateUserHandler)
 
         api.delete('/review/:reviewId', jwtVerifier, deletePetsitterReview)
 

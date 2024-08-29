@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-
 import logic from '../../logic'
+
+import { useNavigate } from 'react-router-dom'
 
 import Footer from '../home/Footer'
 import Header from '../home/Header'
@@ -11,59 +11,41 @@ import Label from '../library/Label'
 import Link from '../library/Link'
 
 import useContext from '../context'
+import extractPayLoadFromToken from '../../util/extractPayLoadFromToken'
+import { useEffect, useState } from 'react'
 
 export default function Settings({ onLogoutClick }) {
     const { alert } = useContext()
 
-    const [formValues, setFormValues] = useState({
-        image: '',
-        name: '',
-        surname: '',
-        email: '',
-        password: '',
-        passwordRepeat: ''
+    const { sub: userId } = extractPayLoadFromToken(sessionStorage.token)
+    const [user, setUser] = useState(null)
 
-    })
+    const navigate = useNavigate()
 
     useEffect(() => {
-        try {
-            logic.getUser()
-                .then(user => {
-                    setFormValues({
-                        image: user.image || '',
-                        name: user.name || '',
-                        surname: user.surname || '',
-                        email: user.email || '',
-                        password: user.password || '',
-                        passwordRepeat: user.passwordRepeat || ''
-                    })
-                })
-                .catch(error => {
-                    console.error(error)
-
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+        loadUser()
     }, [])
 
     const handleUpdateSubmit = event => {
         event.preventDefault()
 
-        const { userId, image, name, surname, email, password, passwordRepeat } = formValues
+        const form = event.target
 
-        if (password && password !== passwordRepeat) {
-            alert('las contraseñas no coinciden')
+        const imageInput = form['image-input']
+        const nameInput = form['name-input']
+        const surnameInput = form['surname-input']
 
-            return
-        }
+        const image = imageInput.value
+        const name = nameInput.value
+        const surname = surnameInput.value
 
         try {
-            logic.updateUser({ userId, image, name, surname, email, password })
-                .then(() => alert('Perfil actualizado correctamente'))
+            logic.updateUser(image, name, surname)
+                .then(() => {
+                    loadUser()
+
+                    navigate('/')
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -74,12 +56,6 @@ export default function Settings({ onLogoutClick }) {
 
             alert(error.message)
         }
-    }
-
-    const handleInputChange = event => {
-        const { name, value } = event.target
-
-        setFormValues(preventValues => ({ ...preventValues, [name]: value }))
     }
 
     const handleLogoutClick = event => {
@@ -88,53 +64,53 @@ export default function Settings({ onLogoutClick }) {
         onLogoutClick()
     }
 
+    const loadUser = () => {
+        try {
+            logic.getUser(userId)
+                .then(user => setUser(user))
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     return <>
         <Header />
-        <main className='h-screen flex flex-col mb-32'>
+        <main className='h-screen flex flex-col'>
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Editar usuario</Heading>
 
-                <form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
+                {user && <form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' name='image' value={formValues.image} onChange={handleInputChange} placeholder='https://' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' name='image' defaultValue={user.image} placeholder='https://' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' value={formValues.name} onChange={handleInputChange} placeholder='nombre' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' defaultValue={user.name} placeholder='nombre' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='surname-input'>Apellidos</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' value={formValues.surname} onChange={handleInputChange} placeholder='apellidos' />
-                    </Container>
-
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Email</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' value={formValues.email} onChange={handleInputChange} placeholder='email' />
-                    </Container>
-
-                    <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='password-input'>Nueva contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' value={formValues.password} onChange={handleInputChange} placeholder='contraseña' />
-                    </Container>
-
-                    <Container className='pb-2'>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='password-repeat-input'>Repite contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' value={formValues.passwordRepeat} onChange={handleInputChange} placeholder='repite contraseña' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' defaultValue={user.surname} placeholder='apellidos' />
                     </Container>
 
                     <Container className='text-center pb-4 pt-0'>
                         <button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</button>
                     </Container>
 
-                </form>
+                </form>}
 
                 <Container className='text-center pb-8 pt-2'>
-                    <Link className='text-bold text-teal-600 hover:text-teal-900' onClick={handleLogoutClick}>Cerrar sesión</Link>
+                    <Link className='font-bold p-2 text-teal-700 hover:text-teal-900' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
-
                 <Footer />
             </Container>
         </main>
