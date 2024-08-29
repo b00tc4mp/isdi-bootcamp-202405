@@ -1,5 +1,4 @@
 export default (propertyId, ownerId, tenantId, startDate, endDate, price) => {
-    // Validaciones
     validate.string(propertyId, 'propertyId');
     validate.string(ownerId, 'ownerId');
     validate.string(tenantId, 'tenantId');

@@ -5,7 +5,7 @@ export default (req, res, next) => {
 
     try {
         logic.getAllProps(userId)
-            .then(properties => res.json(properties))  // Cambia 'events' por 'properties' para mayor claridad
+            .then(properties => res.json(properties))  
             .catch(error => next(error));
     } catch (error) {
         next(error);

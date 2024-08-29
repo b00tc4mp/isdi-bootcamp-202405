@@ -50,40 +50,53 @@ The user interface design has been created using [Figma](https://www.figma.com/)
 - **MongoDB**: NoSQL database for flexible data storage.
 - **Tailwind CSS**: CSS framework for fast and responsive design.
 
-## Data Model
-
-Below is an example of how the data model might be structured in MongoDB:
 
 ### Data Model
 
-```json
-{
-  "User": {
-    "userId": "String",
-    "name": "String",
-    "email": "String",
-    "password": "String",
-    "dni": "String",
-  },
-  "Property": {
-    "propertyId": "String",
-    "ownerId": "String",
-    "address": "String",
-    "description": "String",
-    "documents": ["Document"]
-  },
-  "Document": {
-    "documentId": "String",
-    "propertyId": "String",
-    "type": "String",  // 'contract', 'invoice', 'tax'
-    "url": "String",
-    "date": "Date"
-  },
-  "Review": {
-    "reviewId": "String",
-    "userId": "String",
-    "rating": "Number", // 1 - 5
-    "comment": "String",
-    "date": "Date"
-  }
-}
+User 
+- Id (auto)
+- name (string)
+- username (string)
+- dni (string)
+- role (string, enum: owner | tenant)
+- email (string)
+- password (string)
+- avatar (string)
+
+Property
+- id (auto)
+- ownerId (user.id)
+- adress (string)
+- location ([Number, Number])
+- description (string)
+- documents [(Document.id)]
+
+Point
+- type (string)
+- coordinates ([Number])
+
+Document
+- id (auto)
+- property (property.id)
+- type (string, enum: contract | invoice | tax)
+- url (string)
+- date (Date)
+
+Review
+- id (auto)
+- author (user.id)
+- rating (number, 1 - 5)
+- comment (string)
+- date (Date)
+
+Chat
+- id (auto)
+- participants ([User.id])
+- date (Date)
+
+Message
+- id (auto)
+- author (User.id)
+- message (string)
+- date (Date)
+- chat (Chat.id)
