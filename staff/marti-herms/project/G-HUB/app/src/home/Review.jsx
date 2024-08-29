@@ -11,7 +11,7 @@ import extractPayloadFromToken from '../../util/extractPayloadFromToken'
 import useContext from '../context';
 
 export default function Review({ review, onDelete }) {
-    const { theme } = useContext
+    const { theme } = useContext()
     const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
 
     const handleDelete = () => {

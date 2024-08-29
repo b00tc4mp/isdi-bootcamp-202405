@@ -1,4 +1,4 @@
-# The G-HUB (provisional)
+# The G-HUB
 
 A hub for gamers and developers to play or upload videogames
 
@@ -53,6 +53,7 @@ A hub for gamers and developers to play or upload videogames
 - Node
 - Express
 - React
+- Vite
 - Mongodb
 - Mongoose
 - JWT
@@ -103,3 +104,7 @@ A hub for gamers and developers to play or upload videogames
 - author (User.id)
 - content (string)
 - date (Date)
+
+### Test Coverage
+
+![Test Coverage](./images/test-coverage.png)

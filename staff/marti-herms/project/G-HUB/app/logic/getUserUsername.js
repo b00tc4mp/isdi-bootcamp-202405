@@ -5,7 +5,8 @@ const { SystemError } = errors
 import extractPayloadFromToken from '../util/extractPayloadFromToken.js'
 
 export default (targetUserId = '') => {
-    validate.id(targetUserId, 'targetUserId')
+    if (targetUserId)
+        validate.id(targetUserId, 'targetUserId')
 
     const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
 

@@ -1,7 +1,7 @@
 import data from '../data'
 
 export default (seconds) => {
-    if (typeof id !== 'number') throw new Error('invalid id')
+    if (typeof seconds !== 'number') throw new Error('invalid id')
 
     if (seconds === 0)
         data.player.item.points = 0
