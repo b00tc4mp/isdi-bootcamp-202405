@@ -1,4 +1,4 @@
-import { User, Property } from '../data/models.js';
+fimport { User, Property } from '../data/models.js';
 import { validate, errors } from 'com';
 
 const { NotFoundError, SystemError } = errors;

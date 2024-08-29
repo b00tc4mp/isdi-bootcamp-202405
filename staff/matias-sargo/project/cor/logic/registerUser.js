@@ -15,8 +15,8 @@ export default (name, surname, email, username, dni, password, passwordRepeat, r
 
     if (password !== passwordRepeat) throw new ValidationError('passwords do not match');
 
-    // Verificar si el rol es válido
-    const validRoles = ['landlord', 'tenant'];
+    
+    const validRoles = ['owner', 'tenant'];
     if (!validRoles.includes(role)) {
         throw new ValidationError('invalid role');
     }
@@ -56,7 +56,7 @@ export default (name, surname, email, username, dni, password, passwordRepeat, r
                     reviews: []
                 }
             })
-                .then(createdUser => createdUser) // Retornamos el usuario creado
+                .then(createdUser => createdUser) 
                 .catch(error => { throw new SystemError(error.message); })
         );
 };

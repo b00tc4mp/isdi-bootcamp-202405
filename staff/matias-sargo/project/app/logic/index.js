@@ -5,6 +5,9 @@ import createProp from './createProp.js'
 import getUserId from './getUserId.js'  
 import getAllProps from './getAllProps.js'
 import createContract from './createContract.js'
+import { signContract } from './signContract.js'
+import createDocument from './createDocument.js'
+
 
 
 const logic = {
@@ -15,7 +18,10 @@ const logic = {
     createProp,
     getUserId,
     getAllProps,
-    createContract
+    createContract,
+    signContract,
+    createDocument,
+    
   
 }
 

@@ -20,7 +20,7 @@ export default function createContract(propertyId, ownerId, tenantId, startDate,
         startDate,
         endDate,
         price,
-        signedBy: [ownerId, tenantId] // Inicialmente firmado por ambos
+        signedBy: []
     })
         .catch(error => {
             throw new SystemError(error.message);

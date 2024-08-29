@@ -1,37 +1,51 @@
-import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import multer from "multer";
 
-import { mongoose } from '../cor/index.js';
-
-import { jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js';
+import { mongoose } from "../cor/index.js";
 
 import {
-    registerUserHandler,
-    authenticateUserHandler,
-    createPropHandler,
-    getAllPropsHandler, 
-    createContractHandler
-} from './handlers/index.js';
+  jsonBodyParser,
+  jwtVerifier,
+  errorHandler,
+} from "./middlewares/index.js";
 
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.info(`API connected to ${process.env.MONGODB_URI}`);
+import {
+  registerUserHandler,
+  authenticateUserHandler,
+  createPropHandler,
+  getAllPropsHandler,
+  createContractHandler,
+  signContractHandler,
+  createDocumentHandler
+} from "./handlers/index.js";
 
-        const api = express();
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.info(`API connected to ${process.env.MONGODB_URI}`);
 
-        api.use(cors());
+    const api = express();
+    const upload = multer({ dest: 'uploads/' });
 
-        api.post('/users', jsonBodyParser, registerUserHandler);
-        api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
+    api.use(cors());
 
-        api.post('/properties', jsonBodyParser, jwtVerifier, createPropHandler);
-        api.get('/properties', jwtVerifier, getAllPropsHandler)
+    api.post("/users", jsonBodyParser, registerUserHandler);
+    api.post("/users/auth", jsonBodyParser, authenticateUserHandler);
 
-        api.post('/contracts', jsonBodyParser, jwtVerifier, createContractHandler);
+    api.post("/properties", jsonBodyParser, jwtVerifier, createPropHandler);
+    api.get("/properties", jwtVerifier, getAllPropsHandler);
 
-        api.use(errorHandler);
+    api.post("/contracts", jsonBodyParser, jwtVerifier, createContractHandler);
+    api.post("/contracts/:contractId/sign", jsonBodyParser, jwtVerifier, signContractHandler);
 
-        api.listen(process.env.PORT, () => console.info(`API listening on PORT ${process.env.PORT}`));
-    })
-    .catch(error => console.error(error));
+    api.post('/documents', upload.single('content'), createDocumentHandler);
+    
+    api.use(errorHandler);
+
+    api.listen(process.env.PORT, () =>
+      console.info(`API listening on PORT ${process.env.PORT}`)
+    );
+  })
+  .catch((error) => console.error(error));
