@@ -5,7 +5,7 @@ const { NotFoundError, SystemError } = errors
 
 export default (userId, newAvatar) => {
     validate.id(userId, 'userId')
-    validate.image(newAvatar, 'avatar')
+    validate.string(newAvatar, 'avatar')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })

@@ -3,7 +3,7 @@ import { validate, errors } from '../../com/index.js'
 const { SystemError } = errors
 
 export default newAvatar => {
-    validate.image(newAvatar, 'avatar')
+    validate.string(newAvatar, 'avatar')
 
     return fetch('http://localhost:8080/users/avatar', {
         method: 'PATCH',

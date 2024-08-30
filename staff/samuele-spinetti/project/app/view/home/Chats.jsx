@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import useContext from '../context.js'
 
 import logic from '../../logic'
+import formatTime from '../../util/formatTime.js'
 
 import Paragraph from '../library/Paragraph'
 import Button from '../library/Button'
@@ -63,6 +64,8 @@ export default function Chats() {
                         <Container className="flex items-center justify-between border shadow-lg rounded-xl w-96 h-20 p-4">
 
                             <Image className="w-[60px] h-[60px] rounded-xl" src={!(chat.participant.avatar) ? './profileIcon.svg' : chat.participant.avatar} />
+
+                            <Paragraph className="text-sm text-gray-400">Last message: {formatTime(new Date(chat.lastMessage.date))} ago</Paragraph>
 
                             <Button onClick={() => handlePrivateChatClick(chat.id)}>
                                 <Image className="h-[30px] w-[30px]" src="./chatIcon.svg" />

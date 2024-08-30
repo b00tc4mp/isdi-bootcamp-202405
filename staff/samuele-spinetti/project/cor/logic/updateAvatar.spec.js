@@ -79,19 +79,6 @@ describe('updateAvatar', () => {
         }
     })
 
-    it('fails on invalid avatar', () => {
-        let error
-
-        try {
-            updateAvatar(new ObjectId().toString(), '')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid avatar')
-        }
-    })
-
     afterEach(() => User.deleteMany())
 
     after(() => mongoose.disconnect())

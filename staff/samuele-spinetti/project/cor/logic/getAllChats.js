@@ -1,4 +1,4 @@
-import { User, Chat } from '../data/models.js'
+import { User, Chat, Message } from '../data/models.js'
 
 import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
@@ -14,7 +14,7 @@ export default userId => {
             return Chat.find({ participants: { $in: [userId] } }, { __v: 0, messages: 0, date: 0 }).sort({ date: -1 }).populate('participants', { avatar: 1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(chats => {
-                    chats.forEach(chat => {
+                    const promises = chats.map(chat => {
                         chat.id = chat._id.toString()
                         delete chat._id
 
@@ -28,10 +28,28 @@ export default userId => {
 
                         delete chat.participants
 
-                        return chat
+                        return Message.find({ chat: chat.id }, { __v: 0 }).sort({ date: 1 }).lean()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(messages => {
+                                const lastMessageIndex = messages.length - 1
+
+                                const lastMessage = messages[lastMessageIndex]
+
+                                chat.lastMessage = {
+                                    id: lastMessage._id.toString(),
+                                    message: lastMessage.message,
+                                    date: lastMessage.date,
+                                    author: {
+                                        id: lastMessage.author._id.toString()
+                                    }
+                                }
+
+                                return chat
+                            })
                     })
 
-                    return chats
+                    return Promise.all(promises)
+                        .then(chats => chats)
                 })
         })
 }

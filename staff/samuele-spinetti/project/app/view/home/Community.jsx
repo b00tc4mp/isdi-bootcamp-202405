@@ -10,16 +10,25 @@ import Image from '../library/Image.jsx'
 import Paragraph from '../library/Paragraph'
 
 import CreatePost from './CreatePost'
+import CommunityRulesAlert from './CommunityRulesAlert'
 import Post from './Post'
 
 export default function Community() {
     const [createPostVisible, setCreatePostVisible] = useState(false)
+    const [rulesAccepted, setRulesAccepted] = useState(true)
     const [posts, setPosts] = useState([])
     const { alert } = useContext()
 
     useEffect(() => {
-        loadPosts()
+        try {
+            logic.getCommunityAlert()
+                .then(() => { })
+            loadPosts()
+        } catch (error) {
+            console.error(error)
 
+            alert(error.message)
+        }
     }, [])
 
     const handlePostDeleted = () => {
@@ -44,6 +53,8 @@ export default function Community() {
         loadPosts()
     }
 
+    const handleAcceptRules = () => setRulesAccepted(false)
+
     const loadPosts = () => {
         try {
             logic.getAllPosts()
@@ -61,10 +72,13 @@ export default function Community() {
     }
 
     return <>
-        <Container className="flex flex-row items-center justify-around h-20">
-            <Heading className="flex flex-col justify-center items-center text-[#000000] text-[20px] font-bold h-12">QueerCareCommunity</Heading>
-            <Button onClick={handleCreatePostClick}><Image className="h-[30px] w-[30px]" src="./plusIcon.svg"></Image></Button>
-        </Container>
+        {rulesAccepted && <CommunityRulesAlert onAccept={handleAcceptRules} />}
+
+        {rulesAccepted && (
+            <Container className="flex flex-row items-center justify-around h-20">
+                <Heading className="flex flex-col justify-center items-center text-[#000000] text-[20px] font-bold h-12">QueerCareCommunity</Heading>
+                <Button onClick={handleCreatePostClick}><Image className="h-[30px] w-[30px]" src="./plusIcon.svg"></Image></Button>
+            </Container>)}
         {createPostVisible && <CreatePost onPostCreated={handlePostCreated} onCancelCreatePost={handleCancelCreatePostClick} />}
         <section className="flex flex-col gap-6 mb-24">
             {posts.length === 0 ? (
