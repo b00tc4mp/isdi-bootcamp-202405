@@ -24,7 +24,7 @@ export default function User({ user, onUserFollowToggled }) {
                 .catch(error => {
                     console.error(error)
                     alert(error.confirmMessage)
-                });
+                })
         } catch (error) {
             console.error(error)
             alert(error.message)

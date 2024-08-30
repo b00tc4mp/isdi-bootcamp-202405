@@ -11,7 +11,9 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Post.find({ author: { $in: user.following } }).sort({ date: -1 }).lean()
+            const authorsToInclude = [...(user.following || []), user._id]
+
+            return Post.find({ author: { $in: authorsToInclude } }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(posts => {
                     const promises = posts.map(post => {

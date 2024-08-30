@@ -7,6 +7,7 @@ import FollowingPostList from './FollowingUserPostList'
 import ResultsEventList from './ResultsEventList'
 import Container from '../library/Container'
 import Menu from './Menu'
+import UserProfile from './UserProfile'
 
 export default function Home({ onLogout }) {
     const [refreshStamp, setRefreshStamp] = useState(null)
@@ -28,10 +29,7 @@ export default function Home({ onLogout }) {
     return <> <Container>
         <Header
             onHomeClick={handleFollowClick}
-            onSearchClick={handleSearchClick}
             onCalendarClick={handleCalendarSearch}
-            onFollowClick={handleFollowClick}
-            onLogout={onLogout}
         />
 
         <main className='bg-slate-700 text-slate-300 min-h-screen'>
@@ -46,6 +44,8 @@ export default function Home({ onLogout }) {
                 <Route path='/calendar' element={<ResultsEventList />} />
 
                 <Route path='/menu' element={<Menu onLogOut={onLogout} refreshStamp={refreshStamp} isListVisible={isListVisible} setListVisibility={setIsListVisible} />} />
+
+                <Route path='/profile' element={<UserProfile />} />
             </Routes>
         </main>
 
@@ -53,6 +53,7 @@ export default function Home({ onLogout }) {
             onPostCreated={handlePostCreated}
             onEventCreated={handleEventCreated}
             location={location.pathname}
+            onSearchClick={handleSearchClick}
         ></Footer>
     </Container>
     </>

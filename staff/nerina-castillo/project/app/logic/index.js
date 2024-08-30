@@ -24,6 +24,7 @@ import createChat from './createChat'
 import sendMessage from './sendMessage'
 import getMessages from './getMessages'
 import getEventByDate from './getEventByDate'
+import getUserProfile from './getUserProfile'
 
 const logic = {
     registerUser,
@@ -51,7 +52,8 @@ const logic = {
     createChat,
     sendMessage,
     getMessages,
-    getEventByDate
+    getEventByDate,
+    getUserProfile
 }
 
 export default logic

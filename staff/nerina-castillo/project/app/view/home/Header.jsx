@@ -4,29 +4,10 @@ import logic from '../../logic'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-export default function Header({ onHomeClick, onSearchClick, onCalendarClick }) {
-    const [name, setName] = useState(null)
+export default function Header({ onHomeClick, onCalendarClick }) {
     const navigate = useNavigate()
 
-    useEffect(() => {
-        try {
-            logic.getUserName()
-                .then(name => setName(name))
-                .catch(error => {
-                    console.error(error)
-
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }, [])
-
     const handleHomeClick = () => onHomeClick()
-
-    const handleSearchClick = () => onSearchClick()
 
     const handleCalendarSearch = () => onCalendarClick()
 
@@ -36,9 +17,7 @@ export default function Header({ onHomeClick, onSearchClick, onCalendarClick }) 
         <Button onClick={handleHomeClick}>
             <Image src='./home.png' className='w-[30px] h-[30px]' />
         </Button>
-        <Button onClick={handleSearchClick}>
-            <Image src='./search.png' className='w-[30px] h-[30px]' />
-        </Button>
+
         <Button onClick={handleCalendarSearch}>
             <Image src='./calendar.png' className='w-[30px] h-[30px]' />
         </Button>
