@@ -131,6 +131,18 @@ describe('registerUser', () => {
         }
     })
 
+    it('fails on existing email with different username', () => {
+        let _error
+
+        return User.create({ name: 'Samuele', surname: 'Spinetti', email: 'samuele@spinetti.com', username: 'samuelespinetti', password: '123456789' })
+            .then(() => registerUser('Lili', 'De Ponte', 'samuele@spinetti.com', 'lilideponte', '123456789', '123456789'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('user already exists')
+            })
+    })
+
     it('fails on non-string username', () => {
         let error
 
@@ -231,7 +243,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
+            expect(error.message).to.equal('passwordRepeat has empty spaces')
         }
     })
 

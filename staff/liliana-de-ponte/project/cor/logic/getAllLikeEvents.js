@@ -17,7 +17,7 @@ export default userId => {
                 .then(events => {
                     const promises = events.map(event => {
                         event.like = user.likes.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        // event.attendee = event.attendees.some(userObjectId => userObjectId.toString() === userId)
+                        event.attendance = event.attendees.some(userObjectId => userObjectId.toString() === userId)
 
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
@@ -27,7 +27,7 @@ export default userId => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-                                    // attending: user.attending.some(userObjectId => userObjectId.toString() === author._id.toString())
+
                                 }
 
                                 event.id = event._id.toString()

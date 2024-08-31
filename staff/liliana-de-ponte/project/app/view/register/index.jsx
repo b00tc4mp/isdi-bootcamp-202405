@@ -59,23 +59,23 @@ export default function Register({ onRegister, onLoginClick }) {
 
         <Form onSubmit={handleRegisterSubmit} className="flex-col gap-[0.9rem">
             <Container className="flex-col items-center gap-4">
-                <Input className=" h-9 w-11/12" type="text" id="name-input" name="name" placeholder="Name" />
+                <Input className=" h-9 w-11/12 p-2" type="text" id="name-input" name="name" placeholder="Name" />
 
-                <Input className=" h-9 w-11/12" type="text" id="surname-input" surname="surname" placeholder="Surname" />
+                <Input className=" h-9 w-11/12 p-2" type="text" id="surname-input" surname="surname" placeholder="Surname" />
 
-                <Input className=" h-9 w-11/12" type="email" id="email-input" name="email" placeholder="Email" />
+                <Input className=" h-9 w-11/12 p-2" type="email" id="email-input" name="email" placeholder="Email" />
 
-                <Input className=" h-9 w-11/12" type="text" id="username-input" name="username" placeholder="Username" />
+                <Input className=" h-9 w-11/12 p-2" type="text" id="username-input" name="username" placeholder="Username" />
 
-                <Input className=" h-9 w-11/12" type="password" id="password-input" name="password" placeholder="Password" />
+                <Input className=" h-9 w-11/12 p-2" type="password" id="password-input" name="password" placeholder="Password" />
 
-                <Input className=" h-9 w-11/12" type="password" id="password2-input" name="password2" placeholder="Repeat Password" />
+                <Input className=" h-9 w-11/12 p-2" type="password" id="password2-input" name="password2" placeholder="Repeat Password" />
 
-                <Button className="bg-[#050968] w-11/12" type="submit">Register</Button>
+                <Button className="bg-[#050968] w-11/12 " type="submit">Register</Button>
             </Container>
         </Form>
 
-        <Container className="text-[#9747FF] font-bold p-8 text-lg">
+        <Container className="text-[#9747FF] font-bold p-8 text-lg flex justify-end ">
             <Link href="" onClick={handleLoginClick}>Login</Link>
         </Container>
     </main>

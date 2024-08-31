@@ -55,7 +55,7 @@ export default function ResultsEventList() {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className="flex flex-col gap-1 w-full p-1 mt-1">
         {events.map(event => <Event
             key={event.id}
             event={event}

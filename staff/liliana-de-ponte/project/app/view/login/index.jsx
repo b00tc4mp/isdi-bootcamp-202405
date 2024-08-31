@@ -60,16 +60,16 @@ export default function Login({ onLogin, onRegisterClick }) {
 
         <Form onSubmit={handleLoginSubmit}>
             <Container className="flex-col items-center gap-4">
-                <Input className="h-9 w-11/12" type="text" id="username-input" name="username" placeholder="Username"></Input>
+                <Input className="h-9 w-11/12 p-2" type="text" id="username-input" name="username" placeholder="Username"></Input>
 
-                <Input className="h-9 w-11/12" type="password" id="password-input" name="password" placeholder="Password"></Input>
+                <Input className="h-9 w-11/12 p-2" type="password" id="password-input" name="password" placeholder="Password"></Input>
 
                 <Button className=" flex-col items-center bg-[#050968] w-11/12" type="submit">Login</Button>
             </Container>
         </Form>
 
-        <Container className="flex-col items-start p-10">
-            <Paragraph>Don't have an account? <Container className="text-[#9747FF] font-bold"><Link onClick={handleRegisterClick}>Sign up</Link></Container></Paragraph>
+        <Container className="flex-col items-start mt-14 ml-28">
+            <Paragraph>Don't have an account? <Container className="text-[#9747FF] font-bold flex justify-end mr-0"><Link onClick={handleRegisterClick}>Sign up</Link></Container></Paragraph>
         </Container>
 
 

@@ -9,7 +9,7 @@ import AttendanceEventList from './AttendanceEventList'
 import ResultsEventList from './ResultsEventList'
 import MoreInfoEvent from './MoreInfoEvent'
 
-export default function Home({ onLogout, eventId }) {
+export default function Home({ onLogout }) {
 
     const navigate = useNavigate()
 

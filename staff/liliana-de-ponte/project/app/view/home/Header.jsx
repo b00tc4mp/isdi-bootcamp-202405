@@ -53,7 +53,7 @@ export default function Header({ onHomeClick, onLogout }) {
     }
 
     return <header className="bg-[#050968] fixed left-0 top-0 w-full z-50 h-16 flex items-center">
-        <Container>
+        <Container className="flex justify-between items-center w-full px-4">
             <Container className="flex items-center">
                 <Paragraph className="text-[#FFEBF4]">{name}!</Paragraph>
             </Container>
@@ -65,8 +65,10 @@ export default function Header({ onHomeClick, onLogout }) {
                 <Button onClick={handleLogout}><MdLogout size={22} /></Button>
             </Container>
         </Container>
+        {
+            isSearchVisible && (
+                <Container className="absolute top-16 left-0 w-full bg-[#FFEBF4] z-40 p- h-30 mt-0 flex justify-center items-center"><Search /></Container>)
+        }
 
-        {isSearchVisible && (<Search />)}
-
-    </header>
+    </header >
 }

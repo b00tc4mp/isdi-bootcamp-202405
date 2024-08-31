@@ -10,7 +10,7 @@ import { errors } from '../../com/index.js'
 
 const { ValidationError, NotFoundError, CredentialsError } = errors
 
-describe('autehnticateUser', () => {
+describe('authenticateUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => User.deleteMany())

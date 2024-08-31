@@ -73,7 +73,7 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
         }
     }
 
-
+    console.log(event)
     return <article className="shadow-[1px_1px_10px_1px] shadow-[#050968] rounded-[5px] bg-[#FFEBF4] p-2 m-2 font-bold relative">
         <Container className="items-start relative">
 
@@ -92,7 +92,7 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
                 <Paragraph className="text-[#050968] text-[10px] font-semibold flex items-center mb-2 ml-4"><FaCalendarAlt />{formatTime(new Date(event.date))}</Paragraph>
             </Container>
 
-            <Button className="text-[#9747FF] mt-6 text-sm" onClick={handleAttendanceEventClick}>{event.attendee ? <GoStarFill color="9747FF" size={20} /> : <FiStar color="9747FF" size={20} />}<span style={{ color: '#9747FF' }}>{' '}{event.attendees.length}</span></Button>
+            <Button className="text-[#9747FF] mt-6 text-sm" onClick={handleAttendanceEventClick}>{event.attendance ? <GoStarFill color="9747FF" size={20} /> : <FiStar color="9747FF" size={20} />}<span style={{ color: '#9747FF' }}>{' '}{event.attendees.length}</span></Button>
 
             <Container className="absolute bottom-0 right-0 flex items-end space-x-3">
 
@@ -103,8 +103,6 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
 
                     <Button className="mb-0" onClick={handleLikeEventClick}>{event.like ? <BiSolidLike color="9747FF" size={20} /> : <BiLike color="9747FF" size={20} />}</Button>
 
-
-                    {/* <Button onClick={handleEditEventClick}></Button> */}
                 </>}
 
                 {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteEventAccept} onCancel={handleDeleteEventCancel} />}

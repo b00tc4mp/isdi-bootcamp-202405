@@ -4,9 +4,9 @@ import formatTime from '../../utils/formatTime.js'
 
 import { FaCalendarAlt } from "react-icons/fa"
 import { LuClock } from "react-icons/lu";
+import { IoLocationSharp } from "react-icons/io5";
 import logic from "../../logic"
 
-import Heading from "../library/Heading.jsx"
 import Container from "../library/Container.jsx"
 import Image from '../library/Image.jsx'
 import Paragraph from '../library/Paragraph.jsx'
@@ -45,6 +45,9 @@ export default function MoreInfoEvent() {
             <Paragraph className="flex justify-center text-sm">{event?.description}</Paragraph>
 
             <Paragraph className="flex font-bold text-[#9747FF] text-sm"><LuClock size={14} />{event?.duration}</Paragraph>
+
+            <Paragraph className="flex font-bold text-[#9747FF] text-sm"><IoLocationSharp size={14} />{event?.address}, {event?.city}</Paragraph>
+
         </Container>
 
     </article>

@@ -18,8 +18,9 @@ describe('getUserName', () => {
 
     it('succeds on existing user and target user', () => {
         User.create({ name: 'Samuele', surname: 'Spinetti', email: 'samuele@spinetti.com', username: 'samuelespinetti', password: '123456789' })
-            .then(user => getUserName(user.id, user.id))
-            .then(() => expect(user.name).to.equal('Samuele'))
+            .then(user => getUserName(user.id, user.id)
+                .then(() => expect(user.name).to.equal('Samuele'))
+            )
     })
 
     it('fails on non-existing user', () => {

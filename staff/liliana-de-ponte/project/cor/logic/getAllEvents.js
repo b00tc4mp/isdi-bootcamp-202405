@@ -12,12 +12,12 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Event.find().sort({ date: -1 }).lean()
+            return Event.find({}, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(events => {
                     const promises = events.map(event => {
-                        // event.attendee = user.attendees.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        // event.like = event.likes.some(userObjectId => userObjectId.toString() === userId)
+                        event.like = user.likes.some(eventObjectId => eventObjectId.toString() === event._id.toString())
+                        event.attendance = event.attendees.some(userObjectId => userObjectId.toString() === userId)
 
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
@@ -27,14 +27,14 @@ export default userId => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-
+                                    // likes: user.likes.some(eventObjectId => eventObjectId.toString() === event._id.toString()),
+                                    // attendance: event.attendees.some(userObjectId => userObjectId.toString() === userId)
                                 }
 
                                 event.id = event._id.toString()
                                 delete event._id
 
                                 return event
-
 
                             })
                     })
