@@ -160,12 +160,10 @@ export default function PetsitterDetails({ handleLoginClick }) {
     return (<>
         <Header />
         <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem] overflow-y-auto'>
-            <Container className='text-center m-6'>
-                <Heading className='text-2xl font-bold'>Guardería</Heading>
-            </Container>
+            <Heading className='text-center text-2xl font-bold'>Guardería</Heading>
             {petsitter != null ? (
-                <Container className='text-lg bg-white p-1 rounded-[50px] shadow-lg box-content h-auto'>
-                    <Container className='flex items-center m-4'>
+                <Container className='text-lg bg-white p-4 rounded-[50px] shadow-lg'>
+                    <Container className='flex items-center '>
                         <img src={petsitter.image} alt='imagen guarderia' className='h-24 w-24 rounded-[15px] m-1' />
 
                         <Container>
@@ -177,11 +175,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
                             </Container>
                         </Container>
                     </Container>
-
-                    <Container>
-                        <Paragraph className=' flex flex-col text-lg text-gray-700 m-4'>{petsitter.description}</Paragraph>
-                    </Container>
-
+                    <Paragraph className=' flex flex-col text-lg text-gray-700 m-4'>{petsitter.description}</Paragraph>
                     {
                         userRole === 'regular' ? (
                             <Container className='font-bold text-lg p-1 flex flex-row space-x-2'>
@@ -195,7 +189,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
                     }
 
                     <Container>
-                        <Heading className='items-start justify-start m-3 flex flex-row text-lg font-bold '>⭐ Reseñas</Heading>
+                        <Heading className='items-start justify-start m-3 p-2 flex flex-row text-lg font-bold '>⭐ Reseñas</Heading>
                         <Container className='flex flex-col'>
                             {reviews.map(review => (
                                 <Review key={review.id} review={review} onDelete={handleDeletePetsitterReview} />

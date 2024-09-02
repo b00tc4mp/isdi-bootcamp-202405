@@ -9,6 +9,7 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     getUserHandler,
+    getUserNameHandler,
     updateUserHandler,
     registerPetsitterUserHandler,
     getAllPetsittersHandler,
@@ -35,7 +36,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-        api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
+        api.get('/users/:userId', jwtVerifier, getUserHandler)
+
+        api.get('/users/:userId/name', jwtVerifier, getUserNameHandler)
 
         api.get('/petsitters', getAllPetsittersHandler)
 

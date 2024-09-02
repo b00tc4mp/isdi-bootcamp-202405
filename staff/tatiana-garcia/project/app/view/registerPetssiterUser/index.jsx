@@ -80,7 +80,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro de guardería</Heading>
 
-                <form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
+                <form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
@@ -187,7 +187,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='rabbits-input'>Conejos</label><br />
+                        <label htmlFor='rabbits-input' className='p-2'>Conejos</label><br />
 
                         <input
                             type='checkbox'
@@ -196,7 +196,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='guinea-pig-input'>Cobayas</label><br />
+                        <label htmlFor='guinea-pig-input' className='p-2'>Cobayas</label><br />
 
                         <input
                             type='checkbox'
@@ -205,7 +205,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='hamsters-input'>Hamsters</label><br />
+                        <label htmlFor='hamsters-input' className='p-2'>Hamsters</label><br />
 
                         <input
                             type='checkbox'
@@ -214,7 +214,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='rats-input'>Ratas</label><br />
+                        <label htmlFor='rats-input' className='p-2'>Ratas</label><br />
 
                         <input
                             type='checkbox'
@@ -223,7 +223,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='birds-input'>Aves</label><br />
+                        <label htmlFor='birds-input' className='p-2'>Aves</label><br />
 
                         <input
                             type='checkbox'
@@ -232,7 +232,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='reptiles-input'>Reptiles</label><br /><br />
+                        <label htmlFor='reptiles-input' className='p-2'>Reptiles</label><br /><br />
                     </Container>
 
                     <Container className='text-center'>

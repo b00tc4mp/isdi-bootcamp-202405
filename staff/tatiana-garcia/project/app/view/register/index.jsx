@@ -59,7 +59,7 @@ export default function Register({ onRegister, onLoginClick }) {
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro</Heading>
 
-                <form onSubmit={handleRegisterSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
+                <form onSubmit={handleRegisterSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
