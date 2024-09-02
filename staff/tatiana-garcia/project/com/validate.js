@@ -19,8 +19,11 @@ function validateSurname(surname, explain = 'surname') {
     validateString(surname, 'surname')
     if (!NAME_REGEX.test(surname)) throw new ValidationError(`invalid ${explain}`)
 }
-function validateEmail(email, explain = 'email') {
+function validateEmail(email, explain = 'email', isOptinal = false) {
+    if (isOptinal && (!email || email.trim() === '')) return
+
     validateString(email, 'email')
+
     if (!EMAIL_REGEX.test(email.trim())) throw new ValidationError(`invalid ${explain}`)
 }
 
@@ -42,7 +45,7 @@ function validateDescription(description, explain = 'description') {
 }
 
 function validateImage(image, explain = 'image') {
-    validateString(image, explain)
+    validateString(image, 'image')
     if (!image.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
 }
 
@@ -74,6 +77,10 @@ function validateObject(object, explain = 'object') {
 
 }
 
+function validateLinkPage(linkPage) {
+    if (linkPage && !isValidURL(linkPage)) throw new ValidationError('linkPage no es una URL válida')
+}
+
 const validate = {
     string: validateString,
     name: validateName,
@@ -88,7 +95,8 @@ const validate = {
     phoneNumber: validatePhoneNumber,
     number: validateNumber,
     id: validateId,
-    object: validateObject
+    object: validateObject,
+    linkPage: validateLinkPage
 }
 
 export default validate

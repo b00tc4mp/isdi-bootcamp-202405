@@ -44,6 +44,8 @@ export default function Settings({ onLogoutClick }) {
                 .then(() => {
                     loadUser()
 
+                    alert('Cambios guardados')
+
                     navigate('/')
                 })
                 .catch(error => {

@@ -59,7 +59,7 @@ export default function SearchPetsitters() {
 
     return <>
         <Header />
-        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem]'>
+        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem]'>
             <Container className='p-2 bg-teal-100 w-full max-w-sm'>
                 <Heading className='text-center mb-4 font-bold'>Guarderías</Heading>
 
@@ -126,7 +126,7 @@ export default function SearchPetsitters() {
                         </select>
                     </Container>
                 </Container>
-                <Container className='mt-4'>
+                <Container className='mt-4 mb-16'>
                     {petsitters.length > 0 ? (
                         petsitters.map(petsitter => (
                             <div key={petsitter.id} className='flex items-start h-28 w-full mr-4 mb-4 rounded-[15px] shadow-md bg-white' onClick={() => onPetsitterDetailsClick(petsitter.id)}>

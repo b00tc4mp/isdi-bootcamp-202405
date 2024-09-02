@@ -3,13 +3,13 @@ import extractPayLoadFromToken from '../util/extractPayLoadFromToken'
 
 const { SystemError } = errors
 
-export default (image, name, city, description, linKPage, contactEmail, phoneNumber, pets) => {
+export default (image, name, city, description, linkPage, contactEmail, phoneNumber, pets) => {
     validate.image(image, 'image')
     validate.name(name, 'name')
     validate.city(city, 'city')
     validate.description(description, 'description')
-    validate.image(linKPage, 'linkPage')
-    validate.email(contactEmail, 'contactEmail')
+    validate.linkPage(linkPage, 'linkPage')
+    validate.email(contactEmail, 'contactEmail', true)
     validate.phoneNumber(phoneNumber, 'phoneNumber')
     validate.pets(pets, 'pets')
 
@@ -21,7 +21,7 @@ export default (image, name, city, description, linKPage, contactEmail, phoneNum
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, name, city, description, linKPage, contactEmail, phoneNumber, pets })
+        body: JSON.stringify({ image, name, city, description, linkPage, contactEmail, phoneNumber, pets })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

@@ -5,14 +5,14 @@ import { validate, errors } from '../../com/index.js'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
-export default (image, name, city, description, email, linKPage, contacEmail, phoneNumber, password, passwordRepeat, pets) => {
+export default (image, name, city, description, email, linkPage, contactEmail, phoneNumber, password, passwordRepeat, pets) => {
     validate.image(image, 'image')
     validate.name(name, 'name')
     validate.city(city, 'city')
     validate.description(description, 'description')
     validate.email(email, 'email')
-    validate.image(linKPage, 'linkPage')
-    validate.email(contacEmail, 'contacEmail')
+    validate.linkPage(linkPage, 'linkPage')
+    validate.email(contactEmail, 'contactEmail', true)
     validate.phoneNumber(phoneNumber, 'phoneNumber')
     validate.password(password)
     validate.pets(pets, 'pets')
@@ -35,8 +35,8 @@ export default (image, name, city, description, email, linKPage, contacEmail, ph
                 city,
                 description,
                 email,
-                linKPage,
-                contacEmail,
+                linkPage,
+                contactEmail,
                 phoneNumber,
                 password: hash,
                 role: 'petsitter',

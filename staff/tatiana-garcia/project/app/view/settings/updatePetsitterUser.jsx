@@ -1,4 +1,5 @@
 import logic from '../../logic'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Container from '../library/Container'
@@ -11,7 +12,6 @@ import Header from '../home/Header'
 
 import useContext from '../context'
 import extractPayLoadFromToken from '../../util/extractPayLoadFromToken'
-import { useEffect, useState } from 'react'
 
 export default function SettingsPetsitter({ onLogoutClick }) {
     const { alert } = useContext()
@@ -26,34 +26,12 @@ export default function SettingsPetsitter({ onLogoutClick }) {
         loadPetsitterUser()
     }, [])
 
-    const handleUpdatePetsitterUserSubmit = event => {
-        event.preventDefault()
-
-        const form = event.target
-
-        const imageInput = form['image-input']
-        const nameInput = form['name-input']
-        const cityInput = form['city-input']
-        const descriptionInput = form['description-input']
-        const linkPageInput = form['link-page.input']
-        const contactEmailInput = form['contact-email-input']
-        const phoneNumberInput = form['phone-number-input']
-
-        const image = imageInput.value
-        const name = nameInput.value
-        const city = cityInput.value
-        const description = descriptionInput.value
-        const linkPage = linkPageInput.value
-        const contactEmail = contactEmailInput.value
-        const phoneNumber = phoneNumberInput.value
-        const pets = selectedPets
-
+    const loadPetsitterUser = () => {
         try {
-            logic.updatePetsitterUser(image, name, city, description, linkPage, contactEmail, phoneNumber, pets)
-                .then(() => {
-                    loadPetsitterUser()
-
-                    navigate('/')
+            logic.getUser(userId)
+                .then(petsitter => {
+                    setPetsitter(petsitter)
+                    setSelectedPets(petsitter.pets || [])
                 })
                 .catch(error => {
                     console.error(error)
@@ -77,17 +55,37 @@ export default function SettingsPetsitter({ onLogoutClick }) {
         }
     }
 
-
-    const handleLogoutClick = event => {
+    const handleUpdatePetsitterUserSubmit = event => {
         event.preventDefault()
 
-        onLogoutClick()
-    }
+        const form = event.target
 
-    const loadPetsitterUser = () => {
+        const imageInput = form['image-input']
+        const nameInput = form['name-input']
+        const cityInput = form['city-input']
+        const descriptionInput = form['description-input']
+        const linkPageInput = form['link-page-input']
+        const contactEmailInput = form['contact-email-input']
+        const phoneNumberInput = form['phone-number-input']
+
+        const image = imageInput.value
+        const name = nameInput.value
+        const city = cityInput.value
+        const description = descriptionInput.value
+        const linkPage = linkPageInput.value
+        const contactEmail = contactEmailInput.value
+        const phoneNumber = phoneNumberInput.value
+        const pets = selectedPets
+
         try {
-            logic.getUser(userId)
-                .then(petsitter => setUser(petsitter))
+            logic.updatePetsitterUser(image, name, city, description, linkPage, contactEmail, phoneNumber, pets)
+                .then(() => {
+                    loadPetsitterUser()
+
+                    alert('Cambios guardados')
+
+                    navigate('/')
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -100,11 +98,19 @@ export default function SettingsPetsitter({ onLogoutClick }) {
         }
     }
 
+
+
+    const handleLogoutClick = event => {
+        event.preventDefault()
+
+        onLogoutClick()
+    }
+
     return <>
         <Header />
         <main className='h-screen flex flex-col mb-32'>
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
-                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Editar usuario</Heading>
+                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Editar guardería</Heading>
 
                 {petsitter && <form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 space-y-2'>
                     <Container>
@@ -193,67 +199,67 @@ export default function SettingsPetsitter({ onLogoutClick }) {
 
                         <input
                             type='checkbox'
-                            defaultValue={petsitter.pets}
                             id='rabbits-input'
                             value='rabbits'
                             name='pets-input'
                             onChange={handlePetChange}
+                            checked={selectedPets.includes('rabbits')}
                         />
-                        <label htmlFor='rabbits-input'>Conejos</label><br />
+                        <label htmlFor='rabbits-input' className='p-2'>Conejos</label><br />
 
                         <input
                             type='checkbox'
-                            defaultValue={petsitter.pets}
                             id='guinea-pig-input'
                             value='guineaPig'
                             name='pets-input'
                             onChange={handlePetChange}
+                            checked={selectedPets.includes('guineaPig')}
                         />
-                        <label htmlFor='guinea-pig-input'>Cobayas</label><br />
+                        <label htmlFor='guinea-pig-input' className='p-2'>Cobayas</label><br />
 
                         <input
                             type='checkbox'
-                            defaultValue={petsitter.pets}
                             id='hamsters-input'
                             value='hamsters'
                             name='pets-input'
                             onChange={handlePetChange}
+                            checked={selectedPets.includes('hamsters')}
                         />
-                        <label htmlFor='hamsters-input'>Hamsters</label><br />
+                        <label htmlFor='hamsters-input' className='p-2'>Hamsters</label><br />
 
                         <input
                             type='checkbox'
-                            defaultValue={petsitter.pets}
                             id='rats-input'
                             value='rats'
                             name='pets-input'
                             onChange={handlePetChange}
+                            checked={selectedPets.includes('rats')}
                         />
-                        <label htmlFor='rats-input'>Ratas</label><br />
+                        <label htmlFor='rats-input' className='p-2'>Ratas</label><br />
 
                         <input
                             type='checkbox'
-                            defaultValue={petsitter.pets}
                             id='birds-input'
                             value='birds'
                             name='pets-input'
                             onChange={handlePetChange}
+                            checked={selectedPets.includes('birds')}
                         />
-                        <label htmlFor='birds-input'>Aves</label><br />
+                        <label htmlFor='birds-input' className='p-2'>Aves</label><br />
 
                         <input
                             type='checkbox'
-                            defaultValue={petsitter.pets}
                             id='reptiles-input'
                             value='reptiles'
                             name='pets-input'
                             onChange={handlePetChange}
+                            checked={selectedPets.includes('reptiles')}
                         />
-                        <label htmlFor='reptiles-input'>Reptiles</label><br /><br />
+                        <label htmlFor='reptiles-input' className='p-2'>Reptiles</label><br /><br />
                     </Container>
 
                     <Container className='text-center'>
-                        <button className='w-32 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</button>
+                        <button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</button>
                     </Container>
                 </form>}
                 <Container className='text-center  pb-8 pt-2'>

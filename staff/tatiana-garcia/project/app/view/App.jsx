@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Context } from './context.js'
 import logic from '../logic/index.js'
@@ -12,8 +12,10 @@ import Alert from './common/Alert.jsx'
 import Petsitters from './petsitters/index.jsx'
 import PetsitterDetails from './petsitters/petsitterDetails.jsx'
 import Settings from './settings/index.jsx'
+import SettingsPetsitter from './settings/updatePetsitterUser.jsx'
 
 export default function App() {
+  const [isPetsitter, setIsPetsitter] = useState(false)
   const navigate = useNavigate()
 
   const [alertMessage, setAlertMessage] = useState(null)
@@ -46,6 +48,18 @@ export default function App() {
 
   const handleAlertAccept = () => setAlertMessage(null)
 
+  useEffect(() => {
+    if (logic.isUserLoggedIn()) {
+      if (logic.getUserRole() === 'petsitter') {
+        setIsPetsitter(true)
+      } else {
+        setIsPetsitter(false)
+      }
+    } else {
+      setIsPetsitter(false)
+    }
+  })
+
   return <Context.Provider value={{ alert: setAlertMessage }}>
     <Routes>
       <Route path='/*' element={<Home onLogout={handleLogout} />} />
@@ -54,7 +68,7 @@ export default function App() {
       <Route path='/contact' element={<Contact onRegisterPetsitterUserClick={handleRegisterPetsitterUserClick} />} />
       <Route path='/registerPetsitter' element={logic.isUserLoggedIn() ? <Navigate to='/' /> : <RegisterPetsitterUser onRegisterPetsitterUser={handleRegisterPetsitterUser} onLoginClick={handleLoginClick} />} />
       <Route path='/petsitters' element={<Petsitters />} />
-      <Route path='/settings' element={<Settings onLogoutClick={handleLogout} />} />
+      <Route path='/settings' element={isPetsitter ? <SettingsPetsitter onLogoutClick={handleLogout} /> : <Settings onLogoutClick={handleLogout} />} />
       <Route path='/petsitters/:petsitterId' element={<PetsitterDetails handleLoginClick={onLoginClicked} />} />
     </Routes>
 

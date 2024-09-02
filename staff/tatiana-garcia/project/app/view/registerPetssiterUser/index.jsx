@@ -25,7 +25,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         const cityInput = form['city-input']
         const descriptionInput = form['description-input']
         const emailInput = form['email-input']
-        const linkPageInput = form['link-page.input']
+        const linkPageInput = form['link-page-input']
         const contactEmailInput = form['contact-email-input']
         const phoneNumberInput = form['phoneNumber-input']
         const passwordInput = form['password-input']

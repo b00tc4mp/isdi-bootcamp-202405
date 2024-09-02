@@ -15,11 +15,13 @@ const user = new Schema({
         required: true,
         unique: true
     },
-    contacEmail: {
-        type: String
+    contactEmail: {
+        type: String,
+        required: false
     },
-    linKPage: {
-        type: String
+    linkPage: {
+        type: String,
+        required: false
     },
     phoneNumber: {
         type: String

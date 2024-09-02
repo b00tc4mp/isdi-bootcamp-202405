@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { RiHomeHeartFill } from 'react-icons/ri'
-import { GiPawHeart } from 'react-icons/gi'
-import { MdOutlineMail } from "react-icons/md"
+import { PiPawPrintFill } from "react-icons/pi"
+import { MdEmail } from "react-icons/md"
 
 import Button from '../library/Button'
 import Container from '../library/Container'
@@ -28,11 +28,11 @@ export default function Footer({ defaultTab }) {
             </Button>
 
             <Button onClick={() => onPetsittersClick()} className={`flex justify-center items-center bg-transparent border-transparent rounded-lg p-1 ${activeTab === 'petsitters' ? 'text-purple-500' : 'text-dimgray'}`}>
-                <GiPawHeart size={24} />
+                <PiPawPrintFill size={24} />
             </Button>
 
             <Button onClick={() => onContactClick()} className={`flex justify-center items-center bg-transparent border-transparent rounded-lg p-1 ${activeTab === 'contact' ? 'text-purple-500' : 'text-dimgray'}`}>
-                <MdOutlineMail size={24} />
+                <MdEmail size={24} />
             </Button>
 
             <Button onClick={() => onLoginClick()} className={`flex justify-center items-center bg-transparent border-transparent rounded-lg p-1 ${activeTab === 'login' ? 'text-purple-500' : 'text-dimgray'}`}>
