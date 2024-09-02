@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM4NmU2ZWFmZTljODY2MWRhNjY4YTciLCJpYXQiOjE3MjQ0MTE1MTV9.TwmehVPq4Tq1uGbT2bDEpbBoJl8OJj2RE2kE76" -d '{"caption":"help2"}' -H "Content-Type: application/json"

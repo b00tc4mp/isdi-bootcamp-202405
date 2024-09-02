@@ -1,0 +1,1 @@
+curl -v 'http://localhost:8080/healthcareproviders/search?q=hospital&distance=5&coords=41.4896223,2.2375339' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmMzZhZGM3ZmYyOGVhODBhMDkxZDQiLCJpYXQiOjE3MjM4MDc0MDh9.KLV77DCS9jxRMPth2gavmpj1PtLdtJ7o2bYD_QQzuqM"

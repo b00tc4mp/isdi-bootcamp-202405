@@ -1,0 +1,103 @@
+@import "leaflet/dist/leaflet.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: "Cabin", system-ui, sans-serif;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+input {
+    font-size: 18px;
+    padding: 5px 5px 5px 5px;
+    display: block;
+    width: 250px;
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    background-color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
+label {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+input:focus~label,
+input:valid~label {
+    top: -20px;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+input:focus~.highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #ffffff;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #ffffff;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #ffffff;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}

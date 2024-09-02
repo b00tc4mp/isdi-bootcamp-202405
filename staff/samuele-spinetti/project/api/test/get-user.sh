@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/66b9d8e88e12a8eac3037936/settings -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI5ZDhlODhlMTJhOGVhYzMwMzc5MzYiLCJpYXQiOjE3MjM0NTU3NjV9.y7gMZR3Y_Kco9FAtQoxq-PBSYKIYrZbEoPBlNDlwsAQ"

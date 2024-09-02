@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/chat/66cc80cc6e82711ffbb82f5e -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNjODBhZTZlODI3MTFmZmJiODJmNWEiLCJpYXQiOjE3MjQ2NzgzNTd9.vxlnlyJzYhARdgCK8FyakvGTnWFkjRXAUptDsCCS3Oc" -H "Content-Type: application/json"

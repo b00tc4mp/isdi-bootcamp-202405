@@ -1,0 +1,1 @@
+curl -v 'http://localhost:8080/66c9aa4c7c87375e718bdb37/message' -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM5YWEwNWY2MjViNGIxZjczNTkwYWUiLCJpYXQiOjE3MjQ0OTI2MTN9.FG1N0Y0tNRPG99v93axzSK9uavFFVlHZecM4Pwcwn0k" -H "Content-Type: application/json" -b '{"message":"hola lili"}'

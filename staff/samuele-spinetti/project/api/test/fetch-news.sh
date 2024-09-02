@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/news -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNWQ2YTA5MTAzZGMyODIzNThiZGYiLCJpYXQiOjE3MjQwNTU1Njl9.cC3Mlb-_mYhl0lZBDryTQ_4-6b4vE94R4DOXG95X6vU"
