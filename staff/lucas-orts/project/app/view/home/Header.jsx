@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
+
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
-import logic from '../../logic'
+import Image from '../library/Image'
 
-export default function Header({ onHomeClick, onLogout, onLoginClick, isAuthenticated }) {
+import logic from '../../logic'
+import { useNavigate } from "react-router-dom"
+
+export default function Header({ onLogout, onLoginClick, isAuthenticated }) {
     const [name, setName] = useState(null)
+
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -25,6 +32,10 @@ export default function Header({ onHomeClick, onLogout, onLoginClick, isAuthenti
         }
     }, [isAuthenticated])
 
+    const handleProfileClick = () => {
+        navigate('/profile')
+    }
+
     const handleLogout = () => {
         try {
             logic.logoutUser()
@@ -38,15 +49,21 @@ export default function Header({ onHomeClick, onLogout, onLoginClick, isAuthenti
     }
 
     return (
-        <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray] dark:bg-black dark:text-white">
+        <header className='fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray] dark:bg-black dark:text-white'>
             <Container>
-                <Button onClick={onHomeClick}>Home</Button>
                 {!isAuthenticated ? (
-                    <Button onClick={onLoginClick}>Login</Button> // Esto debe llamar a onLoginClick
+                    <Button onClick={onLoginClick}>
+                        <Image src='/icons/log-in.svg' alt='log-in icon' className='h-[30px] w-[30px]' />
+                    </Button> // Esto debe llamar a onLoginClick
                 ) : (
                     <>
                         <Paragraph>{name}</Paragraph>
-                        <Button onClick={handleLogout}>Logout</Button>
+                        <Button onClick={handleProfileClick}>
+                            <Image src='/icons/settings.svg' alt='settings icon' className='h-[30px] w-[30px]' />
+                        </Button>
+                        <Button onClick={handleLogout}>
+                            <Image src='/icons/log-out.svg' alt='log-out icon' className='h-[30px] w-[30px]' />
+                        </Button>
                     </>
                 )}
             </Container>

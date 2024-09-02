@@ -8,7 +8,7 @@ export default userId => {
     validate.string(userId, 'userId')
 
     // Buscar productos asociados al farmer (usuario) específico y ordenarlos por el campo name en orden alfabético
-    return Product.find({ farmer: userId }, { __v: 0 }).sort({ name: 1 }).lean()
+    return Product.find({ farmer: userId }, { __v: 0 }).sort({ name: 1, type: 1 }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(products => {
             // Transformar _id a id en cada producto

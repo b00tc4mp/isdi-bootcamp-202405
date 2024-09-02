@@ -14,7 +14,7 @@ import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
 
-export default function Login({ onLogin, onRegisterClick }) {
+export default function Login({ onLogin, onRegisterClick, onLoginClick }) {
     console.debug('Login -> call')
 
     const { alert } = useContext()
@@ -60,23 +60,25 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white">
-        <Heading level="1">Login</Heading>
+    return <>
+        <main className='flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white'>
+            <Heading level='1'>Login</Heading>
 
-        <Form onSubmit={handleLoginSubmit} className="flex-col">
-            <Container className="flex-col items-start">
-                <Label htmlFor="email-input">Email</Label>
-                <Input type="text" id="email-input" name="email" placeholder="email" />
-            </Container>
+            <Form onSubmit={handleLoginSubmit} className='flex-col'>
+                <Container className='flex-col items-start'>
+                    <Label htmlFor='email-input'>Email</Label>
+                    <Input type='text' id='email-input' name='email' placeholder='email' />
+                </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="password-input">Password</Label>
-                <Input type="password" id="password-input" name="password" placeholder="password" />
-            </Container>
+                <Container className='flex-col items-start'>
+                    <Label htmlFor='password-input'>Password</Label>
+                    <Input type='password' id='password-input' name='password' placeholder='password' />
+                </Container>
 
-            <Button type="submit">Login</Button>
-        </Form>
+                <Button type='submit'>Login</Button>
+            </Form>
 
-        <Link onClick={handleRegisterClick}>Register</Link>
-    </main>
+            <Link onClick={handleRegisterClick}>Register</Link>
+        </main>
+    </>
 }
