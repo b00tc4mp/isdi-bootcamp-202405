@@ -4,7 +4,7 @@ import Container from '../library/Container'
 import Image from '../library/Image'
 import logic from '../../logic'
 
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Footer({ isAuthenticated }) {
     useEffect(() => {

@@ -7,7 +7,8 @@ import AddProduct from './AddProduct'
 import Search from './Search'
 import Cart from './Cart'
 import SearchResults from './Searchresults'
-import Profile from "./Profile"
+import Profile from './Profile'
+import Address from './Address'
 
 export default function Home({ }) {
 
