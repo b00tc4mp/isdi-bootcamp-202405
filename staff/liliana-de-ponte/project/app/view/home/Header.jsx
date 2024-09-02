@@ -15,7 +15,7 @@ import Search from './Search.jsx'
 export default function Header({ onHomeClick, onLogout }) {
 
     const [name, setName] = useState(null)
-    const [isSearchVisible, setIsSearchVisible] = useState(false);
+    const [isSearchVisible, setIsSearchVisible] = useState(false)
 
     useEffect(() => {
         try {

@@ -13,6 +13,7 @@ export default function Search() {
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState('')
+    const [isFormVisible, setIsFormVisible] = useState(true)
 
     const q = searchParams.get('q') || ''
     const distance = searchParams.get('distance') || '10'
@@ -38,6 +39,7 @@ export default function Search() {
             setSearchParams({ q: query, distance })
 
         setQuery(query)
+        setIsFormVisible(false)
     }
 
     const handleInputChange = event => {
@@ -47,27 +49,30 @@ export default function Search() {
     }
 
     return <>
-        <Container className="mt-4">
-            <Form onSubmit={handleSubmit}>
+        {isFormVisible && (
+            <Container className="h-screen p-4">
+                <Form onSubmit={handleSubmit}>
 
-                <Container className="flex flex-row items-center mb-0 mt-0" >
-                    <Input name="q" placeholder="Search Event" value={query} onChange={handleInputChange} className="flex-grow" />
-                    <Button className="font-serif h-[30px] rounded-[8px]" type="submit"><IoSearchSharp color="050968" /></Button>
-                </Container>
+                    <Container className="flex flex-row items-center mb-0 mt-0 gap-2 p-2" >
+                        <Input name="q" placeholder="Search Event" value={query} onChange={handleInputChange} className="flex-grow" />
+                        <Button className="font-serif h-[30px] rounded-[8px]" type="submit"><IoSearchSharp color="050968" /></Button>
+                    </Container>
 
-                <Container className="flex justify-between w-full mt-0">
-                    <span className="text-[#050968] text-xs">0</span>
-                    <span className="text-[#050968] text-xs">2.5</span>
-                    <span className="text-[#050968] text-xs">5</span>
-                    <span className="text-[#050968] text-xs">7.5</span>
-                    <span className="text-[#050968] text-xs" >10</span>
-                </Container>
-                <Input className="w-full slider" type='range' min='0' max='10' step="2.5" defaultValue="0" name='distance' />
-                <Label className="text-[#050968] flex justify-center gap-0 m-">Kilometros</Label>
+                    <Container className="flex justify-between w-full mt-0">
+                        <span className="text-[#050968] text-xs">0</span>
+                        <span className="text-[#050968] text-xs">2.5</span>
+                        <span className="text-[#050968] text-xs">5</span>
+                        <span className="text-[#050968] text-xs">7.5</span>
+                        <span className="text-[#050968] text-xs" >10</span>
+                    </Container>
+                    <Input className="w-full slider" type='range' min='0' max='10' step="2.5" defaultValue="0" name='distance' />
+                    <Label className="text-[#050968] flex justify-center gap-0 m-">Kilometros</Label>
 
 
-            </Form >
-        </Container >
+                </Form >
+            </Container >
+        )
+        }
     </>
 
 }

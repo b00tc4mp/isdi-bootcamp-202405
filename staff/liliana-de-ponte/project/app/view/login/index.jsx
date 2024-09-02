@@ -69,8 +69,10 @@ export default function Login({ onLogin, onRegisterClick }) {
         </Form>
 
         <Container className="flex-col items-start mt-14 ml-28">
-            <Paragraph>Don't have an account? <Container className="text-[#9747FF] font-bold flex justify-end mr-0"><Link onClick={handleRegisterClick}>Sign up</Link></Container></Paragraph>
+            <Paragraph>Don't have an account? </Paragraph>
         </Container>
+
+        <Container className="text-[#9747FF] font-bold flex justify-end mr-5"><Link onClick={handleRegisterClick}>Sign up</Link></Container>
 
 
     </main>

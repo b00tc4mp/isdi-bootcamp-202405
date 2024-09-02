@@ -60,7 +60,6 @@ export default function ResultsEventList() {
             key={event.id}
             event={event}
             onEventDeleted={handleEventDeleted}
-            // onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
             onEventAttendanceToggled={handleEventAttendanceToggled}
 
