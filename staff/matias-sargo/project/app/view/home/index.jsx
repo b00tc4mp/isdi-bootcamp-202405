@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Header from './Header';
-import Footer from './Footer';
-import CreateProp from './CreateProp';
+// import Footer from './Footer';
+// import CreateProp from './CreateProp';
 
 export default function Home() {
     const [showCreateProp, setShowCreateProp] = useState(false);

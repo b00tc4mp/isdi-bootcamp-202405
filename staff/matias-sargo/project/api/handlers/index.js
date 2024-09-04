@@ -5,6 +5,7 @@ import getAllPropsHandler from "../handlers/getAllPropsHandler.js";
 import createContractHandler from "./createContractHandler.js";
 import signContractHandler from "./signContractHandler.js";
 import createDocumentHandler from "./createDocumentHandler.js";
+import getDocumentHandler from "./getDocumentHandler.js";
 
 export {
   registerUserHandler,
@@ -13,5 +14,6 @@ export {
   getAllPropsHandler,
   createContractHandler,
   signContractHandler,
-  createDocumentHandler
+  createDocumentHandler,
+  getDocumentHandler,
 };

@@ -7,6 +7,8 @@ import createContract from './createContract.js'
 import signContract from './signContract.js'
 import { getUserContracts } from './getUserContracts.js'
 import createDocument from './createDocument.js'
+import getDocument from './getDocument.js'
+import saveFile from './saveFile.js'
 
 
 
@@ -19,7 +21,9 @@ const logic = {
     createContract,
     signContract,
     getUserContracts,
-    createDocument
+    createDocument,
+    getDocument,
+    saveFile
 
     
 

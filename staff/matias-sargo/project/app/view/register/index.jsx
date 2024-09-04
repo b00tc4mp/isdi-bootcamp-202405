@@ -1,5 +1,4 @@
 import logic from '../../logic'
-
 import Heading from '../library/Heading'
 import Form from '../library/Form'
 import Label from '../library/Label'
@@ -7,7 +6,6 @@ import Input from '../library/Input'
 import Container from '../library/Container'
 import Link from '../library/Link'
 import Button from '../library/Button'
-
 import useContext from '../../context'
 
 export default function Register({ onRegister, onLoginClick }) {
@@ -22,90 +20,134 @@ export default function Register({ onRegister, onLoginClick }) {
 
         const form = event.target
 
-        const nameInput = form['name-input']
-        const surnameInput = form['surname-input']
-        const emailInput = form['email-input']
-        const usernameInput = form['username-input']
-        const dniInput = form['dni-input']
-        const passwordInput = form['password-input']
-        const passwordRepeatInput = form['password-repeat-input']
-
-        const name = nameInput.value
-        const surname = surnameInput.value
-        const email = emailInput.value
-        const username = usernameInput.value
-        const dni = dniInput.value
-        const password = passwordInput.value
-        const passwordRepeat = passwordRepeatInput.value
+        const name = form['name-input'].value
+        const surname = form['surname-input'].value
+        const email = form['email-input'].value
+        const username = form['username-input'].value
+        const dni = form['dni-input'].value
+        const password = form['password-input'].value
+        const passwordRepeat = form['password-repeat-input'].value
 
         try {
             logic.registerUser(name, surname, email, username, dni, password, passwordRepeat)
                 .then(() => onRegister())
                 .catch(error => {
                     console.error(error)
-
-                    alert(message)
+                    alert(error.message)
                 })
         } catch (error) {
             console.error(error)
-
             alert(error.message)
         }
     }
 
     const handleLoginClick = event => {
         console.debug('Register -> handleLoginClick')
-
         event.preventDefault()
-
         onLoginClick()
     }
 
-    return <main className="flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white">
-        <Heading className="font-scatters">Register</Heading>
+    return (
+        <main className="flex items-center justify-center min-h-screen bg-white p-4">
+            <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
+                <Heading className="text-2xl font-bold mb-6 text-center">Register</Heading>
 
-        <Form onSubmit={handleRegisterSubmit} className="flex-col">
-            <Container className="flex-col items-start">
-                <Label htmlFor="name-input">Name</Label>
-                <Input type="text" id="name-input" name="name" placeholder="name" />
-            </Container>
+                <Form onSubmit={handleRegisterSubmit} className="flex flex-col space-y-4">
+                    <Container className="flex flex-col">
+                        <Label htmlFor="name-input">Name</Label>
+                        <Input 
+                            type="text" 
+                            id="name-input" 
+                            name="name" 
+                            placeholder="Name" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="surname-input">Surname</Label>
-                <Input type="text" id="surname-input" name="surname" placeholder="surname" />
-            </Container>
+                    <Container className="flex flex-col">
+                        <Label htmlFor="surname-input">Surname</Label>
+                        <Input 
+                            type="text" 
+                            id="surname-input" 
+                            name="surname" 
+                            placeholder="Surname" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="email-input">E-mail</Label>
-                <Input type="email" id="email-input" name="email" placeholder="email" />
-            </Container>
+                    <Container className="flex flex-col">
+                        <Label htmlFor="username-input">Username</Label>
+                        <Input 
+                            type="text" 
+                            id="username-input" 
+                            name="username" 
+                            placeholder="Username" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="username-input">Username</Label>
-                <Input type="text" id="username-input" name="username" placeholder="username" />
-            </Container>
+                    <Container className="flex flex-col">
+                        <Label htmlFor="email-input">Email</Label>
+                        <Input 
+                            type="email" 
+                            id="email-input" 
+                            name="email" 
+                            placeholder="Hello@propthy.com" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="dni-input">Dni</Label>
-                <Input type="text" id="dni-input" name="dni" placeholder="Dni/Nie" />
-            </Container>
+                    <Container className="flex flex-col">
+                        <Label htmlFor="dni-input">DNI</Label>
+                        <Input 
+                            type="text" 
+                            id="dni-input" 
+                            name="dni" 
+                            placeholder="DNI/NIE" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="password-input">Password</Label>
-                <Input type="password" id="password-input" name="password" placeholder="password" />
-            </Container>
+                    <Container className="flex flex-col">
+                        <Label htmlFor="password-input">Password</Label>
+                        <Input 
+                            type="password" 
+                            id="password-input" 
+                            name="password" 
+                            placeholder="Enter your password" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Container className="flex-col items-start">
-                <Label htmlFor="password-repeat-input">Repeat Password</Label>
-                <Input type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
-            </Container>
+                    <Container className="flex flex-col">
+                        <Label htmlFor="password-repeat-input">Repeat Password</Label>
+                        <Input 
+                            type="password" 
+                            id="password-repeat-input" 
+                            name="password-repeat" 
+                            placeholder="Repeat your password" 
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tiffany-500"
+                        />
+                    </Container>
 
-            <Button type="submit">Register</Button>
-        </Form>
+                    <Button 
+                        type="submit" 
+                        className="w-full bg-tiffany-500 text-white py-2 rounded-md hover:bg-tiffany-600 transition duration-200"
+                    >
+                        Register
+                    </Button>
+                </Form>
 
-        <Link onClick={handleLoginClick}>Login</Link>
-    </main>
+                <div className="text-center mt-4">
+                    <p className="text-gray-600">Do you have an account? <Link onClick={handleLoginClick} className="text-tiffany-500 font-semibold">Login</Link></p>
+                </div>
+            </div>
+        </main>
+    )
 }
+
+
+
 
 // import { useState } from 'react';
 

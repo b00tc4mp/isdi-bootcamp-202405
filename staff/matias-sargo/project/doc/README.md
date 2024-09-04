@@ -17,8 +17,8 @@ At **Propthy**, our mission is to simplify and optimize rental management by pro
 
 ## Use Cases
 
-1. **Landlord**: Registers properties, uploads rental contracts, and accesses tenant reviews.
-2. **Tenant**: Reviews available properties, downloads contracts, and rates their rental experience.
+1. **Landlord**: Register properties, upload rental contracts and access tenant reviews and have access to a dashboard with rental information
+2. **Tenant**: Reviews available properties, downloads contracts, and rates their rental experience and have access to a dashboard with rental information.
 3. **Administrator**: Oversees platform activities and ensures data quality.
 
 ## UI/UX Design

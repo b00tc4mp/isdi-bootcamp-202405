@@ -3,4 +3,4 @@ curl -X POST http://localhost:8080/documents \
     -F "propertyId=66d023a8c0f08dba8ff88ecd" \
     -F "type=contract" \
     -F "url=https://drive.google.com/file/d/1WKxd6Nlursd9ZIEPh-hykScsbpAcRKSN/view?usp=sharing" \
-    -F "content=@"C:/Users/matia/OneDrive/Desktop/contract.pdf""
+    -F "content=@"C:/Users/matia/workSpace/isdi-bootcamp-202405/staff/matias-sargo/project/api/files/contract.pdf"" \
