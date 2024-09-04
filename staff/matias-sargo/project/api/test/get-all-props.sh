@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/properties -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNjMzZlNTg0YzhkODI5NDQyOWU2NWEiLCJpYXQiOjE3MjQ2NjA2Mjl9.VTo9ZTzTAMb414MxOyYsJ2QaiZDawSGtmFDaM2faI94"
