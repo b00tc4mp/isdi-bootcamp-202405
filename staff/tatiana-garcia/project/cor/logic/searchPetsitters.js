@@ -23,6 +23,8 @@ export default (city, pet = null) => {
                 city: petsitter.city,
                 description: petsitter.description,
                 email: petsitter.email,
+                linkPage: petsitter.linkPage,
+                contactEmail: petsitter.contactEmail,
                 phoneNumber: petsitter.phoneNumber,
                 pets: petsitter.pets
             }))
