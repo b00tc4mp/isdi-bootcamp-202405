@@ -52,6 +52,16 @@ describe('getUser', () => {
         }
     })
 
+    it('removes password from the returned user object', () =>
+        User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+            .then(user => getUser(user.id))
+            .then(user => {
+                expect(user).to.have.property('id');
+                expect(user).to.not.have.property('_id');
+                expect(user).to.not.have.property('password');
+            })
+    )
+
     afterEach(() => User.deleteMany())
 
     after(() => mongoose.disconnect())

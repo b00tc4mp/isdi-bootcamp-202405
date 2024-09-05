@@ -4,9 +4,9 @@ import { validate, errors } from '../../com/index.js'
 
 const { SystemError, NotFoundError } = errors
 
-export default (userId, petsitterId, comment, rate = 0) => {
-    validate.string(userId, 'userId')
-    validate.string(petsitterId, 'petsitterId')
+export default (petsitterId, userId, comment, rate = 0) => {
+    validate.id(userId, 'userId')
+    validate.id(petsitterId, 'petsitterId')
     validate.string(comment, 'comment')
     validate.number(rate, 'rate')
 

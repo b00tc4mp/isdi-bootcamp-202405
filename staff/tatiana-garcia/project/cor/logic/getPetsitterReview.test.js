@@ -1,11 +1,10 @@
 import 'dotenv/config'
-
-import getPetsitterDetails from './getPetsitterDetails.js'
-
 import mongoose from 'mongoose'
 
+import getPetsitterReview from './getPetsitterReview.js'
+
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => getPetsitterDetails('66d988b9e935d3037007f4be'))
-    .then(petsitters => console.log(petsitters))
+    .then(() => getPetsitterReview('66d988b9e935d3037007f4be'))
+    .then(petsitter => console.log(petsitter))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

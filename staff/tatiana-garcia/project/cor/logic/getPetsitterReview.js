@@ -5,7 +5,7 @@ import { validate, errors } from '../../com/index.js'
 const { SystemError, NotFoundError } = errors
 
 export default (petsitterId) => {
-    validate.string(petsitterId, 'petsitterId')
+    validate.id(petsitterId, 'petsitterId')
 
     return User.findById(petsitterId).lean()
         .catch(error => { throw new SystemError(error.message) })

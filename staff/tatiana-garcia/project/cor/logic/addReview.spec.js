@@ -43,6 +43,23 @@ describe('addReviews', () => {
 
     })
 
+    it('succeeds on valid input and creates a review', () => {
+        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
+            .then(user =>
+                User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+                    .then(petsitter => {
+                        return addReview(petsitter._id.toString(), user._id.toString(), 'me encanta esta guarderia', 5)
+                            .then(review => {
+                                expect(review).to.exist
+                                expect(review.comment).to.equal('me encanta esta guarderia')
+                                expect(review.rate).to.equal(5)
+                                expect(review.petsitter._id.toString()).to.equal(petsitter._id.toString())
+                                expect(review.author._id.toString()).to.equal(user._id.toString())
+                            })
+                    })
+            )
+    })
+
     it('fails on non existing author', () => {
         let error
 
@@ -58,7 +75,7 @@ describe('addReviews', () => {
         let error
 
         return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
-            .then(user => addReview(user.id, '66cc32b55e0e1ff3003b3efa', 'me encanta esta guarderia', 5))
+            .then(user => addReview('66cc32b55e0e1ff3003b3efa', user.id, 'me encanta esta guarderia', 5))
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -70,7 +87,7 @@ describe('addReviews', () => {
         let error
 
         try {
-            addReview(123, '66cc32b55e0e1ff3003b3efa', 'me encanta esta guarderia', 5)
+            addReview('66cc32b55e0e1ff3003b3efa', 123, 'me encanta esta guarderia', 5)
         } catch (_error) {
             error = _error
         } finally {
@@ -83,12 +100,25 @@ describe('addReviews', () => {
         let error
 
         try {
-            addReview('66cc32b55e0e1ff3003b3efa', 123, 'me encanta esta guarderia', 5)
+            addReview(123, '66cc32b55e0e1ff3003b3efa', 'me encanta esta guarderia', 5)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('petsitterId is not a string')
+        }
+    })
+
+    it('fails on invalid petsitterId', () => {
+        let error
+
+        try {
+            addReview('', '66cc32b55e0e1ff3003b3efa', 'me encanta esta guarderia', 5)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid petsitterId')
         }
     })
 

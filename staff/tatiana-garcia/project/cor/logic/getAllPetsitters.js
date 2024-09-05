@@ -2,13 +2,15 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { SystemError } = errors
+const { SystemError, NotFoundError } = errors
 
 export default () => {
 
     return User.find({ role: 'petsitter' }, { __v: 0 }).sort({ name: 1 }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(petsitters => {
+            if (!petsitters || petsitters.length === 0) throw new NotFoundError('petsitters not found')
+
             return petsitters.map(petsitter => ({
                 id: petsitter._id.toString(),
                 image: petsitter.image,
@@ -16,8 +18,11 @@ export default () => {
                 city: petsitter.city,
                 description: petsitter.description,
                 email: petsitter.email,
+                linkPage: petsitter.linkPage,
+                contactEmail: petsitter.contactEmail,
                 phoneNumber: petsitter.phoneNumber,
                 pets: petsitter.pets
             }))
         })
+
 }
