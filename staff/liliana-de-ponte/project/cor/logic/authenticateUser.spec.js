@@ -35,17 +35,19 @@ describe('authenticateUser', () => {
             })
     })
 
-    it('fails on passwords do not match', () => {
-        let _error
+    it('fails on wrong password', () => {
+        let error
 
-        return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
-            .then(user => authenticateUser(user.username, '123456789'))
-            .catch(error => _error = error)
+        return bcrypt.hash('123456789', 8)
+            .then(hash =>
+                User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
+            )
+            .then(() => authenticateUser('lilideponte', '123123123'))
+            .catch(_error => error = _error)
             .finally(() => {
-                expect(_error).to.be.instanceof(CredentialsError)
-                expect(_error.message)
+                expect(error).to.be.instanceOf(CredentialsError)
+                expect(error.message).to.equal('wrong password')
             })
-
     })
 
     it('fails on non-string username', () => {

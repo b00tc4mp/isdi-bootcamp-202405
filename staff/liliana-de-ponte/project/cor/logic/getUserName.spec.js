@@ -35,11 +35,14 @@ describe('getUserName', () => {
     })
 
     it('fails on non-existing target user', () => {
-        User.create({ name: 'Samuele', surname: 'Spinetti', email: 'samuele@spinetti.com', username: 'samuelespinetti', password: '123456789' })
+        let _error
+
+        return User.create({ name: 'Samuele', surname: 'Spinetti', email: 'samuele@spinetti.com', username: 'samuelespinetti', password: '123456789' })
             .then(user => getUserName(user.id, new ObjectId().toString()))
-            .then(() => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('target user not found')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('target user not found')
             })
     })
 
@@ -47,7 +50,7 @@ describe('getUserName', () => {
         let error
 
         try {
-            getUserName(123, 'lilideponte')
+            getUserName(123, new ObjectId().toString())
         } catch (_error) {
             error = _error
         } finally {

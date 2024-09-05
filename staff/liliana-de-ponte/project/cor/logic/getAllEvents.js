@@ -27,8 +27,7 @@ export default userId => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-                                    // likes: user.likes.some(eventObjectId => eventObjectId.toString() === event._id.toString()),
-                                    // attendance: event.attendees.some(userObjectId => userObjectId.toString() === userId)
+
                                 }
 
                                 event.id = event._id.toString()

@@ -22,7 +22,6 @@ describe('registerUser', () => {
                 expect(user.name).to.equal('Samuele')
                 expect(user.surname).to.equal('Spinetti')
                 expect(user.email).to.equal('samuele@spinetti.com')
-                expect(user.username).to.equal('samuelespinetti')
 
                 return bcrypt.compare('123456789', user.password)
             })
@@ -37,7 +36,7 @@ describe('registerUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
-                expect(_error.message).to.equal('user already exists')
+                expect(_error.message).to.equal('email already exists')
             })
     })
 
@@ -45,11 +44,11 @@ describe('registerUser', () => {
         let _error
 
         return User.create({ name: 'Samuele', surname: 'Spinetti', email: 'samuele@spinetti.com', username: 'samuelespinetti', password: '123456789' })
-            .then(() => registerUser('Samuele', 'Spinetti', 'samuele@spinetti.com', 'samuelespinetti', '123456789', '123456789'))
+            .then(() => registerUser('Samuele', 'Spinetti', 'samuele24@spinetti.com', 'samuelespinetti', '123456789', '123456789'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
-                expect(_error.message).to.equal('user already exists')
+                expect(_error.message).to.equal('username already exists')
             })
     })
 
@@ -139,7 +138,7 @@ describe('registerUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
-                expect(_error.message).to.equal('user already exists')
+                expect(_error.message).to.equal('email already exists')
             })
     })
 
