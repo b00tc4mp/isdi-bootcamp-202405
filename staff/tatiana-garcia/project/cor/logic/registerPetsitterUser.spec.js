@@ -265,7 +265,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('linkPage no es una URL válida')
+            expect(error.message).to.equal('linkPage no es una URL valida')
         }
     })
 
