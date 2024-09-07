@@ -3,7 +3,7 @@ import errors from './errors.js'
 const { ValidationError } = errors
 
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9 ]+$/
+const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ ]+$/
 const PHONE_REGEX = /^\+?\d{9,15}$/
 
 function validateString(value, explain = 'value') {
@@ -68,7 +68,7 @@ function validateNumber(number, explain = 'number') {
 }
 
 function validateId(id, explain = 'id') {
-    validateString(id, 'id')
+    validateString(id, explain)
     if (id.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
 }
 
@@ -77,8 +77,11 @@ function validateObject(object, explain = 'object') {
 
 }
 
-function validateLinkPage(linkPage) {
-    if (linkPage && !isValidURL(linkPage)) throw new ValidationError('linkPage no es una URL válida')
+function validateLinkPage(linkPage, explain = 'linkPage') {
+    validateString(linkPage, explain)
+    if (linkPage && !(linkPage.startsWith('http://') || linkPage.startsWith('https://'))) {
+        throw new ValidationError(`${explain} no es una URL valida`)
+    }
 }
 
 const validate = {
