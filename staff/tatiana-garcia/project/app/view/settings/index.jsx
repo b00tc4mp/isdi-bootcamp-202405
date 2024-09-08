@@ -86,7 +86,7 @@ export default function Settings({ onLogoutClick }) {
         <Header />
         <main className='h-screen flex flex-col'>
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
-                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Editar usuario</Heading>
+                <Heading className='text-center mb-6 pt-10 text-2xl font-bold '>Editar usuario</Heading>
 
                 {user && <form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
                     <Container>

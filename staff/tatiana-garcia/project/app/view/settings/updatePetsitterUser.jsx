@@ -175,7 +175,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                     </Container>
 
                     <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Descripción</Label>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Descripción</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.description} id='description-input' name='description' placeholder='descripción' />
                     </Container>
 
@@ -185,7 +185,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                     </Container>
 
                     <Container>
-                        <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email de contacto</Label>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='contact-email-input'>Email de contacto</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' defaultValue={petsitter.contactEmail} id='contact-email-input' name='contactEmail' placeholder='email' />
                     </Container>
 

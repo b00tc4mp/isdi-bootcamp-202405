@@ -2,7 +2,7 @@ import { User, Review } from '../data/models.js'
 
 import { validate, errors } from '../../com/index.js'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, DuplicityError } = errors
 
 export default (petsitterId, userId, comment, rate = 0) => {
     validate.id(userId, 'userId')
@@ -20,12 +20,17 @@ export default (petsitterId, userId, comment, rate = 0) => {
                 .then(petsitter => {
                     if (!petsitter) throw new NotFoundError('petsitter not found')
 
-                    return Review.create({
-                        author,
-                        petsitter,
-                        comment,
-                        rate
-                    })
+                    return Review.findOne({ author: author._id, petsitter: petsitter._id })
+                        .then(existingReview => {
+                            if (existingReview) { throw new DuplicityError('user has already reviewed this petsitter') }
+
+                            return Review.create({
+                                author: author._id,
+                                petsitter: petsitterId,
+                                comment,
+                                rate
+                            })
+                        })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })

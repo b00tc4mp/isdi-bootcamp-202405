@@ -30,14 +30,14 @@ export default function Header() {
             <img src='../../../logoExoticus.png' alt='logo exoticus' className='h-[3rem] w-auto' />
         </Container>
         <Container>
-            <Heading className=' text-xl font-bold text-black italic m-1'>Exoticus</ Heading>
+            <Heading className=' text-2xl font-bold text-black italic m-1'>Exoticus</ Heading>
         </Container>
-        <Container className='font-extrabold text-right flex flex-col justify-end text-sm'>
+        <Container className='font-bold text-right flex flex-col text-sm'>
             {
                 name ? (
-                    <Paragraph>Hola, {name}!</Paragraph>
+                    <Paragraph>{name}</Paragraph>
                 ) : (
-                    <Paragraph>Hola!</Paragraph>
+                    <Paragraph>Bienvenida/o!</Paragraph>
                 )
             }
         </Container>

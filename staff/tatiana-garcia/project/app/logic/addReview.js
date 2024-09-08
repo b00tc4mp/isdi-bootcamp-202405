@@ -1,6 +1,6 @@
 import { validate, errors } from '../../com/index.js'
 
-const { SystemError } = errors
+const { SystemError, DuplicityError } = errors
 
 export default (userId, petsitterId, comment, rate) => {
     validate.string(userId, 'userId')
@@ -25,6 +25,10 @@ export default (userId, petsitterId, comment, rate) => {
             return response.json()
                 .then(body => {
                     const { error, message } = body
+
+                    if (status === 409) {
+                        throw new DuplicityError('user already reviewed this petsitter')
+                    }
 
                     const constructor = errors[error]
 
