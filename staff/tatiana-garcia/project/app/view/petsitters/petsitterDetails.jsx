@@ -29,6 +29,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
     const [reviews, setReviews] = useState([])
     const [userRole, setUserRole] = useState(null)
     const [rating, setRating] = useState(0)
+    const [hasRating, setHasRating] = useState(false)
     const [value, setValue] = useState(0)
     const [addReviewVisibility, setAddReviewVisibility] = useState(false)
     const [addAllDetailsVisibility, setAllDetailsVisibility] = useState(false)
@@ -123,11 +124,14 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
         const ratings = reviewsWithRatings.map(review => review.rate)
 
+        const hasRating = ratings.length > 0 ? true : false
+
         const rating = ratings.length > 0
             ? ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / ratings.length
             : 0
 
         setRating(rating || 0)
+        setHasRating(hasRating)
     }
 
     useEffect(() => {
@@ -170,10 +174,17 @@ export default function PetsitterDetails({ handleLoginClick }) {
                         <Container>
                             <Heading className='text-base font-bold m-2'>{petsitter.name}</Heading>
                             <Paragraph className='text-sm font-semibold text-gray-500'>{petsitter.city}</Paragraph>
-                            <Container className='flex flex-row items-center'>
-                                <Rating name='read-only' value={rating} precision={0.25} size='small' emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} readOnly />
-                                <Paragraph className='text-sm font-semibold text-gray-500'>{rating.toFixed(1)}</Paragraph>
-                            </Container>
+                            {hasRating ? (
+                                <Container className='flex flex-row items-center'>
+                                    <Rating name='read-only' value={rating} precision={0.25} size='small' emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} readOnly />
+                                    <Paragraph className='text-sm font-semibold text-gray-500'>{rating.toFixed(1)}</Paragraph>
+                                </Container>
+
+                            ) : (
+                                <Container className='flex flex-row items-center'>
+                                    <Paragraph className='text-sm font-semibold text-gray-500 mt-0'>Sin reviews</Paragraph>
+                                </Container>
+                            )}
                         </Container>
                     </Container>
                     <Paragraph className=' flex flex-col text-lg text-gray-700 m-4'>{petsitter.description}</Paragraph>
