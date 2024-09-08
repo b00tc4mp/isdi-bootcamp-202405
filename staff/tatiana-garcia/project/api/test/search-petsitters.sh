@@ -1,1 +1,1 @@
-curl -X GET -v "http://localhost:8080/petsitters/search?city=barcelona&pet=reptiles"
+curl -X GET -v "http://localhost:8080/petsitters/search?city=Barcelona&pet=reptiles"

@@ -32,7 +32,7 @@ export default function Header() {
         <Container>
             <Heading className=' text-2xl font-bold text-black italic m-1'>Exoticus</ Heading>
         </Container>
-        <Container className='font-bold text-right flex flex-col text-sm'>
+        <Container className='font-bold text-right flex flex-col text-sm ml-auto'>
             {
                 name ? (
                     <Paragraph>{name}</Paragraph>
