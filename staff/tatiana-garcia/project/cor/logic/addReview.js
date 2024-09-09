@@ -22,7 +22,7 @@ export default (petsitterId, userId, comment, rate = 0) => {
 
                     return Review.findOne({ author: author._id, petsitter: petsitter._id })
                         .then(existingReview => {
-                            if (existingReview) { throw new DuplicityError('user has already reviewed this petsitter') }
+                            if (existingReview) { throw new DuplicityError('ya has hecho una review a este petsitter') }
 
                             return Review.create({
                                 author: author._id,

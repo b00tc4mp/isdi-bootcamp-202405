@@ -49,7 +49,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                 .catch(error => {
                     console.error(error)
 
-                    alert(message)
+                    alert(error.message)
                 })
         } catch (error) {
             console.error(error)

@@ -7,7 +7,7 @@ import { User, Review } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { ValidationError, NotFoundError } = errors
+const { ValidationError, NotFoundError, DuplicityError } = errors
 
 describe('addReviews', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -146,6 +146,44 @@ describe('addReviews', () => {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.equal('rate is not a number')
         }
+    })
+
+    it('should throw DuplicityError if the user has already reviewed the petsitter', () => {
+        let author, petsitter
+
+        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
+            .then(_author => {
+                author = _author
+                return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+            })
+            .then(_petsitter => {
+                petsitter = _petsitter
+
+                return Review.create({
+                    author: author._id,
+                    petsitter: petsitter._id,
+                    comment: 'Buena experiencia',
+                    rate: 4
+                })
+            })
+            .then(() => {
+                return Review.create({
+                    author: author._id,
+                    petsitter: petsitter._id,
+                    comment: 'Excelente servicio',
+                    rate: 5
+                })
+            })
+            .catch(error => {
+                if (error.code === 11000) {  // Código 11000 significa duplicidad de clave en MongoDB
+                    throw new DuplicityError('ya has hecho una review a este petsitter')
+                }
+                throw error
+            })
+            .catch(error => {
+                expect(error).to.be.instanceOf(DuplicityError)
+                expect(error.message).to.equal('ya has hecho una review a este petsitter')
+            })
     })
 
     afterEach(() => Promise.all([User.deleteMany(), Review.deleteMany()]))
