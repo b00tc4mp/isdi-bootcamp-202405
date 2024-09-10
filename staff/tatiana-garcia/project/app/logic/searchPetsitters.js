@@ -5,12 +5,7 @@ const { SystemError } = errors
 export default (city, pet = null) => {
     validate.city(city, 'city')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/search?city=${city}&pet=${pet}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/search?city=${city}&pet=${pet}`)
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response

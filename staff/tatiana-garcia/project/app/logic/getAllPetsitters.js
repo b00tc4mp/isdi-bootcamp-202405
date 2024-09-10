@@ -3,12 +3,7 @@ import { errors } from '../../com/index.js'
 const { SystemError } = errors
 
 export default () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/petsitters`, {
-        method: 'GET',
-        headers: {
-            // Authorization: `Bearer ${sessionStorage.token}`
-        }
-    })
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters`)
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response

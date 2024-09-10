@@ -10,54 +10,43 @@ import { errors } from '../../com/index.js'
 const { ValidationError, NotFoundError, DuplicityError } = errors
 
 describe('addReviews', () => {
-    before(() => mongoose.connect(process.env.MONGODB_URI))
+    before(() => mongoose.connect(`${process.env.MONGODB_URI}`))
 
     beforeEach(() => Promise.all([User.deleteMany(), Review.deleteMany()]))
 
     it('succeds on new review without rating', () => {
-        User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
-            .then(petsitter => {
-                User.create({ author: petsitter.id, image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
+            .then(user => {
+                return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'pep@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
                     .then(petsitter => {
-                        addReview(user.id, petsitter.id, 'me encanta esta guarderia')
+                        return addReview(petsitter.id, user.id, 'me encanta esta guarderia')
                     })
-                    .then(review => {
-                        expect(review.comment).to.equal('me encanta esta guarderia')
-                        expect(review.rate).to.equal(0)
+                    .then(() => {
+                        return Review.findOne({ author: user._id })
+                            .then(review => {
+                                expect(review.comment).to.equal('me encanta esta guarderia')
+                                expect(review.rate).to.equal(0)
+                            })
                     })
             })
     })
 
     it('succeds on new review with rating', () => {
-        User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
-            .then(petsitter => {
-                User.create({ author: petsitter.id, image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
+            .then(user => {
+                return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'pep@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
                     .then(petsitter => {
-                        addReview(user.id, petsitter.id, 'me encanta esta guarderia')
+                        return addReview(petsitter.id, user.id, 'me encanta esta guarderia', 5)
                     })
-                    .then(review => {
-                        expect(review.comment).to.equal('me encanta esta guarderia')
-                        expect(review.rate).to.equal(5)
+                    .then(() => {
+                        return Review.findOne({ author: user._id })
+                            .then(review => {
+                                expect(review.comment).to.equal('me encanta esta guarderia')
+                                expect(review.rate).to.equal(5)
+                            })
                     })
             })
 
-    })
-
-    it('succeeds on valid input and creates a review', () => {
-        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Alberto', surname: 'Garcia', email: 'abt@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
-            .then(user =>
-                User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
-                    .then(petsitter => {
-                        return addReview(petsitter._id.toString(), user._id.toString(), 'me encanta esta guarderia', 5)
-                            .then(review => {
-                                expect(review).to.exist
-                                expect(review.comment).to.equal('me encanta esta guarderia')
-                                expect(review.rate).to.equal(5)
-                                expect(review.petsitter._id.toString()).to.equal(petsitter._id.toString())
-                                expect(review.author._id.toString()).to.equal(user._id.toString())
-                            })
-                    })
-            )
     })
 
     it('fails on non existing author', () => {
@@ -67,7 +56,7 @@ describe('addReviews', () => {
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('author not found')
+                expect(error.message).to.equal('user not found')
             })
     })
 
@@ -149,42 +138,22 @@ describe('addReviews', () => {
     })
 
     it('should throw DuplicityError if the user has already reviewed the petsitter', () => {
-        let author, petsitter
-
         return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
-            .then(_author => {
-                author = _author
-                return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
-            })
-            .then(_petsitter => {
-                petsitter = _petsitter
-
-                return Review.create({
-                    author: author._id,
-                    petsitter: petsitter._id,
-                    comment: 'Buena experiencia',
-                    rate: 4
-                })
-            })
-            .then(() => {
-                return Review.create({
-                    author: author._id,
-                    petsitter: petsitter._id,
-                    comment: 'Excelente servicio',
-                    rate: 5
-                })
-            })
-            .catch(error => {
-                if (error.code === 11000) {  // Código 11000 significa duplicidad de clave en MongoDB
-                    throw new DuplicityError('ya has hecho una review a este petsitter')
-                }
-                throw error
+            .then(user => {
+                return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'josep@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+                    .then(petsitter => {
+                        return addReview(petsitter.id, user.id, 'Buena experiencia', 4)
+                            .then(() => {
+                                return addReview(petsitter.id, user.id, 'Experiencia meh', 1)
+                            })
+                    })
             })
             .catch(error => {
                 expect(error).to.be.instanceOf(DuplicityError)
                 expect(error.message).to.equal('ya has hecho una review a este petsitter')
             })
     })
+
 
     afterEach(() => Promise.all([User.deleteMany(), Review.deleteMany()]))
 

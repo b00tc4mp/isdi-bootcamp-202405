@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import addReview from './addReview.js'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => addReview('66ddc6e8b28e9805501b001c', '66ddc6e1e7711e9350f1aa75', 'son los mejores', 5))
-    .then(review => console.log('review made', review))
+    .then(() => addReview('66e0516f7971e473351e9dba', '66e054efcbfb026be7bc2992', 'son los mejores', 5))
+    .then(() => console.log('review made'))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

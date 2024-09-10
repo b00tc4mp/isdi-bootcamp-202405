@@ -17,7 +17,6 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
  - view petsitter's detail with contact info
  - view admin contact 
  - update own details
- - unregister
 
 **Regular user**
  - list petsitters by city and animal
@@ -26,7 +25,6 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
  - add review to petsitter
  - update own details
  - delete review from petsitter
- - unregister
 
 ### UIUX Design
 
@@ -52,8 +50,8 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 - Node
 - Express
 - React
-- Mongo
-- Mongoose
+- Mongo / Mongoose
+- Tailwindcss
 ### Data Model
 
 **User**
@@ -77,4 +75,4 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
   - petsitter (User.id)
   - rate (number)
   - date (Date)
-  - message (string)
+  - comment (string, optional)

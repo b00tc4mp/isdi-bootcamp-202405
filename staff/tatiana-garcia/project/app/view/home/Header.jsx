@@ -5,6 +5,7 @@ import logic from '../../logic'
 import Container from '../library/Container.jsx'
 import Heading from '../library/Heading.jsx'
 import Paragraph from '../library/Paragraph.jsx'
+import Link from '../library/Link.jsx'
 
 export default function Header() {
     const [name, setName] = useState(null)
@@ -26,9 +27,9 @@ export default function Header() {
     }, [])
 
     return <header className='bg-teal-100 fixed left-0 top-0 w-full flex items-center gap-2 p-2'>
-        <Container className='flex-shrink'>
+        <Link className='flex-shrink' href={'/'}>
             <img src='../../../logoExoticus.png' alt='logo exoticus' className='h-[3rem] w-auto' />
-        </Container>
+        </Link>
         <Container>
             <Heading className=' text-2xl font-bold text-black italic m-1'>Exoticus</ Heading>
         </Container>

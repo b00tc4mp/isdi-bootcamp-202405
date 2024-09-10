@@ -12,7 +12,7 @@ export default (petsitterId) => {
         .then(petsitter => {
             if (!petsitter) throw new NotFoundError('petsitter not found')
 
-            return Review.find({ petsitter: petsitterId }).sort({ date: -1 }).lean()
+            return Review.find({ petsitter: petsitterId }, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(reviews => {
                     const promises = reviews.map(review => {
