@@ -8,6 +8,11 @@ import updatePassword from './updatePassword.js'
 import updateUserPhone from './updateUserPhone.js'
 import updateUserAddress from './updateUserAddress.js'
 import createProduct from './createProduct.js'
+import updateProductPrice from './updateProductPrice.js'
+import updateProductImage from './updateProductImage.js'
+import toggleProductEnable from './toggleProductEnable.js'
+import deleteProduct from './deleteProduct.js'
+import getAllUserProducts from './getAllUserProducts.js'
 
 const logic = {
     registerUser,
@@ -19,7 +24,12 @@ const logic = {
     updatePassword,
     updateUserPhone,
     updateUserAddress,
-    createProduct
+    createProduct,
+    updateProductPrice,
+    updateProductImage,
+    toggleProductEnable,
+    deleteProduct,
+    getAllUserProducts
 }
 
 export default logic

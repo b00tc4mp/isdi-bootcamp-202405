@@ -23,16 +23,16 @@ export default function AddProduct({ }) {
 
         const nameInput = form['name-input']
         const typeInput = form['type-input']
-        const minprizeInput = form['minprize-input']
-        const maxprizeInput = form['maxprize-input']
+        const minpriceInput = form['minprice-input']
+        const maxpriceInput = form['maxprice-input']
         const imageInput = form['image-input']
         const latitudeInput = form['latitude-input']
         const longitudeInput = form['longitude-input']
 
         const name = nameInput.value
         const type = typeInput.value
-        const minprize = parseFloat(minprizeInput.value.trim())  // Cambiado a número
-        const maxprize = parseFloat(maxprizeInput.value.trim())  // Cambiado a número
+        const minprice = parseFloat(minpriceInput.value.trim().replace(',', '.'))  // Cambiado a número
+        const maxprice = parseFloat(maxpriceInput.value.trim().replace(',', '.'))  // Cambiado a número
         const image = imageInput.value
         const latitude = parseFloat(latitudeInput.value.trim())
         const longitude = parseFloat(longitudeInput.value.trim())
@@ -42,7 +42,7 @@ export default function AddProduct({ }) {
         }
 
         try {
-            logic.createProduct(name, type, minprize, maxprize, image, location)
+            logic.createProduct(name, type, minprice, maxprice, image, location)
                 .then(() => {
                     // Llamada exitosa: redirigir a /products
                     navigate('/products') // Redirige a ProductList
@@ -73,13 +73,13 @@ export default function AddProduct({ }) {
                 </Container>
 
                 <Container className='flex-col items-start'>
-                    <Label htmlFor='minprize-input'>Minprize</Label>
-                    <Input type='number' id='minprize-input' name='minprize-input' placeholder='minprize' step='0.01' />
+                    <Label htmlFor='minprice-input'>Minprice</Label>
+                    <Input type='number' id='minprice-input' name='minprice-input' placeholder='minprice' step='0.01' />
                 </Container>
 
                 <Container className='flex-col items-start'>
-                    <Label htmlFor='maxprize-input'>Maxprize</Label>
-                    <Input type='number' id='maxprize-input' name='maxprize-input' placeholder='maxprize' step='0.01' />
+                    <Label htmlFor='maxprice-input'>Maxprice</Label>
+                    <Input type='number' id='maxprice-input' name='maxprice-input' placeholder='maxprice' step='0.01' />
                 </Container>
 
                 <Container className='flex-col items-start'>

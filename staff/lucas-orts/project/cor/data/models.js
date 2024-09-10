@@ -31,6 +31,19 @@ const user = new Schema({
     }
 })
 
+const point = new Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+        default: 'Point'
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+})
+
 const product = new Schema({
     farmer: {
         type: ObjectId,
@@ -67,18 +80,7 @@ const product = new Schema({
     }
 })
 
-const point = new Schema({
-    type: {
-        type: String,
-        enum: ['Point'],
-        required: true,
-        default: 'Point'
-    },
-    coordinates: {
-        type: [Number],
-        required: true
-    }
-})
+
 
 const Location = model('Location', point)
 const User = model('User', user)
