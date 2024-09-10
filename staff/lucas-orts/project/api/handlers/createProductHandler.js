@@ -3,10 +3,10 @@ import { logic } from 'cor'
 export default (req, res, next) => {
     const { userId } = req
 
-    const { name, type, minprice, maxprice, image } = req.body
+    const { name, type, minprice, maxprice, image, location } = req.body
 
     try {
-        logic.createProduct(userId, name, type, minprice, maxprice, image)
+        logic.createProduct(userId, name, type, minprice, maxprice, image, location)
             .then(() => res.status(201).send())
             .catch(error => next(error))
     } catch (error) {

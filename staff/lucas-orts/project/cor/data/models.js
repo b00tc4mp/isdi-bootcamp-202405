@@ -28,15 +28,6 @@ const user = new Schema({
     password: {
         type: String,
         required: true
-        // },
-        // location: {
-        //     type: [Number],
-        //     validate: {
-        //         validator: function (arr) {
-        //             return arr.length === 2
-        //         },
-        //         message: 'The array must contain exactly two numbers.'
-        //     }
     }
 })
 
@@ -65,15 +56,10 @@ const product = new Schema({
         type: String,
         required: true
     },
-    // location: {
-    //     type: [Number],
-    //     validate: {
-    //         validator: function (arr) {
-    //             return arr.length === 2
-    //         },
-    //         message: 'The array must contain exactly two numbers.'
-    //     }
-    // },
+    location: {
+        type: point,
+        required: true
+    },
     enabled: {
         type: Boolean,
         required: true,
@@ -81,10 +67,25 @@ const product = new Schema({
     }
 })
 
+const point = new Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+        default: 'Point'
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+})
+
+const Location = model('Location', point)
 const User = model('User', user)
 const Product = model('Product', product)
 
 export {
     User,
-    Product
+    Product,
+    Location
 }

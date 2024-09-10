@@ -2,19 +2,21 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (name, type, minprice, maxprice, image) => {
+export default (name, type, minprice, maxprice, image, location) => {
     validate.string(name, 'name')
     validate.string(type, 'type')
     validate.number(minprice, 'minprice')
     validate.number(maxprice, 'maxprice')
     validate.url(image, 'image')
+    validate.location(location, 'location')
+
     return fetch(`${import.meta.env.VITE_API_URL}/products`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, type, minprice, maxprice, image })
+        body: JSON.stringify({ name, type, minprice, maxprice, image, location })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

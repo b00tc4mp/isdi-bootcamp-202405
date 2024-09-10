@@ -46,6 +46,19 @@ function validateNumber(value, explain = 'value') {
     if (typeof value !== 'number') throw new ValidationError(`${explain} is not a number`)
 }
 
+function validateLocation(location, explain = 'location') {
+    if (!location || typeof location !== 'object') throw new ValidationError(`${explain} must be an object`)
+
+    const { coordinates } = location
+
+    if (!Array.isArray(coordinates) || coordinates.length !== 2) throw new ValidationError(`invalid ${explain} coordinates`)
+
+    coordinates.forEach((value, index) => {
+        if (typeof value !== 'number') {
+            throw new ValidationError(`invalid ${explain} coordinate value at index ${index}`)
+        }
+    })
+}
 const validate = {
     string: validateString,
     password: validatePassword,
@@ -54,7 +67,8 @@ const validate = {
     email: validateEmail,
     phone: validatePhone,
     url: validateUrl,
-    number: validateNumber
+    number: validateNumber,
+    location: validateLocation
 }
 
 export default validate

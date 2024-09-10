@@ -7,6 +7,7 @@ import updateEmail from './updateEmail.js'
 import updatePassword from './updatePassword.js'
 import updateUserPhone from './updateUserPhone.js'
 import updateUserAddress from './updateUserAddress.js'
+import createProduct from './createProduct.js'
 
 const logic = {
     registerUser,
@@ -17,7 +18,8 @@ const logic = {
     updateEmail,
     updatePassword,
     updateUserPhone,
-    updateUserAddress
+    updateUserAddress,
+    createProduct
 }
 
 export default logic
