@@ -11,7 +11,7 @@ export default (userId, reviewId) => {
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+            if (!user) throw new NotFoundError('usuario no encontrado')
 
             return Review.findByIdAndDelete(reviewId)
                 .catch(error => { throw new SystemError(error.message) })

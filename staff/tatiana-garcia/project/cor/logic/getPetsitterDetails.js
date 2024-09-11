@@ -9,7 +9,7 @@ export default (petsitterId) => {
     return User.findById(petsitterId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(petsitter => {
-            if (!petsitter) throw new NotFoundError('petsitter not found')
+            if (!petsitter) throw new NotFoundError('petsitter no encontrado')
 
             petsitter.id = petsitter._id.toString()
 

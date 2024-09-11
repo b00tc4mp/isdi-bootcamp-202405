@@ -52,7 +52,7 @@ describe('getPetsitterReview', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('petsitter not found')
+                expect(_error.message).to.equal('petsitter no encontrado')
             })
     })
 
@@ -72,7 +72,7 @@ describe('getPetsitterReview', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('author not found')
+                expect(_error.message).to.equal('author no encontrado')
             })
     })
 
@@ -85,7 +85,7 @@ describe('getPetsitterReview', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('petsitterId is not a string')
+            expect(error.message).to.equal('petsitterId no es una cadena')
         }
     })
 

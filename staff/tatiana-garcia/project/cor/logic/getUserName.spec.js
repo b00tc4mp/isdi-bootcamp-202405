@@ -15,7 +15,7 @@ describe('getUserName', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () => {
+    it('succeeds on existing user', () => { //REVISAR
         User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
             .then(user => getUserName(user.id))
             .then(user => expect(user.name).to.equal('Tatiana'))
@@ -30,7 +30,7 @@ describe('getUserName', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('user not found')
+                expect(_error.message).to.equal('usuario no encontrado')
             })
     })
 
@@ -43,7 +43,7 @@ describe('getUserName', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(error.message).to.equal('userId no es una cadena')
         }
     })
 

@@ -8,7 +8,7 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { DuplicityError, CredentialsError, ValidationError } = errors
+const { DuplicityError, CredentialsError, ValidationError, NotFoundError } = errors
 
 describe('authenticateUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -47,12 +47,12 @@ describe('authenticateUser', () => {
 
         bcrypt.hash('123123123', 8)
             .then(hash => {
-                User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: hash })
+                return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: hash })
                     .then(() => authenticateUser('tati@garcia.com', '123123123'))
                     .catch(error => _error = error)
                     .finally(() => {
                         expect(_error).to.be.instanceOf(DuplicityError)
-                        expect(_error.message).to.equal('email already exists')
+                        expect(_error.message).to.equal('email ya existente')
                     })
             })
     })
@@ -64,7 +64,7 @@ describe('authenticateUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('user not found')
+                expect(_error.message).to.equal('usuario no encontrado')
             })
     })
 
@@ -79,7 +79,7 @@ describe('authenticateUser', () => {
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(CredentialsError)
-                expect(error.message).to.equal('wrong password')
+                expect(error.message).to.equal('password incorrecto')
             })
     })
 
@@ -94,7 +94,7 @@ describe('authenticateUser', () => {
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(CredentialsError)
-                expect(error.message).to.equal('wrong email')
+                expect(error.message).to.equal('email incorrecto')
             })
     })
 
@@ -107,7 +107,7 @@ describe('authenticateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('email is not a string')
+            expect(error.message).to.equal('email no es una cadena')
         }
     })
 
@@ -120,7 +120,7 @@ describe('authenticateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid email')
+            expect(error.message).to.equal('email invalido')
         }
     })
 
@@ -133,7 +133,7 @@ describe('authenticateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password is not a string')
+            expect(error.message).to.equal('password no es una cadena')
         }
     })
 
@@ -146,7 +146,7 @@ describe('authenticateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password length is lower than 8 characters')
+            expect(error.message).to.equal('el password tiene una longitud menor de 8 caracteres')
         }
     })
 
@@ -161,7 +161,7 @@ describe('authenticateUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(CredentialsError)
-                expect(_error.message).to.equal('wrong password')
+                expect(_error.message).to.equal('password incorrecto')
             })
     })
 
@@ -174,7 +174,7 @@ describe('authenticateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
+            expect(error.message).to.equal('el password no puede tener espacios vacios')
         }
     })
 

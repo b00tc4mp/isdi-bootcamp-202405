@@ -17,7 +17,7 @@ export default function (userId, newImage, newName, newCity, newDescription, new
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(petsitter => {
-            if (!petsitter) throw new NotFoundError('petsitter not found')
+            if (!petsitter) throw new NotFoundError('petsitter no encontrado')
 
             return User.findByIdAndUpdate(userId, { image: newImage, name: newName, city: newCity, description: newDescription, linkPage: newLinkPage, contactEmail: newContactEmail, phoneNumber: newPhoneNumber, pets: newPets })
                 .catch(error => { throw new SystemError(error.message) })

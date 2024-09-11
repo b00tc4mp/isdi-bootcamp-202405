@@ -2,10 +2,6 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 
-import { errors } from '../../com/index.js'
-
-const { NotFoundError } = errors
-
 import getAllPetsitters from './getAllPetsitters.js'
 import { User } from '../data/models.js'
 

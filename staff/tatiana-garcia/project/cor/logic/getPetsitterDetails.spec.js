@@ -4,12 +4,12 @@ import mongoose, { Types } from 'mongoose'
 import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
-import getPetsitterDetails from './getPetsitterDetails.js' // Cambia el nombre según tu archivo
+import getPetsitterDetails from './getPetsitterDetails.js'
 const { NotFoundError, ValidationError } = errors
 
 const { ObjectId } = Types
 
-describe('getPetsitter', () => {
+describe('getPetsitterDetails', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => Promise.all([User.deleteMany()]))
@@ -52,7 +52,7 @@ describe('getPetsitter', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('petsitter not found')
+                expect(_error.message).to.equal('petsitter no encontrado')
             })
     })
 
@@ -66,7 +66,7 @@ describe('getPetsitter', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid petsitterId')
+            expect(error.message).to.equal('petsitterId invalido')
         }
 
     })

@@ -15,8 +15,8 @@ describe('registerUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on new User', () =>
-        registerUser('https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg', 'Tatiana', 'Garcia', 'tati@garcia.com', '123123123', '123123123')
+    it('succeeds on new User', () => {
+        return registerUser('https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg', 'Tatiana', 'Garcia', 'tati@garcia.com', '123123123', '123123123')
             .then(() => User.findOne({ email: 'tati@garcia.com' }).lean())
             .then(user => {
                 expect(user.image).to.equal('https://www.ngenespanol.com/wp-content/uploads/2024/03/estos-son-los-animales-que-no-deberias-tener-como-mascotas.jpg')
@@ -28,7 +28,7 @@ describe('registerUser', () => {
                 return bcrypt.compare('123123123', user.password)
                     .then(match => expect(match).to.be.true)
             })
-    )
+    })
 
     it('fails on existing user with same email', () => {
         let _error
@@ -38,7 +38,7 @@ describe('registerUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
-                expect(_error.message).to.equal('email already exists')
+                expect(_error.message).to.equal('email ya existente')
             })
     })
 
@@ -51,7 +51,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('name is not a string')
+            expect(error.message).to.equal('name no es una cadena')
         }
     })
 
@@ -64,7 +64,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid name')
+            expect(error.message).to.equal('name invalido')
         }
     })
 
@@ -77,7 +77,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('surname is not a string')
+            expect(error.message).to.equal('surname no es una cadena')
         }
     })
 
@@ -90,7 +90,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid surname')
+            expect(error.message).to.equal('surname invalido')
         }
     })
 
@@ -103,7 +103,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('email is not a string')
+            expect(error.message).to.equal('email no es una cadena')
         }
     })
 
@@ -116,7 +116,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid email')
+            expect(error.message).to.equal('email invalido')
         }
     })
 
@@ -129,7 +129,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password is not a string')
+            expect(error.message).to.equal('password no es una cadena')
         }
     })
 
@@ -142,7 +142,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password length is lower than 8 characters')
+            expect(error.message).to.equal('el password tiene una longitud menor de 8 caracteres')
         }
     })
 
@@ -155,7 +155,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
+            expect(error.message).to.equal('el password no puede tener espacios vacios')
         }
     })
 
@@ -168,7 +168,7 @@ describe('registerUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('passwords do not match')
+            expect(error.message).to.equal('los passwords no coinciden')
         }
     })
 

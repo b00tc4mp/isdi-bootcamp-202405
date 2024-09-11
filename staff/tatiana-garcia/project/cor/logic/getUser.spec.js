@@ -15,8 +15,8 @@ describe('getUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () =>
-        User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+    it('succeeds on existing user', () => {
+        return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', passwordRepeat: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
             .then(user => {
                 expect(user.image).to.equal('https://hospitalveterinariodonostia.com/')
                 expect(user.name).to.equal('Tatiana')
@@ -27,7 +27,7 @@ describe('getUser', () => {
                 expect(user.pets).to.deep.equal(['conejos', 'cobayas'])
 
             })
-    )
+    })
 
     it('fails on non-existing user', () => {
         let _error
@@ -35,7 +35,7 @@ describe('getUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('user not found')
+                expect(_error.message).to.equal('usuario no encontrado')
             })
     })
 
@@ -48,19 +48,19 @@ describe('getUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(error.message).to.equal('userId no es una cadena')
         }
     })
 
-    it('removes password from the returned user object', () =>
-        User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
+    it('removes password from the returned user object', () => {
+        return User.create({ image: 'https://hospitalveterinariodonostia.com/', name: 'Tatiana', city: 'Barcelona', description: 'Por favor, funciona de una santa vez', email: 'tati@garcia.com', phoneNumber: '655454545', password: '123123123', role: 'petsitter', pets: ['conejos', 'cobayas'] })
             .then(user => getUser(user.id))
             .then(user => {
                 expect(user).to.have.property('id');
                 expect(user).to.not.have.property('_id');
                 expect(user).to.not.have.property('password');
             })
-    )
+    })
 
     afterEach(() => User.deleteMany())
 

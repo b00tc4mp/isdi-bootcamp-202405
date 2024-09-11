@@ -8,15 +8,15 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { DuplicityError, ValidationError, NotFoundError } = errors
+const { DuplicityError, ValidationError } = errors
 
 describe('registerPetsitterUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on new petsitter', () =>
-        registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Vetpoint', 'Barcelona', 'Por favor, funciona de una santa vez', 'info@vetpoint.com', 'https://www.vetpointclinicaveterinaria.com/es/homepage/', 'vetpoint@gmail.com', '655454545', '123123123', '123123123', ['conejos'])
+    it('succeeds on new petsitter', () => {
+        return registerPetsitterUser('https://hospitalveterinariodonostia.com/', 'Vetpoint', 'Barcelona', 'Por favor, funciona de una santa vez', 'info@vetpoint.com', 'https://www.vetpointclinicaveterinaria.com/es/homepage/', 'vetpoint@gmail.com', '655454545', '123123123', '123123123', ['conejos'])
             .then(() => User.findOne({ email: 'info@vetpoint.com' }).lean())
             .then(user => {
                 expect(user.image).to.equal('https://hospitalveterinariodonostia.com/')
@@ -33,7 +33,7 @@ describe('registerPetsitterUser', () => {
                 return bcrypt.compare('123123123', user.password)
                     .then(match => expect(match).to.be.true)
             })
-    )
+    })
 
     it('fails on existing petsitter with same email', () => {
         let _error
@@ -43,7 +43,7 @@ describe('registerPetsitterUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
-                expect(_error.message).to.equal('email already exists')
+                expect(_error.message).to.equal('email ya existente')
             })
     })
 
@@ -56,7 +56,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('name is not a string')
+            expect(error.message).to.equal('name no es una cadena')
         }
     })
 
@@ -69,7 +69,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid name')
+            expect(error.message).to.equal('name invalido')
         }
     })
 
@@ -82,7 +82,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('email is not a string')
+            expect(error.message).to.equal('email no es una cadena')
         }
     })
 
@@ -95,7 +95,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid email')
+            expect(error.message).to.equal('email invalido')
         }
     })
 
@@ -108,7 +108,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password is not a string')
+            expect(error.message).to.equal('password no es una cadena')
         }
     })
 
@@ -121,7 +121,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password length is lower than 8 characters')
+            expect(error.message).to.equal('el password tiene una longitud menor de 8 caracteres')
         }
     })
 
@@ -134,7 +134,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
+            expect(error.message).to.equal('el password no puede tener espacios vacios')
         }
     })
 
@@ -147,7 +147,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('passwords do not match')
+            expect(error.message).to.equal('los passwords no coinciden')
         }
     })
 
@@ -160,7 +160,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('the field can not be empty')
+            expect(error.message).to.equal('el campo no puede estar vacio')
         }
     })
 
@@ -173,7 +173,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('image is not a string')
+            expect(error.message).to.equal('image no es una cadena')
         }
     })
 
@@ -186,7 +186,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid image')
+            expect(error.message).to.equal('image invalida')
         }
     })
 
@@ -199,7 +199,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('description is not a string')
+            expect(error.message).to.equal('description no es una cadena')
         }
     })
 
@@ -212,7 +212,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('the description must have more than 1 characters')
+            expect(error.message).to.equal('la description debe tener más de un caracter')
         }
 
     })
@@ -226,7 +226,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('at least one pet must be selected')
+            expect(error.message).to.equal('debe seleccionarse al menos una mascota')
         }
     })
 
@@ -239,7 +239,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('pets is not an array')
+            expect(error.message).to.equal('pets no es un array')
         }
     })
 
@@ -252,7 +252,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('phoneNumber is not a string')
+            expect(error.message).to.equal('phoneNumber no es una cadena')
         }
     })
 
@@ -278,7 +278,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('linkPage is not a string')
+            expect(error.message).to.equal('linkPage no es una cadena')
         }
     })
 
@@ -291,7 +291,7 @@ describe('registerPetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('email is not a string')
+            expect(error.message).to.equal('email no es una cadena')
         }
     })
 

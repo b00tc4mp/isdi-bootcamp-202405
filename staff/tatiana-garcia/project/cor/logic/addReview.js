@@ -13,12 +13,12 @@ export default (petsitterId, userId, comment, rate = 0) => {
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+            if (!user) throw new NotFoundError('usuario no encontrado')
 
             return User.findById(petsitterId).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(petsitter => {
-                    if (!petsitter) throw new NotFoundError('petsitter not found')
+                    if (!petsitter) throw new NotFoundError('petsitter no encontrado')
 
                     return Review.findOne({ author: user._id, petsitter: petsitter._id })
                         .then(existingReview => {

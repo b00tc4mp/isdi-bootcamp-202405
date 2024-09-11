@@ -7,73 +7,73 @@ const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ ]+$/
 const PHONE_REGEX = /^\+?\d{9,15}$/
 
 function validateString(value, explain = 'value') {
-    if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
+    if (typeof value !== 'string') throw new ValidationError(`${explain} no es una cadena`)
 }
 
 function validateName(name, explain = 'name') {
     validateString(name, explain)
-    if (!NAME_REGEX.test(name.trim())) throw new ValidationError(`invalid ${explain}`)
+    if (!NAME_REGEX.test(name.trim())) throw new ValidationError(`${explain} invalido`)
 }
 
 function validateSurname(surname, explain = 'surname') {
     validateString(surname, 'surname')
-    if (!NAME_REGEX.test(surname)) throw new ValidationError(`invalid ${explain}`)
+    if (!NAME_REGEX.test(surname)) throw new ValidationError(`${explain} invalido`)
 }
 function validateEmail(email, explain = 'email', isOptinal = false) {
     if (isOptinal && (!email || email.trim() === '')) return
 
     validateString(email, 'email')
 
-    if (!EMAIL_REGEX.test(email.trim())) throw new ValidationError(`invalid ${explain}`)
+    if (!EMAIL_REGEX.test(email.trim())) throw new ValidationError(`${explain} invalido`)
 }
 
 function validatePassword(password, explain = 'password') {
     validateString(password, 'password')
-    if (password.trim().length < 8) throw new ValidationError(`${explain} length is lower than 8 characters`)
-    if (password.includes(' ')) throw new ValidationError(`${explain} has empty spaces`)
+    if (password.trim().length < 8) throw new ValidationError(`el ${explain} tiene una longitud menor de 8 caracteres`)
+    if (password.includes(' ')) throw new ValidationError(`el ${explain} no puede tener espacios vacios`)
 }
 
 function validateCity(city) {
     validateString(city, 'city')
-    if (city === '') throw new ValidationError('the field can not be empty')
+    if (city === '') throw new ValidationError('el campo no puede estar vacio')
 }
 
 function validateDescription(description, explain = 'description') {
     validateString(description, 'description')
-    if (description < 1) throw new ValidationError(`the ${explain} must have more than 1 characters`)
-    if (typeof description !== 'string') throw new ValidationError(`${explain} is not a string`)
+    if (description < 1) throw new ValidationError(`la ${explain} debe tener más de un caracter`)
+    if (typeof description !== 'string') throw new ValidationError(`${explain} no es una cadena`)
 }
 
 function validateImage(image, explain = 'image') {
     validateString(image, 'image')
-    if (!image.startsWith('http')) throw new ValidationError(`invalid ${explain}`)
+    if (!image.startsWith('http')) throw new ValidationError(`${explain} invalida`)
 }
 
 function validatePets(pets) {
     validateArray(pets, ['pets'])
-    if (pets.length < 1) throw new ValidationError('at least one pet must be selected')
+    if (pets.length < 1) throw new ValidationError('debe seleccionarse al menos una mascota')
 }
 
 function validateArray(array, explain = ['']) {
-    if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
+    if (!(array instanceof Array)) throw new ValidationError(`${explain} no es un array`)
 }
 
 function validatePhoneNumber(phoneNumber, explain = 'phoneNumber') {
     validateString(phoneNumber, 'phoneNumber')
-    if (!PHONE_REGEX.test(phoneNumber)) throw new ValidationError(`invalid ${explain}`)
+    if (!PHONE_REGEX.test(phoneNumber)) throw new ValidationError(`${explain} invalido`)
 }
 
 function validateNumber(number, explain = 'number') {
-    if (typeof number !== 'number') throw new ValidationError(`${explain} is not a number`)
+    if (typeof number !== 'number') throw new ValidationError(`${explain} no es un numero`)
 }
 
 function validateId(id, explain = 'id') {
     validateString(id, explain)
-    if (id.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
+    if (id.trim().length === 0) throw new ValidationError(`${explain} invalido`)
 }
 
 function validateObject(object, explain = 'object') {
-    if (object === null || typeof object !== 'object' || object.constructor !== object) throw new ValidationError(`${explain} is not an object`)
+    if (object === null || typeof object !== 'object' || object.constructor !== object) throw new ValidationError(`${explain} no es un objeto`)
 
 }
 

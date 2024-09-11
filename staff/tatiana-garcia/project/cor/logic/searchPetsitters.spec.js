@@ -89,7 +89,7 @@ describe('searchPetsitters', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('city is not a string')
+            expect(error.message).to.equal('city no es una cadena')
         }
     })
 
@@ -102,16 +102,16 @@ describe('searchPetsitters', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('the field can not be empty')
+            expect(error.message).to.equal('el campo no puede estar vacio')
         }
     })
 
-    it('succeeds on no petsitters found in city', () =>
-        searchPetsitters('NonExistingCity')
+    it('succeeds on no petsitters found in city', () => {
+        return searchPetsitters('NonExistingCity')
             .then(petsitters => {
                 expect(petsitters).to.have.lengthOf(0)
             })
-    )
+    })
 
     afterEach(() => User.deleteMany())
 

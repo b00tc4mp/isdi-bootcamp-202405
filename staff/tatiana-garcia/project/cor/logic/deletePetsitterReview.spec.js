@@ -50,7 +50,7 @@ describe('deletePetsitterReview', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(error.message).to.equal('userId no es una cadena')
         }
     })
 
@@ -70,7 +70,7 @@ describe('deletePetsitterReview', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('user not found')
+                expect(_error.message).to.equal('usuario no encontrado')
             })
     })
 
@@ -83,7 +83,7 @@ describe('deletePetsitterReview', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid userId')
+            expect(error.message).to.equal('userId invalido')
         }
     })
 
@@ -96,7 +96,7 @@ describe('deletePetsitterReview', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('reviewId is not a string')
+            expect(error.message).to.equal('reviewId no es una cadena')
         }
     })
 
@@ -110,7 +110,7 @@ describe('deletePetsitterReview', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid reviewId')
+            expect(error.message).to.equal('reviewId invalido')
         }
     })
 

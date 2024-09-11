@@ -27,7 +27,7 @@ export default (userId, petsitterId, comment, rate) => {
                     const { error, message } = body
 
                     if (status === 409) {
-                        throw new DuplicityError('user already reviewed this petsitter')
+                        throw new DuplicityError('ya has hecho una review a este petsitter')
                     }
 
                     const constructor = errors[error]

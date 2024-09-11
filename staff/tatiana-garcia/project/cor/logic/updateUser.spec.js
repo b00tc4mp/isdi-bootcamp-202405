@@ -7,15 +7,15 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { ValidationError, NotFoundError, SystemError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('updateUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on updating existing user', () =>
-        User.create({
+    it('succeeds on updating existing user', () => {
+        return User.create({
             image: 'https://hospitalveterinariodonostia.com/',
             name: 'Tatiana',
             surname: 'Garcia',
@@ -24,16 +24,16 @@ describe('updateUser', () => {
             password: '123123123',
             role: 'petsitter',
         })
-            .then(user =>
-                updateUser(user.id, 'https://newimage.com/image.jpg', 'Alberto', 'Garcia')
+            .then(user => {
+                return updateUser(user.id, 'https://newimage.com/image.jpg', 'Alberto', 'Garcia')
                     .then(() => User.findById(user.id).lean())
                     .then(updatedUser => {
                         expect(updatedUser.image).to.equal('https://newimage.com/image.jpg')
                         expect(updatedUser.name).to.equal('Alberto')
                         expect(updatedUser.surname).to.equal('Garcia')
                     })
-            )
-    )
+            })
+    })
 
     it('fails on non-existing user', () => {
         let _error
@@ -42,7 +42,7 @@ describe('updateUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('user not found')
+                expect(_error.message).to.equal('usuario no encontrado')
             })
     })
 
@@ -55,7 +55,7 @@ describe('updateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(error.message).to.equal('userId no es una cadena')
         }
     })
 
@@ -68,7 +68,7 @@ describe('updateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid newImage')
+            expect(error.message).to.equal('newImage invalida')
         }
     })
 
@@ -81,7 +81,7 @@ describe('updateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('newName is not a string')
+            expect(error.message).to.equal('newName no es una cadena')
         }
     })
 
@@ -94,7 +94,7 @@ describe('updateUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('surname is not a string')
+            expect(error.message).to.equal('surname no es una cadena')
         }
     })
 

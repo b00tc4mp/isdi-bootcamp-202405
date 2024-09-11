@@ -10,7 +10,7 @@ export default (petsitterId) => {
     return User.findById(petsitterId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(petsitter => {
-            if (!petsitter) throw new NotFoundError('petsitter not found')
+            if (!petsitter) throw new NotFoundError('petsitter no encontrado')
 
             return Review.find({ petsitter: petsitterId }, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
@@ -19,7 +19,7 @@ export default (petsitterId) => {
                         return User.findById(review.author)
                             .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
-                                if (!author) throw new NotFoundError('author not found')
+                                if (!author) throw new NotFoundError('author no encontrado')
 
                                 review.author = {
                                     image: author.image,

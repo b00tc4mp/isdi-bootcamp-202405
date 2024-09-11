@@ -52,6 +52,7 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 - React
 - Mongo / Mongoose
 - Tailwindcss
+
 ### Data Model
 
 **User**

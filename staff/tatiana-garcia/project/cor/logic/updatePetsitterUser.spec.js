@@ -7,15 +7,15 @@ import { User } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
-const { ValidationError, NotFoundError, SystemError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('updatePetsitterUser', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on updating existing petsitter', () =>
-        User.create({
+    it('succeeds on updating existing petsitter', () => {
+        return User.create({
             image: 'https://hospitalveterinariodonostia.com/',
             name: 'Tatiana',
             city: 'Madrid',
@@ -26,8 +26,8 @@ describe('updatePetsitterUser', () => {
             role: 'petsitter',
             pets: ['conejos', 'cobayas']
         })
-            .then(petsitter =>
-                updatePetsitterUser(
+            .then(petsitter => {
+                return updatePetsitterUser(
                     petsitter.id,
                     'https://tse1.mm.bing.net/th?id=OIP.ThSvUMPscWe4Y80JlBFPhgHaFj&pid=Api&P=0&h=180',
                     'Vetpoint',
@@ -49,8 +49,8 @@ describe('updatePetsitterUser', () => {
                         expect(updatedPetsitter.phoneNumber).to.equal('655454545')
                         expect(updatedPetsitter.pets).to.deep.equal(['conejos', 'ratas', 'cobayas'])
                     })
-            )
-    )
+            })
+    })
 
     it('fails on non-existing petsitter', () => {
         let _error
@@ -69,7 +69,7 @@ describe('updatePetsitterUser', () => {
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
-                expect(_error.message).to.equal('petsitter not found')
+                expect(_error.message).to.equal('petsitter no encontrado')
             })
     })
 
@@ -92,7 +92,7 @@ describe('updatePetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(error.message).to.equal('userId no es una cadena')
         }
     })
 
@@ -138,7 +138,7 @@ describe('updatePetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('newName is not a string')
+            expect(error.message).to.equal('newName no es una cadena')
         }
     })
 
@@ -161,7 +161,7 @@ describe('updatePetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('the field can not be empty')
+            expect(error.message).to.equal('el campo no puede estar vacio')
         }
     })
 
@@ -184,7 +184,7 @@ describe('updatePetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid newContactEmail')
+            expect(error.message).to.equal('newContactEmail invalido')
         }
     })
 
@@ -207,7 +207,7 @@ describe('updatePetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('at least one pet must be selected')
+            expect(error.message).to.equal('debe seleccionarse al menos una mascota')
         }
     })
 
@@ -230,7 +230,7 @@ describe('updatePetsitterUser', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('pets is not an array')
+            expect(error.message).to.equal('pets no es un array')
         }
     })
 

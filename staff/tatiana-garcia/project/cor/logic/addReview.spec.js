@@ -56,7 +56,7 @@ describe('addReviews', () => {
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
+                expect(error.message).to.equal('usuario no encontrado')
             })
     })
 
@@ -68,7 +68,7 @@ describe('addReviews', () => {
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('petsitter not found')
+                expect(error.message).to.equal('petsitter no encontrado')
             })
     })
 
@@ -81,7 +81,7 @@ describe('addReviews', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(error.message).to.equal('userId no es una cadena')
         }
     })
 
@@ -94,7 +94,7 @@ describe('addReviews', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('petsitterId is not a string')
+            expect(error.message).to.equal('petsitterId no es una cadena')
         }
     })
 
@@ -107,7 +107,7 @@ describe('addReviews', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid petsitterId')
+            expect(error.message).to.equal('petsitterId invalido')
         }
     })
 
@@ -120,7 +120,7 @@ describe('addReviews', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('comment is not a string')
+            expect(error.message).to.equal('comment no es una cadena')
         }
     })
 
@@ -133,7 +133,7 @@ describe('addReviews', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('rate is not a number')
+            expect(error.message).to.equal('rate no es un numero')
         }
     })
 

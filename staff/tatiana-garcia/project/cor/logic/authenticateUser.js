@@ -14,13 +14,13 @@ export default (email, password) => {
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user)
-                throw new NotFoundError('user not found')
+                throw new NotFoundError('usuario no encontrado')
 
             return bcrypt.compare(password, user.password)
                 .catch(error => { throw new SystemError(error.message) })
                 .then(match => {
                     if (!match)
-                        throw new CredentialsError('wrong password')
+                        throw new CredentialsError('password incorrecto')
 
                     user.id = user._id.toString()
                     delete user._id

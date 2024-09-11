@@ -13,13 +13,13 @@ export default (image, name, surname, email, password, passwordRepeat) => {
     validate.password(password)
     validate.password(passwordRepeat, 'passwordRepeat')
 
-    if (password !== passwordRepeat) throw new ValidationError('passwords do not match')
+    if (password !== passwordRepeat) throw new ValidationError('los passwords no coinciden')
 
     return User.findOne({ email }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (user)
-                throw new DuplicityError('email already exists')
+                throw new DuplicityError('email ya existente')
 
             return bcrypt.hash(password, 8)
                 .catch(error => { throw new SystemError(error.message) })
