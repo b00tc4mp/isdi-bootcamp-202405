@@ -11,11 +11,13 @@ import Confirm from '../common/Confirm'
 
 import ImageProduct from './ImageProduct'
 import PriceProduct from './PriceProduct'
+import LocationProduct from './LocationProduct'
 
-export default function UserProduct({ product, onProductEnableToggled, onProductDeleted, onProductImageEdited, onProductPriceEdited }) {
+export default function UserProduct({ product, onProductEnableToggled, onProductDeleted, onProductImageEdited, onProductPriceEdited, onProductLocationEdited }) {
 
     const [isEditImageProductModalVisible, setIsEditImageProductModalVisible] = useState(false)
     const [isEditPriceProductModalVisible, setIsEditPriceProductModalVisible] = useState(false)
+    const [isEditLocationProductModalVisible, setIsEditLocationProductModalVisible] = useState(false)
 
     const [confirmMessage, setConfirmMessage] = useState(null)
 
@@ -42,12 +44,18 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
     const handleEditImageProductClick = () => {
         setIsEditImageProductModalVisible(true)
         setIsEditPriceProductModalVisible(false)
-        // setIsPasswordModalVisible(false)
+        setIsEditLocationProductModalVisible(false)
+    }
+
+    const handleEditLocationProductClick = () => {
+        setIsEditLocationProductModalVisible(true)
+        setIsEditImageProductModalVisible(false)
+        setIsEditPriceProductModalVisible(false)
     }
 
     const handleEditPriceProductClick = () => {
         setIsEditPriceProductModalVisible(true)
-        // setIsPasswordModalVisible(false)
+        setIsEditLocationProductModalVisible(false)
         setIsEditImageProductModalVisible(false) // Ensure EditImageProduct modal is hidden
     }
 
@@ -70,13 +78,13 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
 
     const handleCancel = () => {
         setIsEditPriceProductModalVisible(false)
-        // setIsPasswordModalVisible(false)
+        setIsEditLocationProductModalVisible(false)
         setIsEditImageProductModalVisible(false)
     }
 
     const handleAccept = () => {
         setIsEditPriceProductModalVisible(false)
-        // setIsPasswordModalVisible(false)
+        setIsEditLocationProductModalVisible(false)
         setIsEditImageProductModalVisible(false)
     }
 
@@ -121,7 +129,19 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
         </Container>
         <Container>
             <Button onClick={handleEnableProductClick}>{product.enabled ? <Image src='/icons/enable.svg' alt='enable icon' className='h-[30px] w-[30px]' /> : <Image src='/icons/enable-off.svg' alt='enable off icon' className='h-[30px] w-[30px]' />}</Button>
-            <Button onClick={handleDeleteProductClick}>🗑️</Button>
+            <Button onClick={handleDeleteProductClick}><Image src='/icons/delete.svg' alt='delete icon' className='h-[30px] w-[30px]' /></Button>
+            <Button onClick={handleEditLocationProductClick}><Image src='/icons/location.svg' alt='location icon' className='h-[30px] w-[30px]' /></Button>
+            {isEditLocationProductModalVisible && (
+                <LocationProduct
+                    message='Confirm image change?'
+                    product={product}
+                    onAccept={() => {
+                        handleAccept()
+                        onProductLocationEdited()  // Llama al evento para recargar productos
+                    }}
+                    onCancel={handleCancel}
+                />
+            )}
         </Container>
         {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteProductAccept} onCancel={handleDeleteProductCancel} />}
     </article>

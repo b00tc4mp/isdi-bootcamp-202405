@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 import UserProduct from './UserProduct'
 
 export default function ProductsList({ refreshStamp }) {
-    console.debug('PostList -> call')
 
     const [products, setProducts] = useState([])
 
@@ -27,6 +26,10 @@ export default function ProductsList({ refreshStamp }) {
 
     const handleProductPriceEdited = () => {
         loadProducts()  // Recargar los productos después de editar el precio
+    }
+
+    const handleProductLocationEdited = () => {
+        loadProducts()
     }
 
     const loadProducts = () => {
@@ -51,8 +54,9 @@ export default function ProductsList({ refreshStamp }) {
             product={product}
             onProductDeleted={handleProductDeleted}
             onProductEnableToggled={handleProductEnableToggled}
-            onProductImageEdited={handleProductImageEdited} ç
+            onProductImageEdited={handleProductImageEdited}
             onProductPriceEdited={handleProductPriceEdited}
+            onProductLocationEdited={handleProductLocationEdited}
         />)}
     </section>
 }

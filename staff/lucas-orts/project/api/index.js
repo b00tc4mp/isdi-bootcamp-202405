@@ -17,7 +17,8 @@ import {
     updateProductImageHandler,
     toggleProductEnableHandler,
     deleteProductHandler,
-    getAllUserProductsHandler
+    getAllUserProductsHandler,
+    updateProductLocationHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -47,6 +48,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/products/:productId/price', jwtVerifier, jsonBodyParser, updateProductPriceHandler)
 
         api.patch('/products/:productId/image', jwtVerifier, jsonBodyParser, updateProductImageHandler)
+
+        api.patch('/products/:productId/location', jwtVerifier, jsonBodyParser, updateProductLocationHandler)
 
         api.patch('/products/:productId/enable', jwtVerifier, toggleProductEnableHandler)
 

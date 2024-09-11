@@ -11,7 +11,7 @@ export default (userId, name, type, minprice, maxprice, image, location) => {
     validate.number(minprice, 'minprice')
     validate.number(maxprice, 'maxprice')
     validate.url(image, 'image')
-    validate.location(location, 'location')
+    validate.location(location)
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
