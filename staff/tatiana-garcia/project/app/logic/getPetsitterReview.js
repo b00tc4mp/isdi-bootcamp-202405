@@ -5,9 +5,7 @@ const { SystemError } = errors
 export default (petsitterId) => {
     validate.string(petsitterId)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${petsitterId}/reviews`, {
-        method: 'GET'
-    })
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${petsitterId}/reviews`)
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response

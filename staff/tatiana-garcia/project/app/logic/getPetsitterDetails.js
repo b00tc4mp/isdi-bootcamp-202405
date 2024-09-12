@@ -3,9 +3,7 @@ import { errors } from '../../com/index.js'
 const { SystemError } = errors
 
 export default (petsitterId) => {
-    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${petsitterId}`, {
-        method: 'GET'
-    })
+    return fetch(`${import.meta.env.VITE_API_URL}/petsitters/${petsitterId}`)
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response

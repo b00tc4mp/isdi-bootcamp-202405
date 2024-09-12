@@ -8,7 +8,6 @@ export default () => {
     const { sub: userId } = extractPayLoadFromToken(sessionStorage.token)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
-        method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

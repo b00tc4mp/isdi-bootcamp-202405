@@ -5,7 +5,6 @@ const { SystemError } = errors
 export default (userId) => {
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
-        method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
