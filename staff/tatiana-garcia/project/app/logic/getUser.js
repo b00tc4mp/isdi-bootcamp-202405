@@ -1,8 +1,9 @@
-import { errors } from '../../com/index.js'
+import { errors, validate } from '../../com/index.js'
 
 const { SystemError } = errors
 
 export default (userId) => {
+    validate.id(userId, 'userId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         headers: {

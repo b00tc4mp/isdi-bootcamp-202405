@@ -5,14 +5,14 @@ import { expect } from 'chai'
 const { ObjectId } = Types
 
 
-import getPetsitterReview from './getPetsitterReview.js'
+import getPetsitterReviews from './getPetsitterReviews.js'
 import { User, Review } from '../data/models.js'
 
 import { errors } from '../../com/index.js'
 
 const { NotFoundError, ValidationError } = errors
 
-describe('getPetsitterReview', () => {
+describe('getPetsitterReviews', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
     beforeEach(() => Promise.all([User.deleteMany(), Review.deleteMany()]))
@@ -29,7 +29,7 @@ describe('getPetsitterReview', () => {
                             rate: 5
                         })
                             .then(() => {
-                                return getPetsitterReview(petsitter.id)
+                                return getPetsitterReviews(petsitter.id)
                             })
                     })
             })
@@ -48,7 +48,7 @@ describe('getPetsitterReview', () => {
             comment: 'Me ha encantado la guardería',
             rate: 5
         })
-            .then(() => getPetsitterReview('66cc32b55e0e1ff3003b3efa'))
+            .then(() => getPetsitterReviews('66cc32b55e0e1ff3003b3efa'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -67,7 +67,7 @@ describe('getPetsitterReview', () => {
                     comment: 'Me ha encantado la guardería',
                     rate: 5
                 })
-                    .then(() => getPetsitterReview(user.id))
+                    .then(() => getPetsitterReviews(user.id))
             })
             .catch(error => _error = error)
             .finally(() => {
@@ -80,7 +80,7 @@ describe('getPetsitterReview', () => {
         let error
 
         try {
-            getPetsitterReview(123)
+            getPetsitterReviews(123)
         } catch (_error) {
             error = _error
         } finally {

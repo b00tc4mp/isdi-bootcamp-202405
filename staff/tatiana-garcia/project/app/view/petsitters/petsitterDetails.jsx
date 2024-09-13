@@ -16,6 +16,7 @@ import Paragraph from '../library/Paragraph'
 import Button from '../library/Button.jsx'
 import Label from '../library/Label'
 import Form from '../library/Form.jsx'
+import Image from '../library/Image.jsx'
 
 import Review from './Review.jsx'
 import extractPayloadFromToken from '../../util/extractPayLoadFromToken.js'
@@ -105,7 +106,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
     const loadReviews = () => {
         try {
-            logic.getPetsitterReview(petsitterId)
+            logic.getPetsitterReviews(petsitterId)
                 .then(reviews => setReviews(reviews))
                 .catch(error => {
                     console.error(error)
@@ -169,7 +170,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
             {petsitter != null ? (
                 <Container className='text-lg m-2 bg-white p-4 rounded-[50px] shadow-lg'>
                     <Container className='flex items-center '>
-                        <img src={petsitter.image} alt='imagen guarderia' className='h-24 w-24 rounded-[15px] m-1' />
+                        <Image src={petsitter.image} alt='imagen guarderia' className='h-24 w-24 rounded-[15px] m-1' />
 
                         <Container>
                             <Heading className='text-base font-bold m-2'>{petsitter.name}</Heading>

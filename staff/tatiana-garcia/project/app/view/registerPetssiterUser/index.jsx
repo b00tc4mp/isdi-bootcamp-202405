@@ -1,12 +1,14 @@
 import logic from '../../logic'
 
 import Container from '../library/Container'
+import Button from '../library/Button'
 import Label from '../library/Label'
 import Input from '../library/Input'
 import Link from '../library/Link'
 import Footer from '../home/Footer'
 import Heading from '../library/Heading'
 import Header from '../home/Header'
+import Form from '../library/Form'
 
 import useContext from '../context'
 import { useState } from 'react'
@@ -80,7 +82,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro de guardería</Heading>
 
-                <form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
+                <Form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
@@ -178,67 +180,67 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                     </Container>
 
                     <Container>
-                        <label htmlFor='pets-input'>¿Qué animales cuidas?</label><br /><br />
+                        <Label htmlFor='pets-input'>¿Qué animales cuidas?</Label><br /><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='rabbits-input'
                             value='rabbits'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='rabbits-input' className='p-2'>Conejos</label><br />
+                        <Label htmlFor='rabbits-input' className='p-2'>Conejos</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='guinea-pig-input'
                             value='guineaPig'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='guinea-pig-input' className='p-2'>Cobayas</label><br />
+                        <Label htmlFor='guinea-pig-input' className='p-2'>Cobayas</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='hamsters-input'
                             value='hamsters'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='hamsters-input' className='p-2'>Hamsters</label><br />
+                        <Label htmlFor='hamsters-input' className='p-2'>Hamsters</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='rats-input'
                             value='rats'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='rats-input' className='p-2'>Ratas</label><br />
+                        <Label htmlFor='rats-input' className='p-2'>Ratas</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='birds-input'
                             value='birds'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='birds-input' className='p-2'>Aves</label><br />
+                        <Label htmlFor='birds-input' className='p-2'>Aves</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='reptiles-input'
                             value='reptiles'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
-                        <label htmlFor='reptiles-input' className='p-2'>Reptiles</label><br /><br />
+                        <Label htmlFor='reptiles-input' className='p-2'>Reptiles</Label><br /><br />
                     </Container>
 
                     <Container className='text-center'>
-                        <button className='w-32 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Regístrate'}</button>
+                        <Button className='w-32 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Regístrate'}</Button>
                     </Container>
-                </form>
+                </Form>
                 <Container className='text-center  pb-8 pt-2'>
                     <Link className='text-bold text-teal-600 hover:text-teal-900' onClick={handleLoginClick}>¿Ya tienes tu cuenta? Loguéate</Link>
                 </Container>

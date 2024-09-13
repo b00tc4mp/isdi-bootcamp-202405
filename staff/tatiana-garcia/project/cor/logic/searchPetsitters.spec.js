@@ -14,8 +14,8 @@ describe('searchPetsitters', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on returning petsitters by city', () =>
-        Promise.all([
+    it('succeeds on returning petsitters by city', () => {
+        return Promise.all([
             User.create({
                 image: 'https://hospitalveterinariodonostia.com/',
                 name: 'Tatiana',
@@ -45,7 +45,7 @@ describe('searchPetsitters', () => {
                 expect(petsitters[0].city).to.equal('Barcelona')
                 expect(petsitters[1].city).to.equal('Barcelona')
             })
-    )
+    })
 
     it('succeeds on returning petsitters by city and pet type', () =>
         Promise.all([

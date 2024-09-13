@@ -5,7 +5,7 @@ import Footer from './Footer'
 import Paragraph from '../library/Paragraph'
 import Image from '../library/Image'
 
-export default function Home({ }) {
+export default function Home() {
     return <>
         <Header />
         <main className='flex flex-col max-w-screen-md items-center mt-16 mb-12 bg-teal-100'>

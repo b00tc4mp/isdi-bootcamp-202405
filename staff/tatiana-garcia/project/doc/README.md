@@ -50,8 +50,10 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 - Node
 - Express
 - React
-- Mongo / Mongoose
-- Tailwindcss
+- Mongodb / Mongoose
+- TailwindCSS
+- Bcrypt
+- JWT
 
 ### Data Model
 
@@ -77,3 +79,7 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
   - rate (number)
   - date (Date)
   - comment (string, optional)
+
+  ### Test Coverage
+
+  ![Test Coverage]()

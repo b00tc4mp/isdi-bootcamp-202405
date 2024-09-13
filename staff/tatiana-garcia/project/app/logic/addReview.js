@@ -3,8 +3,8 @@ import { validate, errors } from '../../com/index.js'
 const { SystemError, DuplicityError } = errors
 
 export default (userId, petsitterId, comment, rate) => {
-    validate.string(userId, 'userId')
-    validate.string(petsitterId, 'petsitterId')
+    validate.id(userId, 'userId')
+    validate.id(petsitterId, 'petsitterId')
     validate.string(comment, 'comment')
     validate.number(rate, 'rate')
 

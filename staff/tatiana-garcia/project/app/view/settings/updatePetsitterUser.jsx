@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Container from '../library/Container'
+import Button from '../library/Button'
+import Form from '../library/Form'
 import Label from '../library/Label'
 import Input from '../library/Input'
 import Link from '../library/Link'
@@ -112,7 +114,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center text-2xl pt-12 font-bold '>Editar guardería</Heading>
 
-                {petsitter && <form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-3 space-y-2'>
+                {petsitter && <Form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-3 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' defaultValue={petsitter.image} placeholder='https://' />
@@ -195,9 +197,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                     </Container>
 
                     <Container>
-                        <label htmlFor='pets-input'>¿Qué animales cuidas?</label><br /><br />
+                        <Label htmlFor='pets-input'>¿Qué animales cuidas?</Label><br /><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='rabbits-input'
                             value='rabbits'
@@ -205,9 +207,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                             onChange={handlePetChange}
                             checked={selectedPets.includes('rabbits')}
                         />
-                        <label htmlFor='rabbits-input' className='p-2'>Conejos</label><br />
+                        <Label htmlFor='rabbits-input' className='p-2'>Conejos</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='guinea-pig-input'
                             value='guineaPig'
@@ -215,9 +217,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                             onChange={handlePetChange}
                             checked={selectedPets.includes('guineaPig')}
                         />
-                        <label htmlFor='guinea-pig-input' className='p-2'>Cobayas</label><br />
+                        <Label htmlFor='guinea-pig-input' className='p-2'>Cobayas</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='hamsters-input'
                             value='hamsters'
@@ -225,9 +227,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                             onChange={handlePetChange}
                             checked={selectedPets.includes('hamsters')}
                         />
-                        <label htmlFor='hamsters-input' className='p-2'>Hamsters</label><br />
+                        <Label htmlFor='hamsters-input' className='p-2'>Hamsters</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='rats-input'
                             value='rats'
@@ -235,9 +237,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                             onChange={handlePetChange}
                             checked={selectedPets.includes('rats')}
                         />
-                        <label htmlFor='rats-input' className='p-2'>Ratas</label><br />
+                        <Label htmlFor='rats-input' className='p-2'>Ratas</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='birds-input'
                             value='birds'
@@ -245,9 +247,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                             onChange={handlePetChange}
                             checked={selectedPets.includes('birds')}
                         />
-                        <label htmlFor='birds-input' className='p-2'>Aves</label><br />
+                        <Label htmlFor='birds-input' className='p-2'>Aves</Label><br />
 
-                        <input
+                        <Input
                             type='checkbox'
                             id='reptiles-input'
                             value='reptiles'
@@ -255,13 +257,13 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                             onChange={handlePetChange}
                             checked={selectedPets.includes('reptiles')}
                         />
-                        <label htmlFor='reptiles-input' className='p-2'>Reptiles</label><br /><br />
+                        <Label htmlFor='reptiles-input' className='p-2'>Reptiles</Label><br /><br />
                     </Container>
 
                     <Container className='text-center'>
-                        <button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</button>
+                        <Button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</Button>
                     </Container>
-                </form>}
+                </Form>}
                 <Container className='text-center  pb-8 pt-2'>
                     <Link className='font-bold p-2 text-teal-700 hover:text-teal-900' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>

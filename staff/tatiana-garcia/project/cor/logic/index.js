@@ -7,7 +7,7 @@ import getAllPetsitters from './getAllPetsitters.js'
 import searchPetsitters from './searchPetsitters.js'
 import getPetsitterDetails from './getPetsitterDetails.js'
 import addReview from './addReview.js'
-import getPetsitterReview from './getPetsitterReview.js'
+import getPetsitterReviews from './getPetsitterReviews.js'
 import deletePetsitterReview from './deletePetsitterReview.js'
 import updatePetsitterUser from './updatePetsitterUser.js'
 import getUserName from './getUserName.js'
@@ -22,7 +22,7 @@ const logic = {
     searchPetsitters,
     getPetsitterDetails,
     addReview,
-    getPetsitterReview,
+    getPetsitterReviews,
     deletePetsitterReview,
     updatePetsitterUser,
     getUserName

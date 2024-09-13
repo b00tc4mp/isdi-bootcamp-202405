@@ -71,7 +71,7 @@ describe('authenticateUser', () => {
     it('fails on wrong password', () => {
         let error
 
-        bcrypt.hash('123123123', 8)
+        return bcrypt.hash('123123123', 8)
             .then(hash =>
                 User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: hash })
             )
@@ -85,16 +85,16 @@ describe('authenticateUser', () => {
 
     it('fails on wrong email', () => {
         let error
-
-        bcrypt.hash('123123123', 8)
+        debugger
+        return bcrypt.hash('123123123', 8)
             .then(hash =>
                 User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: hash })
             )
             .then(() => authenticateUser('pepe@garcia.com', '123123123'))
             .catch(_error => error = _error)
             .finally(() => {
-                expect(error).to.be.instanceOf(CredentialsError)
-                expect(error.message).to.equal('email incorrecto')
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('usuario no encontrado')
             })
     })
 

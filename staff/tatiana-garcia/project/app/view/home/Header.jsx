@@ -9,15 +9,12 @@ import Link from '../library/Link.jsx'
 
 export default function Header() {
     const [name, setName] = useState(null)
-    const [userRole, setUserRole] = useState(null)
 
     useEffect(() => {
         if (logic.isUserLoggedIn()) {
             logic.getUserName()
                 .then(name => {
                     setName(name)
-                    const role = logic.getUserRole()
-                    setUserRole(role)
                 })
                 .catch(error => {
                     console.error(error)

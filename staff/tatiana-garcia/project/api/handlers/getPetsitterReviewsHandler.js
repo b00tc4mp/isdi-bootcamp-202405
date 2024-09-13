@@ -4,7 +4,7 @@ export default (req, res, next) => {
     const { petsitterId } = req.params
 
     try {
-        logic.getPetsitterReview(petsitterId)
+        logic.getPetsitterReviews(petsitterId)
             .then(reviews => res.json(reviews))
             .catch(error => next(error))
     } catch (error) {

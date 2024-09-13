@@ -7,7 +7,7 @@ import getAllPetsittersHandler from './getAllPetsittersHandler.js'
 import searchPetsittersHandler from './searchPetsittersHandler.js'
 import getPetsitterDetailsHandler from './getPetsitterDetailsHandler.js'
 import addReviewHandler from './addReviewHandler.js'
-import getPetsitterReviewHandler from './getPetsitterReviewHandler.js'
+import getPetsitterReviewsHandler from './getPetsitterReviewsHandler.js'
 import deletePetsitterReview from './deletePetsitterReview.js'
 import updatePetsitterUserHandler from './updatePetsitterUserHandler.js'
 import getUserNameHandler from './getUserNameHandler.js'
@@ -23,7 +23,7 @@ export {
     searchPetsittersHandler,
     getPetsitterDetailsHandler,
     addReviewHandler,
-    getPetsitterReviewHandler,
+    getPetsitterReviewsHandler,
     deletePetsitterReview,
     updatePetsitterUserHandler,
     getUserNameHandler

@@ -7,6 +7,10 @@ const { SystemError } = errors
 export default (city, pet = null) => {
     validate.city(city, 'city')
 
+    if (pet) {
+        validate.string(pet, 'pet')
+    }
+
     const query = { role: 'petsitter', city: city }
 
     if (pet) {

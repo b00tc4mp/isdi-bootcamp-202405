@@ -11,7 +11,7 @@ import searchPetsitters from './searchPetsitters'
 import getAllPetsitters from './getAllPetsitters'
 import getPetsitterDetails from './getPetsitterDetails'
 import addReview from './addReview'
-import getPetsitterReview from './getPetsitterReview'
+import getPetsitterReviews from './getPetsitterReviews'
 import deletePetsitterReview from './deletePetsitterReview'
 import updatePetsitterUser from './updatePetsitterUser'
 import getUserName from './getUserName'
@@ -30,7 +30,7 @@ const logic = {
     getAllPetsitters,
     getPetsitterDetails,
     addReview,
-    getPetsitterReview,
+    getPetsitterReviews,
     deletePetsitterReview,
     updatePetsitterUser,
     getUserName

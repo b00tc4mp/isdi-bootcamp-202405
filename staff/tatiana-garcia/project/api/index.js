@@ -16,7 +16,7 @@ import {
     searchPetsittersHandler,
     getPetsitterDetailsHandler,
     addReviewHandler,
-    getPetsitterReviewHandler,
+    getPetsitterReviewsHandler,
     deletePetsitterReview,
     updatePetsitterUserHandler
 
@@ -46,7 +46,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/petsitters/:petsitterId', getPetsitterDetailsHandler)
 
-        api.get('/petsitters/:petsitterId/reviews', getPetsitterReviewHandler)
+        api.get('/petsitters/:petsitterId/reviews', getPetsitterReviewsHandler)
 
         api.post('/petsitters/:petsitterId/review', jsonBodyParser, addReviewHandler)
 

@@ -6,12 +6,12 @@ import { MdDelete as DeleteIcon } from 'react-icons/md'
 import Container from '../library/Container'
 import Paragraph from '../library/Paragraph'
 import Button from '../library/Button'
+import Image from '../library/Image'
 
 import extractPayloadFromToken from '../../util/extractPayLoadFromToken'
 import isUserLoggedIn from '../../logic/isUserLoggedIn'
 
 export default function Review({ review, onDelete }) {
-
     const [deleteVisibility, setDeleteVisibility] = useState(false)
 
     useEffect(() => {
@@ -21,8 +21,7 @@ export default function Review({ review, onDelete }) {
                 setDeleteVisibility(true)
             }
         }
-    })
-
+    }, [])
 
     const handlePetsitterDelete = () => {
         onDelete(review.id)
@@ -30,7 +29,7 @@ export default function Review({ review, onDelete }) {
 
     return <Container className='flex flex-row items-center border-y border-solid border-gray-400 px-2'>
         <Container className='flex flex-row w-full h-auto'>
-            <img src={review.author.image} alt='imagen usuario' className='h-24 w-24 rounded-[15px] mr-4 p-2 ml-3' />
+            <Image src={review.author.image} alt='imagen usuario' className='h-24 w-24 rounded-[15px] mr-4 p-2 ml-3' />
             <Container className='flex flex-col'>
                 <Paragraph className='text-sm my-1 ml-1 font-bold'>{review.author.name}</Paragraph>
                 <Paragraph className='text-sm my-1 ml-1'>{review.comment}</Paragraph>

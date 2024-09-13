@@ -42,7 +42,7 @@ export default function Login({ onLogin, onRegisterClick }) {
                     if (error instanceof NotFoundError || error instanceof CredentialsError)
                         message = 'nombre de usuario y/o contraseña incorrectos'
 
-                    alert(message)
+                    alert(error.message)
                 })
         } catch (error) {
             console.error(error)

@@ -15,13 +15,11 @@ describe('getUserName', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on existing user', () => { //REVISAR
-        User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
-            .then(user => getUserName(user.id))
-            .then(user => expect(user.name).to.equal('Tatiana'))
+    it('succeeds on existing user', () => {
+        return User.create({ image: 'https://www.ngenespanol.com/', name: 'Tatiana', surname: 'Garcia', email: 'tati@garcia.com', password: '123123123', passwordRepeat: '123123123', role: 'regular' })
+            .then(user => getUserName(user.id)
+                .then(userName => expect(userName).to.equal('Tatiana')))
     })
-
-
 
     it('fails on non existing user', () => {
         let _error

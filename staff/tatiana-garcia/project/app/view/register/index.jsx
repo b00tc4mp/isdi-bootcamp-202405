@@ -1,6 +1,7 @@
 import logic from '../../logic'
 
 import Container from '../library/Container'
+import Button from '../library/Button'
 import Label from '../library/Label'
 import Input from '../library/Input'
 import Link from '../library/Link'
@@ -9,6 +10,7 @@ import Heading from '../library/Heading'
 import Header from '../home/Header'
 
 import useContext from '../context'
+import Form from '../library/Form'
 
 export default function Register({ onRegister, onLoginClick }) {
     const { alert } = useContext()
@@ -59,7 +61,7 @@ export default function Register({ onRegister, onLoginClick }) {
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro</Heading>
 
-                <form onSubmit={handleRegisterSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
+                <Form onSubmit={handleRegisterSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
@@ -91,9 +93,9 @@ export default function Register({ onRegister, onLoginClick }) {
                     </Container>
 
                     <Container className='text-center'>
-                        <button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Regístrate'}</button>
+                        <Button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Regístrate'}</Button>
                     </Container>
-                </form>
+                </Form>
                 <Container className='text-center  pb-8 pt-2'>
                     <Link className='text-bold text-teal-600 hover:text-teal-900' onClick={handleLoginClick}>¿Ya tienes tu cuenta? Loguéate</Link>
                 </Container>

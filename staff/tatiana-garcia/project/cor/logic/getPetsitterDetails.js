@@ -14,6 +14,7 @@ export default (petsitterId) => {
             petsitter.id = petsitter._id.toString()
 
             delete petsitter._id
+            delete petsitter.__v
 
             return petsitter
         })
