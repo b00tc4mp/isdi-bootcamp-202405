@@ -60,47 +60,47 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-white via-cyan-50 to-cyan-200 text-gray-800 p-8">
+    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 p-8 text-blue-300">
         <Heading
             level="1"
-            className="text-2xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-cyan-500 mb-4"
+            className="text-4xl font-bold tracking-wide text-transparent bg-clip-text text-orange-400 mb-8"
         >
             ⚡️Login⚡️
         </Heading>
 
         <Form
             onSubmit={handleLoginSubmit}
-            className="flex flex-col items-center gap-4 bg-white bg-opacity-80 p-4 rounded-lg shadow-2xl w-full max-w-xs"
+            className="flex flex-col items-center gap-4 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg w-full max-w-sm"
         >
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="username-input" className="text-base font-medium text-gray-700">
+                <Label htmlFor="username-input" className="text-lg font-medium text-blue-400">
                     Username
                 </Label>
                 <Input
                     type="text"
                     id="username-input"
                     name="username"
-                    placeholder="username"
-                    className="w-full mt-1 p-2 bg-white border border-cyan-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    placeholder="Enter your username"
+                    className="w-full mt-2 p-3 bg-transparent border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="password-input" className="text-base font-medium text-gray-700">
+                <Label htmlFor="password-input" className="text-lg font-medium text-blue-400">
                     Password
                 </Label>
                 <Input
                     type="password"
                     id="password-input"
                     name="password"
-                    placeholder="password"
-                    className="w-full mt-1 p-2 bg-white border border-cyan-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    placeholder="Enter your password"
+                    className="w-full mt-2 p-3 bg-transparent border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
             </Container>
 
             <Button
                 type="submit"
-                className="mt-3 px-4 py-2 bg-cyan-300 text-gray-800 border border-transparent rounded-full shadow-lg transition-transform transform hover:scale-105 hover:bg-cyan-400 hover:text-yellow-500"
+                className="mt-4 px-6 py-3 bg-gradient-to-b from-cyan-800 via-gray-800 to-cyan-800 p-8  text-orange-400 rounded-full shadow-md transition-transform transform hover:scale-105 hover:shadow-xl"
             >
                 Login
             </Button>
@@ -108,9 +108,10 @@ export default function Login({ onLogin, onRegisterClick }) {
 
         <Link
             onClick={handleRegisterClick}
-            className="mt-3 text-xs text-cyan-600 hover:text-yellow-500 transition-colors"
+            className="mt-4 text-sm text-orange-400 hover:text-teal-300 transition-colors"
         >
             Register
         </Link>
     </main>
-}    
+
+}      

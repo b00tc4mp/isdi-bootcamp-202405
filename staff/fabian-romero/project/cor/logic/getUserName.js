@@ -19,5 +19,6 @@ export default (userId, targetUserId) => {
             if (!targetUser) throw new NotFoundError('Target user not found')
 
             return targetUser.name
+
         })
 }

@@ -2,9 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default avatar => {
-    validate.string(userId, 'userId')
-    validate.url(avatar, 'image')
+export default newAvatar => {
+    validate.url(newAvatar, 'avatar')
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/avatar`, {
         method: 'PATCH',
@@ -12,7 +11,7 @@ export default avatar => {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image })
+        body: JSON.stringify({ avatar: newAvatar })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

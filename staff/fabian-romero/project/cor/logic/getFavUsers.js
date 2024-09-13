@@ -11,7 +11,7 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.find({ _id: { $in: user.favs } }).lean()
+            return User.find({ _id: { $in: user.match } }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(usersFavs => {
                     if (!usersFavs || usersFavs.length === 0)
@@ -28,3 +28,5 @@ export default userId => {
                 })
         })
 }
+
+//ESTA LOGICA LA QUIERO USAR PARA MATCH, QUE PUEDA VER MIS MATCH DENTRO DE LA APP EN VEZ DE UNA LISTA DE FAVORITOS

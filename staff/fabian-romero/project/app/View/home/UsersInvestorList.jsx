@@ -15,8 +15,8 @@ export default function UsersInvestorList({ refreshStamp }) {
         loadUsers()
     }, [refreshStamp])
 
-    const handleUserFavToggled = () => {
-        console.debug('UsersInvestorList -> handleUserFavToggled')
+    const handleUserMatchToggled = () => {
+        console.debug('UsersInvestorList -> handleUserMatchToggled')
         loadUsers()
     }
 
@@ -33,14 +33,19 @@ export default function UsersInvestorList({ refreshStamp }) {
     const loadUsers = () => {
         try {
             logic.getAllProjects()
-                .then(users => setUsers(users))
+                .then(users => {
+                    setUsers(users)
+                    console.log(users)
+                })
                 .catch(error => {
                     console.error(error)
+
                     alert(error.message)
                 })
         } catch (error) {
             console.error(error)
-            alert(error)
+
+            alert(error.message)
         }
     }
 
@@ -49,7 +54,7 @@ export default function UsersInvestorList({ refreshStamp }) {
             key={user.id}
             user={user}
             onUserLikeToggled={handleUserLikeToggled}
-            onUserFavToggled={handleUserFavToggled}
+            onUserMatchToggled={handleUserMatchToggled}
             onUserDislikeToggled={handleUserDislikeToggled}
         />)}
     </section>

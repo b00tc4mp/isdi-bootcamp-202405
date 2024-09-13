@@ -68,7 +68,7 @@ const userSchema = new Schema({
         type: String,
     },
 
-    favs: {
+    match: {
         type: [String],
         ref: 'project',
     },
@@ -78,7 +78,7 @@ const userSchema = new Schema({
         ref: 'project',
     },
 
-    favs: {
+    match: {
         type: [String],
         ref: 'inversor',
     },

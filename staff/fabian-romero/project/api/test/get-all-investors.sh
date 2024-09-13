@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/investors -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNiNDAxYzQzYTU3NTg4ODM3NmZjOWQiLCJyb2xlIjoiaW52ZXN0b3IiLCJpYXQiOjE3MjQ2NjEyNTd9.5nXyhhwDbJiNvg_cEVt1J9k_sMHSwGYVChJ6esmbjAA"
+curl -v http://localhost:8080/users/investors -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNkYjQ3NzJlMzZkMjU0ZDg4M2QyNTEiLCJyb2xlIjoicHJvamVjdCIsImlhdCI6MTcyNDgzMjU0N30.5xYn3KOiwMDcRuCGCzMZk8A4Sujf7FPugfalnJvXJik"

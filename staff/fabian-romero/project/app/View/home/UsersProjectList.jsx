@@ -16,8 +16,8 @@ export default function UserProjectList({ refreshStamp }) {
     }, [refreshStamp])
 
 
-    const handleUserFavToggled = () => {
-        console.debug('UsersInvestorList -> handleUserFavToggled')
+    const handleUserMatchToggled = () => {
+        console.debug('UsersInvestorList -> handleUserMatchToggled')
         loadUsers()
     }
 
@@ -54,7 +54,7 @@ export default function UserProjectList({ refreshStamp }) {
             key={user.id}
             user={user}
             onUserLikeToggled={handleUserLikeToggled}
-            onUserFavToggled={handleUserFavToggled}
+            onUserMatchToggled={handleUserMatchToggled}
             onUserDislikeToggled={handleUserDislikeToggled}
         />)}
     </section>

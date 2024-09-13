@@ -28,8 +28,8 @@ export default function LikesList() {
         loadUsers()
     }
 
-    const handleUserFavToggled = () => {
-        console.debug('LikesList -> handleUserFavToggled')
+    const handleUserMatchToggled = () => {
+        console.debug('LikesList -> handleUserMatchToggled')
 
         loadUsers()
     }
@@ -55,7 +55,7 @@ export default function LikesList() {
             key={user.id}
             user={user}
             onUserLikeToggled={handleUserLikeToggled}
-            onUserFavToggled={handleUserFavToggled}
+            onUserMatchToggled={handleUserMatchToggled}
             onUserDislikeToggled={handleUserDislikeToggled}
         />)}
     </section>

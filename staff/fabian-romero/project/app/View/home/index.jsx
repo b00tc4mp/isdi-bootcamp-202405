@@ -6,7 +6,7 @@ import Header from './Header'
 import Footer from './Footer'
 import UsersInvestorList from './UsersInvestorList'
 import UsersProjectList from './UsersProjectList'
-import FavsList from './FavsList'
+import MatchList from './MatchList'
 import LikesList from './LikesList'
 import Profile from './Profile'
 import ResultsList from './ResultsList'
@@ -55,9 +55,9 @@ export default function Home({ onLogout }) {
         navigate('/')
     }
 
-    const handleFavsClick = () => {
-        console.debug('Home -> handleFavsClick')
-        navigate('/favs')
+    const handleMatchClick = () => {
+        console.debug('Home -> handleMatchClick')
+        navigate('/match')
     }
 
     const handleLikeClick = () => {
@@ -79,7 +79,7 @@ export default function Home({ onLogout }) {
     return <>
         <Header
             onHomeClick={handleHomeClick}
-            onFavsClick={handleFavsClick}
+            onMatchClick={handleMatchClick}
             onLikesClick={handleLikeClick}
             onLogout={onLogout}>
         </Header>
@@ -97,7 +97,7 @@ export default function Home({ onLogout }) {
                     }
                 />
                 <Route path="/hello/:to" element={<Hello />} />
-                <Route path="/favs" element={<FavsList />} />
+                <Route path="/match" element={<MatchList />} />
                 <Route path="/likes" element={<LikesList />} />
                 <Route path="/search" element={<ResultsList />} />
                 <Route path="/profile" element={<Profile />} />

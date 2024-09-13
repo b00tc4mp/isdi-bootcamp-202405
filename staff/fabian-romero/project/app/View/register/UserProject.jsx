@@ -77,19 +77,20 @@ export default function UserProject({ onRegister, onLoginClick }) {
         onLoginClick()
     }
 
-    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-white via-cyan-50 to-cyan-200 text-gray-800 p-8">
+    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 text-blue-300 p-8">
         <Heading
             level="1"
-            className="text-4xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-cyan-500 mb-8">
+            className="text-4xl font-bold tracking-wide text-transparent bg-clip-text text-orange-400 mb-8"
+        >
             ⚡️Register⚡️
         </Heading>
 
         <Form
             onSubmit={handleRegisterSubmit}
-            className="flex flex-col items-center gap-3 bg-white bg-opacity-80 p-6 rounded-lg shadow-2xl w-full max-w-md" >
-
+            className="flex flex-col items-center gap-4 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg w-full max-w-lg"
+        >
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="name-input" className="text-xs text-gray-700 font-medium"> Name </Label>
+                <Label htmlFor="name-input" className="text-xs text-gray-400 font-medium"> Name </Label>
                 <Input
                     type="text"
                     id="name-input"
@@ -99,7 +100,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="surname-input" className="text-xs text-gray-700"> Surname </Label>
+                <Label htmlFor="surname-input" className="text-xs text-gray-400"> Surname </Label>
                 <Input
                     type="text"
                     id="surname-input"
@@ -109,7 +110,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="email-input" className="text-xs text-gray-700"> E-mail </Label>
+                <Label htmlFor="email-input" className="text-xs text-gray-400"> E-mail </Label>
                 <Input
                     type="email"
                     id="email-input"
@@ -119,7 +120,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="phone-number-input" className="text-xs text-gray-700">  Phone Number </Label>
+                <Label htmlFor="phone-number-input" className="text-xs text-gray-400">  Phone Number </Label>
                 <Input
                     type="number"
                     id="phone-number-input"
@@ -129,7 +130,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="username-input" className="text-xs text-gray-700"> Username </Label>
+                <Label htmlFor="username-input" className="text-xs text-gray-400"> Username </Label>
                 <Input
                     type="text"
                     id="username-input"
@@ -139,7 +140,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="password-input" className="text-xs text-gray-700"> Password </Label>
+                <Label htmlFor="password-input" className="text-xs text-gray-400"> Password </Label>
                 <Input
                     type="password"
                     id="password-input"
@@ -149,7 +150,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="password-repeat-input" className="text-xs text-gray-700">
+                <Label htmlFor="password-repeat-input" className="text-xs text-gray-400">
                     Password Repeat
                 </Label>
                 <Input
@@ -161,7 +162,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="role-input" className="text-xs text-gray-700"> Role </Label>
+                <Label htmlFor="role-input" className="text-xs text-gray-400"> Role </Label>
                 <Input
                     type="text"
                     id="role-input"
@@ -174,7 +175,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
 
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="title-input" className="text-xs text-gray-700"> Title </Label>
+                <Label htmlFor="title-input" className="text-xs text-gray-400"> Title </Label>
                 <Input
                     type="text"
                     id="title-input"
@@ -184,7 +185,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="image-input" className="text-xs text-gray-700"> Image </Label>
+                <Label htmlFor="image-input" className="text-xs text-gray-400"> Image </Label>
                 <Input
                     type="text"
                     id="image-input"
@@ -194,7 +195,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="description-input" className="text-xs text-gray-700"> Description </Label>
+                <Label htmlFor="description-input" className="text-xs text-gray-400"> Description </Label>
                 <Input
                     type="text"
                     id="description-input"
@@ -204,7 +205,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="category-input" className="text-xs text-gray-700"> Category </Label>
+                <Label htmlFor="category-input" className="text-xs text-gray-400"> Category </Label>
                 <Input
                     type="select"
                     id="category-input"
@@ -214,7 +215,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="start-date-input" className="text-xs text-gray-700"> Start Date </Label>
+                <Label htmlFor="start-date-input" className="text-xs text-gray-400"> Start Date </Label>
                 <Input
                     type="date"
                     id="start-date-input"
@@ -224,7 +225,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="start-date-input" className="text-xs text-gray-700"> End Date </Label>
+                <Label htmlFor="start-date-input" className="text-xs text-gray-400"> End Date </Label>
                 <Input
                     type="date"
                     id="end-date-input"
@@ -234,7 +235,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="budget-goal-input" className="text-xs text-gray-700"> Budget Goal </Label>
+                <Label htmlFor="budget-goal-input" className="text-xs text-gray-400"> Budget Goal </Label>
                 <Input
                     type="text"
                     id="butget-goal-input"
@@ -244,7 +245,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="bank-input" className="text-xs text-gray-700"> Bank </Label>
+                <Label htmlFor="bank-input" className="text-xs text-gray-400"> Bank </Label>
                 <Input
                     type="select"
                     id="bank-input"
@@ -255,13 +256,17 @@ export default function UserProject({ onRegister, onLoginClick }) {
 
             <Button
                 type="submit"
-                className="mt-2 px-2 py-1 text-sm bg-cyan-300 text-gray-800 border border-transparent rounded-md shadow-sm transition-transform transform hover:scale-95 hover:bg-cyan-400 hover:text-yellow-500" > Create Project
+                className="mt-4 px-6 py-3 bg-gradient-to-b from-cyan-800 via-gray-800 to-cyan-800 text-orange-400 rounded-full shadow-md transition-transform transform hover:scale-105 hover:shadow-xl"
+            >
+                Create Project
             </Button>
         </Form>
 
         <Link
             onClick={handleLoginClick}
-            className="mt-4 text-sm text-cyan-600 hover:text-yellow-500 transition-colors" > Login
+            className="mt-4 text-sm text-orange-400 hover:text-teal-300 transition-colors"
+        >
+            Login
         </Link>
     </main>
 }    

@@ -11,8 +11,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/staff/fabian-romero/react/ponies/api",
-            "cwd": "${workspaceFolder}/staff/fabian-romero/react/ponies/api"
+            "program": "${workspaceFolder}/staff/fabian-romero/Rayo/api",
+            "cwd": "${workspaceFolder}/staff/fabian-romero/Rayo/api"
         }
     ]
 }

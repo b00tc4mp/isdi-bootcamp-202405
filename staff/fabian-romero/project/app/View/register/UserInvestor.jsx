@@ -65,118 +65,130 @@ export default function UserInvestor({ onRegister, onLoginClick }) {
     }
 
 
-    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-white via-cyan-50 to-cyan-200 text-gray-800 p-8">
+    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 text-blue-300 p-8">
         <Heading
             level="1"
-            className="text-4xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-cyan-500 mb-8">
+            className="text-4xl font-bold tracking-wide text-transparent bg-clip-text text-orange-400 mb-8"
+        >
             ⚡️Register⚡️
         </Heading>
 
         <Form
             onSubmit={handleRegisterSubmit}
-            className="flex flex-col items-center gap-3 bg-white bg-opacity-80 p-6 rounded-lg shadow-2xl w-full max-w-md" >
-
+            className="flex flex-col items-center gap-3 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg w-full max-w-md"
+        >
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="name-input" className="text-xs text-gray-700 font-medium"> Name </Label>
+                <Label htmlFor="name-input" className="text-xs text-gray-400 font-medium">Name</Label>
                 <Input
                     type="text"
                     id="name-input"
                     name="name-input"
                     placeholder="name"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="surname-input" className="text-xs text-gray-700"> Surname </Label>
+                <Label htmlFor="surname-input" className="text-xs text-gray-400">Surname</Label>
                 <Input
                     type="text"
                     id="surname-input"
                     name="surname-input"
                     placeholder="surname"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="email-input" className="text-xs text-gray-700"> E-mail </Label>
+                <Label htmlFor="email-input" className="text-xs text-gray-400">E-mail</Label>
                 <Input
                     type="email"
                     id="email-input"
                     name="email-input"
                     placeholder="email"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="phone-number-input" className="text-xs text-gray-700">  Phone Number </Label>
+                <Label htmlFor="phone-number-input" className="text-xs text-gray-400">Phone Number</Label>
                 <Input
                     type="number"
                     id="phone-number-input"
                     name="phone-number-input"
                     placeholder="Phone Number"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="username-input" className="text-xs text-gray-700"> Username </Label>
+                <Label htmlFor="username-input" className="text-xs text-gray-400">Username</Label>
                 <Input
                     type="text"
                     id="username-input"
                     name="username-input"
                     placeholder="username"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="password-input" className="text-xs text-gray-700"> Password </Label>
+                <Label htmlFor="password-input" className="text-xs text-gray-400">Password</Label>
                 <Input
                     type="password"
                     id="password-input"
                     name="password-input"
                     placeholder="password"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="password-repeat-input" className="text-xs text-gray-700">
-                    Password Repeat
-                </Label>
+                <Label htmlFor="password-repeat-input" className="text-xs text-gray-400">Password Repeat</Label>
                 <Input
                     type="password"
                     id="password-repeat-input"
                     name="password-repeat-input"
                     placeholder="password repeat"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="image-input" className="text-xs text-gray-700"> Image </Label>
+                <Label htmlFor="image-input" className="text-xs text-gray-400">Image</Label>
                 <Input
                     type="text"
                     id="image-input"
                     name="image-input"
                     placeholder="Image"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="description-input" className="text-xs text-gray-700"> Bio </Label>
+                <Label htmlFor="description-input" className="text-xs text-gray-400">Bio</Label>
                 <Input
                     type="text"
                     id="description-input"
                     name="description-input"
                     placeholder="Description"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
+                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                />
             </Container>
 
             <Button
                 type="submit"
-                className="mt-2 px-2 py-1 text-sm bg-cyan-300 text-gray-800 border border-transparent rounded-md shadow-sm transition-transform transform hover:scale-95 hover:bg-cyan-400 hover:text-yellow-500" > Create Investor
+                className="mt-4 px-6 py-3 bg-gradient-to-b from-cyan-800 via-gray-800 to-cyan-800 text-orange-400 rounded-full shadow-md transition-transform transform hover:scale-105 hover:shadow-xl"
+            >
+                Create Investor
             </Button>
         </Form>
 
         <Link
             onClick={handleLoginClick}
-            className="mt-4 text-sm text-cyan-600 hover:text-yellow-500 transition-colors" > Login
+            className="mt-4 text-sm text-orange-400 hover:text-teal-300 transition-colors"
+        >
+            Login
         </Link>
     </main>
 }    

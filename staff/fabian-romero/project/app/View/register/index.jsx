@@ -35,47 +35,56 @@ export default function Register({ onUserProjectClick, onUserInvestorClick, onLo
         onLoginClick()
     }
 
-    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-white via-cyan-50 to-cyan-200 text-gray-800 p-8">
+    return <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 p-8 text-blue-300">
+        {/* Título estilizado */}
         <Heading
             level="1"
-            className="text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-cyan-500 mb-8"
+            className="text-4xl font-bold tracking-wide text-transparent bg-clip-text text-orange-400 mb-8"
         >
-            ⚡️ Register ⚡️
+            ⚡️Register⚡️
         </Heading>
 
-        <Container className="w-full max-w-xs">
+        {/* Contenedor del selector */}
+        <Container className="w-full max-w-sm">
             <Label
                 htmlFor="role"
-                className="block text-sm font-medium text-gray-600 mb-2"
+                className="block text-lg font-medium text-blue-400 mb-4"
             >
                 Register as:
             </Label>
         </Container>
 
+        {/* Selector estilizado */}
         <Container className="flex justify-center">
             <select
                 id="role"
                 value={selectedOption}
                 onChange={handleSelectChange}
-                className="block appearance-none w-full max-w-xs bg-cyan-100 text-gray-800 border border-cyan-300 rounded-full shadow-lg px-4 py-2 pr-8 leading-tight focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="block appearance-none w-full max-w-sm bg-transparent text-white border border-blue-500 rounded-full shadow-lg px-4 py-2 pr-8 leading-tight focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
-                <option value="project">Register Your Project</option>
-                <option value="investor">Register as Investor</option>
+                <option value="project" className="text-gray-800">
+                    Register Your Project
+                </option>
+                <option value="investor" className="text-gray-800">
+                    Register as Investor
+                </option>
             </select>
         </Container>
 
+        {/* Botón de envío */}
         <Button
             onClick={handleSubmit}
-            className="mt-3 px-2 py-1 bg-cyan-300 text-gray-800 text-sm border border-transparent rounded-full shadow-lg transition-transform transform hover:scale-105 hover:bg-cyan-400 hover:text-yellow-500"
+            className="mt-4 px-6 py-3 bg-gradient-to-b from-cyan-800 via-gray-800 to-cyan-800 text-orange-400 rounded-full shadow-md transition-transform transform hover:scale-105 hover:shadow-xl"
         >
             Submit
         </Button>
 
+        {/* Enlace de login */}
         <Link
             onClick={handleLoginClick}
-            className="mt-3 text-xs text-cyan-600 hover:text-yellow-500 transition-colors"
+            className="mt-4 text-sm text-orange-400 hover:text-teal-300 transition-colors"
         >
             Login
         </Link>
     </main>
-}    
+}

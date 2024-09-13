@@ -2,9 +2,11 @@ import authenticateUserHandler from './authenticateUserHandler.js'
 import deleteUserByIdHandler from './deleteUserByIdHandler.js'
 import getAllProjectsHandler from './getAllProjectsHandler.js'
 import getAllInvestorsHandler from './getAllInvestorsHandler.js'
+import getAllMatchsHandler from './getAllMatchsHandler.js'
 import getFavUsersHandler from './getFavUsersHandler.js'
 import toggleDislikeUserHandler from './toggleDislikeUserHandler.js'
 import getLikeUsersHandler from './getLikeUsersHandler.js'
+import getUserHandler from './getUserHandler.js'
 import getUserNameHandler from './getUserNameHandler.js'
 import toggleLikeUserHandler from './toggleLikeUserHandler.js'
 import toggleFavUserHandler from './toggleFavUserHandler.js'
@@ -22,9 +24,11 @@ export {
     deleteUserByIdHandler,
     getAllProjectsHandler,
     getAllInvestorsHandler,
+    getAllMatchsHandler,
     getFavUsersHandler,
     getLikeUsersHandler,
     getUserNameHandler,
+    getUserHandler,
     toggleDislikeUserHandler,
     toggleLikeUserHandler,
     toggleFavUserHandler,

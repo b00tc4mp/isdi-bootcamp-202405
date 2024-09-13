@@ -1,8 +1,10 @@
 import deleteUserById from './deleteUserById.js'
 import getAllProjects from './getAllProjects.js'
 import getAllInvestors from './getAllInvestors.js'
+import getAllMatchs from './getAllMatchs.js'
 import getFavUsers from './getFavUsers.js'
 import getLikeUsers from './getLikeUsers.js'
+import getUser from './getUser.js'
 import getUserName from './getUserName.js'
 import getUserId from './getUserId.js'
 import getUserRole from './getUserRole.js'
@@ -24,10 +26,12 @@ const logic = {
     deleteUserById,
     getAllInvestors,
     getAllProjects,
+    getAllMatchs,
     getFavUsers,
     getLikeUsers,
     getUserName,
     getUserId,
+    getUser,
     getUserRole,
     isUserLoggedIn,
     loginUser,

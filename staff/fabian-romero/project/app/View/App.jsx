@@ -62,39 +62,3 @@ const App = () => {
 
 export default App
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import Login from './Login';
-// import Home from './Home';
-
-// function App() {
-//     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-
-//     const handleLogin = () => {
-//         setIsAuthenticated(true);
-//     };
-
-//     return (
-//         <div>
-//             {isAuthenticated ? <Home /> : <Login onLogin={handleLogin} />}
-//         </div>
-//     );
-// }
-
-// export default App;

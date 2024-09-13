@@ -2,9 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default image => {
-    validate.string(userId, 'userId')
-    validate.url(image, 'image')
+export default newImage => {
+    validate.url(newImage, 'image')
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/image`, {
         method: 'PATCH',
@@ -12,7 +11,7 @@ export default image => {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image })
+        body: JSON.stringify({ image: newImage })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

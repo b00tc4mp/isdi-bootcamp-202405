@@ -32,8 +32,8 @@ export default function ResultsList({ refreshStamp }) {
         loadUsers()
     }
 
-    const handleUserFavToggled = () => {
-        console.debug('ResultsPostList -> handleUserFavToggled')
+    const handleUserMatchToggled = () => {
+        console.debug('ResultsPostList -> handleUserMatchToggled')
 
         loadUsers()
     }
@@ -60,7 +60,7 @@ export default function ResultsList({ refreshStamp }) {
             key={user.id}
             user={user}
             onUserLikeToggled={handleUserLikeToggled}
-            onUserFavToggled={handleUserFavToggled}
+            onUserMatchToggled={handleUserMatchToggled}
             onUserDislikeToggled={handleUserDislikeToggled}
         />)}
     </section>

@@ -6,12 +6,20 @@ import Button from '../library/Button'
 import Container from '../library/Container'
 
 import useContext from '../context'
+import Lottie from 'lottie-react'
+import MatchIconAnimation from '../../public/MatchIcon.json'
+import GlobalIconAnimation from '../../public/GlobalIcon.json'
+import FavIconAnimation from '../../public/FavIcon.json'
+import LogoutIconAnimation from '../../public/LogoutIcon.json'
 
-export default function Header({ onFavsClick, onHomeClick, onLikesClick, onLogout }) {
+
+
+export default function Header({ onMatchClick, onHomeClick, onLikesClick, onLogout }) {
     console.debug('Header -> call')
 
     const [name, setName] = useState(null)
-    const [selectedButton, setSelectedButton] = useState('') // Estado para el botón seleccionado
+    const [selectedButton, setSelectedButton] = useState('')
+    const [isLooping, setIsLooping] = useState(false)
 
     const { theme, setTheme } = useContext()
 
@@ -38,11 +46,11 @@ export default function Header({ onFavsClick, onHomeClick, onLikesClick, onLogou
         onHomeClick()
     }
 
-    const handleFavsClick = () => {
-        console.debug('Header -> handleFavsClick')
+    const handleMatchClick = () => {
+        console.debug('Header -> handleMatchClick')
 
         setSelectedButton('favs')
-        onFavsClick()
+        onMatchClick()
     }
 
     const handleLikesClick = () => {
@@ -65,51 +73,51 @@ export default function Header({ onFavsClick, onHomeClick, onLikesClick, onLogou
         }
     }
 
-    const handleSwitchTheme = () => {
-        console.debug('Header -> handleSwitchTheme')
-
-        setSelectedButton('theme')
-        setTheme(theme === 'dark' ? 'light' : 'dark')
+    const handleMouseEnter = () => {
+        setIsLooping(true)
     }
 
-    return <header className="fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-90 dark:text-white p-2 box-border shadow-md rounded-b-md">
-        <Container className="text-sm font-medium text-gray-900 dark:text-gray-100 flex gap-2">
-            <h1>Hello {name} ⚡️!</h1>
+    const handleMouseLeave = () => {
+        setIsLooping(false)
+    }
 
+    return <header className="fixed left-0 top-0 w-full flex justify-between items-center bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 p-2 box-border shadow-lg rounded-b-md bg-opacity-70 text-blue-300">
+        <div className="flex items-center gap-3">
+            <h1 className="text-lg font-medium text-orange-400">Hello {name} ⚡️!</h1>
+        </div>
+
+        <div className="flex items-center gap-3">
             <Button
-                onClick={handleFavsClick}
-                className={`w-8 h-8 ${selectedButton === 'favs' ? 'bg-white' : 'bg-cyan-100'} bg-opacity-50 text-cyan-700 border border-cyan-300 rounded-md shadow-lg transition-transform transform hover:scale-95 hover:bg-opacity-70`}
-            >
-                🔐
+                onClick={handleMatchClick}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                <Lottie animationData={MatchIconAnimation} loop={isLooping} className="w-full h-full" />
             </Button>
 
             <Button
                 onClick={handleHomeClick}
-                className={`w-8 h-8 ${selectedButton === '/' ? 'bg-white' : 'bg-cyan-200'} bg-opacity-50 text-cyan-800 border border-cyan-400 rounded-md shadow-lg transition-transform transform hover:scale-95 hover:bg-opacity-70`}
-            >
-                ⚡️
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                <Lottie animationData={GlobalIconAnimation} loop={isLooping} className="w-full h-full" />
             </Button>
 
             <Button
                 onClick={handleLikesClick}
-                className={`w-8 h-8 ${selectedButton === 'likes' ? 'bg-white' : 'bg-cyan-200'} bg-opacity-50 text-cyan-800 border border-cyan-400 rounded-md shadow-lg transition-transform transform hover:scale-95 hover:bg-opacity-70`}
-            >
-                ♥️
-            </Button>
-
-            <Button
-                onClick={handleSwitchTheme}
-                className={`w-8 h-8 ${selectedButton === 'theme' ? 'bg-white' : 'bg-white dark:bg-cyan-400'} bg-opacity-50 text-cyan-700 dark:text-cyan-100 border border-cyan-400 rounded-md shadow-lg transition-transform transform hover:scale-95 hover:bg-opacity-70 dark:hover:bg-opacity-70`}
-            >
-                {theme === 'dark' ? '⚪️' : '⚫️'}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                <Lottie animationData={FavIconAnimation} loop={isLooping} className="w-full h-full" />
             </Button>
 
             <Button
                 onClick={handleLogout}
-                className={`w-8 h-8 ${selectedButton === 'logout' ? 'bg-white' : 'bg-cyan-50'} bg-opacity-50 text-cyan-900 border border-cyan-200 rounded-md shadow-lg transition-transform transform hover:scale-95 hover:bg-opacity-70`}
-            >
-                🚪
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                <Lottie animationData={LogoutIconAnimation} loop={isLooping} className="w-full h-full" />
             </Button>
-        </Container>
+        </div>
     </header>
 }

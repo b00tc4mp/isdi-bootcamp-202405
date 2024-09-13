@@ -4,14 +4,20 @@ import { useEffect, useState } from 'react'
 import Form from '../library/Form'
 import Input from '../library/Input'
 import Button from '../library/Button'
+import Lottie from 'lottie-react'
+import CheckIconAnimation from '../../public/CheckIcon.json'
+import CrossIconAnimation from '../../public/CrossIcon.json'
+
 
 export default function Search({ onUnsearchPost }) {
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState('')
+    const [isLooping, setIsLooping] = useState(false)
 
     const q = searchParams.get('q') || ''
+
 
     useEffect(() => {
         setQuery(q)
@@ -44,6 +50,14 @@ export default function Search({ onUnsearchPost }) {
         onUnsearchPost()
     }
 
+    const handleMouseEnter = () => {
+        setIsLooping(true)
+    }
+
+    const handleMouseLeave = () => {
+        setIsLooping(false)
+    }
+
     return <Form onSubmit={handleSubmit} className="flex justify-center items-center text-black text-xxs">
         <div className="relative">
             <Input
@@ -63,11 +77,21 @@ export default function Search({ onUnsearchPost }) {
             </label>
         </div>
 
-        <Button type="submit" className="mx-1">
-            ✅
+        <Button
+            type="submit"
+            className="w-8 h-8 flex items-center justify-center bg-transparent transition-transform transform hover:scale-95"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}>
+            <Lottie animationData={CheckIconAnimation} loop={isLooping} className="w-full h-full" />
         </Button>
-        <Button type="button" className="mx-1" onClick={handleUnsearchPostClick}>
-            ｘ
+
+        <Button
+            type="button"
+            className="w-8 h-8 flex items-center justify-center bg-transparent transition-transform transform hover:scale-95"
+            onClick={handleUnsearchPostClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}>
+            <Lottie animationData={CrossIconAnimation} loop={isLooping} className="w-full h-full" />
         </Button>
     </Form>
 

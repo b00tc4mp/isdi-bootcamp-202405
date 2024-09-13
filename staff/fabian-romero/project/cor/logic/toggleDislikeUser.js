@@ -21,9 +21,7 @@ export default (userId, targetUserId) => {
 
                     const index = likes.findIndex(likeId => likeId.toString() === targetUserId)
 
-                    if (index < 0) {
-                        likes.push(targetUserId)
-                    } else {
+                    if (index >= 0) {
                         likes.splice(index, 1)
                     }
 

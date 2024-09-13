@@ -25,10 +25,9 @@ export default (userId, query) => {
                             id: foundUser._id.toString(),
                             username: foundUser.username,
                             avatar: foundUser.avatar,
+                            image: foundUser.image,
                             category: foundUser.category,
                             roles: foundUser.roles,
-                            following: user.following.some(userObjectId => userObjectId.toString() === foundUser._id.toString()),
-                            fav: user.favs.includes(foundUser._id.toString())
                         }
                     })
 

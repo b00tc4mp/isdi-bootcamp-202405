@@ -19,12 +19,8 @@ export default (userId, targetUserId) => {
 
                     const { likes } = user
 
-                    const index = likes.findIndex(likeId => likeId.toString() === targetUserId)
-
-                    if (index < 0) {
+                    if (!likes.includes(targetUserId)) {
                         likes.push(targetUserId)
-                    } else {
-                        likes.splice(index, 1)
                     }
 
                     return User.updateOne({ _id: userId }, { $set: { likes } })

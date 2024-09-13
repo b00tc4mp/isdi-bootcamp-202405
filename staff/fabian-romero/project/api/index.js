@@ -9,8 +9,10 @@ import {
     registerProjectHandler,
     authenticateUserHandler,
     getUserNameHandler,
+    getUserHandler,
     getAllProjectsHandler,
     getAllInvestorsHandler,
+    getAllMatchsHandler,
     getLikeUsersHandler,
     getFavUsersHandler,
     deleteUserByIdHandler,
@@ -20,8 +22,8 @@ import {
     updateDescriptionHandler,
     updateAvatarHandler,
     updatePasswordHandler,
+    updateImageHandler,
     searchUserHandler,
-    updateImageHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -51,6 +53,12 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/users/favs', jwtVerifier, getFavUsersHandler)
 
+        api.get('/users/search', jwtVerifier, searchUserHandler)
+
+        api.get('/users/match', jwtVerifier, getAllMatchsHandler)
+
+        api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
+
         api.delete('/users/:userId', jwtVerifier, deleteUserByIdHandler)
 
         api.patch('/users/:targetUserId/likes', jwtVerifier, toggleLikeUserHandler)
@@ -69,7 +77,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/users/:userId/description', jwtVerifier, jsonBodyParser, updateDescriptionHandler)
 
-        api.get('/users/search', jwtVerifier, searchUserHandler)
 
         api.get('/colors/search', (req, res, next) => {
             const colors = ['red', 'green', 'blue', 'violette', 'brown', 'yellow']
