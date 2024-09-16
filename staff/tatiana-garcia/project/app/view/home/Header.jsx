@@ -23,7 +23,7 @@ export default function Header() {
         }
     }, [])
 
-    return <header className='bg-teal-100 fixed left-0 top-0 w-full flex items-center gap-2 p-2'>
+    return <header className='bg-teal-100 fixed left-0 top-0 w-full flex items-center gap-2 p-2 z-40'>
         <Link className='flex-shrink' href={'/'}>
             <img src='../../../logoExoticus.png' alt='logo exoticus' className='h-[3rem] w-auto' />
         </Link>

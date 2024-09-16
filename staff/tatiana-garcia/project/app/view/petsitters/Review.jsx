@@ -27,12 +27,12 @@ export default function Review({ review, onDelete }) {
         onDelete(review.id)
     }
 
-    return <Container className='flex flex-row items-center border-y border-solid border-gray-400 px-2'>
+    return <Container className='flex flex-row items-center border-y border-solid border-gray-400 px-0'>
         <Container className='flex flex-row w-full h-auto'>
-            <Image src={review.author.image} alt='imagen usuario' className='h-24 w-24 rounded-[15px] mr-4 p-2 ml-3' />
+            <Image src={review.author.image} alt='imagen usuario' className='h-20 w-20 rounded-[15px] p-2 m-1' />
             <Container className='flex flex-col'>
-                <Paragraph className='text-sm my-1 ml-1 font-bold'>{review.author.name}</Paragraph>
-                <Paragraph className='text-sm my-1 ml-1'>{review.comment}</Paragraph>
+                <Paragraph className='text-sm  ml-0 font-bold'>{review.author.name}</Paragraph>
+                <Paragraph className='text-sm mt-0 ml-0'>{review.comment}</Paragraph>
                 {review.rate > 0 && <Rating
                     name='read-only'
                     value={review.rate}

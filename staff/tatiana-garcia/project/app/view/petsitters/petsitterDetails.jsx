@@ -165,10 +165,10 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
     return (<>
         <Header />
-        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem] overflow-y-auto'>
+        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem] overflow-auto'>
             <Heading className='text-center text-2xl font-bold'>Guardería</Heading>
             {petsitter != null ? (
-                <Container className='text-lg m-2 bg-white p-4 rounded-[50px] shadow-lg'>
+                <Container className='text-lg w-72 bg-white p-4 rounded-[50px] shadow-lg'>
                     <Container className='flex items-center '>
                         <Image src={petsitter.image} alt='imagen guarderia' className='h-24 w-24 rounded-[15px] m-1' />
 
