@@ -11,7 +11,7 @@ export default userId => {
         .then(_user => {
             if (!_user) throw new NotFoundError('user not found')
 
-            return Post.find({ user: _user._id }).lean()
+            return Post.find({ author: _user._id }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(posts => {
                     const userPosts = posts.map(post => {

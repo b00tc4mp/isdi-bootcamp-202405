@@ -30,7 +30,8 @@ import {
     sendMessageHandler,
     getMessagesHandler,
     getEventByDateHandler,
-    getUserProfileHandler
+    getUserProfileHandler,
+    getUserHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -88,6 +89,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/chats/:chatId/messages', jwtVerifier, getMessagesHandler)
 
         api.get('/users/profile', jwtVerifier, getUserProfileHandler)
+
+        api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
 
         api.use(errorHandler)
 

@@ -2,20 +2,14 @@ import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default (query, distance, coords, date) => {
+export default (query, distance, coords) => {
     validate.string(query, 'query')
     validate.number(distance, 'distance')
     validate.array(coords, 'coords')
     validate.number(coords[0], 'latitude')
     validate.number(coords[1], 'longitude')
 
-    if (date) validate.string(date, 'date')
-
-    let url = `${import.meta.env.VITE_API_URL}/events/search?q=${encodeURIComponent(query)}&distance=${distance}&coords=${coords}`
-
-    if (date) url += `&date=${encodeURIComponent(date)}`
-
-    return fetch(url, {
+    return fetch(`${import.meta.env.VITE_API_URL}/events/search?q=${query}&distance=${distance}&coords=${coords}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

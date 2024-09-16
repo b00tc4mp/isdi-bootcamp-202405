@@ -6,6 +6,7 @@ const USERNAME_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 const NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
 const ROLE_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
 const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+const datePattern = /^\d{4}-\d{2}-\d{2}$/
 
 function validateString(value, explain = 'value') {
     if (typeof value !== 'string') throw new ValidationError(`${explain} is not a string`)
@@ -95,6 +96,17 @@ function validateArray(array, explain = 'array') {
     if (array.length < 2) throw new ValidationError(`${explain} must contain at least 2 elements`)
 }
 
+function validateDatePattern(location, date, explain = 'input') {
+    if (datePattern.test(input.trim())) {
+        date = input.trim()
+    } else {
+        location = input.trim()
+    }
+
+    if (!location && !date) throw new ValidationError(`empty ${explain}`)
+
+}
+
 const validate = {
     callback: validateCallback,
     object: validateObject,
@@ -111,7 +123,8 @@ const validate = {
     date: validateDate,
     eventDates: validateEventDates,
     number: validateNumber,
-    array: validateArray
+    array: validateArray,
+    datePattern: validateDatePattern
 }
 
 export default validate

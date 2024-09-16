@@ -111,7 +111,7 @@ export default function ResultsEventList() {
         }
     }
 
-    return <section className='mt-[60px] flex flex-col gap-4'>
+    return <section className='mb-2 flex flex-col gap-4'>
         <Heading className='mt-2 ml-2 text-2xl font-bold'>search</Heading>
 
         <SearchEvent />

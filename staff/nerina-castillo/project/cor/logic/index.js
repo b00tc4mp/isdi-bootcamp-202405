@@ -22,6 +22,7 @@ import sendMessage from './sendMessage.js'
 import getMessages from './getMessages.js'
 import getEventByDate from './getEventByDate.js'
 import getUserProfile from './getUserProfile.js'
+import getUser from './getUser.js'
 
 const logic = {
     registerUser,
@@ -47,7 +48,8 @@ const logic = {
     sendMessage,
     getMessages,
     getEventByDate,
-    getUserProfile
+    getUserProfile,
+    getUser
 }
 
 export default logic

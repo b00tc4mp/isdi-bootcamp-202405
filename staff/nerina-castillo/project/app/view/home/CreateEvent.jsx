@@ -56,7 +56,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
 
     const handleCancelCreateEventClick = () => onCancelCreateEvent()
 
-    return <section className='fixed bottom-0 top-0 w-full bg-slate-300 text-slate-900 border pb-2'>
+    return <section className='fixed inset-0 w-full h-screen bg-slate-300 text-slate-900 border overflow-y-auto'>
         <Heading className='ml-2 mt-2 text-xl font-bold'>create event</Heading>
 
         <Form onSubmit={handleCreateEventSubmit}>
@@ -65,34 +65,45 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
                     <Label htmlFor='event-image-input'>image</Label>
                     <Input id='event-image-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-title-input'>title</Label>
                     <Input id='event-title-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-description-input'>description</Label>
                     <textarea id='event-description-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col gap-2'>
                     <Label htmlFor='event-location-input'>location</Label>
                     <Input id='event-latitude-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                     <Input id='event-longitude-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-start-date-input'>date</Label>
                     <Input id='event-start-date-input' type='date' value={formattedDate} onChange={e => setFormattedDate(e.target.value)} className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-start-time-input'>time</Label>
                     <Input id='event-start-time-input' type='time' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col'>
                     <Label htmlFor='event-tickets-input'>tickets</Label>
                     <Input id='event-tickets-input' className='border-b border-gray-400 shadow-none focus:border-gray-600 focus:outline-none bg-transparent rounded-none' />
                 </Container>
+
                 <Container className='flex flex-col'>
-                    <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold'>create</Button>
-                    <Button type='button' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold' onClick={handleCancelCreateEventClick}>cancel</Button>
+                    <Button type='submit' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold'>
+                        create
+                    </Button>
+                    <Button type='button' className='bg-gradient-to-r from-purple-950 to-purple-900 rounded-[5px] border-white border-[3px] mt-3 text-xl text-white font-bold' onClick={handleCancelCreateEventClick}>
+                        cancel
+                    </Button>
                 </Container>
             </Container>
         </Form>

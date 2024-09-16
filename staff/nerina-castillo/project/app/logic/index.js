@@ -25,6 +25,7 @@ import sendMessage from './sendMessage'
 import getMessages from './getMessages'
 import getEventByDate from './getEventByDate'
 import getUserProfile from './getUserProfile'
+import getUser from './getUser'
 
 const logic = {
     registerUser,
@@ -53,7 +54,8 @@ const logic = {
     sendMessage,
     getMessages,
     getEventByDate,
-    getUserProfile
+    getUserProfile,
+    getUser
 }
 
 export default logic
