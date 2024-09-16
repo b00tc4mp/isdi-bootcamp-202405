@@ -6,6 +6,16 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 
 ## Functional
 
+The application is designed so that you can use it without the need to register. It includes:
+
+ - A search tool that allows you to find daycare centers by filtering by city and type of animal, or simply by city.
+
+ - An information section where you can view the main details of each daycare center.
+
+ - A registration option, which allows you to access contact details for the daycare centers and write reviews once registered.
+
+ - Additionally, if you have any questions, you can contact us through the email provided in the application.
+
 ### Use Cases
 **Anonimous Users**
  - list petsitters by city and animal
@@ -36,7 +46,7 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 - App (user interface)
 - API (core logic)
 - DB (data storage)
-- 
+
 ### Packages
 - api (server)
 - cor (core logic dependency to api)
@@ -82,4 +92,4 @@ Exoticus is an application where you can contact the nearest exotic pet daycare 
 
   ### Test Coverage
 
-  ![Test Coverage]()
+  ![Test Coverage](./test-coverage.png)
