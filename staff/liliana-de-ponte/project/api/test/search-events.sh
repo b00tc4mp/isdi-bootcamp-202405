@@ -1,1 +1,1 @@
-curl -v 'http://localhost:8080/events/search?q=Descubre&distance=5&coords=41.379560523768916,2.151951292653156' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmMyZTk5ZGEzNDFjM2EwMTAzNThmYjAiLCJpYXQiOjE3MjQwNjMxMjZ9.IWTJeDcaJqWmrtcZzjSr-tI1dPKt3A0IoFToiK0sAtU"
+curl -v 'http://localhost:8080/events/search?q=Descubre&distance=5&coords=41.379560523768916,2.151951292653156' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmMyZTk5ZGEzNDFjM2EwMTAzNThmYjAiLCJpYXQiOjE3MjYyMjIxNDV9.gaCQlWwIfJjaOBQcyNdeQreXIqT9FztmypLgTWRdTfc"

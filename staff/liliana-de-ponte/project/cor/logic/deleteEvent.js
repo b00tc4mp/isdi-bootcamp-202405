@@ -5,7 +5,7 @@ import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError, OwnerShipError } = errors
 
 export default (userId, eventId) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.string(eventId, 'eventId')
 
     return User.findById(userId).lean()

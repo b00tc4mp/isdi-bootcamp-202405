@@ -8,12 +8,15 @@ import LikeEventList from './LikeEventList'
 import AttendanceEventList from './AttendanceEventList'
 import ResultsEventList from './ResultsEventList'
 import MoreInfoEvent from './MoreInfoEvent'
+import Search from './Search'
 
 export default function Home({ onLogout }) {
 
     const navigate = useNavigate()
 
     const [refreshStamp, setRefreshStamp] = useState(null)
+
+    const [isSearching, setIsSearching] = useState(false)
 
     const handleEventCreated = () => {
         setRefreshStamp(Date.now())
@@ -33,10 +36,18 @@ export default function Home({ onLogout }) {
         navigate('/attendees')
     }
 
+    const handleSearchClick = () => {
+        setIsSearching(true)
+        navigate('/search')
+    }
+    const handleSearch = () => {
+        setIsSearching(false)
+    }
 
     return <>
         <Header
             onHomeClick={handleHomeClick}
+            onSearchClick={handleSearchClick}
             onLogout={onLogout}>
         </Header>
 
@@ -48,7 +59,9 @@ export default function Home({ onLogout }) {
 
                 <Route path="/attendees" element={<AttendanceEventList />} />
 
-                <Route path="/search" element={<ResultsEventList />} />
+                <Route path="/search" element={
+                    isSearching ? <Search onSearch={handleSearch} /> :
+                        <ResultsEventList />} />
 
                 <Route path="/info/:eventId" element={<MoreInfoEvent />} />
 

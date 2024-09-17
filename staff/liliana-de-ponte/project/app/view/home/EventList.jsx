@@ -17,10 +17,6 @@ export default function EventList({ refreshStamp }) {
         loadEvents()
     }
 
-    // const handleEventEdited = () => {
-    //     loadEvents()
-    // }
-
     const handleEventLikeToggled = () => {
         loadEvents()
     }
@@ -45,14 +41,11 @@ export default function EventList({ refreshStamp }) {
         }
     }
 
-
-    //CONDICIONAL SI CLICK EN BUTTON SEARCH - MT-48 CONST MARGIN BUTTON *** TODO
     return <section className="flex flex-col gap-1 w-full p-1 mt-1">
         {events.map(event => <Event
             event={event}
             key={event.id}
             onEventDeleted={handleEventDeleted}
-            // onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
             onEventAttendanceToggled={handleEventAttendanceToggled}
 

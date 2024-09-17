@@ -73,13 +73,10 @@ export default function Event({ event, onEventDeleted, onEventLikeToggled, onEve
         }
     }
 
-    console.log(event)
     return <article className="shadow-[1px_1px_10px_1px] shadow-[#050968] rounded-[5px] bg-[#FFEBF4] p-2 m-2 font-bold relative">
         <Container className="items-start relative">
 
             <Link className="absolute right-2 text-[#050968] text-xs flex items-center mr-0 mt-0" href={`/info/${event.id}`}><u>+Info</u></Link>
-
-            {/* <Button className="absolute top-2 right-2 text-[#9747FF] text-xs flex items-center z-10" style={{ transform: 'translate(50%, -50%)' }} onClick={handleAttendanceEventClick}>{event.attendee ? <GoStarFill color="9747FF" size={20} /> : <FiStar color="9747FF" size={20} />}<span style={{ color: '#9747FF' }}>{' '}{event.attendees.length} attendee{event.attendees.length === 1 ? '' : 's'}</span></Button> */}
 
             <Container className="flex-shrink-0">
                 <Image src={event.image} alt={event.title} title={event.title} className="h-24 w-24 rounded-xl mr-2 border-2 shadow-[1px_1px_10px_1px] shadow-[#050968]" />

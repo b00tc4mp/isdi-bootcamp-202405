@@ -81,6 +81,10 @@ function validateArray(array, explain = 'array') {
     if (!(array instanceof Array)) throw new ValidationError(`${explain} is not an array`)
 }
 
+function validateId(id, explain = 'id') {
+    validateString(id, explain)
+    if (id.trim().length === 0) throw new ValidationError(`${explain} invalid`)
+}
 
 const validate = {
     string: validateString,
@@ -96,7 +100,8 @@ const validate = {
     number: validateNumber,
     array: validateArray,
     date: validateDate,
-    location: validateLocation
+    location: validateLocation,
+    id: validateId
 
 }
 

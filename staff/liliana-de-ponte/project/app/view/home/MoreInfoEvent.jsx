@@ -42,7 +42,7 @@ export default function MoreInfoEvent() {
 
             <Paragraph className="flex text-[#9747FF] font-bold justify-center text-sm"><FaCalendarAlt />{formatTime(new Date(event?.date))}</Paragraph>
 
-            <Paragraph className="flex justify-center text-sm">{event?.description}</Paragraph>
+            <Paragraph className="flex text-justify text-sm">{event?.description}</Paragraph>
 
             <Paragraph className="flex font-bold text-[#9747FF] text-sm"><LuClock size={14} />{event?.duration}</Paragraph>
 

@@ -13,9 +13,8 @@ export default function ResultsEventList() {
     const distance = Number(searchParams.get('distance') || '10')
 
     useEffect(() => {
-
         loadEvents()
-    }, [q], distance)
+    }, [q, distance])
 
     const handleEventDeleted = () => {
         loadEvents()
@@ -32,6 +31,8 @@ export default function ResultsEventList() {
         if (q) {
             navigator.geolocation.getCurrentPosition((position => {
                 const coords = [position.coords.latitude, position.coords.longitude]
+
+                console.log(coords)
 
                 try {
                     logic.searchEvents(q, distance, coords)

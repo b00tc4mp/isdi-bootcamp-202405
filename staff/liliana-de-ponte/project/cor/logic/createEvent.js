@@ -5,7 +5,7 @@ import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, title, organizer, date, duration, description, image, location, address, city) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.string(title, 'title')
     validate.date(date, 'date')
     validate.string(organizer, 'organizer')

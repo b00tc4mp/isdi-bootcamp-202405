@@ -10,12 +10,9 @@ import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 import Search from './Search.jsx'
 
-//todo
-
-export default function Header({ onHomeClick, onLogout }) {
+export default function Header({ onHomeClick, onLogout, onSearchClick }) {
 
     const [name, setName] = useState(null)
-    const [isSearchVisible, setIsSearchVisible] = useState(false)
 
     useEffect(() => {
         try {
@@ -49,7 +46,7 @@ export default function Header({ onHomeClick, onLogout }) {
         }
     }
     const handleSearchClick = () => {
-        setIsSearchVisible(!isSearchVisible)
+        onSearchClick()
     }
 
     return <header className="bg-[#050968] fixed left-0 top-0 w-full z-50 h-16 flex items-center">
@@ -65,10 +62,6 @@ export default function Header({ onHomeClick, onLogout }) {
                 <Button onClick={handleLogout}><MdLogout size={22} /></Button>
             </Container>
         </Container>
-        {
-            isSearchVisible && (
-                <Container className="absolute top-16 left-0 w-full bg-[#FFEBF4] z-40 p- h-30 mt-0 flex justify-center items-center"><Search /></Container>)
-        }
 
     </header >
 }

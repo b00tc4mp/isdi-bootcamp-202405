@@ -5,7 +5,7 @@ import { validate, errors } from '../../com/index.js'
 const { NotFoundError, SystemError } = errors
 
 export default userId => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -17,7 +17,7 @@ export default userId => {
                 .then(events => {
                     const promises = events.map(event => {
                         event.like = user.likes.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        event.attendance = event.attendees.some(userObjectId => userObjectId.toString() === userId)
+                        event.attendance = (event.attendees || []).some(userObjectId => userObjectId.toString() === userId)
 
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
