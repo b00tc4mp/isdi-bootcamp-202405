@@ -28,12 +28,6 @@ export default function LikesList() {
         loadUsers()
     }
 
-    const handleUserMatchToggled = () => {
-        console.debug('LikesList -> handleUserMatchToggled')
-
-        loadUsers()
-    }
-
     const loadUsers = () => {
         try {
             logic.getLikeUsers()
@@ -50,12 +44,11 @@ export default function LikesList() {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className="flex  bg-cyan-900 h-full flex-col gap-4">
         {users.map(user => <User
             key={user.id}
             user={user}
             onUserLikeToggled={handleUserLikeToggled}
-            onUserMatchToggled={handleUserMatchToggled}
             onUserDislikeToggled={handleUserDislikeToggled}
         />)}
     </section>

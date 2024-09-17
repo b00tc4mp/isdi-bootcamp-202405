@@ -35,6 +35,11 @@ function validatePhone(phoneNumber, explain = 'phoneNumber') {
     if (!PHONE_REGEX.test(phoneNumber)) throw new ValidationError(`invalid ${explain}`)
 }
 
+function validateId(id, explain = 'id') {
+    validateString(id, explain)
+    if (id.trim().length === 0) throw new ValidationError(`invalid ${explain}`)
+}
+
 function validateName(name, explain = 'name') {
     validateString(name, explain)
     if (!NAME_REGEX.test(name)) throw new ValidationError(`invalid ${explain}`)
@@ -67,7 +72,8 @@ const validate = {
     phoneNumber: validatePhone,
     url: validateUrl,
     string: validateString,
-    date: validateDate
+    date: validateDate,
+    id: validateId
 }
 
 export default validate

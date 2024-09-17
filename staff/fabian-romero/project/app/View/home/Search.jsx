@@ -58,7 +58,7 @@ export default function Search({ onUnsearchPost }) {
         setIsLooping(false)
     }
 
-    return <Form onSubmit={handleSubmit} className="flex justify-center items-center text-black text-xxs">
+    return <Form onSubmit={handleSubmit} className="flex justify-center  bg-cyan-800 h-full  items-center text-black text-xxs">
         <div className="relative">
             <Input
                 id="inputfield"

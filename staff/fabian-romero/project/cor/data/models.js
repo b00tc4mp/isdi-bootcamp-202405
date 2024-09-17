@@ -1,4 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
+
+const { ObjectId } = Types
 
 const userSchema = new Schema({
     name: {
@@ -37,6 +39,10 @@ const userSchema = new Schema({
         type: String,
     },
 
+    phoneNumber: {
+        type: String,
+    },
+
     image: {
         type: String,
         require: true,
@@ -69,28 +75,62 @@ const userSchema = new Schema({
     },
 
     match: {
-        type: [String],
-        ref: 'project',
+        type: [ObjectId],
+        ref: 'User',
     },
 
     likes: {
-        type: [String],
-        ref: 'project',
+        type: [ObjectId],
+        ref: 'User',
     },
+})
 
-    match: {
-        type: [String],
-        ref: 'inversor',
-    },
-
-    likes: {
-        type: [String],
-        ref: 'inversor',
+const chat = new Schema({
+    participants: [{
+        type: ObjectId,
+        ref: 'User',
+    }],
+    messages: [{
+        type: ObjectId,
+        ref: 'Message'
+    }],
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
 
+const message = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    message: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    chat: {
+        type: ObjectId,
+        required: true,
+        ref: 'Chat'
+    }
+})
+
+
 const User = model('User', userSchema)
+const Chat = model('Chat', chat)
+const Message = model('Message', message)
+
 
 export {
-    User
+    User,
+    Chat,
+    Message
+
 }

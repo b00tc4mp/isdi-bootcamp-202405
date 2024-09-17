@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, newImage) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.url(newImage, 'image')
 
     return User.findById(userId).lean()

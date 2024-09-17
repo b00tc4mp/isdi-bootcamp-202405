@@ -55,7 +55,7 @@ export default function ResultsList({ refreshStamp }) {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className="flex  bg-cyan-900 h-full  flex-col gap-4">
         {users.map(user => <User
             key={user.id}
             user={user}

@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
+
 import { expect } from 'chai'
 import bcrypt from 'bcryptjs'
 
@@ -16,15 +17,16 @@ describe('authenticateUser', () => {
 
     it('succeeds on authenticate user', () =>
         bcrypt.hash('123123123', 8)
-            .then(hash => User.create({ name: 'Mari', surname: 'Trueno', email: 'mari@trueno.com', username: 'maritrueno', password: hash }))
-            .then(() => authenticateUser('maritrueno', '123123123'))
+            .then(hash => User.create({ name: 'rosa', surname: 'fit', email: 'rosa@fit.com', username: 'rosafit', password: hash })
+            )
+            .then(() => authenticateUser('rosafit', '123123123'))
             .then(value => expect(value).to.be.string)
     )
 
     it('fails on non-existing user', () => {
         let _error
 
-        authenticateUser('maritrueno', '123123123')
+        authenticateUser('rosafit', '123123123')
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)
@@ -32,17 +34,20 @@ describe('authenticateUser', () => {
             })
     })
 
-    it('fails on wrong password', () => {
+    it('fails on Wrong password', () => {
         let error
 
         return bcrypt.hash('123123123', 8)
-            .then(hash => User.create({ name: 'Mari', surname: 'Trueno', email: 'mari@trueno.com', username: 'maritrueno', password: hash }))
-            .then(() => authenticateUser('maritrueno', '987654321'))
+            .then(hash =>
+                User.create({ name: 'rosa', surname: 'fit', email: 'rosa@fit.com', username: 'rosafit', password: hash })
+            )
+            .then(() => authenticateUser('rosafit', '111111111'))
             .catch(_error => error = _error)
             .finally(() => {
                 expect(error).to.be.instanceOf(CredentialsError)
                 expect(error.message).to.equal('Wrong password')
             })
+
     })
 
     it('fails on non-string username', () => {
@@ -62,7 +67,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('', '123123123') // Updated password
+            authenticateUser('', '123123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -75,7 +80,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('maritrueno', 123123123) // Updated username and password
+            authenticateUser('rosafit', 123123123)
         } catch (_error) {
             error = _error
         } finally {
@@ -88,7 +93,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('maritrueno', '1234') // Updated username and short password
+            authenticateUser('rosafit', '123123')
         } catch (_error) {
             error = _error
         } finally {
@@ -101,7 +106,7 @@ describe('authenticateUser', () => {
         let error
 
         try {
-            authenticateUser('maritrueno', '1234 5678') // Updated username and password with spaces
+            authenticateUser('rosafit', '123123 123')
         } catch (_error) {
             error = _error
         } finally {

@@ -1,6 +1,7 @@
 import logic from '../../logic'
 import formatTime from '../../util/formatTime'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '../library/Button'
 import Time from '../library/Time'
@@ -12,20 +13,23 @@ import Avatar from './Avatar'
 import Goldtrack from '../library/Goldtrack'
 
 import Lottie from 'lottie-react'
-import LikeOneAnimation from '../../public/LikeOne.json'
-import LikeTwoAnimation from '../../public/LikeTwo.json'
-import DislikeOneAnimation from '../../public/DislikeOne.json'
-import DislikeTwoAnimation from '../../public/DislikeTwo.json'
+import LikeOneIconAnimation from '../../public/LikeOneIcon.json'
+import LikeTwoIconAnimation from '../../public/LikeTwoIcon.json'
+import DislikeOneIconAnimation from '../../public/DislikeOneIcon.json'
+import DislikeTwoIconAnimation from '../../public/DislikeTwoIcon.json'
+import ChatMailIconAnimation from '../../public/ChatsMailIcono.json'
 
 
-export default function User({ user, onUserMatchToggled, onUserLikeToggled, onUserDislikeToggled }) {
+export default function User({ user, onUserLikeToggled, onUserDislikeToggled, listType }) {
 
     const [selectedButton, setSelectedButton] = useState(null)
     const [isLooping, setIsLooping] = useState(false)
+    const navigate = useNavigate()
+    const [chats, setChats] = useState([])
 
 
     const formatDate = (dateString) => {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
         return new Date(dateString).toLocaleDateString('es-ES', options)
     }
 
@@ -59,10 +63,10 @@ export default function User({ user, onUserMatchToggled, onUserLikeToggled, onUs
         }
     }
 
-    const handleMatchUserClick = () => {
+    const CreateNewChat = () => {
         try {
-            logic.getAllMatchs(user.id)
-                .then(() => onUserMatchToggled())
+            logic.createChat(user.id)
+                .then(() => setChat(chats))
                 .catch(error => {
                     console.error(error)
                     alert(error.message)
@@ -72,6 +76,8 @@ export default function User({ user, onUserMatchToggled, onUserLikeToggled, onUs
             alert(error.message)
         }
     }
+
+    const handleCreateNewChat = (chatId) => navigate(`/chats/${chatId}`)
 
     const handleMouseEnter = () => {
         setIsLooping(true)
@@ -91,14 +97,16 @@ export default function User({ user, onUserMatchToggled, onUserLikeToggled, onUs
                     {user.username}
                 </Heading>
 
-                <Button
-                    onClick={handleMatchUserClick}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    className="px-1 py-0.5 text-xs text-white border border-transparent rounded-md shadow-md transition-transform transform hover:scale-95 hover:bg-cyan-300"
-                >
-                    {user.match ? '💌' : '💕'}
-                </Button>
+                {listType === 'matchList' && (
+                    <Button
+                        onClick={() => handleCreateNewChat(user.id)}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        className="w-6 h- flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                        <Lottie animationData={ChatMailIconAnimation} loop={false} className="w-full h-full" />
+                    </Button>
+                )}
+
             </Container>
 
             <Image src={user.image} className="w-full rounded-md shadow-md my-2" />
@@ -128,8 +136,12 @@ export default function User({ user, onUserMatchToggled, onUserLikeToggled, onUs
                         startDate={user.startDate} endDate={user.endDate}
                     </Goldtrack>
                 </Container>
+
+
             ) : (
-                <Container className="flex flex-col p-4 bg-white border border-yellow-100 rounded-lg">
+
+
+                <Container className="flex-col min-w-full gap-4 mt-6 bg-gradient-to-b from-cyan-900 via-cyan-700 to-cyan-900 p-6 shadow-md w-full max-w-sm rounded-lg">
                     <Paragraph className="text-sm text-gray-300 mb-1 text-center">
                         {user.username}
                     </Paragraph>
@@ -139,36 +151,35 @@ export default function User({ user, onUserMatchToggled, onUserLikeToggled, onUs
                 </Container>
             )}
 
-            <Container className="flex flex-col items-center gap-6 mt-4 shadow-xl text-white p-6 rounded-lg" >
-                <div className="flex justify-between w-full gap-4">
-                    <Button
-                        onClick={handleDislikeUserClick}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
 
-                        className="flex items-center justify-center w-16 h-16 text-2xl bg-opacity-20 bg-cyan-500 text-gray-500 rounded-full shadow-xl transition-transform transform hover:scale-105" >
-                        <Lottie
-                            animationData={selectedButton === 'Dislike' ? DislikeOneAnimation : DislikeTwoAnimation}
-                            loop={isLooping}
-                            className="w-full h-full" />
-                    </Button>
+            {listType !== 'matchList' && (
 
+                <Container className="flex flex-col items-center gap-6 mt-4 shadow-xl text-white p-6 rounded-lg">
+                    <div className="flex justify-between w-full gap-4">
+                        <Button
+                            onClick={handleDislikeUserClick}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                            className="flex items-center justify-center w-16 h-16 text-2xl bg-opacity-20 bg-cyan-500 text-gray-500 rounded-full shadow-lg transition-transform transform scale-100 duration-300 hover:scale-200">
+                            <Lottie
+                                animationData={selectedButton === 'Dislike' ? DislikeTwoIconAnimation : DislikeOneIconAnimation}
+                                loop={false}
+                                className="w-full h-full" />
+                        </Button>
 
-                    <Button
-                        onClick={handleLikeUserClick}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-
-                        className="flex items-center justify-center w-16 h-16 text-2xl bg-opacity-20 bg-cyan-500 text-gray-500 rounded-full shadow-lg transition-transform transform hover:scale-105" >
-
-                        <Lottie
-                            animationData={selectedButton === 'like' ? LikeOneAnimation : LikeTwoAnimation}
-                            loop={isLooping}
-                            className="w-full h-full" />
-
-                    </Button>
-                </div>
-            </Container >
+                        <Button
+                            onClick={handleLikeUserClick}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                            className="flex items-center justify-center w-16 h-16 text-2xl bg-opacity-20 bg-cyan-500 text-gray-500 rounded-full shadow-lg transition-transform transform scale-100 duration-300 hover:scale-200">
+                            <Lottie
+                                animationData={selectedButton === 'like' ? LikeTwoIconAnimation : LikeOneIconAnimation}
+                                loop={false}
+                                className="w-full h-full" />
+                        </Button>
+                    </div>
+                </Container>
+            )}
 
             <Time>{formatTime(new Date(user.date))}</Time>
         </article >

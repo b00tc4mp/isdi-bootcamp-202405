@@ -5,7 +5,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, CredentialsError, SystemError } = errors
 
 export default (userId, oldPassword, newPassword, newPasswordRepeat) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.password(oldPassword, 'oldPassword')
     validate.password(newPassword, 'newPassword')
     validate.password(newPasswordRepeat, 'newPasswordRepeat')

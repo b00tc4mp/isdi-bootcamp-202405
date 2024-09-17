@@ -219,13 +219,13 @@ export default function Profile() {
     }
 
 
-    return <section className="flex flex-col items-center gap-4 mt-1 mb-12 dark:bg-black ">
+    return <section className="flex flex-col items-center gap-4 mt-1 mb-12  bg-cyan-900 h-full">
 
         <ProfileView user={user} />
 
         {userRole === 'project' && (
             <>
-                <section className="flex flex-col items-center gap-4 mt-1 mb-12 dark:bg-black" role="group">
+                <section className="flex flex-col items-center gap-4 mt-1 mb-12 " role="group">
                     <Button
                         onClick={handleEditAvatarClick}
                         className="px-2 py-1 text-xs bg-transparent text-yellow-500 border border-yellow-500 rounded-md shadow-lg transition-transform transform hover:scale-105" > Edit Your Avatar
@@ -381,9 +381,6 @@ export default function Profile() {
         {
             userRole === 'investor' && (
                 <>
-                    <Container className="flex justify-center items-center mb-4">
-                        <Avatar src={user?.avatar} alt="User Avatar" className="w-48 h-48 rounded-full" />
-                    </Container>
                     <Button
                         onClick={handleEditAvatarClick}
                         className="px-2 py-1 text-xs bg-transparent text-yellow-500 border border-yellow-500 rounded-md shadow-lg transition-transform transform hover:scale-105" > Edit Your Avatar

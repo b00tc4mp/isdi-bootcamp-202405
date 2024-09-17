@@ -4,7 +4,8 @@
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #164e63
+    background-color: #164e63;
+    width: full
 }
 
 .View {

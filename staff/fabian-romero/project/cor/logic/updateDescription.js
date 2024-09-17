@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, description) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.string(description, 'description')
 
     return User.findById(userId).lean()

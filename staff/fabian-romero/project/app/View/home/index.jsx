@@ -10,6 +10,8 @@ import MatchList from './MatchList'
 import LikesList from './LikesList'
 import Profile from './Profile'
 import ResultsList from './ResultsList'
+import Chats from './Chats'
+import Chat from './Chat'
 
 import logic from '../../logic'
 import Paragraph from '../library/Paragraph'
@@ -65,6 +67,11 @@ export default function Home({ onLogout }) {
         navigate('/likes')
     }
 
+    const handleChatClick = () => {
+        console.debug('Home -> handleChatClick')
+        navigate('/chats')
+    }
+
     const handleSearchClick = () => {
         console.debug('Home -> handleSearchClick')
         navigate('/search')
@@ -81,10 +88,11 @@ export default function Home({ onLogout }) {
             onHomeClick={handleHomeClick}
             onMatchClick={handleMatchClick}
             onLikesClick={handleLikeClick}
+            onChatClick={handleChatClick}
             onLogout={onLogout}>
         </Header>
 
-        <main className="flex flex-col items-center gap-4 mt-16 mb-12 dark:bg-black ">
+        <main className="flex flex-col items-center gap-4 mt-16 mb-12 bg-cyan-900 h-full ">
             <Routes>
                 <Route
                     path="/"
@@ -99,6 +107,8 @@ export default function Home({ onLogout }) {
                 <Route path="/hello/:to" element={<Hello />} />
                 <Route path="/match" element={<MatchList />} />
                 <Route path="/likes" element={<LikesList />} />
+                <Route path="/chats" element={<Chats />} />
+                <Route path="/chats/:chatId" element={<Chat />} />
                 <Route path="/search" element={<ResultsList />} />
                 <Route path="/profile" element={<Profile />} />
 

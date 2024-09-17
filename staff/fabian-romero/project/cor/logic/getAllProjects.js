@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError, PermissionError } = errors
 
 export default userId => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -17,11 +17,14 @@ export default userId => {
             return User.find({ role: 'project' }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(users => {
-                    const projectUsers = users.map(user => {
-                        user.id = user._id.toString()
-                        delete user._id
+                    const projectUsers = users.map(targetUser => {
+                        targetUser.liked = user.likes.some(userObjectId => userObjectId.toString() === userId)
+                        targetUser.matched = user.match.some(userObjectId => userObjectId.toString() === userId)
 
-                        return user
+                        targetUser.id = targetUser._id.toString()
+                        delete targetUser._id
+
+                        return targetUser
                     })
 
                     return Promise.all(projectUsers)

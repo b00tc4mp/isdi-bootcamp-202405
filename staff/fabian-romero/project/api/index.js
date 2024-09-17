@@ -5,16 +5,20 @@ import { mongoose } from 'cor'
 
 import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/index.js'
 import {
+    authenticateUserHandler,
     registerInvestorHandler,
     registerProjectHandler,
-    authenticateUserHandler,
     getUserNameHandler,
     getUserHandler,
+    createChatHandler,
+    sendMessageHandler,
+    getChatMessagesHandler,
+    getChatParticipantHandler,
+    getAllChatsHandler,
     getAllProjectsHandler,
     getAllInvestorsHandler,
     getAllMatchsHandler,
     getLikeUsersHandler,
-    getFavUsersHandler,
     deleteUserByIdHandler,
     toggleLikeUserHandler,
     toggleDislikeUserHandler,
@@ -51,23 +55,19 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/users/likes', jwtVerifier, getLikeUsersHandler)
 
-        api.get('/users/favs', jwtVerifier, getFavUsersHandler)
-
         api.get('/users/search', jwtVerifier, searchUserHandler)
 
         api.get('/users/match', jwtVerifier, getAllMatchsHandler)
 
         api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
 
-        api.delete('/users/:userId', jwtVerifier, deleteUserByIdHandler)
+        api.get('/users/profile', jwtVerifier, getUserNameHandler)
 
         api.patch('/users/:targetUserId/likes', jwtVerifier, toggleLikeUserHandler)
 
-        api.patch('/users/:targetUserId/Dislikes', jwtVerifier, toggleDislikeUserHandler)
+        api.patch('/users/:targetUserId/dislikes', jwtVerifier, toggleDislikeUserHandler)
 
         api.patch('/users/:targetUserId/favs', jwtVerifier, toggleFavUserHandler)
-
-        api.get('/users/profile', jwtVerifier, getUserNameHandler)
 
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 
@@ -77,6 +77,17 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/users/:userId/description', jwtVerifier, jsonBodyParser, updateDescriptionHandler)
 
+        api.delete('/users/:userId', jwtVerifier, deleteUserByIdHandler)
+
+        api.post('/chat/:targetUserId', jwtVerifier, createChatHandler)
+
+        api.post('/:chatId/message', jwtVerifier, jsonBodyParser, sendMessageHandler)
+
+        api.get('/:targetUserId/messages', jwtVerifier, getChatMessagesHandler)
+
+        api.get('/chats', jwtVerifier, getAllChatsHandler)
+
+        api.get('/chats/:chatId', jwtVerifier, getChatParticipantHandler)
 
         api.get('/colors/search', (req, res, next) => {
             const colors = ['red', 'green', 'blue', 'violette', 'brown', 'yellow']

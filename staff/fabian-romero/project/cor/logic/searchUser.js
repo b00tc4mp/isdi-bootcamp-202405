@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 export default (userId, query) => {
-    validate.string(userId, 'userId')
+    validate.id(userId, 'userId')
     validate.string(query, 'query')
 
     return User.findById(userId).lean()

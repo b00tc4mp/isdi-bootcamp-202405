@@ -1,9 +1,12 @@
 import authenticateUserHandler from './authenticateUserHandler.js'
+import createChatHandler from './createChatHandler.js'
 import deleteUserByIdHandler from './deleteUserByIdHandler.js'
+import getAllChatsHandler from './getAllChatsHandler.js'
 import getAllProjectsHandler from './getAllProjectsHandler.js'
 import getAllInvestorsHandler from './getAllInvestorsHandler.js'
 import getAllMatchsHandler from './getAllMatchsHandler.js'
-import getFavUsersHandler from './getFavUsersHandler.js'
+import getChatMessagesHandler from './getChatMessagesHandler.js'
+import getChatParticipantHandler from './getChatParticipantHandler.js'
 import toggleDislikeUserHandler from './toggleDislikeUserHandler.js'
 import getLikeUsersHandler from './getLikeUsersHandler.js'
 import getUserHandler from './getUserHandler.js'
@@ -16,16 +19,20 @@ import updateAvatarHandler from './updateAvatarHandler.js'
 import updateImageHandler from './updateImageHandler.js'
 import updateDescriptionHandler from './updateDescriptionHandler.js'
 import updatePasswordHandler from './updatePasswordHandler.js'
+import sendMessageHandler from './sendMessageHandler.js'
 import searchUserHandler from './searchUserHandler.js'
 
 export {
 
     authenticateUserHandler,
+    createChatHandler,
     deleteUserByIdHandler,
+    getAllChatsHandler,
     getAllProjectsHandler,
     getAllInvestorsHandler,
     getAllMatchsHandler,
-    getFavUsersHandler,
+    getChatMessagesHandler,
+    getChatParticipantHandler,
     getLikeUsersHandler,
     getUserNameHandler,
     getUserHandler,
@@ -38,5 +45,6 @@ export {
     updateImageHandler,
     updateDescriptionHandler,
     updatePasswordHandler,
+    sendMessageHandler,
     searchUserHandler
 }

@@ -52,7 +52,7 @@ export default function Footer({ onSearchFound, onProfileClicked }) {
             onClick={handleSearchUserClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95" >
+            className="w-6 h-6 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95" >
             <Lottie animationData={searchIconAnimation} loop={isLooping} className="w-full h-full" />
         </Button>
 
@@ -60,7 +60,7 @@ export default function Footer({ onSearchFound, onProfileClicked }) {
             onClick={handleProfileClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+            className="w-6 h-6 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
             <Lottie animationData={userIconAnimation} loop={isLooping} className="w-full h-full" />
         </Button>
 

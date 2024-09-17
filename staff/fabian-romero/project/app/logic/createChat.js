@@ -1,20 +1,23 @@
-import { errors } from 'com'
+import { validate, errors } from '../../com/index.js'
 
 const { SystemError } = errors
 
-export default () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/users/favs`, {
+export default targetUserId => {
+    validate.id(targetUserId, 'targetUserId')
+
+    return fetch(`http://localhost:8080/chat/${targetUserId}`, {
+        method: 'POST',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
-        }
+            Authorization: `Bearer ${sessionStorage.token}`,
+        },
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 200)
+            if (status === 201) {
                 return response.json()
-                    .then(users => users)
+            }
 
             return response.json()
                 .then(body => {

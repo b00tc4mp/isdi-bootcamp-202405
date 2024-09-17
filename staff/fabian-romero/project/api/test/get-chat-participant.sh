@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/chats/66e8095e9de1fe35b4df5dae -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmU0MDExYTQ0MzYyZWY4NGY0YTczMjIiLCJyb2xlIjoiaW52ZXN0b3IiLCJpYXQiOjE3MjY0ODE1NDh9.A1-VhseYfKaGDpAAAtyxNM0AhgZk_lbhjtOFQGb1Ids"
