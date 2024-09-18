@@ -21,8 +21,8 @@ export default function Footer({ defaultTab }) {
 
     const onPetsittersClick = () => { navigate('/petsitters') }
 
-    return <footer className="fixed bottom-0 left-0 w-full mb-0 shadow-[0_-1px_1px] bg-white">
-        <Container className="flex justify-between items-center mx-auto max-w-md p-2 ">
+    return <footer className='fixed bottom-0 left-0 w-full mb-0 shadow-[0_-1px_1px] bg-white'>
+        <Container className='flex justify-between items-center mx-auto max-w-md p-2 '>
             <Button onClick={() => onHomeClick()} className={`flex justify-center items-center bg-transparent border-transparent rounded-lg p-1 ${activeTab === 'home' ? 'text-purple-500' : 'text-dimgray'}`}>
                 <RiHomeHeartFill size={24} />
             </Button>

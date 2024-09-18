@@ -58,7 +58,7 @@ export default function App() {
     } else {
       setIsPetsitter(false)
     }
-  }, [])
+  })
 
   return <Context.Provider value={{ alert: setAlertMessage }}>
     <Routes>

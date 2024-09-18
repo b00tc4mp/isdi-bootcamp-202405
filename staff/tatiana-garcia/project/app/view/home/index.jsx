@@ -8,7 +8,7 @@ import Image from '../library/Image'
 export default function Home() {
     return <>
         <Header />
-        <main className='flex flex-col max-w-screen-md items-center mt-16 mb-12 bg-teal-100'>
+        <main className='flex flex-col w-full items-center mt-16 mb-12 bg-teal-100'>
             <Image src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg pt-4 mb-4' />
 
             <Container className='text-lg bg-white p-3 rounded-[50px] m-3 shadow-lg text-center'>

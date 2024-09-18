@@ -185,7 +185,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <Input
                             type='checkbox'
                             id='rabbits-input'
-                            value='rabbits'
+                            value='conejos'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
@@ -194,7 +194,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <Input
                             type='checkbox'
                             id='guinea-pig-input'
-                            value='guineaPig'
+                            value='cobayas'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
@@ -212,7 +212,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <Input
                             type='checkbox'
                             id='rats-input'
-                            value='rats'
+                            value='ratas'
                             name='pets-input'
                             onChange={handlePetChange}
                         />
@@ -221,7 +221,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                         <Input
                             type='checkbox'
                             id='birds-input'
-                            value='birds'
+                            value='aves'
                             name='pets-input'
                             onChange={handlePetChange}
                         />

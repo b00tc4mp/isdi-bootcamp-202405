@@ -175,6 +175,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
                         <Container>
                             <Heading className='text-base font-bold m-2'>{petsitter.name}</Heading>
                             <Paragraph className='text-sm font-semibold text-gray-500'>{petsitter.city}</Paragraph>
+                            <Paragraph className='text-sm font-semibold text-gray-500'>{petsitter.pets.join(', ')}</Paragraph>
                             {hasRating ? (
                                 <Container className='flex flex-row items-center'>
                                     <Rating name='read-only' value={rating} precision={0.25} size='small' emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} readOnly />
@@ -183,7 +184,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
                             ) : (
                                 <Container className='flex flex-row items-center'>
-                                    <Paragraph className='text-sm font-semibold text-gray-500 mt-0'>Sin reviews</Paragraph>
+                                    <Paragraph className='text-sm font-semibold text-gray-500 mt-0'>Sin reseñas</Paragraph>
                                 </Container>
                             )}
                         </Container>

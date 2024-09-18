@@ -202,20 +202,20 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                         <Input
                             type='checkbox'
                             id='rabbits-input'
-                            value='rabbits'
+                            value='conejos'
                             name='pets-input'
                             onChange={handlePetChange}
-                            checked={selectedPets.includes('rabbits')}
+                            checked={selectedPets.includes('conejos')}
                         />
                         <Label htmlFor='rabbits-input' className='p-2'>Conejos</Label><br />
 
                         <Input
                             type='checkbox'
                             id='guinea-pig-input'
-                            value='guineaPig'
+                            value='cobayas'
                             name='pets-input'
                             onChange={handlePetChange}
-                            checked={selectedPets.includes('guineaPig')}
+                            checked={selectedPets.includes('cobayas')}
                         />
                         <Label htmlFor='guinea-pig-input' className='p-2'>Cobayas</Label><br />
 
@@ -232,20 +232,20 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                         <Input
                             type='checkbox'
                             id='rats-input'
-                            value='rats'
+                            value='ratas'
                             name='pets-input'
                             onChange={handlePetChange}
-                            checked={selectedPets.includes('rats')}
+                            checked={selectedPets.includes('ratas')}
                         />
                         <Label htmlFor='rats-input' className='p-2'>Ratas</Label><br />
 
                         <Input
                             type='checkbox'
                             id='birds-input'
-                            value='birds'
+                            value='aves'
                             name='pets-input'
                             onChange={handlePetChange}
-                            checked={selectedPets.includes('birds')}
+                            checked={selectedPets.includes('aves')}
                         />
                         <Label htmlFor='birds-input' className='p-2'>Aves</Label><br />
 
