@@ -109,7 +109,6 @@ export default function Settings({ onLogoutClick }) {
                     <Container className='text-center pb-4 pt-0'>
                         <Button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</Button>
                     </Container>
-
                 </Form>}
 
                 <Container className='text-center pb-8 pt-2'>

@@ -16,6 +16,7 @@ import SettingsPetsitter from './settings/updatePetsitterUser.jsx'
 
 export default function App() {
   const [isPetsitter, setIsPetsitter] = useState(false)
+  const isUserLoggedIn = logic.isUserLoggedIn()
   const navigate = useNavigate()
 
   const [alertMessage, setAlertMessage] = useState(null)
@@ -49,7 +50,7 @@ export default function App() {
   const handleAlertAccept = () => setAlertMessage(null)
 
   useEffect(() => {
-    if (logic.isUserLoggedIn()) {
+    if (isUserLoggedIn) {
       if (logic.getUserRole() === 'petsitter') {
         setIsPetsitter(true)
       } else {
@@ -58,7 +59,10 @@ export default function App() {
     } else {
       setIsPetsitter(false)
     }
-  })
+
+  }, [isUserLoggedIn])
+
+
 
   return <Context.Provider value={{ alert: setAlertMessage }}>
     <Routes>

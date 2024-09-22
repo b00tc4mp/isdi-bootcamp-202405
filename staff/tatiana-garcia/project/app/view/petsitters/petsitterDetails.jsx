@@ -25,7 +25,6 @@ export default function PetsitterDetails({ handleLoginClick }) {
     const { alert } = useContext()
     const { petsitterId } = useParams()
 
-
     const [petsitter, setPetsitter] = useState(null)
     const [reviews, setReviews] = useState([])
     const [userRole, setUserRole] = useState(null)

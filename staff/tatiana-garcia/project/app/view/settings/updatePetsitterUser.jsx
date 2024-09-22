@@ -100,8 +100,6 @@ export default function SettingsPetsitter({ onLogoutClick }) {
         }
     }
 
-
-
     const handleLogoutClick = event => {
         event.preventDefault()
 
