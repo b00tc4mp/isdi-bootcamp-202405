@@ -1,0 +1,20 @@
+const TILE = 75;
+const PX = 'px';
+const OUTOFBOUNDS = 'Out Of Bounds';
+
+const A = 0 * TILE;
+const B = 1 * TILE;
+const C = 2 * TILE;
+const D = 3 * TILE;
+const E = 4 * TILE;
+const F = 5 * TILE;
+const G = 6 * TILE;
+const H = 7 * TILE;
+const _1 = 0 * TILE;
+const _2 = 1 * TILE;
+const _3 = 2 * TILE;
+const _4 = 3 * TILE;
+const _5 = 4 * TILE;
+const _6 = 5 * TILE;
+const _7 = 6 * TILE;
+const _8 = 7 * TILE;

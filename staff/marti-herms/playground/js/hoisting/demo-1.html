@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoisting</title>
+</head>
+
+<body>
+
+    <script>
+
+        /* permite usar funciones y variables antes de que se hayan declarado */
+
+        console.info(getgreeting('Tati'))
+
+        function getgreeting(name) {
+
+            var greet = 'hello ' + name
+
+            return greet
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+body {
+    height: 800px;
+    background: linear-gradient(180deg, cyan 72%, gray 28%);
+}
+
+.padre {
+    width: 900px;
+    height: 492px;
+    margin-top: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+.chasis {
+    width: 500px;
+    height: 300px;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+}
+
+.motorchasis {
+    width: 70px;
+    height: 150px;
+    border-top-right-radius: 70%;
+    border-bottom-right-radius: 70%;
+    background: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.half {
+    display: flex;
+    width: 500px;
+    height: 150px;
+    justify-content: space-evenly;
+    align-items: flex-end;
+}
+
+.window {
+    width:  150px;
+    height: 100px;
+    margin-bottom: 20px solid black;
+    background:  white;
+}
+
+.halfofhalf {
+    display: flex;
+    width: 500px;
+    height: 75px;
+    justify-content: space-evenly;
+}
+
+.wheel {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid cyan;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerwheel {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: gray;
+    position: relative;
+}

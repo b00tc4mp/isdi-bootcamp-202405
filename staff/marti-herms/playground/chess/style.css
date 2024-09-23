@@ -1,0 +1,183 @@
+body {
+    background-color: rgb(255, 179, 97);
+}
+
+.grid_border {
+    width: 650px;
+    height: 650px;
+    background-color: rgb(255, 179, 97);
+    margin: 0 auto;
+    display: grid;
+    grid-template: 1fr 50px / 50px 1fr;
+    position: relative;
+}
+
+.left_letters {
+    width: 50px;
+    height: 600px;
+    display: grid;
+    grid-template-rows: repeat(8, 75px);
+    grid-column-start: 1;
+    grid-row-start: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom_letters {
+    width: 600px;
+    height: 50px;
+    display: grid;
+    grid-template-columns: repeat(8, 75px);
+    grid-column-start: 2;
+    grid-row-start: 2;
+    align-items: center;
+    justify-content: center;
+}
+
+.left_letters p {
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.bottom_letters p {
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.grid {
+    width: 600px;
+    height: 600px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    display: grid;
+    grid-template: repeat(8, 75px) / repeat(8, 75px);
+    position: absolute;
+}
+
+.tile {
+    width: 75px;
+    height: 75px;
+}
+
+.pawn_black {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/pawn-b.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.pawn_white {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/pawn-w.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+
+
+.rook_black {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/rook-b.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.rook_white {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/rook-w.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+
+
+.knight_black {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/knight-b.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.knight_white {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/knight-w.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+
+
+.bishop_black {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/bishop-b.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.bishop_white {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/bishop-w.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+
+
+.queen_black {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/queen-b.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.queen_white {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/queen-w.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+
+
+.king_black {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/king-b.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.king_white {
+    width: 75px;
+    height: 75px;
+    background-image: url(imagenes/king-w.svg);
+    background-size: 75px 75px;
+    background-color: transparent;
+    position: absolute;
+}

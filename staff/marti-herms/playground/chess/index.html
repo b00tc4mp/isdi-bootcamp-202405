@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHESS</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="grid_border">
+        <div class="left_letters">
+            <p>A</p>
+            <p>B</p>
+            <p>C</p>
+            <p>D</p>
+            <p>E</p>
+            <p>F</p>
+            <p>G</p>
+            <p>H</p>
+        </div>
+        <div class="bottom_letters">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+        </div>
+        <div class="grid">
+            <input id="1" class="rook_black piece" type="button"></input>
+            <input id="2" class="knight_black piece" type="button"></input>
+            <input id="3" class="bishop_black piece" type="button"></input>
+            <input id="4" class="queen_black piece" type="button"></input>
+            <input id="5" class="king_black piece" type="button"></input>
+            <input id="6" class="bishop_black piece" type="button"></input>
+            <input id="7" class="knight_black piece" type="button"></input>
+            <input id="8" class="rook_black piece" type="button"></input>
+            <input id="9" class="pawn_black piece" type="button"></input>
+            <input id="10" class="pawn_black piece" type="button"></input>
+            <input id="11" class="pawn_black piece" type="button"></input>
+            <input id="12" class="pawn_black piece" type="button"></input>
+            <input id="13" class="pawn_black piece" type="button"></input>
+            <input id="14" class="pawn_black piece" type="button"></input>
+            <input id="15" class="pawn_black piece" type="button"></input>
+            <input id="16" class="pawn_black piece" type="button"></input>
+
+            <input id="17" class="pawn_white piece" type="button"></input>
+            <input id="18" class="pawn_white piece" type="button"></input>
+            <input id="19" class="pawn_white piece" type="button"></input>
+            <input id="20" class="pawn_white piece" type="button"></input>
+            <input id="21" class="pawn_white piece" type="button"></input>
+            <input id="22" class="pawn_white piece" type="button"></input>
+            <input id="23" class="pawn_white piece" type="button"></input>
+            <input id="24" class="pawn_white piece" type="button"></input>
+            <input id="25" class="rook_white piece" type="button"></input>
+            <input id="26" class="knight_white piece" type="button"></input>
+            <input id="27" class="bishop_white piece" type="button"></input>
+            <input id="28" class="queen_white piece" type="button"></input>
+            <input id="29" class="king_white piece" type="button"></input>
+            <input id="30" class="bishop_white piece" type="button"></input>
+            <input id="31" class="knight_white piece" type="button"></input>
+            <input id="32" class="rook_white piece" type="button"></input>
+
+            <input id="A1" class="tile" type="button" disabled></input>
+            <input id="A2" class="tile" type="button" disabled></input>
+            <input id="A3" class="tile" type="button" disabled></input>
+            <input id="A4" class="tile" type="button" disabled></input>
+            <input id="A5" class="tile" type="button" disabled></input>
+            <input id="A6" class="tile" type="button" disabled></input>
+            <input id="A7" class="tile" type="button" disabled></input>
+            <input id="A8" class="tile" type="button" disabled></input>
+
+            <input id="B1" class="tile" type="button" disabled></input>
+            <input id="B2" class="tile" type="button" disabled></input>
+            <input id="B3" class="tile" type="button" disabled></input>
+            <input id="B4" class="tile" type="button" disabled></input>
+            <input id="B5" class="tile" type="button" disabled></input>
+            <input id="B6" class="tile" type="button" disabled></input>
+            <input id="B7" class="tile" type="button" disabled></input>
+            <input id="B8" class="tile" type="button" disabled></input>
+
+            <input id="C1" class="tile" type="button" disabled></input>
+            <input id="C2" class="tile" type="button" disabled></input>
+            <input id="C3" class="tile" type="button" disabled></input>
+            <input id="C4" class="tile" type="button" disabled></input>
+            <input id="C5" class="tile" type="button" disabled></input>
+            <input id="C6" class="tile" type="button" disabled></input>
+            <input id="C7" class="tile" type="button" disabled></input>
+            <input id="C8" class="tile" type="button" disabled></input>
+
+            <input id="D1" class="tile" type="button" disabled></input>
+            <input id="D2" class="tile" type="button" disabled></input>
+            <input id="D3" class="tile" type="button" disabled></input>
+            <input id="D4" class="tile" type="button" disabled></input>
+            <input id="D5" class="tile" type="button" disabled></input>
+            <input id="D6" class="tile" type="button" disabled></input>
+            <input id="D7" class="tile" type="button" disabled></input>
+            <input id="D8" class="tile" type="button" disabled></input>
+
+            <input id="E1" class="tile" type="button" disabled></input>
+            <input id="E2" class="tile" type="button" disabled></input>
+            <input id="E3" class="tile" type="button" disabled></input>
+            <input id="E4" class="tile" type="button" disabled></input>
+            <input id="E5" class="tile" type="button" disabled></input>
+            <input id="E6" class="tile" type="button" disabled></input>
+            <input id="E7" class="tile" type="button" disabled></input>
+            <input id="E8" class="tile" type="button" disabled></input>
+
+            <input id="F1" class="tile" type="button" disabled></input>
+            <input id="F2" class="tile" type="button" disabled></input>
+            <input id="F3" class="tile" type="button" disabled></input>
+            <input id="F4" class="tile" type="button" disabled></input>
+            <input id="F5" class="tile" type="button" disabled></input>
+            <input id="F6" class="tile" type="button" disabled></input>
+            <input id="F7" class="tile" type="button" disabled></input>
+            <input id="F8" class="tile" type="button" disabled></input>
+
+            <input id="G1" class="tile" type="button" disabled></input>
+            <input id="G2" class="tile" type="button" disabled></input>
+            <input id="G3" class="tile" type="button" disabled></input>
+            <input id="G4" class="tile" type="button" disabled></input>
+            <input id="G5" class="tile" type="button" disabled></input>
+            <input id="G6" class="tile" type="button" disabled></input>
+            <input id="G7" class="tile" type="button" disabled></input>
+            <input id="G8" class="tile" type="button" disabled></input>
+
+            <input id="H1" class="tile" type="button" disabled></input>
+            <input id="H2" class="tile" type="button" disabled></input>
+            <input id="H3" class="tile" type="button" disabled></input>
+            <input id="H4" class="tile" type="button" disabled></input>
+            <input id="H5" class="tile" type="button" disabled></input>
+            <input id="H6" class="tile" type="button" disabled></input>
+            <input id="H7" class="tile" type="button" disabled></input>
+            <input id="H8" class="tile" type="button" disabled></input>
+        </div>
+
+
+    </div>
+
+    <script src="Constants.js"></script>
+    <script src="classes/Pieces.js"></script>
+    <script src="classes/Pawn.js"></script>
+    <script src="classes/Rook.js"></script>
+    <script src="classes/Knight.js"></script>
+    <script src="classes/Bishop.js"></script>
+    <script src="classes/Queen.js"></script>
+    <script src="classes/King.js"></script>
+    <script src="classes/Board.js"></script>
+    <script src="classes/Tile.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
