@@ -24,7 +24,7 @@ The application is designed so that you can use it without the need to register.
  
  **Petsitter user**
  - list petsitters by city and animal
- - view petsitter's detail with contact info
+ - view petsitter's detail
  - view admin contact 
  - update own details
 
@@ -33,8 +33,8 @@ The application is designed so that you can use it without the need to register.
  - view petsitter's detail with contact info
  - view admin contact
  - add review to petsitter
- - update own details
  - delete review from petsitter
+ - update own details
 
 ### UIUX Design
 
