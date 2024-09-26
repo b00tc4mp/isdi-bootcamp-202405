@@ -11,7 +11,7 @@ import { User } from '../data/models.js'
 
 import errors from '../../com/errors.js'
 
-const { NotFoundError, ValidationError, CredentialsError } = errors
+const { NotFoundError, ValidationError, CredentialsError, DuplicityError } = errors
 
 describe('updateEmail', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -19,7 +19,6 @@ describe('updateEmail', () => {
     beforeEach(() => User.deleteMany())
 
     it('succeeds on existing user', () => {
-        debugger
         return bcrypt.hash('123123123', 8)
             .then(hash => User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: hash }))
             .then(user => updateEmail(user.id, 'peta@zeta.com', '123123123')
@@ -27,7 +26,6 @@ describe('updateEmail', () => {
                     .then(user => {
                         expect(user.email).to.equal('peta@zeta.com')
                     })
-                    .then(match => expect(match).to.be.true)
                 )
             )
     })
@@ -104,6 +102,27 @@ describe('updateEmail', () => {
             .finally(() => {
                 expect(_error).to.be.instanceOf(CredentialsError)
                 expect(_error.message).to.equal('wrong password')
+            })
+    })
+
+    it('fails on duplicated email', () => {
+        return bcrypt.hash('123123123', 8)
+            .then(hash => {
+                // Crear el primer usuario
+                return User.create({ name: 'Caca', surname: 'Tua', email: 'caca@tua.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: hash })
+            })
+            .then(user1 => {
+                // Crear el segundo usuario
+                return User.create({ name: 'Peta', surname: 'Zeta', email: 'peta@zeta.com', phone: '965432876', address: 'calle Tertulia 4, Cuenca', password: user1.password })
+            })
+            .then(user2 => {
+                // Intentar actualizar el email de user2 al email de user1
+                return updateEmail(user2.id, 'caca@tua.com', '123123123')
+            })
+            .catch(error => {
+                // Verificar que se lanza un DuplicityError
+                expect(error).to.be.instanceOf(DuplicityError)
+                expect(error.message).to.equal('email already exists')
             })
     })
 

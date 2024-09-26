@@ -14,6 +14,7 @@ import toggleProductEnable from './toggleProductEnable.js'
 import deleteProduct from './deleteProduct.js'
 import getAllUserProducts from './getAllUserProducts.js'
 import updateProductLocation from './updateProductLocation.js'
+import searchProducts from './searchProducts.js'
 
 const logic = {
     registerUser,
@@ -31,7 +32,8 @@ const logic = {
     toggleProductEnable,
     deleteProduct,
     getAllUserProducts,
-    updateProductLocation
+    updateProductLocation,
+    searchProducts
 }
 
 export default logic

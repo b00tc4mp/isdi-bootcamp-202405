@@ -78,7 +78,7 @@ describe('updatePassword', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password is not a string')
+            expect(error.message).to.equal('oldPassword is not a string')
         }
     })
 
@@ -91,7 +91,7 @@ describe('updatePassword', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password length is lower than 8 characters')
+            expect(error.message).to.equal('oldPassword length is lower than 8 characters')
         }
     })
 
@@ -104,7 +104,7 @@ describe('updatePassword', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
+            expect(error.message).to.equal('oldPassword has empty spaces')
         }
     })
 
@@ -117,7 +117,7 @@ describe('updatePassword', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password is not a string')
+            expect(error.message).to.equal('newPassword is not a string')
         }
     })
 
@@ -130,7 +130,7 @@ describe('updatePassword', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password length is lower than 8 characters')
+            expect(error.message).to.equal('newPassword length is lower than 8 characters')
         }
     })
 
@@ -143,7 +143,7 @@ describe('updatePassword', () => {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
+            expect(error.message).to.equal('newPassword has empty spaces')
         }
     })
 

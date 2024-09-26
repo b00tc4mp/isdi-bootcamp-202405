@@ -59,6 +59,25 @@ function validateLocation(location, explain = 'location') {
         }
     })
 }
+
+function validateCoordinates(coordinates, explain = 'coordinates') {
+    if (!Array.isArray(coordinates)) throw new ValidationError(`${explain} must be an array`)
+    if (coordinates.length !== 2) throw new ValidationError(`${explain} must have exactly two values`)
+
+    const [latitude, longitude] = coordinates
+
+    // Llamamos a validateNumber para verificar si son números
+    validateNumber(latitude, `${explain} latitude`)
+    validateNumber(longitude, `${explain} longitude`)
+
+    if (latitude < -90 || latitude > 90) {
+        throw new ValidationError(`${explain} latitude must be between -90 and 90`)
+    }
+
+    if (longitude < -180 || longitude > 180) {
+        throw new ValidationError(`${explain} longitude must be between -180 and 180`)
+    }
+}
 const validate = {
     string: validateString,
     password: validatePassword,
@@ -68,7 +87,8 @@ const validate = {
     phone: validatePhone,
     url: validateUrl,
     number: validateNumber,
-    location: validateLocation
+    location: validateLocation,
+    coordinates: validateCoordinates
 }
 
 export default validate

@@ -12,6 +12,7 @@ import toggleProductEnableHandler from './toggleProductEnableHandler.js'
 import deleteProductHandler from './deleteProductHandler.js'
 import getAllUserProductsHandler from './getAllUserProductsHandler.js'
 import updateProductLocationHandler from './updateProductLocationHandler.js'
+import searchProductsHandler from './searchProductsHandler.js'
 
 export {
     registerUserHandler,
@@ -27,5 +28,6 @@ export {
     toggleProductEnableHandler,
     deleteProductHandler,
     getAllUserProductsHandler,
-    updateProductLocationHandler
+    updateProductLocationHandler,
+    searchProductsHandler
 }

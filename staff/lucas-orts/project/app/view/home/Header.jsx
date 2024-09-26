@@ -49,8 +49,8 @@ export default function Header({ onLogout, onLoginClick, isAuthenticated }) {
     }
 
     return (
-        <header className='fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray] dark:bg-black dark:text-white'>
-            <Container>
+        <header className='fixed left-0 top-0 w-full flex justify-between items-center gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray]'>
+            <Container className="justify-end flex items-center">
                 {!isAuthenticated ? (
                     <Button onClick={onLoginClick}>
                         <Image src='/icons/log-in.svg' alt='log-in icon' className='h-[30px] w-[30px]' />

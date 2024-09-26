@@ -80,6 +80,7 @@ const product = new Schema({
     }
 })
 
+product.index({ location: '2dsphere' })
 
 
 const Location = model('Location', point)

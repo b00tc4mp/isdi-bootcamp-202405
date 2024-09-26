@@ -18,7 +18,7 @@ describe('createProduct', () => {
     it('succeeds on new product', () =>
         User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user =>
-                createProduct(user.id, 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                createProduct(user.id, 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', { type: 'Point', coordinates: [40.7128, -74.0060] })
                     .then(() => Product.findOne({ farmer: user.id })
                         .then(product => {
                             expect(product.farmer.toString()).to.equal(user.id)
@@ -27,6 +27,7 @@ describe('createProduct', () => {
                             expect(product.minprice).to.equal(5.3)
                             expect(product.maxprice).to.equal(6.1)
                             expect(product.image).to.equal('https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+                            expect(product.location.coordinates).to.deep.equal([40.7128, -74.0060])
                         })
                     )
             )
@@ -36,7 +37,7 @@ describe('createProduct', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return createProduct(new ObjectId().toString(), 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g')
+        return createProduct(new ObjectId().toString(), 'lemon', '', 5.3, 6.1, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', { type: 'Point', coordinates: [40.7128, -74.0060] })
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)

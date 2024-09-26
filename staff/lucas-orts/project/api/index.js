@@ -18,7 +18,8 @@ import {
     toggleProductEnableHandler,
     deleteProductHandler,
     getAllUserProductsHandler,
-    updateProductLocationHandler
+    updateProductLocationHandler,
+    searchProductsHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -56,6 +57,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.delete('/products/:productId', jwtVerifier, deleteProductHandler)
 
         api.get('/products', jwtVerifier, getAllUserProductsHandler)
+
+        api.get('/products/search', searchProductsHandler)
 
         api.use(errorHandler)
 

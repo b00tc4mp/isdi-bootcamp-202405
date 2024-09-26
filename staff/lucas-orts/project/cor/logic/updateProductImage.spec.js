@@ -9,7 +9,7 @@ import { User, Product } from '../data/models.js'
 
 import errors from '../../com/errors.js'
 
-const { NotFoundError, ValidationError } = errors
+const { NotFoundError, ValidationError, OwnershipError } = errors
 
 describe('updateProductImage', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -19,7 +19,7 @@ describe('updateProductImage', () => {
     it('succeeds on existing user and product', () =>
         User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user =>
-                Product.create({ farmer: user.id, name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
+                Product.create({ farmer: user.id, name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [40.7128, -74.0060] } })
                     .then(product => updateProductImage(user.id, product.id, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?')
                         .then(() => Product.findById(product.id).lean())
                         .then(updatedProduct => {
@@ -32,7 +32,7 @@ describe('updateProductImage', () => {
     it('fails on non-existing user', () => {
         let _error
 
-        return Product.create({ farmer: new ObjectId().toString(), name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
+        return Product.create({ farmer: new ObjectId().toString(), name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [40.7128, -74.0060] } })
             .then(product => updateProductImage(new ObjectId().toString(), product.id, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?'))
             .catch(error => _error = error)
             .finally(() => {
@@ -58,12 +58,33 @@ describe('updateProductImage', () => {
 
         return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
             .then(user => {
-                Product.create({ farmer: new ObjectId(), name: 'lemon', type: '', minprice: 5.3, maxprice: 6.1, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-                    .then(product => updateProductImage(user.id, product.id))
+                Product.create({ farmer: new ObjectId(), name: 'lemon', type: '', minprice: 5.3, maxprice: 6.1, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [40.7128, -74.0060] } })
+                    .then(product => updateProductImage(user.id, product.id, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?'))
                     .catch(error => _error = error)
                     .finally(() => {
-                        expect(_error).to.be.instanceOf(OwnerShipError)
+                        expect(_error).to.be.instanceOf(OwnershipError)
                         expect(_error.message).to.equal('product does not belong to user')
+                    })
+            })
+    })
+
+    it('fails when product does not belong to the user', () => {
+        return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
+            .then(ester => {
+                // Después de crear a Ester, creamos a Carlos
+                return User.create({ name: 'Carlos', surname: 'Lopez', email: 'carlos@lopez.com', phone: '965432876', address: 'calle Almendra 4, Cuenca', password: 'abc123123' })
+                    .then(carlos => {
+                        // Después de crear a Carlos, creamos un producto asociado a Carlos
+                        return Product.create({ farmer: carlos.id, name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [40.7128, -74.0060] } })
+                            .then(product => {
+                                // Intentamos que Ester actualice el producto de Carlos
+                                return updateProductImage(ester.id, product.id, 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?')
+                                    .catch(error => {
+                                        // Verificamos que el error sea de tipo OwnershipError
+                                        expect(error).to.be.instanceOf(OwnershipError)
+                                        expect(error.message).to.equal('product does not belong to user')
+                                    })
+                            })
                     })
             })
     })

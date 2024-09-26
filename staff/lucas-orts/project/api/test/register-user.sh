@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users -X POST -d '{"name":"Caca","surname":"Tua","email":"caca@tua.com","phone":"+34 652321845","address":"calle Olivereta 32, Alicante","password":"123123123","passwordRepeat":"123123123"}' -H "Content-Type: application/json"
+curl -v http://localhost:8080/users -X POST -d '{"name":"Imple","surname":"Mento","email":"imple@mento.com","phone":"+34 652321855","address":"calle Olivereta 33, Alicante","password":"123123123","passwordRepeat":"123123123"}' -H "Content-Type: application/json"
