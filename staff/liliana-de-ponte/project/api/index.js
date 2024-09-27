@@ -16,7 +16,8 @@ import {
     toggleAttendanceEventHandler,
     getAllAttendanceEventsHandler,
     searchEventsHandler,
-    getEventHandler
+    getEventHandler,
+    updateEventHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -39,6 +40,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
 
+        api.patch('/events/:eventId', jwtVerifier, jsonBodyParser, updateEventHandler)
+
         api.patch('/events/:eventId/likes', jwtVerifier, toggleLikeEventHandler)
 
         api.get('/events/likes', jwtVerifier, getAllLikeEventsHandler)
@@ -50,6 +53,7 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/events/search', jwtVerifier, searchEventsHandler)
 
         api.get('/events/:eventId/info', jwtVerifier, getEventHandler)
+
 
         api.use(errorHandler)
 

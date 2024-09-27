@@ -1,3 +1,4 @@
+import useContext from '../context'
 import logic from '../../logic'
 
 import Form from '../library/Form'
@@ -7,9 +8,8 @@ import Button from '../library/Button'
 import Link from '../library/Link'
 import Image from '../library/Image'
 
-//context
-
 export default function Register({ onRegister, onLoginClick }) {
+    const { alert } = useContext()
 
     const handleRegisterSubmit = event => {
         event.preventDefault()

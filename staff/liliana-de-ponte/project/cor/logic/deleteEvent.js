@@ -6,7 +6,7 @@ const { NotFoundError, SystemError, OwnerShipError } = errors
 
 export default (userId, eventId) => {
     validate.id(userId, 'userId')
-    validate.string(eventId, 'eventId')
+    validate.id(eventId, 'eventId')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })

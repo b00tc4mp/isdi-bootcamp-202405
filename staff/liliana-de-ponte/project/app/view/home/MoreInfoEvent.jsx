@@ -40,13 +40,13 @@ export default function MoreInfoEvent() {
 
             <Image src={event?.image} alt={event?.title} title={event?.title} className="h-30 w-30 rounded-xl mr-2 border-2 shadow-[1px_1px_10px_1px] shadow-[#050968]" />
 
-            <Paragraph className="flex text-[#9747FF] font-bold justify-center text-sm"><FaCalendarAlt />{formatTime(new Date(event?.date))}</Paragraph>
+            <Paragraph className="flex text-[#050968] font-bold justify-center text-xs"><FaCalendarAlt className="mr-1" />{formatTime(new Date(event?.date))}</Paragraph>
 
             <Paragraph className="flex text-justify text-sm">{event?.description}</Paragraph>
 
-            <Paragraph className="flex font-bold text-[#9747FF] text-sm"><LuClock size={14} />{event?.duration}</Paragraph>
+            <Paragraph className="flex font-bold text-[#050968] text-xs"><LuClock className="mr-1" size={14} />{event?.duration}</Paragraph>
 
-            <Paragraph className="flex font-bold text-[#9747FF] text-sm"><IoLocationSharp size={14} />{event?.address}, {event?.city}</Paragraph>
+            <Paragraph className="flex font-bold text-[#050968] text-xs"><IoLocationSharp className="mr-1" size={14} />{event?.address}, {event?.city}</Paragraph>
 
         </Container>
 

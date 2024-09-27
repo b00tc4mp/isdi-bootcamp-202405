@@ -13,6 +13,7 @@ import toggleAttendanceEvent from './toggleAttendanceEvent.js'
 import getAllAttendanceEvent from './getAllAttendanceEvents.js'
 import searchEvents from './searchEvents.js'
 import getEvent from './getEvent.js'
+import updateEvent from './updateEvent.js'
 
 const logic = {
     registerUser,
@@ -29,7 +30,8 @@ const logic = {
     toggleAttendanceEvent,
     getAllAttendanceEvent,
     searchEvents,
-    getEvent
+    getEvent,
+    updateEvent
 
 }
 

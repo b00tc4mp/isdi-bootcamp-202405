@@ -17,6 +17,11 @@ export default function LikeEventList() {
         loadEvents()
     }
 
+    const handleEventEdited = () => {
+
+        loadEvents()
+    }
+
     const handleEventLikeToggled = () => {
         loadEvents()
     }
@@ -47,7 +52,7 @@ export default function LikeEventList() {
             key={event.id}
             event={event}
             onEventDeleted={handleEventDeleted}
-            // onEventEdited={handleEventEdited}
+            onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
             onEventAttendanceToggled={handleEventAttendanceToggled}
 

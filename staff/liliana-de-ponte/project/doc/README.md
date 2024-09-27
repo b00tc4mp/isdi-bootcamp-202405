@@ -14,7 +14,6 @@
 
 - Event details: Check the duration, price, and other relevant information for each event. 
 
-- Book Spot:  Reserve your spot for events directly from the app.
 
 ### Use Cases
 
@@ -56,7 +55,11 @@ User
 - Node
 - Express
 - React
-- Mongo
+- Mongo / Mongoose
+- React Router
+- TailwindCSS
+- JWT
+- Bcrypt
 
 ### Data Model
 
@@ -78,8 +81,9 @@ Event
 - description (string)
 - image (string)
 - location ([number, number])
+- address (string)
+- city (string)
 - attendees ([User.id])
-
 
 ## Next Version
 

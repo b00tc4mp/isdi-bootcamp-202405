@@ -19,6 +19,12 @@ export default function ResultsEventList() {
     const handleEventDeleted = () => {
         loadEvents()
     }
+
+    const handleEventEdited = () => {
+
+        loadEvents()
+    }
+
     const handleEventLikeToggled = () => {
         loadEvents()
     }
@@ -31,8 +37,6 @@ export default function ResultsEventList() {
         if (q) {
             navigator.geolocation.getCurrentPosition((position => {
                 const coords = [position.coords.latitude, position.coords.longitude]
-
-                console.log(coords)
 
                 try {
                     logic.searchEvents(q, distance, coords)
@@ -61,6 +65,7 @@ export default function ResultsEventList() {
             key={event.id}
             event={event}
             onEventDeleted={handleEventDeleted}
+            onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
             onEventAttendanceToggled={handleEventAttendanceToggled}
 

@@ -1,3 +1,4 @@
+import useContext from '../context'
 import logic from '../../logic/index.js'
 
 import Image from '../library/Image'
@@ -7,13 +8,13 @@ import Input from '../library/Input'
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 import Link from '../library/Link'
-//context
 
 import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
+    const { alert } = useContext()
 
     const handleLoginSubmit = event => {
         event.preventDefault()
@@ -36,7 +37,7 @@ export default function Login({ onLogin, onRegisterClick }) {
                     if (error instanceof NotFoundError || error instanceof CredentialsError)
                         message = 'incorrect username and/on password'
 
-                    alert(message)
+                    alert(error.message)
 
                 })
         } catch (error) {

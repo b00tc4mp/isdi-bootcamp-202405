@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default eventId => {
-    validate.string(eventId, 'eventId')
+    validate.id(eventId, 'eventId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/events/${eventId}/likes`, {
         method: 'PATCH',

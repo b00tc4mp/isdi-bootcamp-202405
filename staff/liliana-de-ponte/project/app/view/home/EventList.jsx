@@ -7,6 +7,8 @@ import Event from './Event'
 export default function EventList({ refreshStamp }) {
 
     const [events, setEvents] = useState([])
+    const [editingEventId, setEditingEventId] = useState(null)
+
 
     useEffect(() => {
 
@@ -17,6 +19,11 @@ export default function EventList({ refreshStamp }) {
         loadEvents()
     }
 
+    const handleEventEdited = () => {
+        setEditingEventId(null)
+        loadEvents()
+    }
+
     const handleEventLikeToggled = () => {
         loadEvents()
     }
@@ -24,6 +31,7 @@ export default function EventList({ refreshStamp }) {
     const handleEventAttendanceToggled = () => {
         loadEvents()
     }
+
 
     const loadEvents = () => {
         try {
@@ -46,6 +54,7 @@ export default function EventList({ refreshStamp }) {
             event={event}
             key={event.id}
             onEventDeleted={handleEventDeleted}
+            onEventEdited={handleEventEdited}
             onEventLikeToggled={handleEventLikeToggled}
             onEventAttendanceToggled={handleEventAttendanceToggled}
 

@@ -13,7 +13,6 @@ export default function Search({ onSearch }) {
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState('')
-    // const [isFormVisible, setIsFormVisible] = useState(true)
 
     const q = searchParams.get('q') || ''
     const distance = searchParams.get('distance') || '10'
@@ -31,16 +30,19 @@ export default function Search({ onSearch }) {
         const { value: query } = form.q
         const { value: distance } = form.distance
 
-        if (!query.trim())
-            navigate(`/search?q=${query}&distance=${distance}`)
-        else if (location.pathname !== '/search')
+        if (!query.trim() || !distance) {
             navigate('/search')
+
+            return
+        }
+        else if (location.pathname !== '/search')
+            navigate(`/search?q=${query}&distance=${distance}`)
         else
             setSearchParams({ q: query, distance })
 
         setQuery(query)
-        onSearch()
-        // setIsFormVisible(false)
+
+        onSearch(false)
     }
 
     const handleInputChange = event => {
@@ -50,7 +52,6 @@ export default function Search({ onSearch }) {
     }
 
     return <>
-        {/* {isFormVisible && ( */}
         <Container className="h-screen p-4">
             <Form onSubmit={handleSubmit}>
 
@@ -72,8 +73,7 @@ export default function Search({ onSearch }) {
 
             </Form >
         </Container >
-        {/* )
-        } */}
+
     </>
 
 }

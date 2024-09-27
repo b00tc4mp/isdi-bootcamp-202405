@@ -31,17 +31,18 @@ export default function Home({ onLogout }) {
         navigate('/likes')
     }
 
-
     const handleAttendancesClick = () => {
         navigate('/attendees')
     }
 
     const handleSearchClick = () => {
-        setIsSearching(true)
-        navigate('/search')
+        setIsSearching(!isSearching)
+        isSearching ? navigate('/') : navigate('/search')
+
     }
     const handleSearch = () => {
         setIsSearching(false)
+
     }
 
     return <>
@@ -65,7 +66,7 @@ export default function Home({ onLogout }) {
 
                 <Route path="/info/:eventId" element={<MoreInfoEvent />} />
 
-            </Routes>
+            </Routes >
         </main >
 
         <Footer
