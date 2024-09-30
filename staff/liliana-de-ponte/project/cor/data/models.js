@@ -55,6 +55,10 @@ const event = new Schema({
         type: String,
         required: true,
     },
+    organizer: {
+        type: String,
+        required: true,
+    },
     date: {
         type: Date,
     },

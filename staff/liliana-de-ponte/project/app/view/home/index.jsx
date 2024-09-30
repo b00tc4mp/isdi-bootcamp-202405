@@ -64,7 +64,7 @@ export default function Home({ onLogout }) {
                     isSearching ? <Search onSearch={handleSearch} /> :
                         <ResultsEventList />} />
 
-                <Route path="/info/:eventId" element={<MoreInfoEvent />} />
+                <Route path="/event/:eventId" element={<MoreInfoEvent />} />
 
             </Routes >
         </main >

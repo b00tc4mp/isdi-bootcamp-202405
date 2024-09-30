@@ -18,7 +18,6 @@ describe('getAllAttendanceEvents', () => {
         Promise.all([User.deleteMany(), Event.deleteMany()]))
 
     it('succeeds on existing user', () => {
-        debugger
         return User.create({ name: 'Samu', surname: 'Spine', email: 'samu@spine.com', username: 'samuspine', password: '123456789' })
             .then(user1 => {
                 return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })

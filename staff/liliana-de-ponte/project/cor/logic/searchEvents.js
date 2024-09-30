@@ -43,7 +43,6 @@ export default (userId, query, distance, coords) => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-
                                 }
 
                                 event.id = event._id.toString()

@@ -5,8 +5,8 @@ import { useState } from 'react'
 import { BiLike } from "react-icons/bi"
 import { BiSolidLike } from "react-icons/bi"
 import { BsTrash3 } from "react-icons/bs"
-import { GoStarFill } from "react-icons/go"
-import { FiStar } from "react-icons/fi"
+import { IoTicket } from "react-icons/io5"
+import { IoTicketOutline } from "react-icons/io5"
 import { FaCalendarAlt } from "react-icons/fa"
 import { CiEdit } from "react-icons/ci"
 
@@ -156,7 +156,7 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventLik
 
                 <Container className="w-11/12">
                     <Label className="text-[#050968] p-0.5 text-sm" htmlFor="date-select" >Date of the event</Label>
-                    <Input className="p-0.5 text-[#050968] text-sm font-normal" id="edit-date-input" type="date"></Input>
+                    <Input className="p-0.5 text-[#050968] text-sm font-normal" id="edit-date-input" type="date" defaultValue={event.date.slice(0, 10)}></Input>
                 </ Container>
 
                 <Input className="w-11/12 p-0.5 font-normal" id="edit-duration-input" placeholder='Duration of the event' defaultValue={event.duration}></Input>
@@ -194,10 +194,10 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventLik
                 <Paragraph className="text-[#050968] text-[10px] font-bold flex items-center ml-6"><FaCalendarAlt className="mr-1" />{formatTime(new Date(event.date))}</Paragraph>
             </Container>
 
-            <Button className="mt-11 mr-1 text-sm" onClick={handleAttendanceEventClick}>{event.attendance ? <GoStarFill color="050968" size={16} /> : <FiStar color="080968" size={16} />}<span style={{ color: '#050968' }}>{' '}{event.attendees.length}</span></Button>
+            <Button className="mt-11 mr-1 text-sm" onClick={handleAttendanceEventClick}>{event.attendance ? <IoTicket color="050968" size={18} /> : <IoTicketOutline color="080968" size={18} />}<span style={{ color: '#050968' }}>{' '}{event.attendees.length}</span></Button>
 
             <Container className="absolute bottom-0 right-3 flex items-end space-x-8">
-                <Link className="mb-0 text-[#9747FF] text-xs" href={`/info/${event.id}`}><u>+Info</u></Link>
+                <Link className="mb-0 text-[#9747FF] text-xs" href={`/event/${event.id}`}><u>+Info</u></Link>
             </Container>
 
             <Container className="absolute bottom-0 right-24 space-x-3">

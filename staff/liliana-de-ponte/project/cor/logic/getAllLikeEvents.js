@@ -27,7 +27,6 @@ export default userId => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-
                                 }
 
                                 event.id = event._id.toString()

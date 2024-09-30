@@ -18,20 +18,19 @@ describe('getEvent', () => {
         Promise.all([User.deleteMany(), Event.deleteMany()]))
 
     it('succeds on existing user', () => {
-        User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
-            .then(user =>
-                Event.create({ author: user.id, title: 'TRT', organizer: 'Sergio Canovas', date: (new Date / 2024 / 9 / 17), duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] } })
-                    .then(event =>
-                        getEvent(user.id, event.id)
-                            .then(() => Event.find({}).lean()
-                                .then(events => {
-                                    expect(user.id).to.equal(user.id.toString())
-                                    expect(events.title).to.equal('TRT')
-                                    expect(events.description).to.equal('un evento sobre ....')
-                                })
-                            )
-                    )
-            )
+        debugger
+        return User.create({ name: 'Lili', surname: 'De Ponte', email: 'lili@deponte.com', username: 'lilideponte', password: '123456789' })
+            .then(user => {
+                return Event.create({ author: user.id, title: 'TRT', organizer: 'Sergio Canovas', date: (new Date / 2024 / 9 / 17), duration: '3 dias', description: 'un evento sobre ....', image: 'https://media.giphy.com/media/kYNVwkyB3jkauFJrZA/giphy.gif?cid=790b7611dhp6zc5g5g7wpha1e18yh2o2f65du1ribihl6q9i&ep=v1_gifs_trending&rid=giphy.gif&ct=g', location: { type: 'Point', coordinates: [41.37946397948531, 2.1521122255990233] }, address: "Calle diputacion 37", city: 'Barcelona' })
+                    .then(event => {
+                        return getEvent(user.id, event.id)
+                            .then(_event => {
+                                expect(_event.title).to.equal('TRT')
+                                expect(_event.description).to.equal('un evento sobre ....')
+                                expect(_event.id).to.equal(event.id)
+                            })
+                    })
+            })
     })
 
     it('fails on non-existing user', () => {
@@ -83,8 +82,9 @@ describe('getEvent', () => {
         }
     })
 
+
     afterEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
 
     after(() => mongoose.disconnect())
-})
 
+})

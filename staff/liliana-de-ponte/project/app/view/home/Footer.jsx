@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { FaRegSquarePlus } from "react-icons/fa6"
 import { BiLike } from 'react-icons/bi'
-import { FiStar } from 'react-icons/fi'
-
+import { IoTicketOutline } from "react-icons/io5"
 import CreateEvent from './CreateEvent'
 import Button from '../library/Button'
 import Container from '../library/Container'
@@ -39,7 +38,7 @@ export default function Footer({ onEventCreated, onLikesClick, onAttendancesClic
 
         {!createEventVisible && (
             <Container className="flex justify-around items-center">
-                <Button onClick={handleAttendancesClick}><FiStar size={22} /></Button>
+                <Button onClick={handleAttendancesClick}><IoTicketOutline size={22} /></Button>
                 <Button onClick={handleCreateEventClick}><FaRegSquarePlus size={22} /></Button>
                 <Button onClick={handleLikesClick}><BiLike size={22} /></Button>
             </Container>
