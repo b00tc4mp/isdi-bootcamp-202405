@@ -10,16 +10,16 @@ import Confirm from '../common/Confirm'
 import { useState } from 'react'
 
 
-export default function ResultsProduct({ product, onProductAdded }) {
+export default function CartProduct({ product, onProductCartDeleted }) {
 
     const [confirmMessage, setConfirmMessage] = useState(null)
 
-    const handleAddCartProductClick = () => setConfirmMessage('Add Product to cart?')
+    const handleDeleteCartProductClick = () => setConfirmMessage('Delete Product from cart?')
 
-    const handleAddCartProductAccept = () => {
+    const handleDeleteCartProductAccept = () => {
         try {
-            logic.addCartProduct(product.id)
-            onProductAdded() // Acción después de añadir al carrito
+            logic.deleteCartProduct(product.id)
+            onProductCartDeleted() // Acción después de añadir al carrito
             setConfirmMessage(null)
         } catch (error) {
             console.error(error)
@@ -27,7 +27,7 @@ export default function ResultsProduct({ product, onProductAdded }) {
         }
     }
 
-    const handleAddCartProductCancel = () => setConfirmMessage(null)
+    const handleDeleteCartProductCancel = () => setConfirmMessage(null)
 
     return <article className='shadow-[1px_1px_10px_1px_lightgray]'>
         <Container>
@@ -44,8 +44,8 @@ export default function ResultsProduct({ product, onProductAdded }) {
             <Image src={product.image} alt={product.name} className='w-full' />
         </Container>
         <Container>
-            <Button onClick={handleAddCartProductClick}><Image src='/icons/cart.svg' alt='cart icon' className='h-[30px] w-[30px]' /></Button>
+            <Button onClick={handleDeleteCartProductClick}><Image src='/icons/delete.svg' alt='delete icon' className='h-[30px] w-[30px]' /></Button>
         </Container>
-        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleAddCartProductAccept} onCancel={handleAddCartProductCancel} />}
+        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteCartProductAccept} onCancel={handleDeleteCartProductCancel} />}
     </article>
 }

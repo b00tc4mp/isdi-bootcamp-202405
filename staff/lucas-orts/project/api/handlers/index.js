@@ -13,6 +13,7 @@ import deleteProductHandler from './deleteProductHandler.js'
 import getAllUserProductsHandler from './getAllUserProductsHandler.js'
 import updateProductLocationHandler from './updateProductLocationHandler.js'
 import searchProductsHandler from './searchProductsHandler.js'
+import getCartProductHandler from './getCartProductHandler.js'
 
 export {
     registerUserHandler,
@@ -29,5 +30,6 @@ export {
     deleteProductHandler,
     getAllUserProductsHandler,
     updateProductLocationHandler,
-    searchProductsHandler
+    searchProductsHandler,
+    getCartProductHandler
 }

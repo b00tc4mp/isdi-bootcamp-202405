@@ -19,7 +19,8 @@ import {
     deleteProductHandler,
     getAllUserProductsHandler,
     updateProductLocationHandler,
-    searchProductsHandler
+    searchProductsHandler,
+    getCartProductHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -59,6 +60,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/products', jwtVerifier, getAllUserProductsHandler)
 
         api.get('/products/search', searchProductsHandler)
+
+        api.get('/products/:productId', getCartProductHandler)
 
         api.use(errorHandler)
 

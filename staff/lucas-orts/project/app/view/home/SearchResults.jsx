@@ -7,6 +7,8 @@ import ResultsProduct from './ResultsProduct'
 
 import useContext from '../context'
 
+import Alert from '../common/Alert'
+
 export default function SearchResults() {
     const { setLastSearch } = useContext()
     const [searchParams] = useSearchParams()
@@ -44,10 +46,15 @@ export default function SearchResults() {
         })
     }
 
+    const handleProductAdded = () => {
+        alert('Product added to cart successfully!') // Puedes cambiar esto según tus necesidades
+    }
+
     return <section className='flex flex-col gap-4'>
         {products.map(product => <ResultsProduct
             key={product.id}
             product={product}
+            onProductAdded={handleProductAdded}
         />)}
     </section>
 }

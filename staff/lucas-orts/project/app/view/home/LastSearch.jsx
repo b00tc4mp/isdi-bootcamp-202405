@@ -4,13 +4,21 @@ import ResultsProduct from './ResultsProduct'  // Asegúrate de importar el comp
 
 export default function LastSearch() {
     const { lastSearch } = useContext()  // Obtener la lista de productos
+
     console.log(lastSearch)
+    const handleProductAdded = () => {
+        alert('Product added to cart successfully!') // Puedes cambiar esto según tus necesidades
+    }
+
     return (
         <Container>
-            {lastSearch.length > 0 ? (
+            {Array.isArray(lastSearch) && lastSearch.length > 0 ? (
                 <section className='flex flex-col gap-4'>
                     {lastSearch.map(product => (
-                        <ResultsProduct key={product.id} product={product} />
+                        <ResultsProduct key={product.id}
+                            product={product}
+                            onProductAdded={handleProductAdded}
+                        />
                     ))}
                 </section>
             ) : (

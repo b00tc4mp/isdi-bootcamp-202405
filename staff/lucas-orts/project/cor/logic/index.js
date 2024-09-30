@@ -13,6 +13,7 @@ import deleteProduct from './deleteProduct.js'
 import getAllUserProducts from './getAllUserProducts.js'
 import updateProductLocation from './updateProductLocation.js'
 import searchProducts from './searchProducts.js'
+import getCartProduct from './getCartProduct.js'
 
 const logic = {
     registerUser,
@@ -29,7 +30,8 @@ const logic = {
     deleteProduct,
     getAllUserProducts,
     updateProductLocation,
-    searchProducts
+    searchProducts,
+    getCartProduct
 }
 
 export default logic
