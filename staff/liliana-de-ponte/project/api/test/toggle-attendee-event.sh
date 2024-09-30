@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/66bf534d02a675af0cec797a/attendees -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNDVjZjhmNDA5Nzg2MDJlN2NkMDAiLCJpYXQiOjE3MjM4MTc1NTd9.qDf1YVCBlNvqOdRw-9a8IT4TmCPxIF6H1z1jIYGDJ2Q"

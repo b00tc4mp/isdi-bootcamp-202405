@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/likes -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmJmNDVjZjhmNDA5Nzg2MDJlN2NkMDAiLCJpYXQiOjE3MjM4MTEzMTZ9.Ig1hOpt9ZieOmmnxH4btgcT_PZp55Fh3uL3avpjsyp4"
