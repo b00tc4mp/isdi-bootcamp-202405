@@ -33,7 +33,8 @@ export default (userId, chatId) => {
                                 date: chat.date,
                                 participant: {
                                     id: targetUser._id.toString(),
-                                    avatar: targetUser.avatar
+                                    avatar: targetUser.avatar,
+                                    username: targetUser.username
                                 }
                             }
                         })

@@ -1,24 +1,23 @@
-import { validate, errors } from '../../com/index.js'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (chatId, message) => {
+export default (chatId) => {
     validate.id(chatId, 'chatId')
-    validate.string(message, 'message')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}/message`, {
-        method: 'POST',
+    return fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}`, {
+        method: 'DELETE',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message })
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 201) return
+            if (status === 204) {
+                return
+            }
 
             return response.json()
                 .then(body => {

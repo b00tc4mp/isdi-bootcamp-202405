@@ -20,6 +20,7 @@ import {
     getAllMatchsHandler,
     getLikeUsersHandler,
     deleteUserByIdHandler,
+    deleteChatByIdHandler,
     toggleLikeUserHandler,
     toggleDislikeUserHandler,
     toggleFavUserHandler,
@@ -38,9 +39,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.use(cors)
 
-        api.get('/', (req, res) => {
-            res.send('Hello, World!')
-        })
         api.post('/users/investor', jsonBodyParser, registerInvestorHandler)
 
         api.post('/users/project', jsonBodyParser, registerProjectHandler)
@@ -75,29 +73,21 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
 
-        api.patch('/users/:userId/description', jwtVerifier, jsonBodyParser, updateDescriptionHandler)
+        api.patch('/users/description', jwtVerifier, jsonBodyParser, updateDescriptionHandler)
+
+        api.delete('/chats/:chatId', jwtVerifier, deleteChatByIdHandler)
 
         api.delete('/users/:userId', jwtVerifier, deleteUserByIdHandler)
 
         api.post('/chat/:targetUserId', jwtVerifier, createChatHandler)
 
-        api.post('/:chatId/message', jwtVerifier, jsonBodyParser, sendMessageHandler)
+        api.post('/chats/:chatId/message', jwtVerifier, jsonBodyParser, sendMessageHandler)
 
-        api.get('/:targetUserId/messages', jwtVerifier, getChatMessagesHandler)
+        api.get('/chats/:targetUserId/messages', jwtVerifier, getChatMessagesHandler)
 
         api.get('/chats', jwtVerifier, getAllChatsHandler)
 
         api.get('/chats/:chatId', jwtVerifier, getChatParticipantHandler)
-
-        api.get('/colors/search', (req, res, next) => {
-            const colors = ['red', 'green', 'blue', 'violette', 'brown', 'yellow']
-
-            const { q } = req.query
-
-            const filtered = colors.filter(color => color.includes(q))
-
-            res.json(filtered)
-        })
 
         api.use(errorHandler)
 

@@ -9,17 +9,17 @@ export default function Message({ message }) {
 
     return <>
         <Container
-            className={`flex p-2 mb-1 rounded-lg max-w-[70%] text-black ${(message.author.id === logic.getUserId()) ? 'bg-cyan-900 self-end' : 'bg-orange-300 self-start'}`} >
+            className={`rounded-lg mt-4 text-black ${(message.author.id === logic.getUserId()) ? 'bg-cyan-600 self-end' : 'bg-orange-300 self-start'}`} >
 
             <Paragraph
-                className="p-1 text-lg">{message.message}
+                className="text-sm">{message.message}
             </Paragraph>
         </Container>
 
         <Container
-            className={`${(message.author.id === logic.getUserId()) ? 'self-end' : 'seld-start'} mb-2`}>
+            className={`${(message.author.id === logic.getUserId()) ? 'self-end' : 'seld-start'} p-0 -mr-3 -ml-3`}>
             <Paragraph
-                className="text-xs text-gray-400">{formatTime(new Date(message.date))}
+                className="-mt-1 text-xs text-gray-400">{formatTime(new Date(message.date))}
             </Paragraph>
         </Container>
     </>

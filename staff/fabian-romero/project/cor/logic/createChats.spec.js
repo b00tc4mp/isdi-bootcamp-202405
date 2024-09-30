@@ -21,8 +21,7 @@ describe('createChat', () => {
 
         return Promise.all([
             User.create({ name: 'rosa', surname: 'fit', username: 'rosafit', email: 'rosa@fit.com', password: '123123123' }),
-            User.create({ name: 'maria', surname: 'clarita', username: 'mariaclarita', email: 'maria@clarita.com', password: '123123123' })
-        ])
+            User.create({ name: 'maria', surname: 'clarita', username: 'mariaclarita', email: 'maria@clarita.com', password: '123123123' })])
             .then(users => {
                 user1 = users[0]
                 user2 = users[1]
@@ -36,6 +35,30 @@ describe('createChat', () => {
                 expect(chat).to.exist
                 expect(chat.participants.map(participant => participant.toString())).to.have.members([user1._id.toString(), user2._id.toString()])
             })
+    })
+
+    it('succeeds on create chat that already exist', () => {
+        let user1
+        let user2
+
+        return Promise.all([
+            User.create({ name: 'rosa', surname: 'fit', username: 'rosafit', email: 'rosa@fit.com', password: '123123123' }),
+            User.create({ name: 'maria', surname: 'clarita', username: 'mariaclarita', email: 'maria@clarita.com', password: '123123123' })])
+            .then(users => {
+                user1 = users[0]
+                user2 = users[1]
+
+                return Chat.create({ participants: [user1._id.toString(), user2._id.toString()] })
+                    .then(() => {
+                        return createChat(user1._id.toString(), user2._id.toString())
+                    })
+                    .then(chatId => {
+                        expect(chatId).to.exist
+                        return Chat.findById(chatId)
+                    })
+
+            })
+
     })
 
     it('fails on non-existing user', () => {

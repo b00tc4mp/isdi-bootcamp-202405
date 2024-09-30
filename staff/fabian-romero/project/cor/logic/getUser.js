@@ -20,6 +20,7 @@ export default (userId, targetUserId) => {
 
             targetUser.id = targetUser._id.toString()
             delete targetUser._id
+            delete targetUser.__v
 
             return targetUser
         })

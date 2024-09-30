@@ -35,7 +35,6 @@ export default function UsersInvestorList({ refreshStamp }) {
             logic.getAllProjects()
                 .then(users => {
                     setUsers(users)
-                    console.log(users)
                 })
                 .catch(error => {
                     console.error(error)

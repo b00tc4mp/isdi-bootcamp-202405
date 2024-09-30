@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import logic from '../../logic'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import Heading from '../library/Heading'
 import Form from '../library/Form'
@@ -9,11 +10,14 @@ import Input from '../library/Input'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import useContext from '../context'
+import Goldtrack from '../library/Goldtrack'
 
 export default function UserProject({ onRegister, onLoginClick }) {
     console.debug('UserProject -> call')
 
     const { alert } = useContext()
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
 
     const handleRegisterSubmit = event => {
         console.debug('UserProject -> handleRegisterSubmit')
@@ -37,7 +41,6 @@ export default function UserProject({ onRegister, onLoginClick }) {
         const startDateInput = form['start-date-input']
         const endDateInput = form['end-date-input']
         const budgetGoalInput = form['butget-goal-input']
-        const bankInput = form['bank-input']
 
         const name = nameInput.value
         const surname = surnameInput.value
@@ -54,10 +57,9 @@ export default function UserProject({ onRegister, onLoginClick }) {
         const startDate = startDateInput.value
         const endDate = endDateInput.value
         const budgetGoal = budgetGoalInput.value
-        const bank = bankInput.value
 
         try {
-            logic.registerProject(name, surname, email, phoneNumber, username, password, passwordRepeat, 'project', title, image, description, category, startDate, endDate, budgetGoal, bank)
+            logic.registerProject(name, surname, email, phoneNumber, username, password, passwordRepeat, 'project', title, image, description, category, startDate, endDate, budgetGoal)
                 .then(() => onRegister())
                 .catch(error => {
                     console.error(error)
@@ -221,6 +223,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
                     id="start-date-input"
                     name="start-date-input"
                     placeholder="start Date"
+                    onChange={event => setStartDate(event.target.value)}
                     className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
             </Container>
 
@@ -231,6 +234,7 @@ export default function UserProject({ onRegister, onLoginClick }) {
                     id="end-date-input"
                     name="end-date-input"
                     placeholder="End Date"
+                    onChange={event => setEndDate(event.target.value)}
                     className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
             </Container>
 
@@ -241,16 +245,6 @@ export default function UserProject({ onRegister, onLoginClick }) {
                     id="butget-goal-input"
                     name="butget-goal-input"
                     placeholder="Budget Goal"
-                    className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
-            </Container>
-
-            <Container className="flex flex-col items-start w-full">
-                <Label htmlFor="bank-input" className="text-xs text-gray-400"> Bank </Label>
-                <Input
-                    type="select"
-                    id="bank-input"
-                    name="bank-input"
-                    placeholder="Bank"
                     className="w-full mt-0.5 p-1 bg-white border border-cyan-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-400" />
             </Container>
 
@@ -268,5 +262,8 @@ export default function UserProject({ onRegister, onLoginClick }) {
         >
             Login
         </Link>
+
+        {startDate && endDate &&
+            <Goldtrack startDate={startDate} endDate={endDate} />}
     </main>
 }    

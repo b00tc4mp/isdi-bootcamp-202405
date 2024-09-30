@@ -9,7 +9,7 @@ import CheckIconAnimation from '../../public/CheckIcon.json'
 import CrossIconAnimation from '../../public/CrossIcon.json'
 
 
-export default function Search({ onUnsearchPost }) {
+export default function Search({ onUnsearchPost, onSearchFound }) {
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
@@ -38,6 +38,8 @@ export default function Search({ onUnsearchPost }) {
         }
 
         setQuery(query)
+
+        onSearchFound()
     }
 
     const handleInputChange = (event) => {
@@ -62,7 +64,7 @@ export default function Search({ onUnsearchPost }) {
         <div className="relative">
             <Input
                 id="inputfield"
-                className="peer bg-transparent h-6 w-18 rounded text-gray-600 placeholder-transparent ring-1 px-1 ring-gray-500 focus:w-26 focus:ring-sky-600 outline-none transition-all duration-300"
+                className="peer bg-transparent h-6 w-18 rounded text-orange-600 placeholder-transparent ring-1 px-1 ring-gray-500 focus:w-26 focus:ring-sky-600 outline-none transition-all duration-300"
                 name="q"
                 placeholder="search"
                 value={query}
@@ -70,8 +72,8 @@ export default function Search({ onUnsearchPost }) {
             />
             <label
                 htmlFor="inputfield"
-                className="absolute cursor-text left-0 -top-5 text-xxxs text-gray-500 bg-inherit mx-0.5 px-0.5 peer-placeholder-shown:text-xxs peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-1 peer-focus:-top-5
-                peer-focus:text-sky-600 peer-focus:text-xxs transition-all"
+                className="absolute cursor-text left-0 -top-5 text-xxxs text-orange-400 bg-inherit mx-0.5 px-0.5 peer-placeholder-shown:text-xxs peer-placeholder-shown:text-orange-600 peer-placeholder-shown:-top-0 peer-focus:-top-5
+                peer-focus:text-orange-300 peer-focus:text-xxs transition-all"
             >
                 Search
             </label>

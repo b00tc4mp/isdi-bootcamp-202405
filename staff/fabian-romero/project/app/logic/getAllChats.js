@@ -3,7 +3,8 @@ import { errors } from '../../com/index.js'
 const { SystemError } = errors
 
 export default () => {
-    return fetch('http://localhost:8080/chats', {
+
+    return fetch(`${import.meta.env.VITE_API_URL}/chats`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

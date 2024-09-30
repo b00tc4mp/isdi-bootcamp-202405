@@ -11,7 +11,7 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Chat.find({ participants: { $in: [userId] } }, { __v: 0, messages: 0, date: 0 }).sort({ date: -1 }).populate('participants', { avatar: 1 }).lean()
+            return Chat.find({ participants: { $in: [userId] } }, { __v: 0, messages: 0, date: 0 }).sort({ date: -1 }).populate('participants', { avatar: 1, username: 1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(chats => {
                     const promises = chats.map(chat => {
@@ -22,7 +22,8 @@ export default userId => {
                             if (participant._id.toString() !== userId)
                                 chat.participant = {
                                     id: participant._id.toString(),
-                                    avatar: participant.avatar
+                                    avatar: participant.avatar,
+                                    username: participant.username
                                 }
                         })
 

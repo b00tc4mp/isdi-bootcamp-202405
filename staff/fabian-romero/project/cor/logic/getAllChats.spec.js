@@ -73,6 +73,7 @@ describe('getAllChats', () => {
         }
     })
 
+
     afterEach(() => Promise.all([User.deleteMany(), Chat.deleteMany()]))
 
     after(() => mongoose.disconnect())

@@ -16,7 +16,7 @@ describe('registerProject', () => {
     beforeEach(() => User.deleteMany().exec())
 
     it('succeeds on new user', () =>
-        registerProject('Rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'description project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+        registerProject('Rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'description project', 'fitness', '09/14/2024', '09/14/2025', '3000')
             .then(() => User.findOne({ username: 'rosafit' }).lean())
             .then(user => {
                 expect(user).to.not.be.null
@@ -32,8 +32,6 @@ describe('registerProject', () => {
                 expect(user.title).to.equal('rosafitness')
                 expect(user.category).to.equal('fitness')
                 expect(user.budgetGoal).to.equal(3000)
-                expect(user.bank).to.equal('caixa')
-
                 return bcrypt.compare('123123123', user.password)
             })
             .then(match => expect(match).to.be.true)
@@ -42,8 +40,8 @@ describe('registerProject', () => {
     it('fails on existing user with same email', () => {
         let _error
 
-        return User.create({ name: 'Rosa', username: 'Fit', email: 'rosa@fit.com', phoneNumber: '987654321', username: 'rosafit', password: '123123123', passwordRepeat: '123123123', url: 'http://image.com', string: 'description', role: 'project', title: 'rosafitness', category: 'fitness', startDate: '09/14/2024', endDate: '09/14/2025', budgetGoal: '3000', bank: 'caixa' })
-            .then(() => registerProject('paquito', 'choco', 'rosa@fit.com', '987654321', 'paquito', '123123123', '123123123', 'project', 'paquitochocolate', 'http://imagen.com', 'descriprion project', 'food', '09/14/2024', '09/14/2025', '3000', 'caixa'))
+        return User.create({ name: 'Rosa', username: 'Fit', email: 'rosa@fit.com', phoneNumber: '987654321', username: 'rosafit', password: '123123123', passwordRepeat: '123123123', url: 'http://image.com', string: 'description', role: 'project', title: 'rosafitness', category: 'fitness', startDate: '09/14/2024', endDate: '09/14/2025', budgetGoal: '3000' })
+            .then(() => registerProject('paquito', 'choco', 'rosa@fit.com', '987654321', 'paquito', '123123123', '123123123', 'project', 'paquitochocolate', 'http://imagen.com', 'descriprion project', 'food', '09/14/2024', '09/14/2025', '3000'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
@@ -54,8 +52,8 @@ describe('registerProject', () => {
     it('fails on existing user with same username', () => {
         let _error
 
-        return User.create({ name: 'Rosa', username: 'Fit', email: 'rosa@fit.com', phoneNumber: '987654321', username: 'rosafit', password: '123123123', passwordRepeat: '123123123', url: 'http://image.com', string: 'description', role: 'project', title: 'rosafitness', category: 'fitness', startDate: '09/14/2024', endDate: '09/14/2025', budgetGoal: '3000', bank: 'caixa' })
-            .then(() => registerProject('paquito', 'choco', 'paquito@choco.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'paquitochocolate', 'http://imagen.com', 'descriprion project', 'food', '09/14/2024', '09/14/2025', '3000', 'caixa'))
+        return User.create({ name: 'Rosa', username: 'Fit', email: 'rosa@fit.com', phoneNumber: '987654321', username: 'rosafit', password: '123123123', passwordRepeat: '123123123', url: 'http://image.com', string: 'description', role: 'project', title: 'rosafitness', category: 'fitness', startDate: '09/14/2024', endDate: '09/14/2025', budgetGoal: '3000' })
+            .then(() => registerProject('paquito', 'choco', 'paquito@choco.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'paquitochocolate', 'http://imagen.com', 'descriprion project', 'food', '09/14/2024', '09/14/2025', '3000'))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(DuplicityError)
@@ -67,7 +65,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject(123, 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject(123, 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -80,7 +78,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -119,7 +117,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('Rosa', 'Fit', 123123, '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('Rosa', 'Fit', 123123, '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -132,7 +130,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('Rosa', 'Fit', ' ', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('Rosa', 'Fit', ' ', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -145,7 +143,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 123123, '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 123123, '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -158,7 +156,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', ' ', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', ' ', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -171,7 +169,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', 123123123, '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', 123123123, '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -184,7 +182,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123', '123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123', '123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -197,7 +195,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '12312 3123', '123123 123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '12312 3123', '123123 123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -210,7 +208,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '321321312', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '321321312', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -223,7 +221,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 123123123, 'fitness', '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 123123123, 'fitness', '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -236,7 +234,7 @@ describe('registerProject', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 123123123, '09/14/2024', '09/14/2025', '3000', 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 123123123, '09/14/2024', '09/14/2025', '3000')
         } catch (_error) {
             error = _error
         } finally {
@@ -245,55 +243,17 @@ describe('registerProject', () => {
         }
     })
 
-    it('fails on non-string starDate', () => {
-        let error
-
-        try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', 132123123, '09/14/2025', '3000', 'caixa')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.be.equal('value is not a string')
-        }
-    })
-
-    it('fails on non-string endDate', () => {
-        let error
-
-        try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', 123123123, '3000', 'caixa')
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.be.equal('value is not a string')
-        }
-    })
 
     it('fails on non-string budgetGoal', () => {
         let error
 
         try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', 123123, 'caixa')
+            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', 123123)
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(ValidationError)
             expect(error.message).to.be.equal('value is not a string')
-        }
-    })
-
-    it('fails on non-string bank', () => {
-        let error
-
-        try {
-            registerProject('rosa', 'Fit', 'rosa@fit.com', '987654321', 'rosafit', '123123123', '123123123', 'project', 'rosafitness', 'http://imagen.com', 'descriprion project', 'fitness', '09/14/2024', '09/14/2025', '3000', caixa)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ReferenceError)
-            expect(error.message).to.be.equal('caixa is not defined')
         }
     })
 

@@ -1,4 +1,5 @@
 import authenticateUser from './authenticateUser.js'
+import deleteChatById from './deleteChatById.js'
 import deleteUserById from './deleteUserById.js'
 import createChat from './createChat.js'
 import getChatMessages from './getChatMessages.js'
@@ -24,6 +25,7 @@ import searchUser from './searchUser.js'
 const logic = {
     authenticateUser,
     deleteUserById,
+    deleteChatById,
     createChat,
     getChatMessages,
     getChatParticipant,

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import logic from '../../logic'
 
@@ -17,6 +18,7 @@ import Image from '../library/Image'
 
 export default function Profile() {
 
+    const navigate = useNavigate()
     const [user, setUser] = useState(null)
     const [userRole, setRole] = useState(null)
     const [editAvatarVisible, setEditAvatarVisible] = useState(false)
@@ -28,34 +30,41 @@ export default function Profile() {
     const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
 
     useEffect(() => {
+        reloadUserData()
+
+    }, [])
+
+    const reloadUserData = () => {
         try {
             logic.getUser(userId)
                 .then(user => {
                     setUser(user)
 
-                    return logic.getUserRole();
+                    return logic.getUserRole()
                 })
                 .then(role => {
                     setRole(role)
-                    if (role === 'project' || role === 'investor') {
-                    }
                 })
                 .catch(error => {
-                    console.error(error);
-                    alert(error.message);
-                });
+                    console.error(error)
+                    alert(error.message)
+                })
         } catch (error) {
-            console.error(error);
-            alert(error.message);
+            console.error(error)
+            alert(error.message)
         }
-    }, [])
+    }
+
 
     const handleDeleteUserClick = () => setConfirmMessage('Delete User?')
 
     const handleDeleteUserAccept = () => {
         try {
             logic.deleteUserById(user.id)
-                .then(() => onDeleteUserById())
+                .then(() => {
+                    setConfirmMessage(null)
+                    navigate('/login')
+                })
                 .catch(error => {
                     console.error(error)
                     alert(error.message)
@@ -86,20 +95,30 @@ export default function Profile() {
 
         const editDescriptionInput = form['edit-description-input']
 
-        const newDescription = editDescriptionInput.value
+        const newDescription = editDescriptionInput.value.trim()
 
         try {
             logic.updateDescription(newDescription)
                 .then(() => {
+                    reloadUserData()
                     setEditDescriptionVisible(false)
-                    onDescriptionEdited()
                 })
                 .catch(error => {
                     console.error(error)
+
+                    alert(error.message)
+                })
+
+            logic.getUserName()
+                .then(user => setUser(user))
+                .catch(error => {
+                    console.error(error)
+
                     alert(error.message)
                 })
         } catch (error) {
             console.error(error)
+
             alert(error.message)
         }
     }
@@ -123,7 +142,10 @@ export default function Profile() {
 
         try {
             logic.updateAvatar(newAvatar)
-                .then(() => setEditAvatarVisible(false))
+                .then(() => {
+                    reloadUserData()
+                    setEditAvatarVisible(false)
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -163,7 +185,10 @@ export default function Profile() {
 
         try {
             logic.updateImage(newImage)
-                .then(() => setEditImageVisible(false))
+                .then(() => {
+                    reloadUserData()
+                    setEditImageVisible(false)
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -338,7 +363,7 @@ export default function Profile() {
 
                 {editDescriptionVisible && (
                     <Container className="flex flex-col items-center gap-4 mt-6 bg-gradient-to-b from-cyan-800 via-cyan-700 to-cyan-800 p-6 rounded-lg shadow-md w-full max-w-sm">
-                        <Form onSubmit={handleEditDescriptionClick} className="flex flex-col gap-4 mt-4">
+                        <Form onSubmit={handleEditDescriptionSubmit} className="flex flex-col gap-4 mt-4">
 
                             <Container className="flex flex-col gap-2">
                                 <Label htmlFor="edit-description-input" className="text-sm font-medium dark:text-gray-100">
@@ -499,7 +524,7 @@ function ProfileView({ user }) {
         <article className="min-w-full shadow-md p-2 rounded-lg transform transition-transform duration-300 ease-in-out">
             <Container className="flex flex-row items-center gap-1">
                 <Avatar url={user.avatar || 'default-avatar.png'} className="w-10 h-10" />
-                <Heading level="5" className="text-lg text-yellow-500 font-semibold">
+                <Heading level="3" className="text-sm text-orange-400 font-semibold">
                     {user.username}
                 </Heading>
             </Container>
@@ -514,7 +539,7 @@ function ProfileView({ user }) {
                     <Paragraph className="text-xs text-white mb-1 text-center">
                         Category #: {user.category}
                     </Paragraph>
-                    <Paragraph className="text-sm text-white mt-4">
+                    <Paragraph className="text-sm text-justify text-white mt-4">
                         {user.description}
                     </Paragraph>
                 </Container>
@@ -525,7 +550,7 @@ function ProfileView({ user }) {
                     <Paragraph className="text-2xl font-bold text-white mb-2 text-center">
                         {user.title}
                     </Paragraph>
-                    <Paragraph className="text-lg text-white mt-4">
+                    <Paragraph className="text-lg text-justify text-white mt-4">
                         {user.description}
                     </Paragraph>
                 </Container>

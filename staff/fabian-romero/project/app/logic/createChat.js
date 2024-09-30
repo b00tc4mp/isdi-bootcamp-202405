@@ -1,17 +1,21 @@
-import { validate, errors } from '../../com/index.js'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
 export default targetUserId => {
     validate.id(targetUserId, 'targetUserId')
 
-    return fetch(`http://localhost:8080/chat/${targetUserId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/chat/${targetUserId}`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
         },
+        body: JSON.stringify({ targetUserId })
     })
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => {
+            throw new SystemError(error.message)
+        })
         .then(response => {
             const { status } = response
 
@@ -19,13 +23,12 @@ export default targetUserId => {
                 return response.json()
             }
 
-            return response.json()
-                .then(body => {
-                    const { error, message } = body
+            return response.json().then(body => {
+                const { error, message } = body
 
-                    const constructor = errors[error]
+                const constructor = errors[error]
 
-                    throw new constructor(message)
-                })
+                throw new constructor(message)
+            })
         })
 }

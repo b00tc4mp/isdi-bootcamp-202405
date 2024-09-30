@@ -41,7 +41,7 @@ export default function Chat() {
                 .then(chat => {
                     setUserId(chat.participant.id)
                     setAvatar(chat.participant.avatar)
-                    setParticipantName(chat.participant.name)
+                    setParticipantName(chat.participant.username)
 
                     loadMessages(chat.participant.id)
                         .then(() => {
@@ -111,25 +111,22 @@ export default function Chat() {
     }
 
     return <>
-        <Container className="fixed w-full top-0 left-0 z-[9999] bg-cyan-900 h-full "></Container>
+        <Container className="fixed w-screen h-screen bg-cyan-900 top-7 left-0 z-[10000] overflow-auto ">
 
-        <Container className="fixed w-screen h-screen top-0 left-0 z-[10000] flex flex-col justify-between">
-
-            <Container className="fixed left-0 top-0 w-full flex justify-between items-center bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 p-2 box-border shadow-lg rounded-b-md bg-opacity-70 text-black z-[10001]">
-
+            <Container className="fixed left-0 top-0 w-screen h-10 justify-between items-center bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900  box-border shadow-lg rounded-b-md bg-opacity-70 z-[10001]" >
                 <Button
                     onClick={handleClosePrivateChatClick}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                    className="w-6 h-6 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
                     <Lottie animationData={BackIconAnimation} loop={isLooping} className="w-full h-full" />
                 </Button>
 
                 <Container className="flex items-center gap-3">
                     <Image src={(!avatar || avatar === null) ? "/profileIcon.svg" : avatar}
-                        className="w-[40px] h-[40px] rounded-xl" />
+                        className="w-[30px] h-[30px] rounded-xl" />
                     <Heading className="flex items-center gap-3">
-                        <p className="text-lg font-medium text-orange-400">{participantName} 's Ratch⚡️!</p>
+                        <p className="text-sm font-medium text-orange-400">{participantName} 's Ratch⚡️!</p>
                     </Heading>
                 </Container>
             </Container>
@@ -142,20 +139,20 @@ export default function Chat() {
                 <div ref={messagesEndRef} />
             </Container>
 
-            <Container className="fixed bottom-0 left-0 w-full flex justify-between items-center bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 p-2 box-border shadow-lg rounded-t-md bg-opacity-70 text-black z-[10001]">
+            <Container className="fixed bottom-0 left-0 w-full h-15 flex justify-between items-center bg-gradient-to-b from-cyan-950 via-gray-900 to-cyan-900 p-1 box-border shadow-md rounded-t-sm bg-opacity-70 z-[10001]">
 
                 <Form onSubmit={handleSendPrivateMessageSubmit} className="flex items-center w-full">
                     <textarea
                         name="private-message-input"
                         rows="2"
-                        className="rounded-lg w-full h-14 border border-gray-300 bg-gray-100 text p-2"
-                        placeholder="Write here..."
+                        className="rounded-lg w-full h-10 border border-gray-700 bg-gray-100 text p-2"
+                        placeholder="text here..."
                     ></textarea>
                     <Button
                         type="submit"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg shadow-lg transition-transform transform hover:scale-95">
+                        className="w-8 h-8 flex items-center justify-center bg-transparent border border-orange-400 rounded-lg transition-transform transform hover:scale-95 ml-4">
                         <Lottie animationData={SendMessageIconAnimation} loop={false} className="w-full h-full" />
                     </Button>
                 </Form>

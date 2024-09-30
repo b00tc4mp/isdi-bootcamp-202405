@@ -1,4 +1,5 @@
 import deleteUserById from './deleteUserById.js'
+import deleteChatById from './deleteChatById.js'
 import createChat from './createChat.js'
 import getAllChats from './getAllChats.js'
 import getAllProjects from './getAllProjects.js'
@@ -28,6 +29,7 @@ import searchUser from './searchUser.js'
 
 const logic = {
     deleteUserById,
+    deleteChatById,
     createChat,
     getAllChats,
     getAllInvestors,

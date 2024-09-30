@@ -2,7 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (name, surname, email, phoneNumber, username, password, passwordRepeat, role, title, image, description, category, startDate, endDate, budgetGoal, bank) => {
+export default (name, surname, email, phoneNumber, username, password, passwordRepeat, role, title, image, description, category, startDate, endDate, budgetGoal) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -14,17 +14,16 @@ export default (name, surname, email, phoneNumber, username, password, passwordR
     validate.url(image, 'image')
     validate.string(description)
     validate.string(category)
-    validate.string(startDate)
-    validate.string(endDate)
+    validate.date(startDate, 'startDate')
+    validate.date(endDate, 'endDate')
     validate.string(budgetGoal)
-    validate.string(bank)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/project`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, surname, email, phoneNumber, username, password, passwordRepeat, role, title, image, description, category, startDate, endDate, budgetGoal, bank })
+        body: JSON.stringify({ name, surname, email, phoneNumber, username, password, passwordRepeat, role, title, image, description, category, startDate, endDate, budgetGoal })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

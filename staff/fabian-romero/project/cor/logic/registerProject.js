@@ -5,7 +5,7 @@ import { validate, errors } from 'com'
 
 const { ValidationError, DuplicityError, SystemError } = errors
 
-export default (name, surname, email, phoneNumber, username, password, passwordRepeat, role, title, image, description, category, startDate, endDate, budgetGoal, bank) => {
+export default (name, surname, email, phoneNumber, username, password, passwordRepeat, role, title, image, description, category, startDate, endDate, budgetGoal) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
@@ -17,10 +17,9 @@ export default (name, surname, email, phoneNumber, username, password, passwordR
     validate.url(image, 'image')
     validate.string(description, 'description')
     validate.string(category)
-    validate.string(startDate)
-    validate.string(endDate)
+    validate.date(startDate, 'startDate')
+    validate.date(endDate, 'endDate')
     validate.string(budgetGoal)
-    validate.string(bank)
 
     if (password !== passwordRepeat) throw new ValidationError('Passwords do not match')
 
@@ -53,10 +52,9 @@ export default (name, surname, email, phoneNumber, username, password, passwordR
                 image,
                 description,
                 category,
-                startDate,
-                endDate,
-                budgetGoal,
-                bank
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
+                budgetGoal
             })
         }).then(() => { })
 }

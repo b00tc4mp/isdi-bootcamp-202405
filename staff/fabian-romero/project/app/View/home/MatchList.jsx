@@ -53,7 +53,7 @@ export default function MatchList() {
                 <Alert message={matchMessage} onAccept={handleAcceptAlert} />
             )}
 
-            <section className="flex   bg-cyan-900 h-full  flex-col gap-4">
+            <section className="flex bg-cyan-900 h-full  flex-col gap-4">
                 {users.map(user => (
                     <User
                         key={user.id}

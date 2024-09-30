@@ -1,6 +1,7 @@
 import authenticateUserHandler from './authenticateUserHandler.js'
 import createChatHandler from './createChatHandler.js'
 import deleteUserByIdHandler from './deleteUserByIdHandler.js'
+import deleteChatByIdHandler from './deleteChatByIdHandler.js'
 import getAllChatsHandler from './getAllChatsHandler.js'
 import getAllProjectsHandler from './getAllProjectsHandler.js'
 import getAllInvestorsHandler from './getAllInvestorsHandler.js'
@@ -27,6 +28,7 @@ export {
     authenticateUserHandler,
     createChatHandler,
     deleteUserByIdHandler,
+    deleteChatByIdHandler,
     getAllChatsHandler,
     getAllProjectsHandler,
     getAllInvestorsHandler,

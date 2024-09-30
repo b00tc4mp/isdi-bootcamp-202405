@@ -11,17 +11,19 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.find({ _id: { $in: user.likes } }).lean()
+            return User.find({ _id: { $in: user.likes } }, { __v: 0 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(usersLikes => {
                     if (!usersLikes || usersLikes.length === 0)
                         return []
 
-                    const likeUsers = usersLikes.map(user => {
-                        user.id = user._id.toString()
-                        delete user._id
+                    const likeUsers = usersLikes.map(targetUser => {
+                        targetUser.liked = user.likes.some(userObjectId => userObjectId.toString() === targetUser._id.toString())
 
-                        return user
+                        targetUser.id = targetUser._id.toString()
+                        delete targetUser._id
+
+                        return targetUser
 
                     })
                     return Promise.all(likeUsers)

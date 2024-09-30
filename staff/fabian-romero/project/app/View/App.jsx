@@ -17,13 +17,7 @@ const App = () => {
 
     const navigate = useNavigate()
 
-    const [theme, setTheme] = useState(localStorage.theme || 'default')
     const [alertMessage, setAlertMessage] = useState(null)
-
-    useEffect(() => {
-        document.documentElement.className = theme
-        localStorage.theme = theme
-    }, [theme])
 
     const handleLogin = () => { console.debug('App -> handleLogin'), navigate('/') }
 
@@ -43,7 +37,7 @@ const App = () => {
 
     const handleAlertAccept = () => setAlertMessage(null)
 
-    return <Context.Provider value={{ theme, setTheme, alert: setAlertMessage }}>
+    return <Context.Provider value={{ alert: setAlertMessage }}>
         <Routes>
             <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
 

@@ -92,7 +92,7 @@ export default function Home({ onLogout }) {
             onLogout={onLogout}>
         </Header>
 
-        <main className="flex flex-col items-center gap-4 mt-16 mb-12 bg-cyan-900 h-full ">
+        <main className="flex flex-col items-center gap-4 mt-14 mb-12 bg-cyan-900 h-full ">
             <Routes>
                 <Route
                     path="/"

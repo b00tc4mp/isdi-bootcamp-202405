@@ -5,7 +5,7 @@ const { SystemError } = errors
 export default chatId => {
     validate.id(chatId, 'chatId')
 
-    return fetch(`http://localhost:8080/chats/${chatId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
