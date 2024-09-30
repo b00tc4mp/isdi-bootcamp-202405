@@ -60,7 +60,7 @@ export default function SearchPetsitters() {
 
     return <>
         <Header />
-        <main className='bg-teal-100 h-full mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem]'>
+        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem]'>
             <Container className='p-2 bg-teal-100 w-full max-w-sm'>
                 <Heading className='text-center mb-4 font-bold'>Guarderías</Heading>
 

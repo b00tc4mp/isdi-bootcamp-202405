@@ -18,11 +18,13 @@ The application is designed so that you can use it without the need to register.
 
 ### Use Cases
 **Anonimous Users**
+ - register user
  - list petsitters by city and animal
  - view petsitter's detail
  - view admin contact
  
  **Petsitter user**
+ - register petsitter
  - list petsitters by city and animal
  - view petsitter's detail
  - view admin contact 
