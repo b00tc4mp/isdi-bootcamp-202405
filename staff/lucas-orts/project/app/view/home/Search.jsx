@@ -7,7 +7,10 @@ import Button from '../library/Button'
 import Label from '../library/Label'
 import Container from '../library/Container'
 
+import useContext from '../context'
+
 export default function Search() {
+    const { alert } = useContext()
     const navigate = useNavigate()
     const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()

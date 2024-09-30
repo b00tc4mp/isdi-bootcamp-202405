@@ -3,10 +3,12 @@ import Form from '../library/Form'
 import Container from '../library/Container'
 import Label from '../library/Label'
 import Input from '../library/Input'
+import useContext from '../context'
 
 import logic from '../../logic'
 
 export default function Email({ onAccept, onCancel }) {
+    const { alert } = useContext()
     const handleEmailSubmit = event => {
         event.preventDefault()
 

@@ -5,7 +5,10 @@ import logic from '../../logic'
 
 import ResultsProduct from './ResultsProduct'
 
+import useContext from '../context'
+
 export default function SearchResults() {
+    const { setLastSearch } = useContext()
     const [searchParams] = useSearchParams()
     const [products, setProducts] = useState([])
 
@@ -23,7 +26,10 @@ export default function SearchResults() {
             const coords = [position.coords.latitude, position.coords.longitude]
             try {
                 logic.searchProducts({ name, type, distance, coords })
-                    .then(products => setProducts(products))
+                    .then(products => {
+                        setProducts(products)
+                        setLastSearch(products)
+                    })
                     .catch(error => {
                         console.error(error)
                         alert(error.message)
