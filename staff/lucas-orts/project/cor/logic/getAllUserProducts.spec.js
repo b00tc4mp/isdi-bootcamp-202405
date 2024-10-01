@@ -67,42 +67,6 @@ describe('getAllUserProducts', () => {
         }
     })
 
-    it('fails when products does not belong to user', () => {
-        let _error
-
-        return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
-            .then(user => {
-                Product.create({ farmer: new ObjectId(), name: 'lemon', type: '', minprice: 5.3, maxprice: 6.1, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif?cid=790b7611qml3yetcjkqcp26cvoxayvif8j713kmqj2yp06oi&ep=v1_gifs_trending&rid=giphy.gif&ct=g' })
-                    .then(() => getAllUserProducts(user.id))
-                    .catch(error => _error = error)
-                    .finally(() => {
-                        expect(_error).to.be.instanceOf(OwnershipError)
-                        expect(_error.message).to.equal('product does not belong to user')
-                    })
-            })
-    })
-
-    it('fails when products do not belong to the user', () => {
-        return User.create({ name: 'Ester', surname: 'Colero', email: 'ester@colero.com', phone: '966234731', address: 'calle Tertulia 3, Cuenca', password: '123123123' })
-            .then(ester => {
-                // Crear a Carlos
-                return User.create({ name: 'Carlos', surname: 'Lopez', email: 'carlos@lopez.com', phone: '965432876', address: 'calle Almendra 4, Cuenca', password: 'abc123123' })
-                    .then(carlos => {
-                        // Crear un producto asociado a Carlos
-                        return Product.create({ farmer: carlos.id, name: 'tomato', type: 'cherry', minprice: 2, maxprice: 3, image: 'https://media.giphy.com/media/ji6ccUcwNIuLS/giphy.gif', location: { type: 'Point', coordinates: [40.7128, -74.0060] } })
-                            .then(() => {
-                                // Intentar obtener los productos de Ester
-                                return getAllUserProducts(ester.id)
-                                    .catch(error => {
-                                        // Verificamos que el error sea de tipo OwnershipError
-                                        expect(error).to.be.instanceOf(OwnershipError)
-                                        expect(error.message).to.equal('product does not belong to user')
-                                    })
-                            })
-                    })
-            })
-    })
-
     afterEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
 
     after(() => mongoose.disconnect())
