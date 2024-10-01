@@ -3,9 +3,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (/*query,*/ name, type, distance, coords) => {
+export default (name, type, distance, coords) => {
     // Validaciones de entrada
-    // if (query) validate.string(query, 'query')
     if (name) validate.string(name, 'name')
     if (type) validate.string(type, 'type')
     if (distance) validate.number(distance, 'distance')
@@ -16,10 +15,7 @@ export default (/*query,*/ name, type, distance, coords) => {
         enabled: true  // Solo productos habilitados
     }
 
-    // Filtro de búsqueda por nombre (si se proporciona query)
-    // if (query) queryObject.name = new RegExp(query, 'i')
-
-    // Filtro adicional por nombre y tipo
+    // Filtro por nombre y tipo
     if (name) queryObject.name = new RegExp(name, 'i')  // Filtra por nombre si está presente
     if (type) queryObject.type = new RegExp(type, 'i')  // Filtra por tipo si está presente
 
