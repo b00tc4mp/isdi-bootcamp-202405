@@ -11,7 +11,7 @@ export default (productId) => {
     return Product.findById(productId, { __v: 0 }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(product => {
-            if (!product) throw new NotFoundError('Product not found');
+            if (!product) throw new NotFoundError('product not found');
 
             // Transformar _id a id
             product.id = product._id.toString();
