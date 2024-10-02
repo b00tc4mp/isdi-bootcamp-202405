@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/avatar -X PATCH -d '{"avatar":"http://avatarnew"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNkYjQ3NzJlMzZkMjU0ZDg4M2QyNTEiLCJyb2xlIjoicHJvamVjdCIsImlhdCI6MTcyNDkyMjEyM30.JgfwTtGWMMILEwFSqw7M0cuHycFQdtaA94fSLHuWbGg"

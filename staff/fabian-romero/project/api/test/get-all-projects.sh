@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/projects -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmM4NTQ0ZDcxYjZmZTdkZDUxOWIwMWQiLCJyb2xlIjoicHJvamVjdCIsImlhdCI6MTcyNDQwNTIwNn0.c44-eOF_24sziRNaCyx1ZLWm0BWiZn-6-SeXFoWkC30"

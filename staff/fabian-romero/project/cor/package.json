@@ -1,0 +1,26 @@
+{
+  "name": "cor",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx mocha logic/*.spec.js --timeout 20000",
+    "test-inspect": "npx mocha --inspect-brk logic/*.spec.js --timeout 20000",
+    "test-coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js --timeout 20000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "com": "file:../com",
+    "mongoose": "^8.5.3"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.7.3",
+    "monocart-coverage-reports": "^2.10.3"
+  }
+}
