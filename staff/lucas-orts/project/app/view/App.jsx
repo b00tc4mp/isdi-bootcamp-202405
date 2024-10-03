@@ -10,7 +10,7 @@ import ProductList from './home/ProductsList'
 import AddProduct from './home/AddProduct'
 import Search from './home/Search'
 import Cart from './home/Cart'
-import SearchResults from './home/Searchresults'
+import SearchResults from './home/SearchResults'
 import Profile from './home/Profile'
 import LastSearch from './home/LastSearch'
 

@@ -72,24 +72,24 @@ export default function Search() {
     }
 
     return (
-        <Form onSubmit={handleSubmit} className="flex justify-center items-center text-black">
-            <Container className="flex-col items-start">
+        <Form onSubmit={handleSubmit} className='flex justify-center items-center text-black'>
+            <Container className='flex-col items-start'>
                 <Label htmlFor='distance-input'>Distance (required, steps of 0.5)</Label>
-                <Input name="distance" id="distance-input" placeholder="Distance in km" type="number" value={distance} onChange={handleDistanceChange} min="0.5" step="0.5" required />
+                <Input name='distance' id='distance-input' placeholder='Distance in km' type='number' value={distance} onChange={handleDistanceChange} min='0.5' step='0.5' required />
             </Container>
 
-            <Container className="flex-col items-start">
+            <Container className='flex-col items-start'>
                 <Label htmlFor='name-input'>Name (optional)</Label>
-                <Input name="name" id="name-input" placeholder="Product name" value={name} onChange={handleNameChange}
+                <Input name='name' id='name-input' placeholder='Product name' value={name} onChange={handleNameChange}
                 />
             </Container>
 
-            <Container className="flex-col items-start">
+            <Container className='flex-col items-start'>
                 <Label htmlFor='type-input'>Type (optional)</Label>
-                <Input name="type" id="type-input" placeholder="Product type" value={type} onChange={handleTypeChange} />
+                <Input name='type' id='type-input' placeholder='Product type' value={type} onChange={handleTypeChange} />
             </Container>
 
-            <Button type="submit">🔍 Search</Button>
+            <Button type='submit'>🔍 Search</Button>
         </Form>
     )
 }

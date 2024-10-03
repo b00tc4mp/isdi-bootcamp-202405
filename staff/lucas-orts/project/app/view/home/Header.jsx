@@ -6,7 +6,7 @@ import Container from '../library/Container'
 import Image from '../library/Image'
 
 import logic from '../../logic'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 export default function Header({ onLogout, onLoginClick, isAuthenticated }) {
     const [name, setName] = useState(null)
@@ -50,7 +50,7 @@ export default function Header({ onLogout, onLoginClick, isAuthenticated }) {
 
     return (
         <header className='fixed left-0 top-0 w-full flex justify-end items-end gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray]'>
-            <Container className="justify-end flex items-center ">
+            <Container className='justify-end flex items-center '>
                 {!isAuthenticated ? (
                     <Button onClick={onLoginClick}>
                         <Image src='/icons/log-in.svg' alt='log-in icon' className='h-[30px] w-[30px]' />

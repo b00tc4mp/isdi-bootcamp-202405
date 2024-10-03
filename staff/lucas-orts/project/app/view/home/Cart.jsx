@@ -31,7 +31,7 @@ export default function Cart({ refreshStamp }) {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className='flex flex-col gap-4'>
         {products.map(product => <CartProduct
             key={product.id}
             product={product}

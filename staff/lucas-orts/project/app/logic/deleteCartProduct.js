@@ -1,5 +1,4 @@
-
-const deleteCartProduct = (productId) => {
+export default (productId) => {
     // Recuperar el carrito de productos desde localStorage (si existe)
     const cart = localStorage.cart !== undefined ? JSON.parse(localStorage.cart) : []
 
@@ -15,4 +14,3 @@ const deleteCartProduct = (productId) => {
         localStorage.cart = JSON.stringify(cart)
     }
 }
-export default deleteCartProduct

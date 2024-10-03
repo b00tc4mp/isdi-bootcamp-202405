@@ -93,7 +93,7 @@ describe('searchProducts', () => {
     })
 
     it('fails on non-array coords', () => {
-        let error = null; // Asegúrate de inicializar el error como null
+        let error = null // Asegúrate de inicializar el error como null
 
         try {
             searchProducts('tomato', '', 1, new Object)  // Forzamos el error
@@ -106,7 +106,7 @@ describe('searchProducts', () => {
     })
 
     it('fails on non-number coords[0]', () => {
-        let error = null;  // Inicializar el error como null
+        let error = null  // Inicializar el error como null
 
         try {
             searchProducts('tomato', '', 1, ['40.7128', -74.006])

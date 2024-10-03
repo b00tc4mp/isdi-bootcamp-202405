@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Container from '../library/Container'
 import Button from '../library/Button'
-import Address from './Address'
+import AddressForm from './AddressForm'
 import Phone from './Phone'
 import Email from './Email'
 import Password from './Password'
@@ -66,7 +66,6 @@ export default function Profile() {
             {/* Render the Phone modal conditionally */}
             {isEmailModalVisible && (
                 <Email
-                    message='Confirm email change?'
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />
@@ -76,7 +75,6 @@ export default function Profile() {
             {/* Render the Phone modal conditionally */}
             {isPasswordModalVisible && (
                 <Password
-                    message='Confirm password change?'
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />
@@ -86,7 +84,6 @@ export default function Profile() {
             {/* Render the Phone modal conditionally */}
             {isPhoneModalVisible && (
                 <Phone
-                    message='Confirm phone change?'
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />
@@ -95,8 +92,7 @@ export default function Profile() {
             <Button onClick={handleAddressClick}>Modify Address</Button>
             {/* Render the Address modal conditionally */}
             {isAddressModalVisible && (
-                <Address
-                    message='Confirm address change?'
+                <AddressForm
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />

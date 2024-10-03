@@ -48,7 +48,7 @@ export default function ProductsList({ refreshStamp }) {
         }
     }
 
-    return <section className="flex flex-col gap-4">
+    return <section className='flex flex-col gap-4'>
         {products.map(product => <UserProduct
             key={product.id}
             product={product}

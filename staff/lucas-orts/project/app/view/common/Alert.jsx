@@ -1,16 +1,17 @@
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
+import Image from '../library/Image'
 
 export default function Alert({ message, onAccept }) {
     return <>
-        <Container className="fixed w-screen top-0 h-screen bg-black opacity-50">
-        </Container>
-
-        <Container className="fixed w-screen top-0 h-screen flex items-center justify-center">
-            <Container className="p-4 border bg-white dark:bg-black dark:text-white flex-col">
-                <Paragraph>{message}</Paragraph>
-                <Button onClick={onAccept}>Accept</Button>
+        <Container className='fixed w-screen top-0 bottom-0 h-screen left-0 right-0 items-center bg-black opacity-50 z-30' />
+        <Container className='fixed w-screen top-0 bottom-0 h-screen left-0 right-0 flex items-center justify-center z-40'>
+            <Container className='p-6 border bg-white rounded-lg shadow-lg flex-col items-center justify-center space-y-6'>
+                <Paragraph className='font-semibold mb-2 text-center'>{message}</Paragraph>
+                <Button onClick={onAccept}>
+                    <Image src='/icons/checkmark-circle-outline.svg' alt='accept icon' className='h-[30px] w-[30px]' />
+                </Button>
             </Container>
         </Container>
     </>
