@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/description -X PATCH -d '{"description":"hola, soy fulano"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmVkYWJmMzgzNGE0MzBmMjY5NzIzOTUiLCJpYXQiOjE3MjY4NTIwOTd9.rmRUyQw_HB9191ihdsHVP_9lPUoNOv-Rga6h3I9D1L0"

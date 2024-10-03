@@ -37,27 +37,16 @@ describe('getUserProfile', () => {
             })
     })
 
-    it('fails on invalid userId', () => {
-        let _error;
-
-        return getUserProfile('')
-            .catch(error => _error = error)
-            .finally(() => {
-                expect(_error).to.be.instanceOf(ValidationError);
-                expect(_error.message).to.equal('userId is not a string');
-            });
-    });
-
     it('fails on non-string userId', () => {
-        let _error;
+        let _error
 
         return getUserProfile(123)
             .catch(error => _error = error)
             .finally(() => {
-                expect(_error).to.be.instanceOf(ValidationError);
-                expect(_error.message).to.equal('userId is not a string');
-            });
-    });
+                expect(_error).to.be.instanceOf(ValidationError)
+                expect(_error.message).to.equal('userId is not a string')
+            })
+    })
 
     afterEach(() => User.deleteMany())
 

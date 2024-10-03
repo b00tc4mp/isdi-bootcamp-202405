@@ -29,7 +29,7 @@ export default function User({ user, onUserFollowToggled }) {
             console.error(error)
             alert(error.message)
         }
-    };
+    }
 
     const handleToggleChat = () => {
         try {
@@ -42,7 +42,7 @@ export default function User({ user, onUserFollowToggled }) {
                     .catch(error => {
                         console.error(error)
                         alert(error.message)
-                    });
+                    })
             } else {
                 setIsChatOpen(false)
                 setChatId(null)

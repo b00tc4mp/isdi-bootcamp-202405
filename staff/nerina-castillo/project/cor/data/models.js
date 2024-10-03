@@ -30,6 +30,10 @@ const user = new Schema({
         type: String,
         default: './music.png'
     },
+    description: {
+        type: String,
+        default: ''
+    },
     following: {
         type: [ObjectId],
         ref: 'User'

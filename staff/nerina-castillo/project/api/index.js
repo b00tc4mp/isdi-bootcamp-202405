@@ -31,7 +31,9 @@ import {
     getMessagesHandler,
     getEventByDateHandler,
     getUserProfileHandler,
-    getUserHandler
+    getUserHandler,
+    updateAvatarHandler,
+    updateDescriptionHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -91,6 +93,10 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/users/profile', jwtVerifier, getUserProfileHandler)
 
         api.get('/users/:targetUserId', jwtVerifier, getUserHandler)
+
+        api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
+
+        api.patch('/users/description', jwtVerifier, jsonBodyParser, updateDescriptionHandler)
 
         api.use(errorHandler)
 

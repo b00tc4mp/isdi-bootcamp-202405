@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import logic from '../../logic'
 import formatTime from '../../util/formatTime.js'
 import Button from '../library/Button'
@@ -16,6 +17,7 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
     const [isFollowing, setIsFollowing] = useState(post.author.following)
     const [comments, setComments] = useState([])
     const [commentsVisible, setCommentsVisible] = useState(false)
+    const location = useLocation()
 
     useEffect(() => {
         setIsFollowing(post.author.following)
@@ -102,9 +104,11 @@ export default function Post({ post, onPostDeleted, onUserFollowToggled, onPostL
                 <Heading className='font-bold text-slate-400 text-lg'>{post.author.username}</Heading>
             </Container>
 
-            <Button onClick={handleFollowUserClick}>
-                <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './outlined.png'} />
-            </Button>
+            {location.pathname !== '/profile' && location.pathname !== '/profile/' && (
+                <Button onClick={handleFollowUserClick}>
+                    <Image className='w-[20px] h-[20px]' src={isFollowing ? './unfollow.png' : './outlined.png'} />
+                </Button>
+            )}
         </Container>
 
         {post.text && (

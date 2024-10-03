@@ -26,6 +26,8 @@ import getMessages from './getMessages'
 import getEventByDate from './getEventByDate'
 import getUserProfile from './getUserProfile'
 import getUser from './getUser'
+import updateAvatar from './updateAvatar'
+import updateDescription from './updateDescription'
 
 const logic = {
     registerUser,
@@ -55,7 +57,9 @@ const logic = {
     getMessages,
     getEventByDate,
     getUserProfile,
-    getUser
+    getUser,
+    updateAvatar,
+    updateDescription
 }
 
 export default logic
