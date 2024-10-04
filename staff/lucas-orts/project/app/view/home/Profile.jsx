@@ -1,49 +1,48 @@
-// Profile.js
 import React, { useState } from 'react'
 import Container from '../library/Container'
 import Button from '../library/Button'
+
 import AddressForm from './AddressForm'
-import Phone from './Phone'
-import Email from './Email'
-import Password from './Password'
+import PhoneForm from './PhoneForm'
+import EmailForm from './EmailForm'
+import PasswordForm from './PasswordForm'
 
 export default function Profile() {
-    // Separate states to control which modal is visible
     const [isAddressModalVisible, setIsAddressModalVisible] = useState(false)
     const [isPhoneModalVisible, setIsPhoneModalVisible] = useState(false)
     const [isEmailModalVisible, setIsEmailModalVisible] = useState(false)
     const [isPasswordModalVisible, setIsPasswordModalVisible] = useState(false)
 
-    // Handlers for showing modals
+
     const handleAddressClick = () => {
         setIsAddressModalVisible(true)
         setIsEmailModalVisible(false)
         setIsPasswordModalVisible(false)
-        setIsPhoneModalVisible(false) // Ensure phone modal is hidden
+        setIsPhoneModalVisible(false)
     }
 
     const handlePhoneClick = () => {
         setIsPhoneModalVisible(true)
         setIsEmailModalVisible(false)
         setIsPasswordModalVisible(false)
-        setIsAddressModalVisible(false) // Ensure address modal is hidden
+        setIsAddressModalVisible(false)
     }
 
     const handleEmailClick = () => {
         setIsEmailModalVisible(true)
         setIsPhoneModalVisible(false)
         setIsPasswordModalVisible(false)
-        setIsAddressModalVisible(false) // Ensure address modal is hidden
+        setIsAddressModalVisible(false)
     }
 
     const handlePasswordClick = () => {
         setIsPasswordModalVisible(true)
         setIsEmailModalVisible(false)
         setIsPhoneModalVisible(false)
-        setIsAddressModalVisible(false) // Ensure address modal is hidden
+        setIsAddressModalVisible(false)
     }
 
-    // Handler for cancel action in modals
+
     const handleCancel = () => {
         setIsEmailModalVisible(false)
         setIsPasswordModalVisible(false)
@@ -51,9 +50,8 @@ export default function Profile() {
         setIsPhoneModalVisible(false)
     }
 
-    // Handler for submit action in modals
+
     const handleAccept = () => {
-        // Perform any other logic if needed after email, password, address or phone submission
         setIsEmailModalVisible(false)
         setIsPasswordModalVisible(false)
         setIsAddressModalVisible(false)
@@ -61,36 +59,32 @@ export default function Profile() {
     }
 
     return (
-        <Container className='relative flex flex-col gap-4'>
-            <Button onClick={handleEmailClick}>Modify Email</Button>
-            {/* Render the Phone modal conditionally */}
+        <Container className='relative flex flex-col gap-4 bt-12'>
+            <Button onClick={handleEmailClick} className="border border-black rounded-full p-0.5">Modify Email</Button>
             {isEmailModalVisible && (
-                <Email
+                <EmailForm
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />
             )}
 
-            <Button onClick={handlePasswordClick}>Modify Password</Button>
-            {/* Render the Phone modal conditionally */}
+            <Button onClick={handlePasswordClick} className="border border-black rounded-full p-0.5">Modify Password</Button>
             {isPasswordModalVisible && (
-                <Password
+                <PasswordForm
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />
             )}
 
-            <Button onClick={handlePhoneClick}>Modify Phone</Button>
-            {/* Render the Phone modal conditionally */}
+            <Button onClick={handlePhoneClick} className="border border-black rounded-full p-0.5">Modify Phone</Button>
             {isPhoneModalVisible && (
-                <Phone
+                <PhoneForm
                     onAccept={handleAccept}
                     onCancel={handleCancel}
                 />
             )}
 
-            <Button onClick={handleAddressClick}>Modify Address</Button>
-            {/* Render the Address modal conditionally */}
+            <Button onClick={handleAddressClick} className="border border-black rounded-full p-0.5">Modify Address</Button>
             {isAddressModalVisible && (
                 <AddressForm
                     onAccept={handleAccept}

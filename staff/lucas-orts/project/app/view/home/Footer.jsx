@@ -5,11 +5,12 @@ import Image from '../library/Image'
 import logic from '../../logic'
 
 import { useNavigate } from 'react-router-dom'
+import Paragraph from "../library/Paragraph"
 
-export default function Footer({ isAuthenticated }) {
+export default function Footer({ isAuthenticated, refreshCart }) {
     useEffect(() => {
 
-    }, [isAuthenticated])
+    }, [isAuthenticated, refreshCart])
 
     const navigate = useNavigate()
 
@@ -53,7 +54,9 @@ export default function Footer({ isAuthenticated }) {
                 </Button>
             )}
             <Button onClick={handleCartClick}>
+                {logic.countCartProducts() !== 0 && <Paragraph>{logic.countCartProducts()}</Paragraph>}
                 <Image src='/icons/cart.svg' alt='cart icon' className='h-[30px] w-[30px]' />
+
             </Button>
 
 

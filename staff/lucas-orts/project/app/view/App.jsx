@@ -22,6 +22,7 @@ export default function App({ }) {
     const [isAuthenticated, setIsAuthenticated] = useState(logic.isUserLoggedIn())
     const [alertMessage, setAlertMessage] = useState(null)
     const [lastSearch, setLastSearch] = useState(null)
+    const [refreshCart, setRefreshCart] = useState(Date.now())
 
     const handleLoginClick = () => {
         navigate('/login')
@@ -57,14 +58,15 @@ export default function App({ }) {
                         <Route path='/profile' element={<Profile />} />
                         <Route path='/product' element={<AddProduct />} />
                         <Route path='/products' element={<ProductList />} />
-                        <Route path='/cart' element={<Cart />} />
-                        <Route path='/search' element={<SearchResults />} />
-                        <Route path='/lastsearch' element={<LastSearch />} />
+                        <Route path='/cart' element={<Cart setRefreshCart={setRefreshCart} />} />
+                        <Route path='/search' element={<SearchResults setRefreshCart={setRefreshCart} />} />
+                        <Route path='/lastsearch' element={<LastSearch setRefreshCart={setRefreshCart} />} />
                         <Route path='/*' element={<Search />} />
                     </Routes>
                 </main>
                 <Footer
                     isAuthenticated={isAuthenticated}
+                    refreshCart={refreshCart}
                 />
                 {alertMessage && <Alert message={alertMessage} onAccept={handleAlertAccept} />}
             </>

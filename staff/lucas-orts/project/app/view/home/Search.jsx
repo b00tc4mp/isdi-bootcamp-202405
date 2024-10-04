@@ -6,8 +6,10 @@ import Input from '../library/Input'
 import Button from '../library/Button'
 import Label from '../library/Label'
 import Container from '../library/Container'
+import Image from '../library/Image'
 
 import useContext from '../context'
+import Paragraph from "../library/Paragraph"
 
 export default function Search() {
     const { alert } = useContext()
@@ -72,24 +74,29 @@ export default function Search() {
     }
 
     return (
-        <Form onSubmit={handleSubmit} className='flex justify-center items-center text-black'>
-            <Container className='flex-col items-start'>
-                <Label htmlFor='distance-input'>Distance (required, steps of 0.5)</Label>
-                <Input name='distance' id='distance-input' placeholder='Distance in km' type='number' value={distance} onChange={handleDistanceChange} min='0.5' step='0.5' required />
+        <Form onSubmit={handleSubmit} className='flex-col justify-center items-center text-black'>
+            <Container className='flex-col items-start mt-6' >
+                <Label htmlFor='distance-input' className="font-semibold mb-1">Distance (required, steps of 0.5)</Label>
+                <Input name='distance' id='distance-input' placeholder='Distance in km' type='number' value={distance} onChange={handleDistanceChange} min='0.5' step='0.5' required className='border border-gray-300 rounded-lg p-0.5' />
             </Container>
 
-            <Container className='flex-col items-start'>
-                <Label htmlFor='name-input'>Name (optional)</Label>
-                <Input name='name' id='name-input' placeholder='Product name' value={name} onChange={handleNameChange}
-                />
+            <Container className='flex-col items-start mt-6'>
+                <Label htmlFor='name-input' className="font-semibold mb-1">Name (optional)</Label>
+                <Input name='name' id='name-input' placeholder='Product name' value={name} onChange={handleNameChange} className='border border-gray-300 rounded-lg p-0.5' />
             </Container>
 
-            <Container className='flex-col items-start'>
-                <Label htmlFor='type-input'>Type (optional)</Label>
-                <Input name='type' id='type-input' placeholder='Product type' value={type} onChange={handleTypeChange} />
+            <Container className='flex-col items-start mt-6'>
+                <Label htmlFor='type-input' className="font-semibold mb-1">Type (optional)</Label>
+                <Input name='type' id='type-input' placeholder='Product type' value={type} onChange={handleTypeChange} className='border border-gray-300 rounded-lg p-0.5' />
             </Container>
-
-            <Button type='submit'>🔍 Search</Button>
+            <Container className='flex items-center mt-6'>
+                <Button type='submit' className="border border-black rounded-full p-0.5">
+                    <Container className="flex items-center justify-center space-x-0.5">
+                        <Image src='/icons/search.svg' alt='search icon' className='h-[30px] w-[30px]' />
+                        <Paragraph className="font-semibold">Search</Paragraph>
+                    </Container>
+                </Button>
+            </Container>
         </Form>
     )
 }

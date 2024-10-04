@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 import CartProduct from './CartProduct'
 
-export default function Cart({ refreshStamp }) {
+export default function Cart({ refreshStamp, setRefreshCart }) {
 
     const [products, setProducts] = useState([])
 
@@ -13,6 +13,7 @@ export default function Cart({ refreshStamp }) {
     }, [refreshStamp])
 
     const handleProductCartDeleted = () => {
+        setRefreshCart(Date.now())
         loadProducts()
     }
     const loadProducts = () => {

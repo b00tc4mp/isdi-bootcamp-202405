@@ -11,7 +11,7 @@ export default productId => {
 
             if (status === 200)
                 return response.json()
-                    .then(products => products)
+                    .then(product => product)
 
             return response.json()
                 .then(body => {

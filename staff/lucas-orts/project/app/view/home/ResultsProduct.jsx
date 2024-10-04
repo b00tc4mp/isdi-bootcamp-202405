@@ -14,6 +14,7 @@ import { useState } from 'react'
 export default function ResultsProduct({ product, onProductAdded }) {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [isProductInfo, setIsProductInfo] = useState(false)
+    const [loadedProduct, setLoadedProduct] = useState(null)
 
     const handleAddCartProductClick = () => setConfirmMessage('Add Product to cart?')
 
@@ -28,13 +29,16 @@ export default function ResultsProduct({ product, onProductAdded }) {
         }
     }
     const handleProductInfoClick = () => {
-        try {
-            logic.productInfo(product.id)
-            setIsProductInfo(true)
-        } catch (error) {
-            console.error(error)
-            alert(error.message)
-        }
+        // Cargar el producto antes de mostrar el modal
+        logic.productInfo(product.id)
+            .then(loadedProduct => {
+                setLoadedProduct(loadedProduct)
+                setIsProductInfo(true)
+            })
+            .catch(error => {
+                console.error(error)
+                alert(error.message)
+            })
     }
 
     const handleCancel = () => setIsProductInfo(false)
@@ -58,10 +62,9 @@ export default function ResultsProduct({ product, onProductAdded }) {
         <Container>
             <Button onClick={handleAddCartProductClick}><Image src='/icons/cart.svg' alt='cart icon' className='h-[30px] w-[30px]' /></Button>
             <Button onClick={handleProductInfoClick}><Image src='/icons/information-circle-outline.svg' alt='info icon' className='h-[30px] w-[30px]' /></Button>
-            {isProductInfo && (
+            {isProductInfo && loadedProduct && (
                 <ProductInfo
-                    key={product.id}
-                    product={product}
+                    product={loadedProduct}
                     onCancel={handleCancel}
                 />
             )}

@@ -19,7 +19,7 @@ import addCartProduct from './addCartProduct.js'
 import deleteCartProduct from './deleteCartProduct.js'
 import getAllCartProducts from './getAllCartProducts.js'
 import productInfo from './productInfo.js'
-import counCartProducts from './counCartProducts.js'
+import countCartProducts from './countCartProducts.js'
 
 const logic = {
     registerUser,
@@ -43,7 +43,7 @@ const logic = {
     deleteCartProduct,
     getAllCartProducts,
     productInfo,
-    counCartProducts
+    countCartProducts
 }
 
 export default logic

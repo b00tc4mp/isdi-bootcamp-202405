@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react'
 
 
 
-export default function LastSearch() {
+export default function LastSearch({ setRefreshCart }) {
     const [acceptMessage, setAcceptMessage] = useState(null)
     const { lastSearch } = useContext()  // Obtener la lista de productos
     const [userCoords, setUserCoords] = useState(null)  // Guardar las coordenadas del usuario
@@ -32,6 +32,7 @@ export default function LastSearch() {
     }, [lastSearch])
 
     const handleProductAdded = () => {
+        setRefreshCart(Date.now())
         setAcceptMessage('Product added to cart successfully!')
     }
 

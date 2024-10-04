@@ -8,7 +8,7 @@ import useContext from '../context'
 import ResultsProduct from './ResultsProduct'
 import ProductsMap from './ProductsMap'
 
-export default function SearchResults() {
+export default function SearchResults({ setRefreshCart }) {
     const [acceptMessage, setAcceptMessage] = useState(null)
     const { setLastSearch } = useContext()
     const [searchParams] = useSearchParams()
@@ -70,6 +70,7 @@ export default function SearchResults() {
     }
 
     const handleProductAdded = () => {
+        setRefreshCart(Date.now())
         setAcceptMessage('Product added to cart successfully!')
     }
 
