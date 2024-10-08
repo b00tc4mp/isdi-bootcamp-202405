@@ -28,6 +28,9 @@ import getUserProfile from './getUserProfile'
 import getUser from './getUser'
 import updateAvatar from './updateAvatar'
 import updateDescription from './updateDescription'
+import updateUsername from './updateUsername'
+import updateEmail from './updateEmail'
+import updatePassword from './updatePassword'
 
 const logic = {
     registerUser,
@@ -59,7 +62,10 @@ const logic = {
     getUserProfile,
     getUser,
     updateAvatar,
-    updateDescription
+    updateDescription,
+    updateUsername,
+    updateEmail,
+    updatePassword
 }
 
 export default logic

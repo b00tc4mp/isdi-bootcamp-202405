@@ -60,7 +60,7 @@ export default function UserProfile() {
 
     if (editingProfile) return <ProfileSettings onClose={handleProfileSettingsClose} />
 
-    return <Container className='bg-slate-700 text-slate-300 mt-[64px]'>
+    return <Container className='bg-slate-700 text-slate-300 mt-[60px] mb-6 min-h-screen flex flex-col'>
         <Container className='flex items-center ml-2'>
             <Image src={userProfile.avatar} alt={`${userProfile.username}'s avatar`} className='w-20 h-20 rounded-full clip-path-40' />
             <Container className='ml-4 flex items-center justify-between w-full'>
@@ -71,7 +71,7 @@ export default function UserProfile() {
             </Container>
         </Container>
         <Paragraph className='mb-4 border-b border--b border-gray-500 mx-4 py-2'>{userProfile.description}</Paragraph>
-        <Container className='-mt-6'>
+        <Container className='-mt-10'>
             {userProfile.posts.map(post => <Post
                 key={post.id}
                 post={post}

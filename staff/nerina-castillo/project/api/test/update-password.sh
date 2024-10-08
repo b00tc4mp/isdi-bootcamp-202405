@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/password -X PATCH -d '{"oldPassword":"julitoo1", "newPassword":"julitoo123", "newPasswordRepeat":"julitoo123"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmVkYWJmMzgzNGE0MzBmMjY5NzIzOTUiLCJpYXQiOjE3Mjc5NzI4NDV9.yjE_uYcAJ8GCG92vUd4f7qbgtw5xPYK_GtnIcmYKYwQ"

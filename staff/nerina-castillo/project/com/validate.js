@@ -30,8 +30,8 @@ function validateRole(role, explain = 'role') {
     if (!ROLE_REGEX.test(role)) throw new ValidationError(`invalid ${explain}`)
 }
 
-function validatePassword(password) {
-    validateString(password, 'password')
+function validatePassword(password, explain = 'password') {
+    validateString(password, explain)
     if (password.trim().length < 8) throw new ValidationError('password length is lower than 8 characters')
     if (password.includes(' ')) throw new ValidationError('password has empty spaces')
 }

@@ -25,6 +25,9 @@ import getUserProfileHandler from './getUserProfileHandler.js'
 import getUserHandler from './getUserHandler.js'
 import updateAvatarHandler from './updateAvatarHandler.js'
 import updateDescriptionHandler from './updateDescriptionHandler.js'
+import updateUsernameHandler from './updateUsernameHandler.js'
+import updateEmailHandler from './updateEmailHandler.js'
+import updatePasswordHandler from './updatePasswordHandler.js'
 
 export {
     registerUserHandler,
@@ -53,5 +56,8 @@ export {
     getUserProfileHandler,
     getUserHandler,
     updateAvatarHandler,
-    updateDescriptionHandler
+    updateDescriptionHandler,
+    updateUsernameHandler,
+    updateEmailHandler,
+    updatePasswordHandler
 }

@@ -33,7 +33,10 @@ import {
     getUserProfileHandler,
     getUserHandler,
     updateAvatarHandler,
-    updateDescriptionHandler
+    updateDescriptionHandler,
+    updateUsernameHandler,
+    updateEmailHandler,
+    updatePasswordHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -97,6 +100,12 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/users/avatar', jwtVerifier, jsonBodyParser, updateAvatarHandler)
 
         api.patch('/users/description', jwtVerifier, jsonBodyParser, updateDescriptionHandler)
+
+        api.patch('/users/username', jwtVerifier, jsonBodyParser, updateUsernameHandler)
+
+        api.patch('/users/email', jwtVerifier, jsonBodyParser, updateEmailHandler)
+
+        api.patch('/users/password', jwtVerifier, jsonBodyParser, updatePasswordHandler)
 
         api.use(errorHandler)
 
