@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/by-date/2024-08-09T22:00:00.000Z -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI3MmI1NTVlZTNjM2RmNGRmN2UzYzgiLCJpYXQiOjE3MjQ3NTMxNjZ9.wwc11ZAoX4bN1AuSdq1rxM6-Dk1Yi150D2iswG0HMag"

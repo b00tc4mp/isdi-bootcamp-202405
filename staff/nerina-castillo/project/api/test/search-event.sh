@@ -1,0 +1,1 @@
+curl -v 'http://localhost:8080/events/search?q=Equilibrio&distance=1&coords=40.396145,-3.736058&date=2024-09-12T00:00:00' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQwODJhOWY3ZDE4M2VlMDA3YWYxZDAiLCJpYXQiOjE3MjUwMTI1Njd9.tsMJJQayBxM5VUPJx3She8rZjmt_gVvni9SP7bwsDBE"

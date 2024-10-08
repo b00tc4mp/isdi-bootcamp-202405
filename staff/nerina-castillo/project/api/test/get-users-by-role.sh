@@ -1,0 +1,1 @@
+curl -X GET "http://localhost:8080/users?role=band"  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI3MmI1NTVlZTNjM2RmNGRmN2UzYzgiLCJpYXQiOjE3MjM3MzY4NTh9.DWfR39FunuBzOi34_ZJDYtZpiPoawfJC2cFyc9g1pQU"

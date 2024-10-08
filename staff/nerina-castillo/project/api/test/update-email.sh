@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/email -X PATCH -d '{"email":"julio@camel.com"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmVkYWJmMzgzNGE0MzBmMjY5NzIzOTUiLCJpYXQiOjE3Mjc5NzI4NDV9.yjE_uYcAJ8GCG92vUd4f7qbgtw5xPYK_GtnIcmYKYwQ"
