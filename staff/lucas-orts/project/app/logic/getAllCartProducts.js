@@ -1,10 +1,10 @@
-import { errors } from 'com';
+import { errors } from 'com'
 
-const { SystemError, NotFoundError } = errors;
+const { SystemError, NotFoundError } = errors
 
 export default () => {
     // Recuperar los IDs de productos desde localStorage
-    const cart = localStorage.cart ? JSON.parse(localStorage.cart) : [];
+    const cart = localStorage.cart ? JSON.parse(localStorage.cart) : []
 
     // Crear un array de promesas para obtener cada producto por su ID
     const products = cart.map(id => {
@@ -14,22 +14,22 @@ export default () => {
             }
         })
             .then(response => {
-                const { status } = response;
+                const { status } = response
 
                 if (status === 200) {
-                    return response.json(); // Devuelve el producto
+                    return response.json() // Devuelve el producto
                 }
 
                 // Manejar errores para cualquier otro estado
                 return response.json().then(body => {
-                    const { error, message } = body;
-                    const constructor = errors[error];
-                    throw new constructor(message);
-                });
-            });
-    });
+                    const { error, message } = body
+                    const constructor = errors[error]
+                    throw new constructor(message)
+                })
+            })
+    })
 
     // Ejecutar todas las promesas y devolver los productos
     return Promise.all(products)
-        .catch(error => { throw new SystemError(error.message); });
+        .catch(error => { throw new SystemError(error.message) })
 }

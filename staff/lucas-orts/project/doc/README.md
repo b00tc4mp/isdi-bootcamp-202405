@@ -1,17 +1,17 @@
 # From Farm To Hand
 
 
-Aplicación que permite ver los agricultores ecológicos cerca de tu zona así como todos los productos(frutas y verduras), que tiene cada un de los agricultores
+My Aplication allow people to find near ecologic products from farms directly. People can search te products they wanted near them.
 
-
-![Eco Image](https://ojeandolaagenda.com/wp-content/uploads/2010/07/logo.png)
+![Eco Image](./logo.png)
 
 
 ## Functional
-La aplicación permitirá que los agricultores puedan añadir/eliminar sus frutas y verduras además de la ubicación donde puedes encontrarlos. Por otro lado permitirá que los usuarios puedan localizar a los agricultores según las siguientes especificaciones que decidan: 
-- Distancia
-- Productos introducidos
-Por último tendremos un administrador que podrá registrar agricultores así realizar el mismo procedimiento que un agricultor seleccionando el que desea cambiar sus datos
+The application will allow farmers to add/delete their fruits and vegetables giving them a location where you can find them. On the other hand, it will allow users to find products according to the following specifications that they decide: 
+- Distance
+- Product name(optional)
+- Product type(optional)
+Finally you can add the products to your cart. 
 
 
 ### Use Cases
@@ -19,7 +19,8 @@ Por último tendremos un administrador que podrá registrar agricultores así re
 
 Non registered User/Registered Farmer
 - Search by geo and distance and name and type near products
-- View product detail
+- View product details
+- Add or delete product to cart
 
 
 Farmer
@@ -34,11 +35,10 @@ Farmer
 ### UIUX Design
 
 
-[Figma](https://www.figma.com/design/xTULdaTftydp4n5jZp5CHq/Untitled?node-id=0-1&t=0gE7FG19oIyNOIqJ-0)
+[Figma](https://www.figma.com/design/EmWrgzKY9cybbgUbxXlXVk/From--farm-to-hand-definitive?t=CIzbjwQeMFNxnZO2-0)
 
 
 ## Tecnical
-
 
 ### Blocks
 
@@ -61,11 +61,15 @@ Farmer
 ### Technologies
 
 
-- HTML / CSS  / JS
+- HTML / CSS / JS
 - Node
 - Express
 - React
-- Mongo
+- Mongo/Mongoose (GeoJSON)
+- Tailwindcss
+- Leaflet
+- Bcrypt
+- JWT
 
 
 ### Data Model
@@ -77,7 +81,6 @@ User
 - phone (string)
 - address (string)
 - password (string)
-- location ([number, number])
 
 
 Product
@@ -85,6 +88,12 @@ Product
 - farmer(User.id)
 - name (string)
 - type(string, optional)
+- minprice(number)
+- maxprice(number)
 - image(string)
 - location ([number, number])
 - enabled (boolean, default true)
+
+### Test Coverage
+
+![Test Coverage](./test-coverage.png)

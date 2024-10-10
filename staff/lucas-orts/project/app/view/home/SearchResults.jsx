@@ -78,28 +78,26 @@ export default function SearchResults({ setRefreshCart }) {
         setAcceptMessage(null)
     }
 
-    return (
-        <section className='flex flex-col gap-4'>
-            {/* Renderizar el nuevo componente ProductMap */}
-            <ProductsMap
-                userCoords={userCoords}
-                groupedProducts={groupedProducts}
-                mapCenter={mapCenter}
-                mapZoom={mapZoom}
-            />
+    return <section className='w-full flex flex-col gap-4'>
+        {/* Renderizar el nuevo componente ProductMap */}
+        <ProductsMap
+            userCoords={userCoords}
+            groupedProducts={groupedProducts}
+            mapCenter={mapCenter}
+            mapZoom={mapZoom}
+        />
 
-            {/* Lista de productos */}
-            <section className='flex flex-col gap-4'>
-                {products.map(product => (
-                    <ResultsProduct
-                        key={product.id}
-                        product={product}
-                        onProductAdded={handleProductAdded}
-                    />
-                ))}
-            </section>
-
-            {acceptMessage && <Accept message={acceptMessage} onAccept={handleAddedCartProductAccept} />}
+        {/* Lista de productos */}
+        <section className='w-full flex flex-col gap-4'>
+            {products.map(product => (
+                <ResultsProduct
+                    key={product.id}
+                    product={product}
+                    onProductAdded={handleProductAdded}
+                />
+            ))}
         </section>
-    )
+
+        {acceptMessage && <Accept message={acceptMessage} onAccept={handleAddedCartProductAccept} />}
+    </section>
 }

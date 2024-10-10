@@ -7,6 +7,8 @@ import Input from '../library/Input'
 import Container from '../library/Container'
 import Link from '../library/Link'
 import Button from '../library/Button'
+import Paragraph from '../library/Paragraph'
+import Image from '../library/Image'
 
 import useContext from '../context'
 
@@ -53,7 +55,7 @@ export default function Register({ onRegister, onLoginClick }) {
     }
 
     return <>
-        <main className='flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white'>
+        <main className='flex flex-col items-center gap-4 bg-white h-screen'>
             <Heading className='font-scatters'>Register</Heading>
 
             <Form onSubmit={handleRegisterSubmit} className='flex-col'>
@@ -92,10 +94,16 @@ export default function Register({ onRegister, onLoginClick }) {
                     <Input type='password' id='password-repeat-input' name='password-repeat-input' placeholder='repeat password' />
                 </Container>
 
-                <Button type='submit'>Register</Button>
+                <Container className='flex-col items-center justify-center mt-6'>
+                    <Button type='submit'>
+                        <Image src='/icons/person-add.svg' alt='register icon' className='h-[30px] w-[30px]' />
+                    </Button>
+                </Container>
             </Form>
-
-            <Link onClick={handleLoginClick}>Login</Link>
+            <Paragraph className='font-semibold mt-6'>To log-in click the link below</Paragraph>
+            <Link onClick={handleLoginClick} className='flex items-center justify-center mt-0.2'>
+                <Image src='/icons/log-in.svg' alt='log-in link icon' className='h-[30px] w-[30px]' />
+            </Link>
         </main>
     </>
 }

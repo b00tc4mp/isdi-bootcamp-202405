@@ -49,15 +49,16 @@ export default function Header({ onLogout, onLoginClick, isAuthenticated }) {
     }
 
     return (
-        <header className='fixed left-0 top-0 w-full flex justify-end items-end gap-2 bg-white p-2 box-border shadow-[0px_1px_1px_lightgray]'>
-            <Container className='justify-end flex items-center '>
+        <header className='fixed left-0 top-0 w-screen flex justify-between items-center gap-2 bg-lightGreen p-2 box-border shadow-[0px_1px_1px_lightgray] z-10'>
+            <Container className='justify-between flex items-center w-full'>
+                <Image src='/icons/logo.png' alt='log-in icon' className='h-[100px] w-[100px]' />
                 {!isAuthenticated ? (
                     <Button onClick={onLoginClick}>
                         <Image src='/icons/log-in.svg' alt='log-in icon' className='h-[30px] w-[30px]' />
-                    </Button> // Esto debe llamar a onLoginClick
+                    </Button>
                 ) : (
                     <>
-                        <Paragraph>{name}</Paragraph>
+                        <Paragraph className="m-0 font-semibold text-lg">{name}</Paragraph>
                         <Button onClick={handleProfileClick}>
                             <Image src='/icons/settings.svg' alt='settings icon' className='h-[30px] w-[30px]' />
                         </Button>

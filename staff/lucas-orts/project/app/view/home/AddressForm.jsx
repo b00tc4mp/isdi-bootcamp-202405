@@ -34,7 +34,7 @@ export default function Address({ onAccept, onCancel }) {
         }
     }
     return <>
-        <Container className='fixed w-screen top-0 bottom-0 h-screen left-0 right-0 items-center bg-black opacity-50 z-10' />
+        <Container className='fixed w-screen top-0 bottom-0 h-screen left-0 right-0 items-center bg-black opacity-50 z-20' />
         <Container className='fixed w-screen top-0 bottom-0 h-screen left-0 right-0 flex items-center justify-center z-20'>
             <Container className='p-6 border bg-white rounded-lg shadow-lg flex-col items-center justify-center space-y-6'>
                 <Form onSubmit={handleAddressSubmit} className='flex-col items-center justify-center space-y-4'>

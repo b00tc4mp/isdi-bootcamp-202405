@@ -50,7 +50,7 @@ export default function App({ }) {
                     onLoginClick={handleLoginClick}
                     onLogout={handleLogout}
                     isAuthenticated={isAuthenticated} />
-                <main className='flex flex-col items-center gap-4 mt-16 mb-12 dark:bg-black'>
+                <main className='flex flex-col w-screen items-center gap-4 mt-28 mb-14'>
                     <Routes>
 
                         <Route path='/login' element={<Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />

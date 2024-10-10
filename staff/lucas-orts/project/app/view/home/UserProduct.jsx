@@ -88,69 +88,102 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
         setIsEditImageProductModalVisible(false)
     }
 
-    return <article className='shadow-[1px_1px_10px_1px_lightgray]'>
-        <Container className='flex-row'>
-            <Container className='flex-col items-start'>
-                <Container className='flex-row'>
-                    <Paragraph>Name:</Paragraph>
-                    <Paragraph>{product.name}</Paragraph>
-                </Container>
-                <Container className='flex-row'>
-                    <Paragraph>Type:</Paragraph>
-                    <Paragraph>{product.type}</Paragraph>
-                </Container>
-                <Container className='flex-row'>
-                    <Container className='flex-col'>
-                        <Paragraph>Price:</Paragraph>
-                        <Paragraph>{product.minprice} - {product.maxprice}</Paragraph>
+    return <article className='border border-black rounded-lg mx-4 mt-4'>
+        <Container className=' w-full h-full flex-col gap-0 items-center p-0'>
+            <Heading level='4' className='font-semibold text-lg'>{product.id}</Heading>
+            <Container className=' w-full h-full flex gap-0 justify-between p-0'>
+                <Container className='w-8/10 flex-col items-start'>
+                    <Container className='flex space-x-0.5'>
+                        <Paragraph className='font-semibold'>Name:</Paragraph>
+                        <Paragraph>{product.name}</Paragraph>
                     </Container>
-                    <Button onClick={handleEditPriceProductClick}><Image src='/icons/edit.svg' alt='edit icon' className='h-[30px] w-[30px]' /></Button>
-                    {isEditPriceProductModalVisible && (
-                        <PriceProduct
-                            message='Confirm EditPriceProduct change?'
-                            product={product}
-                            onAccept={() => {
-                                handleAccept()
-                                onProductPriceEdited()  // Llama al evento para recargar productos
-                            }}
-                            onCancel={handleCancel}
-                        />
-                    )}
+                    <Container className='flex'>
+                        <Paragraph className='font-semibold'>Type:</Paragraph>
+                        <Paragraph>{product.type}</Paragraph>
+                    </Container>
+                    <Container className='flex items-center'>
+                        <Paragraph className='font-semibold'>Price:</Paragraph>
+                        <Paragraph>{product.minprice} - {product.maxprice}</Paragraph>
+                        <Button onClick={handleEditPriceProductClick} className='flex items-center'>
+                            <Image src='/icons/edit.svg' alt='edit icon' className='h-[30px] w-[30px]' />
+                        </Button>
+                    </Container>
                 </Container>
-            </Container>
-            <Container>
-                <Image src={product.image} alt={product.name} className='w-full' />
 
-                <Button onClick={handleEditImageProductClick}><Image src='/icons/image.svg' alt='image icon' className='h-[30px] w-[30px]' /></Button>
-                {isEditImageProductModalVisible && (
-                    <ImageProduct
-                        message='Confirm image change?'
-                        product={product}
-                        onAccept={() => {
-                            handleAccept()
-                            onProductImageEdited()  // Llama al evento para recargar productos
-                        }}
-                        onCancel={handleCancel}
-                    />
-                )}
-            </Container>
-            <Container className='flex-row'>
-                <Button onClick={handleEnableProductClick}>{product.enabled ? <Image src='/icons/enable.svg' alt='enable icon' className='h-[30px] w-[30px]' /> : <Image src='/icons/enable-off.svg' alt='enable off icon' className='h-[30px] w-[30px]' />}</Button>
-                <Button onClick={handleDeleteProductClick}><Image src='/icons/delete.svg' alt='delete icon' className='h-[30px] w-[30px]' /></Button>
-                <Button onClick={handleEditLocationProductClick}><Image src='/icons/location.svg' alt='location icon' className='h-[30px] w-[30px]' /></Button>
-                {isEditLocationProductModalVisible && (
-                    <LocationProduct
-                        message='Confirm image change?'
-                        product={product}
-                        onAccept={() => {
-                            handleAccept()
-                            onProductLocationEdited()  // Llama al evento para recargar productos
-                        }}
-                        onCancel={handleCancel}
-                    />
-                )}
+                <Container className='flex-col items-center justify-between '>
+                    <Container className='max-h-40 max-w-60 overflow-hidden object-contain border border-gray-300 rounded-lg'>
+                        <Image className='max-h-60' src={product.image} alt={product.name} />
+                    </Container>
+                    <Container className='flex items-center'>
+                        <Button onClick={handleEditImageProductClick} className='flex items-center'>
+                            <Image src='/icons/image.svg' alt='image icon' className='h-[30px] w-[30px]' />
+                        </Button>
+
+                    </Container>
+                </Container>
+
+                <Container className='flex-col items-center justify-around'>
+                    <Button onClick={handleEnableProductClick} className='flex items-center'>
+                        {product.enabled ? (
+                            <Image src='/icons/enable.svg' alt='enable icon' className='h-[30px] w-[30px]' />
+                        ) : (
+                            <Image src='/icons/enable-off.svg' alt='enable off icon' className='h-[30px] w-[30px]' />
+                        )}
+                    </Button>
+                    <Button onClick={handleDeleteProductClick} className='flex items-center'>
+                        <Image src='/icons/delete.svg' alt='delete icon' className='h-[30px] w-[30px]' />
+                    </Button>
+                    <Button onClick={handleEditLocationProductClick} className='flex items-center'>
+                        <Image src='/icons/location.svg' alt='location icon' className='h-[30px] w-[30px]' />
+                    </Button>
+
+                </Container>
             </Container>
         </Container>
-        {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteProductAccept} onCancel={handleDeleteProductCancel} />}
+
+        {isEditPriceProductModalVisible && (
+            <PriceProduct
+                message='Confirm EditPriceProduct change?'
+                product={product}
+                onAccept={() => {
+                    handleAccept()
+                    onProductPriceEdited()  // Llama al evento para recargar productos
+                }}
+                onCancel={handleCancel}
+            />
+        )}
+
+        {isEditImageProductModalVisible && (
+            <ImageProduct
+                message='Confirm image change?'
+                product={product}
+                onAccept={() => {
+                    handleAccept()
+                    onProductImageEdited()  // Llama al evento para recargar productos
+                }}
+                onCancel={handleCancel}
+            />
+        )}
+
+        {isEditLocationProductModalVisible && (
+            <LocationProduct
+                message='Confirm image change?'
+                product={product}
+                onAccept={() => {
+                    handleAccept()
+                    onProductLocationEdited()  // Llama al evento para recargar productos
+                }}
+                onCancel={handleCancel}
+            />
+        )}
+
+        {/* Mensaje de confirmación */}
+        {confirmMessage && (
+            <Confirm
+                message={confirmMessage}
+                onAccept={handleDeleteProductAccept}
+                onCancel={handleDeleteProductCancel}
+            />
+        )}
     </article>
 }

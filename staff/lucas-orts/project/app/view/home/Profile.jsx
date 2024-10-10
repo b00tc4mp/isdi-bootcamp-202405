@@ -59,8 +59,8 @@ export default function Profile() {
     }
 
     return (
-        <Container className='relative flex flex-col gap-4 bt-12'>
-            <Button onClick={handleEmailClick} className="border border-black rounded-full p-0.5">Modify Email</Button>
+        <Container className='relative flex flex-col gap-4 mt-8 bt-12'>
+            <Button onClick={handleEmailClick} className='border border-black rounded-full p-0.5 mb-2'>Modify Email</Button>
             {isEmailModalVisible && (
                 <EmailForm
                     onAccept={handleAccept}
@@ -68,7 +68,7 @@ export default function Profile() {
                 />
             )}
 
-            <Button onClick={handlePasswordClick} className="border border-black rounded-full p-0.5">Modify Password</Button>
+            <Button onClick={handlePasswordClick} className='border border-black rounded-full p-0.5 mb-2'>Modify Password</Button>
             {isPasswordModalVisible && (
                 <PasswordForm
                     onAccept={handleAccept}
@@ -76,7 +76,7 @@ export default function Profile() {
                 />
             )}
 
-            <Button onClick={handlePhoneClick} className="border border-black rounded-full p-0.5">Modify Phone</Button>
+            <Button onClick={handlePhoneClick} className='border border-black rounded-full p-0.5 mb-2'>Modify Phone</Button>
             {isPhoneModalVisible && (
                 <PhoneForm
                     onAccept={handleAccept}
@@ -84,7 +84,7 @@ export default function Profile() {
                 />
             )}
 
-            <Button onClick={handleAddressClick} className="border border-black rounded-full p-0.5">Modify Address</Button>
+            <Button onClick={handleAddressClick} className='border border-black rounded-full p-0.5 mb-2'>Modify Address</Button>
             {isAddressModalVisible && (
                 <AddressForm
                     onAccept={handleAccept}

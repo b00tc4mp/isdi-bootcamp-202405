@@ -8,6 +8,7 @@ import Label from '../library/Label'
 import Input from '../library/Input'
 import Container from '../library/Container'
 import Button from '../library/Button'
+import Image from "../library/Image"
 
 import useContext from '../context'
 
@@ -58,41 +59,45 @@ export default function AddProduct({ }) {
     }
 
     return <>
-        <main className='flex flex-col items-center gap-4 bg-white dark:bg-black h-screen dark:text-white'>
-            <Heading className='font-scatters'>Register</Heading>
+        <main className='flex flex-col items-center gap-4 bg-white h-screen'>
+            <Heading className='font-semibold text-xl'>Add Product</Heading>
 
             <Form onSubmit={handleAddProductSubmit} className='flex-col'>
-                <Container className='flex-col items-start'>
-                    <Label htmlFor='name-input'>Name</Label>
-                    <Input type='text' id='name-input' name='name-input' placeholder='name' />
+                <Container className='flex-col items-start mt-6'>
+                    <Label htmlFor='name-input' className="font-semibold mb-1">Name</Label>
+                    <Input type='text' id='name-input' name='name-input' placeholder='name' className='border border-gray-300 rounded-lg p-0.5' />
                 </Container>
 
-                <Container className='flex-col items-start'>
-                    <Label htmlFor='type-input'>Type</Label>
-                    <Input type='text' id='type-input' name='type-input' placeholder='type' />
+                <Container className='flex-col items-start mt-6'>
+                    <Label htmlFor='type-input' className="font-semibold mb-1">Type</Label>
+                    <Input type='text' id='type-input' name='type-input' placeholder='type' className='border border-gray-300 rounded-lg p-0.5' />
                 </Container>
 
-                <Container className='flex-col items-start'>
-                    <Label htmlFor='minprice-input'>Minprice</Label>
-                    <Input type='number' id='minprice-input' name='minprice-input' placeholder='minprice' step='0.01' />
+                <Container className='flex-col items-start mt-6'>
+                    <Label htmlFor='minprice-input' className="font-semibold mb-1">Minprice</Label>
+                    <Input type='number' id='minprice-input' name='minprice-input' placeholder='minprice' step='0.01' className='border border-gray-300 rounded-lg p-0.5' />
                 </Container>
 
-                <Container className='flex-col items-start'>
-                    <Label htmlFor='maxprice-input'>Maxprice</Label>
-                    <Input type='number' id='maxprice-input' name='maxprice-input' placeholder='maxprice' step='0.01' />
+                <Container className='flex-col items-start mt-6'>
+                    <Label htmlFor='maxprice-input' className="font-semibold mb-1">Maxprice</Label>
+                    <Input type='number' id='maxprice-input' name='maxprice-input' placeholder='maxprice' step='0.01' className='border border-gray-300 rounded-lg p-0.5' />
                 </Container>
 
-                <Container className='flex-col items-start'>
-                    <Label htmlFor='image-input'>Image</Label>
-                    <Input type='text' id='image-input' name='image-input' placeholder='image' />
+                <Container className='flex-col items-start mt-6'>
+                    <Label htmlFor='image-input' className="font-semibold mb-1">Image</Label>
+                    <Input type='text' id='image-input' name='image-input' placeholder='image' className='border border-gray-300 rounded-lg p-0.5' />
                 </Container>
 
-                <Container className='flex-col items-start'>
-                    <Label htmlFor='location'>Location</Label>
-                    <Input id='latitude-input' name='latitude-input' placeholder='latitude' />
-                    <Input id='longitude-input' name='longitude-input' placeholder='longitude' />
+                <Container className='flex-col items-start mt-6'>
+                    <Label htmlFor='location' className="font-semibold mb-1">Location</Label>
+                    <Input id='latitude-input' name='latitude-input' placeholder='latitude' className='border border-gray-300 rounded-lg p-0.5 mb-2' />
+                    <Input id='longitude-input' name='longitude-input' placeholder='longitude' className='border border-gray-300 rounded-lg p-0.5' />
                 </Container>
-                <Button type='submit'>Add Product</Button>
+                <Container className='flex-col items-center mt-6'>
+                    <Button type='submit'>
+                        <Image src='/icons/save.svg' alt='accept icon' className='h-[30px] w-[30px]' />
+                    </Button>
+                </Container>
             </Form>
         </main>
     </>
