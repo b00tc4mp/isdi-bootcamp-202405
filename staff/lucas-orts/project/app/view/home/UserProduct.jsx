@@ -9,9 +9,9 @@ import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Confirm from '../common/Confirm'
 
-import ImageProduct from './ImageProduct'
-import PriceProduct from './PriceProduct'
-import LocationProduct from './LocationProduct'
+import ImageProductForm from './ImageProductForm'
+import PriceProductForm from './PriceProductForm'
+import LocationProductForm from './LocationProductForm'
 
 export default function UserProduct({ product, onProductEnableToggled, onProductDeleted, onProductImageEdited, onProductPriceEdited, onProductLocationEdited }) {
 
@@ -56,7 +56,7 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
     const handleEditPriceProductClick = () => {
         setIsEditPriceProductModalVisible(true)
         setIsEditLocationProductModalVisible(false)
-        setIsEditImageProductModalVisible(false) // Ensure EditImageProduct modal is hidden
+        setIsEditImageProductModalVisible(false)
     }
 
     const handleEnableProductClick = () => {
@@ -88,7 +88,7 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
         setIsEditImageProductModalVisible(false)
     }
 
-    return <article className='border border-black rounded-lg mx-4 mt-4'>
+    return <article className='border border-black rounded-lg mx-4 mt-4 p-1'>
         <Container className=' w-full h-full flex-col gap-0 items-center p-0'>
             <Heading level='4' className='font-semibold text-lg'>{product.id}</Heading>
             <Container className=' w-full h-full flex gap-0 justify-between p-0'>
@@ -142,7 +142,7 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
         </Container>
 
         {isEditPriceProductModalVisible && (
-            <PriceProduct
+            <PriceProductForm
                 message='Confirm EditPriceProduct change?'
                 product={product}
                 onAccept={() => {
@@ -154,7 +154,7 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
         )}
 
         {isEditImageProductModalVisible && (
-            <ImageProduct
+            <ImageProductForm
                 message='Confirm image change?'
                 product={product}
                 onAccept={() => {
@@ -166,7 +166,7 @@ export default function UserProduct({ product, onProductEnableToggled, onProduct
         )}
 
         {isEditLocationProductModalVisible && (
-            <LocationProduct
+            <LocationProductForm
                 message='Confirm image change?'
                 product={product}
                 onAccept={() => {

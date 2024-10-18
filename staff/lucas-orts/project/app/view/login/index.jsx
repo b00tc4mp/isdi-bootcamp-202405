@@ -64,7 +64,7 @@ export default function Login({ onLogin, onRegisterClick, onLoginClick }) {
 
     return <>
         <main className='flex flex-col items-center gap-4 bg-white h-screen text-black'>
-            <Heading level='1' className='font-semibold text-xl'>Login</Heading>
+            <Heading level='1' className='font-semibold text-xl mt-6'>Login</Heading>
 
             <Form onSubmit={handleLoginSubmit} className='flex-col justify-center items-center text-black'>
 

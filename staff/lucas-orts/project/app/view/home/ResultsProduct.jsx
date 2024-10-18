@@ -46,7 +46,7 @@ export default function ResultsProduct({ product, onProductAdded }) {
     const handleAddCartProductCancel = () => setConfirmMessage(null)
 
     return <article className='w-full p-4'>
-        <Container className='flex-col items-center  border border-black rounded-lg m-0 '>
+        <Container className='flex-col items-center  border border-black rounded-lg m-0 p-1'>
             <Heading level='4' className='font-semibold text-lg'>{product.id}</Heading>
             <Container className='flex justify-between space-x-4'>
                 {/* Información del producto */}

@@ -89,7 +89,7 @@ export default function Search() {
             <Input name='type' id='type-input' placeholder='Product type' value={type} onChange={handleTypeChange} className='border border-gray-300 rounded-lg p-0.5' />
         </Container>
         <Container className='flex items-center mt-6'>
-            <Button type='submit' className='border border-black rounded-full p-0.5'>
+            <Button type='submit' className='border border-black rounded-full py-0.5 px-2'>
                 <Container className='flex items-center justify-center space-x-0.5'>
                     <Image src='/icons/search.svg' alt='search icon' className='h-[30px] w-[30px]' />
                     <Paragraph className='font-semibold'>Search</Paragraph>

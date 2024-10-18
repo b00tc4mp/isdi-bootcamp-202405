@@ -41,6 +41,9 @@ export default (name, type, distance, coords) => {
                 product.id = product._id.toString()  // Convertir el _id a string
                 delete product._id  // Eliminar el campo _id de la respuesta
 
+                product.location.id = product.location._id.toString()
+                delete product.location._id
+
                 return product
             })
         })

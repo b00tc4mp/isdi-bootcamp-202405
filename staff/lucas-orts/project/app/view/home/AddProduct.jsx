@@ -13,7 +13,7 @@ import Image from "../library/Image"
 import useContext from '../context'
 
 
-export default function AddProduct({ }) {
+export default function AddProduct() {
     const { alert } = useContext()
     const navigate = useNavigate() // Agregar useNavigate
 
@@ -60,7 +60,7 @@ export default function AddProduct({ }) {
 
     return <>
         <main className='flex flex-col items-center gap-4 bg-white h-screen'>
-            <Heading className='font-semibold text-xl'>Add Product</Heading>
+            <Heading className='font-semibold text-xl mt-6'>Add Product</Heading>
 
             <Form onSubmit={handleAddProductSubmit} className='flex-col'>
                 <Container className='flex-col items-start mt-6'>

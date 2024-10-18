@@ -4,7 +4,7 @@ const { SystemError } = errors
 
 export default productId => {
     validate.string(productId, 'productId')
-    return fetch(`${import.meta.env.VITE_API_URL}/products/product/${productId}`)
+    return fetch(`${import.meta.env.VITE_API_URL}/products/${productId}`)
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response

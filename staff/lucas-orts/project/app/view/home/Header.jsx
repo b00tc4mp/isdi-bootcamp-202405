@@ -59,12 +59,14 @@ export default function Header({ onLogout, onLoginClick, isAuthenticated }) {
                 ) : (
                     <>
                         <Paragraph className="m-0 font-semibold text-lg">{name}</Paragraph>
-                        <Button onClick={handleProfileClick}>
-                            <Image src='/icons/settings.svg' alt='settings icon' className='h-[30px] w-[30px]' />
-                        </Button>
-                        <Button onClick={handleLogout}>
-                            <Image src='/icons/log-out.svg' alt='log-out icon' className='h-[30px] w-[30px]' />
-                        </Button>
+                        <Container>
+                            <Button onClick={handleProfileClick}>
+                                <Image src='/icons/settings.svg' alt='settings icon' className='h-[30px] w-[30px]' />
+                            </Button>
+                            <Button onClick={handleLogout}>
+                                <Image src='/icons/log-out.svg' alt='log-out icon' className='h-[30px] w-[30px]' />
+                            </Button>
+                        </Container>
                     </>
                 )}
             </Container>

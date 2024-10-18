@@ -1,4 +1,8 @@
+import { validate } from "com"
+
 export default (productId) => {
+    validate.string(productId, 'productId')
+
     // Recuperar el carrito de productos desde localStorage (si existe)
     const cart = localStorage.cart !== undefined ? JSON.parse(localStorage.cart) : []
 

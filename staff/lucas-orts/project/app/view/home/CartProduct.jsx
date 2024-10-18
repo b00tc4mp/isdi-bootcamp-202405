@@ -31,7 +31,7 @@ export default function CartProduct({ product, onProductCartDeleted }) {
 
     const handleDeleteCartProductCancel = () => setConfirmMessage(null)
 
-    return <article className='border border-black rounded-lg p-4 m-4'>
+    return <article className='border border-black rounded-lg p-1 m-4'>
         <Container className='flex-col items-center'>
             <Heading level='4' className='font-semibold text-lg'>{product.id}</Heading>
             <Container className='flex justify-between space-x-4'>

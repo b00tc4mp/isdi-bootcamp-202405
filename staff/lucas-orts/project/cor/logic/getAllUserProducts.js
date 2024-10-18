@@ -20,6 +20,9 @@ export default userId => {
                     products.forEach(product => {
                         product.id = product._id.toString()
                         delete product._id
+
+                        product.location.id = product.location._id.toString()
+                        delete product.location._id
                     })
 
                     return products

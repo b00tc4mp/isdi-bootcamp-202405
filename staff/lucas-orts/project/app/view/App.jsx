@@ -17,7 +17,7 @@ import LastSearch from './home/LastSearch'
 import Alert from './common/Alert'
 import { Context } from './context'
 
-export default function App({ }) {
+export default function App() {
     const navigate = useNavigate()
     const [isAuthenticated, setIsAuthenticated] = useState(logic.isUserLoggedIn())
     const [alertMessage, setAlertMessage] = useState(null)
@@ -52,7 +52,6 @@ export default function App({ }) {
                     isAuthenticated={isAuthenticated} />
                 <main className='flex flex-col w-screen items-center gap-4 mt-28 mb-14'>
                     <Routes>
-
                         <Route path='/login' element={<Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />} />
                         <Route path='/register' element={<Register onRegister={() => navigate('/login')} onLoginClick={handleLoginClick} />} />
                         <Route path='/profile' element={<Profile />} />

@@ -62,9 +62,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/products/search', searchProductsHandler)
 
-        api.get('/products/:productId', getCartProductHandler)
+        api.get('/products/cart/:productId', getCartProductHandler)
 
-        api.get('/products/product/:productId', productInfoHandler)
+        api.get('/products/:productId', productInfoHandler)
 
         api.use(errorHandler)
 

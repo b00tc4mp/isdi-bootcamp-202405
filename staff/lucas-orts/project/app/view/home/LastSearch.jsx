@@ -2,7 +2,6 @@ import useContext from '../context'
 
 import Accept from '../common/Accept'
 
-import Container from '../library/Container'
 import ResultsProduct from './ResultsProduct'
 import ProductsMap from './ProductsMap'
 
@@ -59,7 +58,7 @@ export default function LastSearch({ setRefreshCart }) {
     }
 
     return (
-        <section className='flex flex-col gap-4'>
+        <section className='w-full flex flex-col gap-4'>
             <ProductsMap
                 userCoords={userCoords}
                 groupedProducts={groupedProducts}
@@ -69,7 +68,7 @@ export default function LastSearch({ setRefreshCart }) {
 
             {/* Renderizar los resultados de la búsqueda */}
             {Array.isArray(lastSearch) && lastSearch.length > 0 ? (
-                <section className='flex flex-col gap-4'>
+                <section className='w-full flex flex-col gap-4'>
                     {lastSearch.map(product => (
                         <ResultsProduct
                             key={product.id}

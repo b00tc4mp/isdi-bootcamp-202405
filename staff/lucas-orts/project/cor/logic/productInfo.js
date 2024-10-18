@@ -29,6 +29,9 @@ export default (productId) => {
                     product.id = product._id.toString()
                     delete product._id
 
+                    product.location.id = product.location._id.toString()
+                    delete product.location._id
+
                     return product
                 })
 

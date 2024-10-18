@@ -8,7 +8,7 @@ export default () => {
 
     // Crear un array de promesas para obtener cada producto por su ID
     const products = cart.map(id => {
-        return fetch(`${import.meta.env.VITE_API_URL}/products/${id}`, {
+        return fetch(`${import.meta.env.VITE_API_URL}/products/cart/${id}`, {
             headers: {
                 Authorization: `Bearer ${sessionStorage.token}`
             }
