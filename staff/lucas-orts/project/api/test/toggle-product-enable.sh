@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/products/66cb7722220cbfc7ec120786/enable -X PATCH -d '{}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmNiNzZmMzIyMGNiZmM3ZWMxMjA3ODIiLCJpYXQiOjE3MjQ2MTAzMDd9.-mPjuXpe4hZ1n-QAK1UITsYEzrudxQKMPwFJC3oSOIU" -H "Content-Type: application/json"

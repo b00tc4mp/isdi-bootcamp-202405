@@ -1,0 +1,1 @@
+curl -v 'http://localhost:8080/products/search?distance=100000&coords=41.37958472660467,2.151940534980468'

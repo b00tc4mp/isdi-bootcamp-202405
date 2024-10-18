@@ -1,0 +1,24 @@
+{
+  "name": "cor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx mocha logic/*.spec.js",
+    "test-inspect": "npx mocha --inspect-brk logic/*.spec.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "devDependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.7.0"
+  },
+  "dependencies": {
+    "com": "file:../com",
+    "mongoose": "^8.5.2"
+  },
+  "description": ""
+}

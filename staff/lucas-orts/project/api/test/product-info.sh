@@ -1,0 +1,1 @@
+curl -v 'http://localhost:8080/products/product/66f1c02858f0e7f595b39a40'
