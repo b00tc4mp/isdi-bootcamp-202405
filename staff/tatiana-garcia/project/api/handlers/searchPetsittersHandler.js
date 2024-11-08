@@ -1,7 +1,7 @@
 import { logic } from '../../cor/index.js'
 
 export default (req, res, next) => {
-    const { city, pet } = req.query;
+    const { city, pet } = req.query
 
     try {
         logic.searchPetsitters(city, pet)

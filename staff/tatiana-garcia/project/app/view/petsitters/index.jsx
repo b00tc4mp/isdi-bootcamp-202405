@@ -1,22 +1,22 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import useContext from '../context.js'
-import logic from '../../logic/index.js'
+import useContext from '../context.js';
+import logic from '../../logic/index.js';
 
-import Header from '../home/Header.jsx'
-import Heading from '../library/Heading.jsx'
-import Paragraph from '../library/Paragraph.jsx'
-import Container from '../library/Container.jsx'
-import Footer from '../home/Footer.jsx'
-import Image from '../library/Image.jsx'
+import Header from '../home/Header.jsx';
+import Heading from '../library/Heading.jsx';
+import Paragraph from '../library/Paragraph.jsx';
+import Container from '../library/Container.jsx';
+import Footer from '../home/Footer.jsx';
+import Image from '../library/Image.jsx';
 
 export default function SearchPetsitters() {
-    const { alert } = useContext()
-    const [city, setCity] = useState('')
-    const [pet, setPet] = useState('')
-    const [petsitters, setPetsitters] = useState([])
-    const navigate = useNavigate()
+    const { alert } = useContext();
+    const [city, setCity] = useState('');
+    const [pet, setPet] = useState('');
+    const [petsitters, setPetsitters] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (city) {
@@ -24,44 +24,44 @@ export default function SearchPetsitters() {
                 logic.searchPetsitters(city, pet)
                     .then(petsitters => setPetsitters(petsitters))
                     .catch(error => {
-                        console.error(error)
+                        console.error(error);
 
-                        alert(error.message)
-                    })
+                        alert(error.message);
+                    });
             } catch (error) {
-                console.error(error)
+                console.error(error);
 
-                alert(error.message)
+                alert(error.message);
             }
         } else if (pet != '') {
-            alert('Selecciona una ciudad para poder filtrar por mascota')
+            alert('Selecciona una ciudad para poder filtrar por mascota');
         } else {
-            loadPetsitters()
+            loadPetsitters();
         }
-    }, [city, pet])
+    }, [city, pet]);
 
     const loadPetsitters = () => {
         try {
             logic.getAllPetsitters()
                 .then(petsitters => setPetsitters(petsitters))
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
-    const onPetsitterDetailsClick = (petsitterId) => { navigate(`/petsitters/${petsitterId}`) }
+    const onPetsitterDetailsClick = (petsitterId) => { navigate(`/petsitters/${petsitterId}`); };
 
     return <>
         <Header />
-        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem]'>
-            <Container className='p-2 bg-teal-100 w-full max-w-sm'>
+        <main className='bg-teal-100 mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem] min-h-screen flex-grow h-full'>
+            <Container className='p-2'>
                 <Heading className='text-center mb-4 font-bold'>Guarderías</Heading>
 
                 <Container className='text-lg p-0 rounded-[50px] text-center'>
@@ -150,5 +150,5 @@ export default function SearchPetsitters() {
                 <Footer defaultTab={'petsitters'} />
             </Container>
         </main>
-    </>
+    </>;
 }

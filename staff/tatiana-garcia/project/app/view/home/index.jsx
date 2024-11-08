@@ -1,14 +1,14 @@
-import Header from './Header'
-import Heading from '../library/Heading'
-import Container from '../library/Container'
-import Footer from './Footer'
-import Paragraph from '../library/Paragraph'
-import Image from '../library/Image'
+import Header from './Header';
+import Heading from '../library/Heading';
+import Container from '../library/Container';
+import Footer from './Footer';
+import Paragraph from '../library/Paragraph';
+import Image from '../library/Image';
 
 export default function Home() {
     return <>
         <Header />
-        <main className='flex flex-col w-full items-center mt-16 mb-12 bg-teal-100'>
+        <main className='flex flex-col w-full h-full min-h-screen items-center mt-16 mb-12 bg-teal-100 flex-grow'>
             <Image src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg pt-4 mb-4' />
 
             <Container className='text-lg bg-white p-3 rounded-[50px] m-3 shadow-lg text-center'>
@@ -36,5 +36,5 @@ export default function Home() {
         </main>
 
         <Footer defaultTab={'home'} />
-    </>
+    </>;
 }
