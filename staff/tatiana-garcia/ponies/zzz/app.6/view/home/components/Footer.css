@@ -1,0 +1,12 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 5%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    padding: .5rem 0;
+    box-shadow: 0px -1px 1px lightgray;
+}

@@ -1,0 +1,34 @@
+.add-post-button {
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    color: white;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+}
+
+.post-delete-button,
+.post-edit-button,
+.post-save-button,
+.post-cancel-button,
+.post-like-button {
+
+    background: white;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    width: 70px;
+    height: 30px;
+}
+
+.CreatePost {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+}

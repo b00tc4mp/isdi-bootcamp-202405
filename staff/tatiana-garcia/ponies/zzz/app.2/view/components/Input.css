@@ -1,0 +1,19 @@
+.form__input {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
+    padding: .2rem;
+    box-shadow: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Input {
+    border: 1px solid lightgray;
+    border-radius: .25rem;
+    font-size: inherit;
+}
+
+.Input--full-width {
+    width: 100%;
+}

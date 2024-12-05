@@ -1,0 +1,39 @@
+/* .form__field {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-weight: bold;
+    color: rgb(88, 5, 88);
+} */
+
+.Container {
+    display: flex;
+    gap: .5rem;
+    padding: 0 .5rem;
+}
+
+.Container--left {
+    justify-content: left;
+}
+
+.Container--center {
+    justify-content: center;
+}
+
+.Container--column {
+    flex-direction: column;
+}
+
+.Container--column-center {
+    align-items: center;
+}
+
+.Container--column-left {
+    align-items: start;
+}
+
+/* .create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+} */

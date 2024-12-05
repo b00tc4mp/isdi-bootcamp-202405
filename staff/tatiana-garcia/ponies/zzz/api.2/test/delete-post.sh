@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/bc1i0skfa5k -X DELETE -H "Authorization: Basic tatig"

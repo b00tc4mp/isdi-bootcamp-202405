@@ -1,0 +1,17 @@
+.Button {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: .5rem;
+    border-width: 1px;
+    border-style: solid;
+    color: dimgray;
+    padding: 0;
+}
+
+.form__button {
+    border-radius: 15px;
+    font-size: inherit;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    font-weight: bold;
+    color: rgb(88, 5, 88);
+}

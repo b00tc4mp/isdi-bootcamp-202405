@@ -1,0 +1,198 @@
+body {
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    min-width: 80%;
+    margin-bottom: 0%;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem
+}
+
+.form__input {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
+    padding: .2rem;
+    box-shadow: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form__caption-input {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
+    padding: .2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 50px;
+}
+
+.form__button {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    color: white;
+    padding: .2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 1rem;
+}
+
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post {
+
+    box-shadow: 1px 1px 10px 1px lightgray;
+}
+
+.post__top {
+    display: flex;
+    margin: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
+
+}
+
+.post__author {
+    margin: .5rem;
+}
+
+.post__follow {
+
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 1px lightgray;
+    color: white
+}
+
+.post__image {
+    width: 100%;
+}
+
+.post__caption {
+    margin: .5rem;
+}
+
+.post__actions {
+    margin: .5rem;
+}
+
+.post__time {
+    display: block;
+    margin: .5rem;
+    color: silver;
+    font-size: .9rem;
+}
+
+.add-post-button {
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    color: white;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+}
+
+.post__actions {
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1rem;
+    padding: .5rem;
+}
+
+.post-delete-button,
+.post-edit-button,
+.post-save-button,
+.post-cancel-button,
+.post-like-button {
+
+    background: white;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    width: 70px;
+    height: 30px;
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 1rem;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 1px lightgray;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+}
+
+.header__user-name {
+    margin: 0;
+}
+
+.main {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightblue;
+    padding: .5rem 0;
+    box-shadow: 0px -1px 1px lightgray;
+}
+
+.create-post-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+}
+
+.create-post-section__title {
+    margin: .5rem 0;
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

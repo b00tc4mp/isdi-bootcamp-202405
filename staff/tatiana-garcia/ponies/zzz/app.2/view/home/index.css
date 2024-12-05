@@ -1,0 +1,149 @@
+@import url('../components/Button.css');
+@import url('../components/Container.css');
+@import url('../components/Form.css');
+@import url('../components/Heading.css');
+@import url('../components/Image.css');
+@import url('../components/Input.css');
+@import url('../components/Label.css');
+@import url('../components/Paragraph.css');
+@import url('../components/Time.css');
+@import url('./components/CreatePost.css');
+@import url('./components/Footer.css');
+@import url('./components/Header.css');
+@import url('./components/Post.css');
+@import url('./components/PostList.css');
+
+
+
+
+
+
+
+body {
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    min-width: 80%;
+    margin-bottom: 0%;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem
+}
+
+
+
+.form__caption-input {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
+    padding: .2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 50px;
+}
+
+.form__button {
+    font-size: inherit;
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    color: white;
+    padding: .2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 1rem;
+}
+
+
+.post__top {
+    display: flex;
+    margin: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
+
+}
+
+.post__author {
+    margin: .5rem;
+}
+
+.post__follow {
+
+    background: linear-gradient(to right, palevioletred, blueviolet);
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 1px lightgray;
+    color: white
+}
+
+.post__image {
+    width: 100%;
+}
+
+.post__caption {
+    margin: .5rem;
+}
+
+.post__actions {
+    margin: .5rem;
+}
+
+.post__time {
+    display: block;
+    margin: .5rem;
+    color: silver;
+    font-size: .9rem;
+}
+
+
+.post__actions {
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1rem;
+    padding: .5rem;
+}
+
+
+
+
+.main {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+
+.create-post-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+    box-sizing: border-box;
+}
+
+.create-post-section__title {
+    margin: .5rem 0;
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

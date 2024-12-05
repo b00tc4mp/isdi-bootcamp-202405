@@ -1,0 +1,44 @@
+.form__field {
+    display: flex;
+    /* flex-direction: column; */
+    gap: .2rem;
+    font-weight: bold;
+    color: rgb(88, 5, 88);
+    /* flex gap-[.2rem] p-[0_.5rem] font-bold text-rgb(88, 5, 88) */
+}
+
+.Container {
+    display: flex;
+    gap: .5rem;
+    padding: 0 .5rem;
+}
+
+.Container--left {
+    justify-content: left;
+}
+
+.Container--center {
+    justify-content: center;
+}
+
+.Container--column {
+    flex-direction: column;
+    /* flex-col */
+}
+
+.Container--column-center {
+    align-items: center;
+    /* en tailwind es items-center*/
+}
+
+.Container--column-left {
+    align-items: start;
+    /* items-star */
+}
+
+.create-post-section__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    /* flex justify-center gap-4 */
+}
