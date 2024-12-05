@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/posts/search?q=pon -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmIwZWNjMmY3MmNmMzhjZjU3YjYzZjgiLCJpYXQiOjE3MjI4NzA5ODN9.UfDYqBTb26hfJuFlCoroEn-GJ-WL03SgtQFdr-8SRRI"
