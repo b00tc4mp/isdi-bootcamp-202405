@@ -1,0 +1,43 @@
+.padre {
+    display: flex;
+    background-color: black;
+    width: 400px;
+    height: 650px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.floor {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+    
+    
+    
+}
+.window {
+background-color: white;
+height: 50px;
+width: 50px;
+border: 3px solid grey;
+}
+
+.puerta {
+    display: flex;
+    background-color: brown;
+    height: 125px;
+    width: 50px;
+    margin-bottom: -20px;
+    align-items: center;
+
+}
+
+.cerradura {
+    width: 13px;
+    height: 13px;
+    background-color: white;
+
+}
