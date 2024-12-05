@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #e0e0e0;
+}
+
+.building {
+    background-color: #b0c4de;
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.floor {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.window, .door {
+    width: 40px;
+    height: 60px;
+    background-color: #87CEEB;
+    border: 2px solid #333;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-right:20px;
+}
+
+.door {
+    width: 80px;
+    height: 100px;
+    background-color: #654321;
+    border: 2px solid #333;
+    box-sizing: border-box;
+}
+
+
+
+

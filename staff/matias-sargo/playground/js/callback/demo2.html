@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function filterArray(array, callback) {
+            const filteredArray = []
+            for (let i = 0; i < array.length; i++) {
+                if (callback(array[i])) {
+                    filteredArray.push(array[i])
+                }
+            }
+            return filteredArray
+        }
+
+        function isGreaterThan5(element) {
+            return element > 5
+        }
+
+
+        const numbers = [2, 8, 3, 10, 5, 1];
+
+
+        const filteredNumbers = filterArray(numbers, isGreaterThan5)
+
+        console.log('Números mayores que 5:', filteredNumbers)
+
+    </script>
+</body>
+
+</html>
