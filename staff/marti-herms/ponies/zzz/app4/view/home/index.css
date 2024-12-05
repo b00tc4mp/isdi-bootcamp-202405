@@ -1,0 +1,145 @@
+body {
+    margin: 0 0;
+    display: block;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    min-width: 80%;
+    box-sizing: border-box;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .2rem;
+    box-sizing: border-box;
+}
+
+.form__input {
+    font-size: inherit;
+    box-sizing: border-box;
+}
+
+.form__button {
+    font-size: inherit;
+    box-sizing: border-box;
+}
+
+.post-list {
+    display: flex;
+    width: 70%;
+    min-width: 310px;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post {
+    box-shadow: 1px 1px 10px 1px slategray;
+    border-radius: 1%;
+    margin: 8px;
+}
+
+.post__author {
+    margin: 0.5rem;
+}
+
+.post__image {
+    width: 100%;
+}
+
+.post__caption {
+    margin: .5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.post__actions {
+    margin: .5rem;
+}
+
+.post__time {
+    display: block;
+    margin: .5rem;
+    color: silver;
+    font-size: .9rem;
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 7%;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: lightgray;
+    gap: 1rem;
+    box-shadow: 0px 1px 3px slategray;
+}
+
+.main {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+    padding: .5rem 0;
+    box-shadow: 0px -1px 3px slategray;
+}
+
+.newposts {
+    position: fixed;
+    height: 45%;
+    width: 25%;
+    min-width: 238px;
+    min-height: 276px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 1px 1px 10px 1px black;
+    box-sizing: border-box;
+    border-radius: 3%;
+    z-index: 2;
+}
+
+.newposts h2 {
+    pointer-events: none;
+}
+
+.fader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

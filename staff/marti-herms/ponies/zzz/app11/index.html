@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="./util/formatTime.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./util/generateId.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./data/deletePost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/findPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/findPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/findUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/findUsers.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/insertPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/insertUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/updatePost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/updatePosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/updateUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./data/updateUsers.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./data/index.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./logic/addPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/deletePosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/editPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/editUserInfo.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getAllPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getFollowedUserPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserAvatar.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserFollowed.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserFollowers.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserPostNumber.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserList.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserName.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserSavedPosts.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/getUserUsername.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/hasLikedPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/hasPostSaved.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/isUserFollowing.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/loginUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/logoutUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/registerUser.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/togglePostLike.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/toggleSavedPost.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./logic/toggleUserFollow.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./logic/index.mjs" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./view/components/Time.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Paragraph.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Label.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Input.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Image.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Heading.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Form.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Container.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Button.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/components/Link.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./view/home/Avatar.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/Header.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/LikeButton.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/SaveButton.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/Post.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/Profile.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/Body.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/AddPostSection.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/SearchSection.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/home/Footer.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="./view/Register.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/Login.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/Home.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+    <script src="./view/App.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+
+    <script src="index.jsx" type="text/babel" data-plugins="transform-modules-umd"></script>
+</body>
+
+</html>

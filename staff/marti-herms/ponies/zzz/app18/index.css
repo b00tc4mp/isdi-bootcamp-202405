@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+    box-sizing: content-box;
+    width: 100%;
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+h2 {
+    margin: 12px 0;
+}
+
+/* link  */
+
+a {
+    font-size: medium;
+}
+
+a:link {
+    color: rgb(244, 244, 244);
+}
+
+a:visited {
+    color: rgb(244, 244, 244);
+}
+
+a:hover {
+    color: yellowgreen;
+}
+
+a:active {
+    color: magenta;
+}
