@@ -170,7 +170,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
         <Header />
         <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem] overflow-auto'>
             <Container className='flex items-center'>
-                <Button onClick={() => onIndexClick()} className={`mr-2 mt-1 flex justify-start items-center`}>
+                <Button onClick={onIndexClick} className={`mr-2 mt-1 flex justify-start items-center`}>
                     <IoChevronBackCircleSharp size={22} />
                 </Button>
                 <Heading className='text-center text-2xl font-bold' >Guardería</Heading>
