@@ -1,171 +1,180 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Rating from '@mui/material/Rating'
-import StarIcon from '@mui/icons-material/Star'
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
 
-import useContext from '../context'
+import useContext from '../context';
 
-import logic from '../../logic/index.js'
+import logic from '../../logic/index.js';
 
-import Container from '../library/Container'
-import Header from '../home/Header'
-import Footer from '../home/Footer'
-import Link from '../library/Link.jsx'
-import Heading from '../library/Heading'
-import Paragraph from '../library/Paragraph'
-import Button from '../library/Button.jsx'
-import Label from '../library/Label'
-import Form from '../library/Form.jsx'
-import Image from '../library/Image.jsx'
+import Container from '../library/Container';
+import Header from '../home/Header';
+import Footer from '../home/Footer';
+import Link from '../library/Link.jsx';
+import Heading from '../library/Heading';
+import Paragraph from '../library/Paragraph';
+import Button from '../library/Button.jsx';
+import Label from '../library/Label';
+import Form from '../library/Form.jsx';
+import Image from '../library/Image.jsx';
 
-import Review from './Review.jsx'
-import extractPayloadFromToken from '../../util/extractPayLoadFromToken.js'
+import Review from './Review.jsx';
+import extractPayloadFromToken from '../../util/extractPayLoadFromToken.js';
 
 export default function PetsitterDetails({ handleLoginClick }) {
-    const { alert } = useContext()
-    const { petsitterId } = useParams()
+    const navigate = useNavigate();
+    const { alert } = useContext();
+    const { petsitterId } = useParams();
 
-    const [petsitter, setPetsitter] = useState(null)
-    const [reviews, setReviews] = useState([])
-    const [userRole, setUserRole] = useState(null)
-    const [rating, setRating] = useState(0)
-    const [hasRating, setHasRating] = useState(false)
-    const [value, setValue] = useState(0)
-    const [addReviewVisibility, setAddReviewVisibility] = useState(false)
-    const [addAllDetailsVisibility, setAllDetailsVisibility] = useState(false)
+    const [petsitter, setPetsitter] = useState(null);
+    const [reviews, setReviews] = useState([]);
+    const [userRole, setUserRole] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [hasRating, setHasRating] = useState(false);
+    const [value, setValue] = useState(0);
+    const [addReviewVisibility, setAddReviewVisibility] = useState(false);
+    const [addAllDetailsVisibility, setAllDetailsVisibility] = useState(false);
 
+    const onIndexClick = () => { navigate('/petsitters'); };
 
-    const onLoginClick = () => handleLoginClick()
+    const onLoginClick = () => handleLoginClick();
 
     const onAddReviewClick = () => {
-        setAddReviewVisibility(true)
-    }
+        setAddReviewVisibility(true);
+    };
 
     const onCancelReviewClick = () => {
-        setAddReviewVisibility(false)
-    }
+        setAddReviewVisibility(false);
+    };
 
     const onAllDetailsClick = () => {
-        setAllDetailsVisibility(true)
-    }
+        setAllDetailsVisibility(true);
+    };
 
     const onCancelAllDetailsClick = () => {
-        setAllDetailsVisibility(false)
-    }
+        setAllDetailsVisibility(false);
+    };
 
     const onReviewSubmit = (event) => {
-        const { sub: userId } = extractPayloadFromToken(sessionStorage.token)
+        const { sub: userId } = extractPayloadFromToken(sessionStorage.token);
 
-        event.preventDefault()
+        event.preventDefault();
 
-        const form = event.target
+        const form = event.target;
 
-        const commentInput = form['comment-input']
-        const ratingInput = form['rating-input']
+        const commentInput = form['comment-input'];
+        const ratingInput = form['rating-input'];
 
-        const comment = commentInput.value
-        const rate = parseInt(ratingInput.value)
+        const comment = commentInput.value;
+        const rate = parseInt(ratingInput.value);
 
         try {
             logic.addReview(petsitterId, userId, comment, rate || 0)
                 .then(() => {
-                    onCancelReviewClick()
+                    onCancelReviewClick();
 
-                    loadReviews()
+                    loadReviews();
                 })
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                    setAddReviewVisibility(false)
-                })
+                    alert(error.message);
+                    setAddReviewVisibility(false);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
-            setAddReviewVisibility(false)
+            alert(error.message);
+            setAddReviewVisibility(false);
         }
-    }
+    };
 
     const handleDeletePetsitterReview = (reviewId) => {
         try {
             logic.deletePetsitterReview(reviewId)
                 .then(() => loadReviews())
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
     const loadReviews = () => {
         try {
             logic.getPetsitterReviews(petsitterId)
                 .then(reviews => setReviews(reviews))
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
     const calculateRating = () => {
-        const reviewsWithRatings = reviews.filter(review => review.rate > 0)
+        const reviewsWithRatings = reviews.filter(review => review.rate > 0);
 
-        const ratings = reviewsWithRatings.map(review => review.rate)
+        const ratings = reviewsWithRatings.map(review => review.rate);
 
-        const hasRating = ratings.length > 0 ? true : false
+        const hasRating = ratings.length > 0 ? true : false;
 
         const rating = ratings.length > 0
             ? ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / ratings.length
-            : 0
+            : 0;
 
-        setRating(rating || 0)
-        setHasRating(hasRating)
-    }
+        setRating(rating || 0);
+        setHasRating(hasRating);
+    };
 
     useEffect(() => {
         try {
             logic.getPetsitterDetails(petsitterId)
                 .then(petsitter => {
-                    setPetsitter(petsitter)
+                    setPetsitter(petsitter);
 
-                    loadReviews()
+                    loadReviews();
                 })
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
 
             if (logic.isUserLoggedIn()) {
-                const role = logic.getUserRole()
-                setUserRole(role)
+                const role = logic.getUserRole();
+                setUserRole(role);
             }
 
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }, [petsitterId, alert])
+    }, [petsitterId, alert]);
 
-    useEffect(() => calculateRating(), [reviews])
+    useEffect(() => calculateRating(), [reviews]);
 
     return (<>
         <Header />
         <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem] overflow-auto'>
-            <Heading className='text-center text-2xl font-bold'>Guardería</Heading>
+            <Container className='flex items-center'>
+                <Button onClick={() => onIndexClick()} className={`mr-2 mt-1 flex justify-start items-center`}>
+                    <IoChevronBackCircleSharp size={22} />
+                </Button>
+                <Heading className='text-center text-2xl font-bold' >Guardería</Heading>
+            </Container>
             {petsitter != null ? (
                 <Container className='text-lg w-72 bg-white p-4 rounded-[50px] shadow-lg'>
                     <Container className='flex items-center '>
@@ -260,5 +269,5 @@ export default function PetsitterDetails({ handleLoginClick }) {
             </>}
         </main >
     </>
-    )
+    );
 }

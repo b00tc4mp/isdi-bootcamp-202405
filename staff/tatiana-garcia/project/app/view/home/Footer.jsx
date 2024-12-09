@@ -1,26 +1,25 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { FaUser } from 'react-icons/fa'
-import { RiHomeHeartFill } from 'react-icons/ri'
-import { PiPawPrintFill } from "react-icons/pi"
-import { MdEmail } from "react-icons/md"
+import { useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
+import { RiHomeHeartFill } from 'react-icons/ri';
+import { PiPawPrintFill } from 'react-icons/pi';
+import { MdEmail } from 'react-icons/md';
 
-import Button from '../library/Button'
-import Container from '../library/Container'
+import Button from '../library/Button';
+import Container from '../library/Container';
 
 export default function Footer({ defaultTab }) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const onHomeClick = () => { navigate('/') }
+    const onHomeClick = () => { navigate('/'); };
 
-    const onLoginClick = () => { navigate('/login') }
+    const onLoginClick = () => { navigate('/login'); };
 
-    const onContactClick = () => { navigate('/contact') }
+    const onContactClick = () => { navigate('/contact'); };
 
-    const onPetsittersClick = () => { navigate('/petsitters') }
+    const onPetsittersClick = () => { navigate('/petsitters'); };
 
-    return <footer className='fixed bottom-0 left-0 w-full mb-0 shadow-[0_-1px_1px] bg-white'>
+    return <footer className='fixed bottom-0 left-0 w-full mb-0 shadow-[0_-1px_1px] bg-stone-100'>
         <Container className='flex justify-between items-center mx-auto max-w-md p-2 '>
             <Button onClick={() => onHomeClick()} className={`flex justify-center items-center bg-transparent border-transparent rounded-lg p-1 ${defaultTab === 'home' ? 'text-purple-500' : 'text-dimgray'}`}>
                 <RiHomeHeartFill size={24} />
@@ -38,5 +37,5 @@ export default function Footer({ defaultTab }) {
                 <FaUser size={24} />
             </Button>
         </Container>
-    </footer>
+    </footer>;
 }
