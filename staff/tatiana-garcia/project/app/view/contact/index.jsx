@@ -1,16 +1,16 @@
-import Header from '../home/Header'
-import Heading from '../library/Heading'
-import Container from '../library/Container'
-import Paragraph from '../library/Paragraph'
-import Footer from '../home/Footer'
-import Link from '../library/Link'
+import Header from '../home/Header';
+import Heading from '../library/Heading';
+import Container from '../library/Container';
+import Paragraph from '../library/Paragraph';
+import Footer from '../home/Footer';
+import Link from '../library/Link';
 
 export default function Contact({ onRegisterPetsitterUserClick }) {
     const handleRegisterPetsitterUserClick = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        onRegisterPetsitterUserClick()
-    }
+        onRegisterPetsitterUserClick();
+    };
 
 
     return <>
@@ -31,12 +31,12 @@ export default function Contact({ onRegisterPetsitterUserClick }) {
                 </Paragraph>
 
                 <Container className='text-center  pb-8 pt-2'>
-                    <Link className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' onClick={handleRegisterPetsitterUserClick}>Regístrate como guardería</Link>
+                    <Link className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200 cursor-pointer' onClick={handleRegisterPetsitterUserClick}>Regístrate como guardería</Link>
                 </Container>
             </Container>
         </main>
 
         <Footer defaultTab={'contact'} />
-    </>
+    </>;
 
 }
