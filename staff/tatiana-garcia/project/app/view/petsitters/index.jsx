@@ -66,7 +66,7 @@ export default function SearchPetsitters() {
 
                 <Container className='text-lg p-0 rounded-[50px] text-center'>
                     <Container className='mb-2 overflow-hidden w-full'>
-                        <select className=' w-full max-h-60 overflow-y-auto mt-1 p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='city-select' value={city} onChange={(e) => setCity(e.target.value)}>
+                        <select className=' w-full max-h-60 overflow-y-auto mt-1 p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer' id='city-select' value={city} onChange={(e) => setCity(e.target.value)}>
                             <option value=''>Seleccione una ciudad</option>
                             <option value='Madrid'>Madrid</option>
                             <option value='Barcelona'>Barcelona</option>
@@ -116,7 +116,7 @@ export default function SearchPetsitters() {
                     </Container>
 
                     <Container className='mb-4'>
-                        <select className='mt-1 p-1 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='pet-select' value={pet} onChange={(e) => setPet(e.target.value)} >
+                        <select className='cursor-pointer mt-1 p-1 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='pet-select' value={pet} onChange={(e) => setPet(e.target.value)} >
                             <option value=''>Seleccione un animal</option>
                             <option value='conejos'>Conejos</option>
                             <option value='cobayas'>Cobayas</option>
@@ -130,7 +130,7 @@ export default function SearchPetsitters() {
                 <Container className='mt-4 mb-16'>
                     {petsitters.length > 0 ? (
                         petsitters.map(petsitter => (
-                            <div key={petsitter.id} className='flex items-start min-h w-full mr-4 mb-4 rounded-[15px] shadow-md bg-white' onClick={() => onPetsitterDetailsClick(petsitter.id)}>
+                            <div key={petsitter.id} className='cursor-pointer flex items-start min-h w-full mr-4 mb-4 rounded-[15px] shadow-md bg-white' onClick={() => onPetsitterDetailsClick(petsitter.id)}>
                                 <Image src={petsitter.image} alt={petsitter.name} className='h-24 w-24 rounded-[15px] mr-4 p-2' />
                                 <div className='flex flex-col'>
                                     <Heading className='text-base font-bold'>{petsitter.name}</Heading>
