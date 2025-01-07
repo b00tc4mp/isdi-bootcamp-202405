@@ -1,0 +1,27 @@
+{
+  "name": "cor",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha logic/*.spec.js",
+    "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+    "test-coverage": "c8 --experimental-monocart --reporter=html --reporter=text mocha logic/*.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "com": "file:../com",
+    "mongoose": "^8.5.3"
+  },
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "chai": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.7.3",
+    "monocart-coverage-reports": "^2.10.2"
+  },
+  "description": "## install"
+}

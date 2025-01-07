@@ -1,0 +1,14 @@
+<svg width="32" height="48" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="citiesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff5f6d; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffc371; stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M16 0C7.16344 0 0 7.52944 0 16.8C0 30.24 16 48 16 48C16 48 32 30.24 32 16.8C32 7.52944 24.8366 0 16 0ZM16 22.4C12.6863 22.4 10 19.7126 10 16.4C10 13.0874 12.6863 10.4 16 10.4C19.3137 10.4 22 13.0874 22 16.4C22 19.7126 19.3137 22.4 16 22.4Z"
+    fill="url(#citiesGradient)"
+  />
+</svg>

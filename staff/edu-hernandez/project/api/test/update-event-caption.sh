@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/66ec5b397cbf35a98a88ab9a/caption -X PATCH -d '{"caption":"updating caption from test API"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmVjNGQwMGMyZTdiZmYyM2MwNGI5MGYiLCJpYXQiOjE3MjY3NjgzNzB9.41Ub_Tk0wi6nVwQx9IM1GS0vXJ1fB_zAf7SQmIlJktA" -H "Content-Type: application/json"

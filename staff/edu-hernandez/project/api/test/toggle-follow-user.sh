@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/66ec4d00c2e7bff23c04b90f/follows -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmVjNjEzNTQ1NDgwYzlhYTNkNjZkNTUiLCJpYXQiOjE3MjY3Njc5MTh9.y3zs7pKyu6ATg5rLAIQxAweXcdMktrBuhQBj6OMl2Og"

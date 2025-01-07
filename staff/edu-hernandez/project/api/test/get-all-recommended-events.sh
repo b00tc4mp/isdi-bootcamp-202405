@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/events/recommended -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzAzZGRjYmZhZjBiYWM5ZmY5Y2ZjNmYiLCJpYXQiOjE3MjgzMTU1MDZ9.ib_ZpKUt5qauZSv96C4-uwmVsAUVM3__I16CefHuhhA"

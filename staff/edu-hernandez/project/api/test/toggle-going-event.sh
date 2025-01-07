@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/66f1dc7dd82759f737de0a0c/going -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmYxZGJmYWQ4Mjc1OWY3MzdkZTBhMDgiLCJpYXQiOjE3MjcxMjY1NDB9.8xaK66klcCZMr0MngIPUZAmEOMCbZ1h5iYZBpWSSJn8"
