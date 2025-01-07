@@ -77,7 +77,7 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
     if (items.length > 1)
       updateColors()
 
-  }, [currentIndex, items])
+  }, [currentIndex])
 
   const handleGoingEventClick = (event) => {
     // console.debug('Event -> handleGoingEventClick')
