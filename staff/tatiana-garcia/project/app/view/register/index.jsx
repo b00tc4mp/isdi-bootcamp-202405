@@ -1,59 +1,59 @@
-import logic from '../../logic'
+import logic from '../../logic';
 
-import Container from '../library/Container'
-import Button from '../library/Button'
-import Label from '../library/Label'
-import Input from '../library/Input'
-import Link from '../library/Link'
-import Footer from '../home/Footer'
-import Heading from '../library/Heading'
-import Header from '../home/Header'
+import Container from '../library/Container';
+import Button from '../library/Button';
+import Label from '../library/Label';
+import Input from '../library/Input';
+import Link from '../library/Link';
+import Footer from '../home/Footer';
+import Heading from '../library/Heading';
+import Header from '../home/Header';
 
-import useContext from '../context'
-import Form from '../library/Form'
+import useContext from '../context';
+import Form from '../library/Form';
 
 export default function Register({ onRegister, onLoginClick }) {
-    const { alert } = useContext()
+    const { alert } = useContext();
 
     const handleRegisterSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        const form = event.target
+        const form = event.target;
 
-        const imageInput = form['image-input']
-        const nameInput = form['name-input']
-        const surnameInput = form['surname-input']
-        const emailInput = form['email-input']
-        const passwordInput = form['password-input']
-        const passwordRepeatInput = form['password-repeat-input']
+        const imageInput = form['image-input'];
+        const nameInput = form['name-input'];
+        const surnameInput = form['surname-input'];
+        const emailInput = form['email-input'];
+        const passwordInput = form['password-input'];
+        const passwordRepeatInput = form['password-repeat-input'];
 
-        const image = imageInput.value
-        const name = nameInput.value
-        const surname = surnameInput.value
-        const email = emailInput.value
-        const password = passwordInput.value
-        const passwordRepeat = passwordRepeatInput.value
+        const image = imageInput.value;
+        const name = nameInput.value;
+        const surname = surnameInput.value;
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        const passwordRepeat = passwordRepeatInput.value;
 
         try {
             logic.registerUser(image, name, surname, email, password, passwordRepeat)
                 .then(() => onRegister())
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
     const handleLoginClick = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        onLoginClick()
-    }
+        onLoginClick();
+    };
 
     return <>
         <Header />
@@ -84,12 +84,12 @@ export default function Register({ onRegister, onLoginClick }) {
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='password-input'>Contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' placeholder='contraseña' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' placeholder='contraseña' autoComplete='new-password' />
                     </Container>
 
                     <Container className='pb-2'>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='password-repeat-input'>Repite contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' placeholder='repite contraseña' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' placeholder='repite contraseña' autoComplete='new-password' />
                     </Container>
 
                     <Container className='text-center'>
@@ -102,5 +102,5 @@ export default function Register({ onRegister, onLoginClick }) {
                 <Footer defaultTab={'login'} />
             </Container>
         </main>
-    </>
+    </>;
 }

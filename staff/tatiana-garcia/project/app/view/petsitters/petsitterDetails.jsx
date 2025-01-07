@@ -168,13 +168,9 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
     return (<>
         <Header />
-        <main className='bg-teal-100 h-screen mt-16 mb-12 flex flex-col items-center justify-start gap-4 text-[1.5rem] overflow-auto'>
-            <Container className='flex items-center'>
-                <Button onClick={onIndexClick} className={`mr-2 mt-1 flex justify-start items-center`}>
-                    <IoChevronBackCircleSharp size={22} />
-                </Button>
-                <Heading className='text-center text-2xl font-bold' >Guardería</Heading>
-            </Container>
+        <main className='bg-teal-100 h-screen flex flex-col items-center justify-center gap-4 text-[1.5rem] overflow-auto'>
+            <Heading className='text-center text-2xl font-bold' >Guardería</Heading>
+
             {petsitter != null ? (
                 <Container className='text-lg w-72 bg-white p-4 rounded-[50px] shadow-lg'>
                     <Container className='flex items-center '>
@@ -205,9 +201,14 @@ export default function PetsitterDetails({ handleLoginClick }) {
                                 <Button className='w-36 bg-green-100 text-black rounded-full hover:bg-green-200 transition duration-200' onClick={onAddReviewClick}>Valórame</Button>
                             </Container>
 
-                        ) : (
-                            <Link className='text-base m-4 font-bold flex flex-col text-center' onClick={onLoginClick}>Loguéate para contactar con {petsitter.name}</Link>
-                        )
+                        ) : userRole !== 'petsitter' ? (
+                            <Link
+                                className="text-base m-4 font-bold flex flex-col text-center"
+                                onClick={onLoginClick}
+                            >
+                                Loguéate para contactar con {petsitter.name}
+                            </Link>
+                        ) : null
                     }
 
                     <Container>
@@ -267,6 +268,9 @@ export default function PetsitterDetails({ handleLoginClick }) {
                     </Form>
                 </Container>
             </>}
+            <Button onClick={onIndexClick} className={`mr-2 mt-1 flex justify-start items-center`}>
+                <IoChevronBackCircleSharp size={22} />
+            </Button>
         </main >
     </>
     );

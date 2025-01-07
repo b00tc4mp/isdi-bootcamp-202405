@@ -1,80 +1,80 @@
-import logic from '../../logic'
+import logic from '../../logic';
 
-import Container from '../library/Container'
-import Button from '../library/Button'
-import Label from '../library/Label'
-import Input from '../library/Input'
-import Link from '../library/Link'
-import Footer from '../home/Footer'
-import Heading from '../library/Heading'
-import Header from '../home/Header'
-import Form from '../library/Form'
+import Container from '../library/Container';
+import Button from '../library/Button';
+import Label from '../library/Label';
+import Input from '../library/Input';
+import Link from '../library/Link';
+import Footer from '../home/Footer';
+import Heading from '../library/Heading';
+import Header from '../home/Header';
+import Form from '../library/Form';
 
-import useContext from '../context'
-import { useState } from 'react'
+import useContext from '../context';
+import { useState } from 'react';
 
 export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLoginClick }) {
-    const { alert } = useContext()
-    const [selectedPets, setSelectedPets] = useState([])
+    const { alert } = useContext();
+    const [selectedPets, setSelectedPets] = useState([]);
 
     const handleregisterPetsitterUserSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        const form = event.target
+        const form = event.target;
 
-        const imageInput = form['image-input']
-        const nameInput = form['name-input']
-        const cityInput = form['city-input']
-        const descriptionInput = form['description-input']
-        const emailInput = form['email-input']
-        const linkPageInput = form['link-page-input']
-        const contactEmailInput = form['contact-email-input']
-        const phoneNumberInput = form['phoneNumber-input']
-        const passwordInput = form['password-input']
-        const passwordRepeatInput = form['password-repeat-input']
+        const imageInput = form['image-input'];
+        const nameInput = form['name-input'];
+        const cityInput = form['city-input'];
+        const descriptionInput = form['description-input'];
+        const emailInput = form['email-input'];
+        const linkPageInput = form['link-page-input'];
+        const contactEmailInput = form['contact-email-input'];
+        const phoneNumberInput = form['phoneNumber-input'];
+        const passwordInput = form['password-input'];
+        const passwordRepeatInput = form['password-repeat-input'];
 
-        const image = imageInput.value
-        const name = nameInput.value
-        const city = cityInput.value
-        const description = descriptionInput.value
-        const email = emailInput.value
-        const linkPage = linkPageInput.value
-        const contactEmail = contactEmailInput.value
-        const phoneNumber = phoneNumberInput.value
-        const password = passwordInput.value
-        const passwordRepeat = passwordRepeatInput.value
-        const pets = selectedPets
+        const image = imageInput.value;
+        const name = nameInput.value;
+        const city = cityInput.value;
+        const description = descriptionInput.value;
+        const email = emailInput.value;
+        const linkPage = linkPageInput.value;
+        const contactEmail = contactEmailInput.value;
+        const phoneNumber = phoneNumberInput.value;
+        const password = passwordInput.value;
+        const passwordRepeat = passwordRepeatInput.value;
+        const pets = selectedPets;
 
         try {
             logic.registerPetsitterUser(image, name, city, description, email, linkPage, contactEmail, phoneNumber, password, passwordRepeat, pets)
                 .then(() => onRegisterPetsitterUser())
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
     const handlePetChange = event => {
-        const { value, checked } = event.target
+        const { value, checked } = event.target;
 
         if (checked) {
-            setSelectedPets([...selectedPets, value])
+            setSelectedPets([...selectedPets, value]);
         } else {
-            setSelectedPets(selectedPets.filter(pet => pet !== value))
+            setSelectedPets(selectedPets.filter(pet => pet !== value));
         }
-    }
+    };
 
     const handleLoginClick = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        onLoginClick()
-    }
+        onLoginClick();
+    };
 
     return <>
         <Header />
@@ -90,7 +90,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' autoComplete='name' />
                     </Container>
 
                     <Container >
@@ -146,12 +146,12 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Descripción</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='description-input' name='description' placeholder='descripción' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='description-input' name='description' placeholder='descripción' autoComplete='description' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' autoComplete='new-email' />
                     </Container>
 
                     <Container>
@@ -161,22 +161,22 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Email de contacto</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='contact-email-input' name='cantactEmail' placeholder='email' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='contact-email-input' name='cantactEmail' placeholder='email' autoComplete='new-email' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='phoneNumber-input'>Teléfono</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' id='phoneNumber-input' name='phoneNumber' placeholder='inserta tu teléfono' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' id='phoneNumber-input' name='phoneNumber' placeholder='inserta tu teléfono' autoComplete='phone' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='password-input'>Contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' placeholder='contraseña' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' name='password' id='password-input' placeholder='contraseña' autoComplete='new-password' />
                     </Container>
 
                     <Container className='pb-2'>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='password-repeat-input'>Repite contraseña</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' placeholder='repite contraseña' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='password' id='password-repeat-input' name='password-repeat' placeholder='repite contraseña' autoComplete='new-password' />
                     </Container>
 
                     <Container>
@@ -247,5 +247,5 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
                 <Footer defaultTab={'login'} />
             </Container>
         </main>
-    </>
+    </>;
 }
