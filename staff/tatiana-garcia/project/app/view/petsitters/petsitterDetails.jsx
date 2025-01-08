@@ -128,7 +128,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
         const ratings = reviewsWithRatings.map(review => review.rate);
 
-        const hasRating = ratings.length > 0 ? true : false;
+        const hasRating = reviewsWithRatings.length > 0;
 
         const rating = ratings.length > 0
             ? ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / ratings.length
@@ -168,8 +168,8 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
     return (<>
         <Header />
-        <main className='bg-teal-100 h-screen flex flex-col items-center justify-center gap-4 text-[1.5rem] overflow-auto'>
-            <Heading className='text-center text-2xl font-bold' >Guardería</Heading>
+        <main className='bg-teal-100 mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem] min-h-screen h-full'>
+            <Heading className='text-center text-2xl font-bold m-4' >Guardería</Heading>
 
             {petsitter != null ? (
                 <Container className='text-lg w-72 bg-white p-4 rounded-[50px] shadow-lg'>
@@ -182,13 +182,23 @@ export default function PetsitterDetails({ handleLoginClick }) {
                             <Paragraph className='text-sm font-semibold text-gray-500'>{petsitter.pets.join(', ')}</Paragraph>
                             {hasRating ? (
                                 <Container className='flex flex-row items-center'>
-                                    <Rating name='read-only' value={rating} precision={0.25} size='small' emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />} readOnly />
-                                    <Paragraph className='text-sm font-semibold text-gray-500'>{rating.toFixed(1)}</Paragraph>
+                                    <Rating
+                                        name='read-only'
+                                        value={rating}
+                                        precision={0.25}
+                                        size='small'
+                                        emptyIcon={<StarIcon style={{ opacity: 1, color: 'white' }} fontSize='inherit' />}
+                                        readOnly
+                                    />
+                                    <Paragraph className='text-sm font-semibold text-gray-500 mt-0'>
+                                        {rating.toFixed(1)}
+                                    </Paragraph>
                                 </Container>
-
                             ) : (
                                 <Container className='flex flex-row items-center'>
-                                    <Paragraph className='text-sm font-semibold text-gray-500 mt-0'>Sin reseñas</Paragraph>
+                                    <Paragraph className='text-sm font-semibold text-gray-500 mt-0'>
+                                        {reviews.length} {reviews.length === 1 ? 'reseña' : 'reseñas'}
+                                    </Paragraph>
                                 </Container>
                             )}
                         </Container>
@@ -268,7 +278,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
                     </Form>
                 </Container>
             </>}
-            <Button onClick={onIndexClick} className={`mr-2 mt-1 flex justify-start items-center`}>
+            <Button onClick={onIndexClick} className={`m-4 flex justify-start items-center`}>
                 <IoChevronBackCircleSharp size={22} />
             </Button>
         </main >

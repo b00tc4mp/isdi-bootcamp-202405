@@ -138,9 +138,8 @@ export default function SearchPetsitters() {
                             </div>
                         ))
                     ) : (
-                        <Container className='text-center justify-center items-center'>
-                            <Paragraph className=' text-gray-500'>No hay guarderías disponibles para la selección actual.</Paragraph>
-                        </Container>
+
+                        <Paragraph className="text-center justify-center items-center flex flex-col text-gray-500 whitespace-normal max-w-xs">No hay guarderías disponibles para la selección actual.</Paragraph>
                     )}
                 </Container>
 

@@ -58,10 +58,10 @@ export default function Register({ onRegister, onLoginClick }) {
     return <>
         <Header />
         <main className='h-screen flex flex-col mb-32'>
-            <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
+            <Container className=' bg-teal-100 pt-8 pb-12 text-start'>
                 <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro</Heading>
 
-                <Form onSubmit={handleRegisterSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
+                <Form onSubmit={handleRegisterSubmit} className='bg-white rounded-[50px] p-6 m-2 text-center space-y-2'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' placeholder='https://' />
@@ -69,17 +69,17 @@ export default function Register({ onRegister, onLoginClick }) {
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' placeholder='nombre' autoComplete='name' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='surname-input'>Apellidos</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' placeholder='apellidos' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' placeholder='apellidos' autoComplete='surname' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='email-input'>Email</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' />
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' id='email-input' name='email' placeholder='email' autoComplete='new-email' />
                     </Container>
 
                     <Container>
