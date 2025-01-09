@@ -244,12 +244,12 @@ export default function PetsitterDetails({ handleLoginClick }) {
 
             {addAllDetailsVisibility && (
                 <Container className='absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-20 flex items-center justify-center'>
-                    <Container className='bg-green-100 p-6 border border-black rounded-[25px] flex flex-col items-center w-11/12 max-w-md'>
-                        <Heading className='text-black text-center font-bold mb-4'>Datos de contacto de {petsitter?.name}</Heading>
+                    <Container className='bg-green-100 p-6 border border-black rounded-[40px] flex flex-col items-center w-11/12 max-w-md'>
+                        <Heading className='text-black text-center text-lg font-bold mb-4'>Datos de contacto de {petsitter?.name}</Heading>
                         <a href={`mailto:${petsitter?.contactEmail}`} className='text-black text-center text-lg font-semibold mb-2 underline break-words max-w-full'>{petsitter?.contactEmail}</a>
                         <a href={petsitter?.linkPage} target="_blank" rel="noopener noreferrer" className='text-black text-center text-sm font-semibold mb-2 underline break-words max-w-full'>{petsitter?.linkPage}</a>
                         <a href={`tel:${petsitter?.phoneNumber}`} className='text-black text-center text-lg font-semibold mb-2 underline'>{petsitter?.phoneNumber}</a>
-                        <Button className='w-28 bg-red-400 text-white rounded-full hover:bg-red-500 transition duration-200 mt-4' onClick={onCancelAllDetailsClick}>Cancelar</Button>
+                        <Button className='w-28 text-base bg-red-400 text-white rounded-full hover:bg-red-500 transition duration-200 mt-4' onClick={onCancelAllDetailsClick}>Cancelar</Button>
                     </Container>
                 </Container>
             )}
@@ -257,8 +257,8 @@ export default function PetsitterDetails({ handleLoginClick }) {
             {addReviewVisibility && <>
                 <Container className='absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-20 flex items-center justify-center'>
 
-                    <Form className='bg-white p-6 border border-black rounded-[50px] flex flex-col items-center w-11/12 max-w-md' onSubmit={onReviewSubmit}>
-                        <Label className='text-black text-center font-bold m-6'>Da tu opinión sobre {petsitter?.name}</Label>
+                    <Form className='bg-white p-6 border border-black rounded-[60px] flex flex-col items-center w-11/12 max-w-md' onSubmit={onReviewSubmit}>
+                        <Label className='text-black text-center font-bold m-6 text-lg'>Da tu opinión sobre {petsitter?.name}</Label>
                         <Container className='mb-4 w-full'>
                             <textarea className='bg-gray-200 w-full h-32 rounded-[25px] px-4 py-2 text-black text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none' id='comment-input' name='comment-input' placeholder='escribe aquí tu reseña' />
                         </Container>
@@ -271,9 +271,9 @@ export default function PetsitterDetails({ handleLoginClick }) {
                                 size='large'
                                 emptyIcon={<StarIcon style={{ opacity: 1, color: 'grey' }} fontSize='inherit' />} />
                         </Container>
-                        <Container className='flex justify-around m-4 w-full'>
-                            <Button type='button' className='w-28 bg-red-400 text-white rounded-full hover:bg-red-500 transition duration-200' onClick={onCancelReviewClick}>Cancelar</Button>
-                            <Button type='submit' className='w-28 bg-green-400 text-white rounded-full hover:bg-green-500 transition duration-200'>Enviar</Button>
+                        <Container className='flex m-4 space-x-2'>
+                            <Button type='button' className='w-28 text-lg bg-red-400 text-white rounded-full hover:bg-red-500 transition duration-200' onClick={onCancelReviewClick}>Cancelar</Button>
+                            <Button type='submit' className='w-28 text-lg bg-green-400 text-white rounded-full hover:bg-green-500 transition duration-200'>Enviar</Button>
                         </Container>
                     </Form>
                 </Container>
