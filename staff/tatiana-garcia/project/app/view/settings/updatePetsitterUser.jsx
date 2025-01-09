@@ -1,110 +1,112 @@
-import logic from '../../logic'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import logic from '../../logic';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import Container from '../library/Container'
-import Button from '../library/Button'
-import Form from '../library/Form'
-import Label from '../library/Label'
-import Input from '../library/Input'
-import Link from '../library/Link'
-import Footer from '../home/Footer'
-import Heading from '../library/Heading'
-import Header from '../home/Header'
+import Container from '../library/Container';
+import Button from '../library/Button';
+import Form from '../library/Form';
+import Label from '../library/Label';
+import Input from '../library/Input';
+import Link from '../library/Link';
+import Footer from '../home/Footer';
+import Heading from '../library/Heading';
+import Header from '../home/Header';
 
-import useContext from '../context'
-import extractPayLoadFromToken from '../../util/extractPayLoadFromToken'
+import useContext from '../context';
+import extractPayLoadFromToken from '../../util/extractPayLoadFromToken';
 
 export default function SettingsPetsitter({ onLogoutClick }) {
-    const { alert } = useContext()
+    const { alert } = useContext();
 
-    const { sub: userId } = extractPayLoadFromToken(sessionStorage.token)
-    const [selectedPets, setSelectedPets] = useState([])
-    const [petsitter, setPetsitter] = useState(null)
+    const { sub: userId } = extractPayLoadFromToken(sessionStorage.token);
+    const [selectedPets, setSelectedPets] = useState([]);
+    const [petsitter, setPetsitter] = useState(null);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const onCancelClick = () => { navigate('/'); };
 
     useEffect(() => {
-        loadPetsitterUser()
-    }, [])
+        loadPetsitterUser();
+    }, []);
 
     const loadPetsitterUser = () => {
         try {
             logic.getUser(userId)
                 .then(petsitter => {
-                    setPetsitter(petsitter)
-                    setSelectedPets(petsitter.pets || [])
+                    setPetsitter(petsitter);
+                    setSelectedPets(petsitter.pets || []);
                 })
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
     const handlePetChange = event => {
-        const { value, checked } = event.target
+        const { value, checked } = event.target;
 
         if (checked) {
-            setSelectedPets([...selectedPets, value])
+            setSelectedPets([...selectedPets, value]);
         } else {
-            setSelectedPets(selectedPets.filter(pet => pet !== value))
+            setSelectedPets(selectedPets.filter(pet => pet !== value));
         }
-    }
+    };
 
     const handleUpdatePetsitterUserSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        const form = event.target
+        const form = event.target;
 
-        const imageInput = form['image-input']
-        const nameInput = form['name-input']
-        const cityInput = form['city-input']
-        const descriptionInput = form['description-input']
-        const linkPageInput = form['link-page-input']
-        const contactEmailInput = form['contact-email-input']
-        const phoneNumberInput = form['phone-number-input']
+        const imageInput = form['image-input'];
+        const nameInput = form['name-input'];
+        const cityInput = form['city-input'];
+        const descriptionInput = form['description-input'];
+        const linkPageInput = form['link-page-input'];
+        const contactEmailInput = form['contact-email-input'];
+        const phoneNumberInput = form['phone-number-input'];
 
-        const image = imageInput.value
-        const name = nameInput.value
-        const city = cityInput.value
-        const description = descriptionInput.value
-        const linkPage = linkPageInput.value
-        const contactEmail = contactEmailInput.value
-        const phoneNumber = phoneNumberInput.value
-        const pets = selectedPets
+        const image = imageInput.value;
+        const name = nameInput.value;
+        const city = cityInput.value;
+        const description = descriptionInput.value;
+        const linkPage = linkPageInput.value;
+        const contactEmail = contactEmailInput.value;
+        const phoneNumber = phoneNumberInput.value;
+        const pets = selectedPets;
 
         try {
             logic.updatePetsitterUser(image, name, city, description, linkPage, contactEmail, phoneNumber, pets)
                 .then(() => {
-                    loadPetsitterUser()
+                    loadPetsitterUser();
 
-                    alert('Cambios guardados')
+                    alert('Cambios guardados');
 
-                    navigate('/')
+                    navigate('/');
                 })
                 .catch(error => {
-                    console.error(error)
+                    console.error(error);
 
-                    alert(error.message)
-                })
+                    alert(error.message);
+                });
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            alert(error.message)
+            alert(error.message);
         }
-    }
+    };
 
     const handleLogoutClick = event => {
-        event.preventDefault()
+        event.preventDefault();
 
-        onLogoutClick()
-    }
+        onLogoutClick();
+    };
 
     return <>
         <Header />
@@ -112,7 +114,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
                 <Heading className='text-center text-2xl pt-12 font-bold '>Editar guardería</Heading>
 
-                {petsitter && <Form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-3 space-y-2'>
+                {petsitter && <Form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-3 space-y-4'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
                         <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' defaultValue={petsitter.image} placeholder='https://' />
@@ -258,15 +260,16 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                         <Label htmlFor='reptiles-input' className='p-2'>Reptiles</Label><br /><br />
                     </Container>
 
-                    <Container className='text-center'>
-                        <Button className='w-36 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</Button>
+                    <Container className='text-center text-sm flex space-x-2'>
+                        <Button className='w-28 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar'}</Button>
+                        <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={onCancelClick}>{'Cancelar'}</Button>
                     </Container>
                 </Form>}
-                <Container className='text-center  pb-8 pt-2'>
-                    <Link className='font-bold p-2 text-teal-700 hover:text-teal-900' onClick={handleLogoutClick}>Cerrar sesión</Link>
+                <Container className='text-center text-sm pb-8 pt-2'>
+                    <Link className='font-bold p-2 text-teal-700 hover:text-teal-900 cursor-pointer' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
                 <Footer defaultTab={'login'} />
             </Container>
         </main>
-    </>
+    </>;
 }

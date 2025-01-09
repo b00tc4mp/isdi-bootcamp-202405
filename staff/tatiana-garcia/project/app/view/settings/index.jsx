@@ -24,6 +24,8 @@ export default function Settings({ onLogoutClick }) {
 
     const navigate = useNavigate();
 
+    const onCancelClick = () => { navigate('/'); };
+
     useEffect(() => {
         loadUser();
     }, []);
@@ -86,40 +88,37 @@ export default function Settings({ onLogoutClick }) {
 
     return <>
         <Header />
-        <main className='h-screen flex flex-col bg-teal-100 text-center '>
-            <Container className='h-full flex items-center justify-center'>
-                <Container>
-                    <Heading className=' m-4 text-2xl font-bold '>Editar usuario</Heading>
+        <main className='h-full flex flex-col mt-10'>
+            <Container className='bg-teal-100 pt-8 pb-40'>
 
-                    {user && <Form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-2'>
-                        <Container>
-                            <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
-                            <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' name='image' defaultValue={user.image} placeholder='https://' />
-                        </Container>
+                <Heading className='text-center m-4 text-2xl font-bold '>Editar usuario</Heading>
 
-                        <Container>
-                            <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                            <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' defaultValue={user.name} placeholder='nombre' />
-                        </Container>
+                {user && <Form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-4'>
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' name='image' defaultValue={user.image} placeholder='https://' />
+                    </Container>
 
-                        <Container>
-                            <Label className='block text-base font-semibold text-gray-700' htmlFor='surname-input'>Apellidos</Label>
-                            <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' defaultValue={user.surname} placeholder='apellidos' />
-                        </Container>
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' defaultValue={user.name} placeholder='nombre' />
+                    </Container>
 
-                        <Container className='flex flex-col'>
-                            <Container>
-                                <Button className='text-center m-4 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar cambios'}</Button>
-                            </Container>
+                    <Container>
+                        <Label className='block text-base font-semibold text-gray-700' htmlFor='surname-input'>Apellidos</Label>
+                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' defaultValue={user.surname} placeholder='apellidos' />
+                    </Container>
 
-                            <Container>
-                                <Link className='font-bold text-teal-700 text-center cursor-pointer' onClick={handleLogoutClick}>Cerrar sesión</Link>
-                            </Container>
-                        </Container>
+                    <Container className='flex text-center text-sm space-x-2'>
+                        <Button className='w-28 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar'}</Button>
+                        <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={onCancelClick}>{'Cancelar'}</Button>
+                    </Container>
 
-
-                    </Form>}
+                </Form>}
+                <Container className='text-center text-sm pb-8 pt-2'>
+                    <Link className='font-bold p-2 text-teal-700 hover:text-teal-900 cursor-pointer' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
+
                 <Footer defaultTab={'login'} />
             </Container>
         </main>
