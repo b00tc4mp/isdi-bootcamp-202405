@@ -11,6 +11,7 @@ import Link from '../library/Link';
 import Footer from '../home/Footer';
 import Heading from '../library/Heading';
 import Header from '../home/Header';
+import Confirm from '../common/Confirm';
 
 import useContext from '../context';
 import extractPayLoadFromToken from '../../util/extractPayLoadFromToken';
@@ -21,10 +22,15 @@ export default function SettingsPetsitter({ onLogoutClick }) {
     const { sub: userId } = extractPayLoadFromToken(sessionStorage.token);
     const [selectedPets, setSelectedPets] = useState([]);
     const [petsitter, setPetsitter] = useState(null);
+    const [confirmMessage, setConfirmMessage] = useState(null);
+
+    const handleCancelEditUserClick = () => setConfirmMessage('¿Salir sin guardar cambios?');
 
     const navigate = useNavigate();
 
     const onCancelClick = () => { navigate('/'); };
+
+    const handleCancelEditUser = () => setConfirmMessage(null);
 
     useEffect(() => {
         loadPetsitterUser();
@@ -262,9 +268,12 @@ export default function SettingsPetsitter({ onLogoutClick }) {
 
                     <Container className='text-center text-sm flex space-x-2'>
                         <Button className='w-28 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar'}</Button>
-                        <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={onCancelClick}>{'Cancelar'}</Button>
+                        <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={handleCancelEditUserClick}>{'Cancelar'}</Button>
                     </Container>
                 </Form>}
+
+                {confirmMessage && <Confirm message={confirmMessage} onAccept={onCancelClick} onCancel={handleCancelEditUser} />}
+
                 <Container className='text-center text-sm pb-8 pt-2'>
                     <Link className='font-bold p-2 text-teal-700 hover:text-teal-900 cursor-pointer' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
