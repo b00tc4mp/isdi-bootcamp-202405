@@ -23,6 +23,8 @@ export default function SettingsPetsitter({ onLogoutClick }) {
     const [selectedPets, setSelectedPets] = useState([]);
     const [petsitter, setPetsitter] = useState(null);
     const [confirmMessage, setConfirmMessage] = useState(null);
+    const [confirmSaveMessage, setConfirmSaveMessage] = useState(null);
+    const [formData, setFormData] = useState(null);
 
     const handleCancelEditUserClick = () => setConfirmMessage('¿Salir sin guardar cambios?');
 
@@ -31,6 +33,36 @@ export default function SettingsPetsitter({ onLogoutClick }) {
     const onCancelClick = () => { navigate('/'); };
 
     const handleCancelEditUser = () => setConfirmMessage(null);
+
+    const handleSaveConfirmCancel = () => {
+        setConfirmSaveMessage(null);
+
+        setFormData(null);
+    };
+
+    const handleSaveConfirmAccept = () => {
+        setConfirmSaveMessage(null);
+
+        const { image, name, city, description, linkPage, contactEmail, phoneNumber, pets } = formData;
+
+        try {
+            logic.updatePetsitterUser(image, name, city, description, linkPage, contactEmail, phoneNumber, pets)
+                .then(() => {
+                    loadPetsitterUser();
+                    alert('Cambios guardados');
+                    navigate('/');
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert(error.message);
+                });
+        } catch (error) {
+            console.error(error);
+            alert(error.message);
+        }
+
+        setFormData(null);
+    };
 
     useEffect(() => {
         loadPetsitterUser();
@@ -87,25 +119,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
         const phoneNumber = phoneNumberInput.value;
         const pets = selectedPets;
 
-        try {
-            logic.updatePetsitterUser(image, name, city, description, linkPage, contactEmail, phoneNumber, pets)
-                .then(() => {
-                    loadPetsitterUser();
+        setFormData({ image, name, city, description, linkPage, contactEmail, phoneNumber, pets });
 
-                    alert('Cambios guardados');
-
-                    navigate('/');
-                })
-                .catch(error => {
-                    console.error(error);
-
-                    alert(error.message);
-                });
-        } catch (error) {
-            console.error(error);
-
-            alert(error.message);
-        }
+        setConfirmSaveMessage('¿Deseas guardar los cambios?');
     };
 
     const handleLogoutClick = event => {
@@ -272,7 +288,9 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                     </Container>
                 </Form>}
 
-                {confirmMessage && <Confirm message={confirmMessage} onAccept={onCancelClick} onCancel={handleCancelEditUser} />}
+                {confirmMessage && (<Confirm message={confirmMessage} onAccept={onCancelClick} onCancel={handleCancelEditUser} />)}
+
+                {confirmSaveMessage && (<Confirm message={confirmSaveMessage} onAccept={handleSaveConfirmAccept} onCancel={handleSaveConfirmCancel} />)}
 
                 <Container className='text-center text-sm pb-8 pt-2'>
                     <Link className='font-bold p-2 text-teal-700 hover:text-teal-900 cursor-pointer' onClick={handleLogoutClick}>Cerrar sesión</Link>
