@@ -15,33 +15,35 @@ import extractPayLoadFromToken from '../../util/extractPayLoadFromToken';
 import { useEffect, useState } from 'react';
 import Form from '../library/Form';
 import Button from '../library/Button';
+import Confirm from '../common/Confirm';
 
 export default function Settings({ onLogoutClick }) {
     const { alert } = useContext();
 
     const { sub: userId } = extractPayLoadFromToken(sessionStorage.token);
     const [user, setUser] = useState(null);
+    const [confirmMessage, setConfirmMessage] = useState(null);
+    const [confirmSaveMessage, setConfirmSaveMessage] = useState(null);
+    const [formData, setFormData] = useState(null);
+
+    const handleCancelEditUserClick = () => setConfirmMessage('¿Salir sin guardar cambios?');
 
     const navigate = useNavigate();
 
     const onCancelClick = () => { navigate('/'); };
 
-    useEffect(() => {
-        loadUser();
-    }, []);
+    const handleCancelEditUser = () => setConfirmMessage(null);
 
-    const handleUpdateSubmit = event => {
-        event.preventDefault();
+    const handleSaveConfirmCancel = () => {
+        setConfirmSaveMessage(null);
 
-        const form = event.target;
+        setFormData(null);
+    };
 
-        const imageInput = form['image-input'];
-        const nameInput = form['name-input'];
-        const surnameInput = form['surname-input'];
+    const handleSaveConfirmAccept = () => {
+        setConfirmSaveMessage(null);
 
-        const image = imageInput.value;
-        const name = nameInput.value;
-        const surname = surnameInput.value;
+        const { image, name, surname } = formData;
 
         try {
             logic.updateUser(image, name, surname)
@@ -62,13 +64,13 @@ export default function Settings({ onLogoutClick }) {
 
             alert(error.message);
         }
+
+        setFormData(null);
     };
 
-    const handleLogoutClick = event => {
-        event.preventDefault();
-
-        onLogoutClick();
-    };
+    useEffect(() => {
+        loadUser();
+    }, []);
 
     const loadUser = () => {
         try {
@@ -85,6 +87,30 @@ export default function Settings({ onLogoutClick }) {
             alert(error.message);
         }
     };
+    const handleUpdateSubmit = event => {
+        event.preventDefault();
+
+        const form = event.target;
+
+        const imageInput = form['image-input'];
+        const nameInput = form['name-input'];
+        const surnameInput = form['surname-input'];
+
+        const image = imageInput.value;
+        const name = nameInput.value;
+        const surname = surnameInput.value;
+
+        setFormData({ image, name, surname });
+
+        setConfirmSaveMessage('¿Deseas guardar los cambios?');
+    };
+
+    const handleLogoutClick = event => {
+        event.preventDefault();
+
+        onLogoutClick();
+    };
+
 
     return <>
         <Header />
@@ -111,10 +137,14 @@ export default function Settings({ onLogoutClick }) {
 
                     <Container className='flex text-center text-sm space-x-2'>
                         <Button className='w-28 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar'}</Button>
-                        <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={onCancelClick}>{'Cancelar'}</Button>
+                        <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={handleCancelEditUserClick}>{'Cancelar'}</Button>
                     </Container>
-
                 </Form>}
+
+                {confirmMessage && (<Confirm message={confirmMessage} onAccept={onCancelClick} onCancel={handleCancelEditUser} />)}
+
+                {confirmSaveMessage && (<Confirm message={confirmSaveMessage} onAccept={handleSaveConfirmAccept} onCancel={handleSaveConfirmCancel} />)}
+
                 <Container className='text-center text-sm pb-8 pt-2'>
                     <Link className='font-bold p-2 text-teal-700 hover:text-teal-900 cursor-pointer' onClick={handleLogoutClick}>Cerrar sesión</Link>
                 </Container>
