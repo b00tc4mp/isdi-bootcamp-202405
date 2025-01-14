@@ -60,7 +60,7 @@ export default function Login({ onLogin, onRegisterClick }) {
     return <>
         <Header />
         <main className='bg-teal-100 h-screen flex flex-col items-center justify-center gap-4 text-[1.1rem]'>
-            <Heading className='text-center m-2 text-2xl font-bold'>Login</Heading>
+            <Heading className='text-center m-2 text-2xl font-bold font-salsa'>Login</Heading>
             <Container className='p-8 m-0 bg-white rounded-[50px] shadow-md'>
                 <Form onSubmit={handleLoginSubmit} className='text-lg bg-white p-3 rounded-[50px] text-center flex-col'>
                     <Container className='mb-4'>

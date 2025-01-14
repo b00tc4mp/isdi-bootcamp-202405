@@ -145,7 +145,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
         <Header />
         <main className='h-screen flex flex-col mb-32'>
             <Container className=' bg-teal-100 pt-8 pb-8 '>
-                <Heading className='text-2xl pt-12 font-bold text-center'>Editar guardería</Heading>
+                <Heading className='text-2xl pt-12 font-bold text-center font-salsa'>Editar guardería</Heading>
 
                 {petsitter && <Form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white text-pretty rounded-[50px] p-6 m-3 space-y-4'>
                     <Container>

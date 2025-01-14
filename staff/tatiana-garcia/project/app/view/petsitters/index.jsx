@@ -62,7 +62,7 @@ export default function SearchPetsitters() {
         <Header />
         <main className='bg-teal-100 mt-16 mb-12 flex flex-col items-center justify-start text-[1.5rem] min-h-screen h-full'>
             <Container className='p-2'>
-                <Heading className='text-center mb-4 font-bold'>Guarderías</Heading>
+                <Heading className='text-center mb-4 font-bold font-salsa'>Guarderías</Heading>
                 <Container className='mb-2 text-lg p-0 rounded-[50px] text-center'>
                     <select className='overflow-y-scroll w-full mt-1 p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer' id='city-select' value={city} onChange={(e) => setCity(e.target.value)}>
                         <option value=''>Seleccione una ciudad</option>

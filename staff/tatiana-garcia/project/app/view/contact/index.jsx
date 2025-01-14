@@ -16,7 +16,7 @@ export default function Contact({ onRegisterPetsitterUserClick }) {
     return <>
         <Header />
         <main className='bg-teal-100 h-screen flex flex-col justify-center items-center'>
-            <Heading className='text-center p-2 m-2 text-2xl font-bold '>Contáctanos</Heading>
+            <Heading className='text-center p-2 m-2 text-2xl font-bold font-salsa'>Contáctanos</Heading>
             <Container className='p-4 m-2 bg-white rounded-[50px] shadow-md'>
                 <Heading className='text-center font-extrabold mb-1'>¿Necesitas ayuda?</Heading>
                 <Paragraph className='text-center text-sm text-gray-700 mb-4'>

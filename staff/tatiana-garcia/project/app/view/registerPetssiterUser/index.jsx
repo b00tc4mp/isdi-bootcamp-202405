@@ -80,7 +80,7 @@ export default function RegisterPetsitterUser({ onRegisterPetsitterUser, onLogin
         <Header />
         <main className='h-screen flex flex-col mb-32'>
             <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
-                <Heading className='text-center mb-6 pt-8 text-2xl font-bold '>Registro de guardería</Heading>
+                <Heading className='text-center mb-6 pt-8 text-2xl font-bold font-salsa'>Registro de guardería</Heading>
 
                 <Form onSubmit={handleregisterPetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-4 text-pretty'>
                     <Container>

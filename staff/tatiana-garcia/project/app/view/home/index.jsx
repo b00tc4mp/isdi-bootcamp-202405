@@ -12,7 +12,7 @@ export default function Home() {
             <Image src='../../../animalesExoticos.jpeg' alt='animales exoticos' className='w-full max-w-lg pt-4 mb-4' />
 
             <Container className='text-lg bg-white p-3 rounded-[50px] m-3 shadow-lg text-center'>
-                <Heading className='font-extrabold mb-1'>¿Cómo funciona?</Heading>
+                <Heading className='font-extrabold font-salsa mb-1'>¿Cómo funciona?</Heading>
                 <Paragraph className='text-sm text-gray-700 mb-4'>
                     Exotics es una aplicación donde podrás contactar con las guarderías de exóticos más cercanas para que cuiden de tus mascotas cuando lo necesites.
                 </Paragraph>
