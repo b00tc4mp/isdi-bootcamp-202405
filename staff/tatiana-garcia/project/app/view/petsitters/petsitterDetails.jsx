@@ -172,7 +172,7 @@ export default function PetsitterDetails({ handleLoginClick }) {
             <Heading className='text-center text-2xl font-bold m-4' >Guardería</Heading>
 
             {petsitter != null ? (
-                <Container className='text-lg w-72 bg-white p-4 rounded-[50px] shadow-lg'>
+                <Container className='text-lg w-80 bg-white p-4 rounded-[50px] shadow-lg'>
                     <Container className='flex items-center '>
                         <Image src={petsitter.image} alt='imagen guarderia' className='h-24 w-24 rounded-[15px] m-1' />
 
