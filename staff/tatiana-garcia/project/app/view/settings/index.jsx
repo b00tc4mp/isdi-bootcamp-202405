@@ -24,6 +24,7 @@ export default function Settings({ onLogoutClick }) {
     const [user, setUser] = useState(null);
     const [confirmMessage, setConfirmMessage] = useState(null);
     const [confirmSaveMessage, setConfirmSaveMessage] = useState(null);
+    const [confirmLogoutMessage, setConfirmLogoutMessage] = useState(null);
     const [formData, setFormData] = useState(null);
 
     const handleCancelEditUserClick = () => setConfirmMessage('¿Salir sin guardar cambios?');
@@ -108,7 +109,17 @@ export default function Settings({ onLogoutClick }) {
     const handleLogoutClick = event => {
         event.preventDefault();
 
+        setConfirmLogoutMessage('¿Cerrar sesión?');
+    };
+
+    const handleLogoutConfirmAccept = () => {
+        setConfirmLogoutMessage(null);
+
         onLogoutClick();
+    };
+
+    const handleLogoutConfirmCancel = () => {
+        setConfirmLogoutMessage(null);
     };
 
 
@@ -119,23 +130,23 @@ export default function Settings({ onLogoutClick }) {
 
                 <Heading className='text-center m-4 text-2xl font-bold '>Editar usuario</Heading>
 
-                {user && <Form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-4'>
+                {user && <Form onSubmit={handleUpdateSubmit} className='bg-white rounded-[50px] p-6 m-2 space-y-4 text-pretty'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' name='image' defaultValue={user.image} placeholder='https://' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' name='image' defaultValue={user.image} placeholder='https://' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' defaultValue={user.name} placeholder='nombre' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='name-input' name='name' defaultValue={user.name} placeholder='nombre' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='surname-input'>Apellidos</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' defaultValue={user.surname} placeholder='apellidos' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' id='surname-input' name='surname' defaultValue={user.surname} placeholder='apellidos' />
                     </Container>
 
-                    <Container className='flex text-center text-sm space-x-2'>
+                    <Container className='flex text-center justify-center text-sm space-x-2'>
                         <Button className='w-28 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar'}</Button>
                         <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={handleCancelEditUserClick}>{'Cancelar'}</Button>
                     </Container>
@@ -151,6 +162,8 @@ export default function Settings({ onLogoutClick }) {
 
                 <Footer defaultTab={'login'} />
             </Container>
+
+            {confirmLogoutMessage && (<Confirm message={confirmLogoutMessage} onAccept={handleLogoutConfirmAccept} onCancel={handleLogoutConfirmCancel} />)}
         </main>
     </>;
 }

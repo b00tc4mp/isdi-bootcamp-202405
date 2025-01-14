@@ -24,6 +24,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
     const [petsitter, setPetsitter] = useState(null);
     const [confirmMessage, setConfirmMessage] = useState(null);
     const [confirmSaveMessage, setConfirmSaveMessage] = useState(null);
+    const [confirmLogoutMessage, setConfirmLogoutMessage] = useState(null);
     const [formData, setFormData] = useState(null);
 
     const handleCancelEditUserClick = () => setConfirmMessage('¿Salir sin guardar cambios?');
@@ -127,29 +128,39 @@ export default function SettingsPetsitter({ onLogoutClick }) {
     const handleLogoutClick = event => {
         event.preventDefault();
 
+        setConfirmLogoutMessage('¿Cerrar sesión?');
+    };
+
+    const handleLogoutConfirmAccept = () => {
+        setConfirmLogoutMessage(null);
+
         onLogoutClick();
+    };
+
+    const handleLogoutConfirmCancel = () => {
+        setConfirmLogoutMessage(null);
     };
 
     return <>
         <Header />
         <main className='h-screen flex flex-col mb-32'>
-            <Container className=' bg-teal-100 pt-8 pb-8 text-start'>
-                <Heading className='text-center text-2xl pt-12 font-bold '>Editar guardería</Heading>
+            <Container className=' bg-teal-100 pt-8 pb-8 '>
+                <Heading className='text-2xl pt-12 font-bold text-center'>Editar guardería</Heading>
 
-                {petsitter && <Form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white rounded-[50px] p-6 m-3 space-y-4'>
+                {petsitter && <Form onSubmit={handleUpdatePetsitterUserSubmit} className='bg-white text-pretty rounded-[50px] p-6 m-3 space-y-4'>
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='image-input'>Imagen</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' defaultValue={petsitter.image} placeholder='https://' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='image-input' type='text' defaultValue={petsitter.image} placeholder='https://' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='name-input'>Nombre</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.name} id='name-input' name='name' placeholder='nombre' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.name} id='name-input' name='name' placeholder='nombre' />
                     </Container>
 
                     <Container >
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='city-input'>Ciudad</Label>
-                        <select className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' defaultValue={petsitter.city} name='city' id='city-input'>
+                        <select className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' defaultValue={petsitter.city} name='city' id='city-input'>
                             <option value=''>Seleccione una ciudad</option>
                             <option value='Madrid'>Madrid</option>
                             <option value='Barcelona'>Barcelona</option>
@@ -200,22 +211,22 @@ export default function SettingsPetsitter({ onLogoutClick }) {
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='description-input'>Descripción</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.description} id='description-input' name='description' placeholder='descripción' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='text' defaultValue={petsitter.description} id='description-input' name='description' placeholder='descripción' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='link-page-input'>Página web</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='link-page-input' type='text' defaultValue={petsitter.linkPage} placeholder='https://' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' id='link-page-input' type='text' defaultValue={petsitter.linkPage} placeholder='https://' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='contact-email-input'>Email de contacto</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' defaultValue={petsitter.contactEmail} id='contact-email-input' name='contactEmail' placeholder='email' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='email' defaultValue={petsitter.contactEmail} id='contact-email-input' name='contactEmail' placeholder='email' />
                     </Container>
 
                     <Container>
                         <Label className='block text-base font-semibold text-gray-700' htmlFor='phoneNumber-input'>Teléfono</Label>
-                        <Input className='w-56 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' defaultValue={petsitter.phoneNumber} id='phone-number-input' name='phoneNumber' placeholder='inserta tu teléfono' />
+                        <Input className='w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500' type='tel' defaultValue={petsitter.phoneNumber} id='phone-number-input' name='phoneNumber' placeholder='inserta tu teléfono' />
                     </Container>
 
                     <Container>
@@ -282,7 +293,7 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                         <Label htmlFor='reptiles-input' className='p-2'>Reptiles</Label><br /><br />
                     </Container>
 
-                    <Container className='text-center text-sm flex space-x-2'>
+                    <Container className='text-center justify-center text-sm flex space-x-2'>
                         <Button className='w-28 font-bold bg-green-100 text-black p-2 rounded-full hover:bg-green-200 transition duration-200' type='submit'>{'Guardar'}</Button>
                         <Button className='w-28 font-bold bg-red-100 text-black p-2 rounded-full hover:bg-red-400 transition duration-200' type='button' onClick={handleCancelEditUserClick}>{'Cancelar'}</Button>
                     </Container>
@@ -297,6 +308,8 @@ export default function SettingsPetsitter({ onLogoutClick }) {
                 </Container>
                 <Footer defaultTab={'login'} />
             </Container>
+
+            {confirmLogoutMessage && (<Confirm message={confirmLogoutMessage} onAccept={handleLogoutConfirmAccept} onCancel={handleLogoutConfirmCancel} />)}
         </main>
     </>;
 }
